@@ -1,0 +1,7 @@
+So basicly this is the plan 
+U can edit your sprites(the only gameobjects in my games are sprites) in the editor.When u actually press the "play" button a new
+sf::RenderWindow will get open with the game.But how does it works now.Well since we can acces all our sprites in the Game class
+we can ask for their positions / collisions / physics waht so ever and set these.But how do we stop it ? ....
+
+Well but how can we edit something in the assets and keep the engine open? Simply, by creating a other project, modifiying the asset and
+then exeuting th NEW build cpp file.

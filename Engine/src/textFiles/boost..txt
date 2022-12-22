@@ -1,0 +1,14 @@
+Iterate over all files in c++ with boost 
+
+#include <boost/filesystem.hpp>
+#include <iostream>
+
+using namespace boost::filesystem;
+
+int main()
+{
+    path p = "C:\\Programmieren\\c++\\Projects\\SpriteEngine\\assets";
+    recursive_directory_iterator it{ p };
+    while (it != recursive_directory_iterator{})
+        std::cout << *it++ << '\n';
+}
