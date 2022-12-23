@@ -181,6 +181,7 @@ void s2d::GameEngine::initFonts()
 
     static const ImWchar ranges[] =
     {
+        0xf067, 0xf067, // Plus
         0xf044, 0xf044, // Edit
         0xf1f8, 0xf1f8, // Trash
         0xf079, 0xf079, // Retweet

@@ -4,6 +4,7 @@
 #include <UIAssetFolder.h>
 #include <UIInspector.h>
 #include <animation.h>
+#include <fontManager.h>
 
 namespace s2d
 {

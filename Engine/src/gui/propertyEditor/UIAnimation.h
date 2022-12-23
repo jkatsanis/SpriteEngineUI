@@ -7,6 +7,7 @@
 #include <sprite.h>
 #include <UIHirachy.h>
 #include <UIAnimationEditor.h>
+#include <fontManager.h>
 
 namespace s2d
 {

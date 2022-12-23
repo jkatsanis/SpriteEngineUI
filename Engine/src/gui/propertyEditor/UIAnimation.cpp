@@ -46,7 +46,7 @@ void s2d::UIAnimation::createUIAnimationWindow()
 void s2d::UIAnimation::getFileNameInput()
 {
 	//Open popup
-	if (ImGui::Button(ICON_FA_PLUS))
+	if(s2d::FontManager::displaySmybolAsButton(ICON_FA_PLUS, s2d::UIInfo::sdefaultFontSize -0.2f))
 	{
 		ImGui::OpenPopup("Lol");
 	}
@@ -77,22 +77,22 @@ void s2d::UIAnimation::displayAnimations()
 		ImGui::Text(anim.name.c_str());
 		ImGui::SetCursorPos(ImVec2(455, ImGui::GetCursorPosY() - 32.5f));
 		std::string s = "#" + anim.name;
-		std::string button = ICON_FA_EDIT "    ##" + anim.name;
+		std::string button = ICON_FA_EDIT "##" + anim.name;
 
-		if (ImGui::Button(button.c_str()))
+		if (s2d::FontManager::displaySmybolAsButton(button.c_str()))
 		{
-
 			this->m_UIAnimationEditor.anim = &anim;
 			this->m_UIAnimationEditor.displayEditor();
 		}
 	}
+	
 }
 
 void s2d::UIAnimation::displayTopOfEditor()
 {
 	ImGui::Text("Animations");
 	ImGui::SameLine();
-	ImGui::SetCursorPos(ImVec2(ImGui::GetCursorPosX() + 300, ImGui::GetCursorPosY() - 10));
+	ImGui::SetCursorPos(ImVec2(ImGui::GetCursorPosX() + 345 , ImGui::GetCursorPosY() - 10));
 
 	//Close button
 	if (ImGui::Button("x"))

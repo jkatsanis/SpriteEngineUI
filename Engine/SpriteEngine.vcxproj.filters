@@ -192,9 +192,6 @@
     <ClCompile Include="src\gameData\event.cpp">
       <Filter>Source Files\GameData</Filter>
     </ClCompile>
-    <ClCompile Include="src\gameData\fontManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\gui\propertyEditor\UIAnimation.cpp">
       <Filter>Source Files\Gui\PropertyEditor\Animation</Filter>
     </ClCompile>
@@ -203,6 +200,9 @@
     </ClCompile>
     <ClCompile Include="src\gui\propertyEditor\UIAnimationKeyFrameEditor.cpp">
       <Filter>Source Files\Gui\PropertyEditor\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="src\gameData\fontManager.cpp">
+      <Filter>Source Files\GameData</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

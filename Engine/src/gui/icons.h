@@ -1217,7 +1217,7 @@
 #define ICON_FA_PLAY "\xef\x81\x8b"	// U+f04b
 #define ICON_FA_PLAY_CIRCLE "\xef\x85\x84"	// U+f144
 #define ICON_FA_PLUG "\xef\x87\xa6"	// U+f1e6
-#define ICON_FA_PLUS "\xef\x81\xa7"	// U+f067
+#define ICON_FA_PLUS u8"\uf067"	// U+f067
 #define ICON_FA_PLUS_CIRCLE "\xef\x81\x95"	// U+f055
 #define ICON_FA_PLUS_HEXAGON "\xef\x8c\x80"	// U+f300
 #define ICON_FA_PLUS_OCTAGON "\xef\x8c\x81"	// U+f301
