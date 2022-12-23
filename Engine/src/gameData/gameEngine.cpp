@@ -195,7 +195,6 @@ void s2d::GameEngine::initFonts()
     io.Fonts->AddFontFromMemoryCompressedTTF(font_awesome_data, font_awesome_size, 12, &icons_config, icons_ranges);
     s2d::FontManager::defaultFont = io.Fonts->AddFontFromFileTTF("EngineAssets\\Fonts\\Arial.ttf", s2d::FontManager::fontSize);
     s2d::FontManager::symbolFont = io.Fonts->AddFontFromFileTTF("EngineAssets\\Fonts\\fontawesome-webfont.ttf", s2d::FontManager::fontSize - 4, &config);
-    s2d::FontManager::imGuiDefaultFont = io.Fonts->AddFontFromFileTTF("EngineAssets\\Fonts\\ProggyClean.ttf", s2d::FontManager::fontSize, NULL, io.Fonts->GetGlyphRangesDefault());
 
     //This function is important else the program will crash with an assertion
     ImGui::SFML::UpdateFontTexture();
@@ -217,9 +216,9 @@ void s2d::GameEngine::update()
     //UIWindow (Engine)
     this->m_UIWindow.update();
     this->m_UIRealTimeEditor.update();
-     ImGui::PopFont();
+    ImGui::PopFont();
 
-      s2d::Animation::updateAllAnimations();
+    s2d::Animation::updateAllAnimations();
 
     //Engine event
     this->pollEngineEvents();
