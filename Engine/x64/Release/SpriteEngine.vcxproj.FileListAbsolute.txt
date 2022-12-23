@@ -1,2 +1,0 @@
-C:\Programmieren\c++\Projects\SpriteEngine\x64\Release\SpriteEngine.exe
-C:\Dev\SpriteEngineUI\Engine\x64\Release\SpriteEngine.exe
