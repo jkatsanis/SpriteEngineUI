@@ -29,7 +29,7 @@ namespace s2d
 
 		void render();
 		void getAllFilesInDir(const char* path, const char* name);
-		void setDragAndDrop(std::string path);
+		void setDragAndDrop(std::string path, std::string name);
 		void beginColumns();
 		void goBackToBeforeFolder();
 
@@ -42,6 +42,7 @@ namespace s2d
 
 		//THIS IS THE PATH FROM THE .SLN file in the engine!
 		static std::string dragAndDropPath;
+		static std::string dragAndDropName;
 	};
 }
 

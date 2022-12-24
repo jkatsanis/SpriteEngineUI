@@ -25,6 +25,22 @@ void s2d::UIAssetFolder::createAssetLinkerWindow()
 
     ImGui::PopStyleVar();
 
+
+    if (s2d::UIAssetFolder::dragAndDropPath != " ")
+    {
+        ImVec2 cursor = ImGui::GetCursorPos();
+        ImVec2 pos = ImVec2(sf::Mouse::getPosition().x - 100, sf::Mouse::getPosition().y + 10);
+
+        if (ImGui::Begin("##Drag", NULL, ImGuiWindowFlags_NoTitleBar))
+        {
+            ImGui::SetWindowPos(pos);
+            ImGui::SetWindowFontScale(s2d::UIInfo::sdefaultFontSize);
+
+            ImGui::Text(s2d::UIAssetFolder::dragAndDropName.c_str());
+            ImGui::End();
+        }
+    }
+
 }
 
 //private functions
@@ -32,13 +48,12 @@ void s2d::UIAssetFolder::createAssetLinkerWindow()
 void s2d::UIAssetFolder::render()
 {
     this->goBackToBeforeFolder();
-    ImGui::Dummy(ImVec2(0, 25));
     this->beginColumns();
     this->getAllFilesInDir(this->currentPath.c_str(), this->currentName.c_str());
 
-    ImGui::SetWindowPos(ImVec2(250, 820));
+    ImGui::SetWindowPos(ImVec2(250, 730));
     ImGui::SetWindowFontScale(s2d::UIInfo::sdefaultFontSize);
-    ImGui::SetWindowSize(ImVec2(1280, 260));
+    ImGui::SetWindowSize(ImVec2(1280, 350));
 
     this->isHovered = ImGui::IsWindowHovered();
 }
@@ -84,7 +99,8 @@ void s2d::UIAssetFolder::getAllFilesInDir(const char* path, const char* name)
                 this->currentName = str;
             }        
         }
-        this->setDragAndDrop(newPath);
+        if(!isFolder)
+            this->setDragAndDrop(newPath, str);
 
         ImGui::SetWindowFontScale(s2d::UIInfo::sdefaultFontSize);
         ImGui::TextWrapped(str);
@@ -120,13 +136,18 @@ void s2d::UIAssetFolder::goBackToBeforeFolder()
 
     for (int i = 0; i < props.size(); i++)
     {
+        // Alot of hard code path shit done here, gonna change in future
         if (props[i] == "#")
         {
             break;
         }
-        if (props[i] == "..")
+        if (props[i] == ".." || props[i] == "Assets")
         {
             continue;
+        }
+        if (props[i] == "assets")
+        {
+            props[i] = "Assets";
         }
 
          // Set current path to the folder clicked
@@ -147,16 +168,20 @@ void s2d::UIAssetFolder::goBackToBeforeFolder()
             ImGui::Text("->");
         ImGui::SameLine();
     }
+    ImGui::Dummy(ImVec2(0, 30));
+    ImGui::Separator();
+
 }
 
-void s2d::UIAssetFolder::setDragAndDrop(std::string path)
+void s2d::UIAssetFolder::setDragAndDrop(std::string path, std::string name)
 {
     //Check if we hover over the menu item used later on for drag and drop
 
     if (ImGui::IsItemHovered() && ImGui::IsMouseDown(0) && !this->m_interacted && dragAndDropPath == " ")
     {
         this->m_draggingItem = true;
-        s2d::UIAssetFolder::dragAndDropPath = path;
+        s2d::UIAssetFolder::dragAndDropPath = path;   
+        this->dragAndDropName = name;
     }
     if (ImGui::IsMouseReleased(0))
     {
@@ -182,3 +207,4 @@ void s2d::UIAssetFolder::beginColumns()
 
 
 std::string s2d::UIAssetFolder::dragAndDropPath = " ";
+std::string s2d::UIAssetFolder::dragAndDropName = " ";

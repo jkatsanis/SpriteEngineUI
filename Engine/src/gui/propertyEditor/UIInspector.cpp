@@ -243,10 +243,10 @@ void s2d::UIInspector::spriteRendererComponent()
 
 		//std::cout << s2d::UIAssetFolder::dragAndDropPath;
 
-		if (ImGui::IsItemHovered())
+		if (ImGui::IsItemHovered() && ImGui::IsMouseReleased(0) && s2d::UIAssetFolder::dragAndDropPath != " ")
 		{
 			std::cout << "ih";
-			//this->m_currentSpriteInInspector->setSpriteTexture(s2d::UIAssetFolder::dragAndDropPath);
+			this->m_currentSpriteInInspector->setSpriteTexture(s2d::UIAssetFolder::dragAndDropPath);
 		}
 
 		ImGui::Dummy(ImVec2(0, 3.8f));
