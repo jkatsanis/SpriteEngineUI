@@ -189,6 +189,7 @@
     <ClCompile Include="src\gui\UIInfo.cpp" />
     <ClCompile Include="src\gui\propertyEditor\UIAnimationKeyFrameEditor.cpp" />
     <ClCompile Include="src\gui\propertyEditor\UIAnimationEditor.cpp" />
+    <ClCompile Include="src\gui\propertyEditor\UIIconData.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\gameData\fontManager.h" />
@@ -236,6 +237,7 @@
     <ClInclude Include="src\gui\UIInfo.h" />
     <ClInclude Include="src\gui\propertyEditor\UIAnimationKeyFrameEditor.h" />
     <ClInclude Include="src\gui\propertyEditor\UIAnimationEditor.h" />
+    <ClInclude Include="src\gui\propertyEditor\UIIconData.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="addingNewSpriteProp.txt" />

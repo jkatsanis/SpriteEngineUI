@@ -240,9 +240,13 @@ void s2d::UIInspector::spriteRendererComponent()
 		// -5 Because we need our sprite renderer to be cool
 		ImGui::SetCursorPos(ImVec2(x += 100, y - 5));
 		ImGui::InputText("##spriteRenderer", input, CHAR_MAX);
-		if (ImGui::IsItemHovered() && ImGui::IsMouseReleased(0) && s2d::UIAssetFolder::dragAndDropPath != " ")
+
+		//std::cout << s2d::UIAssetFolder::dragAndDropPath;
+
+		if (ImGui::IsItemHovered())
 		{
-			this->m_currentSpriteInInspector->setSpriteTexture(s2d::UIAssetFolder::dragAndDropPath);
+			std::cout << "ih";
+			//this->m_currentSpriteInInspector->setSpriteTexture(s2d::UIAssetFolder::dragAndDropPath);
 		}
 
 		ImGui::Dummy(ImVec2(0, 3.8f));

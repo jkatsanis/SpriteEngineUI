@@ -91,6 +91,9 @@
     <Filter Include="Header Files\Gui\PropertyEditor\Animation">
       <UniqueIdentifier>{3d6ca92b-f634-463a-8454-83f476751434}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Gui\PropertyEditor\Assets">
+      <UniqueIdentifier>{ca8aabba-cc0f-49e6-863a-0276bfb6f5f0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SpriteEngine.cpp">
@@ -150,9 +153,6 @@
     <ClCompile Include="src\gameObjects\boxCollider.cpp">
       <Filter>Source Files\GameObjects</Filter>
     </ClCompile>
-    <ClCompile Include="src\gui\propertyEditor\UIAssetFolder.cpp">
-      <Filter>Source Files\Gui\PropertyEditor</Filter>
-    </ClCompile>
     <ClCompile Include="src\gui\propertyEditor\UIHirachy.cpp">
       <Filter>Source Files\Gui\PropertyEditor</Filter>
     </ClCompile>
@@ -203,6 +203,12 @@
     </ClCompile>
     <ClCompile Include="src\gameData\fontManager.cpp">
       <Filter>Source Files\GameData</Filter>
+    </ClCompile>
+    <ClCompile Include="src\gui\propertyEditor\UIAssetFolder.cpp">
+      <Filter>Source Files\Gui\PropertyEditor\Assets</Filter>
+    </ClCompile>
+    <ClCompile Include="src\gui\propertyEditor\UIIconData.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -340,6 +346,9 @@
     </ClInclude>
     <ClInclude Include="src\gui\propertyEditor\UIAnimationKeyFrameEditor.h">
       <Filter>Header Files\Gui\PropertyEditor\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="src\gui\propertyEditor\UIIconData.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

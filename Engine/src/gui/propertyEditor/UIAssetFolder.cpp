@@ -2,13 +2,10 @@
 
 s2d::UIAssetFolder::UIAssetFolder()
 {
-    s2d::UIInfo::Init();
-    s2d::UIInfo::Ini();
-
     this->currentPath = "..\\Assets\\assets";
     this->currentName = "Assets";
-    this->m_iconSize = 50;
-    this->m_padding = 80;
+    this->m_iconSize = 75;
+    this->m_padding = 130;
 
     this->isHovered = false;
     this->isHovered = false;
@@ -22,7 +19,6 @@ s2d::UIAssetFolder::UIAssetFolder()
 void s2d::UIAssetFolder::createAssetLinkerWindow()
 {
     ImGui::PushStyleVar(ImGuiStyleVar_Alpha, 1.1f);
-
     ImGui::Begin("Assets", NULL, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoMove);
     this->render();
     ImGui::End() ;
@@ -36,11 +32,10 @@ void s2d::UIAssetFolder::createAssetLinkerWindow()
 void s2d::UIAssetFolder::render()
 {
     this->goBackToBeforeFolder();
-
     ImGui::Dummy(ImVec2(0, 25));
     this->beginColumns();
     this->getAllFilesInDir(this->currentPath.c_str(), this->currentName.c_str());
-    
+
     ImGui::SetWindowPos(ImVec2(250, 820));
     ImGui::SetWindowFontScale(s2d::UIInfo::sdefaultFontSize);
     ImGui::SetWindowSize(ImVec2(1280, 260));
@@ -76,26 +71,24 @@ void s2d::UIAssetFolder::getAllFilesInDir(const char* path, const char* name)
         //The name of the ImageButton
         std::string name = "##" + std::string(str);
 
-        //Display the item if its a folder
-        if (icon == "folder")
+        // Init icon texture
+        ImTextureID id = this->data.getId(icon);
+        bool isFolder = (icon == "folder");
+
+        if (ImGui::ImageButton(name.c_str(), id, ImVec2(this->m_iconSize, this->m_iconSize)))
         {
-            if (ImGui::ImageButton(name.c_str(), s2d::UIInfo::textureIdFolder, ImVec2(this->m_iconSize, this->m_iconSize)))
+            //Display the item if its a folder
+            if (isFolder)
             {
                 this->currentPath = newPath;
                 this->currentName = str;
-            }
-            ImGui::TextWrapped(str);
+            }        
         }
+        this->setDragAndDrop(newPath);
 
-        // If u click on a picture (file.xx) for a certain amount of time it will be set as dragAndDropPath
-        if (icon != "folder")
-        {
-            if (ImGui::ImageButton(name.c_str(), s2d::UIInfo::fileId, ImVec2(this->m_iconSize, this->m_iconSize)))
-            {
-                std::cout << "ih";
-            }
-            this->setDragAndDrop(newPath);
-        }
+        ImGui::SetWindowFontScale(s2d::UIInfo::sdefaultFontSize);
+        ImGui::TextWrapped(str);
+        ImGui::SetWindowFontScale(s2d::UIInfo::sdefaultFontSize);
 
         //next column to have it inline
         ImGui::NextColumn();
@@ -155,7 +148,6 @@ void s2d::UIAssetFolder::goBackToBeforeFolder()
         ImGui::SameLine();
     }
 }
-
 
 void s2d::UIAssetFolder::setDragAndDrop(std::string path)
 {
