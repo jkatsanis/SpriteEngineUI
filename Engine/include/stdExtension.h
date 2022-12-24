@@ -41,6 +41,20 @@ namespace std
 		return cnt + 1;
 	}
 
+	static void splitString(std::string line, std::string seperator, std::string arr[])
+	{
+		int cnt = 0;
+
+		size_t pos = 0;
+		while ((pos = line.find(seperator)) != std::string::npos) {
+			std::string token = line.substr(0, pos);
+			arr[cnt] = token;
+			cnt++;
+			line.erase(0, pos + seperator.length());
+		}
+		arr[cnt] = line;
+	}
+
 	static std::string* splitString(std::string line, std::string seperator)
 	{
 		int cnt = 0;
@@ -77,5 +91,30 @@ namespace std
 		return props;
 	}
 
+	static std::string getFileExtension(const std::string& file)
+	{
+		for (int i = 0; i < file.size(); i++)
+		{
+			if (file[i] == '.')
+			{
+				bool isValid = true;
+				std::string extension = "";
+				for (int j = i + 1; j < file.size(); j++)
+				{
+					extension += file[j];
+					if (file[j] == '.')
+					{
+						isValid = false;
+						break;
+					}
+				}
+				if (isValid)
+				{
+					return extension;
+				}
+			}
+		}
+		return "folder";
+	}
 }
 

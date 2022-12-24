@@ -2,9 +2,8 @@
 
 s2d::UIAssetFolder::UIAssetFolder()
 {
-    // Load icons
-    texture.loadFromFile("EngineAssets\\Icons\\assetFolder.png");
-    textureId = (ImTextureID)texture.generateMipmap();
+    s2d::UIInfo::Init();
+    s2d::UIInfo::Ini();
 
     this->currentPath = "..\\Assets\\assets";
     this->currentName = "Assets";
@@ -18,23 +17,10 @@ s2d::UIAssetFolder::UIAssetFolder()
     this->m_hoveredOverItem = false;
 }
 
-s2d::UIAssetFolder::~UIAssetFolder()
-{ 
-    for (s2d::FileData* data : this->m_filesInAssets)
-    {
-        delete data;
-    }
-}
-
 //Public functions
 
 void s2d::UIAssetFolder::createAssetLinkerWindow()
 {
-    /* if (!s2d::UIInfo::srenderAssetFolder)
-    {
-        return;
-    }*/
-    //Pushing transperany
     ImGui::PushStyleVar(ImGuiStyleVar_Alpha, 1.1f);
 
     ImGui::Begin("Assets", NULL, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoMove);
@@ -53,7 +39,7 @@ void s2d::UIAssetFolder::render()
 
     ImGui::Dummy(ImVec2(0, 25));
     this->beginColumns();
-    this->getAllFilesInDir(this->currentPath.c_str(), this->currentName.c_str(), m_filesInAssets);
+    this->getAllFilesInDir(this->currentPath.c_str(), this->currentName.c_str());
     
     ImGui::SetWindowPos(ImVec2(250, 820));
     ImGui::SetWindowFontScale(s2d::UIInfo::sdefaultFontSize);
@@ -63,7 +49,7 @@ void s2d::UIAssetFolder::render()
 }
 
 
-void s2d::UIAssetFolder::getAllFilesInDir(const char* path, const char* name, std::vector<s2d::FileData*>& vec)
+void s2d::UIAssetFolder::getAllFilesInDir(const char* path, const char* name)
 {   
     struct dirent* entry;
     DIR* dir = opendir(path);
@@ -74,9 +60,7 @@ void s2d::UIAssetFolder::getAllFilesInDir(const char* path, const char* name, st
  
     while ((entry = readdir(dir)) != NULL)
     {
-        bool folder = true;
         const char* str = entry->d_name;
-
         std::string std_name(str);
 
         //Checks if the string has only chars like ../../ ..
@@ -86,33 +70,32 @@ void s2d::UIAssetFolder::getAllFilesInDir(const char* path, const char* name, st
         }
 
         //We need to know if we got a folder or not for the recursion
-        folder = std::isFolder(std_name);
-
-        //Recursivly calling
+        std::string icon = std::getFileExtension(std_name);
         std::string newPath = std::string(path) + "\\" + std_name;
 
-        if (folder)
+        //The name of the ImageButton
+        std::string name = "##" + std::string(str);
+
+        //Display the item if its a folder
+        if (icon == "folder")
         {
-            std::string name = "##" + std::string(str);
-            if (ImGui::ImageButton(name.c_str(), textureId, ImVec2(this->m_iconSize, this->m_iconSize)))
+            if (ImGui::ImageButton(name.c_str(), s2d::UIInfo::textureIdFolder, ImVec2(this->m_iconSize, this->m_iconSize)))
             {
                 this->currentPath = newPath;
                 this->currentName = str;
             }
             ImGui::TextWrapped(str);
-            const char* ch = newPath.c_str();
         }
 
-        std::string f_path(path);
-        f_path = f_path.erase(0, 50);
-        int splitSize = std::getStringSplittedSize(f_path, "\\");
-        if (!folder)
+        // If u click on a picture (file.xx) for a certain amount of time it will be set as dragAndDropPath
+        if (icon != "folder")
         {
-            ImGui::MenuItem(std_name.c_str());
-
+            if (ImGui::ImageButton(name.c_str(), s2d::UIInfo::fileId, ImVec2(this->m_iconSize, this->m_iconSize)))
+            {
+                std::cout << "ih";
+            }
             this->setDragAndDrop(newPath);
         }
-        vec.push_back(new s2d::FileData(folder, splitSize, std_name, f_path));
 
         //next column to have it inline
         ImGui::NextColumn();
@@ -123,20 +106,54 @@ void s2d::UIAssetFolder::getAllFilesInDir(const char* path, const char* name, st
 
 void s2d::UIAssetFolder::goBackToBeforeFolder()
 {
-    std::string* props = std::splitString(this->currentPath, "\\");
-
-    for (int i = 0; i < props->length(); i++)
+    auto split = [](const std::string& str, char delimiter)
     {
-        std::cout << props[i].c_str() << std::endl;
-        ImGui::Button(props[i].c_str());
+        std::vector<std::string> tokens;
+        std::string::size_type start = 0;
+        std::string::size_type end = 0;
+        while ((end = str.find_first_of(delimiter, start)) != std::string::npos) {
+            tokens.push_back(str.substr(start, end - start));
+            start = str.find_first_not_of(delimiter, end);
+        }
+        if (start != std::string::npos) {
+            tokens.push_back(str.substr(start));
+        }
+        return tokens;
+    };
+
+
+    std::vector<std::string> props;
+    props = split(this->currentPath, '\\');
+
+    for (int i = 0; i < props.size(); i++)
+    {
+        if (props[i] == "#")
+        {
+            break;
+        }
+        if (props[i] == "..")
+        {
+            continue;
+        }
+
+         // Set current path to the folder clicked
+        if (ImGui::Button(props[i].c_str()))
+        {
+            this->currentPath = "";
+            this->currentName = props[i];
+            for (int j = 0; j <= i; j++)
+            {
+                currentPath += (j != i) ? props[j] + "\\" : props[j];
+            }
+
+            break;
+        }
+
         ImGui::SameLine();
-        if(i != props->length() - 1)
+        if(i != props.size() - 1)
             ImGui::Text("->");
         ImGui::SameLine();
     }
-
-
-    delete[] props;
 }
 
 

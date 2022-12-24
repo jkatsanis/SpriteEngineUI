@@ -1,5 +1,16 @@
-﻿  UIAssetFolder.cpp
+﻿  UIWindow.cpp
 C:\Dev\SpriteEngineUI\Engine\src\animation\animation.h(37,22): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
-C:\Dev\SpriteEngineUI\Engine\src\gui\propertyEditor\UIAssetFolder.cpp(97,90): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Dev\SpriteEngineUI\Engine\src\gui\propertyEditor\UIAssetFolder.cpp(97,72): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+  UIHirachy.cpp
+C:\Dev\SpriteEngineUI\Engine\src\animation\animation.h(37,22): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
+C:\Dev\SpriteEngineUI\Engine\src\gui\propertyEditor\UIHirachy.cpp(38,84): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Dev\SpriteEngineUI\Engine\src\gui\propertyEditor\UIHirachy.cpp(38,50): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Dev\SpriteEngineUI\Engine\src\gui\propertyEditor\UIHirachy.cpp(141,57): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+  UIAssetFolder.cpp
+C:\Dev\SpriteEngineUI\Engine\src\animation\animation.h(37,22): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
+C:\Dev\SpriteEngineUI\Engine\src\gui\propertyEditor\UIAssetFolder.cpp(82,109): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Dev\SpriteEngineUI\Engine\src\gui\propertyEditor\UIAssetFolder.cpp(82,91): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Dev\SpriteEngineUI\Engine\src\gui\propertyEditor\UIAssetFolder.cpp(93,100): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Dev\SpriteEngineUI\Engine\src\gui\propertyEditor\UIAssetFolder.cpp(93,82): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+  Generating Code...
+C:\Dev\SpriteEngineUI\Engine\src\gui\propertyEditor\UIWindow.cpp(47): warning C4715: 's2d::UIWindow::getWindowBackgroundColorFromFile': not all control paths return a value
   SpriteEngine.vcxproj -> C:\Dev\SpriteEngineUI\Engine\x64\Debug\SpriteEngine.exe

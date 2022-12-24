@@ -5,27 +5,27 @@
 #include <sprite.h>
 #include <fileData.h>
 #include <UIInfo.h>
+#include <array>
 
 namespace s2d
-{
+{		
+	// The amount of icons the Engine has
+	const int amountOfIcons = 3;
+
 	class UIAssetFolder
 	{
 	private:
-		sf::Texture texture;
-		ImTextureID textureId;
-
 		std::string currentPath;
 		std::string currentName;
 		int m_iconSize;
 		int m_padding;
 
-		std::vector<s2d::FileData*> m_filesInAssets;
 		bool m_hoveredOverItem;
 		bool m_draggingItem;
 		bool m_interacted;
 
 		void render();
-		void getAllFilesInDir(const char* path, const char* name, std::vector<s2d::FileData*>& vec);
+		void getAllFilesInDir(const char* path, const char* name);
 		void setDragAndDrop(std::string path);
 		void beginColumns();
 		void goBackToBeforeFolder();
@@ -34,7 +34,6 @@ namespace s2d
 		bool isHovered;
 
 		UIAssetFolder();
-		~UIAssetFolder();
 
 		void createAssetLinkerWindow();
 
