@@ -9,6 +9,7 @@ s2d::UIRealTimeEditor::UIRealTimeEditor()
 	this->m_ptr_renderWindow = nullptr; 
 	this->m_arrowSpeed = 0.0f;
 	this->m_scrollSpeed = 0.0f;
+	this->m_changedCursorPosition = false;
 }
 
 s2d::UIRealTimeEditor::UIRealTimeEditor(sf::RenderWindow& window, sf::Event* event, bool* isAnyUIWindowHovered)
@@ -17,8 +18,8 @@ s2d::UIRealTimeEditor::UIRealTimeEditor(sf::RenderWindow& window, sf::Event* eve
 	this->m_camera = s2d::Camera(&window);
 	this->m_isAnyUIWindowHovered = isAnyUIWindowHovered;
 	this->m_ptr_event_engine = event;
-	this->m_arrowSpeed = 200;
-	this->m_scrollSpeed = 0.1f;
+	this->m_arrowSpeed = 400;
+	this->m_scrollSpeed = 0.15f;
 
 
 	s2d::GameObject::rects.push_back(this->m_windowRectangle);
@@ -33,18 +34,10 @@ s2d::UIRealTimeEditor::UIRealTimeEditor(sf::RenderWindow& window, sf::Event* eve
 
 void s2d::UIRealTimeEditor::update()
 {
-	//Camera update
-	s2d::GameObject::rects[this->m_vecPos].setSize(sf::Vector2f(1920, 1080));
+	this->setChangedPosition();
+	this->setWhiteBox();
 
-	s2d::GameObject::rects[this->m_vecPos].setOutlineColor(sf::Color(255, 255, 255));
-	s2d::GameObject::rects[this->m_vecPos].setOutlineThickness(3.5f);
-	s2d::GameObject::rects[this->m_vecPos].setPosition(sf::Vector2f(0, 0));
-
-	if (m_windowRectangle_texture.loadFromFile("EngineAssets/Sprites/transparent.png"))
-	{
-		s2d::GameObject::rects[this->m_vecPos].setTexture(&m_windowRectangle_texture);
-	}
-
+	//Camera update (updating every frame)
 	this->m_camera.update();
 
 	if (*this->m_isAnyUIWindowHovered) return;
@@ -64,10 +57,13 @@ void s2d::UIRealTimeEditor::navigateRightClick()
 	{
 		sf::Vector2i mousePos = sf::Mouse::getPosition(*this->m_ptr_renderWindow);
 
-		float x = float(mousePos.x) - 960.0f;
-		float y = float(mousePos.y) - 540.0f;
-		this->m_camera.transform.position.x = x;
-		this->m_camera.transform.position.y = y;
+		if (this->m_changedCursorPosition)
+		{
+			this->m_changedCursorPosition = false;
+			s2d::Vector2 moved = this->m_cursor.lastPos - this->m_cursor.position;
+
+			this->m_camera.transform.position += moved;
+		}
 	}
 }
 
@@ -79,11 +75,17 @@ void s2d::UIRealTimeEditor::navigateScrollWheel()
 
 	    if (this->m_ptr_event_engine->mouseWheel.x < 0)
 		{
-			this->m_camera.cameraZoom += this->m_scrollSpeed;	
+			if (this->m_camera.cameraZoom + this->m_scrollSpeed < 4)
+			{
+				this->m_camera.cameraZoom += this->m_scrollSpeed;
+			}
 		}
 		else
-		{		
-			this->m_camera.cameraZoom -= this->m_scrollSpeed;		
+		{
+			if (this->m_camera.cameraZoom - this->m_scrollSpeed > 0.04)
+			{
+				this->m_camera.cameraZoom -= this->m_scrollSpeed;
+			}
 		}
 	}
 }
@@ -141,6 +143,35 @@ void s2d::UIRealTimeEditor::loadCameraSettingsFromFile()
 		}
 		cameraFile.close();
 	}
+}
+
+void s2d::UIRealTimeEditor::setChangedPosition()
+{
+	this->m_cursor.position = s2d::Vector2(sf::Mouse::getPosition(*this->m_ptr_renderWindow).x, sf::Mouse::getPosition(*this->m_ptr_renderWindow).y);
+
+	//Setting the last position, temoporary "nextPos" needed
+	if (this->m_cursor.nextPos != this->m_cursor.position)
+	{
+		this->m_changedCursorPosition = true;
+		this->m_cursor.lastPos = this->m_cursor.nextPos;
+		this->m_cursor.nextPos = this->m_cursor.position;
+	}
+
+}
+
+void s2d::UIRealTimeEditor::setWhiteBox()
+{
+	s2d::GameObject::rects[this->m_vecPos].setSize(sf::Vector2f(1920, 1080));
+
+	s2d::GameObject::rects[this->m_vecPos].setOutlineColor(sf::Color(255, 255, 255));
+	s2d::GameObject::rects[this->m_vecPos].setOutlineThickness(3.5f);
+	s2d::GameObject::rects[this->m_vecPos].setPosition(sf::Vector2f(0, 0));
+
+	if (m_windowRectangle_texture.loadFromFile("EngineAssets/Sprites/transparent.png"))
+	{
+		s2d::GameObject::rects[this->m_vecPos].setTexture(&m_windowRectangle_texture);
+	}
+
 }
 
 

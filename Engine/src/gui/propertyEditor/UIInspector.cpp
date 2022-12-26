@@ -9,6 +9,7 @@ s2d::UIInspector::UIInspector()
 	s2d::GameObject::rects.push_back(this->m_boxCollider);
 
 	this->m_collider = s2d::UIInspectorBoxCollider();
+	this->m_defaultBackgroundColor = s2d::Vector3(139, 165, 187);
 }
 
 //Private functions
@@ -86,6 +87,14 @@ void s2d::UIInspector::displayDefaultInspectorView()
 
 void s2d::UIInspector::backgroundSetting()
 {
+	ImGui::Dummy(ImVec2(0, 10));
+	ImGui::SetCursorPos(ImVec2(ImGui::GetCursorPosX() + 300, ImGui::GetCursorPosY() - 10));
+
+	if (s2d::FontManager::displaySmybolAsButton(ICON_FA_RETWEET "##B"))
+	{
+		this->backgroundColor = this->m_defaultBackgroundColor;
+	}
+	ImGui::SetCursorPosY(ImGui::GetCursorPosY() - 41 + 10);
 	if (ImGui::TreeNode("Background"))
 	{
 		ImGui::Dummy(ImVec2(0, 16));
@@ -105,13 +114,13 @@ void s2d::UIInspector::backgroundSetting()
 
 void s2d::UIInspector::gameEngineViewSetting()
 {
-	ImGui::SetCursorPos(ImVec2(ImGui::GetCursorPosX() + 300, ImGui::GetCursorPosY() - 3));
+	ImGui::SetCursorPos(ImVec2(ImGui::GetCursorPosX() + 300, ImGui::GetCursorPosY() - 10));
 
-	if (s2d::FontManager::displaySmybolAsButton(ICON_FA_RETWEET))
+	if (s2d::FontManager::displaySmybolAsButton(ICON_FA_RETWEET "##C"))
 	{
 		s2d::GameObject::ptr_camera_tRealTimeEditor->reset();
 	}
-	ImGui::SetCursorPosY(ImGui::GetCursorPosY() - 41 + 3);
+	ImGui::SetCursorPosY(ImGui::GetCursorPosY() - 41 + 10);
 	if (ImGui::TreeNode("Camera"))
 	{
 		float x = ImGui::GetCursorPosX();
@@ -140,7 +149,7 @@ void s2d::UIInspector::gameEngineViewSetting()
 		ImGui::SetWindowFontScale(s2d::UIInfo::sdefaultFontSize);
 		ImGui::SameLine();
 		ImGui::SetCursorPos(ImVec2(x -= 120, y += 54));
-		ImGui::SliderFloat("##Zoom", &s2d::GameObject::ptr_camera_tRealTimeEditor->cameraZoom, 0.1f, 10.0f, "%g");
+		ImGui::SliderFloat("##Zoom", &s2d::GameObject::ptr_camera_tRealTimeEditor->cameraZoom, 0.1f, 4.0f, "%g");
 
 		if (s2d::GameObject::ptr_camera_tRealTimeEditor->cameraZoom <= 0)
 		{

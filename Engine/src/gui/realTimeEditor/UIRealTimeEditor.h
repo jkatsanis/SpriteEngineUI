@@ -17,6 +17,9 @@ namespace s2d
 		sf::RenderWindow* m_ptr_renderWindow;
 		sf::Event* m_ptr_event_engine;
 
+		s2d::Transform m_cursor;
+		bool m_changedCursorPosition;
+
 		// The white big as box
 		sf::Texture m_windowRectangle_texture;
 		sf::RectangleShape m_windowRectangle;
@@ -34,6 +37,8 @@ namespace s2d
 		void calculateScrollWheelSpeed();
 
 		void loadCameraSettingsFromFile();
+		void setChangedPosition();
+		void setWhiteBox();
 	public: 
 
 		UIRealTimeEditor();

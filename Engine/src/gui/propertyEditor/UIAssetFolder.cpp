@@ -19,12 +19,11 @@ s2d::UIAssetFolder::UIAssetFolder()
 void s2d::UIAssetFolder::createAssetLinkerWindow()
 {
     ImGui::PushStyleVar(ImGuiStyleVar_Alpha, 1.1f);
-    ImGui::Begin("Assets", NULL, ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoMove);
+    ImGui::Begin("Assets", NULL, ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize);
     this->render();
     ImGui::End() ;
 
     ImGui::PopStyleVar();
-
 
     if (s2d::UIAssetFolder::dragAndDropPath != " ")
     {
@@ -101,8 +100,17 @@ void s2d::UIAssetFolder::getAllFilesInDir(const char* path, const char* name)
         if(!isFolder)
             this->setDragAndDrop(newPath, str);
 
+
+
         ImGui::SetWindowFontScale(s2d::UIInfo::sdefaultFontSize);
+
+        ImVec2 textSize = ImGui::CalcTextSize(str);
+        float itemWidth = this->m_iconSize;
+
+       // ImGui::SetCursorPosX((itemWidth  / 2) - (textSize.x / 2));
+
         ImGui::TextWrapped(str);
+
         ImGui::SetWindowFontScale(s2d::UIInfo::sdefaultFontSize);
 
         //next column to have it inline

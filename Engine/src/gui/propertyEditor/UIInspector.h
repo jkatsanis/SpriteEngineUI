@@ -36,6 +36,9 @@ namespace s2d
 		//Collider
 		s2d::UIInspectorBoxCollider m_collider;
 
+		//Game window background color
+	    s2d::Vector3 m_defaultBackgroundColor;
+
 		void render();
 		bool isInspectorSpriteEqualToActiveSprites();
 
@@ -58,6 +61,8 @@ namespace s2d
 		void checkDupeName();
 	public:
 		bool isHovered;
+		
+		// Get the value from UIWindow.cpp
 		s2d::Vector3 backgroundColor;
 
 		UIInspector();
