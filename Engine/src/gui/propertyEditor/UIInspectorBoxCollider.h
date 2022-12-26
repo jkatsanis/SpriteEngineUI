@@ -13,12 +13,6 @@ namespace s2d
 	private:	
 		sf::Texture texture;
 
-		void firstReset(float& x, float& y, s2d::Sprite* sprite);
-		void secondReset(float& x, float& y, s2d::Sprite* sprite);
-
-		void x(s2d::Sprite* sprite);
-		void y(s2d::Sprite* sprite);
-
 	public:
 		UIInspectorBoxCollider();
 

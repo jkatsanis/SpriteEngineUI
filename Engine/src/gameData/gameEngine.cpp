@@ -212,9 +212,9 @@ void s2d::GameEngine::update()
     //Renderere / window events
     this->pollEvents();
 
-    ImGui::PushFont(s2d::FontManager::defaultFont);
 
     //UIWindow (Engine)
+    ImGui::PushFont(s2d::FontManager::defaultFont);
     this->m_UIWindow.update();
     this->m_UIRealTimeEditor.update();
     ImGui::PopFont();

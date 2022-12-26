@@ -3,7 +3,7 @@
 //Constructor
 
 s2d::UIRealTimeEditor::UIRealTimeEditor() 
-{ 
+{
 	this->m_isAnyUIWindowHovered = nullptr;
 	this->m_ptr_event_engine = nullptr;
 	this->m_ptr_renderWindow = nullptr; 
@@ -18,7 +18,12 @@ s2d::UIRealTimeEditor::UIRealTimeEditor(sf::RenderWindow& window, sf::Event* eve
 	this->m_isAnyUIWindowHovered = isAnyUIWindowHovered;
 	this->m_ptr_event_engine = event;
 	this->m_arrowSpeed = 200;
-	this->m_scrollSpeed = 0.005f;
+	this->m_scrollSpeed = 0.1f;
+
+
+	s2d::GameObject::rects.push_back(this->m_windowRectangle);
+	this->m_vecPos = s2d::GameObject::rects.size() - 1;
+
 
 	//Loading camera settings from file
 	this->loadCameraSettingsFromFile();
@@ -29,6 +34,18 @@ s2d::UIRealTimeEditor::UIRealTimeEditor(sf::RenderWindow& window, sf::Event* eve
 void s2d::UIRealTimeEditor::update()
 {
 	//Camera update
+	s2d::GameObject::rects[this->m_vecPos].setSize(sf::Vector2f(1920, 1080));
+
+	s2d::GameObject::rects[this->m_vecPos].setOutlineColor(sf::Color(255, 255, 255));
+	s2d::GameObject::rects[this->m_vecPos].setOutlineThickness(3.5f);
+	s2d::GameObject::rects[this->m_vecPos].setPosition(sf::Vector2f(0, 0));
+
+	if (m_windowRectangle_texture.loadFromFile("EngineAssets/Sprites/transparent.png"))
+	{
+		s2d::GameObject::rects[this->m_vecPos].setTexture(&m_windowRectangle_texture);
+	}
+
+	this->m_camera.update();
 
 	if (*this->m_isAnyUIWindowHovered) return;
 	s2d::GameObject::ptr_camera_tRealTimeEditor = &this->m_camera;
@@ -36,7 +53,6 @@ void s2d::UIRealTimeEditor::update()
 	this->navigateRightClick();	
 	this->navigateArrows();
 	this->navigateScrollWheel();
-	this->m_camera.update();
 
 }
 
@@ -57,25 +73,17 @@ void s2d::UIRealTimeEditor::navigateRightClick()
 
 void s2d::UIRealTimeEditor::navigateScrollWheel()
 {
-	if (this->m_ptr_event_engine->type == sf::Event::MouseWheelScrolled && sf::Keyboard::isKeyPressed(sf::Keyboard::LControl))
+	if (this->m_ptr_event_engine->type == sf::Event::MouseWheelScrolled)
 	{
-		if (this->m_ptr_event_engine->mouseWheel.x < 0)
-		{
-			if (this->m_camera.cameraZoom + this->m_scrollSpeed < 10)
-			{
-				calculateScrollWheelSpeed();
+		this->m_ptr_event_engine->type = sf::Event::GainedFocus;
 
-				this->m_camera.cameraZoom += this->m_scrollSpeed;
-			}
+	    if (this->m_ptr_event_engine->mouseWheel.x < 0)
+		{
+			this->m_camera.cameraZoom += this->m_scrollSpeed;	
 		}
-		else 
-		{
-			if (this->m_camera.cameraZoom - this->m_scrollSpeed > 0.04)
-			{
-				calculateScrollWheelSpeed();
-
-				this->m_camera.cameraZoom -= this->m_scrollSpeed;
-			}
+		else
+		{		
+			this->m_camera.cameraZoom -= this->m_scrollSpeed;		
 		}
 	}
 }

@@ -145,10 +145,7 @@ void s2d::UIAssetFolder::goBackToBeforeFolder()
         {
             continue;
         }
-        if (props[i] == "assets")
-        {
-            props[i] = "Assets";
-        }
+    
 
          // Set current path to the folder clicked
         if (ImGui::Button(props[i].c_str()))

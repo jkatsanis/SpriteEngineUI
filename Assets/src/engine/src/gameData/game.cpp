@@ -117,6 +117,9 @@ void s2d::Game::update()
 
 	//Renderer / Events
 	this->pollEvents();
+
+	s2d::GameObject::camera.update();
+
 	//Engine event
 	this->pollEngineEvents();
 	this->render();
@@ -138,7 +141,7 @@ void s2d::Game::start()
 	this->windowEvent.type = sf::Event::GainedFocus;
 	this->ptr_renderWindow = std::make_unique<sf::RenderWindow>(sf::VideoMode(1920, 1080), s2d::GameData::name, sf::Style::Default);
 
-	s2d::GameObject::camera = s2d::Camera(*this->ptr_renderWindow);
+	s2d::GameObject::camera = s2d::Camera(this->ptr_renderWindow.get());
 
 	this->ptr_renderWindow->setKeyRepeatEnabled(false);
 }

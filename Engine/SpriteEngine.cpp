@@ -8,10 +8,7 @@ int main()
     { 
         if (s2d::Input::onKeyPress(s2d::KeyBoardCode::A))
         {
-            for (s2d::Animation& anim : s2d::Sprite::activeSprites[0]->animator.animations)
-            {
-                std::cout << anim.name;
-            }
+            std::cout << s2d::Sprite::activeSprites[0]->getSprite().getPosition().x << std::endl;
         }
         engine.update();
     }

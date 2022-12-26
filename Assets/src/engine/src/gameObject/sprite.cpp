@@ -197,23 +197,23 @@ void s2d::Sprite::initActiveSprites()
 				//Console log!
 			}
 			//Setting scale
-			sprite->m_sprite.setScale(sprite->m_sprite.getScale().x * 1.5f, sprite->m_sprite.getScale().y * 1.5f);
+			sprite->m_sprite.setScale(sprite->m_sprite.getScale().x * s2d::GameObject::ssizeMultipliyer, sprite->m_sprite.getScale().y * s2d::GameObject::ssizeMultipliyer);
 
 			//Setting sprite size also in init and setTexture
 			sf::Vector2u tempSize = sprite->m_texture.getSize();
 
 			//Multiplying size with 1.5f because we scale it up by 1.5f lol
-			sprite->transform.size = Vector2(tempSize.x * 1.5f, tempSize.y * 1.5f);
+			sprite->transform.size = Vector2(tempSize.x * s2d::GameObject::ssizeMultipliyer, tempSize.y * s2d::GameObject::ssizeMultipliyer);
 			sprite->m_sprite.setTexture(sprite->m_texture);
 
 			//Setting BoxCollider
 			sprite->collider = BoxCollider(sprite);
 
-			sprite->collider.boxColliderWidthLeftOrRight.x = std::stof(propertys[5].c_str()) * 1.5f;
-			sprite->collider.boxColliderWidthLeftOrRight.y = std::stof(propertys[6].c_str()) * 1.5f;
+			sprite->collider.boxColliderWidthLeftOrRight.x = std::stof(propertys[5].c_str()) * s2d::GameObject::ssizeMultipliyer;
+			sprite->collider.boxColliderWidthLeftOrRight.y = std::stof(propertys[6].c_str()) * s2d::GameObject::ssizeMultipliyer;
 
-			sprite->collider.boxColliderHeightUpOrDown.x = std::stof(propertys[7].c_str()) * 1.5f;
-			sprite->collider.boxColliderHeightUpOrDown.y = std::stof(propertys[8].c_str()) * 1.5f;
+			sprite->collider.boxColliderHeightUpOrDown.x = std::stof(propertys[7].c_str()) * s2d::GameObject::ssizeMultipliyer;
+			sprite->collider.boxColliderHeightUpOrDown.y = std::stof(propertys[8].c_str()) * s2d::GameObject::ssizeMultipliyer;
 			sprite->collider.exists = propertys[9] == "True";
 			sprite->collider.isSolid = propertys[10] == "True";
 
@@ -245,12 +245,12 @@ void s2d::Sprite::initActiveSprites()
 			sprite->transform.positionToParent.x = std::stof(propertys[23]);
 			sprite->transform.positionToParent.y = std::stof(propertys[24]);
 
-			sprite->transform.position *= 1.5f;
-			sprite->transform.lastPos *= 1.5f;
-			sprite->transform.nextPos *= 1.5f;
+			sprite->transform.position *= s2d::GameObject::ssizeMultipliyer;
+			sprite->transform.lastPos *= s2d::GameObject::ssizeMultipliyer;
+			sprite->transform.nextPos *= s2d::GameObject::ssizeMultipliyer;
 
-			sprite->transform.positionToParent.x *= 1.5f;
-			sprite->transform.positionToParent.y *= 1.5f;
+			sprite->transform.positionToParent.x *= s2d::GameObject::ssizeMultipliyer;
+			sprite->transform.positionToParent.y *= s2d::GameObject::ssizeMultipliyer;
 			//Pushing the sprite
 			s2d::Sprite::activeSprites.push_back(sprite);
 

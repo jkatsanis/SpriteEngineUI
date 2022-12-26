@@ -17,6 +17,11 @@ namespace s2d
 		sf::RenderWindow* m_ptr_renderWindow;
 		sf::Event* m_ptr_event_engine;
 
+		// The white big as box
+		sf::Texture m_windowRectangle_texture;
+		sf::RectangleShape m_windowRectangle;
+		short m_vecPos;
+
 		float m_arrowSpeed;
 		float m_scrollSpeed;
 

@@ -1,7 +1,3 @@
-﻿  UIAssetFolder.cpp
-C:\Dev\SpriteEngineUI\Engine\src\animation\animation.h(37,22): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
-C:\Dev\SpriteEngineUI\Engine\src\gui\propertyEditor\UIAssetFolder.cpp(32,90): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Dev\SpriteEngineUI\Engine\src\gui\propertyEditor\UIAssetFolder.cpp(32,56): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Dev\SpriteEngineUI\Engine\src\gui\propertyEditor\UIAssetFolder.cpp(93,79): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Dev\SpriteEngineUI\Engine\src\gui\propertyEditor\UIAssetFolder.cpp(93,61): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+﻿  UIRealTimeEditor.cpp
+C:\Dev\SpriteEngineUI\Engine\src\gui\realTimeEditor\UIRealTimeEditor.cpp(25,52): warning C4267: '=': conversion from 'size_t' to 'short', possible loss of data
   SpriteEngine.vcxproj -> C:\Dev\SpriteEngineUI\Engine\x64\Debug\SpriteEngine.exe

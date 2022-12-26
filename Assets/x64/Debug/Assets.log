@@ -1,4 +1,14 @@
-﻿  boxColliderPositionData.cpp
-  childSystem.cpp
+﻿  Testing.cpp
+  sprite.cpp
+C:\Dev\SpriteEngineUI\Assets\src\engine\src\GameObject\sprite.cpp(81,53): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
+          with
+          [
+              T=unsigned int
+          ]
+C:\Dev\SpriteEngineUI\Assets\src\engine\src\GameObject\sprite.cpp(81,41): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
+          with
+          [
+              T=unsigned int
+          ]
   Generating Code...
   Assets.vcxproj -> C:\Dev\SpriteEngineUI\Assets\x64\Debug\Assets.exe

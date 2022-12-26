@@ -32,8 +32,8 @@ void s2d::Sprite::resetChildData()
 void s2d::Sprite::updateTransformPosition()
 {
 	//Setting it centered 
-	float x = 250 + 640 + this->transform.position.x - this->transform.scale.x / 2;
-	float y = 100 + 360 - this->transform.position.y - this->transform.scale.y / 2;
+	float x = 960 + this->transform.position.x - this->transform.scale.x / 2;
+	float y = 540 - this->transform.position.y - this->transform.scale.y / 2;
 	this->getSprite().setPosition(sf::Vector2f(x, y));
 
 	//Setting the last position, temoporary "nextPos" needed

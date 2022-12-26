@@ -13,6 +13,7 @@ namespace s2d
 		GameObject() = delete;
 
 	public:
+		static float ssizeMultipliyer;
 		static s2d::Camera camera;
 		static std::vector <sf::RectangleShape> rects;
 	};

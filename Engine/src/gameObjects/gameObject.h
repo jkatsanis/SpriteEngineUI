@@ -15,6 +15,8 @@ namespace s2d
 
 	public:
 		static std::vector<s2d::Line> lines;
+
+		//Used for box collider, and game window
 		static std::vector <sf::RectangleShape> rects;
 
 		//Pointer to the camera in "UIRealTimeEditor"

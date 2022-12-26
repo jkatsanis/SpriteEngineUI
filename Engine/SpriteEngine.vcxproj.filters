@@ -94,6 +94,9 @@
     <Filter Include="Source Files\Gui\PropertyEditor\Assets">
       <UniqueIdentifier>{ca8aabba-cc0f-49e6-863a-0276bfb6f5f0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Gui\PropertyEditor\Assets">
+      <UniqueIdentifier>{3cbb3679-8de9-470c-8b4d-50b961b2a7df}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SpriteEngine.cpp">
@@ -208,7 +211,7 @@
       <Filter>Source Files\Gui\PropertyEditor\Assets</Filter>
     </ClCompile>
     <ClCompile Include="src\gui\propertyEditor\UIIconData.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Gui\PropertyEditor\Assets</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -290,9 +293,6 @@
     <ClInclude Include="src\math\vector3.h">
       <Filter>Header Files\Math</Filter>
     </ClInclude>
-    <ClInclude Include="src\gui\propertyEditor\UIAssetFolder.h">
-      <Filter>Header Files\Gui\PropertyEditor</Filter>
-    </ClInclude>
     <ClInclude Include="src\gui\propertyEditor\UIInspector.h">
       <Filter>Header Files\Gui\PropertyEditor</Filter>
     </ClInclude>
@@ -335,9 +335,6 @@
     <ClInclude Include="src\gameData\keyBoard.h">
       <Filter>Header Files\GameData</Filter>
     </ClInclude>
-    <ClInclude Include="src\gameData\fontManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\gui\propertyEditor\UIAnimation.h">
       <Filter>Header Files\Gui\PropertyEditor\Animation</Filter>
     </ClInclude>
@@ -347,8 +344,14 @@
     <ClInclude Include="src\gui\propertyEditor\UIAnimationKeyFrameEditor.h">
       <Filter>Header Files\Gui\PropertyEditor\Animation</Filter>
     </ClInclude>
+    <ClInclude Include="src\gui\propertyEditor\UIAssetFolder.h">
+      <Filter>Header Files\Gui\PropertyEditor\Assets</Filter>
+    </ClInclude>
     <ClInclude Include="src\gui\propertyEditor\UIIconData.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Gui\PropertyEditor\Assets</Filter>
+    </ClInclude>
+    <ClInclude Include="src\gameData\fontManager.h">
+      <Filter>Header Files\GameData</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
