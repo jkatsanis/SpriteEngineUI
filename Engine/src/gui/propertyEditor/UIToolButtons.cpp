@@ -19,7 +19,7 @@ void s2d::UIToolButtons::createToolsAndButtons()
 	//Button at the top to click and play game 
 	askWithButtonForPlayGame();
 
-	this->isHovered = ImGui::IsWindowHovered();
+	this->isHovered = ImGui::IsWindowHovered(ImGuiHoveredFlags_AllowWhenBlockedByActiveItem);
 
 	ImGui::End();
 

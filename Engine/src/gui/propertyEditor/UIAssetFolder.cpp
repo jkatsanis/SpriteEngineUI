@@ -19,7 +19,7 @@ s2d::UIAssetFolder::UIAssetFolder()
 void s2d::UIAssetFolder::createAssetLinkerWindow()
 {
     ImGui::PushStyleVar(ImGuiStyleVar_Alpha, 1.1f);
-    ImGui::Begin("Assets", NULL, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoMove);
+    ImGui::Begin("Assets", NULL, ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoMove);
     this->render();
     ImGui::End() ;
 
@@ -55,9 +55,8 @@ void s2d::UIAssetFolder::render()
     ImGui::SetWindowFontScale(s2d::UIInfo::sdefaultFontSize);
     ImGui::SetWindowSize(ImVec2(1280, 350));
 
-    this->isHovered = ImGui::IsWindowHovered();
+    this->isHovered = ImGui::IsWindowHovered(ImGuiHoveredFlags_AllowWhenBlockedByActiveItem);
 }
-
 
 void s2d::UIAssetFolder::getAllFilesInDir(const char* path, const char* name)
 {   

@@ -241,6 +241,7 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="addingNewSpriteProp.txt" />
+    <Text Include="src\textFiles\addToAssets.txt" />
     <Text Include="src\textFiles\plan.txt" />
     <Text Include="src\textFiles\imguibasics.txt" />
     <Text Include="src\textFiles\wichtigecppsachen.txt" />

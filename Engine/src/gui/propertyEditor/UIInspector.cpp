@@ -55,7 +55,7 @@ void s2d::UIInspector::render()
 	ImGui::SetWindowPos(ImVec2(1530.0f, 0.0f));
 	ImGui::SetWindowSize(ImVec2(this->m_windowSizeWidth, 1080.0f));
 
-	this->isHovered = ImGui::IsWindowHovered();
+	this->isHovered = ImGui::IsWindowHovered(ImGuiHoveredFlags_AllowWhenBlockedByActiveItem);
 }
 
 void s2d::UIInspector::checkDupeName()

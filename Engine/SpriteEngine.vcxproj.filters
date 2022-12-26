@@ -367,5 +367,8 @@
     <Text Include="addingNewSpriteProp.txt">
       <Filter>Source Files\Txt</Filter>
     </Text>
+    <Text Include="src\textFiles\addToAssets.txt">
+      <Filter>Source Files\Txt</Filter>
+    </Text>
   </ItemGroup>
 </Project>

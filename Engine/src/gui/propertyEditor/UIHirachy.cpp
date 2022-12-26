@@ -26,7 +26,7 @@ void s2d::UIHirachy::createHirachyWindow()
 	if (ImGui::Begin("Hirachy", NULL, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoMove))
 	{
 		this->render();
-		this->isHovered = ImGui::IsWindowHovered() || this->m_isPopUpOpen;
+		this->isHovered = ImGui::IsWindowHovered(ImGuiHoveredFlags_AllowWhenBlockedByActiveItem) || this->m_isPopUpOpen;
 		ImGui::End();
 	}
 
@@ -96,6 +96,7 @@ void s2d::UIHirachy::renderMenuPopup()
 		ImGui::EndPopup();
 	}
 }
+
 void s2d::UIHirachy::deleteChildsRecursivly(s2d::Sprite* toDelete)
 {
 	for (s2d::Sprite* child : toDelete->childs)
@@ -128,9 +129,6 @@ void s2d::UIHirachy::createButton()
 	//Right click menu in the HY 
 	if (ImGui::BeginMenu("Create"))
 	{
-		//Setting the new font scale since the old is to small
-		ImGui::SetWindowFontScale(1.8f);
-
 		//Creating the Menu item "sprite" to create sprites
 		if (ImGui::MenuItem("Sprite"))
 		{

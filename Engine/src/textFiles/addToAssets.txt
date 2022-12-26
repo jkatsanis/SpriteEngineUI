@@ -1,0 +1,4 @@
+Rotation
+Scale
+Animator
+Camera options
