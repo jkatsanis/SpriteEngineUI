@@ -30,7 +30,7 @@ namespace s2d
 		std::string m_spriteName;
 		sf::RectangleShape m_rectangle;
 		sf::RectangleShape m_boxCollider;
-		sf::Texture m_texture;
+		sf::Texture m_textureOverSprite;
 
 		//When the box collider component is open we want to display the rectangle as a box collider and not as a rectangle
 		float m_windowSizeWidth;

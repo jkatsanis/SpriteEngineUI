@@ -11,6 +11,8 @@ s2d::UIInspector::UIInspector()
 	this->m_collider = s2d::UIInspectorBoxCollider();
 	this->m_defaultBackgroundColor = s2d::Vector3(139, 165, 187);
 	this->state = s2d::InspectorState::None;
+
+	this->m_textureOverSprite.loadFromFile("EngineAssets/Sprites/transparent.png");
 }
 
 //Private functions
@@ -200,15 +202,11 @@ void s2d::UIInspector::setupComponents()
 
 void s2d::UIInspector::drawRectangleOverCurrentObject()
 {
-	s2d::GameObject::rects[0].setSize(sf::Vector2f(this->m_currentSpriteInInspector->transform.scale.x + 1.2f, this->m_currentSpriteInInspector->transform.scale.y + 1.2f));
 	s2d::GameObject::rects[0].setOutlineColor(sf::Color(0, 0, 0));
 	s2d::GameObject::rects[0].setOutlineThickness(3.5f);
+	s2d::GameObject::rects[0].setSize(sf::Vector2f(this->m_currentSpriteInInspector->transform.scale.x + 1.2f, this->m_currentSpriteInInspector->transform.scale.y + 1.2f));
 	s2d::GameObject::rects[0].setPosition(this->m_currentSpriteInInspector->getOrigininalPosition().x, this->m_currentSpriteInInspector->getOrigininalPosition().y);
-
-	if (m_texture.loadFromFile("EngineAssets/Sprites/transparent.png"))
-	{
-		s2d::GameObject::rects[0].setTexture(&m_texture);
-	}
+	s2d::GameObject::rects[0].setTexture(&this->m_textureOverSprite);
 }
 
 void s2d::UIInspector::transformComponent()

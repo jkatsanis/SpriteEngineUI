@@ -8,6 +8,7 @@ s2d::UIRealTimeEditorTransform::UIRealTimeEditorTransform()
     this->m_isAnyUIWindowHovered = nullptr;
     this->m_cursorRangeToClick = - 1;
     this->m_ptr_Window = nullptr;   
+    this->m_clickedSprite = nullptr;
     this->m_ptr_Inspectorstate = nullptr;
 }
 
@@ -17,6 +18,7 @@ s2d::UIRealTimeEditorTransform::UIRealTimeEditorTransform(sf::RenderWindow* wind
     this->m_ptr_Inspectorstate = ptr_Inspectorstate;
     this->m_cursorRangeToClick = 25;
     this->m_ptr_Window = window;
+    this->m_clickedSprite = nullptr;
 }
 
 // Public functions
@@ -32,29 +34,37 @@ void s2d::UIRealTimeEditorTransform::update()
 
     if (clickedSprite != nullptr)
     {
-        // Show tools ( transform / scale changer etc ) (UI Shit) 
-       
-        s2d::UIHirachy::selectedSprite = clickedSprite;
+        // if we click from the game window setting to a sprite this will happen
+        if (this->m_clickedSprite == nullptr)
+        {
+            s2d::UIHirachy::selectedSprite = clickedSprite;
+        }
+        // If we click on a other sprite we select this
+        if (this->m_clickedSprite != clickedSprite)
+        {
+            s2d::UIHirachy::selectedSprite = clickedSprite;
+        }
+        this->m_clickedSprite = clickedSprite;
+
+
         this->moveComponent();
     }
-    if (s2d::UIHirachy::selectedSprite == nullptr)
+    else
     {
-        *this->m_ptr_Inspectorstate = s2d::InspectorState::GameWindowEditor;
-        clickedSprite = nullptr;
+        this->m_clickedSprite = nullptr;
     }
+
 }
 
 // Private functions
 
 void s2d::UIRealTimeEditorTransform::moveComponent()
 {
-    s2d::Sprite* sprite = s2d::UIHirachy::selectedSprite;
-
-    float x = this->m_cursorWorldPos.x;
-    float y = this->m_cursorWorldPos.y - 540 ;
-    s2d::Vector2 newPosition = s2d::Vector2(x - 960, -y);
+    float x = this->m_cursorWorldPos.x - 960;
+    float y = -(this->m_cursorWorldPos.y - 540);
+    s2d::Vector2 newPosition = s2d::Vector2(x, y);
     
-    sprite->transform.position = newPosition;
+    this->m_clickedSprite->transform.position = newPosition;
 
 }
 

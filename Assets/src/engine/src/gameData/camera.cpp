@@ -32,9 +32,9 @@ void s2d::Camera::update()
 	s2d::Vector2 defaultPos = this->getDefaultPosition();
 
 	defaultPos.x += transform.position.x;
-	defaultPos.y += transform.position.y;
+	defaultPos.y -= transform.position.y;
 
-	this->cameraView.setCenter(sf::Vector2f(960, 540));
+	this->cameraView.setCenter(sf::Vector2f(defaultPos.x, defaultPos.y));
 	this->ptr_renderWindow_to_engine->setView(this->cameraView);
 }
 

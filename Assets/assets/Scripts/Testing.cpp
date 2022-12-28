@@ -33,7 +33,7 @@ void Testing::update()
 	}
 
 	//Only 1 static camera
-	///camera->setPosition(thisSprite->transform.position);
+	camera->transform.position = thisSprite->transform.position;
 	//Almost like in unity 
 }
  
