@@ -6,7 +6,7 @@
 s2d::UIHirachy::UIHirachy()
 {
 	this->m_deleteSprite = nullptr;
-	this->m_tempChildSprite = nullptr;
+	this->childSelectedToParent = nullptr;
 	this->isHovered = false;
 	this->m_clickedValidSprite = false;
 	this->m_isAnySpriteRightClicked = false;
@@ -32,7 +32,7 @@ void s2d::UIHirachy::createHirachyWindow()
 
 	ImGui::PopStyleVar();
 
-	if (this->m_tempChildSprite != nullptr)
+	if (this->childSelectedToParent != nullptr)
 	{
 		ImVec2 cursor = ImGui::GetCursorPos();
 		ImVec2 pos = ImVec2(sf::Mouse::getPosition().x - 100, sf::Mouse::getPosition().y + 10);
@@ -42,7 +42,7 @@ void s2d::UIHirachy::createHirachyWindow()
 			ImGui::SetWindowPos(pos);
 			ImGui::SetWindowFontScale(s2d::UIInfo::sdefaultFontSize);
 
-			ImGui::Text(this->m_tempChildSprite->name.c_str());
+			ImGui::Text(this->childSelectedToParent->name.c_str());
 			ImGui::End();
 		}
 	}
@@ -211,7 +211,7 @@ void s2d::UIHirachy::addSpritesToHirachy()
 	//Setting drag and drop sprite to nullptr (outide the for, fixed bug)
 	if (ImGui::IsMouseReleased(0))
 	{
-		this->m_tempChildSprite = nullptr;
+		this->childSelectedToParent = nullptr;
 	}
 
 	ImGui::SetWindowFontScale(s2d::UIInfo::sdefaultFontSize);
@@ -285,18 +285,18 @@ void s2d::UIHirachy::displayChildsRecursivly(s2d::Sprite* sprite)
 void s2d::UIHirachy::childSystem(s2d::Sprite* sprite, bool isHEader)
 {
 	//Setting child sprite (drag and drop)
-	if (this->m_tempChildSprite == nullptr)
+	if (this->childSelectedToParent == nullptr)
 	{
 		if (ImGui::IsItemClicked())
 		{
-			this->m_tempChildSprite = sprite;
+			this->childSelectedToParent = sprite;
 		}
 	}
 
 	//When holding a sprite and dragging it to a parent this will be set ehre
-	if (ImGui::IsMouseReleased(0) && this->m_tempChildSprite != nullptr && this->m_tempChildSprite->name != sprite->name && ImGui::IsItemHovered())
+	if (ImGui::IsMouseReleased(0) && this->childSelectedToParent != nullptr && this->childSelectedToParent->name != sprite->name && ImGui::IsItemHovered())
 	{
-		if (this->m_tempChildSprite->containsChild(sprite))
+		if (this->childSelectedToParent->containsChild(sprite))
 		{
 			return;
 		}
@@ -305,17 +305,18 @@ void s2d::UIHirachy::childSystem(s2d::Sprite* sprite, bool isHEader)
 		{
 			for (s2d::Sprite* child : parent->childs)
 			{
-				if (child->getId() == this->m_tempChildSprite->getId())
+				if (child->getId() == this->childSelectedToParent->getId())
 				{
 					//When dragging a new sprite as child we need to remove the child from the current sprite 
 					child->resetChildData();
 				}
 			}
 		}
-		this->m_tempChildSprite->setParent(sprite);
+		this->childSelectedToParent->setParent(sprite);
 	}
 }
 
 
 s2d::Sprite* s2d::UIHirachy::selectedSprite = nullptr;
+s2d::Sprite* s2d::UIHirachy::childSelectedToParent = nullptr;
 

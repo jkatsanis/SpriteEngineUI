@@ -97,6 +97,9 @@
     <Filter Include="Header Files\Gui\PropertyEditor\Assets">
       <UniqueIdentifier>{3cbb3679-8de9-470c-8b4d-50b961b2a7df}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Input">
+      <UniqueIdentifier>{72c9c064-97d4-4a46-8eb0-418e2f021303}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SpriteEngine.cpp">
@@ -281,9 +284,6 @@
     <ClInclude Include="src\gameData\spriteData.h">
       <Filter>Header Files\GameData</Filter>
     </ClInclude>
-    <ClInclude Include="src\gameData\input.h">
-      <Filter>Header Files\GameData</Filter>
-    </ClInclude>
     <ClInclude Include="src\gameObjects\line.h">
       <Filter>Header Files\GameObjects</Filter>
     </ClInclude>
@@ -338,9 +338,6 @@
     <ClInclude Include="src\gameData\event.h">
       <Filter>Header Files\GameData</Filter>
     </ClInclude>
-    <ClInclude Include="src\gameData\keyBoard.h">
-      <Filter>Header Files\GameData</Filter>
-    </ClInclude>
     <ClInclude Include="src\gui\propertyEditor\UIAnimation.h">
       <Filter>Header Files\Gui\PropertyEditor\Animation</Filter>
     </ClInclude>
@@ -364,6 +361,12 @@
     </ClInclude>
     <ClInclude Include="src\gui\realTimeEditor\UIRealTimeEditorTransform.h">
       <Filter>Header Files\Gui\RealTimeEditor</Filter>
+    </ClInclude>
+    <ClInclude Include="src\gameData\input.h">
+      <Filter>Header Files\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="src\gameData\keyBoard.h">
+      <Filter>Header Files\Input</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -24,7 +24,12 @@ s2d::UIRealTimeEditorNavigator::UIRealTimeEditorNavigator(sf::RenderWindow& wind
 	this->m_scrollSpeed = 0.15f;
 
 	s2d::GameObject::rects.push_back(this->m_windowRectangle);
+	m_windowRectangle_texture.loadFromFile("EngineAssets/Sprites/transparent.png");
 	this->m_vecPos = s2d::GameObject::rects.size() - 1;
+	s2d::GameObject::rects[this->m_vecPos].setSize(sf::Vector2f(1920, 1080));
+	s2d::GameObject::rects[this->m_vecPos].setOutlineColor(sf::Color(255, 255, 255));
+	s2d::GameObject::rects[this->m_vecPos].setOutlineThickness(3.5f);
+	s2d::GameObject::rects[this->m_vecPos].setPosition(sf::Vector2f(0, 0));
 
 	//Loading camera settings from file
 	this->loadCameraSettingsFromFile();
@@ -89,7 +94,6 @@ void s2d::UIRealTimeEditorNavigator::navigateScrollWheel()
 		}
 	}
 }
-
 
 void s2d::UIRealTimeEditorNavigator::calculateScrollWheelSpeed()
 {
@@ -161,17 +165,7 @@ void s2d::UIRealTimeEditorNavigator::setChangedPosition()
 
 void s2d::UIRealTimeEditorNavigator::setWhiteBox()
 {
-	s2d::GameObject::rects[this->m_vecPos].setSize(sf::Vector2f(1920, 1080));
-
-	s2d::GameObject::rects[this->m_vecPos].setOutlineColor(sf::Color(255, 255, 255));
-	s2d::GameObject::rects[this->m_vecPos].setOutlineThickness(3.5f);
-	s2d::GameObject::rects[this->m_vecPos].setPosition(sf::Vector2f(0, 0));
-
-	if (m_windowRectangle_texture.loadFromFile("EngineAssets/Sprites/transparent.png"))
-	{
-		s2d::GameObject::rects[this->m_vecPos].setTexture(&m_windowRectangle_texture);
-	}
-
+	s2d::GameObject::rects[this->m_vecPos].setTexture(&this->m_windowRectangle_texture);
 }
 
 

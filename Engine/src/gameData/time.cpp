@@ -16,6 +16,8 @@ void s2d::Time::update()
 		m_secondCounter = 0;
 		m_tempFps = 0;
 	}
+
+	//sstd::cout << fps << std::endl;
 	
 }
 

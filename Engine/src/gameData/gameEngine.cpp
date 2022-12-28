@@ -232,5 +232,3 @@ void s2d::GameEngine::update()
     m_timePassed += s2d::Time::deltaTime;
 
 }
-
-

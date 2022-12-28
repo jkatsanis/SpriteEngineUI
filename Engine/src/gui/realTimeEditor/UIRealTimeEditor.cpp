@@ -10,7 +10,7 @@ s2d::UIRealTimeEditor::UIRealTimeEditor()
 s2d::UIRealTimeEditor::UIRealTimeEditor(sf::RenderWindow& window, sf::Event* event, bool* isAnyUIWindowHovered, s2d::InspectorState* ptr_inspectorstate)
 {
 	this->m_navigator = s2d::UIRealTimeEditorNavigator(window, event, isAnyUIWindowHovered);
-	this->m_transformChanger = s2d::UIRealTimeEditorTransform(&window, ptr_inspectorstate);
+	this->m_transformChanger = s2d::UIRealTimeEditorTransform(&window, ptr_inspectorstate, isAnyUIWindowHovered);
 
 }
 

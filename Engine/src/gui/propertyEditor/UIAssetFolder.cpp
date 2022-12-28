@@ -185,7 +185,7 @@ void s2d::UIAssetFolder::setDragAndDrop(std::string path, std::string name)
     {
         this->m_draggingItem = true;
         s2d::UIAssetFolder::dragAndDropPath = path;   
-        this->dragAndDropName = name;
+        s2d::UIAssetFolder::dragAndDropName = name;
     }
     if (ImGui::IsMouseReleased(0))
     {

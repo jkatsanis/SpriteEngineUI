@@ -14,7 +14,7 @@ namespace s2d
 	class UIHirachy
 	{
 	private:
-		s2d::Sprite* m_tempChildSprite;
+		// The sprite we clicked to drag into a parent
 		s2d::Sprite* m_deleteSprite;
 
 		const char* m_menuName;
@@ -45,7 +45,7 @@ namespace s2d
 
 	public:
 		static s2d::Sprite* selectedSprite;
-
+		static s2d::Sprite* childSelectedToParent;
 	};
 }
 
