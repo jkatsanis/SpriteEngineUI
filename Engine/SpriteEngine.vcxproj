@@ -190,6 +190,8 @@
     <ClCompile Include="src\gui\propertyEditor\UIAnimationKeyFrameEditor.cpp" />
     <ClCompile Include="src\gui\propertyEditor\UIAnimationEditor.cpp" />
     <ClCompile Include="src\gui\propertyEditor\UIIconData.cpp" />
+    <ClCompile Include="src\gui\realTimeEditor\UIRealTimeEditorNavigator.cpp" />
+    <ClCompile Include="src\gui\realTimeEditor\UIRealTimeEditorTransform.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\gameData\fontManager.h" />
@@ -238,6 +240,8 @@
     <ClInclude Include="src\gui\propertyEditor\UIAnimationKeyFrameEditor.h" />
     <ClInclude Include="src\gui\propertyEditor\UIAnimationEditor.h" />
     <ClInclude Include="src\gui\propertyEditor\UIIconData.h" />
+    <ClInclude Include="src\gui\realTimeEditor\UIRealTimeEditorNavigator.h" />
+    <ClInclude Include="src\gui\realTimeEditor\UIRealTimeEditorTransform.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="addingNewSpriteProp.txt" />

@@ -213,6 +213,12 @@
     <ClCompile Include="src\gui\propertyEditor\UIIconData.cpp">
       <Filter>Source Files\Gui\PropertyEditor\Assets</Filter>
     </ClCompile>
+    <ClCompile Include="src\gui\realTimeEditor\UIRealTimeEditorNavigator.cpp">
+      <Filter>Source Files\Gui\RealTimeEditor</Filter>
+    </ClCompile>
+    <ClCompile Include="src\gui\realTimeEditor\UIRealTimeEditorTransform.cpp">
+      <Filter>Source Files\Gui\RealTimeEditor</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="imgui\imconfig.h">
@@ -352,6 +358,12 @@
     </ClInclude>
     <ClInclude Include="src\gameData\fontManager.h">
       <Filter>Header Files\GameData</Filter>
+    </ClInclude>
+    <ClInclude Include="src\gui\realTimeEditor\UIRealTimeEditorNavigator.h">
+      <Filter>Header Files\Gui\RealTimeEditor</Filter>
+    </ClInclude>
+    <ClInclude Include="src\gui\realTimeEditor\UIRealTimeEditorTransform.h">
+      <Filter>Header Files\Gui\RealTimeEditor</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -10,6 +10,7 @@ s2d::UIInspector::UIInspector()
 
 	this->m_collider = s2d::UIInspectorBoxCollider();
 	this->m_defaultBackgroundColor = s2d::Vector3(139, 165, 187);
+	this->state = s2d::InspectorState::None;
 }
 
 //Private functions
@@ -25,6 +26,7 @@ void s2d::UIInspector::render()
 	}
 	if (isInspectorSpriteEqualToActiveSprites() && s2d::UIHirachy::selectedSprite != nullptr)
 	{
+		this->state = s2d::InspectorState::SpriteEditorWindow;
 		this->m_inputName = &this->m_currentSpriteInInspector->name[0];
 
 		ImGui::SetCursorPos(ImVec2(15, 46));
@@ -45,6 +47,8 @@ void s2d::UIInspector::render()
 	}
 	else //Since we dont clicked a valid sprite we display the default inspector view
 	{
+		this->state = s2d::InspectorState::GameWindowEditor;
+
 		//Setting the rect to transparent because we dont want to show it when we deletet a sprite/´display default insp view
 		s2d::GameObject::rects[0].setOutlineColor(sf::Color(0, 0, 255, 0));
 

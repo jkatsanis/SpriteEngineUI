@@ -14,6 +14,12 @@
 
 namespace s2d
 {
+	enum class InspectorState
+	{
+		None = -1,
+		GameWindowEditor = 0,
+		SpriteEditorWindow = 1
+	};
 	class UIInspector
 	{
 	private:
@@ -61,7 +67,8 @@ namespace s2d
 		void checkDupeName();
 	public:
 		bool isHovered;
-		
+		s2d::InspectorState state;
+
 		// Get the value from UIWindow.cpp
 		s2d::Vector3 backgroundColor;
 
@@ -70,8 +77,8 @@ namespace s2d
 		void createUIInspector();
 
 	public:
-		static char* getNamePathSplit(std::string string);
 
+		static char* getNamePathSplit(std::string string);
 	};
 }
 

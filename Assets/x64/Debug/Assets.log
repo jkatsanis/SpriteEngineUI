@@ -1,4 +1,10 @@
-﻿  Testing.cpp
+﻿  event.cpp
+  childSystem.cpp
+  physics.cpp
+  physicsBody.cpp
+  camera.cpp
+  boxCollider.cpp
+  gameData.cpp
   sprite.cpp
 C:\Dev\SpriteEngineUI\Assets\src\engine\src\GameObject\sprite.cpp(81,53): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
           with
@@ -10,5 +16,21 @@ C:\Dev\SpriteEngineUI\Assets\src\engine\src\GameObject\sprite.cpp(81,41): warnin
           [
               T=unsigned int
           ]
+  gameObject.cpp
+  spriteData.cpp
+  input.cpp
+  FileData.cpp
+C:\Dev\SpriteEngineUI\Assets\src\engine\src\FileData\FileData.cpp(28,16): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Dev\SpriteEngineUI\Assets\src\engine\src\FileData\FileData.cpp(29,16): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Dev\SpriteEngineUI\Assets\src\engine\src\FileData\FileData.cpp(30,16): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+  boxColliderPositionData.cpp
+  main.cpp
+  game.cpp
+  Testing.cpp
+  vector2.cpp
+  stransform.cpp
+  sTime.cpp
+  vector3.cpp
   Generating Code...
+  LINK : C:\Dev\SpriteEngineUI\Assets\x64\Debug\Assets.exe not found or not built by the last incremental link; performing full link
   Assets.vcxproj -> C:\Dev\SpriteEngineUI\Assets\x64\Debug\Assets.exe
