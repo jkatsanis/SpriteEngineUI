@@ -32,6 +32,11 @@ void s2d::UIRealTimeEditorTransform::update()
     // Check if we click on a sprite in the editor
     s2d::Sprite* clickedSprite = this->checkIfMouseClickedOnSprite();
 
+    sf::Vector2i cursorPos = sf::Mouse::getPosition(*this->m_ptr_Window);
+    this->m_cursorWorldPos = this->m_ptr_Window->mapPixelToCoords(cursorPos);
+    this->m_cursor.position = s2d::Vector2(this->m_cursorWorldPos.x, this->m_cursorWorldPos.y);
+    this->m_cursor.setLastPosition();
+
     if (clickedSprite != nullptr)
     {
         // if we click from the game window setting to a sprite this will happen
@@ -61,10 +66,19 @@ void s2d::UIRealTimeEditorTransform::update()
 void s2d::UIRealTimeEditorTransform::moveComponent()
 {
     float x = this->m_cursorWorldPos.x - 960;
+
+    float plus = x - this->m_clickedSprite->transform.position.x;
+
     float y = -(this->m_cursorWorldPos.y - 540);
+
+    x = x - plus;
+
+
+    if(this->m_cursor.position == this->m_cursor.)
+
     s2d::Vector2 newPosition = s2d::Vector2(x, y);
     
-    this->m_clickedSprite->transform.position = newPosition;
+   / this->m_clickedSprite->transform.position = newPosition;
 
 }
 

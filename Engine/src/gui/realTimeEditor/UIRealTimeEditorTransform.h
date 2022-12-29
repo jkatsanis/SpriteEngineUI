@@ -16,9 +16,11 @@ namespace s2d
 		s2d::InspectorState* m_ptr_Inspectorstate;
 		bool* m_isAnyUIWindowHovered;
 		s2d::Sprite* m_clickedSprite;
-		
+		s2d::Transform m_cursor;
+
 		// Move component
 		void moveComponent();
+	
 
 		bool checkClick(s2d::Sprite& sprite);
 		s2d::Sprite* checkIfMouseClickedOnSprite();

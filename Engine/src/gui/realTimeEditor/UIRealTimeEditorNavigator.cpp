@@ -154,13 +154,8 @@ void s2d::UIRealTimeEditorNavigator::setChangedPosition()
 	this->m_cursor.position = s2d::Vector2(sf::Mouse::getPosition(*this->m_ptr_renderWindow).x, sf::Mouse::getPosition(*this->m_ptr_renderWindow).y);
 
 	//Setting the last position, temoporary "nextPos" needed
-	if (this->m_cursor.nextPos != this->m_cursor.position)
-	{
-		this->m_changedCursorPosition = true;
-		this->m_cursor.lastPos = this->m_cursor.nextPos;
-		this->m_cursor.nextPos = this->m_cursor.position;
-	}
 
+	this->m_changedCursorPosition = this->m_cursor.setLastPosition();
 }
 
 void s2d::UIRealTimeEditorNavigator::setWhiteBox()

@@ -17,6 +17,13 @@ namespace s2d
 
 		Transform();
 
+
+		/// <summary>
+		/// This method sets the last position of the Transform
+		/// </summary>
+		/// <returns>True if it set the last position succesful</returns>
+		bool setLastPosition();
+
 	public:
 		//Used in poll events
 		static void onPositionChange(s2d::Sprite* sprite);
