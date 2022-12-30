@@ -26,7 +26,6 @@ void s2d::ChildSystem::updateChildPositionRecursivly(s2d::Sprite* parent)
 	for (s2d::Sprite* child : parent->childs)
 	{
 		child->transform.position =  parent->transform.position - child->transform.positionToParent;
-		std::cout << child->transform.positionToParent.x << std::endl;
 		updateChildPositionRecursivly(child);
 	}
 }

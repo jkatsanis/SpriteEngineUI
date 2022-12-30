@@ -22,6 +22,7 @@ namespace s2d
 		bool m_isAnySpriteRightClicked;
 		float m_width;
 		bool m_clickedValidSprite;
+		s2d::Sprite* m_childSelectedToParent;
 
 		void render();
 		void createMenuPopup();
@@ -45,7 +46,6 @@ namespace s2d
 
 	public:
 		static s2d::Sprite* selectedSprite;
-		static s2d::Sprite* childSelectedToParent;
 	};
 }
 

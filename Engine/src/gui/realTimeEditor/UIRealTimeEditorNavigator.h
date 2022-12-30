@@ -14,7 +14,6 @@ namespace s2d
 	{
 	private:
 		s2d::Transform m_cursor;
-		bool m_changedCursorPosition;
 		s2d::Camera m_camera;
 
 		// The white big as box

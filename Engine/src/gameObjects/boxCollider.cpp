@@ -23,5 +23,4 @@ void s2d::BoxCollider::resetBoxCollider()
     this->canCollide = false;
     this->boxColliderHeightUpOrDown = Vector2(0, 0);
     this->boxColliderWidthLeftOrRight = Vector2(0, 0);
-    std::cout << boxColliderHeightUpOrDown.x << std::endl;
 }

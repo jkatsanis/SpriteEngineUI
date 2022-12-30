@@ -37,7 +37,6 @@ void s2d::UIAnimation::createUIAnimationWindow()
 
 		ImGui::End();
 	}
-	std::cout << isHovered << std::endl;
 }
 
 

@@ -94,21 +94,21 @@ void s2d::UIInspector::displayDefaultInspectorView()
 void s2d::UIInspector::backgroundSetting()
 {
 	ImGui::Dummy(ImVec2(0, 10));
-	ImGui::SetCursorPos(ImVec2(ImGui::GetCursorPosX() + 300, ImGui::GetCursorPosY() - 10));
+	ImGui::SetCursorPos(ImVec2(ImGui::GetCursorPosX() + 300, ImGui::GetCursorPosY() - 10));	
 
 	if (s2d::FontManager::displaySmybolAsButton(ICON_FA_RETWEET "##B"))
 	{
 		this->backgroundColor = this->m_defaultBackgroundColor;
 	}
 	ImGui::SetCursorPosY(ImGui::GetCursorPosY() - 41 + 10);
-	if (ImGui::TreeNode("Background"))
+    if (ImGui::TreeNode("Background"))
 	{
 		ImGui::Dummy(ImVec2(0, 16));
 
 		ImVec2 cursorPs = ImGui::GetCursorPos();
 
-		static ImVec4 clearColor = ImVec4(this->backgroundColor.x / 255, this->backgroundColor.y / 255, this->backgroundColor.z / 255, 1.0f);
-		ImGui::ColorEdit3("Background", (float*)&clearColor);
+	    ImVec4 clearColor = ImVec4(this->backgroundColor.x / 255, this->backgroundColor.y / 255, this->backgroundColor.z / 255, 1.0f);
+		ImGui::ColorEdit3("Background-Color", (float*)&clearColor);
 
 		this->backgroundColor.x = clearColor.x * 255;
 		this->backgroundColor.y = clearColor.y * 255;

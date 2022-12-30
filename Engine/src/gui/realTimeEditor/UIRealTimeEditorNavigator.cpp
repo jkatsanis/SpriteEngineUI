@@ -11,7 +11,6 @@ s2d::UIRealTimeEditorNavigator::UIRealTimeEditorNavigator()
 	this->m_ptr_renderWindow = nullptr;
 	this->m_arrowSpeed = 0.0f;
 	this->m_scrollSpeed = 0.0f;
-	this->m_changedCursorPosition = false;
 }
 
 s2d::UIRealTimeEditorNavigator::UIRealTimeEditorNavigator(sf::RenderWindow& window, sf::Event* event, bool* isAnyUIWindowHovered)
@@ -62,9 +61,8 @@ void s2d::UIRealTimeEditorNavigator::navigateRightClick()
 	{
 		sf::Vector2i mousePos = sf::Mouse::getPosition(*this->m_ptr_renderWindow);
 
-		if (this->m_changedCursorPosition)
+		if (this->m_cursor.posiitonChanged)
 		{
-			this->m_changedCursorPosition = false;
 			s2d::Vector2 moved = this->m_cursor.lastPos - this->m_cursor.position;
 
 			this->m_camera.transform.position += moved;
@@ -153,9 +151,7 @@ void s2d::UIRealTimeEditorNavigator::setChangedPosition()
 {
 	this->m_cursor.position = s2d::Vector2(sf::Mouse::getPosition(*this->m_ptr_renderWindow).x, sf::Mouse::getPosition(*this->m_ptr_renderWindow).y);
 
-	//Setting the last position, temoporary "nextPos" needed
-
-	this->m_changedCursorPosition = this->m_cursor.setLastPosition();
+	this->m_cursor.setLastPosition();
 }
 
 void s2d::UIRealTimeEditorNavigator::setWhiteBox()
@@ -168,7 +164,6 @@ void s2d::UIRealTimeEditorNavigator::navigateArrows()
 {
 	if (s2d::Input::onKeyHold(s2d::KeyBoardCode::Right))
 	{
-		std::cout << "hi";
 		this->m_camera.transform.position.x += this->m_arrowSpeed * s2d::Time::deltaTime;
 	}
 	if (s2d::Input::onKeyHold(s2d::KeyBoardCode::Left))

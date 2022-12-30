@@ -12,8 +12,10 @@ namespace s2d
 		enum Type 
 		{
 			None = -1,
-			Released = 0,
-			Pressed
+			KeyReleased = 0,
+			KeyPressed,
+			MousePressedLeft,
+			MouseReleasedLeft,
 		};
 
 		s2d::KeyBoardCode key;

@@ -15,7 +15,7 @@ namespace s2d
 	public: 
 
 		UIRealTimeEditor();
-		UIRealTimeEditor(sf::RenderWindow& renderWindow, sf::Event* event, bool* isAnyUIWindowHovered, s2d::InspectorState* ptr_inspectorState);
+		UIRealTimeEditor(sf::RenderWindow& renderWindow, sf::Event* event, bool* isAnyUIWindowHovered, s2d::InspectorState* ptr_inspectorState, s2d::Event* windowEvent);
 
 		void update();	
 	};

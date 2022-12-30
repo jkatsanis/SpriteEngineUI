@@ -13,7 +13,8 @@ s2d::GameEngine::GameEngine()
     this->ptr_renderWindow->setPosition(sf::Vector2i(desktop.width / 2 - this->ptr_renderWindow->getSize().x / 2, 0));
     this->m_isWindowFullScreen = false;
 
-    this->m_UIRealTimeEditor = s2d::UIRealTimeEditor(*ptr_renderWindow, &this->windowEvent, &this->m_UIWindow.isAnyUIWindowHovered, &this->m_UIWindow.getInspector().state);
+    this->m_UIRealTimeEditor = s2d::UIRealTimeEditor(*ptr_renderWindow, &this->windowEvent, &this->m_UIWindow.isAnyUIWindowHovered, 
+        &this->m_UIWindow.getInspector().state, &this->event);
 
     //Setting other classes
     s2d::Sprite::initActiveSprites();
@@ -71,13 +72,29 @@ void s2d::GameEngine::pollEvents()
         {
             if (this->windowEvent.type == sf::Event::KeyReleased)
             {
-                event.type = s2d::Event::Released;
+                event.type = s2d::Event::KeyReleased;
                 eventChanged = true;
             }
             else if (this->windowEvent.type == sf::Event::KeyPressed)
             {
                 eventChanged = true;
-                event.type = s2d::Event::Pressed;
+                event.type = s2d::Event::KeyPressed;
+            }
+            else if (this->windowEvent.type == sf::Event::MouseButtonPressed)
+            {      
+                if (this->windowEvent.mouseButton.button == sf::Mouse::Left)
+                {
+                    event.type = s2d::Event::MousePressedLeft;
+                    eventChanged = true;
+                }
+            }
+            else if (this->windowEvent.type == sf::Event::MouseButtonReleased)
+            {
+                if (this->windowEvent.mouseButton.button == sf::Mouse::Left)
+                {
+                    event.type = s2d::Event::MouseReleasedLeft;
+                    eventChanged = true;
+                }
             }
             else
             {
@@ -211,7 +228,6 @@ void s2d::GameEngine::update()
 
     //Renderere / window events
     this->pollEvents();
-
 
     //UIWindow (Engine)
     ImGui::PushFont(s2d::FontManager::defaultFont);

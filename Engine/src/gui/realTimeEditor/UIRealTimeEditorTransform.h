@@ -12,22 +12,22 @@ namespace s2d
 	private:
 		sf::Vector2f m_cursorWorldPos;
 	    sf::RenderWindow* m_ptr_Window;
-		short m_cursorRangeToClick;
 		s2d::InspectorState* m_ptr_Inspectorstate;
-		bool* m_isAnyUIWindowHovered;
 		s2d::Sprite* m_clickedSprite;
 		s2d::Transform m_cursor;
+		s2d::Event* m_windowEvent;
+		bool m_realeasedCursorOnSprite;
+		short m_cursorRangeToClick;
+		bool* m_isAnyUIWindowHovered;
 
-		// Move component
 		void moveComponent();
-	
 
 		bool checkClick(s2d::Sprite& sprite);
 		s2d::Sprite* checkIfMouseClickedOnSprite();
 	public:
 
 		UIRealTimeEditorTransform();
-		UIRealTimeEditorTransform(sf::RenderWindow* window, s2d::InspectorState* ptr_Inspectorstate, bool* hovered);
+		UIRealTimeEditorTransform(sf::RenderWindow* window, s2d::InspectorState* ptr_Inspectorstate, bool* hovered, s2d::Event* windowEvent);
 
 		void update();
 	};

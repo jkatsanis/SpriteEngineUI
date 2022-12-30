@@ -15,14 +15,16 @@ namespace s2d
 		s2d::Vector2 lastPos;
 		s2d::Vector2 positionToParent;
 
+		bool posiitonChanged;
+
 		Transform();
 
 
 		/// <summary>
-		/// This method sets the last position of the Transform
+		/// This method sets the last position of the transform. Needs to be user called.
+		/// Sets "positionChanged" to true if it did that succesfully. Needs to be called after the position changed (!)
 		/// </summary>
-		/// <returns>True if it set the last position succesful</returns>
-		bool setLastPosition();
+		void setLastPosition();
 
 	public:
 		//Used in poll events

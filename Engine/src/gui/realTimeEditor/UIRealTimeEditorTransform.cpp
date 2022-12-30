@@ -5,15 +5,17 @@
 
 s2d::UIRealTimeEditorTransform::UIRealTimeEditorTransform()
 {
-    this->m_isAnyUIWindowHovered = nullptr;
-    this->m_cursorRangeToClick = - 1;
-    this->m_ptr_Window = nullptr;   
-    this->m_clickedSprite = nullptr;
-    this->m_ptr_Inspectorstate = nullptr;
+this->m_windowEvent = nullptr;
+this->m_isAnyUIWindowHovered = nullptr;
+this->m_cursorRangeToClick = -1;
+this->m_ptr_Window = nullptr;
+this->m_clickedSprite = nullptr;
+this->m_ptr_Inspectorstate = nullptr;
 }
 
-s2d::UIRealTimeEditorTransform::UIRealTimeEditorTransform(sf::RenderWindow* window, s2d::InspectorState* ptr_Inspectorstate, bool* isAnyUIWindowHovered)
+s2d::UIRealTimeEditorTransform::UIRealTimeEditorTransform(sf::RenderWindow* window, s2d::InspectorState* ptr_Inspectorstate, bool* isAnyUIWindowHovered, s2d::Event* windowEvent)
 {
+    this->m_windowEvent = windowEvent;
     this->m_isAnyUIWindowHovered = isAnyUIWindowHovered;
     this->m_ptr_Inspectorstate = ptr_Inspectorstate;
     this->m_cursorRangeToClick = 25;
@@ -25,7 +27,7 @@ s2d::UIRealTimeEditorTransform::UIRealTimeEditorTransform(sf::RenderWindow* wind
 
 void s2d::UIRealTimeEditorTransform::update()
 {
-    if (*this->m_isAnyUIWindowHovered || s2d::UIHirachy::childSelectedToParent != nullptr || s2d::UIAssetFolder::dragAndDropPath != " ")
+    if (*this->m_isAnyUIWindowHovered)
     {
         return;
     }
@@ -66,19 +68,23 @@ void s2d::UIRealTimeEditorTransform::update()
 void s2d::UIRealTimeEditorTransform::moveComponent()
 {
     float x = this->m_cursorWorldPos.x - 960;
-
-    float plus = x - this->m_clickedSprite->transform.position.x;
-
     float y = -(this->m_cursorWorldPos.y - 540);
 
-    x = x - plus;
+    s2d::Vector2 pos = s2d::Vector2(this->m_cursorWorldPos.x - 960, -(this->m_cursorWorldPos.y - 540));
 
+    float m = x - this->m_clickedSprite->transform.position.x;
+    float my = y - this->m_clickedSprite->transform.position.y;
 
-    if(this->m_cursor.position == this->m_cursor.)
+    if (this->m_cursor.posiitonChanged)
+    {
+        s2d::Vector2 moved = this->m_cursor.lastPos - this->m_cursor.position;
+        m += moved.x;
+        my -= moved.y;
+    }
 
-    s2d::Vector2 newPosition = s2d::Vector2(x, y);
-    
-   / this->m_clickedSprite->transform.position = newPosition;
+    s2d::Vector2 newPosition = s2d::Vector2(x - m, y - my);
+
+    this->m_clickedSprite->transform.position = newPosition;
 
 }
 
@@ -95,11 +101,26 @@ bool s2d::UIRealTimeEditorTransform::checkClick(s2d::Sprite& sprite)
     float otherGetPosX = this->m_cursorWorldPos.x;
     float otherGetPosY = this->m_cursorWorldPos.y;
 
-    return (getPosX + sprite.transform.scale.x >= otherGetPosX
+    bool collided = (getPosX + sprite.transform.scale.x >= otherGetPosX
         && getPosX <= otherGetPosX + this->m_cursorRangeToClick
         && getPosY + sprite.transform.scale.y >= otherGetPosY
-        && getPosY <= otherGetPosY + this->m_cursorRangeToClick
-        && sf::Mouse::isButtonPressed(sf::Mouse::Left));
+        && getPosY <= otherGetPosY + this->m_cursorRangeToClick);
+
+    if (this->m_realeasedCursorOnSprite && collided && sf::Mouse::isButtonPressed(sf::Mouse::Left))
+    {
+        return true;
+    }
+    else if(collided && this->m_windowEvent->type == s2d::Event::MousePressedLeft)
+    {
+        this->m_windowEvent->type = s2d::Event::Type::None;
+        this->m_realeasedCursorOnSprite = true;
+        return true;
+    }
+    if (this->m_windowEvent->type == s2d::Event::MousePressedLeft)
+    {
+        this->m_realeasedCursorOnSprite = false;
+    }
+    return false;
 }
 
 s2d::Sprite* s2d::UIRealTimeEditorTransform::checkIfMouseClickedOnSprite()
