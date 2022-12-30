@@ -13,12 +13,15 @@ namespace s2d
 		sf::Vector2f m_cursorWorldPos;
 	    sf::RenderWindow* m_ptr_Window;
 		s2d::InspectorState* m_ptr_Inspectorstate;
-		s2d::Sprite* m_clickedSprite;
 		s2d::Transform m_cursor;
 		s2d::Event* m_windowEvent;
 		bool m_realeasedCursorOnSprite;
 		short m_cursorRangeToClick;
 		bool* m_isAnyUIWindowHovered;
+
+		// Data of sprite we clicked
+		s2d::Sprite* m_clickedSprite;
+		int m_clickedSpriteId;
 
 		void moveComponent();
 

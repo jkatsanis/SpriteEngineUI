@@ -5,12 +5,14 @@
 
 s2d::UIRealTimeEditorTransform::UIRealTimeEditorTransform()
 {
-this->m_windowEvent = nullptr;
-this->m_isAnyUIWindowHovered = nullptr;
-this->m_cursorRangeToClick = -1;
-this->m_ptr_Window = nullptr;
-this->m_clickedSprite = nullptr;
-this->m_ptr_Inspectorstate = nullptr;
+    this->m_windowEvent = nullptr;
+    this->m_isAnyUIWindowHovered = nullptr;
+    this->m_cursorRangeToClick = -1;
+    this->m_ptr_Window = nullptr;
+    this->m_clickedSprite = nullptr;
+    this->m_ptr_Inspectorstate = nullptr;
+    this->m_realeasedCursorOnSprite = false;
+    this->m_clickedSpriteId = -1;
 }
 
 s2d::UIRealTimeEditorTransform::UIRealTimeEditorTransform(sf::RenderWindow* window, s2d::InspectorState* ptr_Inspectorstate, bool* isAnyUIWindowHovered, s2d::Event* windowEvent)
@@ -21,6 +23,8 @@ s2d::UIRealTimeEditorTransform::UIRealTimeEditorTransform(sf::RenderWindow* wind
     this->m_cursorRangeToClick = 25;
     this->m_ptr_Window = window;
     this->m_clickedSprite = nullptr;
+    this->m_realeasedCursorOnSprite = false;
+    this->m_clickedSpriteId = -1;
 }
 
 // Public functions
@@ -41,18 +45,8 @@ void s2d::UIRealTimeEditorTransform::update()
 
     if (clickedSprite != nullptr)
     {
-        // if we click from the game window setting to a sprite this will happen
-        if (this->m_clickedSprite == nullptr)
-        {
-            s2d::UIHirachy::selectedSprite = clickedSprite;
-        }
-        // If we click on a other sprite we select this
-        if (this->m_clickedSprite != clickedSprite)
-        {
-            s2d::UIHirachy::selectedSprite = clickedSprite;
-        }
         this->m_clickedSprite = clickedSprite;
-
+        s2d::UIHirachy::selectedSprite = this->m_clickedSprite;
 
         this->moveComponent();
     }
@@ -106,20 +100,29 @@ bool s2d::UIRealTimeEditorTransform::checkClick(s2d::Sprite& sprite)
         && getPosY + sprite.transform.scale.y >= otherGetPosY
         && getPosY <= otherGetPosY + this->m_cursorRangeToClick);
 
-    if (this->m_realeasedCursorOnSprite && collided && sf::Mouse::isButtonPressed(sf::Mouse::Left))
+    
+    if (collided && this->m_windowEvent->type == s2d::Event::Type::MousePressedLeft)
     {
-        return true;
-    }
-    else if(collided && this->m_windowEvent->type == s2d::Event::MousePressedLeft)
-    {
+        std::cout << sprite.name << std::endl;
         this->m_windowEvent->type = s2d::Event::Type::None;
         this->m_realeasedCursorOnSprite = true;
+        this->m_clickedSpriteId = sprite.getId();
         return true;
     }
-    if (this->m_windowEvent->type == s2d::Event::MousePressedLeft)
+    if (this->m_windowEvent->type == s2d::Event::MouseReleasedLeft)
     {
+        this->m_windowEvent->type = s2d::Event::None;
         this->m_realeasedCursorOnSprite = false;
+        return false;
     }
+
+    // Checking if we have the same ID. If we wouldnt do that check it could just return
+    // The next sprite in the list which would be wrong
+    if (this->m_realeasedCursorOnSprite && sf::Mouse::isButtonPressed(sf::Mouse::Left) && sprite.getId() == this->m_clickedSpriteId)
+    {
+        return true;
+    }
+   
     return false;
 }
 

@@ -27,7 +27,7 @@ s2d::UIRealTimeEditorNavigator::UIRealTimeEditorNavigator(sf::RenderWindow& wind
 	this->m_vecPos = s2d::GameObject::rects.size() - 1;
 	s2d::GameObject::rects[this->m_vecPos].setSize(sf::Vector2f(1920, 1080));
 	s2d::GameObject::rects[this->m_vecPos].setOutlineColor(sf::Color(255, 255, 255));
-	s2d::GameObject::rects[this->m_vecPos].setOutlineThickness(3.5f);
+	s2d::GameObject::rects[this->m_vecPos].setOutlineThickness(4.0f);
 	s2d::GameObject::rects[this->m_vecPos].setPosition(sf::Vector2f(0, 0));
 
 	//Loading camera settings from file

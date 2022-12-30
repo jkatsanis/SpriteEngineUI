@@ -224,14 +224,25 @@ void s2d::UIHirachy::displayChildsRecursivly(s2d::Sprite* sprite)
 	std::string s_name = sprite->name;
 
 	const char* name = s_name.c_str();
+	bool popStyle = false;
 
 	if (sprite->childs.size() > 0)
 	{
+		if (s2d::UIHirachy::selectedSprite != nullptr && s2d::UIHirachy::selectedSprite->getId() == sprite->getId())
+		{
+			popStyle = true;
+			ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(0, 204, 255, 1));
+		}
 		// Displaying the sprite name
 		s2d::FontManager::displaySmybolAsText(ICON_FA_IMAGE);
 		ImGui::SetCursorPos(ImVec2(ImGui::GetCursorPosX() + 20, ImGui::GetCursorPosY() - 23));
 		if (ImGui::TreeNode(name))
 		{
+			if (popStyle)
+			{
+				popStyle = false;
+				ImGui::PopStyleColor();
+			}
 			//Tree needs to be collapsed to delete the Sprite ( parent ) 
 			if (ImGui::IsItemClicked(0))
 			{
@@ -244,7 +255,7 @@ void s2d::UIHirachy::displayChildsRecursivly(s2d::Sprite* sprite)
 				m_deleteSprite = sprite;
 			}
 
-			this->childSystem(sprite, true);
+			this->childSystem(sprite, false);
 
 			for (s2d::Sprite* child : sprite->childs)
 			{
@@ -252,6 +263,12 @@ void s2d::UIHirachy::displayChildsRecursivly(s2d::Sprite* sprite)
 			}
 			ImGui::TreePop();
 		}
+		if (popStyle)
+		{
+			popStyle = false;
+			ImGui::PopStyleColor();
+		}
+
 	}
 	else
 	{
@@ -260,10 +277,21 @@ void s2d::UIHirachy::displayChildsRecursivly(s2d::Sprite* sprite)
 			ImGui::SetCursorPos(ImVec2(ImGui::GetCursorPosX() + 40, ImGui::GetCursorPosY()));
 		}
 
+		if (s2d::UIHirachy::selectedSprite != nullptr && s2d::UIHirachy::selectedSprite->getId() == sprite->getId())
+		{
+			popStyle = true;
+			ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(0, 204, 255, 1));
+		}
+
 		// Displaying the sprite name
 		s2d::FontManager::displaySmybolAsText(ICON_FA_IMAGE);
 		ImGui::SameLine();
+
 		bool clicked = ImGui::MenuItem(name);
+		if (popStyle)
+		{
+			ImGui::PopStyleColor();
+		}
 
 		//Setting sprit which will be deletet when we right click and dlcik button delete
 		if (ImGui::IsItemClicked(1))
