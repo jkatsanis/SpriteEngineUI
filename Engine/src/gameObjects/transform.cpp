@@ -5,6 +5,7 @@
 
 s2d::Transform::Transform()
 {
+	this->keepOpenInHirachy = false;
 	this->position = s2d::Vector2(0.0f, 0.0f);
 	this->posiitonChanged = false;
 }

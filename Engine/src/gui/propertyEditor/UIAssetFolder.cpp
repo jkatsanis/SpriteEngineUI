@@ -169,7 +169,7 @@ void s2d::UIAssetFolder::goBackToBeforeFolder()
 
         ImGui::SameLine();
         if(i != props.size() - 1)
-            ImGui::Text("->");
+            ImGui::Text(">");
         ImGui::SameLine();
     }
     ImGui::Dummy(ImVec2(0, 30));

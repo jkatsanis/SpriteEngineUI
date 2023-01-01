@@ -17,7 +17,7 @@ void s2d::Time::update()
 		m_tempFps = 0;
 	}
 
-//	std::cout << fps << std::endl;
+	//std::cout << fps << std::endl;
 	
 }
 

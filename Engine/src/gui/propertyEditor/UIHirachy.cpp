@@ -13,7 +13,14 @@ s2d::UIHirachy::UIHirachy()
 	this->m_isPopUpOpen = false;
 	this->m_menuName = "menu";
 	this->m_width = 250.0f;
+	this->m_setAllKeepOnHirachyBoolsToFalse = false;
+
+	this->m_spriteSelectedColor = ImVec4(139.0f / 255.0f,
+										180.0f / 255.0f,
+										234.0f / 255.0f,
+										1.0f);
 }
+									
 
 //Public functions
 
@@ -25,7 +32,7 @@ void s2d::UIHirachy::createHirachyWindow()
 	this->m_clickedValidSprite = false;
 	if (ImGui::Begin("Hirachy", NULL, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoMove))
 	{
-		this->render();
+		this->displayHirachyComponents();
 		this->isHovered = ImGui::IsWindowHovered(ImGuiHoveredFlags_AllowWhenBlockedByActiveItem) || this->m_isPopUpOpen;
 		ImGui::End();
 	}
@@ -50,7 +57,7 @@ void s2d::UIHirachy::createHirachyWindow()
 
 //private functions
 
-void s2d::UIHirachy::render()
+void s2d::UIHirachy::displayHirachyComponents()
 {
 	//Setting HY window size
 	ImGui::SetWindowFontScale(s2d::UIInfo::sdefaultFontSize);
@@ -217,82 +224,64 @@ void s2d::UIHirachy::addSpritesToHirachy()
 	ImGui::SetWindowFontScale(s2d::UIInfo::sdefaultFontSize);
 }
 
+#pragma region  display childs
+
 void s2d::UIHirachy::displayChildsRecursivly(s2d::Sprite* sprite)
 {
 	//Setting sprite name
 	std::string s_empty = " ";
-	std::string s_name = sprite->name;
 
-	const char* name = s_name.c_str();
+	const char* name = sprite->name.c_str();
 	bool popStyle = false;
 
 	if (sprite->childs.size() > 0)
 	{
-		if (s2d::UIHirachy::selectedSprite != nullptr && s2d::UIHirachy::selectedSprite->getId() == sprite->getId())
-		{
-			popStyle = true;
-			ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(0, 204, 255, 1));
-		}
-		// Displaying the sprite name
-		s2d::FontManager::displaySmybolAsText(ICON_FA_IMAGE);
-		ImGui::SetCursorPos(ImVec2(ImGui::GetCursorPosX() + 20, ImGui::GetCursorPosY() - 23));
-		if (ImGui::TreeNode(name))
-		{
-			if (popStyle)
-			{
-				popStyle = false;
-				ImGui::PopStyleColor();
-			}
-			//Tree needs to be collapsed to delete the Sprite ( parent ) 
-			if (ImGui::IsItemClicked(0))
-			{
-				m_clickedValidSprite = true;
-				s2d::UIHirachy::selectedSprite = sprite;
-			}
-			//Setting sprit which will be deletet when we right click and dlcik button delete
-			if (ImGui::IsItemClicked(1))
-			{
-				m_deleteSprite = sprite;
-			}
+		this->displayTreeNode(sprite, popStyle);
+	}
+	else
+	{
+		this->displayMenuItem(sprite, popStyle);
+	}
+}
 
-			this->childSystem(sprite, false);
 
-			for (s2d::Sprite* child : sprite->childs)
-			{
-				displayChildsRecursivly(child);
-			}
-			ImGui::TreePop();
+void s2d::UIHirachy::displayTreeNode(s2d::Sprite* sprite, bool& popStyle)
+{
+	const char* name = sprite->name.c_str();
+
+	if (s2d::UIHirachy::selectedSprite != nullptr && s2d::UIHirachy::selectedSprite->getId() == sprite->getId())
+	{
+		popStyle = true;
+		ImGui::PushStyleColor(ImGuiCol_Text, this->m_spriteSelectedColor);
+	}
+
+	// Iterating recursivly over the sprites, if we select 1 which gets not displayed in the 
+	// Hirachy this will open the trees for it
+	if (s2d::UIHirachy::selectedSprite != nullptr)
+	{
+		if (sprite->containsChild(s2d::UIHirachy::selectedSprite))
+		{
+			ImGui::SetNextItemOpen(true);
 		}
+
+	}
+
+	ImGui::SetCursorPosX(ImGui::GetCursorPosX() - 10);
+	// Displaying the name
+	if (ImGui::TreeNode(name))
+	{
 		if (popStyle)
 		{
 			popStyle = false;
 			ImGui::PopStyleColor();
 		}
-
-	}
-	else
-	{
-		if (sprite->parent != nullptr)
+		//Tree needs to be collapsed to delete the Sprite ( parent ) 
+		if (ImGui::IsItemClicked(0))
 		{
-			ImGui::SetCursorPos(ImVec2(ImGui::GetCursorPosX() + 40, ImGui::GetCursorPosY()));
+			std::cout << "h ";
+			m_clickedValidSprite = true;
+			s2d::UIHirachy::selectedSprite = sprite;
 		}
-
-		if (s2d::UIHirachy::selectedSprite != nullptr && s2d::UIHirachy::selectedSprite->getId() == sprite->getId())
-		{
-			popStyle = true;
-			ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(0, 204, 255, 1));
-		}
-
-		// Displaying the sprite name
-		s2d::FontManager::displaySmybolAsText(ICON_FA_IMAGE);
-		ImGui::SameLine();
-
-		bool clicked = ImGui::MenuItem(name);
-		if (popStyle)
-		{
-			ImGui::PopStyleColor();
-		}
-
 		//Setting sprit which will be deletet when we right click and dlcik button delete
 		if (ImGui::IsItemClicked(1))
 		{
@@ -301,14 +290,59 @@ void s2d::UIHirachy::displayChildsRecursivly(s2d::Sprite* sprite)
 
 		this->childSystem(sprite, false);
 
-		if (clicked)
+		for (s2d::Sprite* child : sprite->childs)
 		{
-			//Setting  the sprite to selected when we click it in the HY
-			m_clickedValidSprite = true;
-			s2d::UIHirachy::selectedSprite = sprite;
+			displayChildsRecursivly(child);
 		}
+		ImGui::TreePop();
+	}
+	if (popStyle)
+	{
+		popStyle = false;
+		ImGui::PopStyleColor();
 	}
 }
+
+void s2d::UIHirachy::displayMenuItem(s2d::Sprite* sprite, bool popStyle)
+{
+	const char* name = sprite->name.c_str();
+
+	if (sprite->parent != nullptr)
+	{
+		ImGui::SetCursorPos(ImVec2(ImGui::GetCursorPosX() + 40, ImGui::GetCursorPosY()));
+	}
+
+	if (s2d::UIHirachy::selectedSprite != nullptr && s2d::UIHirachy::selectedSprite->getId() == sprite->getId())
+	{
+		popStyle = true;
+		ImGui::PushStyleColor(ImGuiCol_Text, this->m_spriteSelectedColor);
+	}
+
+	// Displaying the sprite name
+	bool clicked = ImGui::MenuItem(name);
+	if (popStyle)
+	{
+		ImGui::PopStyleColor();
+	}
+
+	//Setting sprit which will be deletet when we right click and dlcik button delete
+	if (ImGui::IsItemClicked(1))
+	{
+		m_deleteSprite = sprite;
+	}
+
+	this->childSystem(sprite, false);
+
+	if (clicked)
+	{
+		//Setting  the sprite to selected when we click it in the HY
+		m_clickedValidSprite = true;
+		s2d::UIHirachy::selectedSprite = sprite;
+	}
+}
+
+#pragma endregion
+
 
 void s2d::UIHirachy::childSystem(s2d::Sprite* sprite, bool isHEader)
 {

@@ -113,7 +113,7 @@ void s2d::UIInspectorBoxCollider::height(s2d::Sprite* sprite)
 
 void s2d::UIInspectorBoxCollider::drawBoxCollider(s2d::Sprite* sprite)
 {
-	sf::Vector2f size = sf::Vector2f(sprite->transform.scale.x + (-sprite->collider.boxColliderWidthLeftOrRight.x + sprite->collider.boxColliderWidthLeftOrRight.y),
+	sf::Vector2f size = sf::Vector2f(sprite->transform.scale.x + (-sprite->collider.boxColliderWidthLeftOrRight.x + sprite->collider.boxColliderWidthLeftOrRight.y) ,
 		sprite->transform.scale.y + (-sprite->collider.boxColliderHeightUpOrDown.x + sprite->collider.boxColliderHeightUpOrDown.y));
 
 	s2d::GameObject::rects[1].setSize(size);

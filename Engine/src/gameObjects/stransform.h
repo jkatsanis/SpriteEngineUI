@@ -1,3 +1,4 @@
+
 #pragma once
 
 #include <vector2.h>
@@ -16,6 +17,7 @@ namespace s2d
 		s2d::Vector2 positionToParent;
 
 		bool posiitonChanged;
+		bool keepOpenInHirachy;
 
 		Transform();
 

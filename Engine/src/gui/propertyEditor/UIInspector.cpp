@@ -204,7 +204,7 @@ void s2d::UIInspector::drawRectangleOverCurrentObject()
 {
 	s2d::GameObject::rects[0].setOutlineColor(sf::Color(0, 0, 0));
 	s2d::GameObject::rects[0].setOutlineThickness(3.5f);
-	s2d::GameObject::rects[0].setSize(sf::Vector2f(this->m_currentSpriteInInspector->transform.scale.x + 1.2f, this->m_currentSpriteInInspector->transform.scale.y + 1.2f));
+	s2d::GameObject::rects[0].setSize(sf::Vector2f(this->m_currentSpriteInInspector->transform.scale.x, this->m_currentSpriteInInspector->transform.scale.y));
 	s2d::GameObject::rects[0].setPosition(this->m_currentSpriteInInspector->getOrigininalPosition().x, this->m_currentSpriteInInspector->getOrigininalPosition().y);
 	s2d::GameObject::rects[0].setTexture(&this->m_textureOverSprite);
 }
