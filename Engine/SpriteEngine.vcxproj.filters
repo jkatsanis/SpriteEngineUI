@@ -100,6 +100,12 @@
     <Filter Include="Header Files\Input">
       <UniqueIdentifier>{72c9c064-97d4-4a46-8eb0-418e2f021303}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Gui\PropertyEditor\Hirachy">
+      <UniqueIdentifier>{b96428fd-9fde-444c-9391-d819819655b5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Gui\PropertyEditor\Hirachy">
+      <UniqueIdentifier>{e1358527-3aea-468e-8a94-a480b73eb6e4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SpriteEngine.cpp">
@@ -158,9 +164,6 @@
     </ClCompile>
     <ClCompile Include="src\gameObjects\boxCollider.cpp">
       <Filter>Source Files\GameObjects</Filter>
-    </ClCompile>
-    <ClCompile Include="src\gui\propertyEditor\UIHirachy.cpp">
-      <Filter>Source Files\Gui\PropertyEditor</Filter>
     </ClCompile>
     <ClCompile Include="src\gui\propertyEditor\UIInspector.cpp">
       <Filter>Source Files\Gui\PropertyEditor</Filter>
@@ -221,6 +224,15 @@
     </ClCompile>
     <ClCompile Include="src\gui\realTimeEditor\UIRealTimeEditorTransform.cpp">
       <Filter>Source Files\Gui\RealTimeEditor</Filter>
+    </ClCompile>
+    <ClCompile Include="src\gui\propertyEditor\UIHirachy.cpp">
+      <Filter>Source Files\Gui\PropertyEditor\Hirachy</Filter>
+    </ClCompile>
+    <ClCompile Include="src\gui\propertyEditor\UIHirachySpriteDisplay.cpp">
+      <Filter>Source Files\Gui\PropertyEditor\Hirachy</Filter>
+    </ClCompile>
+    <ClCompile Include="src\gui\propertyEditor\UIHirachyMenuDisplayer.cpp">
+      <Filter>Source Files\Gui\PropertyEditor\Hirachy</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -302,9 +314,6 @@
     <ClInclude Include="src\gui\propertyEditor\UIInspector.h">
       <Filter>Header Files\Gui\PropertyEditor</Filter>
     </ClInclude>
-    <ClInclude Include="src\gui\propertyEditor\UIHirachy.h">
-      <Filter>Header Files\Gui\PropertyEditor</Filter>
-    </ClInclude>
     <ClInclude Include="src\gui\propertyEditor\UIToolButtons.h">
       <Filter>Header Files\Gui\PropertyEditor</Filter>
     </ClInclude>
@@ -367,6 +376,15 @@
     </ClInclude>
     <ClInclude Include="src\gameData\keyBoard.h">
       <Filter>Header Files\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="src\gui\propertyEditor\UIHirachy.h">
+      <Filter>Header Files\Gui\PropertyEditor\Hirachy</Filter>
+    </ClInclude>
+    <ClInclude Include="src\gui\propertyEditor\UIHirachySpriteDisplay.h">
+      <Filter>Header Files\Gui\PropertyEditor\Hirachy</Filter>
+    </ClInclude>
+    <ClInclude Include="src\gui\propertyEditor\UIHirachyMenuDisplayer.h">
+      <Filter>Header Files\Gui\PropertyEditor\Hirachy</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

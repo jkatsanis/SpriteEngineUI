@@ -192,6 +192,8 @@
     <ClCompile Include="src\gui\propertyEditor\UIIconData.cpp" />
     <ClCompile Include="src\gui\realTimeEditor\UIRealTimeEditorNavigator.cpp" />
     <ClCompile Include="src\gui\realTimeEditor\UIRealTimeEditorTransform.cpp" />
+    <ClCompile Include="src\gui\propertyEditor\UIHirachyMenuDisplayer.cpp" />
+    <ClCompile Include="src\gui\propertyEditor\UIHirachySpriteDisplay.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\gameData\fontManager.h" />
@@ -242,6 +244,8 @@
     <ClInclude Include="src\gui\propertyEditor\UIIconData.h" />
     <ClInclude Include="src\gui\realTimeEditor\UIRealTimeEditorNavigator.h" />
     <ClInclude Include="src\gui\realTimeEditor\UIRealTimeEditorTransform.h" />
+    <ClInclude Include="src\gui\propertyEditor\UIHirachyMenuDisplayer.h" />
+    <ClInclude Include="src\gui\propertyEditor\UIHirachySpriteDisplay.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="addingNewSpriteProp.txt" />

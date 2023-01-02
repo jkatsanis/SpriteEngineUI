@@ -10,9 +10,13 @@ C:\Dev\SpriteEngineUI\Engine\src\animation\animation.h(37,22): warning C4267: 'r
 C:\Dev\SpriteEngineUI\Engine\src\animation\animation.h(37,22): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
   UIHirachy.cpp
 C:\Dev\SpriteEngineUI\Engine\src\animation\animation.h(37,22): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
-C:\Dev\SpriteEngineUI\Engine\src\gui\propertyEditor\UIHirachy.cpp(45,84): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Dev\SpriteEngineUI\Engine\src\gui\propertyEditor\UIHirachy.cpp(45,50): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Dev\SpriteEngineUI\Engine\src\gui\propertyEditor\UIHirachy.cpp(146,57): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+  UIHirachyMenuDisplayer.cpp
+C:\Dev\SpriteEngineUI\Engine\src\animation\animation.h(37,22): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
+C:\Dev\SpriteEngineUI\Engine\src\gui\propertyEditor\UIHirachyMenuDisplayer.cpp(96,57): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+  UIHirachySpriteDisplay.cpp
+C:\Dev\SpriteEngineUI\Engine\src\animation\animation.h(37,22): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
+C:\Dev\SpriteEngineUI\Engine\src\gui\propertyEditor\UIHirachySpriteDisplay.cpp(51,84): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Dev\SpriteEngineUI\Engine\src\gui\propertyEditor\UIHirachySpriteDisplay.cpp(51,50): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
   UIInspector.cpp
 C:\Dev\SpriteEngineUI\Engine\src\animation\animation.h(37,22): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
   UIInspectorBoxCollider.cpp
