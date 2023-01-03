@@ -27,7 +27,7 @@ int s2d::SpriteData::getHighestIndex()
 	return index;
 }
 
-std::string s2d::SpriteData::defaultSpritePath = "../Assets/src/engine/engineAssets/Sprites/default.png";
+std::string s2d::SpriteData::defaultSpritePath = "EngineAssets/Sprites/default.png";
 int s2d::SpriteData::highestIndex = s2d::SpriteData::getHighestIndex();
 int s2d::SpriteData::dupeNameCounter = 0;
 

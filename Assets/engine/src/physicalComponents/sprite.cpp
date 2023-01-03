@@ -190,7 +190,14 @@ void s2d::Sprite::initActiveSprites()
 			sprite->setVectorPosition(atoi(propertys[1].c_str()));
 			sprite->transform.position.x = std::stof(propertys[2].c_str());
 			sprite->transform.position.y = std::stof(propertys[3].c_str());
+
 			sprite->path = propertys[4];
+			if (sprite->path == "EngineAssets/Sprites/default.png")
+			{
+				std::string enginePath = "..\\Engine\\";
+				sprite->path = enginePath + "EngineAssets\\Sprites\\default.png";
+			}
+
 
 			if (!sprite->m_texture.loadFromFile(sprite->path))
 			{

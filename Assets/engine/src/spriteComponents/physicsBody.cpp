@@ -1,5 +1,5 @@
 #include "physicsBody.h"
-#include <sprite.h>
+#include <physicalComponents/sprite.h>
 
 //Constructor
 

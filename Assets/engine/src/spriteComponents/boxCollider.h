@@ -1,8 +1,8 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
-#include <vector2.h>
-#include <boxColliderPositionData.h>
+#include <calculationComponents/vector2.h>
+#include <spriteComponents/boxColliderPositionData.h>
 #include <iostream>
 
 namespace s2d

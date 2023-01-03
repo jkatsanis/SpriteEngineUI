@@ -88,13 +88,13 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)\include;$(SolutionDir)\Engine\GameData;$(SolutionDir)\assets\Scripts;$(SolutionDir)\Engine</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)engine\src\;$(SolutionDir)engine\libraries\include\;$(SolutionDir)assets\Scripts</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>sfml-system-d.lib;sfml-audio-d.lib;sfml-graphics-d.lib;sfml-window-d.lib;sfml-network-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)engine\libraries\lib</AdditionalLibraryDirectories>
+      <AdditionalDependencies>sfml-system-d.lib;sfml-audio-d.lib;sfml-graphics-d.lib;sfml-window-d.lib;sfml-network-d.lib;opengl32.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -105,15 +105,15 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)\include;$(SolutionDir)\Engine\GameData;$(SolutionDir)\assets\Scripts;$(SolutionDir)\Engine</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)engine\src\;$(SolutionDir)engine\libraries\include\;$(SolutionDir)assets\Scripts</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>sfml-system.lib;sfml-audio.lib;sfml-graphics.lib;sfml-window.lib;sfml-network.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)engine\libraries\lib</AdditionalLibraryDirectories>
+      <AdditionalDependencies>sfml-system-d.lib;sfml-audio-d.lib;sfml-graphics-d.lib;sfml-window-d.lib;sfml-network-d.lib;opengl32.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -122,13 +122,13 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)\assets\Scripts\;$(SolutionDir)\src\libraries\include\;$(SolutionDir)\src\engine\src\;$(SolutionDir)\src\engine\src\fileData\;$(SolutionDir)\src\engine\src\gameData\;$(SolutionDir)\src\engine\src\gameObject\;$(SolutionDir)\src\engine\src\math\;$(SolutionDir)\src\engine\src\physics\</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)engine\src\;$(SolutionDir)engine\libraries\include\;$(SolutionDir)assets\Scripts</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)\src\libraries\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>sfml-system-d.lib;sfml-audio-d.lib;sfml-graphics-d.lib;sfml-window-d.lib;sfml-network-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)engine\libraries\lib</AdditionalLibraryDirectories>
+      <AdditionalDependencies>sfml-system-d.lib;sfml-audio-d.lib;sfml-graphics-d.lib;sfml-window-d.lib;sfml-network-d.lib;opengl32.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -139,52 +139,167 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)\include;$(SolutionDir)\Engine\GameData;$(SolutionDir)\assets\Scripts;$(SolutionDir)\Engine</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)engine\src\;$(SolutionDir)engine\libraries\include\;$(SolutionDir)assets\Scripts</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>sfml-system.lib;sfml-audio.lib;sfml-graphics.lib;sfml-window.lib;sfml-network.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)engine\libraries\lib</AdditionalLibraryDirectories>
+      <AdditionalDependencies>sfml-system-d.lib;sfml-audio-d.lib;sfml-graphics-d.lib;sfml-window-d.lib;sfml-network-d.lib;opengl32.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\engine\src\gameData\event.cpp" />
-    <ClCompile Include="src\engine\src\gameObject\childSystem.cpp" />
-    <ClCompile Include="src\engine\src\physics\physics.cpp" />
-    <ClCompile Include="src\engine\src\gameObject\physicsBody.cpp" />
-    <ClCompile Include="src\engine\src\gameData\camera.cpp" />
-    <ClCompile Include="src\engine\src\GameObject\boxCollider.cpp" />
-    <ClCompile Include="src\engine\src\GameData\gameData.cpp" />
-    <ClCompile Include="src\engine\src\GameObject\sprite.cpp" />
-    <ClCompile Include="src\engine\src\GameObject\gameObject.cpp" />
-    <ClCompile Include="src\engine\src\GameObject\spriteData.cpp" />
-    <ClCompile Include="src\engine\src\GameData\input.cpp" />
-    <ClCompile Include="src\engine\src\FileData\FileData.cpp" />
-    <ClCompile Include="src\engine\src\GameObject\boxColliderPositionData.cpp" />
+    <ClCompile Include="engine\src\engineComponents\event.cpp" />
+    <ClCompile Include="engine\src\engineComponents\FileData.cpp" />
+    <ClCompile Include="engine\src\engineComponents\game.cpp" />
+    <ClCompile Include="engine\src\engineComponents\gameData.cpp" />
+    <ClCompile Include="engine\src\engineComponents\input.cpp" />
+    <ClCompile Include="engine\src\engineComponents\sTime.cpp" />
+    <ClCompile Include="engine\src\physicalComponents\camera.cpp" />
+    <ClCompile Include="engine\src\spriteComponents\boxCollider.cpp" />
+    <ClCompile Include="engine\src\spriteComponents\boxColliderPositionData.cpp" />
+    <ClCompile Include="engine\src\spriteComponents\childSystem.cpp" />
+    <ClCompile Include="engine\src\physicalComponents\gameObject.cpp" />
+    <ClCompile Include="engine\src\spriteComponents\physicsBody.cpp" />
+    <ClCompile Include="engine\src\physicalComponents\sprite.cpp" />
+    <ClCompile Include="engine\src\spriteComponents\spriteData.cpp" />
+    <ClCompile Include="engine\src\spriteComponents\stransform.cpp" />
+    <ClCompile Include="engine\src\calculationComponents\vector2.cpp" />
+    <ClCompile Include="engine\src\calculationComponents\vector3.cpp" />
+    <ClCompile Include="engine\src\calculationComponents\physics.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="src\engine\src\GameData\game.cpp" />
     <ClCompile Include="assets\Scripts\Testing.cpp" />
-    <ClCompile Include="src\engine\src\math\vector2.cpp" />
-    <ClCompile Include="src\engine\src\GameObject\stransform.cpp" />
-    <ClCompile Include="src\engine\src\GameData\sTime.cpp" />
-    <ClCompile Include="src\engine\src\math\vector3.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\engine\src\gameData\event.h" />
-    <ClInclude Include="src\engine\src\gameData\keyBoard.h" />
-    <ClInclude Include="src\engine\src\gameObject\childSystem.h" />
-    <ClInclude Include="src\engine\src\physics\physics.h" />
-    <ClInclude Include="src\engine\src\gameObject\physicsBody.h" />
-    <ClInclude Include="src\engine\src\gameData\camera.h" />
-    <ClInclude Include="src\engine\src\GameObject\boxCollider.h" />
-    <ClInclude Include="src\engine\src\GameData\game.h" />
-    <ClInclude Include="src\engine\src\GameData\gameData.h" />
+    <ClInclude Include="engine\libraries\include\SFML\Audio.hpp" />
+    <ClInclude Include="engine\libraries\include\SFML\Audio\AlResource.hpp" />
+    <ClInclude Include="engine\libraries\include\SFML\Audio\Export.hpp" />
+    <ClInclude Include="engine\libraries\include\SFML\Audio\InputSoundFile.hpp" />
+    <ClInclude Include="engine\libraries\include\SFML\Audio\Listener.hpp" />
+    <ClInclude Include="engine\libraries\include\SFML\Audio\Music.hpp" />
+    <ClInclude Include="engine\libraries\include\SFML\Audio\OutputSoundFile.hpp" />
+    <ClInclude Include="engine\libraries\include\SFML\Audio\Sound.hpp" />
+    <ClInclude Include="engine\libraries\include\SFML\Audio\SoundBuffer.hpp" />
+    <ClInclude Include="engine\libraries\include\SFML\Audio\SoundBufferRecorder.hpp" />
+    <ClInclude Include="engine\libraries\include\SFML\Audio\SoundFileFactory.hpp" />
+    <ClInclude Include="engine\libraries\include\SFML\Audio\SoundFileReader.hpp" />
+    <ClInclude Include="engine\libraries\include\SFML\Audio\SoundFileWriter.hpp" />
+    <ClInclude Include="engine\libraries\include\SFML\Audio\SoundRecorder.hpp" />
+    <ClInclude Include="engine\libraries\include\SFML\Audio\SoundSource.hpp" />
+    <ClInclude Include="engine\libraries\include\SFML\Audio\SoundStream.hpp" />
+    <ClInclude Include="engine\libraries\include\SFML\Config.hpp" />
+    <ClInclude Include="engine\libraries\include\SFML\GpuPreference.hpp" />
+    <ClInclude Include="engine\libraries\include\SFML\Graphics.hpp" />
+    <ClInclude Include="engine\libraries\include\SFML\Graphics\BlendMode.hpp" />
+    <ClInclude Include="engine\libraries\include\SFML\Graphics\CircleShape.hpp" />
+    <ClInclude Include="engine\libraries\include\SFML\Graphics\Color.hpp" />
+    <ClInclude Include="engine\libraries\include\SFML\Graphics\ConvexShape.hpp" />
+    <ClInclude Include="engine\libraries\include\SFML\Graphics\Drawable.hpp" />
+    <ClInclude Include="engine\libraries\include\SFML\Graphics\Export.hpp" />
+    <ClInclude Include="engine\libraries\include\SFML\Graphics\Font.hpp" />
+    <ClInclude Include="engine\libraries\include\SFML\Graphics\Glsl.hpp" />
+    <ClInclude Include="engine\libraries\include\SFML\Graphics\Glyph.hpp" />
+    <ClInclude Include="engine\libraries\include\SFML\Graphics\Image.hpp" />
+    <ClInclude Include="engine\libraries\include\SFML\Graphics\PrimitiveType.hpp" />
+    <ClInclude Include="engine\libraries\include\SFML\Graphics\Rect.hpp" />
+    <ClInclude Include="engine\libraries\include\SFML\Graphics\RectangleShape.hpp" />
+    <ClInclude Include="engine\libraries\include\SFML\Graphics\RenderStates.hpp" />
+    <ClInclude Include="engine\libraries\include\SFML\Graphics\RenderTarget.hpp" />
+    <ClInclude Include="engine\libraries\include\SFML\Graphics\RenderTexture.hpp" />
+    <ClInclude Include="engine\libraries\include\SFML\Graphics\RenderWindow.hpp" />
+    <ClInclude Include="engine\libraries\include\SFML\Graphics\Shader.hpp" />
+    <ClInclude Include="engine\libraries\include\SFML\Graphics\Shape.hpp" />
+    <ClInclude Include="engine\libraries\include\SFML\Graphics\Sprite.hpp" />
+    <ClInclude Include="engine\libraries\include\SFML\Graphics\Text.hpp" />
+    <ClInclude Include="engine\libraries\include\SFML\Graphics\Texture.hpp" />
+    <ClInclude Include="engine\libraries\include\SFML\Graphics\Transform.hpp" />
+    <ClInclude Include="engine\libraries\include\SFML\Graphics\Transformable.hpp" />
+    <ClInclude Include="engine\libraries\include\SFML\Graphics\Vertex.hpp" />
+    <ClInclude Include="engine\libraries\include\SFML\Graphics\VertexArray.hpp" />
+    <ClInclude Include="engine\libraries\include\SFML\Graphics\VertexBuffer.hpp" />
+    <ClInclude Include="engine\libraries\include\SFML\Graphics\View.hpp" />
+    <ClInclude Include="engine\libraries\include\SFML\Main.hpp" />
+    <ClInclude Include="engine\libraries\include\SFML\Network.hpp" />
+    <ClInclude Include="engine\libraries\include\SFML\Network\Export.hpp" />
+    <ClInclude Include="engine\libraries\include\SFML\Network\Ftp.hpp" />
+    <ClInclude Include="engine\libraries\include\SFML\Network\Http.hpp" />
+    <ClInclude Include="engine\libraries\include\SFML\Network\IpAddress.hpp" />
+    <ClInclude Include="engine\libraries\include\SFML\Network\Packet.hpp" />
+    <ClInclude Include="engine\libraries\include\SFML\Network\Socket.hpp" />
+    <ClInclude Include="engine\libraries\include\SFML\Network\SocketHandle.hpp" />
+    <ClInclude Include="engine\libraries\include\SFML\Network\SocketSelector.hpp" />
+    <ClInclude Include="engine\libraries\include\SFML\Network\TcpListener.hpp" />
+    <ClInclude Include="engine\libraries\include\SFML\Network\TcpSocket.hpp" />
+    <ClInclude Include="engine\libraries\include\SFML\Network\UdpSocket.hpp" />
+    <ClInclude Include="engine\libraries\include\SFML\OpenGL.hpp" />
+    <ClInclude Include="engine\libraries\include\SFML\System.hpp" />
+    <ClInclude Include="engine\libraries\include\SFML\System\Clock.hpp" />
+    <ClInclude Include="engine\libraries\include\SFML\System\Err.hpp" />
+    <ClInclude Include="engine\libraries\include\SFML\System\Export.hpp" />
+    <ClInclude Include="engine\libraries\include\SFML\System\FileInputStream.hpp" />
+    <ClInclude Include="engine\libraries\include\SFML\System\InputStream.hpp" />
+    <ClInclude Include="engine\libraries\include\SFML\System\Lock.hpp" />
+    <ClInclude Include="engine\libraries\include\SFML\System\MemoryInputStream.hpp" />
+    <ClInclude Include="engine\libraries\include\SFML\System\Mutex.hpp" />
+    <ClInclude Include="engine\libraries\include\SFML\System\NativeActivity.hpp" />
+    <ClInclude Include="engine\libraries\include\SFML\System\NonCopyable.hpp" />
+    <ClInclude Include="engine\libraries\include\SFML\System\Sleep.hpp" />
+    <ClInclude Include="engine\libraries\include\SFML\System\String.hpp" />
+    <ClInclude Include="engine\libraries\include\SFML\System\Thread.hpp" />
+    <ClInclude Include="engine\libraries\include\SFML\System\ThreadLocal.hpp" />
+    <ClInclude Include="engine\libraries\include\SFML\System\ThreadLocalPtr.hpp" />
+    <ClInclude Include="engine\libraries\include\SFML\System\Time.hpp" />
+    <ClInclude Include="engine\libraries\include\SFML\System\Utf.hpp" />
+    <ClInclude Include="engine\libraries\include\SFML\System\Vector2.hpp" />
+    <ClInclude Include="engine\libraries\include\SFML\System\Vector3.hpp" />
+    <ClInclude Include="engine\libraries\include\SFML\Window.hpp" />
+    <ClInclude Include="engine\libraries\include\SFML\Window\Clipboard.hpp" />
+    <ClInclude Include="engine\libraries\include\SFML\Window\Context.hpp" />
+    <ClInclude Include="engine\libraries\include\SFML\Window\ContextSettings.hpp" />
+    <ClInclude Include="engine\libraries\include\SFML\Window\Cursor.hpp" />
+    <ClInclude Include="engine\libraries\include\SFML\Window\Event.hpp" />
+    <ClInclude Include="engine\libraries\include\SFML\Window\Export.hpp" />
+    <ClInclude Include="engine\libraries\include\SFML\Window\GlResource.hpp" />
+    <ClInclude Include="engine\libraries\include\SFML\Window\Joystick.hpp" />
+    <ClInclude Include="engine\libraries\include\SFML\Window\Keyboard.hpp" />
+    <ClInclude Include="engine\libraries\include\SFML\Window\Mouse.hpp" />
+    <ClInclude Include="engine\libraries\include\SFML\Window\Sensor.hpp" />
+    <ClInclude Include="engine\libraries\include\SFML\Window\Touch.hpp" />
+    <ClInclude Include="engine\libraries\include\SFML\Window\VideoMode.hpp" />
+    <ClInclude Include="engine\libraries\include\SFML\Window\Window.hpp" />
+    <ClInclude Include="engine\libraries\include\SFML\Window\WindowHandle.hpp" />
+    <ClInclude Include="engine\libraries\include\SFML\Window\WindowStyle.hpp" />
+    <ClInclude Include="engine\libraries\include\stdExtension.h" />
+    <ClInclude Include="engine\src\engineComponents\event.h" />
+    <ClInclude Include="engine\src\engineComponents\FileData.h" />
+    <ClInclude Include="engine\src\engineComponents\game.h" />
+    <ClInclude Include="engine\src\engineComponents\gameData.h" />
+    <ClInclude Include="engine\src\engineComponents\input.h" />
+    <ClInclude Include="engine\src\engineComponents\keyBoard.h" />
+    <ClInclude Include="engine\src\engineComponents\sTime.h" />
+    <ClInclude Include="engine\src\FileData.h" />
+    <ClInclude Include="engine\src\physicalComponents\camera.h" />
+    <ClInclude Include="engine\src\event.h" />
+    <ClInclude Include="engine\src\game.h" />
+    <ClInclude Include="engine\src\gameData.h" />
+    <ClInclude Include="engine\src\input.h" />
+    <ClInclude Include="engine\src\keyBoard.h" />
+    <ClInclude Include="engine\src\_header\SpriteEngine.h" />
+    <ClInclude Include="engine\src\sTime.h" />
+    <ClInclude Include="engine\src\spriteComponents\boxCollider.h" />
+    <ClInclude Include="engine\src\spriteComponents\boxColliderPositionData.h" />
+    <ClInclude Include="engine\src\spriteComponents\childSystem.h" />
+    <ClInclude Include="engine\src\physicalComponents\gameObject.h" />
+    <ClInclude Include="engine\src\spriteComponents\physicsBody.h" />
+    <ClInclude Include="engine\src\physicalComponents\sprite.h" />
+    <ClInclude Include="engine\src\spriteComponents\spriteData.h" />
+    <ClInclude Include="engine\src\spriteComponents\stransform.h" />
+    <ClInclude Include="engine\src\calculationComponents\vector2.h" />
+    <ClInclude Include="engine\src\calculationComponents\vector3.h" />
+    <ClInclude Include="engine\src\calculationComponents\physics.h" />
     <ClInclude Include="src\engine\src\GameData\SpriteEngine.h" />
-    <ClInclude Include="src\engine\src\GameObject\gameObject.h" />
-    <ClInclude Include="src\engine\src\FileData\FileData.h" />
     <ClInclude Include="src\libraries\include\SFML\Audio.hpp" />
     <ClInclude Include="src\libraries\include\SFML\Audio\AlResource.hpp" />
     <ClInclude Include="src\libraries\include\SFML\Audio\Export.hpp" />
@@ -284,16 +399,17 @@
     <ClInclude Include="src\libraries\include\SFML\Window\WindowHandle.hpp" />
     <ClInclude Include="src\libraries\include\SFML\Window\WindowStyle.hpp" />
     <ClInclude Include="assets\Scripts\Testing.h" />
-    <ClInclude Include="src\engine\src\GameObject\sprite.h" />
-    <ClInclude Include="src\engine\src\math\vector2.h" />
-    <ClInclude Include="src\engine\src\GameObject\stransform.h" />
-    <ClInclude Include="src\engine\src\GameObject\spriteData.h" />
-    <ClInclude Include="src\engine\src\GameData\input.h" />
-    <ClInclude Include="src\engine\src\GameData\sTime.h" />
-    <ClInclude Include="src\engine\src\math\vector3.h" />
-    <ClInclude Include="src\engine\src\GameObject\boxColliderPositionData.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="engine\libraries\include\SFML\Audio\SoundFileFactory.inl" />
+    <None Include="engine\libraries\include\SFML\Graphics\Glsl.inl" />
+    <None Include="engine\libraries\include\SFML\Graphics\Rect.inl" />
+    <None Include="engine\libraries\include\SFML\System\String.inl" />
+    <None Include="engine\libraries\include\SFML\System\Thread.inl" />
+    <None Include="engine\libraries\include\SFML\System\ThreadLocalPtr.inl" />
+    <None Include="engine\libraries\include\SFML\System\Utf.inl" />
+    <None Include="engine\libraries\include\SFML\System\Vector2.inl" />
+    <None Include="engine\libraries\include\SFML\System\Vector3.inl" />
     <None Include="src\libraries\include\SFML\Audio\SoundFileFactory.inl" />
     <None Include="src\libraries\include\SFML\Graphics\Glsl.inl" />
     <None Include="src\libraries\include\SFML\Graphics\Rect.inl" />

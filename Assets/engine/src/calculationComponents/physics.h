@@ -1,7 +1,7 @@
 #pragma once
 
-#include <sprite.h>
-#include <sTime.h>
+#include <physicalComponents/sprite.h>
+#include <engineComponents/sTime.h>
 
 namespace s2d
 {

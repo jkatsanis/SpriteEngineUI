@@ -1,9 +1,9 @@
 #pragma once
 
-#include <gameData.h>
-#include <sprite.h>
-#include <input.h>
-#include <sTime.h>
+#include <engineComponents/gameData.h>
+#include <physicalComponents/sprite.h>
+#include <engineComponents/input.h>
+#include <engineComponents/sTime.h>
 
 class Testing : s2d::GameData
 {

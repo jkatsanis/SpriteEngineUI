@@ -4,11 +4,11 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-#include <spriteData.h>
-#include <gameObject.h>
-#include <boxCollider.h>
+#include <spriteComponents/spriteData.h>
+#include <physicalComponents/gameObject.h>
+#include <spriteComponents/boxCollider.h>
 #include <SFML/Graphics.hpp>
-#include <physicsBody.h>
+#include <spriteComponents/physicsBody.h>
 
 #include <stdExtension.h>
 

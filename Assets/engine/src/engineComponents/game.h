@@ -2,10 +2,10 @@
 
 #include <SFML/Graphics.hpp>
 #include <vector>
-#include <input.h>
-#include <sTime.h>
-#include <FileData.h>
-#include <physics.h>
+#include <engineComponents/input.h>
+#include <engineComponents/sTime.h>
+#include <engineComponents/FileData.h>
+#include <calculationComponents/physics.h>
 
 //All user files
 #include "Testing.h"

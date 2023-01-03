@@ -1,7 +1,7 @@
 #include "boxCollider.h"
 
 //Includint sprite.h here because we cant in the.h file because we include boxcollider.h already in the sprite.h file
-#include <sprite.h>
+#include <physicalComponents/sprite.h>
 
 //Its always important to give everything a "default value"
 

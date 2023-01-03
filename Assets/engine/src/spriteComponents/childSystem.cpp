@@ -1,5 +1,5 @@
-#include "childSystem.h"
-#include <sprite.h>
+#include "spriteComponents/childSystem.h"
+#include <physicalComponents/sprite.h>
 
 void s2d::ChildSystem::updatePositionToParent(s2d::Sprite* child)
 {

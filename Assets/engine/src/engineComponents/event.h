@@ -1,6 +1,6 @@
 #pragma once
 
-#include <keyBoard.h>
+#include <engineComponents/keyBoard.h>
 
 namespace s2d
 {

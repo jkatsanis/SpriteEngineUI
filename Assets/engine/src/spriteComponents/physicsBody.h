@@ -1,7 +1,7 @@
 #pragma once
 
-#include <vector2.h>
-#include <sTime.h>
+#include <calculationComponents/vector2.h>
+#include <engineComponents/sTime.h>
 
 namespace s2d
 {

@@ -2,8 +2,8 @@
 
 #include <iostream>
 #include <SFML/Graphics.hpp>
-#include <event.h>
-#include <keyBoard.h>
+#include <engineComponents/event.h>
+#include <engineComponents/keyBoard.h>
 
 namespace s2d
 {

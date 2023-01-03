@@ -1,6 +1,6 @@
 #pragma once
 
-#include <vector3.h>
+#include <calculationComponents/vector3.h>
 #include <fstream>
 #include <iostream>
 #include <stdExtension.h>

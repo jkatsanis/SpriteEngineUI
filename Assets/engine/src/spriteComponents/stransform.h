@@ -1,7 +1,7 @@
 #pragma once
 
-#include <vector2.h>
-#include <childSystem.h>
+#include <calculationComponents/vector2.h>
+#include <spriteComponents/childSystem.h>
 
 namespace s2d
 {

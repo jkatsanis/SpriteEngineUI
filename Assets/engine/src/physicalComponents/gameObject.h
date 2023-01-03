@@ -1,8 +1,8 @@
 #pragma once
 
-#include <stransform.h>
-#include <vector2.h>
-#include <camera.h>
+#include <spriteComponents/stransform.h>
+#include <calculationComponents/vector2.h>
+#include <physicalComponents/camera.h>
 #include "SFML/Graphics.hpp"
 
 namespace s2d

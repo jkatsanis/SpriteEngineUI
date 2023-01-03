@@ -1,4 +1,4 @@
-#include <vector2.h>
+#include <calculationComponents/vector2.h>
 
 namespace s2d
 {

@@ -1,5 +1,5 @@
 #include "stransform.h"
-#include <sprite.h>
+#include <physicalComponents/sprite.h>
 
 //Contructor
 

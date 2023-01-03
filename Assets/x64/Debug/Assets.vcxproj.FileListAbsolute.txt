@@ -1,6 +1,1 @@
-C:\Dev\c++\Projects\Gas\Assets\x64\Debug\Assets.exe
-C:\Dev\c++\Projects\SpriteEngineUI\Assets\x64\Debug\Assets.exe
 C:\Dev\SpriteEngineUI\Assets\x64\Debug\Assets.exe
-C:\Dev\SpriteEngineUI-main\Assets\x64\Debug\Assets.exe
-C:\Dev\Engine\SpriteEngineUI\Assets\x64\Debug\Assets.exe
-C:\Dev\Engine - Kopie\SpriteEngineUI\Assets\x64\Debug\Assets.exe
