@@ -173,15 +173,14 @@
     <ClCompile Include="assets\scripts\Testing.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="engine\src\FileData.h" />
+    <ClInclude Include="engine\src\engineComponents\event.h" />
+    <ClInclude Include="engine\src\engineComponents\FileData.h" />
+    <ClInclude Include="engine\src\engineComponents\game.h" />
+    <ClInclude Include="engine\src\engineComponents\gameData.h" />
+    <ClInclude Include="engine\src\engineComponents\input.h" />
+    <ClInclude Include="engine\src\engineComponents\keyBoard.h" />
     <ClInclude Include="engine\src\physicalComponents\camera.h" />
-    <ClInclude Include="engine\src\event.h" />
-    <ClInclude Include="engine\src\game.h" />
-    <ClInclude Include="engine\src\gameData.h" />
-    <ClInclude Include="engine\src\input.h" />
-    <ClInclude Include="engine\src\keyBoard.h" />
     <ClInclude Include="engine\src\_header\SpriteEngine.h" />
-    <ClInclude Include="engine\src\sTime.h" />
     <ClInclude Include="engine\src\spriteComponents\boxCollider.h" />
     <ClInclude Include="engine\src\spriteComponents\boxColliderPositionData.h" />
     <ClInclude Include="engine\src\spriteComponents\childSystem.h" />
@@ -291,6 +290,7 @@
     <ClInclude Include="src\libraries\include\SFML\Window\Window.hpp" />
     <ClInclude Include="src\libraries\include\SFML\Window\WindowHandle.hpp" />
     <ClInclude Include="src\libraries\include\SFML\Window\WindowStyle.hpp" />
+    <ClInclude Include="engine\src\engineComponents\sTime.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="src\libraries\include\SFML\Audio\SoundFileFactory.inl" />

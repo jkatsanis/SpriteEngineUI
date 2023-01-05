@@ -1,11 +1,27 @@
-﻿  gameEngine.cpp
+﻿  SpriteEngine.cpp
 C:\Dev\SpriteEngineUI\Engine\src\spriteComponents\animation.h(37,22): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
-  imgui-SFML.cpp
-C:\Dev\SpriteEngineUI\Engine\src\include\imgui\imgui-SFML.cpp(559,67): warning C4244: 'argument': conversion from 'const int' to 'float', possible loss of data
-C:\Dev\SpriteEngineUI\Engine\src\include\imgui\imgui-SFML.cpp(559,48): warning C4244: 'argument': conversion from 'const int' to 'float', possible loss of data
-  SpriteEngine.cpp
+  event.cpp
+  gameEngine.cpp
 C:\Dev\SpriteEngineUI\Engine\src\spriteComponents\animation.h(37,22): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
-  vector2.cpp
+  input.cpp
+  UIWindow.cpp
+C:\Dev\SpriteEngineUI\Engine\src\spriteComponents\animation.h(37,22): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
+  UIAnimation.cpp
+C:\Dev\SpriteEngineUI\Engine\src\spriteComponents\animation.h(37,22): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
+  UIAnimationEditor.cpp
+C:\Dev\SpriteEngineUI\Engine\src\spriteComponents\animation.h(37,22): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
+  UIAnimationKeyFrameEditor.cpp
+C:\Dev\SpriteEngineUI\Engine\src\spriteComponents\animation.h(37,22): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
+  UIHirachy.cpp
+C:\Dev\SpriteEngineUI\Engine\src\spriteComponents\animation.h(37,22): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
+  UIHirachySpriteDisplay.cpp
+C:\Dev\SpriteEngineUI\Engine\src\spriteComponents\animation.h(37,22): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
+C:\Dev\SpriteEngineUI\Engine\src\guiComponents\propertyEditor\UIHirachySpriteDisplay.cpp(51,84): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Dev\SpriteEngineUI\Engine\src\guiComponents\propertyEditor\UIHirachySpriteDisplay.cpp(51,50): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+  UIInspector.cpp
+C:\Dev\SpriteEngineUI\Engine\src\spriteComponents\animation.h(37,22): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
+  UIInspectorBoxCollider.cpp
+C:\Dev\SpriteEngineUI\Engine\src\spriteComponents\animation.h(37,22): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
   UIRealTimeEditor.cpp
 C:\Dev\SpriteEngineUI\Engine\src\spriteComponents\animation.h(37,22): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
   UIRealTimeEditorNavigator.cpp
@@ -20,9 +36,8 @@ C:\Dev\SpriteEngineUI\Engine\src\guiComponents\realTimeEditor\UIRealTimeEditorNa
           [
               T=int
           ]
-  UIHirachySpriteDisplay.cpp
+  UIRealTimeEditorTransform.cpp
 C:\Dev\SpriteEngineUI\Engine\src\spriteComponents\animation.h(37,22): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
-C:\Dev\SpriteEngineUI\Engine\src\guiComponents\propertyEditor\UIHirachySpriteDisplay.cpp(51,84): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Dev\SpriteEngineUI\Engine\src\guiComponents\propertyEditor\UIHirachySpriteDisplay.cpp(51,50): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
   Generating Code...
+C:\Dev\SpriteEngineUI\Engine\src\guiComponents\UIWindow.cpp(47): warning C4715: 's2d::UIWindow::getWindowBackgroundColorFromFile': not all control paths return a value
   SpriteEngine.vcxproj -> C:\Dev\SpriteEngineUI\Engine\x64\Debug\SpriteEngine.exe

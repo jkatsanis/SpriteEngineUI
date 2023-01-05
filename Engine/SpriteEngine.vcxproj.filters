@@ -85,27 +85,6 @@
     <Filter Include="src\Components\calculationComponents">
       <UniqueIdentifier>{c5da6a4c-8986-454c-9eac-00ff2473f51d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\Components\_manager">
-      <UniqueIdentifier>{f4100fb6-63ef-421b-a1ba-72ba1b7a6b71}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\Components\_manager\files">
-      <UniqueIdentifier>{28d7b60e-6af1-4233-87fc-5b63d550818c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\Components\_manager\font">
-      <UniqueIdentifier>{08adcc0f-cc67-4ded-97f9-d0de4626b4e3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\Components\_data">
-      <UniqueIdentifier>{36c21588-c40b-4a06-b73d-1f63d6e810e0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\Components\_data\sprite">
-      <UniqueIdentifier>{c5e08365-c873-4cce-bcc1-55715c290484}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\Components\_data\UI">
-      <UniqueIdentifier>{85ea485f-3b17-4cd6-addd-d5d1df266625}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\Components\_data\file">
-      <UniqueIdentifier>{c39b7ee3-d525-459c-8c6f-3fafec5223d0}</UniqueIdentifier>
-    </Filter>
     <Filter Include="src\Include/headers">
       <UniqueIdentifier>{800e3cbb-218b-49c5-9e04-66156fb14b6d}</UniqueIdentifier>
     </Filter>
@@ -129,6 +108,27 @@
     </Filter>
     <Filter Include="src\Include/headers\__include\icons">
       <UniqueIdentifier>{dd2b3d52-cf91-49e0-ab72-74e04ae139f0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Components\engineComponents\manager">
+      <UniqueIdentifier>{f4100fb6-63ef-421b-a1ba-72ba1b7a6b71}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Components\engineComponents\manager\files">
+      <UniqueIdentifier>{28d7b60e-6af1-4233-87fc-5b63d550818c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Components\engineComponents\manager\font">
+      <UniqueIdentifier>{08adcc0f-cc67-4ded-97f9-d0de4626b4e3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Components\engineComponents\data">
+      <UniqueIdentifier>{36c21588-c40b-4a06-b73d-1f63d6e810e0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Components\engineComponents\data\sprite">
+      <UniqueIdentifier>{c5e08365-c873-4cce-bcc1-55715c290484}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Components\engineComponents\data\UI">
+      <UniqueIdentifier>{85ea485f-3b17-4cd6-addd-d5d1df266625}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Components\engineComponents\data\file">
+      <UniqueIdentifier>{c39b7ee3-d525-459c-8c6f-3fafec5223d0}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -178,13 +178,13 @@
       <Filter>src\Components\guiComponents\hirachy</Filter>
     </ClCompile>
     <ClCompile Include="src\manager\saveSystem.cpp">
-      <Filter>src\Components\_manager\files</Filter>
+      <Filter>src\Components\engineComponents\manager\files</Filter>
     </ClCompile>
     <ClCompile Include="src\manager\fontManager.cpp">
-      <Filter>src\Components\_manager\font</Filter>
+      <Filter>src\Components\engineComponents\manager\font</Filter>
     </ClCompile>
     <ClCompile Include="src\data\spriteData.cpp">
-      <Filter>src\Components\_data\sprite</Filter>
+      <Filter>src\Components\engineComponents\data\sprite</Filter>
     </ClCompile>
     <ClCompile Include="src\physicalComponents\camera.cpp">
       <Filter>src\Components\physicalComponents\camera</Filter>
@@ -196,13 +196,13 @@
       <Filter>src\Components\physicalComponents\sprite</Filter>
     </ClCompile>
     <ClCompile Include="src\data\UIInfo.cpp">
-      <Filter>src\Components\_data\UI</Filter>
+      <Filter>src\Components\engineComponents\data\UI</Filter>
     </ClCompile>
     <ClCompile Include="src\data\UIIconData.cpp">
-      <Filter>src\Components\_data\UI</Filter>
+      <Filter>src\Components\engineComponents\data\UI</Filter>
     </ClCompile>
     <ClCompile Include="src\data\fileData.cpp">
-      <Filter>src\Components\_data\file</Filter>
+      <Filter>src\Components\engineComponents\data\file</Filter>
     </ClCompile>
     <ClCompile Include="src\spriteComponents\animation.cpp">
       <Filter>src\Components\spriteComponents\animation</Filter>
@@ -640,10 +640,10 @@
       <Filter>src\Components\guiComponents\window</Filter>
     </ClInclude>
     <ClInclude Include="src\data\UIInfo.h">
-      <Filter>src\Components\_data\UI</Filter>
+      <Filter>src\Components\engineComponents\data\UI</Filter>
     </ClInclude>
     <ClInclude Include="src\data\UIIconData.h">
-      <Filter>src\Components\_data\UI</Filter>
+      <Filter>src\Components\engineComponents\data\UI</Filter>
     </ClInclude>
     <ClInclude Include="src\engineComponents\input.h">
       <Filter>src\Components\engineComponents\input</Filter>
@@ -655,16 +655,16 @@
       <Filter>src\Components\engineComponents\time</Filter>
     </ClInclude>
     <ClInclude Include="src\manager\saveSystem.h">
-      <Filter>src\Components\_manager\files</Filter>
+      <Filter>src\Components\engineComponents\manager\files</Filter>
     </ClInclude>
     <ClInclude Include="src\manager\fontManager.h">
-      <Filter>src\Components\_manager\font</Filter>
+      <Filter>src\Components\engineComponents\manager\font</Filter>
     </ClInclude>
     <ClInclude Include="src\data\fileData.h">
-      <Filter>src\Components\_data\file</Filter>
+      <Filter>src\Components\engineComponents\data\file</Filter>
     </ClInclude>
     <ClInclude Include="src\data\spriteData.h">
-      <Filter>src\Components\_data\sprite</Filter>
+      <Filter>src\Components\engineComponents\data\sprite</Filter>
     </ClInclude>
     <ClInclude Include="src\physicalComponents\sprite.h">
       <Filter>src\Components\physicalComponents\sprite</Filter>

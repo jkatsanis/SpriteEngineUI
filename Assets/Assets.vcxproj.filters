@@ -429,32 +429,11 @@
     <ClInclude Include="src\libraries\include\SFML\Window\Sensor.hpp">
       <Filter>engine src\_include\sfml</Filter>
     </ClInclude>
-    <ClInclude Include="engine\src\game.h">
-      <Filter>engine src\engineComponents\game</Filter>
-    </ClInclude>
-    <ClInclude Include="engine\src\event.h">
-      <Filter>engine src\engineComponents\game</Filter>
-    </ClInclude>
-    <ClInclude Include="engine\src\FileData.h">
-      <Filter>engine src\engineComponents\data</Filter>
-    </ClInclude>
-    <ClInclude Include="engine\src\gameData.h">
-      <Filter>engine src\engineComponents\data</Filter>
-    </ClInclude>
-    <ClInclude Include="engine\src\input.h">
-      <Filter>engine src\engineComponents\input</Filter>
-    </ClInclude>
-    <ClInclude Include="engine\src\keyBoard.h">
-      <Filter>engine src\engineComponents\input</Filter>
-    </ClInclude>
     <ClInclude Include="engine\src\spriteComponents\spriteData.h">
       <Filter>engine src\spriteComponents\data</Filter>
     </ClInclude>
     <ClInclude Include="engine\src\spriteComponents\physicsBody.h">
       <Filter>engine src\spriteComponents\physicBody</Filter>
-    </ClInclude>
-    <ClInclude Include="engine\src\sTime.h">
-      <Filter>engine src\engineComponents\time</Filter>
     </ClInclude>
     <ClInclude Include="engine\src\spriteComponents\boxColliderPositionData.h">
       <Filter>engine src\spriteComponents\boxCollider</Filter>
@@ -488,6 +467,27 @@
     </ClInclude>
     <ClInclude Include="engine\src\_header\SpriteEngine.h">
       <Filter>engine src\_header</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\src\engineComponents\input.h">
+      <Filter>engine src\engineComponents\input</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\src\engineComponents\gameData.h">
+      <Filter>engine src\engineComponents\data</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\src\engineComponents\FileData.h">
+      <Filter>engine src\engineComponents\data</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\src\engineComponents\event.h">
+      <Filter>engine src\engineComponents\game</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\src\engineComponents\keyBoard.h">
+      <Filter>engine src\engineComponents\input</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\src\engineComponents\game.h">
+      <Filter>engine src\engineComponents\game</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\src\engineComponents\sTime.h">
+      <Filter>engine src\engineComponents\time</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
