@@ -1,407 +1,755 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    <Filter Include="src">
+      <UniqueIdentifier>{bf904c68-cf6a-4d6a-9444-10627122b7ef}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ImGui">
-      <UniqueIdentifier>{6a3d8e24-8e44-47d3-9d55-58ebbf9fa6a1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
-    <Filter Include="ImGui\Header Files">
-      <UniqueIdentifier>{5c78c5f1-6a31-43bb-8b92-f7d6c5a83d17}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ImGui\Source Files">
-      <UniqueIdentifier>{2ec18db2-afd9-4d13-b409-246c7c3fb890}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Precompiled">
-      <UniqueIdentifier>{24916ea7-5e48-428d-a546-c55e58450db2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\GameData">
-      <UniqueIdentifier>{e30936b1-ee8f-4f5b-a689-88e3e62c9d29}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Assets">
-      <UniqueIdentifier>{73620fab-321f-4681-b710-1ad5f3d8ad7f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Assets\Header Files">
-      <UniqueIdentifier>{36b0478e-d911-423e-9981-6e2fde47fd9b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Assets\Source Files">
-      <UniqueIdentifier>{27d35d67-bf36-419e-a22a-3fa01e2c3cfe}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Gui">
-      <UniqueIdentifier>{4779ba32-237f-4772-a1b4-9aa47d69e4dc}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\GameObjects">
-      <UniqueIdentifier>{f122b6fe-c328-4b2e-81e3-892dc74fa93d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\GameObjects">
-      <UniqueIdentifier>{03e159c4-242e-4790-bf81-b12497ad9954}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\GameData">
-      <UniqueIdentifier>{9f90479c-e5e5-4076-967d-8bde3db429bb}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Gui">
-      <UniqueIdentifier>{b6862c70-b358-4148-a87a-9281f8d1cb10}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Txt">
+    <Filter Include="Txt">
       <UniqueIdentifier>{bf63b532-77b8-448e-8aeb-ca2a01197922}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Icons">
-      <UniqueIdentifier>{dd2b3d52-cf91-49e0-ab72-74e04ae139f0}</UniqueIdentifier>
+    <Filter Include="src\Components">
+      <UniqueIdentifier>{3f34508e-2fcc-4a65-b7e6-08770f411681}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\FileManager">
-      <UniqueIdentifier>{76f1b2af-0c4a-4bcb-8137-219832ae8dd1}</UniqueIdentifier>
+    <Filter Include="src\Components\physicalComponents">
+      <UniqueIdentifier>{db642546-9a23-4064-a724-ce917182ee4c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\FileManager">
-      <UniqueIdentifier>{840807b1-d0b2-44c9-bba6-534f8e1c4df4}</UniqueIdentifier>
+    <Filter Include="src\Components\physicalComponents\camera">
+      <UniqueIdentifier>{7ab40c3c-1dbb-40a7-b976-59dfbcfc45bc}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Math">
-      <UniqueIdentifier>{d31205b2-4bc7-4351-ba6f-2ac5be341a1c}</UniqueIdentifier>
+    <Filter Include="src\Components\physicalComponents\gameObject">
+      <UniqueIdentifier>{e296e12f-7662-4255-b780-077a09cd5859}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Gui\PropertyEditor">
-      <UniqueIdentifier>{bec7c8fe-ceca-49e3-b13a-aa5344e6b84d}</UniqueIdentifier>
+    <Filter Include="src\Components\physicalComponents\sprite">
+      <UniqueIdentifier>{b67dde46-5c81-4e2d-a567-fb549e7a0741}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Gui\RealTimeEditor">
-      <UniqueIdentifier>{3f62db61-60b5-4522-b05d-97c0c24371c7}</UniqueIdentifier>
+    <Filter Include="src\Components\physicalComponents\line">
+      <UniqueIdentifier>{09c6640c-440d-47cd-ba53-d5617988500d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Gui\PropertyEditor">
-      <UniqueIdentifier>{710906fc-6d51-4318-8e65-20df724a9fd0}</UniqueIdentifier>
+    <Filter Include="src\Components\spriteComponents">
+      <UniqueIdentifier>{67a0e83c-1494-405a-aa99-5afc57ec0f5e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Gui\RealTimeEditor">
+    <Filter Include="src\Components\spriteComponents\animation">
+      <UniqueIdentifier>{889ed58c-3df0-449b-8d33-ed6fd3c1f8de}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Components\spriteComponents\physicsBody">
+      <UniqueIdentifier>{adf4ac05-02f4-48cd-854b-949bdce196c9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Components\spriteComponents\childSystem">
+      <UniqueIdentifier>{43021540-be33-440e-baf1-2cc354a2cd59}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Components\spriteComponents\boxCollider">
+      <UniqueIdentifier>{31f15844-0160-4f0e-ba9d-2b1b5c740086}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Components\spriteComponents\transform">
+      <UniqueIdentifier>{4e937d96-e24e-4d9e-a6a1-c80bd12e719b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Components\guiComponents">
+      <UniqueIdentifier>{4779ba32-237f-4772-a1b4-9aa47d69e4dc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Components\guiComponents\realTimeEditor">
       <UniqueIdentifier>{6f1c24a2-c717-4913-8e33-350af3b28a69}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Animation">
-      <UniqueIdentifier>{ae6da386-7bd5-4e8d-ba53-925e410132d9}</UniqueIdentifier>
+    <Filter Include="src\Components\guiComponents\tools">
+      <UniqueIdentifier>{4eb3ca79-e90d-419a-b068-f4eb20d356e6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Animation">
-      <UniqueIdentifier>{543f62af-fe12-4efd-b6a9-43652e090c11}</UniqueIdentifier>
+    <Filter Include="src\Components\guiComponents\inspector">
+      <UniqueIdentifier>{fc43041a-a377-4e07-a9de-deed9edd8fd9}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Gui\PropertyEditor\Animation">
-      <UniqueIdentifier>{a026335f-c43b-4aa4-b53d-ac059e9ac17a}</UniqueIdentifier>
+    <Filter Include="src\Components\guiComponents\hirachy">
+      <UniqueIdentifier>{e1358527-3aea-468e-8a94-a480b73eb6e4}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Gui\PropertyEditor\Animation">
-      <UniqueIdentifier>{3d6ca92b-f634-463a-8454-83f476751434}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Gui\PropertyEditor\Assets">
+    <Filter Include="src\Components\guiComponents\assets">
       <UniqueIdentifier>{ca8aabba-cc0f-49e6-863a-0276bfb6f5f0}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Gui\PropertyEditor\Assets">
-      <UniqueIdentifier>{3cbb3679-8de9-470c-8b4d-50b961b2a7df}</UniqueIdentifier>
+    <Filter Include="src\Components\guiComponents\animation">
+      <UniqueIdentifier>{a026335f-c43b-4aa4-b53d-ac059e9ac17a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Input">
-      <UniqueIdentifier>{72c9c064-97d4-4a46-8eb0-418e2f021303}</UniqueIdentifier>
+    <Filter Include="src\Components\guiComponents\window">
+      <UniqueIdentifier>{02751834-ac55-40d5-adb9-30901e17b7bf}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Gui\PropertyEditor\Hirachy">
-      <UniqueIdentifier>{b96428fd-9fde-444c-9391-d819819655b5}</UniqueIdentifier>
+    <Filter Include="src\Components\engineComponents">
+      <UniqueIdentifier>{54cb8602-ec46-4994-8890-81ef8ad9b2e9}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Gui\PropertyEditor\Hirachy">
-      <UniqueIdentifier>{e1358527-3aea-468e-8a94-a480b73eb6e4}</UniqueIdentifier>
+    <Filter Include="src\Components\engineComponents\event">
+      <UniqueIdentifier>{7694d3ab-842c-49be-9fe1-7b895fcfcbf9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Components\engineComponents\engjne">
+      <UniqueIdentifier>{2de54da9-9bcc-4edd-ac70-3718fc9f6063}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Components\engineComponents\input">
+      <UniqueIdentifier>{ba19a56c-6740-4b61-a244-294f007f9007}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Components\engineComponents\time">
+      <UniqueIdentifier>{a9ba8dba-ec0d-476b-839a-8def425d9835}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Components\calculationComponents">
+      <UniqueIdentifier>{c5da6a4c-8986-454c-9eac-00ff2473f51d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Components\_manager">
+      <UniqueIdentifier>{f4100fb6-63ef-421b-a1ba-72ba1b7a6b71}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Components\_manager\files">
+      <UniqueIdentifier>{28d7b60e-6af1-4233-87fc-5b63d550818c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Components\_manager\font">
+      <UniqueIdentifier>{08adcc0f-cc67-4ded-97f9-d0de4626b4e3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Components\_data">
+      <UniqueIdentifier>{36c21588-c40b-4a06-b73d-1f63d6e810e0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Components\_data\sprite">
+      <UniqueIdentifier>{c5e08365-c873-4cce-bcc1-55715c290484}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Components\_data\UI">
+      <UniqueIdentifier>{85ea485f-3b17-4cd6-addd-d5d1df266625}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Components\_data\file">
+      <UniqueIdentifier>{c39b7ee3-d525-459c-8c6f-3fafec5223d0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Include/headers">
+      <UniqueIdentifier>{800e3cbb-218b-49c5-9e04-66156fb14b6d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Include/headers\_header">
+      <UniqueIdentifier>{89e7c979-1702-4404-8d8c-1a48bfa2e8ae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Include/headers\__include">
+      <UniqueIdentifier>{864c27ba-0579-4cea-aa4a-cf5dac221324}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Include/headers\__include\imgui">
+      <UniqueIdentifier>{6a3d8e24-8e44-47d3-9d55-58ebbf9fa6a1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Include/headers\__include\imgui\Header Files">
+      <UniqueIdentifier>{5c78c5f1-6a31-43bb-8b92-f7d6c5a83d17}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Include/headers\__include\imgui\Source Files">
+      <UniqueIdentifier>{2ec18db2-afd9-4d13-b409-246c7c3fb890}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Include/headers\__include\sfml">
+      <UniqueIdentifier>{03cde5eb-f33e-456d-b530-4bfface60632}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Include/headers\__include\icons">
+      <UniqueIdentifier>{dd2b3d52-cf91-49e0-ab72-74e04ae139f0}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="SpriteEngine.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\include\imgui\imgui.cpp">
-      <Filter>ImGui\Source Files</Filter>
+      <Filter>src\Include/headers\__include\imgui\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\include\imgui\imgui_draw.cpp">
-      <Filter>ImGui\Source Files</Filter>
+      <Filter>src\Include/headers\__include\imgui\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\include\imgui\imgui_tables.cpp">
-      <Filter>ImGui\Source Files</Filter>
+      <Filter>src\Include/headers\__include\imgui\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\include\imgui\imgui_widgets.cpp">
-      <Filter>ImGui\Source Files</Filter>
+      <Filter>src\Include/headers\__include\imgui\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\include\imgui\imgui-SFML.cpp">
-      <Filter>ImGui\Source Files</Filter>
+      <Filter>src\Include/headers\__include\imgui\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\GameData\gameEngine.cpp">
-      <Filter>Source Files\GameData</Filter>
+    <ClCompile Include="src\guiComponents\realTimeEditor\UIRealTimeEditor.cpp">
+      <Filter>src\Components\guiComponents\realTimeEditor</Filter>
     </ClCompile>
-    <ClCompile Include="src\math\vector2.cpp">
-      <Filter>Source Files\GameData</Filter>
+    <ClCompile Include="src\guiComponents\propertyEditor\UIAnimation.cpp">
+      <Filter>src\Components\guiComponents\animation</Filter>
     </ClCompile>
-    <ClCompile Include="src\gameData\time.cpp">
-      <Filter>Source Files\GameData</Filter>
+    <ClCompile Include="src\guiComponents\propertyEditor\UIAnimationEditor.cpp">
+      <Filter>src\Components\guiComponents\animation</Filter>
     </ClCompile>
-    <ClCompile Include="src\gameObjects\sprite.cpp">
-      <Filter>Source Files\GameObjects</Filter>
+    <ClCompile Include="src\guiComponents\propertyEditor\UIAnimationKeyFrameEditor.cpp">
+      <Filter>src\Components\guiComponents\animation</Filter>
     </ClCompile>
-    <ClCompile Include="src\fileManager\fileData.cpp">
-      <Filter>Source Files\FileManager</Filter>
+    <ClCompile Include="src\guiComponents\propertyEditor\UIAssetFolder.cpp">
+      <Filter>src\Components\guiComponents\assets</Filter>
     </ClCompile>
-    <ClCompile Include="src\fileManager\saveSystem.cpp">
-      <Filter>Source Files\FileManager</Filter>
+    <ClCompile Include="src\guiComponents\realTimeEditor\UIRealTimeEditorNavigator.cpp">
+      <Filter>src\Components\guiComponents\realTimeEditor</Filter>
     </ClCompile>
-    <ClCompile Include="src\gameObjects\transform.cpp">
-      <Filter>Source Files\GameObjects</Filter>
+    <ClCompile Include="src\guiComponents\realTimeEditor\UIRealTimeEditorTransform.cpp">
+      <Filter>src\Components\guiComponents\realTimeEditor</Filter>
     </ClCompile>
-    <ClCompile Include="src\gameData\spriteData.cpp">
-      <Filter>Source Files\GameData</Filter>
+    <ClCompile Include="src\guiComponents\propertyEditor\UIHirachy.cpp">
+      <Filter>src\Components\guiComponents\hirachy</Filter>
     </ClCompile>
-    <ClCompile Include="src\gameData\input.cpp">
-      <Filter>Source Files\GameData</Filter>
+    <ClCompile Include="src\guiComponents\propertyEditor\UIHirachySpriteDisplay.cpp">
+      <Filter>src\Components\guiComponents\hirachy</Filter>
     </ClCompile>
-    <ClCompile Include="src\gameObjects\line.cpp">
-      <Filter>Source Files\GameObjects</Filter>
+    <ClCompile Include="src\guiComponents\propertyEditor\UIHirachyMenuDisplayer.cpp">
+      <Filter>src\Components\guiComponents\hirachy</Filter>
     </ClCompile>
-    <ClCompile Include="src\gameObjects\gameObject.cpp">
-      <Filter>Source Files\GameObjects</Filter>
+    <ClCompile Include="src\manager\saveSystem.cpp">
+      <Filter>src\Components\_manager\files</Filter>
     </ClCompile>
-    <ClCompile Include="src\math\vector3.cpp">
-      <Filter>Source Files\GameData</Filter>
+    <ClCompile Include="src\manager\fontManager.cpp">
+      <Filter>src\Components\_manager\font</Filter>
     </ClCompile>
-    <ClCompile Include="src\gameObjects\boxCollider.cpp">
-      <Filter>Source Files\GameObjects</Filter>
+    <ClCompile Include="src\data\spriteData.cpp">
+      <Filter>src\Components\_data\sprite</Filter>
     </ClCompile>
-    <ClCompile Include="src\gui\propertyEditor\UIInspector.cpp">
-      <Filter>Source Files\Gui\PropertyEditor</Filter>
+    <ClCompile Include="src\physicalComponents\camera.cpp">
+      <Filter>src\Components\physicalComponents\camera</Filter>
     </ClCompile>
-    <ClCompile Include="src\gui\propertyEditor\UIToolButtons.cpp">
-      <Filter>Source Files\Gui\PropertyEditor</Filter>
+    <ClCompile Include="src\physicalComponents\gameObject.cpp">
+      <Filter>src\Components\physicalComponents\gameObject</Filter>
     </ClCompile>
-    <ClCompile Include="src\gui\propertyEditor\UIWindow.cpp">
-      <Filter>Source Files\Gui\PropertyEditor</Filter>
+    <ClCompile Include="src\physicalComponents\sprite.cpp">
+      <Filter>src\Components\physicalComponents\sprite</Filter>
     </ClCompile>
-    <ClCompile Include="src\gui\realTimeEditor\UIRealTimeEditor.cpp">
-      <Filter>Source Files\Gui\RealTimeEditor</Filter>
+    <ClCompile Include="src\data\UIInfo.cpp">
+      <Filter>src\Components\_data\UI</Filter>
     </ClCompile>
-    <ClCompile Include="src\gui\realTimeEditor\camera.cpp">
-      <Filter>Source Files\Gui\RealTimeEditor</Filter>
+    <ClCompile Include="src\data\UIIconData.cpp">
+      <Filter>src\Components\_data\UI</Filter>
     </ClCompile>
-    <ClCompile Include="src\gameObjects\physicsBody.cpp">
-      <Filter>Source Files\GameObjects</Filter>
+    <ClCompile Include="src\data\fileData.cpp">
+      <Filter>src\Components\_data\file</Filter>
     </ClCompile>
-    <ClCompile Include="src\gui\propertyEditor\UIInspectorBoxCollider.cpp">
-      <Filter>Source Files\Gui\PropertyEditor</Filter>
+    <ClCompile Include="src\spriteComponents\animation.cpp">
+      <Filter>src\Components\spriteComponents\animation</Filter>
     </ClCompile>
-    <ClCompile Include="src\animation\animation.cpp">
-      <Filter>Source Files\Animation</Filter>
+    <ClCompile Include="src\spriteComponents\animator.cpp">
+      <Filter>src\Components\spriteComponents\animation</Filter>
     </ClCompile>
-    <ClCompile Include="src\animation\animator.cpp">
-      <Filter>Source Files\Animation</Filter>
+    <ClCompile Include="src\spriteComponents\physicsBody.cpp">
+      <Filter>src\Components\spriteComponents\physicsBody</Filter>
     </ClCompile>
-    <ClCompile Include="src\gui\UIInfo.cpp">
-      <Filter>Source Files\Gui\PropertyEditor</Filter>
+    <ClCompile Include="src\guiComponents\propertyEditor\UIInspector.cpp">
+      <Filter>src\Components\guiComponents\inspector</Filter>
     </ClCompile>
-    <ClCompile Include="src\gameObjects\childSystem.cpp">
-      <Filter>Source Files\GameObjects</Filter>
+    <ClCompile Include="src\guiComponents\propertyEditor\UIInspectorBoxCollider.cpp">
+      <Filter>src\Components\guiComponents\inspector</Filter>
     </ClCompile>
-    <ClCompile Include="src\gameData\event.cpp">
-      <Filter>Source Files\GameData</Filter>
+    <ClCompile Include="src\guiComponents\propertyEditor\UIToolButtons.cpp">
+      <Filter>src\Components\guiComponents\tools</Filter>
     </ClCompile>
-    <ClCompile Include="src\gui\propertyEditor\UIAnimation.cpp">
-      <Filter>Source Files\Gui\PropertyEditor\Animation</Filter>
+    <ClCompile Include="src\spriteComponents\childSystem.cpp">
+      <Filter>src\Components\spriteComponents\childSystem</Filter>
     </ClCompile>
-    <ClCompile Include="src\gui\propertyEditor\UIAnimationEditor.cpp">
-      <Filter>Source Files\Gui\PropertyEditor\Animation</Filter>
+    <ClCompile Include="src\spriteComponents\boxCollider.cpp">
+      <Filter>src\Components\spriteComponents\boxCollider</Filter>
     </ClCompile>
-    <ClCompile Include="src\gui\propertyEditor\UIAnimationKeyFrameEditor.cpp">
-      <Filter>Source Files\Gui\PropertyEditor\Animation</Filter>
+    <ClCompile Include="src\physicalComponents\line.cpp">
+      <Filter>src\Components\physicalComponents\line</Filter>
     </ClCompile>
-    <ClCompile Include="src\gameData\fontManager.cpp">
-      <Filter>Source Files\GameData</Filter>
+    <ClCompile Include="src\spriteComponents\transform.cpp">
+      <Filter>src\Components\spriteComponents\transform</Filter>
     </ClCompile>
-    <ClCompile Include="src\gui\propertyEditor\UIAssetFolder.cpp">
-      <Filter>Source Files\Gui\PropertyEditor\Assets</Filter>
+    <ClCompile Include="src\engineComponents\event.cpp">
+      <Filter>src\Components\engineComponents\event</Filter>
     </ClCompile>
-    <ClCompile Include="src\gui\propertyEditor\UIIconData.cpp">
-      <Filter>Source Files\Gui\PropertyEditor\Assets</Filter>
+    <ClCompile Include="src\engineComponents\gameEngine.cpp">
+      <Filter>src\Components\engineComponents\engjne</Filter>
     </ClCompile>
-    <ClCompile Include="src\gui\realTimeEditor\UIRealTimeEditorNavigator.cpp">
-      <Filter>Source Files\Gui\RealTimeEditor</Filter>
+    <ClCompile Include="src\engineComponents\input.cpp">
+      <Filter>src\Components\engineComponents\input</Filter>
     </ClCompile>
-    <ClCompile Include="src\gui\realTimeEditor\UIRealTimeEditorTransform.cpp">
-      <Filter>Source Files\Gui\RealTimeEditor</Filter>
+    <ClCompile Include="src\engineComponents\time.cpp">
+      <Filter>src\Components\engineComponents\time</Filter>
     </ClCompile>
-    <ClCompile Include="src\gui\propertyEditor\UIHirachy.cpp">
-      <Filter>Source Files\Gui\PropertyEditor\Hirachy</Filter>
+    <ClCompile Include="src\calculationComponents\vector2.cpp">
+      <Filter>src\Components\calculationComponents</Filter>
     </ClCompile>
-    <ClCompile Include="src\gui\propertyEditor\UIHirachySpriteDisplay.cpp">
-      <Filter>Source Files\Gui\PropertyEditor\Hirachy</Filter>
+    <ClCompile Include="src\calculationComponents\vector3.cpp">
+      <Filter>src\Components\calculationComponents</Filter>
     </ClCompile>
-    <ClCompile Include="src\gui\propertyEditor\UIHirachyMenuDisplayer.cpp">
-      <Filter>Source Files\Gui\PropertyEditor\Hirachy</Filter>
+    <ClCompile Include="src\guiComponents\UIWindow.cpp">
+      <Filter>src\Components\guiComponents\window</Filter>
     </ClCompile>
+    <ClCompile Include="src\SpriteEngine.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\include\imgui\imconfig.h">
-      <Filter>ImGui\Header Files</Filter>
+      <Filter>src\Include/headers\__include\imgui\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\include\imgui\imconfig-SFML.h">
-      <Filter>ImGui\Header Files</Filter>
+      <Filter>src\Include/headers\__include\imgui\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\include\imgui\imgui.h">
-      <Filter>ImGui\Header Files</Filter>
+      <Filter>src\Include/headers\__include\imgui\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\include\imgui\imgui_internal.h">
-      <Filter>ImGui\Header Files</Filter>
+      <Filter>src\Include/headers\__include\imgui\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\include\imgui\imgui-SFML.h">
-      <Filter>ImGui\Header Files</Filter>
+      <Filter>src\Include/headers\__include\imgui\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\include\imgui\imgui-SFML_export.h">
-      <Filter>ImGui\Header Files</Filter>
+      <Filter>src\Include/headers\__include\imgui\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\include\imgui\imstb_truetype.h">
-      <Filter>ImGui\Header Files</Filter>
+      <Filter>src\Include/headers\__include\imgui\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\include\imgui\imstb_rectpack.h">
-      <Filter>ImGui\Header Files</Filter>
+      <Filter>src\Include/headers\__include\imgui\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\include\imgui\imstb_textedit.h">
-      <Filter>ImGui\Header Files</Filter>
+      <Filter>src\Include/headers\__include\imgui\Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\preCompiledHeaders\SpriteEngine.h">
-      <Filter>Header Files\Precompiled</Filter>
+    <ClInclude Include="src\include\icons.h">
+      <Filter>src\Include/headers\__include\icons</Filter>
     </ClInclude>
-    <ClInclude Include="src\preCompiledHeaders\ImGui.h">
-      <Filter>Header Files\Precompiled</Filter>
+    <ClInclude Include="src\include\SFML\Graphics\View.hpp">
+      <Filter>src\Include/headers\__include\sfml</Filter>
     </ClInclude>
-    <ClInclude Include="src\gameObjects\sprite.h">
-      <Filter>Header Files\GameObjects</Filter>
+    <ClInclude Include="src\include\SFML\Window\WindowStyle.hpp">
+      <Filter>src\Include/headers\__include\sfml</Filter>
     </ClInclude>
-    <ClInclude Include="src\GameData\gameEngine.h">
-      <Filter>Header Files\GameData</Filter>
+    <ClInclude Include="src\include\SFML\Window\WindowHandle.hpp">
+      <Filter>src\Include/headers\__include\sfml</Filter>
     </ClInclude>
-    <ClInclude Include="src\gameData\stime.h">
-      <Filter>Header Files\GameData</Filter>
+    <ClInclude Include="src\include\SFML\Window\Window.hpp">
+      <Filter>src\Include/headers\__include\sfml</Filter>
     </ClInclude>
-    <ClInclude Include="src\gui\icons.h">
-      <Filter>Header Files\Icons</Filter>
+    <ClInclude Include="src\include\SFML\Window.hpp">
+      <Filter>src\Include/headers\__include\sfml</Filter>
     </ClInclude>
-    <ClInclude Include="src\gui\iconcpp.h">
-      <Filter>Header Files\Icons</Filter>
+    <ClInclude Include="src\include\SFML\Window\VideoMode.hpp">
+      <Filter>src\Include/headers\__include\sfml</Filter>
     </ClInclude>
-    <ClInclude Include="src\fileManager\fileData.h">
-      <Filter>Header Files\FileManager</Filter>
+    <ClInclude Include="src\include\SFML\Graphics\VertexBuffer.hpp">
+      <Filter>src\Include/headers\__include\sfml</Filter>
     </ClInclude>
-    <ClInclude Include="src\fileManager\saveSystem.h">
-      <Filter>Header Files\FileManager</Filter>
+    <ClInclude Include="src\include\SFML\Graphics\VertexArray.hpp">
+      <Filter>src\Include/headers\__include\sfml</Filter>
     </ClInclude>
-    <ClInclude Include="src\gameObjects\stransform.h">
-      <Filter>Header Files\GameObjects</Filter>
+    <ClInclude Include="src\include\SFML\System\Vector3.hpp">
+      <Filter>src\Include/headers\__include\sfml</Filter>
     </ClInclude>
-    <ClInclude Include="src\gameData\spriteData.h">
-      <Filter>Header Files\GameData</Filter>
+    <ClInclude Include="src\include\SFML\Graphics\Vertex.hpp">
+      <Filter>src\Include/headers\__include\sfml</Filter>
     </ClInclude>
-    <ClInclude Include="src\gameObjects\line.h">
-      <Filter>Header Files\GameObjects</Filter>
+    <ClInclude Include="src\include\SFML\System\Vector2.hpp">
+      <Filter>src\Include/headers\__include\sfml</Filter>
     </ClInclude>
-    <ClInclude Include="src\gameObjects\gameObject.h">
-      <Filter>Header Files\GameObjects</Filter>
+    <ClInclude Include="src\include\SFML\System\Utf.hpp">
+      <Filter>src\Include/headers\__include\sfml</Filter>
     </ClInclude>
-    <ClInclude Include="src\gameObjects\boxCollider.h">
-      <Filter>Header Files\GameObjects</Filter>
+    <ClInclude Include="src\include\SFML\Network\UdpSocket.hpp">
+      <Filter>src\Include/headers\__include\sfml</Filter>
     </ClInclude>
-    <ClInclude Include="src\math\vector2.h">
-      <Filter>Header Files\Math</Filter>
+    <ClInclude Include="src\include\SFML\Graphics\Transformable.hpp">
+      <Filter>src\Include/headers\__include\sfml</Filter>
     </ClInclude>
-    <ClInclude Include="src\math\vector3.h">
-      <Filter>Header Files\Math</Filter>
+    <ClInclude Include="src\include\SFML\Graphics\Transform.hpp">
+      <Filter>src\Include/headers\__include\sfml</Filter>
     </ClInclude>
-    <ClInclude Include="src\gui\propertyEditor\UIInspector.h">
-      <Filter>Header Files\Gui\PropertyEditor</Filter>
+    <ClInclude Include="src\include\SFML\System\Time.hpp">
+      <Filter>src\Include/headers\__include\sfml</Filter>
     </ClInclude>
-    <ClInclude Include="src\gui\propertyEditor\UIToolButtons.h">
-      <Filter>Header Files\Gui\PropertyEditor</Filter>
+    <ClInclude Include="src\include\SFML\Window\Touch.hpp">
+      <Filter>src\Include/headers\__include\sfml</Filter>
     </ClInclude>
-    <ClInclude Include="src\gui\propertyEditor\UIWindow.h">
-      <Filter>Header Files\Gui\PropertyEditor</Filter>
+    <ClInclude Include="src\include\SFML\System\ThreadLocalPtr.hpp">
+      <Filter>src\Include/headers\__include\sfml</Filter>
     </ClInclude>
-    <ClInclude Include="src\gui\realTimeEditor\UIRealTimeEditor.h">
-      <Filter>Header Files\Gui\RealTimeEditor</Filter>
+    <ClInclude Include="src\include\SFML\System\ThreadLocal.hpp">
+      <Filter>src\Include/headers\__include\sfml</Filter>
     </ClInclude>
-    <ClInclude Include="src\gui\realTimeEditor\camera.h">
-      <Filter>Header Files\Gui\RealTimeEditor</Filter>
+    <ClInclude Include="src\include\SFML\System\Thread.hpp">
+      <Filter>src\Include/headers\__include\sfml</Filter>
     </ClInclude>
-    <ClInclude Include="src\gameObjects\physicsBody.h">
-      <Filter>Header Files\GameObjects</Filter>
+    <ClInclude Include="src\include\SFML\Graphics\Texture.hpp">
+      <Filter>src\Include/headers\__include\sfml</Filter>
     </ClInclude>
-    <ClInclude Include="src\gui\propertyEditor\UIInspectorBoxCollider.h">
-      <Filter>Header Files\Gui\PropertyEditor</Filter>
+    <ClInclude Include="src\include\SFML\Network\TcpSocket.hpp">
+      <Filter>src\Include/headers\__include\sfml</Filter>
     </ClInclude>
-    <ClInclude Include="src\animation\animation.h">
-      <Filter>Header Files\Animation</Filter>
+    <ClInclude Include="src\include\SFML\Graphics\Text.hpp">
+      <Filter>src\Include/headers\__include\sfml</Filter>
     </ClInclude>
-    <ClInclude Include="src\gui\UIInfo.h">
-      <Filter>Header Files\Gui\PropertyEditor</Filter>
+    <ClInclude Include="src\include\SFML\Network\TcpListener.hpp">
+      <Filter>src\Include/headers\__include\sfml</Filter>
     </ClInclude>
-    <ClInclude Include="src\animation\animator.h">
-      <Filter>Header Files\Animation</Filter>
+    <ClInclude Include="src\include\SFML\System.hpp">
+      <Filter>src\Include/headers\__include\sfml</Filter>
     </ClInclude>
-    <ClInclude Include="src\gameObjects\childSystem.h">
-      <Filter>Header Files\GameObjects</Filter>
+    <ClInclude Include="src\include\SFML\System\String.hpp">
+      <Filter>src\Include/headers\__include\sfml</Filter>
     </ClInclude>
-    <ClInclude Include="src\gameData\event.h">
-      <Filter>Header Files\GameData</Filter>
+    <ClInclude Include="src\include\stdExtension.h">
+      <Filter>src\Include/headers\__include\sfml</Filter>
     </ClInclude>
-    <ClInclude Include="src\gui\propertyEditor\UIAnimation.h">
-      <Filter>Header Files\Gui\PropertyEditor\Animation</Filter>
+    <ClInclude Include="src\include\SFML\Graphics\Sprite.hpp">
+      <Filter>src\Include/headers\__include\sfml</Filter>
     </ClInclude>
-    <ClInclude Include="src\gui\propertyEditor\UIAnimationEditor.h">
-      <Filter>Header Files\Gui\PropertyEditor\Animation</Filter>
+    <ClInclude Include="src\include\SFML\Audio\SoundStream.hpp">
+      <Filter>src\Include/headers\__include\sfml</Filter>
     </ClInclude>
-    <ClInclude Include="src\gui\propertyEditor\UIAnimationKeyFrameEditor.h">
-      <Filter>Header Files\Gui\PropertyEditor\Animation</Filter>
+    <ClInclude Include="src\include\SFML\Audio\SoundSource.hpp">
+      <Filter>src\Include/headers\__include\sfml</Filter>
     </ClInclude>
-    <ClInclude Include="src\gui\propertyEditor\UIAssetFolder.h">
-      <Filter>Header Files\Gui\PropertyEditor\Assets</Filter>
+    <ClInclude Include="src\include\SFML\Audio\SoundRecorder.hpp">
+      <Filter>src\Include/headers\__include\sfml</Filter>
     </ClInclude>
-    <ClInclude Include="src\gui\propertyEditor\UIIconData.h">
-      <Filter>Header Files\Gui\PropertyEditor\Assets</Filter>
+    <ClInclude Include="src\include\SFML\Audio\SoundFileReader.hpp">
+      <Filter>src\Include/headers\__include\sfml</Filter>
     </ClInclude>
-    <ClInclude Include="src\gameData\fontManager.h">
-      <Filter>Header Files\GameData</Filter>
+    <ClInclude Include="src\include\SFML\Audio\SoundFileWriter.hpp">
+      <Filter>src\Include/headers\__include\sfml</Filter>
     </ClInclude>
-    <ClInclude Include="src\gui\realTimeEditor\UIRealTimeEditorNavigator.h">
-      <Filter>Header Files\Gui\RealTimeEditor</Filter>
+    <ClInclude Include="src\include\SFML\Audio\SoundFileFactory.hpp">
+      <Filter>src\Include/headers\__include\sfml</Filter>
     </ClInclude>
-    <ClInclude Include="src\gui\realTimeEditor\UIRealTimeEditorTransform.h">
-      <Filter>Header Files\Gui\RealTimeEditor</Filter>
+    <ClInclude Include="src\include\SFML\Audio\SoundBuffer.hpp">
+      <Filter>src\Include/headers\__include\sfml</Filter>
     </ClInclude>
-    <ClInclude Include="src\gameData\input.h">
-      <Filter>Header Files\Input</Filter>
+    <ClInclude Include="src\include\SFML\Audio\SoundBufferRecorder.hpp">
+      <Filter>src\Include/headers\__include\sfml</Filter>
     </ClInclude>
-    <ClInclude Include="src\gameData\keyBoard.h">
-      <Filter>Header Files\Input</Filter>
+    <ClInclude Include="src\include\SFML\Audio\Sound.hpp">
+      <Filter>src\Include/headers\__include\sfml</Filter>
     </ClInclude>
-    <ClInclude Include="src\gui\propertyEditor\UIHirachy.h">
-      <Filter>Header Files\Gui\PropertyEditor\Hirachy</Filter>
+    <ClInclude Include="src\include\SFML\Network\SocketHandle.hpp">
+      <Filter>src\Include/headers\__include\sfml</Filter>
     </ClInclude>
-    <ClInclude Include="src\gui\propertyEditor\UIHirachySpriteDisplay.h">
-      <Filter>Header Files\Gui\PropertyEditor\Hirachy</Filter>
+    <ClInclude Include="src\include\SFML\Network\SocketSelector.hpp">
+      <Filter>src\Include/headers\__include\sfml</Filter>
     </ClInclude>
-    <ClInclude Include="src\gui\propertyEditor\UIHirachyMenuDisplayer.h">
-      <Filter>Header Files\Gui\PropertyEditor\Hirachy</Filter>
+    <ClInclude Include="src\include\SFML\Network\Socket.hpp">
+      <Filter>src\Include/headers\__include\sfml</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\SFML\System\Sleep.hpp">
+      <Filter>src\Include/headers\__include\sfml</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\SFML\Graphics\Shape.hpp">
+      <Filter>src\Include/headers\__include\sfml</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\SFML\Graphics\Shader.hpp">
+      <Filter>src\Include/headers\__include\sfml</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\SFML\Window\Sensor.hpp">
+      <Filter>src\Include/headers\__include\sfml</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\SFML\Graphics\RenderWindow.hpp">
+      <Filter>src\Include/headers\__include\sfml</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\SFML\Graphics\RenderTexture.hpp">
+      <Filter>src\Include/headers\__include\sfml</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\SFML\Graphics\RenderStates.hpp">
+      <Filter>src\Include/headers\__include\sfml</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\SFML\Graphics\RenderTarget.hpp">
+      <Filter>src\Include/headers\__include\sfml</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\SFML\Graphics\RectangleShape.hpp">
+      <Filter>src\Include/headers\__include\sfml</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\SFML\Graphics\Rect.hpp">
+      <Filter>src\Include/headers\__include\sfml</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\SFML\Graphics\PrimitiveType.hpp">
+      <Filter>src\Include/headers\__include\sfml</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\SFML\Network\Packet.hpp">
+      <Filter>src\Include/headers\__include\sfml</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\SFML\System\NonCopyable.hpp">
+      <Filter>src\Include/headers\__include\sfml</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\SFML\Audio\OutputSoundFile.hpp">
+      <Filter>src\Include/headers\__include\sfml</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\SFML\OpenGL.hpp">
+      <Filter>src\Include/headers\__include\sfml</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\SFML\Network.hpp">
+      <Filter>src\Include/headers\__include\sfml</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\SFML\System\NativeActivity.hpp">
+      <Filter>src\Include/headers\__include\sfml</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\SFML\System\Mutex.hpp">
+      <Filter>src\Include/headers\__include\sfml</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\SFML\Audio\Music.hpp">
+      <Filter>src\Include/headers\__include\sfml</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\SFML\Window\Mouse.hpp">
+      <Filter>src\Include/headers\__include\sfml</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\SFML\System\MemoryInputStream.hpp">
+      <Filter>src\Include/headers\__include\sfml</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\SFML\Main.hpp">
+      <Filter>src\Include/headers\__include\sfml</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\SFML\System\Lock.hpp">
+      <Filter>src\Include/headers\__include\sfml</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\SFML\Audio\Listener.hpp">
+      <Filter>src\Include/headers\__include\sfml</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\SFML\Window\Keyboard.hpp">
+      <Filter>src\Include/headers\__include\sfml</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\SFML\Window\Joystick.hpp">
+      <Filter>src\Include/headers\__include\sfml</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\SFML\Network\IpAddress.hpp">
+      <Filter>src\Include/headers\__include\sfml</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\SFML\System\InputStream.hpp">
+      <Filter>src\Include/headers\__include\sfml</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\SFML\Audio\InputSoundFile.hpp">
+      <Filter>src\Include/headers\__include\sfml</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\SFML\Graphics\Image.hpp">
+      <Filter>src\Include/headers\__include\sfml</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\SFML\Network\Http.hpp">
+      <Filter>src\Include/headers\__include\sfml</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\SFML\GpuPreference.hpp">
+      <Filter>src\Include/headers\__include\sfml</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\SFML\Graphics.hpp">
+      <Filter>src\Include/headers\__include\sfml</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\SFML\Graphics\Glyph.hpp">
+      <Filter>src\Include/headers\__include\sfml</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\SFML\Graphics\Glsl.hpp">
+      <Filter>src\Include/headers\__include\sfml</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\SFML\Window\GlResource.hpp">
+      <Filter>src\Include/headers\__include\sfml</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\SFML\Network\Ftp.hpp">
+      <Filter>src\Include/headers\__include\sfml</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\SFML\Graphics\Font.hpp">
+      <Filter>src\Include/headers\__include\sfml</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\SFML\System\FileInputStream.hpp">
+      <Filter>src\Include/headers\__include\sfml</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\SFML\Audio\Export.hpp">
+      <Filter>src\Include/headers\__include\sfml</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\SFML\System\Export.hpp">
+      <Filter>src\Include/headers\__include\sfml</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\SFML\Network\Export.hpp">
+      <Filter>src\Include/headers\__include\sfml</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\SFML\Window\Export.hpp">
+      <Filter>src\Include/headers\__include\sfml</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\SFML\Graphics\Export.hpp">
+      <Filter>src\Include/headers\__include\sfml</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\SFML\Window\Event.hpp">
+      <Filter>src\Include/headers\__include\sfml</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\SFML\System\Err.hpp">
+      <Filter>src\Include/headers\__include\sfml</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\SFML\Graphics\Drawable.hpp">
+      <Filter>src\Include/headers\__include\sfml</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\dirent.h">
+      <Filter>src\Include/headers\__include\sfml</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\SFML\Window\Cursor.hpp">
+      <Filter>src\Include/headers\__include\sfml</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\SFML\Graphics\ConvexShape.hpp">
+      <Filter>src\Include/headers\__include\sfml</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\SFML\Window\ContextSettings.hpp">
+      <Filter>src\Include/headers\__include\sfml</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\SFML\Config.hpp">
+      <Filter>src\Include/headers\__include\sfml</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\SFML\Window\Context.hpp">
+      <Filter>src\Include/headers\__include\sfml</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\SFML\Graphics\Color.hpp">
+      <Filter>src\Include/headers\__include\sfml</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\SFML\Window\Clipboard.hpp">
+      <Filter>src\Include/headers\__include\sfml</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\SFML\System\Clock.hpp">
+      <Filter>src\Include/headers\__include\sfml</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\SFML\Graphics\CircleShape.hpp">
+      <Filter>src\Include/headers\__include\sfml</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\SFML\Graphics\BlendMode.hpp">
+      <Filter>src\Include/headers\__include\sfml</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\SFML\Audio.hpp">
+      <Filter>src\Include/headers\__include\sfml</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\SFML\Audio\AlResource.hpp">
+      <Filter>src\Include/headers\__include\sfml</Filter>
+    </ClInclude>
+    <ClInclude Include="src\guiComponents\propertyEditor\UIAnimation.h">
+      <Filter>src\Components\guiComponents\animation</Filter>
+    </ClInclude>
+    <ClInclude Include="src\guiComponents\propertyEditor\UIAnimationEditor.h">
+      <Filter>src\Components\guiComponents\animation</Filter>
+    </ClInclude>
+    <ClInclude Include="src\guiComponents\propertyEditor\UIAnimationKeyFrameEditor.h">
+      <Filter>src\Components\guiComponents\animation</Filter>
+    </ClInclude>
+    <ClInclude Include="src\guiComponents\propertyEditor\UIAssetFolder.h">
+      <Filter>src\Components\guiComponents\assets</Filter>
+    </ClInclude>
+    <ClInclude Include="src\guiComponents\propertyEditor\UIHirachy.h">
+      <Filter>src\Components\guiComponents\hirachy</Filter>
+    </ClInclude>
+    <ClInclude Include="src\guiComponents\propertyEditor\UIHirachyMenuDisplayer.h">
+      <Filter>src\Components\guiComponents\hirachy</Filter>
+    </ClInclude>
+    <ClInclude Include="src\guiComponents\propertyEditor\UIHirachySpriteDisplay.h">
+      <Filter>src\Components\guiComponents\hirachy</Filter>
+    </ClInclude>
+    <ClInclude Include="src\guiComponents\propertyEditor\UIInspectorBoxCollider.h">
+      <Filter>src\Components\guiComponents\inspector</Filter>
+    </ClInclude>
+    <ClInclude Include="src\guiComponents\propertyEditor\UIInspector.h">
+      <Filter>src\Components\guiComponents\inspector</Filter>
+    </ClInclude>
+    <ClInclude Include="src\guiComponents\realTimeEditor\UIRealTimeEditor.h">
+      <Filter>src\Components\guiComponents\realTimeEditor</Filter>
+    </ClInclude>
+    <ClInclude Include="src\guiComponents\realTimeEditor\UIRealTimeEditorNavigator.h">
+      <Filter>src\Components\guiComponents\realTimeEditor</Filter>
+    </ClInclude>
+    <ClInclude Include="src\guiComponents\realTimeEditor\UIRealTimeEditorTransform.h">
+      <Filter>src\Components\guiComponents\realTimeEditor</Filter>
+    </ClInclude>
+    <ClInclude Include="src\guiComponents\propertyEditor\UIToolButtons.h">
+      <Filter>src\Components\guiComponents\tools</Filter>
+    </ClInclude>
+    <ClInclude Include="src\engineComponents\event.h">
+      <Filter>src\Components\engineComponents\event</Filter>
+    </ClInclude>
+    <ClInclude Include="src\physicalComponents\gameObject.h">
+      <Filter>src\Components\physicalComponents\gameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="src\engineComponents\gameEngine.h">
+      <Filter>src\Components\engineComponents\engjne</Filter>
+    </ClInclude>
+    <ClInclude Include="src\guiComponents\UIWindow.h">
+      <Filter>src\Components\guiComponents\window</Filter>
+    </ClInclude>
+    <ClInclude Include="src\data\UIInfo.h">
+      <Filter>src\Components\_data\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\data\UIIconData.h">
+      <Filter>src\Components\_data\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\engineComponents\input.h">
+      <Filter>src\Components\engineComponents\input</Filter>
+    </ClInclude>
+    <ClInclude Include="src\engineComponents\keyBoard.h">
+      <Filter>src\Components\engineComponents\input</Filter>
+    </ClInclude>
+    <ClInclude Include="src\engineComponents\stime.h">
+      <Filter>src\Components\engineComponents\time</Filter>
+    </ClInclude>
+    <ClInclude Include="src\manager\saveSystem.h">
+      <Filter>src\Components\_manager\files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\manager\fontManager.h">
+      <Filter>src\Components\_manager\font</Filter>
+    </ClInclude>
+    <ClInclude Include="src\data\fileData.h">
+      <Filter>src\Components\_data\file</Filter>
+    </ClInclude>
+    <ClInclude Include="src\data\spriteData.h">
+      <Filter>src\Components\_data\sprite</Filter>
+    </ClInclude>
+    <ClInclude Include="src\physicalComponents\sprite.h">
+      <Filter>src\Components\physicalComponents\sprite</Filter>
+    </ClInclude>
+    <ClInclude Include="src\physicalComponents\camera.h">
+      <Filter>src\Components\physicalComponents\camera</Filter>
+    </ClInclude>
+    <ClInclude Include="src\spriteComponents\boxCollider.h">
+      <Filter>src\Components\spriteComponents\boxCollider</Filter>
+    </ClInclude>
+    <ClInclude Include="src\physicalComponents\line.h">
+      <Filter>src\Components\physicalComponents\line</Filter>
+    </ClInclude>
+    <ClInclude Include="src\spriteComponents\animator.h">
+      <Filter>src\Components\spriteComponents\animation</Filter>
+    </ClInclude>
+    <ClInclude Include="src\spriteComponents\animation.h">
+      <Filter>src\Components\spriteComponents\animation</Filter>
+    </ClInclude>
+    <ClInclude Include="src\spriteComponents\childSystem.h">
+      <Filter>src\Components\spriteComponents\childSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="src\spriteComponents\stransform.h">
+      <Filter>src\Components\spriteComponents\transform</Filter>
+    </ClInclude>
+    <ClInclude Include="src\spriteComponents\physicsBody.h">
+      <Filter>src\Components\spriteComponents\physicsBody</Filter>
+    </ClInclude>
+    <ClInclude Include="src\calculationComponents\vector2.h">
+      <Filter>src\Components\calculationComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="src\calculationComponents\vector3.h">
+      <Filter>src\Components\calculationComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="src\headers\ImGui.h">
+      <Filter>src\Include/headers\_header</Filter>
+    </ClInclude>
+    <ClInclude Include="src\headers\SpriteEngine.h">
+      <Filter>src\Include/headers\_header</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="src\textFiles\imguibasics.txt">
-      <Filter>Source Files\Txt</Filter>
+    <Text Include="saves\textFiles\imguibasics.txt">
+      <Filter>Txt</Filter>
     </Text>
-    <Text Include="src\textFiles\plan.txt">
-      <Filter>Source Files\Txt</Filter>
+    <Text Include="saves\textFiles\plan.txt">
+      <Filter>Txt</Filter>
     </Text>
-    <Text Include="src\textFiles\wichtigecppsachen.txt">
-      <Filter>Source Files\Txt</Filter>
+    <Text Include="saves\textFiles\wichtigecppsachen.txt">
+      <Filter>Txt</Filter>
     </Text>
     <Text Include="addingNewSpriteProp.txt">
-      <Filter>Source Files\Txt</Filter>
+      <Filter>Txt</Filter>
     </Text>
-    <Text Include="src\textFiles\addToAssets.txt">
-      <Filter>Source Files\Txt</Filter>
+    <Text Include="saves\textFiles\addToAssets.txt">
+      <Filter>Txt</Filter>
     </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="src\include\SFML\System\Vector3.inl">
+      <Filter>src\Include/headers\__include\sfml</Filter>
+    </None>
+    <None Include="src\include\SFML\System\Vector2.inl">
+      <Filter>src\Include/headers\__include\sfml</Filter>
+    </None>
+    <None Include="src\include\SFML\System\Utf.inl">
+      <Filter>src\Include/headers\__include\sfml</Filter>
+    </None>
+    <None Include="src\include\SFML\System\ThreadLocalPtr.inl">
+      <Filter>src\Include/headers\__include\sfml</Filter>
+    </None>
+    <None Include="src\include\SFML\System\Thread.inl">
+      <Filter>src\Include/headers\__include\sfml</Filter>
+    </None>
+    <None Include="src\include\SFML\System\String.inl">
+      <Filter>src\Include/headers\__include\sfml</Filter>
+    </None>
+    <None Include="src\include\SFML\Audio\SoundFileFactory.inl">
+      <Filter>src\Include/headers\__include\sfml</Filter>
+    </None>
+    <None Include="src\include\SFML\Graphics\Rect.inl">
+      <Filter>src\Include/headers\__include\sfml</Filter>
+    </None>
+    <None Include="src\include\SFML\Graphics\Glsl.inl">
+      <Filter>src\Include/headers\__include\sfml</Filter>
+    </None>
   </ItemGroup>
 </Project>

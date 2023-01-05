@@ -1,1 +1,28 @@
-﻿C:\Dev\SpriteEngineUI\Engine\SpriteEngine.vcxproj : error MSB4025: The project file could not be loaded. Could not find file 'C:\Dev\SpriteEngineUI\Engine\SpriteEngine.vcxproj'.
+﻿  gameEngine.cpp
+C:\Dev\SpriteEngineUI\Engine\src\spriteComponents\animation.h(37,22): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
+  imgui-SFML.cpp
+C:\Dev\SpriteEngineUI\Engine\src\include\imgui\imgui-SFML.cpp(559,67): warning C4244: 'argument': conversion from 'const int' to 'float', possible loss of data
+C:\Dev\SpriteEngineUI\Engine\src\include\imgui\imgui-SFML.cpp(559,48): warning C4244: 'argument': conversion from 'const int' to 'float', possible loss of data
+  SpriteEngine.cpp
+C:\Dev\SpriteEngineUI\Engine\src\spriteComponents\animation.h(37,22): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
+  vector2.cpp
+  UIRealTimeEditor.cpp
+C:\Dev\SpriteEngineUI\Engine\src\spriteComponents\animation.h(37,22): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
+  UIRealTimeEditorNavigator.cpp
+C:\Dev\SpriteEngineUI\Engine\src\guiComponents\realTimeEditor\UIRealTimeEditorNavigator.cpp(27,52): warning C4267: '=': conversion from 'size_t' to 'short', possible loss of data
+C:\Dev\SpriteEngineUI\Engine\src\guiComponents\realTimeEditor\UIRealTimeEditorNavigator.cpp(152,143): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
+          with
+          [
+              T=int
+          ]
+C:\Dev\SpriteEngineUI\Engine\src\guiComponents\realTimeEditor\UIRealTimeEditorNavigator.cpp(152,90): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
+          with
+          [
+              T=int
+          ]
+  UIHirachySpriteDisplay.cpp
+C:\Dev\SpriteEngineUI\Engine\src\spriteComponents\animation.h(37,22): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
+C:\Dev\SpriteEngineUI\Engine\src\guiComponents\propertyEditor\UIHirachySpriteDisplay.cpp(51,84): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Dev\SpriteEngineUI\Engine\src\guiComponents\propertyEditor\UIHirachySpriteDisplay.cpp(51,50): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+  Generating Code...
+  SpriteEngine.vcxproj -> C:\Dev\SpriteEngineUI\Engine\x64\Debug\SpriteEngine.exe
