@@ -1,3 +1,1 @@
-﻿  UIInspector.cpp
-C:\Dev\SpriteEngineUI\Engine\src\animation\animation.h(37,22): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
-  SpriteEngine.vcxproj -> C:\Dev\SpriteEngineUI\Engine\x64\Debug\SpriteEngine.exe
+﻿C:\Dev\SpriteEngineUI\Engine\SpriteEngine.vcxproj : error MSB4025: The project file could not be loaded. Could not find file 'C:\Dev\SpriteEngineUI\Engine\SpriteEngine.vcxproj'.
