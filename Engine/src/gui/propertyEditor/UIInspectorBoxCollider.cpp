@@ -2,6 +2,7 @@
 
 s2d::UIInspectorBoxCollider::UIInspectorBoxCollider()
 {
+	this->m_texture.loadFromFile("EngineAssets/Sprites/transparent.png");
 }
 
 void s2d::UIInspectorBoxCollider::edit(float& x, float& y)
@@ -121,8 +122,7 @@ void s2d::UIInspectorBoxCollider::drawBoxCollider(s2d::Sprite* sprite)
 	s2d::GameObject::rects[1].setOutlineThickness(3.5f);
 	s2d::GameObject::rects[1].setPosition(sf::Vector2f(sprite->getOrigininalPosition().x + sprite->collider.boxColliderWidthLeftOrRight.x, sprite->getOrigininalPosition().y + sprite->collider.boxColliderHeightUpOrDown.x));
 
-	if (texture.loadFromFile("EngineAssets/Sprites/transparent.png"))
-	{
-		s2d::GameObject::rects[1].setTexture(&texture);
-	}
+	
+	s2d::GameObject::rects[1].setTexture(&m_texture);
+	
 }

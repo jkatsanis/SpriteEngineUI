@@ -8,7 +8,6 @@ s2d::UIInspector::UIInspector()
 	s2d::GameObject::rects.push_back(m_rectangle);
 	s2d::GameObject::rects.push_back(this->m_boxCollider);
 
-	this->m_collider = s2d::UIInspectorBoxCollider();
 	this->m_defaultBackgroundColor = s2d::Vector3(139, 165, 187);
 	this->state = s2d::InspectorState::None;
 

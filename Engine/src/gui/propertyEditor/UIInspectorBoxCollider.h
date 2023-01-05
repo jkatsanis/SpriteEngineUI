@@ -11,7 +11,7 @@ namespace s2d
 	class UIInspectorBoxCollider
 	{
 	private:	
-		sf::Texture texture;
+		sf::Texture m_texture;
 
 	public:
 		UIInspectorBoxCollider();
