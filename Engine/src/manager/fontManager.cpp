@@ -55,6 +55,12 @@ bool s2d::FontManager::displaySmybolAsButton(const char* symbol, float defaultFo
 	return clicked;
 }
 
+bool s2d::FontManager::displaySmybolAsButton(const char* symbol, ImVec2 cursorPos)
+{
+	ImGui::SetCursorPos(ImVec2(cursorPos.x, cursorPos.y));
+	return displaySmybolAsButton(symbol);
+}
+
 void s2d::FontManager::InitFonts(ImGuiIO& io)
 {
 	ImFontConfig CustomFont;

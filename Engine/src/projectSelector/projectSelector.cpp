@@ -8,6 +8,7 @@ s2d::ProjectSelector::ProjectSelector()
     this->m_ptr_toRenderWindow = new sf::RenderWindow(sf::VideoMode(960, 540), "SpriteEngine", sf::Style::Titlebar | sf::Style::Close);
 	this->m_renderWindowEvents.type = sf::Event::GainedFocus;
 	this->m_userLocation = s2d::Location::None;
+	this->m_currentFileDialoge = s2d::CurrentFileDialog::None;
 
 	// Reads project data from a CSV file
 	this->m_projects = this->readProjectInfosFromFile();
@@ -58,6 +59,7 @@ void s2d::ProjectSelector::render()
 {
 	this->m_userLocation = this->getUserInputForDataToRender();
 	this->renderProjectDataOrDocs();
+	this->renderFileDialogs();
 }
 
 void s2d::ProjectSelector::projectData()
@@ -102,7 +104,7 @@ void s2d::ProjectSelector::projectData()
 
 	if (ImGui::Button("Create"))
 	{
-
+		this->m_currentFileDialoge = s2d::CurrentFileDialog::Create;
 	}
 
 	// Open project
@@ -110,7 +112,7 @@ void s2d::ProjectSelector::projectData()
 
 	if (ImGui::Button("Open"))
 	{
-
+		this->m_currentFileDialoge = s2d::CurrentFileDialog::Open;
 	}
 
 	ImGui::PopStyleColor();
@@ -132,8 +134,8 @@ void s2d::ProjectSelector::projectData()
 			{
 				// from left to first sep its 
 
-				std::string emptyBetweenNameAndCreation = getEmptyStringBetween("Project Name", filterName, paddingBetweenInfo);
-				std::string emptyBetweenCreationAndPath = getEmptyStringBetween("Last Opened   ", this->m_projects[i].lastOpened, paddingBetweenInfo);
+				std::string emptyBetweenNameAndCreation = s2d::FileDialog::getEmptyStringBetween("Project Name", filterName, paddingBetweenInfo);
+				std::string emptyBetweenCreationAndPath = s2d::FileDialog::getEmptyStringBetween("Last Opened   ", this->m_projects[i].lastOpened, paddingBetweenInfo);
 
 				std::string fullData = filterName + emptyBetweenNameAndCreation + this->m_projects[i].lastOpened + emptyBetweenCreationAndPath + this->m_projects[i].path;
 				ImGui::MenuItem(fullData.c_str());
@@ -170,6 +172,46 @@ void s2d::ProjectSelector::renderProjectDataOrDocs()
 	}
 }
 
+void s2d::ProjectSelector::renderFileDialogs()
+{
+	if (this->m_currentFileDialoge == s2d::CurrentFileDialog::None)
+	{
+		return;
+	}
+
+	// Opens a file dialog, where u can create a new SpriteEngine project
+	if (this->m_currentFileDialoge == s2d::CurrentFileDialog::Create)
+	{
+		ImGui::Begin("##CreateFileDialog", NULL, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoCollapse);
+
+		ImGui::Text("Select where you want to create a project");
+
+		std::string name = "x" + std::string("##") + "C:\\Folder";
+
+		
+		ImVec2 cursorPos = ImVec2(ImGui::GetCursorPosX() + 740, ImGui::GetCursorPosY() - 30);
+
+		ImGui::SetCursorPos(cursorPos);
+
+		// Clicked at the "x", stop displaying the file dialoge
+		if (ImGui::Button(name.c_str()))
+		{
+			this->m_currentFileDialoge = s2d::CurrentFileDialog::None;
+		}
+
+
+		ImGui::SetNextItemOpen(true);
+		if(ImGui::TreeNode("C:\\"))
+		{
+			this->m_fileDialoge.openFile("C:\\", ICON_FA_RETWEET);
+			ImGui::TreePop();
+		}
+
+		ImGui::SetWindowSize(ImVec2(800, 450));
+		ImGui::End();
+	}
+}
+
 s2d::Location s2d::ProjectSelector::getUserInputForDataToRender()
 {
 	s2d::Location loc = this->m_userLocation;
@@ -183,7 +225,6 @@ s2d::Location s2d::ProjectSelector::getUserInputForDataToRender()
 		{
 			loc = s2d::Location::Projects;
 		}
-
 
 		if (ImGui::Button("Documentation ", ImVec2(180, 50)))
 		{
@@ -200,25 +241,6 @@ s2d::Location s2d::ProjectSelector::getUserInputForDataToRender()
 
 	return loc;
 }
-
-std::string s2d::ProjectSelector::getEmptyStringBetween(const std::string& content, const std::string& name, float padding)
-{
-	std::string empty = "";
-
-	float condi = ((ImGui::CalcTextSize(content.c_str()).x + (padding * 2)) - 1) - ImGui::CalcTextSize(name.c_str()).x;
-
-	for (int i = 0; i < condi; i++)
-	{
-		if (ImGui::CalcTextSize(empty.c_str()).x >= condi)
-		{
-			break;
-		}
-		empty += " ";
-
-	}
-	return empty;
-}
-
 
 std::vector<s2d::ProjectInfo> s2d::ProjectSelector::readProjectInfosFromFile()
 {

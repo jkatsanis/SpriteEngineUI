@@ -19,6 +19,7 @@ namespace s2d
 		static void displaySmybolAsText(const char* symbol);
 		static bool displaySmybolAsButton(const char* symbol, ImFont* font = nullptr);
 		static bool displaySmybolAsButton(const char* symbol, float defaultFontSize);
+		static bool displaySmybolAsButton(const char* symbol, ImVec2 cursorPos);
 
 		static void InitFonts(ImGuiIO& io);
 	};

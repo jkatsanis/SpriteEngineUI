@@ -1,6 +1,7 @@
 #pragma once
 
 #include <iostream>
+#include <manager/fileDialogs.h>
 
 namespace s2d
 {

@@ -23,11 +23,14 @@ namespace s2d
 	private:
 		sf::RenderWindow* m_ptr_toRenderWindow;
 		sf::Event m_renderWindowEvents;
-		s2d::Location m_userLocation;
+
 		ImVec4 m_leftButtonColor;
 		ImVec4 m_createButtonsColor;
 		ImVec4 m_clickedButton;
 
+		s2d::Location m_userLocation;
+		s2d::CurrentFileDialog m_currentFileDialoge;
+		s2d::FileDialog m_fileDialoge;
 		std::vector<s2d::ProjectInfo> m_projects; 
 
 		void pollEvents();
@@ -36,11 +39,11 @@ namespace s2d
 		void projectData();
 		void docsData();
 
-		std::vector<s2d::ProjectInfo> readProjectInfosFromFile();
 		void renderProjectDataOrDocs();
+		void renderFileDialogs();
+			
+		std::vector<s2d::ProjectInfo> readProjectInfosFromFile();
 		s2d::Location getUserInputForDataToRender();
-
-		std::string getEmptyStringBetween(const std::string& content, const std::string& name, float padding);
 
 
 	public:
