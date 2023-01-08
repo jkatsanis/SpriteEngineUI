@@ -19,6 +19,7 @@ namespace s2d
 		Time() = delete;
 
 		static void update();
+		static void reset();
 	};
 
 }

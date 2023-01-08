@@ -152,6 +152,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\manager\fileDialogs.cpp" />
+    <ClCompile Include="src\projectSelector\projectSelector.cpp" />
     <ClCompile Include="src\manager\fontManager.cpp" />
     <ClCompile Include="src\engineComponents\event.cpp" />
     <ClCompile Include="src\spriteComponents\childSystem.cpp" />
@@ -196,6 +198,9 @@
     <ClCompile Include="src\guiComponents\propertyEditor\UIHirachySpriteDisplay.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\projectSelector\projectInfo.h" />
+    <ClInclude Include="src\manager\fileDialogs.h" />
+    <ClInclude Include="src\projectSelector\projectSelector.h" />
     <ClInclude Include="src\manager\fontManager.h" />
     <ClInclude Include="src\engineComponents\keyBoard.h" />
     <ClInclude Include="src\engineComponents\event.h" />

@@ -24,7 +24,6 @@ namespace s2d
 		void pollEngineEvents();
 		void pollEvents();
 		void render();
-		void initFonts();
 		void draw();
 		void drawSprites();
 		void drawLines();

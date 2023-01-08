@@ -46,10 +46,10 @@ s2d::Vector3 s2d::UIWindow::getWindowBackgroundColorFromFile()
 	}
 }
 
-void s2d::UIWindow::renderStyle()
-{
-	ImGuiStyle* style = &ImGui::GetStyle();
+// Static functions
 
+void s2d::UIWindow::renderStyle(ImGuiStyle* style)
+{
 	ImVec4 shadow_color = ImVec4(0.0f, 0.0f, 0.0f, 0.5f);
 
 	//Setting it centered
@@ -66,7 +66,7 @@ void s2d::UIWindow::renderStyle()
 	style->Colors[ImGuiCol_HeaderActive] = ImColor(0, 0, 0, 0);
 
 	style->Colors[ImGuiCol_Button] = ImColor(0, 0, 0, 0);
-	style->Colors[ImGuiCol_ButtonActive] = ImColor(0, 0, 0, 0);
+	style->Colors[ImGuiCol_ButtonActive] = ImColor(15, 15, 25);
 	style->Colors[ImGuiCol_ButtonHovered] = ImColor(100, 90, 100, 100);
 
 	//The background of (input) 
@@ -95,7 +95,7 @@ void s2d::UIWindow::update()
 	//When we press play we need to save our data again, lol
 	this->m_UIToolButtons.setBackgroundColorToSave(this->m_UIInspector.backgroundColor);
 
-	this->renderStyle();
+	s2d::UIWindow::renderStyle(&ImGui::GetStyle());
 	this->m_UIHirachy.createHirachyWindow();
 	this->m_UIToolButtons.createToolsAndButtons();
 	this->m_UIInspector.createUIInspector();

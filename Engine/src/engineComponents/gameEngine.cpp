@@ -20,10 +20,9 @@ s2d::GameEngine::GameEngine()
     s2d::Input::setEvent(&this->event);
     //End
 
-    this->ptr_renderWindow->setKeyRepeatEnabled(false);
-
     ImGui::SFML::Init(*this->ptr_renderWindow);
-    this->initFonts();
+
+    this->ptr_renderWindow->setKeyRepeatEnabled(false);
 }
 
 s2d::GameEngine::~GameEngine()
@@ -32,6 +31,8 @@ s2d::GameEngine::~GameEngine()
     {
         delete sprite;
     }
+
+    ImGui::SFML::Shutdown();
 }
 
 //private functions
@@ -176,44 +177,6 @@ void s2d::GameEngine::render()
     this->ptr_renderWindow->clear(sf::Color(sf::Uint8(this->m_UIWindow.getInspector().backgroundColor.x), sf::Uint8(this->m_UIWindow.getInspector().backgroundColor.y), sf::Uint8(this->m_UIWindow.getInspector().backgroundColor.z)));
     this->draw();
     this->ptr_renderWindow->display();
-}
-
-void s2d::GameEngine::initFonts()
-{
-    ImGuiIO& io = ImGui::GetIO();
-    ImFontConfig CustomFont;
-    ImWchar icons_ranges[] = { 0xf000, 0xf3ff, 0 };
-    ImFontConfig icons_config;
-
-    io.IniFilename = nullptr;
-    CustomFont.FontDataOwnedByAtlas = false;
-
-    icons_config.MergeMode = true;
-    icons_config.PixelSnapH = true;
-    icons_config.OversampleH = 3;
-    icons_config.OversampleV = 3;
-
-    ImFontConfig config;
-
-    static const ImWchar ranges[] =
-    {
-        0xf067, 0xf067, // Plus
-        0xf044, 0xf044, // Edit
-        0xf1f8, 0xf1f8, // Trash
-        0xf079, 0xf079, // Retweet
-        0xf04b, 0xf04b, // Play button
-        0xf03e, 0xf03e, // Image
-        0,
-    };
-
-    config.GlyphRanges = ranges;
-
-    //Add the fonts (remember to fill in the correct path of your font
-    s2d::FontManager::defaultFont = io.Fonts->AddFontFromFileTTF("EngineAssets\\Fonts\\Arial.ttf", s2d::FontManager::fontSize);
-    s2d::FontManager::symbolFont = io.Fonts->AddFontFromFileTTF("EngineAssets\\Fonts\\fontawesome-webfont.ttf", s2d::FontManager::fontSize - 4, &config);
-
-    //This function is important else the program will crash with an assertion
-    ImGui::SFML::UpdateFontTexture();
 }
 
 

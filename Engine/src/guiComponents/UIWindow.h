@@ -18,7 +18,6 @@ namespace s2d
 		UIAssetFolder m_UIAssetFolder;
 		UIAnimation m_UIAnimation;
 
-		void renderStyle();
 		Vector3 getWindowBackgroundColorFromFile();
 
 	public:
@@ -29,6 +28,9 @@ namespace s2d
 	    void update();
 
 		UIInspector& getInspector() { return this->m_UIInspector; }
+
+	public:
+		static void renderStyle(ImGuiStyle* style);
 	};
 }
 

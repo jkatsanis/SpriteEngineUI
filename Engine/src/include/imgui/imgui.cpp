@@ -2308,12 +2308,15 @@ ImGuiTextFilter::ImGuiTextFilter(const char* default_filter) //-V1077
         Build();
     }
 }
+#include <iostream>
 
 bool ImGuiTextFilter::Draw(const char* label, float width)
 {
     if (width != 0.0f)
         ImGui::SetNextItemWidth(width);
-    bool value_changed = ImGui::InputText(label, InputBuf, IM_ARRAYSIZE(InputBuf));
+
+    std::string identifier = std::string("##Input_") += label;
+    bool value_changed = ImGui::InputTextWithHint(identifier.c_str(), label, InputBuf, IM_ARRAYSIZE(InputBuf));
     if (value_changed)
         Build();
     return value_changed;

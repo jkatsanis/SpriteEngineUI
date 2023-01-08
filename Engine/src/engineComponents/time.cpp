@@ -21,6 +21,14 @@ void s2d::Time::update()
 	
 }
 
+void s2d::Time::reset()
+{
+	s2d::Time::fps = 0;
+	s2d::Time::deltaTime = 0;
+	s2d::Time::m_secondCounter = 0;
+	s2d::Time::m_tempFps = 0;
+}
+
 float s2d::Time::deltaTime = 0;
 sf::Clock s2d::Time::deltaClock;
 

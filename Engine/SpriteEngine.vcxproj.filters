@@ -130,6 +130,12 @@
     <Filter Include="src\Components\engineComponents\data\file">
       <UniqueIdentifier>{c39b7ee3-d525-459c-8c6f-3fafec5223d0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Components\projectSelector">
+      <UniqueIdentifier>{5b085ae3-eaf8-4d87-b9fe-c4f627d9d8c7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Components\engineComponents\manager\fileDialgo">
+      <UniqueIdentifier>{4fbfab22-2202-40a3-bf2e-13ae7c38df85}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\include\imgui\imgui.cpp">
@@ -256,6 +262,12 @@
       <Filter>src\Components\guiComponents\window</Filter>
     </ClCompile>
     <ClCompile Include="src\SpriteEngine.cpp" />
+    <ClCompile Include="src\projectSelector\projectSelector.cpp">
+      <Filter>src\Components\projectSelector</Filter>
+    </ClCompile>
+    <ClCompile Include="src\manager\fileDialogs.cpp">
+      <Filter>src\Components\engineComponents\manager\fileDialgo</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\include\imgui\imconfig.h">
@@ -705,6 +717,13 @@
     <ClInclude Include="src\headers\SpriteEngine.h">
       <Filter>src\Include/headers\_header</Filter>
     </ClInclude>
+    <ClInclude Include="src\projectSelector\projectSelector.h">
+      <Filter>src\Components\projectSelector</Filter>
+    </ClInclude>
+    <ClInclude Include="src\manager\fileDialogs.h">
+      <Filter>src\Components\engineComponents\manager\fileDialgo</Filter>
+    </ClInclude>
+    <ClInclude Include="src\projectSelector\projectInfo.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="saves\textFiles\imguibasics.txt">

@@ -1245,7 +1245,7 @@
 #define ICON_FA_PRESCRIPTION_BOTTLE_ALT "\xef\x92\x86"	// U+f486
 #define ICON_FA_PRESENTATION "\xef\x9a\x85"	// U+f685
 #define ICON_FA_PRINT "\xef\x80\xaf"	// U+f02f
-#define ICON_FA_PRINT_SEARCH "\xef\xa0\x9a"	// U+f81a
+#define ICON_FA_PRINT_SEARCH u8"\uf81a"	// U+f81a
 #define ICON_FA_PRINT_SLASH "\xef\x9a\x86"	// U+f686
 #define ICON_FA_PROCEDURES "\xef\x92\x87"	// U+f487
 #define ICON_FA_PROJECT_DIAGRAM "\xef\x95\x82"	// U+f542
@@ -1346,7 +1346,7 @@
 #define ICON_FA_SCRUBBER "\xef\x8b\xb8"	// U+f2f8
 #define ICON_FA_SCYTHE "\xef\x9c\x90"	// U+f710
 #define ICON_FA_SD_CARD "\xef\x9f\x82"	// U+f7c2
-#define ICON_FA_SEARCH "\xef\x80\x82"	// U+f002
+#define ICON_FA_SEARCH u8"\uf002"	// U+f002 u8"\uf03e"
 #define ICON_FA_SEARCH_DOLLAR "\xef\x9a\x88"	// U+f688
 #define ICON_FA_SEARCH_LOCATION "\xef\x9a\x89"	// U+f689
 #define ICON_FA_SEARCH_MINUS "\xef\x80\x90"	// U+f010

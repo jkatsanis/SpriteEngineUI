@@ -2,6 +2,7 @@
 
 #include <ImGui.h>
 #include <data/UIInfo.h>
+#include <imgui-SFML.h>
 
 namespace s2d
 {
@@ -18,6 +19,8 @@ namespace s2d
 		static void displaySmybolAsText(const char* symbol);
 		static bool displaySmybolAsButton(const char* symbol, ImFont* font = nullptr);
 		static bool displaySmybolAsButton(const char* symbol, float defaultFontSize);
+
+		static void InitFonts(ImGuiIO& io);
 	};
 
 }

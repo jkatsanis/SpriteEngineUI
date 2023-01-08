@@ -6,11 +6,8 @@ void Testing::start()
 {
 	this->m_spriteSpeed = 700;
 
-	//Crash because we tried to acces a nullptr
-	thisSprite = s2d::Sprite::getSpriteByName("Rick Astley");
+	thisSprite = s2d::Sprite::getSpriteByName("Rick");
 	camera = &s2d::GameObject::camera;
-
-	//User classes
 }
 
 void Testing::update()
@@ -32,8 +29,6 @@ void Testing::update()
 		thisSprite->transform.position.x += this->m_spriteSpeed * s2d::Time::deltaTime;
 	}
 
-	//Only 1 static camera
 	camera->transform.position = thisSprite->transform.position;
-	//Almost like in unity 
 }
  
