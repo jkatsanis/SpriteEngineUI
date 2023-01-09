@@ -1,10 +1,8 @@
 #include <SpriteEngine.h>   
 
-
-
 int main()
 {
-    s2d::ProjectSelector projectSelector;
+    s2d::UIProjectSelector projectSelector;
 
     while (projectSelector.isOpen())
     {

@@ -8,17 +8,17 @@
 #include <manager/fontManager.h>
 #include <icons.h>
 #include <guiComponents/UIWindow.h>
-#include <projectSelector/projectInfo.h>
+#include <data/projectInfo.h>
 
 namespace s2d
 {
-	enum class Location
+	enum class UIProjectSelectorLocation
 	{
 		None = -1,
 		Projects = 0,
 		Docs
 	};
-	class ProjectSelector
+	class UIProjectSelector
 	{
 	private:
 		sf::RenderWindow* m_ptr_toRenderWindow;
@@ -27,10 +27,12 @@ namespace s2d
 		ImVec4 m_leftButtonColor;
 		ImVec4 m_createButtonsColor;
 		ImVec4 m_clickedButton;
+	
+		ImVec2 m_createWindowSize;
 
-		s2d::Location m_userLocation;
+		s2d::UIProjectSelectorLocation m_userLocation;
 		s2d::CurrentFileDialog m_currentFileDialoge;
-		s2d::FileDialog m_fileDialoge;
+		s2d::FileDialog m_createFileDialoge;
 		std::vector<s2d::ProjectInfo> m_projects; 
 
 		void pollEvents();
@@ -43,14 +45,14 @@ namespace s2d
 		void renderFileDialogs();
 			
 		std::vector<s2d::ProjectInfo> readProjectInfosFromFile();
-		s2d::Location getUserInputForDataToRender();
+		s2d::UIProjectSelectorLocation getUserInputForDataToRender();
 
 
 	public:
 		s2d::ProjectInfo project;
 
-		ProjectSelector();
-		~ProjectSelector();
+		UIProjectSelector();
+		~UIProjectSelector();
 
 		void update();
 

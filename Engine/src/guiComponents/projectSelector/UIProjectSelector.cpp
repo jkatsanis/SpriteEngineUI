@@ -1,16 +1,19 @@
-#include "ProjectSelector.h"
-
+#include "UIProjectSelector.h"
 
 // Constructor / Destructor
 
-s2d::ProjectSelector::ProjectSelector()
+s2d::UIProjectSelector::UIProjectSelector()
 {
+	this->m_createWindowSize = ImVec2(900, 450);
+
     this->m_ptr_toRenderWindow = new sf::RenderWindow(sf::VideoMode(960, 540), "SpriteEngine", sf::Style::Titlebar | sf::Style::Close);
 	this->m_renderWindowEvents.type = sf::Event::GainedFocus;
-	this->m_userLocation = s2d::Location::None;
+	this->m_userLocation = s2d::UIProjectSelectorLocation::None;
 	this->m_currentFileDialoge = s2d::CurrentFileDialog::None;
 
-	// Reads project data from a CSV file
+	this->m_createFileDialoge = s2d::FileDialog("C:\\", ICON_FA_PLUS, "Select where you want to create a project", this->m_createWindowSize);
+
+	// Reads project data from a CSV filed
 	this->m_projects = this->readProjectInfosFromFile();
 
 	ImGui::SFML::Init(*this->m_ptr_toRenderWindow);
@@ -33,7 +36,7 @@ s2d::ProjectSelector::ProjectSelector()
 		1.0f);
 }
 
-s2d::ProjectSelector::~ProjectSelector()
+s2d::UIProjectSelector::~UIProjectSelector()
 {
 	s2d::Time::reset();
 	delete this->m_ptr_toRenderWindow;
@@ -41,7 +44,7 @@ s2d::ProjectSelector::~ProjectSelector()
 
 // Private functions
 
-void s2d::ProjectSelector::pollEvents()
+void s2d::UIProjectSelector::pollEvents()
 {
 	while (this->m_ptr_toRenderWindow->pollEvent(this->m_renderWindowEvents))
 	{
@@ -55,14 +58,14 @@ void s2d::ProjectSelector::pollEvents()
 	ImGui::SFML::Update(*this->m_ptr_toRenderWindow, s2d::Time::deltaClock.restart());
 }
 
-void s2d::ProjectSelector::render()
+void s2d::UIProjectSelector::render()
 {
 	this->m_userLocation = this->getUserInputForDataToRender();
 	this->renderProjectDataOrDocs();
 	this->renderFileDialogs();
 }
 
-void s2d::ProjectSelector::projectData()
+void s2d::UIProjectSelector::projectData()
 {
 	auto infoOverProjects = [](float padding)
 	{
@@ -147,22 +150,22 @@ void s2d::ProjectSelector::projectData()
 	ImGui::PopStyleColor();
 }
 
-void s2d::ProjectSelector::docsData()
+void s2d::UIProjectSelector::docsData()
 {
 	ImGui::Text("Docs lol");
 }
 
 
-void s2d::ProjectSelector::renderProjectDataOrDocs()
+void s2d::UIProjectSelector::renderProjectDataOrDocs()
 {
 	if (ImGui::Begin("Project Selector / Documentaions", NULL, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoMove))
 	{
 		// render project data
-		if (this->m_userLocation == s2d::Location::Projects)
+		if (this->m_userLocation == s2d::UIProjectSelectorLocation::Projects)
 			this->projectData();
 
 		// else render doc's data
-		if (this->m_userLocation == s2d::Location::Docs)
+		if (this->m_userLocation == s2d::UIProjectSelectorLocation::Docs)
 			this->docsData();
 
 		ImGui::SetWindowPos(ImVec2(192, 0));
@@ -172,7 +175,7 @@ void s2d::ProjectSelector::renderProjectDataOrDocs()
 	}
 }
 
-void s2d::ProjectSelector::renderFileDialogs()
+void s2d::UIProjectSelector::renderFileDialogs()
 {
 	if (this->m_currentFileDialoge == s2d::CurrentFileDialog::None)
 	{
@@ -181,40 +184,20 @@ void s2d::ProjectSelector::renderFileDialogs()
 
 	// Opens a file dialog, where u can create a new SpriteEngine project
 	if (this->m_currentFileDialoge == s2d::CurrentFileDialog::Create)
-	{
-		ImGui::Begin("##CreateFileDialog", NULL, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoCollapse);
-
-		ImGui::Text("Select where you want to create a project");
-
-		std::string name = "x" + std::string("##") + "C:\\Folder";
-
-		
-		ImVec2 cursorPos = ImVec2(ImGui::GetCursorPosX() + 740, ImGui::GetCursorPosY() - 30);
-
-		ImGui::SetCursorPos(cursorPos);
-
-		// Clicked at the "x", stop displaying the file dialoge
-		if (ImGui::Button(name.c_str()))
+	{		
+		if (this->m_createFileDialoge.closeWindow())
 		{
 			this->m_currentFileDialoge = s2d::CurrentFileDialog::None;
 		}
-
-
-		ImGui::SetNextItemOpen(true);
-		if(ImGui::TreeNode("C:\\"))
-		{
-			this->m_fileDialoge.openFile("C:\\", ICON_FA_RETWEET);
-			ImGui::TreePop();
-		}
-
-		ImGui::SetWindowSize(ImVec2(800, 450));
-		ImGui::End();
+		this->m_createFileDialoge.displayNodes();
+		//std::cout << this->m_fileDialoge.pathClicked << std::endl;
+		
 	}
 }
 
-s2d::Location s2d::ProjectSelector::getUserInputForDataToRender()
+s2d::UIProjectSelectorLocation s2d::UIProjectSelector::getUserInputForDataToRender()
 {
-	s2d::Location loc = this->m_userLocation;
+	s2d::UIProjectSelectorLocation loc = this->m_userLocation;
 	ImGui::PushStyleColor(ImGuiCol_Button, this->m_leftButtonColor);
 
 	if (ImGui::Begin("Left buttons", NULL, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoMove))
@@ -223,12 +206,12 @@ s2d::Location s2d::ProjectSelector::getUserInputForDataToRender()
 
 		if (ImGui::Button("Projects", ImVec2(180, 50)))
 		{
-			loc = s2d::Location::Projects;
+			loc = s2d::UIProjectSelectorLocation::Projects;
 		}
 
 		if (ImGui::Button("Documentation ", ImVec2(180, 50)))
 		{
-			loc = s2d::Location::Docs;
+			loc = s2d::UIProjectSelectorLocation::Docs;
 		}
 
 		ImGui::SetWindowPos(ImVec2(0, 0));
@@ -242,7 +225,7 @@ s2d::Location s2d::ProjectSelector::getUserInputForDataToRender()
 	return loc;
 }
 
-std::vector<s2d::ProjectInfo> s2d::ProjectSelector::readProjectInfosFromFile()
+std::vector<s2d::ProjectInfo> s2d::UIProjectSelector::readProjectInfosFromFile()
 {
 	return 
 	{
@@ -255,7 +238,7 @@ std::vector<s2d::ProjectInfo> s2d::ProjectSelector::readProjectInfosFromFile()
 
 // Public functions
 
-void s2d::ProjectSelector::update()
+void s2d::UIProjectSelector::update()
 {
 	this->pollEvents();
 

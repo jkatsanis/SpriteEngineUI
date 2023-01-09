@@ -88,7 +88,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)\src\animation;$(SolutionDir)\include;$(SolutionDir)\imgui\;$(SolutionDir)\assets\;$(SolutionDir)\src\;$(SolutionDir)\src\gameData\;$(SolutionDir)\src\preCompiledHeaders\;$(SolutionDir)\src\gui\;$(SolutionDir)\src\gameObjects\;$(SolutionDir)\src\commfnc\;$(SolutionDir)\src\fileManager\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\src;$(SolutionDir)\src\include;$(SolutionDir)\src\include\imgui;$(SolutionDir)\src\headers;$(SolutionDir)\src\guiComponents\propertyEditor\;$(SolutionDir)\src\guiComponents\realTimeEditor\;$(SolutionDir)\src\guiComponents\projectSelector\</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -105,7 +105,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)\src\animation;$(SolutionDir)\include;$(SolutionDir)\imgui\;$(SolutionDir)\assets\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\src;$(SolutionDir)\src\include;$(SolutionDir)\src\include\imgui;$(SolutionDir)\src\headers;$(SolutionDir)\src\guiComponents\propertyEditor\;$(SolutionDir)\src\guiComponents\realTimeEditor\;$(SolutionDir)\src\guiComponents\projectSelector\</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -113,7 +113,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(SolutionDir)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>sfml-system.lib;sfml-audio.lib;sfml-graphics.lib;sfml-window.lib;sfml-network.lib;%(AdditionalDependencies);opengl32.lib</AdditionalDependencies>
+      <AdditionalDependencies>sfml-system-d.lib;sfml-audio-d.lib;sfml-graphics-d.lib;sfml-window-d.lib;sfml-network-d.lib;%(AdditionalDependencies);opengl32.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -122,7 +122,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)\src;$(SolutionDir)\src\include;$(SolutionDir)\src\include\imgui;$(SolutionDir)\src\headers;$(SolutionDir)\src\guiComponents\propertyEditor\;$(SolutionDir)\src\guiComponents\realTimeEditor\</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\src;$(SolutionDir)\src\include;$(SolutionDir)\src\include\imgui;$(SolutionDir)\src\headers;$(SolutionDir)\src\guiComponents\propertyEditor\;$(SolutionDir)\src\guiComponents\realTimeEditor\;$(SolutionDir)\src\guiComponents\projectSelector\</AdditionalIncludeDirectories>
       <MultiProcessorCompilation>false</MultiProcessorCompilation>
     </ClCompile>
     <Link>
@@ -140,7 +140,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)\src\animation;$(SolutionDir)\src\fileManager;$(SolutionDir)\include;$(SolutionDir)\imgui;$(SolutionDir)\assets;$(SolutionDir)\src;$(SolutionDir)\src\gameData;$(SolutionDir)\src\preCompiledHeaders;$(SolutionDir)\src\gui;$(SolutionDir)\src\gui\realTimeEditor;$(SolutionDir)\src\gui\propertyEditor;$(SolutionDir)\src\gameObjects;$(SolutionDir)\src\commfnc;$(SolutionDir)\src\math</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\src;$(SolutionDir)\src\include;$(SolutionDir)\src\include\imgui;$(SolutionDir)\src\headers;$(SolutionDir)\src\guiComponents\propertyEditor\;$(SolutionDir)\src\guiComponents\realTimeEditor\;$(SolutionDir)\src\guiComponents\projectSelector\</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -148,12 +148,12 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(SolutionDir)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>sfml-system.lib;sfml-audio.lib;sfml-graphics.lib;sfml-window.lib;sfml-network.lib;%(AdditionalDependencies);opengl32.lib</AdditionalDependencies>
+      <AdditionalDependencies>sfml-system-d.lib;sfml-audio-d.lib;sfml-graphics-d.lib;sfml-window-d.lib;sfml-network-d.lib;%(AdditionalDependencies);opengl32.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\manager\fileDialogs.cpp" />
-    <ClCompile Include="src\projectSelector\projectSelector.cpp" />
+    <ClCompile Include="src\guiComponents\projectSelector\UIProjectSelector.cpp" />
     <ClCompile Include="src\manager\fontManager.cpp" />
     <ClCompile Include="src\engineComponents\event.cpp" />
     <ClCompile Include="src\spriteComponents\childSystem.cpp" />
@@ -198,9 +198,9 @@
     <ClCompile Include="src\guiComponents\propertyEditor\UIHirachySpriteDisplay.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\projectSelector\projectInfo.h" />
+    <ClInclude Include="src\data\projectInfo.h" />
     <ClInclude Include="src\manager\fileDialogs.h" />
-    <ClInclude Include="src\projectSelector\projectSelector.h" />
+    <ClInclude Include="src\guiComponents\projectSelector\UIProjectSelector.h" />
     <ClInclude Include="src\manager\fontManager.h" />
     <ClInclude Include="src\engineComponents\keyBoard.h" />
     <ClInclude Include="src\engineComponents\event.h" />
