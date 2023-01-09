@@ -196,6 +196,7 @@
     <ClCompile Include="src\guiComponents\realTimeEditor\UIRealTimeEditorTransform.cpp" />
     <ClCompile Include="src\guiComponents\propertyEditor\UIHirachyMenuDisplayer.cpp" />
     <ClCompile Include="src\guiComponents\propertyEditor\UIHirachySpriteDisplay.cpp" />
+    <ClCompile Include="src\guiComponents\projectSelector\UIProjectSelectorProjectSection.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\data\projectInfo.h" />
@@ -350,6 +351,7 @@
     <ClInclude Include="src\guiComponents\realTimeEditor\UIRealTimeEditorTransform.h" />
     <ClInclude Include="src\guiComponents\propertyEditor\UIHirachyMenuDisplayer.h" />
     <ClInclude Include="src\guiComponents\propertyEditor\UIHirachySpriteDisplay.h" />
+    <ClInclude Include="src\guiComponents\projectSelector\UIProjectSelectorProjectSection.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="addingNewSpriteProp.txt" />

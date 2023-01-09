@@ -5,6 +5,12 @@
 
 namespace s2d
 {
+	enum class UIProjectSelectorLocation
+	{
+		None = -1,
+		Projects = 0,
+		Docs
+	};
 	struct ProjectInfo
 	{
 		std::string path;

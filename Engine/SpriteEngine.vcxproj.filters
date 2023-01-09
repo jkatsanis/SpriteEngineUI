@@ -139,6 +139,9 @@
     <Filter Include="src\Components\guiComponents\projectSelector\selector">
       <UniqueIdentifier>{73a01882-7de8-4de4-98a4-cbaa87a99896}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Components\guiComponents\projectSelector\create">
+      <UniqueIdentifier>{f7276a62-4241-416b-a8ed-710d28d88a06}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\include\imgui\imgui.cpp">
@@ -270,6 +273,9 @@
     </ClCompile>
     <ClCompile Include="src\guiComponents\projectSelector\UIProjectSelector.cpp">
       <Filter>src\Components\guiComponents\projectSelector\selector</Filter>
+    </ClCompile>
+    <ClCompile Include="src\guiComponents\projectSelector\UIProjectSelectorProjectSection.cpp">
+      <Filter>src\Components\guiComponents\projectSelector\create</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -723,11 +729,14 @@
     <ClInclude Include="src\manager\fileDialogs.h">
       <Filter>src\Components\engineComponents\manager\fileDialgo</Filter>
     </ClInclude>
-    <ClInclude Include="src\data\projectInfo.h">
-      <Filter>src\Components\guiComponents\projectSelector</Filter>
-    </ClInclude>
     <ClInclude Include="src\guiComponents\projectSelector\UIProjectSelector.h">
       <Filter>src\Components\guiComponents\projectSelector\selector</Filter>
+    </ClInclude>
+    <ClInclude Include="src\guiComponents\projectSelector\UIProjectSelectorProjectSection.h">
+      <Filter>src\Components\guiComponents\projectSelector\create</Filter>
+    </ClInclude>
+    <ClInclude Include="src\data\projectInfo.h">
+      <Filter>src\Components\engineComponents\data</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

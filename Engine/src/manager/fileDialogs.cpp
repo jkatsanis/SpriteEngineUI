@@ -48,6 +48,7 @@ void s2d::FileDialog::displayNodes()
     // Clicked at the "x", stop displaying the file dialoge
     if (ImGui::Button(name.c_str()))
     {
+        this->pathClicked = "";
         this->m_closeWindow = true;
     }
 
@@ -58,8 +59,10 @@ void s2d::FileDialog::displayNodes()
         displayTitle(this->m_TITLE);
         this->m_displayedTitle = false;
 
+        const std::string BUTTON_NAME = this->m_ICON + "##" + this->m_PATH;
+
         // clicked on the icon of the right
-        if (this->displaySymbol(this->m_ICON, this->m_WINDOW_SIZE.x))
+        if (this->displaySymbol(BUTTON_NAME, this->m_WINDOW_SIZE.x))
         {
             this->pathClicked = this->m_PATH;
         }
@@ -132,8 +135,7 @@ void s2d::FileDialog::openFile(const char* dir_path)
 
             if (this->displaySymbol(BUTTON_NAME, this->m_WINDOW_SIZE.x))
             {
-                std::cout << path;
-                this->pathClicked = entry->d_name;
+                this->pathClicked = path;
             }
 
             if (!checkIfADirHasSubDirs(path))
