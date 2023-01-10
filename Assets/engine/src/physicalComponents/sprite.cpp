@@ -163,7 +163,10 @@ void s2d::Sprite::initActiveSprites()
 	//! INFO ! ALWAYS SCALE THINGS UP BY 1.5F!
 	std::fstream spriteFile;
 
+
 	//opening the file where all sprite data is
+	std::string sf = s2d::EngineData::s_pathFromEngineToUserProject + "\\saves\\sprites.txt";
+	std::cout << s2d::EngineData::s_pathFromEngineToUserProject << std::endl;
 	spriteFile.open("saves\\sprites.txt", std::ios::in);
 	if (spriteFile.is_open())
 	{
@@ -190,14 +193,7 @@ void s2d::Sprite::initActiveSprites()
 			sprite->setVectorPosition(atoi(propertys[1].c_str()));
 			sprite->transform.position.x = std::stof(propertys[2].c_str());
 			sprite->transform.position.y = std::stof(propertys[3].c_str());
-
 			sprite->path = propertys[4];
-			if (sprite->path == "EngineAssets/Sprites/default.png")
-			{
-				std::string enginePath = "..\\Engine\\";
-				sprite->path = enginePath + "EngineAssets\\Sprites\\default.png";
-			}
-
 
 			if (!sprite->m_texture.loadFromFile(sprite->path))
 			{
@@ -281,6 +277,7 @@ void s2d::Sprite::initActiveSprites()
 			}
 		}
 	}
+
 }
 
 int s2d::Sprite::getMaxNumber(std::vector<s2d::Sprite*>& vec)

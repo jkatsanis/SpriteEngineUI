@@ -1,6 +1,6 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
-#include <engineComponents/gameEngine.h>
+#include <engineComponents/game.h>
 
 int main()
 {

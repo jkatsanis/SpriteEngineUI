@@ -4,7 +4,7 @@
 
 void Testing::start()
 {
-	this->m_spriteSpeed = 700;
+	this->m_spriteSpeed = 200;
 
 	thisSprite = s2d::Sprite::getSpriteByName("Rick");
 	camera = &s2d::GameObject::camera;

@@ -18,13 +18,11 @@ s2d::GameEngine::GameEngine()
     //Setting other classes
     s2d::Sprite::initActiveSprites();
     s2d::Input::setEvent(&this->event);
-    s2d::SpriteData::highestIndex = s2d::SpriteData::getHighestIndex();
     //End
 
     ImGui::SFML::Init(*this->ptr_renderWindow);
 
     this->ptr_renderWindow->setKeyRepeatEnabled(false);
-    s2d::FontManager::InitFonts(ImGui::GetIO());
 }
 
 s2d::GameEngine::~GameEngine()
@@ -67,7 +65,7 @@ void s2d::GameEngine::pollEvents()
             s2d::flc::createWindowBackgroundSaveFile(this->m_UIWindow.getInspector().backgroundColor);
             s2d::flc::createCameraSaveFile(*s2d::GameObject::ptr_camera_tRealTimeEditor);
             s2d::flc::createIndexSaveFile();
-            s2d::flc::createPathToEngineFile();
+            s2d::flc::createPathFromEngineToUserProjectSaveFile();
 
             this->ptr_renderWindow->close();
         }

@@ -46,8 +46,41 @@ void s2d::UIToolButtons::askWithButtonForPlayGame()
 		s2d::flc::createWindowBackgroundSaveFile(this->m_windowbBackgroundToSave);
 		s2d::flc::createCameraSaveFile(*s2d::GameObject::ptr_camera_tRealTimeEditor);
 		s2d::flc::createIndexSaveFile();
+		s2d::flc::createPathFromEngineToUserProjectSaveFile();
+	
+		wchar_t engineDirectory[MAX_PATH];
+		if (!GetCurrentDirectory(MAX_PATH, engineDirectory))
+		{
+			std::cout << "FAILED GETTING DIRECTORY";
+		}
 
-		system("..\\Assets\\x64\\Debug\\Assets.exe");
+		// ! Setting the current directory to the of the project.( the relative dir)
+
+		// Calculate the length of the wide string, including the null terminator.
+		int wideStringLength = MultiByteToWideChar(CP_UTF8, 0, s2d::EngineData::s_pathToUserProject.c_str(), -1, NULL, 0);
+
+		// Allocate a buffer for the wide string.
+		wchar_t* wideString = new wchar_t[wideStringLength];
+
+		// Convert the narrow string to a wide string.
+		MultiByteToWideChar(CP_UTF8, 0, s2d::EngineData::s_pathToUserProject.c_str(), -1, wideString, wideStringLength);
+
+		if (!SetCurrentDirectory(wideString))
+		{
+			std::cout << "FAILED SETTING DIR";	
+		}
+
+		std::string path = s2d::EngineData::s_pathToUserProject + "\\x64\\Debug\\Assets.exe";
+
+		//Starting the game
+		system(path.c_str());
+
+		//Reseting the dir
+
+		if (!SetCurrentDirectory(engineDirectory))
+		{
+			std::cout << "FAILED SETTING DIR";
+		}
 	}
 
 }

@@ -89,13 +89,12 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)\src;$(SolutionDir)\src\include;$(SolutionDir)\src\include\imgui;$(SolutionDir)\src\headers;$(SolutionDir)\src\guiComponents\propertyEditor\;$(SolutionDir)\src\guiComponents\realTimeEditor\;$(SolutionDir)\src\guiComponents\projectSelector\</AdditionalIncludeDirectories>
-      <LanguageStandard>stdcpp14</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)src\include\lib</AdditionalLibraryDirectories>
-      <AdditionalDependencies>sfml-system-d-2.lib;sfml-audio-d-2.lib;sfml-graphics-d-2.lib;sfml-window-d.-2lib;sfml-network-d-2.lib;opengl32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>sfml-system-d.lib;sfml-audio-d.lib;sfml-graphics-d.lib;sfml-window-d.lib;sfml-network-d.lib;%(AdditionalDependencies);opengl32.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -107,15 +106,14 @@
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)\src;$(SolutionDir)\src\include;$(SolutionDir)\src\include\imgui;$(SolutionDir)\src\headers;$(SolutionDir)\src\guiComponents\propertyEditor\;$(SolutionDir)\src\guiComponents\realTimeEditor\;$(SolutionDir)\src\guiComponents\projectSelector\</AdditionalIncludeDirectories>
-      <LanguageStandard>stdcpp14</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)src\include\lib</AdditionalLibraryDirectories>
-      <AdditionalDependencies>sfml-system-d.lib;sfml-audio-d.lib;sfml-graphics-d.lib;sfml-window-d.lib;sfml-network-d.lib;opengl32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>sfml-system-d.lib;sfml-audio-d.lib;sfml-graphics-d.lib;sfml-window-d.lib;sfml-network-d.lib;%(AdditionalDependencies);opengl32.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -126,13 +124,12 @@
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)\src;$(SolutionDir)\src\include;$(SolutionDir)\src\include\imgui;$(SolutionDir)\src\headers;$(SolutionDir)\src\guiComponents\propertyEditor\;$(SolutionDir)\src\guiComponents\realTimeEditor\;$(SolutionDir)\src\guiComponents\projectSelector\</AdditionalIncludeDirectories>
       <MultiProcessorCompilation>false</MultiProcessorCompilation>
-      <LanguageStandard>stdcpp14</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)src\include\lib</AdditionalLibraryDirectories>
-      <AdditionalDependencies>sfml-system-d-2.lib;sfml-audio-d-2.lib;sfml-graphics-d-2.lib;sfml-window-d.-2lib;sfml-network-d-2.lib;opengl32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)\src\include\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>sfml-system-d.lib;sfml-audio-d.lib;sfml-graphics-d.lib;sfml-window-d.lib;sfml-network-d.lib;%(AdditionalDependencies);opengl32.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -144,19 +141,18 @@
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)\src;$(SolutionDir)\src\include;$(SolutionDir)\src\include\imgui;$(SolutionDir)\src\headers;$(SolutionDir)\src\guiComponents\propertyEditor\;$(SolutionDir)\src\guiComponents\realTimeEditor\;$(SolutionDir)\src\guiComponents\projectSelector\</AdditionalIncludeDirectories>
-      <LanguageStandard>stdcpp14</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)src\include\lib</AdditionalLibraryDirectories>
-      <AdditionalDependencies>sfml-system-d.lib;sfml-audio-d.lib;sfml-graphics-d.lib;sfml-window-d.lib;sfml-network-d.lib;opengl32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>sfml-system-d.lib;sfml-audio-d.lib;sfml-graphics-d.lib;sfml-window-d.lib;sfml-network-d.lib;%(AdditionalDependencies);opengl32.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\data\projectInfo.cpp" />
+    <ClCompile Include="src\data\engineData.cpp" />
     <ClCompile Include="src\manager\fileDialogs.cpp" />
     <ClCompile Include="src\guiComponents\projectSelector\UIProjectSelector.cpp" />
     <ClCompile Include="src\manager\fontManager.cpp" />
@@ -204,7 +200,7 @@
     <ClCompile Include="src\guiComponents\projectSelector\UIProjectSelectorProjectSection.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\guiComponents\projectSelector\projectSelectorColors.h" />
+    <ClInclude Include="src\data\engineData.h" />
     <ClInclude Include="src\data\projectInfo.h" />
     <ClInclude Include="src\manager\fileDialogs.h" />
     <ClInclude Include="src\guiComponents\projectSelector\UIProjectSelector.h" />

@@ -151,10 +151,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="engine\src\data\engineData.cpp" />
     <ClCompile Include="engine\src\engineComponents\event.cpp" />
-    <ClCompile Include="engine\src\engineComponents\FileData.cpp" />
+    <ClCompile Include="engine\src\data\FileData.cpp" />
     <ClCompile Include="engine\src\engineComponents\game.cpp" />
-    <ClCompile Include="engine\src\engineComponents\gameData.cpp" />
+    <ClCompile Include="engine\src\data\gameData.cpp" />
     <ClCompile Include="engine\src\engineComponents\input.cpp" />
     <ClCompile Include="engine\src\engineComponents\sTime.cpp" />
     <ClCompile Include="engine\src\physicalComponents\camera.cpp" />
@@ -173,11 +174,11 @@
     <ClCompile Include="assets\scripts\Testing.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="assets\Scripts\Testing.h" />
+    <ClInclude Include="engine\src\data\engineData.h" />
     <ClInclude Include="engine\src\engineComponents\event.h" />
-    <ClInclude Include="engine\src\engineComponents\FileData.h" />
+    <ClInclude Include="engine\src\data\FileData.h" />
     <ClInclude Include="engine\src\engineComponents\game.h" />
-    <ClInclude Include="engine\src\engineComponents\gameData.h" />
+    <ClInclude Include="engine\src\data\gameData.h" />
     <ClInclude Include="engine\src\engineComponents\input.h" />
     <ClInclude Include="engine\src\engineComponents\keyBoard.h" />
     <ClInclude Include="engine\src\physicalComponents\camera.h" />
@@ -292,6 +293,7 @@
     <ClInclude Include="src\libraries\include\SFML\Window\WindowHandle.hpp" />
     <ClInclude Include="src\libraries\include\SFML\Window\WindowStyle.hpp" />
     <ClInclude Include="engine\src\engineComponents\sTime.h" />
+    <ClInclude Include="assets\Scripts\Testing.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="src\libraries\include\SFML\Audio\SoundFileFactory.inl" />

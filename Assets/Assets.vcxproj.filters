@@ -10,9 +10,6 @@
     <Filter Include="engine src\engineComponents\game">
       <UniqueIdentifier>{c8fab3ae-af6b-4782-8490-112c4b343c32}</UniqueIdentifier>
     </Filter>
-    <Filter Include="engine src\engineComponents\data">
-      <UniqueIdentifier>{5d98c425-cf3b-457c-b9a7-aa09006b4adb}</UniqueIdentifier>
-    </Filter>
     <Filter Include="engine src\engineComponents\input">
       <UniqueIdentifier>{768f0991-6c0e-41e1-a95b-5e58e1447bbd}</UniqueIdentifier>
     </Filter>
@@ -71,6 +68,9 @@
     <Filter Include="engine src\_include\sfml">
       <UniqueIdentifier>{52e0bfb6-0af9-4241-bfb2-e2e8c85df5bd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="engine src\data">
+      <UniqueIdentifier>{5d98c425-cf3b-457c-b9a7-aa09006b4adb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="assets\scripts\Testing.cpp">
@@ -118,20 +118,23 @@
     <ClCompile Include="engine\src\engineComponents\event.cpp">
       <Filter>engine src\engineComponents\game</Filter>
     </ClCompile>
-    <ClCompile Include="engine\src\engineComponents\FileData.cpp">
-      <Filter>engine src\engineComponents\data</Filter>
+    <ClCompile Include="engine\src\data\FileData.cpp">
+      <Filter>engine src\data</Filter>
     </ClCompile>
     <ClCompile Include="engine\src\engineComponents\game.cpp">
       <Filter>engine src\engineComponents\game</Filter>
     </ClCompile>
-    <ClCompile Include="engine\src\engineComponents\gameData.cpp">
-      <Filter>engine src\engineComponents\data</Filter>
+    <ClCompile Include="engine\src\data\gameData.cpp">
+      <Filter>engine src\data</Filter>
     </ClCompile>
     <ClCompile Include="engine\src\engineComponents\input.cpp">
       <Filter>engine src\engineComponents\input</Filter>
     </ClCompile>
     <ClCompile Include="engine\src\engineComponents\sTime.cpp">
       <Filter>engine src\engineComponents\time</Filter>
+    </ClCompile>
+    <ClCompile Include="engine\src\data\engineData.cpp">
+      <Filter>engine src\data</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -471,11 +474,11 @@
     <ClInclude Include="engine\src\engineComponents\input.h">
       <Filter>engine src\engineComponents\input</Filter>
     </ClInclude>
-    <ClInclude Include="engine\src\engineComponents\gameData.h">
-      <Filter>engine src\engineComponents\data</Filter>
+    <ClInclude Include="engine\src\data\gameData.h">
+      <Filter>engine src\data</Filter>
     </ClInclude>
-    <ClInclude Include="engine\src\engineComponents\FileData.h">
-      <Filter>engine src\engineComponents\data</Filter>
+    <ClInclude Include="engine\src\data\FileData.h">
+      <Filter>engine src\data</Filter>
     </ClInclude>
     <ClInclude Include="engine\src\engineComponents\event.h">
       <Filter>engine src\engineComponents\game</Filter>
@@ -489,7 +492,12 @@
     <ClInclude Include="engine\src\engineComponents\sTime.h">
       <Filter>engine src\engineComponents\time</Filter>
     </ClInclude>
-    <ClInclude Include="assets\Scripts\Testing.h" />
+    <ClInclude Include="engine\src\data\engineData.h">
+      <Filter>engine src\data</Filter>
+    </ClInclude>
+    <ClInclude Include="assets\Scripts\Testing.h">
+      <Filter>game src</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="src\libraries\include\SFML\Graphics\Glsl.inl">

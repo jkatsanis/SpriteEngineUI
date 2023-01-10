@@ -3,7 +3,6 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-#include <data/projectInfo.h>
 
 namespace s2d
 {

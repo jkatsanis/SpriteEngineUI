@@ -5,8 +5,6 @@
 #include <imgui_internal.h>
 #include <manager/fileDialogs.h>
 #include <data/projectInfo.h>
-#include <projectSelectorColors.h>
-#include <manager/saveSystem.h>
 
 namespace s2d
 {
@@ -14,24 +12,22 @@ namespace s2d
 	{
 	private:
 		ImVec2 m_createWindowSize;
+		ImVec4 m_createButtonsColor;
+		ImVec4 m_listBoxHeaderBackground;
 
 		s2d::CurrentFileDialog m_currentFileDialoge;
 		s2d::FileDialog m_createFileDialoge;
 
 		const s2d::UIProjectSelectorLocation* m_ptr_UILocation;
 
-		std::vector<s2d::ProjectInfo> m_projects;
+		std::vector<s2d::UserProjectInfo> m_projects;
 
 		void renderInfoOverProjects(float padding);
 		void renderProjectData();
 		void renderFileDialogs();
 		void createPopupToCreateProject();
 
-		void createProject();
-
-		std::string name;
-
-		std::vector<s2d::ProjectInfo> readProjectInfosFromFile();
+		std::vector<s2d::UserProjectInfo> readProjectInfosFromFile();
 		s2d::CurrentFileDialog getFileDialogeWhichUserWantsToMake();
 
 		void init();

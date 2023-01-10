@@ -142,8 +142,8 @@
     <Filter Include="src\Components\guiComponents\projectSelector\create">
       <UniqueIdentifier>{f7276a62-4241-416b-a8ed-710d28d88a06}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\Components\engineComponents\data\projectInfo">
-      <UniqueIdentifier>{01447566-ca07-4b46-aba6-a3984959b21d}</UniqueIdentifier>
+    <Filter Include="src\Components\engineComponents\data\engine">
+      <UniqueIdentifier>{7a5a6dea-281f-4d88-aea8-91d046ba54c2}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -280,8 +280,8 @@
     <ClCompile Include="src\guiComponents\projectSelector\UIProjectSelectorProjectSection.cpp">
       <Filter>src\Components\guiComponents\projectSelector\create</Filter>
     </ClCompile>
-    <ClCompile Include="src\data\projectInfo.cpp">
-      <Filter>src\Components\engineComponents\data\projectInfo</Filter>
+    <ClCompile Include="src\data\engineData.cpp">
+      <Filter>src\Components\engineComponents\data\engine</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -741,11 +741,11 @@
     <ClInclude Include="src\guiComponents\projectSelector\UIProjectSelectorProjectSection.h">
       <Filter>src\Components\guiComponents\projectSelector\create</Filter>
     </ClInclude>
-    <ClInclude Include="src\guiComponents\projectSelector\projectSelectorColors.h">
-      <Filter>src\Components\guiComponents\projectSelector\selector</Filter>
-    </ClInclude>
     <ClInclude Include="src\data\projectInfo.h">
-      <Filter>src\Components\engineComponents\data\projectInfo</Filter>
+      <Filter>src\Components\engineComponents\data</Filter>
+    </ClInclude>
+    <ClInclude Include="src\data\engineData.h">
+      <Filter>src\Components\engineComponents\data\engine</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

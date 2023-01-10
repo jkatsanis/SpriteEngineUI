@@ -1,2 +1,0 @@
-pathToEngine
-C:\Dev\SpriteEngineUI\Engine

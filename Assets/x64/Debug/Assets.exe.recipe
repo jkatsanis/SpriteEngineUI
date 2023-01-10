@@ -2,7 +2,7 @@
 <Project>
   <ProjectOutputs>
     <ProjectOutput>
-      <FullPath>C:\Dev\SpriteEngineUI\Assets\x64\Debug\Assets.exe</FullPath>
+      <FullPath>C:\SpriteEngineUI\Assets\x64\Debug\Assets.exe</FullPath>
     </ProjectOutput>
   </ProjectOutputs>
   <ContentFiles />

@@ -1,2 +1,12 @@
-﻿  Testing.cpp
-  Assets.vcxproj -> C:\Dev\SpriteEngineUI\Assets\x64\Debug\Assets.exe
+﻿  sprite.cpp
+C:\SpriteEngineUI\Assets\engine\src\physicalComponents\sprite.cpp(81,53): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
+          with
+          [
+              T=unsigned int
+          ]
+C:\SpriteEngineUI\Assets\engine\src\physicalComponents\sprite.cpp(81,41): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
+          with
+          [
+              T=unsigned int
+          ]
+  Assets.vcxproj -> C:\SpriteEngineUI\Assets\x64\Debug\Assets.exe

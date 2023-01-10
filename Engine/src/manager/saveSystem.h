@@ -5,8 +5,7 @@
 #include <vector>
 #include <calculationComponents/vector3.h>
 #include <physicalComponents/camera.h>
-#include <dirent.h>
-#include <filesystem>
+#include <data/engineData.h>
 
 namespace s2d
 {
@@ -18,12 +17,11 @@ namespace s2d
 		void createIndexSaveFile();
 
 		/// <summary>
-		/// Creates a file in the user project which has a path to the engine. 
-		/// Only relevant for user project
+		/// This file needs to be rewritten when the engine gets moved. 
+		/// The project wont show in the selector then aswell you need to 
+		/// manually open it
 		/// </summary>
-		void createPathToEngineFile();
-
-		void copyDir(const char* inputDir, std::string outputDir, std::string name);
+		void createPathFromEngineToUserProjectSaveFile();
 
 		std::string getPropertyLineWithSeperator(Sprite* sprite);
 	}

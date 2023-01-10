@@ -2,7 +2,7 @@
 
 s2d::UIAssetFolder::UIAssetFolder()
 {
-    this->currentPath = s2d::ProjectInfo::s_pathToUserProject + "\\assets";
+    this->currentPath = "..\\Assets\\assets";
     this->currentName = "Assets";
     this->m_iconSize = 75;
     this->m_padding = 130;
@@ -99,6 +99,8 @@ void s2d::UIAssetFolder::getAllFilesInDir(const char* path, const char* name)
         }
         if(!isFolder)
             this->setDragAndDrop(newPath, str);
+
+
 
         ImGui::SetWindowFontScale(s2d::UIInfo::sdefaultFontSize);
 

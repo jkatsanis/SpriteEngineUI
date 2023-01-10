@@ -37,7 +37,6 @@ namespace s2d
 		bool displaySymbol(const std::string& icon, float windowSizeX);
 	public:
 		std::string pathClicked;	
-		bool windowFocus;
 
 		FileDialog();
 		FileDialog(std::string path, std::string icon, std::string title, ImVec2 windowSize);
@@ -47,7 +46,7 @@ namespace s2d
 		///  Displays all the nodes including the path you provide
 		/// </summary>
 		void displayNodes();
-		void reset();
+		
 
 		bool closeWindow() const { return this->m_closeWindow; }
 

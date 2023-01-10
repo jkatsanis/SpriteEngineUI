@@ -118,13 +118,13 @@
     <ClCompile Include="engine\src\engineComponents\event.cpp">
       <Filter>engine src\engineComponents\game</Filter>
     </ClCompile>
-    <ClCompile Include="engine\src\data\FileData.cpp">
+    <ClCompile Include="engine\src\engineComponents\FileData.cpp">
       <Filter>engine src\engineComponents\data</Filter>
     </ClCompile>
-    <ClCompile Include="engine\src\engineComponents\gameEngine.cpp">
+    <ClCompile Include="engine\src\engineComponents\game.cpp">
       <Filter>engine src\engineComponents\game</Filter>
     </ClCompile>
-    <ClCompile Include="engine\src\data\gameData.cpp">
+    <ClCompile Include="engine\src\engineComponents\gameData.cpp">
       <Filter>engine src\engineComponents\data</Filter>
     </ClCompile>
     <ClCompile Include="engine\src\engineComponents\input.cpp">
@@ -132,12 +132,6 @@
     </ClCompile>
     <ClCompile Include="engine\src\engineComponents\sTime.cpp">
       <Filter>engine src\engineComponents\time</Filter>
-    </ClCompile>
-    <ClCompile Include="engine\src\data\engineData.cpp">
-      <Filter>engine src\engineComponents\data</Filter>
-    </ClCompile>
-    <ClCompile Include="assets\scripts\Testing.cpp">
-      <Filter>game src</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -477,10 +471,10 @@
     <ClInclude Include="engine\src\engineComponents\input.h">
       <Filter>engine src\engineComponents\input</Filter>
     </ClInclude>
-    <ClInclude Include="engine\src\data\gameData.h">
+    <ClInclude Include="engine\src\engineComponents\gameData.h">
       <Filter>engine src\engineComponents\data</Filter>
     </ClInclude>
-    <ClInclude Include="engine\src\data\FileData.h">
+    <ClInclude Include="engine\src\engineComponents\FileData.h">
       <Filter>engine src\engineComponents\data</Filter>
     </ClInclude>
     <ClInclude Include="engine\src\engineComponents\event.h">
@@ -489,16 +483,12 @@
     <ClInclude Include="engine\src\engineComponents\keyBoard.h">
       <Filter>engine src\engineComponents\input</Filter>
     </ClInclude>
-    <ClInclude Include="engine\src\engineComponents\gameEngine.h">
+    <ClInclude Include="engine\src\engineComponents\game.h">
       <Filter>engine src\engineComponents\game</Filter>
     </ClInclude>
     <ClInclude Include="engine\src\engineComponents\sTime.h">
       <Filter>engine src\engineComponents\time</Filter>
     </ClInclude>
-    <ClInclude Include="engine\src\data\engineData.h">
-      <Filter>engine src\engineComponents\data</Filter>
-    </ClInclude>
-    <ClInclude Include="assets\scripts\Testing.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="src\libraries\include\SFML\Graphics\Glsl.inl">

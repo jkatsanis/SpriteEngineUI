@@ -7,7 +7,6 @@
 #include <data/UIInfo.h>
 #include <array>
 #include <data/UIIconData.h>
-#include <data/projectInfo.h>
 
 namespace s2d
 {		

@@ -119,10 +119,8 @@ void s2d::UIRealTimeEditorNavigator::loadCameraSettingsFromFile()
 {
 	std::fstream cameraFile;
 
-	std::string pathToCameraFile = s2d::ProjectInfo::s_pathToUserProject + "\\saves\\camera.txt";
-
 	//opening the file where all sprite data is
-	cameraFile.open(pathToCameraFile, std::ios::in);
+	cameraFile.open("saves\\camera.txt", std::ios::in);
 	if (cameraFile.is_open())
 	{
 		std::string line;
