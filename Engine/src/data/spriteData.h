@@ -3,6 +3,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <data/engineData.h>
 
 namespace s2d
 {
@@ -14,7 +15,7 @@ namespace s2d
 		static int getHighestIndex();
 
 		static std::string defaultSpritePath;
-		static int highestIndex;
+		static int highestSpriteID;
 		static int dupeNameCounter;
 	};
 }

@@ -46,7 +46,6 @@ void s2d::UIToolButtons::askWithButtonForPlayGame()
 		s2d::flc::createWindowBackgroundSaveFile(this->m_windowbBackgroundToSave);
 		s2d::flc::createCameraSaveFile(*s2d::GameObject::ptr_camera_tRealTimeEditor);
 		s2d::flc::createIndexSaveFile();
-		s2d::flc::createPathFromEngineToUserProjectSaveFile();
 	
 		wchar_t engineDirectory[MAX_PATH];
 		if (!GetCurrentDirectory(MAX_PATH, engineDirectory))
@@ -81,6 +80,8 @@ void s2d::UIToolButtons::askWithButtonForPlayGame()
 		{
 			std::cout << "FAILED SETTING DIR";
 		}
+
+		delete wideString;
 	}
 
 }

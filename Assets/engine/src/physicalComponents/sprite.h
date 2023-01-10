@@ -9,7 +9,6 @@
 #include <spriteComponents/boxCollider.h>
 #include <SFML/Graphics.hpp>
 #include <spriteComponents/physicsBody.h>
-#include <data/engineData.h>
 #include <stdExtension.h>
 
 namespace s2d

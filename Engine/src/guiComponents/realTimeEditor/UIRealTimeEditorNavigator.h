@@ -7,6 +7,7 @@
 #include <physicalComponents/gameObject.h>
 #include <fstream>
 #include <stdExtension.h>
+#include <data/engineData.h>
 
 namespace s2d
 {

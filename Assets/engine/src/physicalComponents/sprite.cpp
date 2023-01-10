@@ -74,26 +74,36 @@ s2d::Vector2 s2d::Sprite::getOrigininalPosition()
 
 //Private functions
 
-
 void s2d::Sprite::setTextureSize()
 {
 	sf::Vector2u tempSize = m_texture.getSize();
 	this->transform.size = Vector2(tempSize.x, tempSize.y);
 }
 
-
 void s2d::Sprite::initVariables(std::string name, s2d::Vector2 spawnPos, std::string path)
 {
-	//Giving pointer so we dont have to update it consistently
-	this->collider = BoxCollider(this);
+	this->m_childCount = -1;
+	this->m_listPos = -1;
+	this->m_parentId = -1;
+
+	// ID
+	s2d::SpriteData::highestSpriteID++;
+	this->setId(s2d::SpriteData::highestSpriteID);
+
+	this->parent = nullptr;
+	this->childs = std::vector<s2d::Sprite*>(0);
 
 	this->name = name;
-	this->path = "../Assets/assets/" + path;
+	this->path = path;
 	this->transform.position = spawnPos;
-	this->m_vectorPosition = s2d::Sprite::getMaxNumber(s2d::Sprite::activeSprites) + 1;
+	this->transform.lastPos = s2d::Vector2(0, 0);
+	this->transform.nextPos = this->transform.position;
+	this->m_vectorPosition = -1;
+	this->sortingLayerIndex = 0;
+
 	sf::Sprite sprite;
 
-	if (!this->m_texture.loadFromFile(this->path))
+	if (!this->m_texture.loadFromFile(path))
 	{
 		//Console log!
 	}
@@ -104,10 +114,10 @@ void s2d::Sprite::initVariables(std::string name, s2d::Vector2 spawnPos, std::st
 	setTextureSize();
 
 	//Finally setting the sprite
-	m_sprite = sprite;
+	this->m_sprite = sprite;
 
-	this->collider = BoxCollider(this);
-	this->physicsBody = s2d::PhsysicsBody(this);
+	this->collider = s2d::BoxCollider(this);
+	this->physicsBody = s2d::PhsysicsBody();
 }
 
 void s2d::Sprite::pushSetup()
@@ -146,7 +156,6 @@ void s2d::Sprite::pushSpriteFromCollider(s2d::BoxColliderPositionData::Position 
 	}
 }
 
-
 //Static functions
 
 s2d::Sprite* s2d::Sprite::getNode()
@@ -165,9 +174,7 @@ void s2d::Sprite::initActiveSprites()
 
 
 	//opening the file where all sprite data is
-	std::string sf = s2d::EngineData::s_pathFromEngineToUserProject + "\\saves\\sprites.txt";
-	std::cout << s2d::EngineData::s_pathFromEngineToUserProject << std::endl;
-	spriteFile.open("saves\\sprites.txt", std::ios::in);
+	spriteFile.open("engine\\saves\\sprites.txt", std::ios::in);
 	if (spriteFile.is_open())
 	{
 		std::string line;

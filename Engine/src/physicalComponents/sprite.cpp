@@ -104,8 +104,11 @@ void s2d::Sprite::initVariables(std::string name, s2d::Vector2 spawnPos, std::st
 {
 	this->m_childCount = -1;
 	this->m_listPos = -1;
-	this->m_id = -2;
 	this->m_parentId = -1;
+
+	// ID
+	s2d::SpriteData::highestSpriteID++;
+	this->setId(s2d::SpriteData::highestSpriteID);
 
 	this->parent = nullptr;
 	this->childs = std::vector<s2d::Sprite*>(0);

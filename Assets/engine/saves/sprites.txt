@@ -1,0 +1,2 @@
+name;vecpos;transformPosX;transformPosY;filepath;boxColliderWidthLeftOrRightX;boxColliderWidthLeftOrRighY;boxColliderHeightUpOrDownX;boxColliderHeightUpOrDownY;boxColliderExists;solid;sortingLayer;gravity;mass;physicsBodyExists;id;parentId;nextPosX;nextPosY;lastPosX;lastPosY;listPos;highestChild;positionToParentX;positionToParentY;animatorExists
+Rick;1;0.000000;0.000000;..\Assets-d\assets\Sprites\mega.png;0.000000;0.000000;0.000000;0.000000;False;False;0;0.000000;0.000000;False;4;-1;0.000000;0.000000;0.000000;0.000000;-1;-1;0.000000;0.000000;False

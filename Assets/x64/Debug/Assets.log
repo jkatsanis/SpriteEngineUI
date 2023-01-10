@@ -1,12 +1,22 @@
-﻿  sprite.cpp
-C:\SpriteEngineUI\Assets\engine\src\physicalComponents\sprite.cpp(81,53): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
+﻿  Testing.cpp
+  physics.cpp
+  game.cpp
+  main.cpp
+  sprite.cpp
+C:\SpriteEngineUI\Assets\engine\src\physicalComponents\sprite.cpp(80,53): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
           with
           [
               T=unsigned int
           ]
-C:\SpriteEngineUI\Assets\engine\src\physicalComponents\sprite.cpp(81,41): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
+C:\SpriteEngineUI\Assets\engine\src\physicalComponents\sprite.cpp(80,41): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
           with
           [
               T=unsigned int
           ]
+  boxCollider.cpp
+  childSystem.cpp
+  physicsBody.cpp
+  spriteData.cpp
+  stransform.cpp
+  Generating Code...
   Assets.vcxproj -> C:\SpriteEngineUI\Assets\x64\Debug\Assets.exe

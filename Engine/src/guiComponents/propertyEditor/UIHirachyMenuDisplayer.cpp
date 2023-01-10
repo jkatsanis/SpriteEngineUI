@@ -89,18 +89,15 @@ void s2d::UIHirachyMenuDisplayer::createButton()
 		//Creating the Menu item "sprite" to create sprites
 		if (ImGui::MenuItem("Sprite"))
 		{
-			s2d::SpriteData::highestIndex++;
-
 			//Adding a new sprite to the hirachy + game scene	
 
 			int vectorPos = s2d::Sprite::activeSprites.size() + 1;
-			std::string temp = "Sprite " + std::to_string(vectorPos) + " id: " + std::to_string(s2d::SpriteData::highestIndex);
+			std::string name = "Sprite " + std::to_string(vectorPos) + " id: " + std::to_string(s2d::SpriteData::highestSpriteID + 1);
 
-			s2d::Sprite* sprite = new s2d::Sprite(temp, s2d::Vector2(0, 0), s2d::SpriteData::defaultSpritePath);
-			sprite->setId(s2d::SpriteData::highestIndex);
+			s2d::Sprite* sprite = new s2d::Sprite(name, s2d::Vector2(0, 0), s2d::SpriteData::defaultSpritePath);
 
+			// or true in the contrusctor
 			sprite->addSpriteToScene();
-
 		}
 		ImGui::EndMenu();
 	}

@@ -99,7 +99,7 @@ void s2d::flc::createWindowBackgroundSaveFile(const s2d::Vector3 windowBackgroun
 {
 	std::fstream backgroundFile;
 
-	backgroundFile.open("saves\\gameWindow.txt", std::ios::out);
+	backgroundFile.open(PATH_TO_BACKGROUND_FILE, std::ios::out);
 
 	if (backgroundFile.is_open())
 	{
@@ -118,7 +118,7 @@ void s2d::flc::createCameraSaveFile(const s2d::Camera& camera)
 {
 	std::fstream backgroundFile;
 
-	backgroundFile.open("saves\\camera.txt", std::ios::out);
+	backgroundFile.open(PATH_TO_CAMERA_FILE, std::ios::out);
 
 	if (backgroundFile.is_open())
 	{
@@ -134,10 +134,10 @@ void s2d::flc::createCameraSaveFile(const s2d::Camera& camera)
 
 void s2d::flc::createIndexSaveFile()
 {
-	int index = s2d::SpriteData::highestIndex;
+	int index = s2d::SpriteData::highestSpriteID;
 	std::fstream indexFile;
 
-	indexFile.open("saves\\index.txt", std::ios::out);
+	indexFile.open(PATH_TO_INDEX_FILE, std::ios::out);
 	if (indexFile.is_open())
 	{
 		indexFile << "highestIndex" << "\n";
@@ -148,18 +148,3 @@ void s2d::flc::createIndexSaveFile()
 	}
 }
 
-void s2d::flc::createPathFromEngineToUserProjectSaveFile()
-{
-	std::string path = s2d::EngineData::s_pathToUserProject;
-	std::fstream indexFile;
-
-	indexFile.open(PATH_TO_ENGINE_TO_USER_FILE, std::ios::out);
-	if (indexFile.is_open())
-	{
-		indexFile << "engine path to user project" << "\n";
-
-		indexFile << path << "\n";
-
-		indexFile.close();
-	}
-}

@@ -133,9 +133,6 @@
     <ClCompile Include="engine\src\engineComponents\sTime.cpp">
       <Filter>engine src\engineComponents\time</Filter>
     </ClCompile>
-    <ClCompile Include="engine\src\data\engineData.cpp">
-      <Filter>engine src\data</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\libraries\include\SFML\Audio\AlResource.hpp">
@@ -491,9 +488,6 @@
     </ClInclude>
     <ClInclude Include="engine\src\engineComponents\sTime.h">
       <Filter>engine src\engineComponents\time</Filter>
-    </ClInclude>
-    <ClInclude Include="engine\src\data\engineData.h">
-      <Filter>engine src\data</Filter>
     </ClInclude>
     <ClInclude Include="assets\Scripts\Testing.h">
       <Filter>game src</Filter>

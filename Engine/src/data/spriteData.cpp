@@ -6,7 +6,8 @@ int s2d::SpriteData::getHighestIndex()
 	int index = 0;
 
 	//opening the file where all sprite data is
-	indexFile.open("saves\\index.txt", std::ios::in);
+	indexFile.open(PATH_TO_INDEX_FILE, std::ios::in);
+
 	if (indexFile.is_open())
 	{
 		std::string line;
@@ -18,16 +19,24 @@ int s2d::SpriteData::getHighestIndex()
 			if (cnt == 1)
 			{
 				continue;
-			}
+			}		
+			std::cout << line << std::endl;
+
 
 			index = atoi(line.c_str());
 		}
 	}
+	indexFile.close();
 
 	return index;
 }
 
 std::string s2d::SpriteData::defaultSpritePath = "EngineAssets/Sprites/default.png";
-int s2d::SpriteData::highestIndex = s2d::SpriteData::getHighestIndex();
+
+/// <summary>
+/// This is the highest sprite id currently. 
+/// NO SPRITE is allowed to have the same ID. Always increment when creating new sprite
+/// </summary>
+int s2d::SpriteData::highestSpriteID = -1;
 int s2d::SpriteData::dupeNameCounter = 0;
 

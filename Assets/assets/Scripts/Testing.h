@@ -4,7 +4,6 @@
 #include <physicalComponents/sprite.h>
 #include <engineComponents/input.h>
 #include <engineComponents/sTime.h>
-#include <data/engineData.h>
 
 class Testing : s2d::GameData
 {

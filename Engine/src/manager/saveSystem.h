@@ -16,13 +16,6 @@ namespace s2d
 		void createCameraSaveFile(const s2d::Camera& camera);
 		void createIndexSaveFile();
 
-		/// <summary>
-		/// This file needs to be rewritten when the engine gets moved. 
-		/// The project wont show in the selector then aswell you need to 
-		/// manually open it
-		/// </summary>
-		void createPathFromEngineToUserProjectSaveFile();
-
 		std::string getPropertyLineWithSeperator(Sprite* sprite);
 	}
 }
