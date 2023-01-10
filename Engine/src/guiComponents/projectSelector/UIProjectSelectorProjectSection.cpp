@@ -100,10 +100,12 @@ void s2d::UIProjectSelectorProjectSection::renderProjectData()
 				std::string emptyBetweenNameAndCreation = s2d::FileDialog::getEmptyStringBetween("Project Name", filterName, paddingBetweenInfo);
 				std::string emptyBetweenCreationAndPath = s2d::FileDialog::getEmptyStringBetween("Last Opened   ", this->m_projects[i].lastOpened, paddingBetweenInfo);
 
-				std::string fullData = filterName + emptyBetweenNameAndCreation + this->m_projects[i].lastOpened + emptyBetweenCreationAndPath + this->m_projects[i].path;
+				std::string fullData = filterName + emptyBetweenNameAndCreation + this->m_projects[i].lastOpened + emptyBetweenCreationAndPath + this->m_projects[i].absulutePath;
+
+				// CHECK IF WE OPEN THE PROJECT
 				if (ImGui::MenuItem(fullData.c_str()))
 				{
-					s2d::EngineData::s_pathToUserProject = this->m_projects[i].path;
+					s2d::EngineData::s_pathToUserProject = this->m_projects[i].relativePath;
 					s2d::EngineData::s_nameOfUserProject = this->m_projects[i].name;
 				}
 			}
@@ -156,6 +158,7 @@ std::vector<s2d::UserProjectInfo> s2d::UIProjectSelectorProjectSection::readProj
 	std::fstream userProjectFile;
 
 	//opening the file where all sprite data is
+
 	userProjectFile.open(PATH_TO_KNOWN_PROJECTS, std::ios::in);
 	if (userProjectFile.is_open())
 	{
@@ -175,7 +178,7 @@ std::vector<s2d::UserProjectInfo> s2d::UIProjectSelectorProjectSection::readProj
 			std::string* propertys = std::splitString(line, delimiter);
 
 			//INITIIALIZING PROPS
-			userProjects.push_back(s2d::UserProjectInfo(propertys[0], propertys[1], propertys[2]));
+			userProjects.push_back(s2d::UserProjectInfo(propertys[0], propertys[1], propertys[2], propertys[3]));
 		}
 		userProjectFile.close();
 

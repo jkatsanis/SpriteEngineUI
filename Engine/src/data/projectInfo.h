@@ -13,21 +13,28 @@ namespace s2d
 	};
 	struct UserProjectInfo
 	{
-		std::string path;
+		std::string absulutePath;
+
+		/// <summary>
+		/// Engine to user project
+		/// </summary>
+		std::string relativePath;
 		std::string name;
 		std::string lastOpened;
 
 		UserProjectInfo()
 		{
 			this->lastOpened = "none";
-			this->path = "none";
+			this->absulutePath = "none";
 			this->name = "none";
 		}
-		UserProjectInfo(std::string name, std::string path, std::string lastOpened)
+		UserProjectInfo(std::string name, std::string abspath, std::string lastOpened, std::string relativePath)
 		{
 			this->lastOpened = lastOpened;
 			this->name = name;
-			this->path = path;
+			this->absulutePath = abspath;
+			this->relativePath = relativePath;
+
 		}
 	};
 }

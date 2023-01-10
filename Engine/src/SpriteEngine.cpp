@@ -7,7 +7,7 @@ int main()
 
     while (selector.isOpen())
     {
-        selector.update();
+        selector.update();  
     }
 
     // search where the error happens when u selet a invalid project

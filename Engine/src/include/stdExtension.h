@@ -4,6 +4,54 @@
 
 namespace std
 {
+	static bool isTherAnotherFilter(const std::string& word, const std::string& filter, int idx)
+	{
+		int filterCnt = 0;
+		for (int i = idx; i < word.size(); i++)
+		{
+			if (word[i] == filter[filterCnt])
+			{
+				filterCnt++;
+			}
+			else
+			{
+				filterCnt = 0;
+			}
+			if (filterCnt == filter.size())
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+
+	static std::string splitStringTillLastWord(const std::string& word, const std::string& filter)
+	{
+		std::string str;
+		int filterCnt = 0;
+		for (int i = 0; i < word.size(); i++)
+		{
+			if (word[i] == filter[filterCnt])
+			{
+				filterCnt++;
+			}
+			else
+			{
+				filterCnt = 0;
+			}
+			if (filterCnt == filter.size() && !isTherAnotherFilter(word, filter, i))
+			{
+
+				for (int j = i + 2; j < word.size(); j++)
+				{
+					str += word[j];
+				}
+
+			}
+		}
+		return str;
+	}
+
 	static bool isFolder(std::string name)
 	{
 		for (const char c : name)

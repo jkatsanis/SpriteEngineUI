@@ -1,2 +1,3 @@
 knownProjects
-Assets;C:\Dev\Assets;2023/10/01 10:36:08
+Assets;C:\Dev\Assets;2023/10/01 11:10:07;..\..\Assets
+Game;C:\Schule\Game;2023/10/01 11:10:07;..\..\..\Schule\Game

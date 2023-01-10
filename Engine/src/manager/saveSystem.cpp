@@ -33,7 +33,7 @@ std::string s2d::flc::getPropertyLineWithSeperator(Sprite* sprite)
 	std::string vecpos = std::to_string(sprite->getVectorPosition());
 	std::string transformPosX = std::to_string(sprite->transform.position.x);
 	std::string transformPosY = std::to_string(sprite->transform.position.y);
-	std::string spritePath = sprite->path;
+	std::string spritePath = std::splitStringTillLastWord(sprite->path, s2d::EngineData::s_pathToUserProject);
 
 	std::string boxColliderWidthLeftOrRightX = std::to_string(sprite->collider.boxColliderWidthLeftOrRight.x);
 	std::string boxColliderWidthLeftOrRightY = std::to_string(sprite->collider.boxColliderWidthLeftOrRight.y);
@@ -165,8 +165,6 @@ void s2d::flc::createKnownProjectDirFile()
 
 	std::strftime(buffer, sizeof(buffer), "%Y/%d/%m %X", &timeinfo);
 
-	std::string str(buffer);
-	std::string name = s2d::EngineData::s_nameOfUserProject;
 
 	const char* relative_path = s2d::EngineData::s_pathToUserProject.c_str();
 	char absolute_path[FILENAME_MAX];
@@ -175,7 +173,11 @@ void s2d::flc::createKnownProjectDirFile()
 		std::cerr << "Error getting absolute path" << std::endl;
 	}
 
-	std::string path = name + ";" + absolute_path + ";" + str;
+	std::string date(buffer);
+	std::string name = s2d::EngineData::s_nameOfUserProject;
+	std::string absulutePathStr = absolute_path;
+
+	std::string path = name + ";" + absulutePathStr + ";" + date + ";" + relative_path;
 	content += path;
 
 	std::ofstream indexFile;
@@ -226,8 +228,14 @@ bool s2d::flc::checkIfProjectExistInFile(std::string& ref)
 			std::string* propertys = std::splitString(line, delimiter);
 
 			ref += line + "\n";
-
+			
 			found = propertys[INDEX_AT_PATH] == absulutPath;
+
+			if (found)
+			{
+				backgroundFile.close();
+				return true;
+			}
 		}
 		backgroundFile.close();
 	}

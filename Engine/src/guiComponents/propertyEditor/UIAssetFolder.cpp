@@ -2,7 +2,8 @@
 
 s2d::UIAssetFolder::UIAssetFolder()
 {
-    this->currentPath = s2d::EngineData::s_pathToUserProject+ "\\assets";
+    std::cout << s2d::EngineData::s_pathToUserProject;
+    this->currentPath = s2d::EngineData::s_pathToUserProject + "\\assets";
     this->currentName = "Assets";
     this->m_iconSize = 75;
     this->m_padding = 130;

@@ -181,7 +181,7 @@ void s2d::Sprite::initActiveSprites()
 			sprite->setVectorPosition(atoi(propertys[1].c_str()));
 			sprite->transform.position.x = std::stof(propertys[2].c_str());
 			sprite->transform.position.y = std::stof(propertys[3].c_str());
-			sprite->path = propertys[4];
+			sprite->path = s2d::EngineData::s_pathToUserProject + "\\" + propertys[4];
 
 			//INFO: Setting box collider props 5 - 8 down lol
 
