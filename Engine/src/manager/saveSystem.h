@@ -5,7 +5,13 @@
 #include <vector>
 #include <calculationComponents/vector3.h>
 #include <physicalComponents/camera.h>
-#include <data/engineData.h>
+#include <data/engineData.h>	
+
+#include <iostream>
+#include <iomanip>
+#include <sstream>
+#include <chrono>
+#include <ctime>
 
 namespace s2d
 {
@@ -15,6 +21,11 @@ namespace s2d
 		void createWindowBackgroundSaveFile(const s2d::Vector3 windowBackground);
 		void createCameraSaveFile(const s2d::Camera& camera);
 		void createIndexSaveFile();
+		void createKnownProjectDirFile();
+
+		bool checkIfProjectExistInFile(std::string& ref);
+		std::string getAbsulutPath();
+		std::string getDate();
 
 		std::string getPropertyLineWithSeperator(Sprite* sprite);
 	}

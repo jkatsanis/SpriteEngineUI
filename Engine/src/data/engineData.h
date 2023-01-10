@@ -7,6 +7,8 @@
 #define PATH_TO_CAMERA_FILE s2d::EngineData::s_pathToUserProject + "\\engine\\saves\\camera.txt"
 #define PATH_TO_INDEX_FILE s2d::EngineData::s_pathToUserProject + "\\engine\\saves\\index.txt"
 
+#define PATH_TO_KNOWN_PROJECTS "EngineAssets\\saves\\projects.txt" 
+
 namespace s2d
 {
 	class EngineData
@@ -15,6 +17,7 @@ namespace s2d
 		EngineData() = delete;
 
 		static std::string s_pathToUserProject;
+		static std::string s_nameOfUserProject;
 	};
 }
 

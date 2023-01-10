@@ -39,7 +39,6 @@ void s2d::UIProjectSelectorProjectSection::update()
 {
 	if (*this->m_ptr_UILocation == s2d::UIProjectSelectorLocation::Projects)
 	{
-		std::cout << this->m_createFileDialoge.pathClicked << std::endl;
 		this->renderProjectData();
 		this->renderFileDialogs();
 		this->createPopupToCreateProject();
@@ -102,7 +101,11 @@ void s2d::UIProjectSelectorProjectSection::renderProjectData()
 				std::string emptyBetweenCreationAndPath = s2d::FileDialog::getEmptyStringBetween("Last Opened   ", this->m_projects[i].lastOpened, paddingBetweenInfo);
 
 				std::string fullData = filterName + emptyBetweenNameAndCreation + this->m_projects[i].lastOpened + emptyBetweenCreationAndPath + this->m_projects[i].path;
-				ImGui::MenuItem(fullData.c_str());
+				if (ImGui::MenuItem(fullData.c_str()))
+				{
+					s2d::EngineData::s_pathToUserProject = this->m_projects[i].path;
+					s2d::EngineData::s_nameOfUserProject = this->m_projects[i].name;
+				}
 			}
 		}
 		ImGui::ListBoxFooter();
@@ -148,11 +151,36 @@ void s2d::UIProjectSelectorProjectSection::createPopupToCreateProject()
 
 std::vector<s2d::UserProjectInfo> s2d::UIProjectSelectorProjectSection::readProjectInfosFromFile()
 {
-	return
+	std::vector<s2d::UserProjectInfo> userProjects;
+
+	std::fstream userProjectFile;
+
+	//opening the file where all sprite data is
+	userProjectFile.open(PATH_TO_KNOWN_PROJECTS, std::ios::in);
+	if (userProjectFile.is_open())
 	{
-		s2d::UserProjectInfo("Dasynce", "..\\User\\Dasynce", "13/1/2022"),
-		s2d::UserProjectInfo("Game", "..\\User\\Game", "13/12/2020")
-	};
+		std::string line;
+		int cnt = 0;
+		while (std::getline(userProjectFile, line))
+		{
+			cnt++;
+			//First line is the header so we dont need to check for it
+			if (cnt == 1)
+			{
+				continue;
+			}
+
+			//Splitting line
+			std::string delimiter = ";";
+			std::string* propertys = std::splitString(line, delimiter);
+
+			//INITIIALIZING PROPS
+			userProjects.push_back(s2d::UserProjectInfo(propertys[0], propertys[1], propertys[2]));
+		}
+		userProjectFile.close();
+
+	}
+	return userProjects;
 }
 
 s2d::CurrentFileDialog s2d::UIProjectSelectorProjectSection::getFileDialogeWhichUserWantsToMake()

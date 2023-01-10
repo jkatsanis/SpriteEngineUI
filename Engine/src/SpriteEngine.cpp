@@ -11,13 +11,17 @@ int main()
     }
 
     // search where the error happens when u selet a invalid project
-    s2d::EngineData::s_pathToUserProject = "..\\Assets";
+    if (s2d::EngineData::s_pathToUserProject == "")
+    {
+        // Closing the engine since the user doesnt want to open a project;
+        return -1;
+    }
 
     s2d::GameEngine engine;
 
     while (engine.ptr_renderWindow->isOpen())
     { 
-        std::cout << s2d::Sprite::activeSprites[0]->path << std::endl;
+       // std::cout << s2d::Sprite::activeSprites[0]->path << std::endl;
         engine.update();
     }
 

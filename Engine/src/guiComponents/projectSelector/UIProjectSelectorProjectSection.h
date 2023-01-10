@@ -5,6 +5,8 @@
 #include <imgui_internal.h>
 #include <manager/fileDialogs.h>
 #include <data/projectInfo.h>
+#include <fstream>
+#include <data/engineData.h>
 
 namespace s2d
 {

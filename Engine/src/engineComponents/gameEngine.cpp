@@ -66,6 +66,7 @@ void s2d::GameEngine::pollEvents()
             s2d::flc::createWindowBackgroundSaveFile(this->m_UIWindow.getInspector().backgroundColor);
             s2d::flc::createCameraSaveFile(*s2d::GameObject::ptr_camera_tRealTimeEditor);
             s2d::flc::createIndexSaveFile();
+            s2d::flc::createKnownProjectDirFile();
 
             this->ptr_renderWindow->close();
         }

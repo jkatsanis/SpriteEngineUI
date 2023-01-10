@@ -148,3 +148,89 @@ void s2d::flc::createIndexSaveFile()
 	}
 }
 
+void s2d::flc::createKnownProjectDirFile()
+{
+	std::string content;
+	if (s2d::flc::checkIfProjectExistInFile(content))
+	{
+		return;
+	}
+
+	auto now = std::chrono::system_clock::now();
+	auto in_time_t = std::chrono::system_clock::to_time_t(now);
+
+	struct tm  timeinfo;
+	char buffer[80];
+	errno_t err = gmtime_s(&timeinfo, &in_time_t);
+
+	std::strftime(buffer, sizeof(buffer), "%Y/%d/%m %X", &timeinfo);
+
+	std::string str(buffer);
+	std::string name = s2d::EngineData::s_nameOfUserProject;
+
+	const char* relative_path = s2d::EngineData::s_pathToUserProject.c_str();
+	char absolute_path[FILENAME_MAX];
+	if (!_fullpath(absolute_path, relative_path, FILENAME_MAX) != NULL) 
+	{
+		std::cerr << "Error getting absolute path" << std::endl;
+	}
+
+	std::string path = name + ";" + absolute_path + ";" + str;
+	content += path;
+
+	std::ofstream indexFile;
+
+	indexFile.open(PATH_TO_KNOWN_PROJECTS, std::ios::out);
+	if (indexFile.is_open())	
+	{
+		indexFile << "knownProjects" << "\n";
+
+		indexFile << content << "\n";
+
+		indexFile.close();
+	}
+}
+
+bool s2d::flc::checkIfProjectExistInFile(std::string& ref)
+{
+	const int INDEX_AT_PATH = 1;
+
+	bool found = false;
+	std::string searchPath = s2d::EngineData::s_pathToUserProject;
+	std::fstream backgroundFile;
+
+	char absulutPath[1024];
+
+	if(!_fullpath(absulutPath, searchPath.c_str(), FILENAME_MAX) != NULL)
+	{
+		std::cerr << "Error getting absolute path" << std::endl;
+	}
+
+	//opening the file where all sprite data is
+	backgroundFile.open(PATH_TO_KNOWN_PROJECTS, std::ios::in);
+	if (backgroundFile.is_open())
+	{
+		std::string line;
+		int cnt = 0;
+		while (std::getline(backgroundFile, line))
+		{
+			cnt++;
+			//First line is the header so we dont need to check for it
+			if (cnt == 1)
+			{
+				continue;
+			}
+
+			//Splitting line
+			std::string delimiter = ";";
+			std::string* propertys = std::splitString(line, delimiter);
+
+			ref += line + "\n";
+
+			found = propertys[INDEX_AT_PATH] == absulutPath;
+		}
+		backgroundFile.close();
+	}
+	return found;
+}
+

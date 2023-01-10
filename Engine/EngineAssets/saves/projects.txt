@@ -1,0 +1,2 @@
+knownProjects
+Assets;C:\Dev\Assets;2023/10/01 10:36:08

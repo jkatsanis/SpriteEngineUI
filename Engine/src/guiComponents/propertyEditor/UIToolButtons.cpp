@@ -69,7 +69,7 @@ void s2d::UIToolButtons::askWithButtonForPlayGame()
 			std::cout << "FAILED SETTING DIR";	
 		}
 
-		std::string path = s2d::EngineData::s_pathToUserProject + "\\x64\\Debug\\Assets.exe";
+		std::string path = "x64\\Debug\\Assets.exe";
 
 		//Starting the game
 		system(path.c_str());
@@ -81,7 +81,7 @@ void s2d::UIToolButtons::askWithButtonForPlayGame()
 			std::cout << "FAILED SETTING DIR";
 		}
 
-		delete wideString;
+		delete[] wideString;
 	}
 
 }

@@ -110,6 +110,11 @@ s2d::UIProjectSelectorLocation s2d::UIProjectSelector::getUserInputForDataToRend
 
 void s2d::UIProjectSelector::update()
 {
+	if (s2d::EngineData::s_pathToUserProject != "")
+	{
+		this->m_ptr_toRenderWindow->close();
+	}
+
 	this->pollEvents();
 
 	s2d::UIWindow::renderStyle(&ImGui::GetStyle());
