@@ -173,6 +173,7 @@
     <ClCompile Include="assets\scripts\Testing.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="assets\Scripts\Testing.h" />
     <ClInclude Include="engine\src\engineComponents\event.h" />
     <ClInclude Include="engine\src\engineComponents\FileData.h" />
     <ClInclude Include="engine\src\engineComponents\game.h" />

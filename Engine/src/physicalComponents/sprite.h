@@ -11,6 +11,7 @@
 #include <SFML/Graphics.hpp>
 #include <spriteComponents/physicsBody.h>
 #include <spriteComponents/animator.h>
+#include <data/projectInfo.h>
 
 namespace s2d
 {

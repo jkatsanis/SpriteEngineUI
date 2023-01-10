@@ -1,6 +1,38 @@
-﻿  Assets.cpp
+﻿  event.cpp
+  FileData.cpp
+C:\Dev\SpriteEngineUI\Assets\engine\src\engineComponents\FileData.cpp(28,16): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Dev\SpriteEngineUI\Assets\engine\src\engineComponents\FileData.cpp(29,16): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Dev\SpriteEngineUI\Assets\engine\src\engineComponents\FileData.cpp(30,16): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+  game.cpp
+  gameData.cpp
+  input.cpp
+  sTime.cpp
+  camera.cpp
+  boxCollider.cpp
+  boxColliderPositionData.cpp
+  childSystem.cpp
+  gameObject.cpp
+  physicsBody.cpp
+  sprite.cpp
+C:\Dev\SpriteEngineUI\Assets\engine\src\physicalComponents\sprite.cpp(81,53): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
+          with
+          [
+              T=unsigned int
+          ]
+C:\Dev\SpriteEngineUI\Assets\engine\src\physicalComponents\sprite.cpp(81,41): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
+          with
+          [
+              T=unsigned int
+          ]
+  spriteData.cpp
+  stransform.cpp
+  vector2.cpp
+  vector3.cpp
+  physics.cpp
+  main.cpp
+  Testing.cpp
   Generating code
-  Compiler switch has changed, fall back to full compilation.
-  All 5 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  Previous IPDB was built with incompatible compiler, fall back to full compilation.
+  All 411 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
   Finished generating code
-  Assets.vcxproj -> C:\Programmieren\c++\Projects\Testing\SFML\SpriteEngineTest\Assets\x64\Release\Assets.exe
+  Assets.vcxproj -> C:\Dev\SpriteEngineUI\Assets\x64\Release\Assets.exe

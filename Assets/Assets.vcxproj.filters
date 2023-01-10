@@ -489,6 +489,7 @@
     <ClInclude Include="engine\src\engineComponents\sTime.h">
       <Filter>engine src\engineComponents\time</Filter>
     </ClInclude>
+    <ClInclude Include="assets\Scripts\Testing.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="src\libraries\include\SFML\Graphics\Glsl.inl">

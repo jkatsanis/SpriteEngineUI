@@ -151,7 +151,10 @@ void s2d::Sprite::initActiveSprites()
 	std::fstream spriteFile;
 
 	//opening the file where all sprite data is
-	spriteFile.open("saves\\sprites.txt", std::ios::in);
+
+	std::string fileToSaves = s2d::ProjectInfo::s_pathToUserProject + "\\saves\\sprites.txt";
+
+	spriteFile.open(fileToSaves, std::ios::in);
 	if (spriteFile.is_open())
 	{
 		std::string line;

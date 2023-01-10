@@ -1,2 +1,1 @@
-﻿  UIProjectSelectorProjectSection.cpp
-  SpriteEngine.vcxproj -> C:\Dev\SpriteEngineUI\Engine\x64\Debug\SpriteEngine.exe
+﻿LINK : fatal error LNK1104: cannot open file 'sfml-system-d-2.lib'

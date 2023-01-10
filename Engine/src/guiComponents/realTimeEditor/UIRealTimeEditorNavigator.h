@@ -5,6 +5,7 @@
 #include <physicalComponents/camera.h>
 #include <engineComponents/stime.h>
 #include <physicalComponents/gameObject.h>
+#include <data/projectInfo.h>
 #include <fstream>
 #include <stdExtension.h>
 

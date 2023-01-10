@@ -12,16 +12,6 @@ s2d::UIProjectSelector::UIProjectSelector()
 	ImGui::SFML::Init(*this->m_ptr_toRenderWindow);
 	ImGuiIO& io = ImGui::GetIO();
 	s2d::FontManager::InitFonts(io);
-
-	this->m_leftButtonColor = ImVec4(35.0f / 255.0f,
-		35.0f / 255.0f,
-		43.0f / 255.0f,
-		1.0f);
-
-	this->m_clickedButton = ImVec4(81.0f / 255.0f,
-		107.0f / 255.0f,
-		150.0f / 255.0f,
-		1.0f);
 }
 
 s2d::UIProjectSelector::~UIProjectSelector()
@@ -79,7 +69,7 @@ void s2d::UIProjectSelector::renderProjectDataOrDocs()
 s2d::UIProjectSelectorLocation s2d::UIProjectSelector::getUserInputForDataToRender()
 {
 	s2d::UIProjectSelectorLocation loc = this->m_userLocation;
-	ImGui::PushStyleColor(ImGuiCol_Button, this->m_leftButtonColor);
+	ImGui::PushStyleColor(ImGuiCol_Button, LEFT_BUTTON_COLOR);
 
 	if (ImGui::Begin("Left buttons", NULL, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoMove))
 	{
@@ -114,7 +104,7 @@ void s2d::UIProjectSelector::update()
 
 	s2d::UIWindow::renderStyle(&ImGui::GetStyle());
 	
-	ImGui::PushStyleColor(ImGuiCol_ButtonHovered, this->m_clickedButton);
+	ImGui::PushStyleColor(ImGuiCol_ButtonHovered, CLICKED_BUTTON_COLOR);
 	ImGui::PushFont(s2d::FontManager::defaultFont);
 	this->render();
     ImGui::PopFont();

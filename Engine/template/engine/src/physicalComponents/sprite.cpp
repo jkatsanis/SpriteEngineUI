@@ -164,7 +164,8 @@ void s2d::Sprite::initActiveSprites()
 	std::fstream spriteFile;
 
 	//opening the file where all sprite data is
-	spriteFile.open("..\\Engine\\saves\\sprites.txt", std::ios::in);
+	spriteFile.open("saves\\sprites.txt", std::ios::in);
+
 	if (spriteFile.is_open())
 	{
 		std::string line;
@@ -192,12 +193,7 @@ void s2d::Sprite::initActiveSprites()
 			sprite->transform.position.y = std::stof(propertys[3].c_str());
 
 			sprite->path = propertys[4];
-			if (sprite->path == "EngineAssets/Sprites/default.png")
-			{
-				std::string enginePath = "..\\Engine\\";
-				sprite->path = enginePath + "EngineAssets\\Sprites\\default.png";
-			}
-
+	
 
 			if (!sprite->m_texture.loadFromFile(sprite->path))
 			{

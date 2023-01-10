@@ -9,6 +9,7 @@
 #include <icons.h>
 #include <guiComponents/UIWindow.h>
 #include <UIProjectSelectorProjectSection.h>
+#include <projectSelectorColors.h>
 
 namespace s2d
 {
@@ -17,10 +18,6 @@ namespace s2d
 	private:
 		sf::RenderWindow* m_ptr_toRenderWindow;
 		sf::Event m_renderWindowEvents;
-
-		ImVec4 m_leftButtonColor;
-		ImVec4 m_clickedButton;
-		ImVec2 m_createWindowSize;
 
 		s2d::UIProjectSelectorProjectSection m_projectSection;
 		s2d::UIProjectSelectorLocation m_userLocation;

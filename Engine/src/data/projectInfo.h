@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <manager/fileDialogs.h>
+#include <direct.h>
 
 namespace s2d
 {
@@ -29,6 +30,11 @@ namespace s2d
 			this->name = name;
 			this->path = path;
 		}
+
+		static std::string s_pathToUserProject;
+		
+		static std::string getSolutionDir();
 	};
+
 }
 

@@ -88,7 +88,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)engine\src\;$(SolutionDir)engine\src\include\;$(SolutionDir)assets\Scripts\</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)engine\src\;$(SolutionDir)engine\src\include\;$(SolutionDir)assets\scripts\</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -122,7 +122,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)engine\src\;$(SolutionDir)engine\src\include\;$(SolutionDir)assets\Scripts\</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)engine\src\;$(SolutionDir)engine\src\include\;$(SolutionDir)assets\scripts\</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -151,10 +151,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="engine\src\data\engineData.cpp" />
     <ClCompile Include="engine\src\engineComponents\event.cpp" />
-    <ClCompile Include="engine\src\engineComponents\FileData.cpp" />
-    <ClCompile Include="engine\src\engineComponents\game.cpp" />
-    <ClCompile Include="engine\src\engineComponents\gameData.cpp" />
+    <ClCompile Include="engine\src\data\FileData.cpp" />
+    <ClCompile Include="engine\src\engineComponents\gameEngine.cpp" />
+    <ClCompile Include="engine\src\data\gameData.cpp" />
     <ClCompile Include="engine\src\engineComponents\input.cpp" />
     <ClCompile Include="engine\src\engineComponents\sTime.cpp" />
     <ClCompile Include="engine\src\physicalComponents\camera.cpp" />
@@ -171,12 +172,14 @@
     <ClCompile Include="engine\src\calculationComponents\physics.cpp" />
     <ClCompile Include="engine\src\main.cpp" />
     <ClCompile Include="assets\scripts\Testing.cpp" />
+    <ClCompile Include="assets\scripts\Testing.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="engine\src\data\engineData.h" />
     <ClInclude Include="engine\src\engineComponents\event.h" />
-    <ClInclude Include="engine\src\engineComponents\FileData.h" />
-    <ClInclude Include="engine\src\engineComponents\game.h" />
-    <ClInclude Include="engine\src\engineComponents\gameData.h" />
+    <ClInclude Include="engine\src\data\FileData.h" />
+    <ClInclude Include="engine\src\engineComponents\gameEngine.h" />
+    <ClInclude Include="engine\src\data\gameData.h" />
     <ClInclude Include="engine\src\engineComponents\input.h" />
     <ClInclude Include="engine\src\engineComponents\keyBoard.h" />
     <ClInclude Include="engine\src\physicalComponents\camera.h" />
@@ -291,6 +294,7 @@
     <ClInclude Include="src\libraries\include\SFML\Window\WindowHandle.hpp" />
     <ClInclude Include="src\libraries\include\SFML\Window\WindowStyle.hpp" />
     <ClInclude Include="engine\src\engineComponents\sTime.h" />
+    <ClInclude Include="assets\scripts\Testing.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="src\libraries\include\SFML\Audio\SoundFileFactory.inl" />

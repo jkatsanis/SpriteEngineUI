@@ -16,8 +16,10 @@ s2d::Vector3 s2d::UIWindow::getWindowBackgroundColorFromFile()
 	Vector3 vec;
 	std::fstream backgroundFile;
 
+	std::string pathToBackground = s2d::ProjectInfo::s_pathToUserProject + "\\saves\\gameWindow.txt";
+
 	//opening the file where all sprite data is
-	backgroundFile.open("saves\\gameWindow.txt", std::ios::in);
+	backgroundFile.open(pathToBackground, std::ios::in);
 	if (backgroundFile.is_open())
 	{
 		std::string line;

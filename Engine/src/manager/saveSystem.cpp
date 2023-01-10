@@ -5,7 +5,9 @@ void s2d::flc::createSaveFile(std::vector<s2d::Sprite*>& sprites)
 {
 	std::fstream spriteFile;
 
-	spriteFile.open("saves\\sprites.txt", std::ios::out);
+	std::string pathToSprites = s2d::ProjectInfo::s_pathToUserProject + "\\saves\\sprites.txt";
+
+	spriteFile.open(pathToSprites, std::ios::out);
 
 	if (spriteFile.is_open()) 
 	{
@@ -99,7 +101,9 @@ void s2d::flc::createWindowBackgroundSaveFile(const s2d::Vector3 windowBackgroun
 {
 	std::fstream backgroundFile;
 
-	backgroundFile.open("saves\\gameWindow.txt", std::ios::out);
+	std::string gameWindowSaveFile = s2d::ProjectInfo::s_pathToUserProject + "\\saves\\gameWindow.txt";
+
+	backgroundFile.open(gameWindowSaveFile, std::ios::out);
 
 	if (backgroundFile.is_open())
 	{
@@ -116,19 +120,21 @@ void s2d::flc::createWindowBackgroundSaveFile(const s2d::Vector3 windowBackgroun
 
 void s2d::flc::createCameraSaveFile(const s2d::Camera& camera)
 {
-	std::fstream backgroundFile;
+	std::fstream cameraSaveFile;
 
-	backgroundFile.open("saves\\camera.txt", std::ios::out);
+	std::string cameraSaveFilePath = s2d::ProjectInfo::s_pathToUserProject + "\\saves\\camera.txt";
 
-	if (backgroundFile.is_open())
+	cameraSaveFile.open(cameraSaveFilePath, std::ios::out);
+
+	if (cameraSaveFile.is_open())
 	{
-		backgroundFile << "TransformPoxX;TransformPosY;Zoom" << "\n";
+		cameraSaveFile << "TransformPoxX;TransformPosY;Zoom" << "\n";
 
 		std::string line = std::to_string(camera.transform.position.x) + ";" + std::to_string(camera.transform.position.y) + ";" + std::to_string(camera.cameraZoom);
 
-		backgroundFile << line << "\n";
+		cameraSaveFile << line << "\n";
 
-		backgroundFile.close();
+		cameraSaveFile.close();
 	}
 }
 
@@ -137,7 +143,9 @@ void s2d::flc::createIndexSaveFile()
 	int index = s2d::SpriteData::highestIndex;
 	std::fstream indexFile;
 
-	indexFile.open("saves\\index.txt", std::ios::out);
+	std::string indexFilePath = s2d::ProjectInfo::s_pathToUserProject + "\\saves\\index.txt";
+
+	indexFile.open(indexFilePath, std::ios::out);
 	if (indexFile.is_open())
 	{
 		indexFile << "highestIndex" << "\n";
@@ -147,3 +155,34 @@ void s2d::flc::createIndexSaveFile()
 		indexFile.close();
 	}
 }
+
+void s2d::flc::createPathToEngineFile()
+{
+	std::string path = s2d::ProjectInfo::getSolutionDir();
+	std::fstream pathToEngineFile;
+
+	std::string pathToEngineFilePath = s2d::ProjectInfo::s_pathToUserProject + "\\saves\\pathToEngine.txt";
+
+	pathToEngineFile.open(pathToEngineFilePath, std::ios::out);
+	if (pathToEngineFile.is_open())
+	{
+		pathToEngineFile << "pathToEngine" << "\n";
+
+		pathToEngineFile << path << "\n";
+
+		pathToEngineFile.close();
+	}
+}
+
+void s2d::flc::copyDir(const char* inputDir, std::string outputDir, std::string name)
+{
+	std::cout << outputDir << std::endl;
+	std::string mkdir = "mkdir " + outputDir + std::string(name.c_str());
+
+	system(mkdir.c_str());
+
+	std::string copy = "xcopy template " + outputDir + std::string(name.c_str()) + " /E";
+
+	system(copy.c_str());
+}
+
