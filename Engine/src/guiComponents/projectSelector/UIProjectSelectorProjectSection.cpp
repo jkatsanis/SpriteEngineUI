@@ -17,6 +17,8 @@ void s2d::UIProjectSelectorProjectSection::init()
 {
 	this->m_createWindowSize = ImVec2(900, 450);
 	this->m_createFileDialoge = s2d::FileDialog("C:\\", ICON_FA_PLUS, "Select where you want to create a project", this->m_createWindowSize);
+	this->m_openFileDialog = s2d::FileDialog("C:\\", ICON_FA_EDIT, "Select where you want to open a project", this->m_createWindowSize);
+	this->m_currentFileDialoge = s2d::CurrentFileDialog::None;
 
 	// Reads project data from a CSV filed
 	this->m_projects = this->readProjectInfosFromFile();
@@ -42,6 +44,7 @@ void s2d::UIProjectSelectorProjectSection::update()
 		this->renderProjectData();
 		this->renderFileDialogs();
 		this->createPopupToCreateProject();
+		this->tryToOpenProject();
 	}
 }
 
@@ -132,6 +135,14 @@ void s2d::UIProjectSelectorProjectSection::renderFileDialogs()
 		}
 		this->m_createFileDialoge.displayNodes();
 	}
+	if (this->m_currentFileDialoge == s2d::CurrentFileDialog::Open)
+	{
+		if (this->m_openFileDialog.closeWindow())
+		{
+			this->m_currentFileDialoge = s2d::CurrentFileDialog::None;
+		}
+		this->m_openFileDialog.displayNodes();
+	}
 }
 
 void s2d::UIProjectSelectorProjectSection::createPopupToCreateProject()
@@ -148,6 +159,31 @@ void s2d::UIProjectSelectorProjectSection::createPopupToCreateProject()
 
 		ImGui::SetWindowSize(ImVec2(400, 200));
 		ImGui::End();
+	}
+}
+
+void s2d::UIProjectSelectorProjectSection::tryToOpenProject()
+{
+	if (this->m_openFileDialog.pathClicked != "")
+	{
+		std::string pathToVerify = this->m_openFileDialog.pathClicked + "engine\\saves\\verify.vsn";		
+
+		if(!s2d::flc::isProjectPathValid(pathToVerify))
+		{
+			this->m_openFileDialog.pathClicked = "";
+			return;
+		}
+
+		std::filesystem::path current_path = std::filesystem::current_path();
+		std::filesystem::path relative_path = std::filesystem::relative(this->m_openFileDialog.pathClicked, current_path);
+
+		std::string name = this->m_openFileDialog.folderClicked;
+
+		this->m_projects.push_back(s2d::UserProjectInfo(name, this->m_openFileDialog.pathClicked, "now", relative_path.string()));
+
+		this->m_openFileDialog.pathClicked = "";
+		this->m_openFileDialog.folderClicked = "";
+		this->m_currentFileDialoge = s2d::CurrentFileDialog::None;
 	}
 }
 
@@ -177,8 +213,13 @@ std::vector<s2d::UserProjectInfo> s2d::UIProjectSelectorProjectSection::readProj
 			std::string delimiter = ";";
 			std::string* propertys = std::splitString(line, delimiter);
 
-			//INITIIALIZING PROPS
-			userProjects.push_back(s2d::UserProjectInfo(propertys[0], propertys[1], propertys[2], propertys[3]));
+			std::string pathToVerify = propertys[1] + "\\engine\\saves\\verify.vsn";
+
+			if(s2d::flc::isProjectPathValid(pathToVerify))
+			{
+				//INITIIALIZING PROPS
+				userProjects.push_back(s2d::UserProjectInfo(propertys[0], propertys[1], propertys[2], propertys[3]));
+			}
 		}
 		userProjectFile.close();
 

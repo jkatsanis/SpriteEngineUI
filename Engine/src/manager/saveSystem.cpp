@@ -193,6 +193,14 @@ void s2d::flc::createKnownProjectDirFile()
 	}
 }
 
+bool s2d::flc::isProjectPathValid(const std::string& path)
+{
+	// TODO logic to chck if verify.vsn is valid, just simple now
+	std::ifstream file(path);
+
+	return file.good();
+}
+
 bool s2d::flc::checkIfProjectExistInFile(std::string& ref)
 {
 	const int INDEX_AT_PATH = 1;

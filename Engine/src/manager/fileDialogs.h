@@ -6,6 +6,7 @@
 #include <manager/fontManager.h>
 #include <icons.h>
 #include <stdExtension.h>
+#include <filesystem>
 
 namespace s2d
 {
@@ -37,6 +38,7 @@ namespace s2d
 		bool displaySymbol(const std::string& icon, float windowSizeX);
 	public:
 		std::string pathClicked;	
+		std::string folderClicked;
 
 		FileDialog();
 		FileDialog(std::string path, std::string icon, std::string title, ImVec2 windowSize);
@@ -47,7 +49,6 @@ namespace s2d
 		/// </summary>
 		void displayNodes();
 		
-
 		bool closeWindow() const { return this->m_closeWindow; }
 
 	public:

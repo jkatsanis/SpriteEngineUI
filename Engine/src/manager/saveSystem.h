@@ -23,9 +23,8 @@ namespace s2d
 		void createIndexSaveFile();
 		void createKnownProjectDirFile();
 
+		bool isProjectPathValid(const std::string& path);;
 		bool checkIfProjectExistInFile(std::string& ref);
-		std::string getAbsulutPath();
-		std::string getDate();
 
 		std::string getPropertyLineWithSeperator(Sprite* sprite);
 	}

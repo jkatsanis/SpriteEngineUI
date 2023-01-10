@@ -7,6 +7,7 @@ s2d::FileDialog::FileDialog()
     this->m_closeWindow = false;
     this->m_displayedTitle = true;
     this->pathClicked = "";
+    this->folderClicked = "";
 }
 
 s2d::FileDialog::FileDialog(std::string path, std::string icon, std::string title, ImVec2 windowSize)
@@ -16,6 +17,7 @@ s2d::FileDialog::FileDialog(std::string path, std::string icon, std::string titl
     this->m_TITLE = title;
     this->m_displayedTitle = true;
     this->pathClicked = "";
+    this->folderClicked = "";
     this->m_ICON = icon;
 }
 
@@ -79,6 +81,7 @@ void s2d::FileDialog::displayNodes()
     ImGui::End();
 }
 
+
 // private methods
 
 bool s2d::FileDialog::checkIfADirHasSubDirs(const std::string& dirPath)
@@ -125,7 +128,7 @@ void s2d::FileDialog::openFile(const char* dir_path)
         }
 
         // Compute the full path of the entry
-        std::string path = dir_path + std::string("\\") + entry->d_name;
+        std::string path = dir_path + std::string(entry->d_name) + "\\";
 
         // If the entry is a directory, recursively traverse it
         if (entry->d_type == DT_DIR)
@@ -136,6 +139,7 @@ void s2d::FileDialog::openFile(const char* dir_path)
             if (this->displaySymbol(BUTTON_NAME, this->m_WINDOW_SIZE.x))
             {
                 this->pathClicked = path;
+                this->folderClicked = entry->d_name;
             }
 
             if (!checkIfADirHasSubDirs(path))
