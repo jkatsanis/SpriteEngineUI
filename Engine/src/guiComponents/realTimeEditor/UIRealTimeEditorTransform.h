@@ -19,6 +19,9 @@ namespace s2d
 		short m_cursorRangeToClick;
 		bool* m_isAnyUIWindowHovered;
 
+		int lowestSort{ -1 };
+		int vecpos;
+
 		// Data of sprite we clicked
 		s2d::Sprite* m_clickedSprite;
 		int m_clickedSpriteId;

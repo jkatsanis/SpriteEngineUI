@@ -1,3 +1,6 @@
 knownProjects
 Assets;C:\Dev\Assets;2023/10/01 11:10:07;..\..\Assets
 Game;C:\Schule\Deutshc\Game;2023/10/01 13:23:07;..\..\..\Schule\Deutshc\Game
+Game;C:\Dev\Essenthel\Game;2023/10/01 13:25:48;..\..\Essenthel\Game
+FluppyBird;C:\Dev\FluppyBird;2023/13/01 08:51:06;..\..\FluppyBird
+FluppyBird;C:\Dev\SpriteEngineUI\FluppyBird;2023/13/01 14:35:01;..\FluppyBird

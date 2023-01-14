@@ -21,11 +21,15 @@ namespace s2d
 		bool m_isWindowFullScreen;
 		float m_timePassed;
 
+		float m_timePassedSinceLasTextureUpdate;
+		int m_timeToUpdateTextures;
+
 		void pollEngineEvents();
 		void pollEvents();
 		void render();
 		void draw();
 		void drawSprites();
+		void updateSriteTextures();
 		void drawLines();
 		void drawRectangles();
 		void updateWindowStyle();

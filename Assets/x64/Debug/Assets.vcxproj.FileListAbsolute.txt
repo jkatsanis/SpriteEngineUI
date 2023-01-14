@@ -1,2 +1,0 @@
-C:\Dev\SpriteEngineUI\Assets\x64\Debug\Assets.exe
-C:\SpriteEngineUI\Assets\x64\Debug\Assets.exe

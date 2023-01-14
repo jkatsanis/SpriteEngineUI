@@ -1,0 +1,2 @@
+TransformPoxX;TransformPosY;Zoom
+682.722961;436.437744;1.550000

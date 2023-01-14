@@ -4,6 +4,8 @@
 
 s2d::GameEngine::GameEngine()
 {
+    this->m_timeToUpdateTextures = 2;
+    this->m_timePassedSinceLasTextureUpdate = 0;
     this->m_timePassed = 2.0f;
     this->ptr_renderWindow = std::make_unique<sf::RenderWindow>(sf::VideoMode(1920, 1080), "SpriteEngine", sf::Style::Default);
     this->windowEvent.type = sf::Event::GainedFocus;
@@ -127,6 +129,11 @@ void s2d::GameEngine::drawSprites()
         m_timePassed = 0;
     }
 
+    if (this->m_timePassedSinceLasTextureUpdate > this->m_timeToUpdateTextures)
+    {
+        this->m_timePassedSinceLasTextureUpdate = 0;
+        this->updateSriteTextures();
+    }
     for (int i = 0; i < s2d::Sprite::highestLayerIndex + 1; i++)
     {
         for (s2d::Sprite* ptr_activeSprites : s2d::Sprite::activeSprites)
@@ -137,6 +144,14 @@ void s2d::GameEngine::drawSprites()
                 this->ptr_renderWindow->draw(ptr_activeSprites->getSprite());
             }
         }
+    }
+}
+
+void s2d::GameEngine::updateSriteTextures()
+{
+    for (int i = 0; i < s2d::Sprite::activeSprites.size(); i++)
+    {
+        s2d::Sprite::activeSprites[i]->setSpriteTexture(s2d::Sprite::activeSprites[i]->path);
     }
 }
 
@@ -209,5 +224,6 @@ void s2d::GameEngine::update()
     s2d::Time::update();
 
     m_timePassed += s2d::Time::deltaTime;
+    this->m_timePassedSinceLasTextureUpdate += s2d::Time::deltaTime;
 
 }

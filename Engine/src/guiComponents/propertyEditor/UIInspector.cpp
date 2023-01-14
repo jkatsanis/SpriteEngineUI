@@ -317,7 +317,7 @@ void s2d::UIInspector::physicsBodyComponent()
 	float y = ImGui::GetCursorPosY();
 
 	ImGui::SetCursorPos(ImVec2(x += 320, y -= 5));
-	if (s2d::FontManager::displaySmybolAsButton(ICON_FA_TRASH))
+	if (s2d::FontManager::displaySmybolAsButton(ICON_FA_TRASH "##Physicsbody"))
 	{
 		this->m_currentSpriteInInspector->physicsBody.resetPhysicsBody();
 	}
@@ -392,7 +392,7 @@ void s2d::UIInspector::animatorComponent()
 	float y = ImGui::GetCursorPos().y;
 	float x = ImGui::GetCursorPos().x;
 	ImGui::SetCursorPos(ImVec2(x += 320, y -= 4));
-	if (s2d::FontManager::displaySmybolAsButton(ICON_FA_TRASH))
+	if (s2d::FontManager::displaySmybolAsButton(ICON_FA_TRASH "##animator"))
 	{
 		this->m_currentSpriteInInspector->animator.resetComponent();
 	}
@@ -476,7 +476,9 @@ char* s2d::UIInspector::getNamePathSplit(std::string path)
 	pick = val > val2 ? splittetSring : splittetSrin2;
 	valPick = val > val2 ? val : val2;
 
-	char* input = const_cast<char*>(pick[valPick].c_str());
+	std::cout << (val > val2);
+
+	char* input = pick[valPick].data();
 	return input;
 }
 

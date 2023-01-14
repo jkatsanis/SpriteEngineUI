@@ -103,37 +103,56 @@ bool s2d::UIRealTimeEditorTransform::checkClick(s2d::Sprite& sprite)
     
     if (collided && this->m_windowEvent->type == s2d::Event::Type::MousePressedLeft)
     {
-        std::cout << sprite.name << std::endl;
-        this->m_windowEvent->type = s2d::Event::Type::None;
-        this->m_realeasedCursorOnSprite = true;
         this->m_clickedSpriteId = sprite.getId();
+
+        this->m_realeasedCursorOnSprite = true;
         return true;
     }
     if (this->m_windowEvent->type == s2d::Event::MouseReleasedLeft)
     {
-        this->m_windowEvent->type = s2d::Event::None;
         this->m_realeasedCursorOnSprite = false;
         return false;
     }
 
-    // Checking if we have the same ID. If we wouldnt do that check it could just return
-    // The next sprite in the list which would be wrong
-    if (this->m_realeasedCursorOnSprite && sf::Mouse::isButtonPressed(sf::Mouse::Left) && sprite.getId() == this->m_clickedSpriteId)
-    {
-        return true;
-    }
-   
+
     return false;
 }
 
 s2d::Sprite* s2d::UIRealTimeEditorTransform::checkIfMouseClickedOnSprite()
 {
+    int highest = -1;
+    int ve = -1;
+    std::vector<s2d::Sprite*> spr;
+
     for (int i = 0; i < s2d::Sprite::activeSprites.size(); i++)
     {    
-        if(checkClick(*s2d::Sprite::activeSprites[i]))
+        // Checking if we have the same ID. If we wouldnt do that check it could just return
+        // The next sprite in the list which would be wrong
+        if (this->m_realeasedCursorOnSprite && sf::Mouse::isButtonPressed(sf::Mouse::Left) && s2d::Sprite::activeSprites[i]->getId() == this->m_clickedSpriteId)
         {
             return s2d::Sprite::activeSprites[i];
         }
+
+        if(checkClick(*s2d::Sprite::activeSprites[i]))
+        {
+            spr.push_back(s2d::Sprite::activeSprites[i]);
+        }
+    }
+
+    this->m_windowEvent->type = s2d::Event::None; 
+
+    for (s2d::Sprite* sp : spr)
+    {
+        if (sp->sortingLayerIndex >= highest)
+        {
+            ve = sp->getVectorPosition();
+            highest = sp->sortingLayerIndex;
+        }
+    }
+
+    if (highest != -1)
+    {
+        return s2d::Sprite::activeSprites[ve - 1];
     }
 
     return nullptr;
