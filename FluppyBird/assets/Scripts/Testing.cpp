@@ -35,7 +35,7 @@ void Testing::update()
 	{
 		m_timeToPressAgain = 0;
 		thisSprite->physicsBody.velocity.y = 0;
-		s2d::Physics::addForce(thisSprite, s2d::Vector2(0, 1), 1.1f);
+		s2d::Physics::addForce(thisSprite, s2d::Vector2(0, 1), 0.45f);
 	}
 	if (up->transform.position.x < -1000)
 	{
@@ -53,24 +53,5 @@ void Testing::update()
 		down->transform.position.y = up->transform.position.y + 1500;
 
 	}
-
-	if (s2d::Input::onKeyHold(s2d::KeyBoardCode::A))
-	{
-		thisSprite->transform.position.x -= this->m_spriteSpeed * s2d::Time::deltaTime;
-	}
-	if (s2d::Input::onKeyHold(s2d::KeyBoardCode::W))
-	{
-		thisSprite->transform.position.y += this->m_spriteSpeed * s2d::Time::deltaTime;
-	}
-	if (s2d::Input::onKeyHold(s2d::KeyBoardCode::S))
-	{
-		thisSprite->transform.position.y -= this->m_spriteSpeed * s2d::Time::deltaTime;
-	}
-	if (s2d::Input::onKeyHold(s2d::KeyBoardCode::D))
-	{
-		thisSprite->transform.position.x += this->m_spriteSpeed * s2d::Time::deltaTime;
-	}
-
-
 }
  

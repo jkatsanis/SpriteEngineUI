@@ -11,14 +11,7 @@ namespace s2d
 	class BoxCollider
 	{
 	private:
-		int m_start = -5;
-		int m_end = 5;
-
 		void checkPositions(const BoxCollider& other, const int jIndex);
-		bool checkUpPosition(const s2d::BoxCollider& other);
-		bool checkDownPosition(const s2d::BoxCollider& other);
-		bool checkRightPosition(const s2d::BoxCollider& other);
-		bool checkLeftPosition(const s2d::BoxCollider& other);
 
 	private:
 		static bool checkIAndJPCollisions(int i, int j);

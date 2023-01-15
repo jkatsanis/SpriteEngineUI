@@ -1,3 +1,2 @@
 knownProjects
-FluppyBird;C:\Dev\SpriteEngineUI\FluppyBird;2023/15/01 09:29:58;..\FluppyBird
-Surrounding;C:\Dev\SpriteEngineUI\Tests\Surrounding;2023/15/01 09:37:43;..\Tests\Surrounding
+FluppyBird;C:\Dev\SpriteEngineUI\FluppyBird;2023/15/01 17:54:03;..\FluppyBird

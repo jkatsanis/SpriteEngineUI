@@ -53,7 +53,12 @@ bool s2d::BoxCollider::checkIAndJPCollisions(int i, int j)
     {
         collided = true;
     }
-    if (s2d::Sprite::activeSprites[j]->collider.checkCollision(s2d::Sprite::activeSprites[i]->collider, j))
+
+    if (collided)
+    {
+        s2d::Sprite::activeSprites[j]->collider.checkPositions(s2d::Sprite::activeSprites[i]->collider, j);
+    }
+    else if (s2d::Sprite::activeSprites[j]->collider.checkCollision(s2d::Sprite::activeSprites[i]->collider, j))
     {
         collided = true;
     }
@@ -62,76 +67,43 @@ bool s2d::BoxCollider::checkIAndJPCollisions(int i, int j)
 
 void s2d::BoxCollider::checkPositions(const BoxCollider& other, const int jIndex)
 {
-    if (checkDownPosition(other))
-    {
-        this->positionData.position[this->collisionCnt] = s2d::BoxColliderPositionData::Position::Down;
-        this->collisionCnt++;
-    }
-    else if (checkRightPosition(other))
+    // Right
+    float rightTop = this->sprite->getOrigininalPosition().x + this->sprite->transform.size.x;
+
+    if (rightTop >= other.sprite->getOrigininalPosition().x && other.sprite->getOrigininalPosition().x + other.sprite->transform.size.x / 2 > rightTop)
     {
         this->positionData.position[this->collisionCnt] = s2d::BoxColliderPositionData::Position::Right;
         this->collisionCnt++;
     }
-    else if (checkLeftPosition(other))
+    
+    // Left
+    float topLeft = this->sprite->getOrigininalPosition().x;
+
+    if (topLeft <= other.sprite->getOrigininalPosition().x + other.sprite->transform.size.x && other.sprite->getOrigininalPosition().x + other.sprite->transform.size.x / 2 < topLeft)
     {
         this->positionData.position[this->collisionCnt] = s2d::BoxColliderPositionData::Position::Left;
         this->collisionCnt++;
     }
-    else if (checkUpPosition(other))
+
+    // Up
+    float downTop = this->sprite->getOrigininalPosition().y + this->sprite->transform.size.y;
+
+    if (downTop >= other.sprite->getOrigininalPosition().y && other.sprite->getOrigininalPosition().y + other.sprite->transform.size.y / 2 > downTop)
+    {
+        this->positionData.position[this->collisionCnt] = s2d::BoxColliderPositionData::Position::Down;
+        this->collisionCnt++;
+    }
+
+    // Left
+    float upTop = this->sprite->getOrigininalPosition().y;
+
+    if (upTop <= other.sprite->getOrigininalPosition().y + other.sprite->transform.size.y && other.sprite->getOrigininalPosition().y + other.sprite->transform.size.y / 2 < upTop)
     {
         this->positionData.position[this->collisionCnt] = s2d::BoxColliderPositionData::Position::Up;
         this->collisionCnt++;
-
     }
 }
 
-bool s2d::BoxCollider::checkUpPosition(const s2d::BoxCollider& other)
-{
-    for (int i = this->m_start; i < this->m_end; i++)
-    {
-        if (int(this->sprite->getSprite().getPosition().y + this->boxColliderHeightUpOrDown.x) == int(other.sprite->getSprite().getPosition().y + other.boxColliderHeightUpOrDown.y + other.sprite->transform.size.y) + i)
-        {
-            return true;
-        }
-    }
-    return false;
-}
-
-bool s2d::BoxCollider::checkDownPosition(const s2d::BoxCollider& other)
-{
-    for (int i = this->m_start; i < this->m_end; i++)
-    {
-        if (int(this->sprite->getSprite().getPosition().y + this->sprite->transform.size.y + this->boxColliderHeightUpOrDown.y) == int(other.sprite->getSprite().getPosition().y + other.boxColliderHeightUpOrDown.x) + i)
-        {
-            return true;
-        }
-    }
-    return false;
-}
-
-bool s2d::BoxCollider::checkRightPosition(const s2d::BoxCollider& other)
-{
-    for (int i = this->m_start; i < this->m_end; i++)
-    {
-        if (int(this->sprite->getSprite().getPosition().x + this->sprite->transform.size.x + this->boxColliderWidthLeftOrRight.y) == int(other.sprite->getSprite().getPosition().x + other.boxColliderWidthLeftOrRight.x) + i)
-        {
-            return true;
-        }
-    }
-    return false;
-}
-
-bool s2d::BoxCollider::checkLeftPosition(const s2d::BoxCollider& other)
-{
-    for (int i = this->m_start; i < this->m_end; i++)
-    {
-        if (int(this->sprite->getSprite().getPosition().x + this->boxColliderWidthLeftOrRight.x) == int(other.sprite->getSprite().getPosition().x + other.sprite->transform.size.x + other.boxColliderWidthLeftOrRight.y) + i)
-        {
-            return true;
-        }
-    }
-    return false;
-}
 
 #pragma endregion
 

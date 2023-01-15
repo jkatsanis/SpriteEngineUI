@@ -6,13 +6,13 @@ void s2d::Physics::update()
 {
 	for (s2d::Sprite* const ptr_activeSprite : s2d::Sprite::activeSprites)
 	{
-		ptr_activeSprite->physicsBody.fixedUpdate();
+		ptr_activeSprite->physicsBody.physicsUpdate();
 	}	
 }
 
 void s2d::Physics::addForce(s2d::Sprite* sprite, const s2d::Vector2& direction, float force)
 {
-	float mass = 1.0f;
+	float mass = sprite->physicsBody.mass;
 	float speed = force / mass;
 	s2d::Vector2 velocity = s2d::Vector2(direction.x * speed, direction.y * speed);
 	sprite->physicsBody.velocity += velocity;

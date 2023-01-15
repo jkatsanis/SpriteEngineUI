@@ -1,2 +1,12 @@
-﻿  boxCollider.cpp
+﻿  sprite.cpp
+C:\Dev\SpriteEngineUI\FluppyBird\engine\src\physicalComponents\sprite.cpp(80,53): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
+          with
+          [
+              T=unsigned int
+          ]
+C:\Dev\SpriteEngineUI\FluppyBird\engine\src\physicalComponents\sprite.cpp(80,41): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
+          with
+          [
+              T=unsigned int
+          ]
   Assets.vcxproj -> C:\Dev\SpriteEngineUI\FluppyBird\x64\Debug\Assets.exe

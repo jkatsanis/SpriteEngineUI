@@ -38,4 +38,5 @@ bool s2d::BoxColliderPositionData::isEqual(s2d::BoxColliderPositionData::Positio
 	return false;
 }
 
-int s2d::BoxColliderPositionData::s_canCollideSpritesAround = 255 - 122;
+int s2d::BoxColliderPositionData::s_canCollideSpritesAround = 255 * 2
+;

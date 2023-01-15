@@ -119,7 +119,7 @@ void s2d::GameEngine::update()
 	//Renderer / Events
 	this->pollEvents();
 
-	// Loading everything for 1s
+	// Loading after for 1s
 	if (s2d::Time::timePassed > 1)
 	{
 		this->updateUserScriptsAndGUI();
@@ -133,8 +133,6 @@ void s2d::GameEngine::update()
 	this->pollEngineEvents();
 
 	this->m_renderer.render();
-
-	//this->render();
 }
 
 void s2d::GameEngine::start()
@@ -157,6 +155,6 @@ void s2d::GameEngine::start()
 
 	ImGui::SFML::Init(*this->ptr_renderWindow);
 
-	this->m_renderer = s2d::Renderer(this->ptr_renderWindow);
+	this->m_renderer = s2d::Renderer(this->ptr_renderWindow); 
 }
 
