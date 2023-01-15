@@ -2,7 +2,7 @@
 #include <data/engineData.h>
 
 int main()
-{   
+{
     s2d::UIProjectSelector selector;
 
     while (selector.isOpen())

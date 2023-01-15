@@ -22,6 +22,6 @@ namespace s2d
 
 		void resetPhysicsBody();
 
-		void physicsUpdate();
+		void fixedUpdate();
 	};
 }

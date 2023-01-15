@@ -1,4 +1,12 @@
-﻿  sprite.cpp
+﻿  Testing.cpp
+C:\Dev\SpriteEngineUI\FluppyBird\assets\scripts\Testing.cpp(42,36): warning C4305: '=': truncation from 'double' to 'float'
+C:\Dev\SpriteEngineUI\FluppyBird\assets\scripts\Testing.cpp(43,38): warning C4305: '=': truncation from 'double' to 'float'
+C:\Dev\SpriteEngineUI\FluppyBird\assets\scripts\Testing.cpp(52,32): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+  physics.cpp
+  gameEngine.cpp
+  renderer.cpp
+  main.cpp
+  sprite.cpp
 C:\Dev\SpriteEngineUI\FluppyBird\engine\src\physicalComponents\sprite.cpp(80,53): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
           with
           [
@@ -9,4 +17,9 @@ C:\Dev\SpriteEngineUI\FluppyBird\engine\src\physicalComponents\sprite.cpp(80,41)
           [
               T=unsigned int
           ]
+  boxCollider.cpp
+  childSystem.cpp
+  physicsBody.cpp
+  stransform.cpp
+  Generating Code...
   Assets.vcxproj -> C:\Dev\SpriteEngineUI\FluppyBird\x64\Debug\Assets.exe

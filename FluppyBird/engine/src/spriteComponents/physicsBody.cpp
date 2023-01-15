@@ -25,7 +25,7 @@ void s2d::PhsysicsBody::resetPhysicsBody()
 	this->gravity = 0.0f;
 }
 
-void s2d::PhsysicsBody::physicsUpdate()
+void s2d::PhsysicsBody::fixedUpdate()
 {
     if (!this->exists || this->ptr_attachedSprite == nullptr || this->gravity == 0) return;
 

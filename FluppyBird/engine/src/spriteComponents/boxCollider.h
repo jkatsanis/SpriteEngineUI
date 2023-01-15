@@ -11,6 +11,9 @@ namespace s2d
 	class BoxCollider
 	{
 	private:
+		int m_start = -5;
+		int m_end = 5;
+
 		void checkPositions(const BoxCollider& other, const int jIndex);
 
 	private:

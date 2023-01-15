@@ -3,3 +3,4 @@ C:\SpriteEngineUI\Assets\x64\Debug\Assets.exe
 C:\Dev\Assets\x64\Debug\Assets.exe
 C:\Dev\FluppyBird\x64\Debug\Assets.exe
 C:\Dev\SpriteEngineUI\FluppyBird\x64\Debug\Assets.exe
+C:\Dev\BeamVR - auf den schienen\SpriteEngineUI\FluppyBird\x64\Debug\Assets.exe

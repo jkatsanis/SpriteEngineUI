@@ -53,12 +53,7 @@ bool s2d::BoxCollider::checkIAndJPCollisions(int i, int j)
     {
         collided = true;
     }
-
-    if (collided)
-    {
-        s2d::Sprite::activeSprites[j]->collider.checkPositions(s2d::Sprite::activeSprites[i]->collider, j);
-    }
-    else if (s2d::Sprite::activeSprites[j]->collider.checkCollision(s2d::Sprite::activeSprites[i]->collider, j))
+    if (s2d::Sprite::activeSprites[j]->collider.checkCollision(s2d::Sprite::activeSprites[i]->collider, j))
     {
         collided = true;
     }
@@ -74,8 +69,9 @@ void s2d::BoxCollider::checkPositions(const BoxCollider& other, const int jIndex
     {
         this->positionData.position[this->collisionCnt] = s2d::BoxColliderPositionData::Position::Right;
         this->collisionCnt++;
+        return;
     }
-    
+
     // Left
     float topLeft = this->sprite->getOrigininalPosition().x;
 
@@ -83,6 +79,17 @@ void s2d::BoxCollider::checkPositions(const BoxCollider& other, const int jIndex
     {
         this->positionData.position[this->collisionCnt] = s2d::BoxColliderPositionData::Position::Left;
         this->collisionCnt++;
+        return;
+    }
+
+    // top
+    float upTop = this->sprite->getOrigininalPosition().y;
+
+    if (upTop <= other.sprite->getOrigininalPosition().y + other.sprite->transform.size.y && other.sprite->getOrigininalPosition().y + other.sprite->transform.size.y / 2 < upTop)
+    {
+        this->positionData.position[this->collisionCnt] = s2d::BoxColliderPositionData::Position::Up;
+        this->collisionCnt++;
+        return;
     }
 
     // Up
@@ -92,18 +99,10 @@ void s2d::BoxCollider::checkPositions(const BoxCollider& other, const int jIndex
     {
         this->positionData.position[this->collisionCnt] = s2d::BoxColliderPositionData::Position::Down;
         this->collisionCnt++;
+        return;
     }
 
-    // Left
-    float upTop = this->sprite->getOrigininalPosition().y;
-
-    if (upTop <= other.sprite->getOrigininalPosition().y + other.sprite->transform.size.y && other.sprite->getOrigininalPosition().y + other.sprite->transform.size.y / 2 < upTop)
-    {
-        this->positionData.position[this->collisionCnt] = s2d::BoxColliderPositionData::Position::Up;
-        this->collisionCnt++;
-    }
 }
-
 
 #pragma endregion
 
