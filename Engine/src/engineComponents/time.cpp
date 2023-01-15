@@ -17,6 +17,7 @@ void s2d::Time::update()
 		m_tempFps = 0;
 	}
 
+	timePassed += deltaTime;
 	//std::cout << fps << std::endl;
 	
 }
@@ -36,4 +37,5 @@ float s2d::Time::m_secondCounter = 0;
 float s2d::Time::m_tempFps = 0;
 
 float s2d::Time::fps = 0;
+float s2d::Time::timePassed = 0;
 

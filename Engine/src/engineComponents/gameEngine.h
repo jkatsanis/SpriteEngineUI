@@ -9,6 +9,7 @@
 #include <engineComponents/input.h>
 #include <vector>
 #include <engineComponents/event.h>
+#include <engineComponents/renderer.h>
 
 namespace s2d
 {
@@ -17,27 +18,18 @@ namespace s2d
 	private:
 		UIWindow m_UIWindow;
 		UIRealTimeEditor m_UIRealTimeEditor;
+		Renderer m_spriteRenderer;
 
 		bool m_isWindowFullScreen;
-		float m_timePassed;
-
-		float m_timePassedSinceLasTextureUpdate;
-		int m_timeToUpdateTextures;
 
 		void pollEngineEvents();
 		void pollEvents();
-		void render();
-		void draw();
-		void drawSprites();
-		void updateSriteTextures();
-		void drawLines();
-		void drawRectangles();
 		void updateWindowStyle();
 
 	public:
 		s2d::Event event;
 		sf::Event windowEvent;
-		std::unique_ptr<sf::RenderWindow> ptr_renderWindow;
+		sf::RenderWindow* ptr_renderWindow;
 
 		GameEngine();
 

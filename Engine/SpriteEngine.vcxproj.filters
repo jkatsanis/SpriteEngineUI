@@ -145,6 +145,9 @@
     <Filter Include="src\Components\engineComponents\data\engine">
       <UniqueIdentifier>{7a5a6dea-281f-4d88-aea8-91d046ba54c2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Components\engineComponents\renderer">
+      <UniqueIdentifier>{11e41f95-0da7-436a-bfac-ed4cf7d78271}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\include\imgui\imgui.cpp">
@@ -282,6 +285,9 @@
     </ClCompile>
     <ClCompile Include="src\data\engineData.cpp">
       <Filter>src\Components\engineComponents\data\engine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\engineComponents\renderer.cpp">
+      <Filter>src\Components\engineComponents\renderer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -746,6 +752,9 @@
     </ClInclude>
     <ClInclude Include="src\data\engineData.h">
       <Filter>src\Components\engineComponents\data\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="src\engineComponents\renderer.h">
+      <Filter>src\Components\engineComponents\renderer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
