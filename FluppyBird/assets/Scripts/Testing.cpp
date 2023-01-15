@@ -14,7 +14,7 @@ void Testing::start()
 
 void Testing::update()
 {
-	std::string score = "Score: " + std::to_string(m_score);
+	std::string score = "Score: " + std::to_string(s2d::Time::fps);
 	ImGui::SetCursorPos(ImVec2(800, 200));
 	ImGui::Text(score.c_str());
 	up->transform.position.x -= 700 * s2d::Time::deltaTime;
@@ -25,9 +25,9 @@ void Testing::update()
 		if (thisSprite->collider.collidingSprite->name == "up"
 			|| thisSprite->collider.collidingSprite->name == "down")
 		{
-			s2d::Sprite* spr = new s2d::Sprite("name", s2d::Vector2(0, 0), "assets\\Sprites\\gameOver.png", true);
-			spr->sortingLayerIndex = 2;
-			spr->renderInstant();
+			//s/2d::Sprite* spr = new s2d::Sprite("name", s2d::Vector2(0, 0), "assets\\Sprites\\gameOver.png", true);
+			//spr->sortingLayerIndex = 2;
+			//spr->renderInstant();
 		}
 	}
 	m_timeToPressAgain += s2d::Time::deltaTime;
@@ -53,5 +53,24 @@ void Testing::update()
 		down->transform.position.y = up->transform.position.y + 1500;
 
 	}
+
+	if (s2d::Input::onKeyHold(s2d::KeyBoardCode::A))
+	{
+		thisSprite->transform.position.x -= this->m_spriteSpeed * s2d::Time::deltaTime;
+	}
+	if (s2d::Input::onKeyHold(s2d::KeyBoardCode::W))
+	{
+		thisSprite->transform.position.y += this->m_spriteSpeed * s2d::Time::deltaTime;
+	}
+	if (s2d::Input::onKeyHold(s2d::KeyBoardCode::S))
+	{
+		thisSprite->transform.position.y -= this->m_spriteSpeed * s2d::Time::deltaTime;
+	}
+	if (s2d::Input::onKeyHold(s2d::KeyBoardCode::D))
+	{
+		thisSprite->transform.position.x += this->m_spriteSpeed * s2d::Time::deltaTime;
+	}
+
+
 }
  

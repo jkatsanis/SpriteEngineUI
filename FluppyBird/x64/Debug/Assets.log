@@ -1,5 +1,2 @@
-﻿  Testing.cpp
-C:\Dev\FluppyBird\assets\scripts\Testing.cpp(42,36): warning C4305: '=': truncation from 'double' to 'float'
-C:\Dev\FluppyBird\assets\scripts\Testing.cpp(43,38): warning C4305: '=': truncation from 'double' to 'float'
-C:\Dev\FluppyBird\assets\scripts\Testing.cpp(52,32): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-  Assets.vcxproj -> C:\Dev\FluppyBird\x64\Debug\Assets.exe
+﻿  boxCollider.cpp
+  Assets.vcxproj -> C:\Dev\SpriteEngineUI\FluppyBird\x64\Debug\Assets.exe

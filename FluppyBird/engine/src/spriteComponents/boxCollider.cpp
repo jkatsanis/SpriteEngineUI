@@ -35,7 +35,7 @@ bool s2d::BoxCollider::checkCollision(s2d::BoxCollider& other, const int jIndex)
         && getPosY + sprite->transform.size.y + this->boxColliderHeightUpOrDown.y >= otherGetPosY + other.boxColliderHeightUpOrDown.x
         && getPosY + this->boxColliderHeightUpOrDown.x <= otherGetPosY + other.boxColliderHeightUpOrDown.y + other.sprite->transform.size.y)
     {
-        if (other.isSolid)
+        if (other.isSolid && this->isSolid)
             checkPositions(other, jIndex);
         return true;
     }

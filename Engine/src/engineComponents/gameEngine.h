@@ -18,7 +18,7 @@ namespace s2d
 	private:
 		UIWindow m_UIWindow;
 		UIRealTimeEditor m_UIRealTimeEditor;
-		Renderer m_spriteRenderer;
+		Renderer m_renderer;
 
 		bool m_isWindowFullScreen;
 

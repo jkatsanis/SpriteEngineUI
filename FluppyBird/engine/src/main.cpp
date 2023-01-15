@@ -1,10 +1,10 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
-#include <engineComponents/game.h>
+#include <engineComponents/gameEngine.h>
 
 int main()
 {
-	s2d::Game game;
+	s2d::GameEngine game;
 	game.start();
 
 	while (game.isGameRunning())

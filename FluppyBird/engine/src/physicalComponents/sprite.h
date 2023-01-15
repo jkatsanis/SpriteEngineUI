@@ -22,7 +22,6 @@ namespace s2d
 		int m_id;
 		int m_parentId;
 		int m_childCount;
-		int m_listPos;
 
 		void initVariables(std::string name, s2d::Vector2 spawnPos, std::string path);
 		void pushSetup();
@@ -50,9 +49,25 @@ namespace s2d
 
 		void setSpriteTexture(const std::string path);
 		void setSpritePosition();
+
+		/// <summary>
+		/// Pushed the sprite to the sprites vector, gets rendered
+		/// automaticly
+		/// </summary>
 		void addSpriteToScene();
+
+		/// <summary>
+		/// Gets the original position as a Cartesian coordinate system point (vector).
+		/// </summary>
+		/// <returns>The position as a vector</returns>
 		s2d::Vector2 getOrigininalPosition();
 
+
+		/// <summary>
+		/// Renders the sprite instant to the screen when you create a 
+		/// 'new' sprite, do not use this functions if you don't have a reason to 
+		/// </summary>
+		void renderInstant();
 	public:
 
 		void setId(const int id) { this->m_id = id; }
@@ -61,14 +76,11 @@ namespace s2d
 		int getId() const { return this->m_id; }
 		int getParentId() const { return this->m_parentId; }
 		int getChildCount() const { return this->m_childCount; }
-		int getChildListPosition() const { return this->m_listPos; }
 
 		s2d::Sprite* getNode(); 
 
 		int getVectorPosition() { return this->m_vectorPosition; }
 		sf::Sprite& getSprite() { return this->m_sprite; }
-
-		void renderInstant();
 
 	public:
 		static void initActiveSprites();
@@ -77,7 +89,7 @@ namespace s2d
 		static s2d::Sprite* getSpriteById(int id);
 		static Sprite* getSpriteByName(std::string name);
 
-		static int highteLayerIndex;
+		static int highestLayerIndex;
 
 		//Pointers getting deletet in gameWindow.cpp ~
 		static std::vector<s2d::Sprite*> activeSprites;

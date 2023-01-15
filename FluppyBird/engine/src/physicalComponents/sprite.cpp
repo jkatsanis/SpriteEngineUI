@@ -83,7 +83,6 @@ void s2d::Sprite::setTextureSize()
 void s2d::Sprite::initVariables(std::string name, s2d::Vector2 spawnPos, std::string path)
 {
 	this->m_childCount = -1;
-	this->m_listPos = -1;
 	this->m_parentId = -1;
 
 	// ID
@@ -253,7 +252,6 @@ void s2d::Sprite::initActiveSprites()
 			sprite->transform.lastPos.y = std::stof(propertys[20]);
 
 			//list pos
-			sprite->m_listPos = atoi(propertys[21].c_str());
 			sprite->m_childCount = atoi(propertys[22].c_str());
 
 			//Position to parent x, and y
@@ -337,10 +335,10 @@ void s2d::Sprite::updateHightestLayerIndex()
 {
 	for (const s2d::Sprite* sprite : s2d::Sprite::activeSprites)
 	{
-		if (sprite->sortingLayerIndex > highteLayerIndex)
-			highteLayerIndex = sprite->sortingLayerIndex;
+		if (sprite->sortingLayerIndex > highestLayerIndex)
+			highestLayerIndex = sprite->sortingLayerIndex;
 	}
 }
 
 std::vector<s2d::Sprite*> s2d::Sprite::activeSprites(0);
-int s2d::Sprite::highteLayerIndex = 0;
+int s2d::Sprite::highestLayerIndex = 0;

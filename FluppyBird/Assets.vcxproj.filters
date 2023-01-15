@@ -7,9 +7,6 @@
     <Filter Include="engine src\engineComponents">
       <UniqueIdentifier>{fdea8ad3-c9e5-4ddf-aaac-8f979c8dc080}</UniqueIdentifier>
     </Filter>
-    <Filter Include="engine src\engineComponents\game">
-      <UniqueIdentifier>{c8fab3ae-af6b-4782-8490-112c4b343c32}</UniqueIdentifier>
-    </Filter>
     <Filter Include="engine src\engineComponents\input">
       <UniqueIdentifier>{768f0991-6c0e-41e1-a95b-5e58e1447bbd}</UniqueIdentifier>
     </Filter>
@@ -77,6 +74,12 @@
     <Filter Include="engine src\manager">
       <UniqueIdentifier>{eb44f47a-ecab-4d5b-b591-eb1ca39c7d79}</UniqueIdentifier>
     </Filter>
+    <Filter Include="engine src\engineComponents\gameEngiine">
+      <UniqueIdentifier>{c8fab3ae-af6b-4782-8490-112c4b343c32}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="engine src\engineComponents\renderer">
+      <UniqueIdentifier>{7da6b676-6e78-4cfb-ad9d-d6cb24bdb1e8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="assets\scripts\Testing.cpp">
@@ -122,13 +125,13 @@
       <Filter>engine src</Filter>
     </ClCompile>
     <ClCompile Include="engine\src\engineComponents\event.cpp">
-      <Filter>engine src\engineComponents\game</Filter>
+      <Filter>engine src\engineComponents\gameEngiine</Filter>
     </ClCompile>
     <ClCompile Include="engine\src\data\FileData.cpp">
       <Filter>engine src\data</Filter>
     </ClCompile>
-    <ClCompile Include="engine\src\engineComponents\game.cpp">
-      <Filter>engine src\engineComponents\game</Filter>
+    <ClCompile Include="engine\src\engineComponents\gameEngine.cpp">
+      <Filter>engine src\engineComponents\gameEngiine</Filter>
     </ClCompile>
     <ClCompile Include="engine\src\data\gameData.cpp">
       <Filter>engine src\data</Filter>
@@ -156,6 +159,9 @@
     </ClCompile>
     <ClCompile Include="engine\src\manager\GUIManager.cpp">
       <Filter>engine src\manager</Filter>
+    </ClCompile>
+    <ClCompile Include="engine\src\engineComponents\renderer.cpp">
+      <Filter>engine src\engineComponents\renderer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -502,21 +508,18 @@
       <Filter>engine src\data</Filter>
     </ClInclude>
     <ClInclude Include="engine\src\engineComponents\event.h">
-      <Filter>engine src\engineComponents\game</Filter>
+      <Filter>engine src\engineComponents\gameEngiine</Filter>
     </ClInclude>
     <ClInclude Include="engine\src\engineComponents\keyBoard.h">
       <Filter>engine src\engineComponents\input</Filter>
     </ClInclude>
-    <ClInclude Include="engine\src\engineComponents\game.h">
-      <Filter>engine src\engineComponents\game</Filter>
+    <ClInclude Include="engine\src\engineComponents\gameEngine.h">
+      <Filter>engine src\engineComponents\gameEngiine</Filter>
     </ClInclude>
     <ClInclude Include="engine\src\engineComponents\sTime.h">
       <Filter>engine src\engineComponents\time</Filter>
     </ClInclude>
     <ClInclude Include="engine\src\include\imgui\imconfig.h">
-      <Filter>engine src\_include\imgui</Filter>
-    </ClInclude>
-    <ClInclude Include="assets\Scripts\Testing.h">
       <Filter>engine src\_include\imgui</Filter>
     </ClInclude>
     <ClInclude Include="engine\src\include\imgui\imconfig-SFML.h">
@@ -545,6 +548,12 @@
     </ClInclude>
     <ClInclude Include="engine\src\manager\GUIManager.h">
       <Filter>engine src\manager</Filter>
+    </ClInclude>
+    <ClInclude Include="assets\Scripts\Testing.h">
+      <Filter>game src</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\src\engineComponents\renderer.h">
+      <Filter>engine src\engineComponents\renderer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
