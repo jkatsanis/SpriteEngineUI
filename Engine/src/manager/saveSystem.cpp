@@ -197,8 +197,9 @@ bool s2d::flc::isProjectPathValid(const std::string& path)
 {
 	// TODO logic to chck if verify.vsn is valid, just simple now
 	std::ifstream file(path);
-
-	return file.good();
+	bool good = file.good();
+	file.close();
+	return good;
 }
 
 bool s2d::flc::checkIfProjectExistInFile(std::string& ref)

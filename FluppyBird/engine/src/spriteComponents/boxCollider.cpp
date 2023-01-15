@@ -62,10 +62,11 @@ bool s2d::BoxCollider::checkIAndJPCollisions(int i, int j)
 
 void s2d::BoxCollider::checkPositions(const BoxCollider& other, const int jIndex)
 {
-    // Right
-    float rightTop = this->sprite->getOrigininalPosition().x + this->sprite->transform.size.x;
+    short range = 10;
 
-    if (rightTop >= other.sprite->getOrigininalPosition().x && other.sprite->getOrigininalPosition().x + other.sprite->transform.size.x / 2 > rightTop)
+    // Right
+    if (this->sprite->getOrigininalPosition().x + this->sprite->transform.size.x >= other.sprite->getOrigininalPosition().x
+        && this->sprite->getOrigininalPosition().x + this->sprite->transform.size.x <= other.sprite->getOrigininalPosition().x + range)
     {
         this->positionData.position[this->collisionCnt] = s2d::BoxColliderPositionData::Position::Right;
         this->collisionCnt++;
@@ -73,35 +74,35 @@ void s2d::BoxCollider::checkPositions(const BoxCollider& other, const int jIndex
     }
 
     // Left
-    float topLeft = this->sprite->getOrigininalPosition().x;
 
-    if (topLeft <= other.sprite->getOrigininalPosition().x + other.sprite->transform.size.x && other.sprite->getOrigininalPosition().x + other.sprite->transform.size.x / 2 < topLeft)
+    if (this->sprite->getOrigininalPosition().x <= other.sprite->getOrigininalPosition().x + other.sprite->transform.size.x
+        && this->sprite->getOrigininalPosition().x + range >= other.sprite->getOrigininalPosition().x + other.sprite->transform.size.x)
     {
         this->positionData.position[this->collisionCnt] = s2d::BoxColliderPositionData::Position::Left;
         this->collisionCnt++;
         return;
     }
 
-    // top
-    float upTop = this->sprite->getOrigininalPosition().y;
 
-    if (upTop <= other.sprite->getOrigininalPosition().y + other.sprite->transform.size.y && other.sprite->getOrigininalPosition().y + other.sprite->transform.size.y / 2 < upTop)
-    {
-        this->positionData.position[this->collisionCnt] = s2d::BoxColliderPositionData::Position::Up;
-        this->collisionCnt++;
-        return;
-    }
+    // Down
 
-    // Up
-    float downTop = this->sprite->getOrigininalPosition().y + this->sprite->transform.size.y;
-
-    if (downTop >= other.sprite->getOrigininalPosition().y && other.sprite->getOrigininalPosition().y + other.sprite->transform.size.y / 2 > downTop)
+    if (this->sprite->getOrigininalPosition().y + this->sprite->transform.size.y >= other.sprite->getOrigininalPosition().y
+        && (this->sprite->getOrigininalPosition().y + this->sprite->transform.size.y <= other.sprite->getOrigininalPosition().y + range))
     {
         this->positionData.position[this->collisionCnt] = s2d::BoxColliderPositionData::Position::Down;
         this->collisionCnt++;
         return;
     }
 
+    // Top
+
+    if (this->sprite->getOrigininalPosition().y <= other.sprite->getOrigininalPosition().y + other.sprite->transform.size.y
+        && (this->sprite->getOrigininalPosition().y + range >= other.sprite->getOrigininalPosition().y + other.sprite->transform.size.y))
+    {
+        this->positionData.position[this->collisionCnt] = s2d::BoxColliderPositionData::Position::Up;
+        this->collisionCnt++;
+        return;
+    }
 }
 
 #pragma endregion

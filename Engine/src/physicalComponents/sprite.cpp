@@ -246,6 +246,8 @@ void s2d::Sprite::initActiveSprites()
 		}
 	}
 
+	spriteFile.close();
+
 	//setting childs of sprites
 	for (s2d::Sprite* sprite : s2d::Sprite::activeSprites)
 	{

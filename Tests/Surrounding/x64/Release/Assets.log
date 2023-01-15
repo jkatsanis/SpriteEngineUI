@@ -1,0 +1,6 @@
+﻿  Assets.cpp
+  Generating code
+  Compiler switch has changed, fall back to full compilation.
+  All 5 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  Finished generating code
+  Assets.vcxproj -> C:\Programmieren\c++\Projects\Testing\SFML\SpriteEngineTest\Assets\x64\Release\Assets.exe
