@@ -205,6 +205,7 @@
     <ClCompile Include="src\guiComponents\projectSelector\UIProjectSelectorProjectSection.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\guiComponents\colors.h" />
     <ClInclude Include="src\engineComponents\renderer.h" />
     <ClInclude Include="src\data\engineData.h" />
     <ClInclude Include="src\data\projectInfo.h" />

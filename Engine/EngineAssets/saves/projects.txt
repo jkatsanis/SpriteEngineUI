@@ -1,3 +1,2 @@
-knownProjects
-Surrounding;C:\Dev\SpriteEngineUI\Tests\Surrounding;2023/15/01 20:23:07;..\Tests\Surrounding
-FluppyBird;C:\Dev\SpriteEngineUI\FluppyBird;2023/15/01 22:24:25;..\FluppyBird
+name;absulutePathStr;date;relativePath
+FluppyBird;C:\Dev\SpriteEngineUI\FluppyBird;2023/16/01 11:19:00;..\FluppyBird

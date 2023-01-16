@@ -68,7 +68,8 @@ void s2d::GameEngine::pollEvents()
             s2d::flc::createWindowBackgroundSaveFile(this->m_UIWindow.getInspector().backgroundColor);
             s2d::flc::createCameraSaveFile(*s2d::GameObject::ptr_camera_tRealTimeEditor);
             s2d::flc::createIndexSaveFile();
-            s2d::flc::createKnownProjectDirFile();
+
+            // Known projects file gets created in project selector
 
             this->ptr_renderWindow->close();
         }
@@ -113,15 +114,21 @@ void s2d::GameEngine::pollEvents()
 
 void s2d::GameEngine::updateWindowStyle()
 {
-    if (s2d::Input::onKeyRelease(s2d::KeyBoardCode::F11) && this->m_isWindowFullScreen)
+    if (!m_isWindowFullScreen)
     {
-        this->m_isWindowFullScreen = false;
-        this->ptr_renderWindow->create(sf::VideoMode(1920, 1080), "SpriteEngine", sf::Style::Default);
+        if (s2d::Input::onKeyRelease(s2d::KeyBoardCode::F11))
+        {
+            this->m_isWindowFullScreen = true;
+            this->ptr_renderWindow->create(sf::VideoMode(1920, 1080), "SpriteEngine", sf::Style::Fullscreen);
+        }
     }
-    if (s2d::Input::onKeyRelease(s2d::KeyBoardCode::F10) && !this->m_isWindowFullScreen)
+    else if (m_isWindowFullScreen)
     {
-        this->m_isWindowFullScreen = true;
-        this->ptr_renderWindow->create(sf::VideoMode(1920, 1080), "SpriteEngine", sf::Style::Fullscreen);
+        if (s2d::Input::onKeyRelease(s2d::KeyBoardCode::F11))
+        {
+            this->m_isWindowFullScreen = false;
+            this->ptr_renderWindow->create(sf::VideoMode(1920, 1080), "SpriteEngine", sf::Style::Default);
+        }
     }
     if (Input::onKeyHold(s2d::KeyBoardCode::LControl) && Input::onKeyRelease(s2d::KeyBoardCode::F4))
     {

@@ -36,7 +36,7 @@ void Testing::update()
 	{
 		m_timeToPressAgain = 0;
 		thisSprite->physicsBody.velocity.y = 0;
-		s2d::Physics::addForce(thisSprite, s2d::Vector2(0, 1), 0.2f);
+		s2d::Physics::addForce(thisSprite, s2d::Vector2(0, 1), 0.8f);
 	}
 	if (up->transform.position.x < -1000)
 	{

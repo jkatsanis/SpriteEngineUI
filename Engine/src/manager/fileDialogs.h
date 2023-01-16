@@ -20,7 +20,7 @@ namespace s2d
 	{
 	private:
 		bool m_closeWindow;
-		bool m_displayedTitle;
+		bool m_displayTitle;
 	    std::string m_ICON;
 		std::string m_TITLE;
 		std::string m_PATH;
@@ -34,15 +34,17 @@ namespace s2d
 		/// </summary>
 		void openFile(const char* dir_path);
 
-		/// <returns>If the icon got pressed</returns>
 		bool displaySymbol(const std::string& icon, float windowSizeX);
 	public:
 		std::string pathClicked;	
 		std::string folderClicked;
+		bool windowFocus;
 
 		FileDialog();
 		FileDialog(std::string path, std::string icon, std::string title, ImVec2 windowSize);
 
+
+		void reset();
 
 		/// <summary>
 		///  Displays all the nodes including the path you provide

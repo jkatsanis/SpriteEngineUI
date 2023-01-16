@@ -36,7 +36,7 @@ void s2d::UIToolButtons::askWithButtonForPlayGame()
 	ImGui::SetCursorPosX(500);
 	ImGui::SetCursorPos(ImVec2(960 - 320 - 10, ImGui::GetCursorPosY()));
 
-	if (s2d::FontManager::displaySmybolAsButton(ICON_FA_PLAY))
+	if (s2d::FontManager::displaySmybolAsButton(ICON_FA_PLAY) || s2d::Input::onKeyRelease(s2d::KeyBoardCode::F5))
 	{
 		//EXETUING NEW EXE
 		s2d::Animator::stopAllAnimations();
@@ -75,7 +75,6 @@ void s2d::UIToolButtons::askWithButtonForPlayGame()
 		system(path.c_str());
 
 		//Reseting the dir
-
 		if (!SetCurrentDirectory(engineDirectory))
 		{
 			std::cout << "FAILED SETTING DIR";

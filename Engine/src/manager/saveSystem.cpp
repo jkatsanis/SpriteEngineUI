@@ -161,10 +161,9 @@ void s2d::flc::createKnownProjectDirFile()
 
 	struct tm  timeinfo;
 	char buffer[80];
-	errno_t err = gmtime_s(&timeinfo, &in_time_t);
+	gmtime_s(&timeinfo, &in_time_t);
 
 	std::strftime(buffer, sizeof(buffer), "%Y/%d/%m %X", &timeinfo);
-
 
 	const char* relative_path = s2d::EngineData::s_pathToUserProject.c_str();
 	char absolute_path[FILENAME_MAX];
@@ -178,19 +177,20 @@ void s2d::flc::createKnownProjectDirFile()
 	std::string absulutePathStr = absolute_path;
 
 	std::string path = name + ";" + absulutePathStr + ";" + date + ";" + relative_path;
-	content += path;
 
-	std::ofstream indexFile;
+	std::ofstream knownProjectFile;
 
-	indexFile.open(PATH_TO_KNOWN_PROJECTS, std::ios::out);
-	if (indexFile.is_open())	
+	knownProjectFile.open(PATH_TO_KNOWN_PROJECTS, std::ios::out);
+	if (knownProjectFile.is_open())	
 	{
-		indexFile << "knownProjects" << "\n";
+		knownProjectFile << "name;absulutePathStr;date;relativePath" << "\n";
 
-		indexFile << content << "\n";
+		knownProjectFile << content + path << "\n";
 
-		indexFile.close();
+		knownProjectFile.close();
 	}
+
+
 }
 
 bool s2d::flc::isProjectPathValid(const std::string& path)
@@ -208,7 +208,7 @@ bool s2d::flc::checkIfProjectExistInFile(std::string& ref)
 
 	bool found = false;
 	std::string searchPath = s2d::EngineData::s_pathToUserProject;
-	std::fstream backgroundFile;
+	std::fstream knownProjectFile;
 
 	char absulutPath[1024];
 
@@ -218,12 +218,12 @@ bool s2d::flc::checkIfProjectExistInFile(std::string& ref)
 	}
 
 	//opening the file where all sprite data is
-	backgroundFile.open(PATH_TO_KNOWN_PROJECTS, std::ios::in);
-	if (backgroundFile.is_open())
+	knownProjectFile.open(PATH_TO_KNOWN_PROJECTS, std::ios::in);
+	if (knownProjectFile.is_open())
 	{
 		std::string line;
 		int cnt = 0;
-		while (std::getline(backgroundFile, line))
+		while (std::getline(knownProjectFile, line))
 		{
 			cnt++;
 			//First line is the header so we dont need to check for it
@@ -242,12 +242,124 @@ bool s2d::flc::checkIfProjectExistInFile(std::string& ref)
 
 			if (found)
 			{
-				backgroundFile.close();
+				knownProjectFile.close();
 				return true;
 			}
 		}
-		backgroundFile.close();
+		knownProjectFile.close();
 	}
+
 	return found;
+}
+
+bool s2d::flc::checkIfProjcetAlreadyExists(const std::string& path)
+{
+	const int INDEX_AT_PATH = 1;
+
+	bool found = false;
+	std::fstream knownProjectFile;
+
+	//opening the file where all sprite data is
+	knownProjectFile.open(PATH_TO_KNOWN_PROJECTS, std::ios::in);
+	if (knownProjectFile.is_open())
+	{
+		std::string line;
+		int cnt = 0;
+		while (std::getline(knownProjectFile, line))
+		{
+			cnt++;
+			//First line is the header so we dont need to check for it
+			if (cnt == 1)
+			{
+				continue;
+			}
+
+			//Splitting line
+			std::string delimiter = ";";
+			std::string* propertys = std::splitString(line, delimiter);
+
+			found = propertys[INDEX_AT_PATH] == path;
+
+			if (!found)
+			{
+				found = propertys[INDEX_AT_PATH] + "\\" == path;
+			}
+
+			if (found)
+			{
+				knownProjectFile.close();
+				return found;
+			}
+		}
+		knownProjectFile.close();
+	}
+
+	return found;
+}
+
+void s2d::flc::removeInvalidPathsFromFile()
+{
+	std::vector<std::string> validlines;
+
+	std::fstream knownProjectFile;
+	//opening the file where all sprite data is
+	knownProjectFile.open(PATH_TO_KNOWN_PROJECTS, std::ios::in);
+	if (knownProjectFile.is_open())
+	{
+		std::string line;
+		int cnt = 0;
+		while (std::getline(knownProjectFile, line))
+		{
+			cnt++;
+			//First line is the header so we dont need to check for it
+			if (cnt == 1)
+			{
+				continue;
+			}
+
+			//Splitting line
+			std::string delimiter = ";";
+			std::string* propertys = std::splitString(line, delimiter);
+			
+			std::string absulutePath = propertys[1];
+
+			DIR* dir = opendir(absulutePath.c_str());
+			if (dir)
+			{
+				validlines.push_back(line);
+			}
+
+			closedir(dir);
+		}
+		knownProjectFile.close();
+	}
+
+	std::fstream knownProject;
+
+	knownProject.open(PATH_TO_KNOWN_PROJECTS, std::ios::out);
+	if (knownProject.is_open())
+	{
+		knownProject << "name;absulutePathStr;date;relativePath" << "\n";
+
+		for (const std::string& line : validlines)
+		{
+			knownProject << line << "\n";
+		}
+
+		knownProject.close();
+	}
+}
+
+std::string s2d::flc::copyDir(const std::string& inputDir, const std::string& outputdir, const std::string& name)
+{
+	std::string mkdir = "mkdir " + outputdir + std::string(name.c_str());
+
+	system(mkdir.c_str());
+
+	std::string copy = "xcopy " + inputDir + " " + outputdir + std::string(name.c_str()) + " /E";
+
+	system(copy.c_str());
+
+	return outputdir + std::string(name.c_str());
 }
 

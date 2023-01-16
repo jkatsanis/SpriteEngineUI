@@ -109,15 +109,6 @@
     <Filter Include="src\Include/headers\__include\icons">
       <UniqueIdentifier>{dd2b3d52-cf91-49e0-ab72-74e04ae139f0}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\Components\engineComponents\manager">
-      <UniqueIdentifier>{f4100fb6-63ef-421b-a1ba-72ba1b7a6b71}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\Components\engineComponents\manager\files">
-      <UniqueIdentifier>{28d7b60e-6af1-4233-87fc-5b63d550818c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\Components\engineComponents\manager\font">
-      <UniqueIdentifier>{08adcc0f-cc67-4ded-97f9-d0de4626b4e3}</UniqueIdentifier>
-    </Filter>
     <Filter Include="src\Components\engineComponents\data">
       <UniqueIdentifier>{36c21588-c40b-4a06-b73d-1f63d6e810e0}</UniqueIdentifier>
     </Filter>
@@ -130,23 +121,32 @@
     <Filter Include="src\Components\engineComponents\data\file">
       <UniqueIdentifier>{c39b7ee3-d525-459c-8c6f-3fafec5223d0}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\Components\engineComponents\manager\fileDialgo">
-      <UniqueIdentifier>{4fbfab22-2202-40a3-bf2e-13ae7c38df85}</UniqueIdentifier>
-    </Filter>
     <Filter Include="src\Components\guiComponents\projectSelector">
       <UniqueIdentifier>{5b085ae3-eaf8-4d87-b9fe-c4f627d9d8c7}</UniqueIdentifier>
     </Filter>
     <Filter Include="src\Components\guiComponents\projectSelector\selector">
       <UniqueIdentifier>{73a01882-7de8-4de4-98a4-cbaa87a99896}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\Components\guiComponents\projectSelector\create">
-      <UniqueIdentifier>{f7276a62-4241-416b-a8ed-710d28d88a06}</UniqueIdentifier>
-    </Filter>
     <Filter Include="src\Components\engineComponents\data\engine">
       <UniqueIdentifier>{7a5a6dea-281f-4d88-aea8-91d046ba54c2}</UniqueIdentifier>
     </Filter>
     <Filter Include="src\Components\engineComponents\renderer">
       <UniqueIdentifier>{11e41f95-0da7-436a-bfac-ed4cf7d78271}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Components\guiComponents\projectSelector\create/open">
+      <UniqueIdentifier>{f7276a62-4241-416b-a8ed-710d28d88a06}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Components\manager">
+      <UniqueIdentifier>{f4100fb6-63ef-421b-a1ba-72ba1b7a6b71}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Components\manager\files">
+      <UniqueIdentifier>{28d7b60e-6af1-4233-87fc-5b63d550818c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Components\manager\font">
+      <UniqueIdentifier>{08adcc0f-cc67-4ded-97f9-d0de4626b4e3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Components\manager\fileDialgo">
+      <UniqueIdentifier>{4fbfab22-2202-40a3-bf2e-13ae7c38df85}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -196,10 +196,10 @@
       <Filter>src\Components\guiComponents\hirachy</Filter>
     </ClCompile>
     <ClCompile Include="src\manager\saveSystem.cpp">
-      <Filter>src\Components\engineComponents\manager\files</Filter>
+      <Filter>src\Components\manager\files</Filter>
     </ClCompile>
     <ClCompile Include="src\manager\fontManager.cpp">
-      <Filter>src\Components\engineComponents\manager\font</Filter>
+      <Filter>src\Components\manager\font</Filter>
     </ClCompile>
     <ClCompile Include="src\data\spriteData.cpp">
       <Filter>src\Components\engineComponents\data\sprite</Filter>
@@ -275,13 +275,13 @@
     </ClCompile>
     <ClCompile Include="src\SpriteEngine.cpp" />
     <ClCompile Include="src\manager\fileDialogs.cpp">
-      <Filter>src\Components\engineComponents\manager\fileDialgo</Filter>
+      <Filter>src\Components\manager\fileDialgo</Filter>
     </ClCompile>
     <ClCompile Include="src\guiComponents\projectSelector\UIProjectSelector.cpp">
       <Filter>src\Components\guiComponents\projectSelector\selector</Filter>
     </ClCompile>
     <ClCompile Include="src\guiComponents\projectSelector\UIProjectSelectorProjectSection.cpp">
-      <Filter>src\Components\guiComponents\projectSelector\create</Filter>
+      <Filter>src\Components\guiComponents\projectSelector\create/open</Filter>
     </ClCompile>
     <ClCompile Include="src\data\engineData.cpp">
       <Filter>src\Components\engineComponents\data\engine</Filter>
@@ -688,10 +688,10 @@
       <Filter>src\Components\engineComponents\time</Filter>
     </ClInclude>
     <ClInclude Include="src\manager\saveSystem.h">
-      <Filter>src\Components\engineComponents\manager\files</Filter>
+      <Filter>src\Components\manager\files</Filter>
     </ClInclude>
     <ClInclude Include="src\manager\fontManager.h">
-      <Filter>src\Components\engineComponents\manager\font</Filter>
+      <Filter>src\Components\manager\font</Filter>
     </ClInclude>
     <ClInclude Include="src\data\fileData.h">
       <Filter>src\Components\engineComponents\data\file</Filter>
@@ -739,13 +739,13 @@
       <Filter>src\Include/headers\_header</Filter>
     </ClInclude>
     <ClInclude Include="src\manager\fileDialogs.h">
-      <Filter>src\Components\engineComponents\manager\fileDialgo</Filter>
+      <Filter>src\Components\manager\fileDialgo</Filter>
     </ClInclude>
     <ClInclude Include="src\guiComponents\projectSelector\UIProjectSelector.h">
       <Filter>src\Components\guiComponents\projectSelector\selector</Filter>
     </ClInclude>
     <ClInclude Include="src\guiComponents\projectSelector\UIProjectSelectorProjectSection.h">
-      <Filter>src\Components\guiComponents\projectSelector\create</Filter>
+      <Filter>src\Components\guiComponents\projectSelector\create/open</Filter>
     </ClInclude>
     <ClInclude Include="src\data\projectInfo.h">
       <Filter>src\Components\engineComponents\data</Filter>
@@ -755,6 +755,9 @@
     </ClInclude>
     <ClInclude Include="src\engineComponents\renderer.h">
       <Filter>src\Components\engineComponents\renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\guiComponents\colors.h">
+      <Filter>src\Components\guiComponents</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

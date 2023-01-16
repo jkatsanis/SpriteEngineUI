@@ -13,15 +13,8 @@ s2d::UIProjectSelector::UIProjectSelector()
 	ImGuiIO& io = ImGui::GetIO();
 	s2d::FontManager::InitFonts(io);
 
-	this->m_leftButtonColor = ImVec4(35.0f / 255.0f,
-		35.0f / 255.0f,
-		43.0f / 255.0f,
-		1.0f);
-
-	this->m_clickedButton = ImVec4(81.0f / 255.0f,
-		107.0f / 255.0f,
-		150.0f / 255.0f,
-		1.0f);
+	// When the project selector gets constructed the not known projects will automaticly get deletet from the file
+	s2d::flc::removeInvalidPathsFromFile();
 }
 
 s2d::UIProjectSelector::~UIProjectSelector()
@@ -79,7 +72,7 @@ void s2d::UIProjectSelector::renderProjectDataOrDocs()
 s2d::UIProjectSelectorLocation s2d::UIProjectSelector::getUserInputForDataToRender()
 {
 	s2d::UIProjectSelectorLocation loc = this->m_userLocation;
-	ImGui::PushStyleColor(ImGuiCol_Button, this->m_leftButtonColor);
+	ImGui::PushStyleColor(ImGuiCol_Button, SELECTOR_LEFT_BUTTONS_COLOR);
 
 	if (ImGui::Begin("Left buttons", NULL, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoMove))
 	{
@@ -119,7 +112,7 @@ void s2d::UIProjectSelector::update()
 
 	s2d::UIWindow::renderStyle(&ImGui::GetStyle());
 	
-	ImGui::PushStyleColor(ImGuiCol_ButtonHovered, this->m_clickedButton);
+	ImGui::PushStyleColor(ImGuiCol_ButtonHovered, SELECTOR_BUTTON_HOVERED);
 	ImGui::PushFont(s2d::FontManager::defaultFont);
 	this->render();
     ImGui::PopFont();

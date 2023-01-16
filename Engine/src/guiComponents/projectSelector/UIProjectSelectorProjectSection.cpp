@@ -15,6 +15,7 @@ s2d::UIProjectSelectorProjectSection::UIProjectSelectorProjectSection(const s2d:
 
 void s2d::UIProjectSelectorProjectSection::init()
 {
+	this->m_createProjectName = "";
 	this->m_createWindowSize = ImVec2(900, 450);
 	this->m_createFileDialoge = s2d::FileDialog("C:\\", ICON_FA_PLUS, "Select where you want to create a project", this->m_createWindowSize);
 	this->m_openFileDialog = s2d::FileDialog("C:\\", ICON_FA_EDIT, "Select where you want to open a project", this->m_createWindowSize);
@@ -22,18 +23,7 @@ void s2d::UIProjectSelectorProjectSection::init()
 
 	// Reads project data from a CSV filed
 	this->m_projects = this->readProjectInfosFromFile();
-
-	this->m_createButtonsColor = ImVec4(49.0f / 255.0f,
-		49.0f / 255.0f,
-		76.0f / 255.0f,
-		1.0f);
-
-	this->m_listBoxHeaderBackground = ImVec4(22.0f / 255.0f,
-		22.0f / 255.0f,
-		32.0f / 255.0f,
-		1.0f);
 }
-
 
 // Public methods
 
@@ -49,6 +39,18 @@ void s2d::UIProjectSelectorProjectSection::update()
 }
 
 // Private methods
+
+void s2d::UIProjectSelectorProjectSection::createProject()
+{
+	std::string tryToOpenPath = s2d::flc::copyDir("EngineAssets\\template", this->m_createFileDialoge.pathClicked, this->m_createProjectName);
+
+	// Setting the project we just selected to be displayed in the selector list
+	this->m_openFileDialog.pathClicked = tryToOpenPath + "\\";
+	this->m_openFileDialog.folderClicked = this->m_createProjectName.data();
+
+	this->m_createProjectName = "";
+	this->m_createFileDialoge.reset();
+}
 
 void s2d::UIProjectSelectorProjectSection::renderInfoOverProjects(float padding)
 {
@@ -85,12 +87,12 @@ void s2d::UIProjectSelectorProjectSection::renderProjectData()
 	// search box
 	filter.Draw("Search", 340);
 
-	ImGui::PushStyleColor(ImGuiCol_Button, this->m_createButtonsColor);
+	ImGui::PushStyleColor(ImGuiCol_Button, SELECTOR_FILEDIALOGE_BUTTON_COLOR);
 
 	this->m_currentFileDialoge = this->getFileDialogeWhichUserWantsToMake();
 	this->renderInfoOverProjects(paddingBetweenInfo);
 
-	ImGui::PushStyleColor(ImGuiCol_FrameBg, this->m_listBoxHeaderBackground);
+	ImGui::PushStyleColor(ImGuiCol_FrameBg, SELECTOR_LISTBOX_BACKGROUND_COLOR);
 	if (ImGui::ListBoxHeader("##ProjectList", ImVec2(1000, 200)))
 	{
 		for (int i = 0; i < this->m_projects.size(); i++)
@@ -149,22 +151,77 @@ void s2d::UIProjectSelectorProjectSection::createPopupToCreateProject()
 {
 	if (this->m_createFileDialoge.pathClicked != "")
 	{
+		const std::string CREATE_PROJECT_AT = "Create project at - " + this->m_createFileDialoge.pathClicked;
+		const float WINDOW_SIZE_X = ImGui::CalcTextSize(CREATE_PROJECT_AT.c_str()).x + 150;
+		const std::string BUTTON_NAME = "x" + std::string("##") + this->m_createFileDialoge.pathClicked;
+
+		// Setting the focus from the file dialoge to false, since we render a new important pop up 
+		// over it, there should be the focus
+		this->m_createFileDialoge.windowFocus = false;
+
 		ImGui::SetNextWindowFocus();
-		ImGui::Begin("##CreateFinalStep", NULL, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize);
+		ImGui::Begin("##CreateFinalStep", NULL, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoScrollbar);
 
-		//const std::string CREATE_PROJECT_AT_PATH = 
+		// When the user cancels or closes the window the pathclicked will be resetet
+		ImGui::Text(CREATE_PROJECT_AT.c_str());
+		ImGui::SameLine(10);
 
-		//// When the user cancels or closes the window the pathclicked will be resetet
-		//ImGui::Text("")
+		// Setting the path to be empty since the user doesnt want to create
+		// at this dir a project 
+
+		ImVec2 cursorPos = ImVec2(ImGui::GetCursorPosX() + WINDOW_SIZE_X - 40, ImGui::GetCursorPosY() - 8);
+		ImGui::SetCursorPos(cursorPos);
+		if (ImGui::Button(BUTTON_NAME.c_str()))
+		{
+			this->m_createFileDialoge.reset();
+		}
+
+		ImGui::PushStyleColor(ImGuiCol_Button, SELECTOR_LEFT_BUTTONS_COLOR);
+
+		ImGui::Separator();
+		ImGui::Text("");
+		ImGui::Dummy(ImVec2(100, 0));
+		ImGui::Text("Name: ");
+		ImGui::SameLine();
+		ImGui::InputText("##name", &this->m_createProjectName[0], sizeof(std::string));
 
 		ImGui::SetWindowSize(ImVec2(400, 200));
+		float x = ImGui::GetCursorPosX();
+		float y = ImGui::GetCursorPosY() + 22;
+
+		ImGui::SetCursorPosY(y);
+		ImGui::SetCursorPosX(x += WINDOW_SIZE_X - 210);
+		if (ImGui::Button("Cancel"))
+		{
+			this->m_createFileDialoge.reset();
+		}
+
+		ImGui::SetCursorPosY(y);
+		ImGui::SetCursorPosX(x += 100);
+		if (ImGui::Button("Create"))
+		{
+			std::string s = this->m_createFileDialoge.pathClicked + this->m_createProjectName.data();
+			if (!s2d::flc::checkIfProjcetAlreadyExists(s))
+			{
+				this->createProject();
+			}
+			else
+			{
+				this->m_createFileDialoge.reset();
+				std::cout << "LOG: There is already a project with that name!";
+			}
+		}
+
+		ImGui::PopStyleColor();
+
+		ImGui::SetWindowSize(ImVec2(WINDOW_SIZE_X, 200));
 		ImGui::End();
 	}
 }
 
 void s2d::UIProjectSelectorProjectSection::tryToOpenProject()
 {
-	if (this->m_openFileDialog.pathClicked != "")
+	if (this->m_openFileDialog.pathClicked != "" && !s2d::flc::checkIfProjcetAlreadyExists(this->m_openFileDialog.pathClicked))
 	{
 		std::string pathToVerify = this->m_openFileDialog.pathClicked + "engine\\saves\\verify.vsn";		
 
@@ -184,6 +241,18 @@ void s2d::UIProjectSelectorProjectSection::tryToOpenProject()
 		this->m_openFileDialog.pathClicked = "";
 		this->m_openFileDialog.folderClicked = "";
 		this->m_currentFileDialoge = s2d::CurrentFileDialog::None;
+
+		// Updating the file when we open or CREATE a project
+		s2d::EngineData::s_nameOfUserProject = name;
+		s2d::EngineData::s_pathToUserProject = relative_path.string();
+		s2d::flc::createKnownProjectDirFile();
+		s2d::EngineData::s_nameOfUserProject = "";
+		s2d::EngineData::s_pathToUserProject = "";
+	}
+	else if(this->m_openFileDialog.pathClicked != "")
+	{
+		this->m_openFileDialog.reset();
+		std::cout << "LOG: There is already a project in the list with this name!" << std::endl;
 	}
 }
 

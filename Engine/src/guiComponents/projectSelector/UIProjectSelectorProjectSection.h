@@ -9,16 +9,16 @@
 #include <data/engineData.h>
 #include <manager/saveSystem.h>
 #include <algorithm>
+#include <guiComponents/colors.h>
 
 namespace s2d
 {
 	class UIProjectSelectorProjectSection
 	{
 	private:
-		ImVec2 m_createWindowSize;
-		ImVec4 m_createButtonsColor;
-		ImVec4 m_listBoxHeaderBackground;
+		std::string m_createProjectName;
 
+		ImVec2 m_createWindowSize;
 		s2d::CurrentFileDialog m_currentFileDialoge;
 
 		s2d::FileDialog m_createFileDialoge;
@@ -38,6 +38,7 @@ namespace s2d
 		s2d::CurrentFileDialog getFileDialogeWhichUserWantsToMake();
 
 		void init();
+		void createProject();
 
 	public:
 		UIProjectSelectorProjectSection();

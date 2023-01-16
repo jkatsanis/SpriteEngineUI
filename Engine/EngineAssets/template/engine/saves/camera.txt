@@ -1,0 +1,2 @@
+TransformPoxX;TransformPosY;Zoom
+407.912231;44.910187;2.149999

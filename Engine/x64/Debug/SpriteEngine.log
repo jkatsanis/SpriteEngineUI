@@ -1,17 +1,3 @@
 ﻿  saveSystem.cpp
 C:\Dev\SpriteEngineUI\Engine\src\spriteComponents\animation.h(37,22): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
-  sprite.cpp
-C:\Dev\SpriteEngineUI\Engine\src\spriteComponents\animation.h(37,22): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
-C:\Dev\SpriteEngineUI\Engine\src\physicalComponents\sprite.cpp(75,64): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-C:\Dev\SpriteEngineUI\Engine\src\physicalComponents\sprite.cpp(147,54): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
-          with
-          [
-              T=unsigned int
-          ]
-C:\Dev\SpriteEngineUI\Engine\src\physicalComponents\sprite.cpp(147,42): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
-          with
-          [
-              T=unsigned int
-          ]
-  Generating Code...
   SpriteEngine.vcxproj -> C:\Dev\SpriteEngineUI\Engine\x64\Debug\SpriteEngine.exe
