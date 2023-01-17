@@ -95,9 +95,9 @@ bool s2d::UIRealTimeEditorTransform::checkClick(s2d::Sprite& sprite)
     float otherGetPosX = this->m_cursorWorldPos.x;
     float otherGetPosY = this->m_cursorWorldPos.y;
 
-    bool collided = (getPosX + sprite.transform.scale.x >= otherGetPosX
+    bool collided = (getPosX + sprite.transform.textureSize.x >= otherGetPosX
         && getPosX <= otherGetPosX + this->m_cursorRangeToClick
-        && getPosY + sprite.transform.scale.y >= otherGetPosY
+        && getPosY + sprite.transform.textureSize.y >= otherGetPosY
         && getPosY <= otherGetPosY + this->m_cursorRangeToClick);
 
     

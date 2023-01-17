@@ -23,6 +23,12 @@ namespace s2d
 		int m_parentId;
 		int m_childCount;
 
+		/// <summary>
+		/// This is only used if it is a child. It is the position in the vector
+		/// from the parent sprite
+		/// </summary>
+		int m_childListPos;
+
 		void initVariables(std::string name, s2d::Vector2 spawnPos, std::string path);
 		void pushSetup();
 		void pushSpriteFromCollider(s2d::BoxColliderPositionData::Position p, bool smaller, float& tXY, float& lXY, float& nXY);

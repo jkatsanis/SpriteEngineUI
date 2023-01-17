@@ -23,7 +23,7 @@ s2d::Sprite::Sprite(std::string name, s2d::Vector2 spawnPosition, std::string pa
 void s2d::Sprite::resetChildData()
 {
 	this->parent->m_childCount -= 1;
-	this->parent->childs.erase(parent->childs.begin() + this->getChildListPosition() - 1);
+	this->parent->childs.erase(parent->childs.begin() + this->m_childListPos - 1);
 	this->m_parentId = -1;
 	this->parent = nullptr;
 	this->m_childListPos = -1;
@@ -40,7 +40,7 @@ void s2d::Sprite::setSpriteTexture(std::string path)
 
 	//Setting sprite size also in init and setTexture
 	sf::Vector2u tempSize = m_texture.getSize();
-	this->transform.scale = s2d::Vector2(float(tempSize.x), float(tempSize.y));
+	this->transform.textureSize = s2d::Vector2(float(tempSize.x), float(tempSize.y));
 }
 
 void s2d::Sprite::setParent(s2d::Sprite* parent)
@@ -86,12 +86,15 @@ s2d::Vector2 s2d::Sprite::getOrigininalPosition()
 void s2d::Sprite::update()
 {
 	this->transform.updateTransformPosition();
+//	this->setSizeBasedOnScale();
 }
 
 //Private functions
 
 void s2d::Sprite::initVariables(std::string name, s2d::Vector2 spawnPos, std::string path)
 {
+	this->transform = s2d::Transform(this);
+
 	this->m_childCount = -1;
 	this->m_childListPos = -1;
 	this->m_parentId = -1;
@@ -126,8 +129,6 @@ void s2d::Sprite::initVariables(std::string name, s2d::Vector2 spawnPos, std::st
 
 	//Finally setting the sprite
 	this->m_sprite = sprite;
-
-	this->transform = s2d::Transform(this);
 	this->collider = s2d::BoxCollider(this);
 	this->physicsBody = s2d::PhsysicsBody();
 }
@@ -135,7 +136,13 @@ void s2d::Sprite::initVariables(std::string name, s2d::Vector2 spawnPos, std::st
 void s2d::Sprite::setTextureSize()
 {
 	sf::Vector2u tempSize = m_texture.getSize();
-	this->transform.scale = Vector2(float(tempSize.x), float(tempSize.y));
+	this->transform.textureSize = Vector2(float(tempSize.x), float(tempSize.y));
+}
+
+void s2d::Sprite::setSizeBasedOnScale()
+{
+	sf::Vector2f scale = sf::Vector2f(this->transform.scale.x, this->transform.scale.y);
+	this->m_sprite.setScale(scale);
 }
 
 //Static functions
@@ -178,7 +185,9 @@ void s2d::Sprite::initActiveSprites()
 			sprite->setVectorPosition(atoi(propertys[1].c_str()));
 			sprite->transform.position.x = std::stof(propertys[2].c_str());
 			sprite->transform.position.y = std::stof(propertys[3].c_str());
-			sprite->path = s2d::EngineData::s_pathToUserProject + "\\" + propertys[4];
+			sprite->transform.scale.x = std::stof(propertys[4].c_str());
+			sprite->transform.scale.y = std::stof(propertys[5].c_str());
+			sprite->path = s2d::EngineData::s_pathToUserProject + "\\" + propertys[6];
 
 			//INFO: Setting box collider props 5 - 8 down lol
 
@@ -189,46 +198,46 @@ void s2d::Sprite::initActiveSprites()
 
 			//Setting sprite size also in init and setTexture
 			sf::Vector2u tempSize = sprite->m_texture.getSize();
-			sprite->transform.scale = Vector2(float(tempSize.x), float(tempSize.y));
+			sprite->transform.textureSize = Vector2(float(tempSize.x), float(tempSize.y));
 			sprite->m_sprite.setTexture(sprite->m_texture);
 	
 			//Collider
-			sprite->collider.boxColliderWidthLeftOrRight.x = std::stof(propertys[5].c_str());
-			sprite->collider.boxColliderWidthLeftOrRight.y = std::stof(propertys[6].c_str());
+			sprite->collider.boxColliderWidthLeftOrRight.x = std::stof(propertys[7].c_str());
+			sprite->collider.boxColliderWidthLeftOrRight.y = std::stof(propertys[8].c_str());
 
-			sprite->collider.boxColliderHeightUpOrDown.x = std::stof(propertys[7].c_str());
-			sprite->collider.boxColliderHeightUpOrDown.y = std::stof(propertys[8].c_str());
-			sprite->collider.exists = propertys[9] == "True";
-			sprite->collider.isSolid = propertys[10] == "True";
+			sprite->collider.boxColliderHeightUpOrDown.x = std::stof(propertys[9].c_str());
+			sprite->collider.boxColliderHeightUpOrDown.y = std::stof(propertys[10].c_str());
+			sprite->collider.exists = propertys[11] == "True";
+			sprite->collider.isSolid = propertys[12] == "True";
 
 			//Sorting Layer
-			sprite->sortingLayerIndex = atoi(propertys[11].c_str());
+			sprite->sortingLayerIndex = atoi(propertys[13].c_str());
 
 			//PhysicsBody
-			sprite->physicsBody.gravity = std::stof(propertys[12].c_str());
-			sprite->physicsBody.mass = std::stof(propertys[13].c_str());
-			sprite->physicsBody.exists = propertys[14] == "True";
+			sprite->physicsBody.gravity = std::stof(propertys[14].c_str());
+			sprite->physicsBody.mass = std::stof(propertys[15].c_str());
+			sprite->physicsBody.exists = propertys[16] == "True";
 
 			//parentId, ID
-			sprite->m_id = atoi(propertys[15].c_str());
-			sprite->m_parentId = atoi(propertys[16].c_str());
+			sprite->m_id = atoi(propertys[17].c_str());
+			sprite->m_parentId = atoi(propertys[18].c_str());
 
 			//Last pos, next pos
-			sprite->transform.nextPos.x = std::stof(propertys[17]);
-			sprite->transform.nextPos.y = std::stof(propertys[18]);
+			sprite->transform.nextPos.x = std::stof(propertys[19]);
+			sprite->transform.nextPos.y = std::stof(propertys[20]);
 
-			sprite->transform.lastPos.x = std::stof(propertys[19]);
-			sprite->transform.lastPos.y = std::stof(propertys[20]);
+			sprite->transform.lastPos.x = std::stof(propertys[21]);
+			sprite->transform.lastPos.y = std::stof(propertys[22]);
 
 			//list pos
-			sprite->m_childListPos = atoi(propertys[21].c_str());
-			sprite->m_childCount = atoi(propertys[22].c_str());
+			sprite->m_childListPos = atoi(propertys[23].c_str());
+			sprite->m_childCount = atoi(propertys[24].c_str());
 
 			//Position to parent x, and y
-			sprite->transform.positionToParent.x = std::stof(propertys[23]);
-			sprite->transform.positionToParent.y = std::stof(propertys[24]);
+			sprite->transform.positionToParent.x = std::stof(propertys[25]);
+			sprite->transform.positionToParent.y = std::stof(propertys[26]);
 
-			sprite->animator.exists = propertys[25] == "True";
+			sprite->animator.exists = propertys[27] == "True";
 
 			//Pushing the sprite
 			s2d::Sprite::activeSprites.push_back(sprite);

@@ -9,7 +9,7 @@ void s2d::flc::createSaveFile(std::vector<s2d::Sprite*>& sprites)
 
 	if (spriteFile.is_open()) 
 	{
-		spriteFile << "name;vecpos;transformPosX;transformPosY;filepath;boxColliderWidthLeftOrRightX;boxColliderWidthLeftOrRighY;boxColliderHeightUpOrDownX;boxColliderHeightUpOrDownY;boxColliderExists;solid;sortingLayer;gravity;mass;physicsBodyExists;id;parentId;nextPosX;nextPosY;lastPosX;lastPosY;listPos;highestChild;positionToParentX;positionToParentY;animatorExists" << "\n";
+		spriteFile << "name;vecpos;transformPosX;transformPosY;ScaleX;ScaleY;filepath;boxColliderWidthLeftOrRightX;boxColliderWidthLeftOrRighY;boxColliderHeightUpOrDownX;boxColliderHeightUpOrDownY;boxColliderExists;solid;sortingLayer;gravity;mass;physicsBodyExists;id;parentId;nextPosX;nextPosY;lastPosX;lastPosY;listPos;highestChild;positionToParentX;positionToParentY;animatorExists" << "\n";
 		for (Sprite* spr : sprites)
 		{
 			std::string line = getPropertyLineWithSeperator(spr);
@@ -33,6 +33,8 @@ std::string s2d::flc::getPropertyLineWithSeperator(Sprite* sprite)
 	std::string vecpos = std::to_string(sprite->getVectorPosition());
 	std::string transformPosX = std::to_string(sprite->transform.position.x);
 	std::string transformPosY = std::to_string(sprite->transform.position.y);
+	std::string scaleX = std::to_string(sprite->transform.scale.x);
+	std::string scaleY = std::to_string(sprite->transform.scale.y);
 	std::string spritePath = std::splitStringTillLastWord(sprite->path, s2d::EngineData::s_pathToUserProject);
 
 	std::string boxColliderWidthLeftOrRightX = std::to_string(sprite->collider.boxColliderWidthLeftOrRight.x);
@@ -65,7 +67,7 @@ std::string s2d::flc::getPropertyLineWithSeperator(Sprite* sprite)
 	std::string animatorExist = boolToStr(sprite->animator.exists);
 
 	//Name, vec, transform path
-	line = sprite->name + ";" + vecpos + ";" + transformPosX + ";" + transformPosY + ";" + spritePath;
+	line = sprite->name + ";" + vecpos + ";" + transformPosX + ";" + transformPosY + ";" + scaleX + ";" + scaleY + ";" + spritePath;
 
 	//BoxCollider
 	line += ";" + boxColliderWidthLeftOrRightX + ";" + boxColliderWidthLeftOrRightY + ";" + boxColliderHeightUpOrDownX + ";" + boxColliderHeightUpOrDownY + ";" + colliderExists + ";" + isSolid;

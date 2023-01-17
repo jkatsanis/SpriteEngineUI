@@ -33,6 +33,7 @@ namespace s2d
 
 		void initVariables(std::string name, s2d::Vector2 spawnPos, std::string path);
 		void setTextureSize();
+		void setSizeBasedOnScale();
 
 	public:	
 		// General info

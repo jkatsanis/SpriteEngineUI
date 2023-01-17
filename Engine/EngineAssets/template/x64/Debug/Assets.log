@@ -1,2 +1,22 @@
-﻿  gameEngine.cpp
-  Assets.vcxproj -> C:\Dev\SpriteEngineUI\FluppyBird\x64\Debug\Assets.exe
+﻿  Testing.cpp
+  physics.cpp
+  gameEngine.cpp
+  renderer.cpp
+  main.cpp
+  sprite.cpp
+C:\Dev\Scale\engine\src\physicalComponents\sprite.cpp(80,53): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
+          with
+          [
+              T=unsigned int
+          ]
+C:\Dev\Scale\engine\src\physicalComponents\sprite.cpp(80,41): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
+          with
+          [
+              T=unsigned int
+          ]
+  boxCollider.cpp
+  childSystem.cpp
+  physicsBody.cpp
+  stransform.cpp
+  Generating Code...
+  Assets.vcxproj -> C:\Dev\Scale\x64\Debug\Assets.exe

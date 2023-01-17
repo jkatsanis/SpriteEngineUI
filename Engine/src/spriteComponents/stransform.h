@@ -13,6 +13,7 @@ namespace s2d
 	public:
 		s2d::Vector2 position;
 		s2d::Vector2 scale;
+		s2d::Vector2 textureSize;
 		s2d::Vector2 nextPos;
 		s2d::Vector2 lastPos;
 		s2d::Vector2 positionToParent;
