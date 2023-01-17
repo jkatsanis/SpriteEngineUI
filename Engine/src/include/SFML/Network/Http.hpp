@@ -471,7 +471,9 @@ private:
 /// sf::Http::Response::Status status = response.getStatus();
 /// if (status == sf::Http::Response::Ok)
 /// {
-///     std::cout << response.getBody() << std::endl;
+///     
+/// 
+/// < response.getBody() << std::endl;
 /// }
 /// else
 /// {

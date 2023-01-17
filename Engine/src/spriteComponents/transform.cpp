@@ -5,9 +5,16 @@
 
 s2d::Transform::Transform()
 {
+	this->m_attachedSprite = nullptr;
 	this->keepOpenInHirachy = false;
 	this->position = s2d::Vector2(0.0f, 0.0f);
 	this->posiitonChanged = false;
+}
+
+s2d::Transform::Transform(s2d::Sprite* attachedSprite)
+{
+	Transform();
+	this->m_attachedSprite = attachedSprite;
 }
 
 void s2d::Transform::setLastPosition()
@@ -22,6 +29,16 @@ void s2d::Transform::setLastPosition()
 	{
 		this->posiitonChanged = false;
 	}
+}
+
+void s2d::Transform::updateTransformPosition()
+{
+	//Setting it centered 
+	float x = 960 + this->position.x - this->scale.x / 2;
+	float y = 540 - this->position.y - this->scale.y / 2;
+	this->m_attachedSprite->getSprite().setPosition(sf::Vector2f(x, y));
+
+	this->setLastPosition();
 }
 
 //Public static functions

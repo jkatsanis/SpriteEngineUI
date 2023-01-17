@@ -287,7 +287,8 @@ private:
 /// char buffer[1024];
 /// std::size_t received = 0;
 /// socket.receive(buffer, sizeof(buffer), received);
-/// std::cout << "The server said: " << buffer << std::endl;
+/// 
+/// < "The server said: " << buffer << std::endl;
 ///
 /// // ----- The server -----
 ///

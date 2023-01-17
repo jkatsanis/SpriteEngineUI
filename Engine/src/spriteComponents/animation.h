@@ -34,7 +34,7 @@ namespace s2d
 		void update();
 		void stop();
 
-		int getFrameSize() { return this->m_paths.size(); }
+		int getFrameSize() { return int(this->m_paths.size()); }
 
 	public:
 		static void updateAllAnimations();

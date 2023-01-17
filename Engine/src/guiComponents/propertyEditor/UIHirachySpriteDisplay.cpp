@@ -48,7 +48,7 @@ void s2d::UIHirachySpriteDisplayer::displayWindowWhenChildIsGettingDragged()
 	if (this->childSelectedToParent != nullptr)
 	{
 		ImVec2 cursor = ImGui::GetCursorPos();
-		ImVec2 pos = ImVec2(sf::Mouse::getPosition().x - 100, sf::Mouse::getPosition().y + 10);
+		ImVec2 pos = ImVec2(float(sf::Mouse::getPosition().x) - 100.0f, float(sf::Mouse::getPosition().y) + 10.0f);
 
 		if (ImGui::Begin("##Drag", NULL, ImGuiWindowFlags_NoTitleBar))
 		{
@@ -151,7 +151,6 @@ void s2d::UIHirachySpriteDisplayer::displayTreeNode(s2d::Sprite* sprite, bool& p
 		//Tree needs to be collapsed to delete the Sprite ( parent ) 
 		if (ImGui::IsItemClicked(0))
 		{
-			std::cout << "h ";
 			s2d::UIHirachy::selectedSprite = sprite;
 		}
 		//Setting sprit which will be deletet when we right click and dlcik button delete

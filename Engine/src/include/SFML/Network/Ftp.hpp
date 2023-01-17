@@ -582,7 +582,8 @@ private:
 /// // Connect to the server
 /// sf::Ftp::Response response = ftp.connect("ftp://ftp.myserver.com");
 /// if (response.isOk())
-///     std::cout << "Connected" << std::endl;
+///     
+/// < "Connected" << std::endl;
 ///
 /// // Log in
 /// response = ftp.login("laurent", "dF6Zm89D");

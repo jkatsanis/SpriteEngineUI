@@ -44,6 +44,7 @@ s2d::Vector3 s2d::UIWindow::getWindowBackgroundColorFromFile()
 
 		return vec;
 	}
+	return vec;
 }
 
 // Static functions

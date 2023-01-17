@@ -10,7 +10,7 @@ namespace s2d
 	{
 	private:
 		const char* m_menuName;
-	  UIHirachySpriteDisplayer* m_spriteDisplayer;
+	    UIHirachySpriteDisplayer* m_spriteDisplayer;
 
 		/// <summary>
 		/// This method checks if a 'ImGui::Popup' is open. It will then call the 'createButton' and 'deleteButton' method.

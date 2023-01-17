@@ -2,7 +2,6 @@
 
 s2d::UIAssetFolder::UIAssetFolder()
 {
-    std::cout << s2d::EngineData::s_pathToUserProject;
     this->currentPath = s2d::EngineData::s_pathToUserProject + "\\assets";
     this->currentName = "Assets";
     this->m_iconSize = 75;
@@ -29,7 +28,7 @@ void s2d::UIAssetFolder::createAssetLinkerWindow()
     if (s2d::UIAssetFolder::dragAndDropPath != " ")
     {
         ImVec2 cursor = ImGui::GetCursorPos();
-        ImVec2 pos = ImVec2(sf::Mouse::getPosition().x - 100, sf::Mouse::getPosition().y + 10);
+        ImVec2 pos = ImVec2(float(sf::Mouse::getPosition().x - 100), float(sf::Mouse::getPosition().y + 10));
 
         if (ImGui::Begin("##Drag", NULL, ImGuiWindowFlags_NoTitleBar))
         {
@@ -89,7 +88,7 @@ void s2d::UIAssetFolder::getAllFilesInDir(const char* path, const char* name)
         ImTextureID id = this->data.getId(icon);
         bool isFolder = (icon == "folder");
 
-        if (ImGui::ImageButton(name.c_str(), id, ImVec2(this->m_iconSize, this->m_iconSize)))
+        if (ImGui::ImageButton(name.c_str(), id, ImVec2(float(this->m_iconSize), float(this->m_iconSize))))
         {
             //Display the item if its a folder
             if (isFolder)
@@ -101,14 +100,10 @@ void s2d::UIAssetFolder::getAllFilesInDir(const char* path, const char* name)
         if(!isFolder)
             this->setDragAndDrop(newPath, str);
 
-
-
         ImGui::SetWindowFontScale(s2d::UIInfo::sdefaultFontSize);
 
         ImVec2 textSize = ImGui::CalcTextSize(str);
-        float itemWidth = this->m_iconSize;
-
-       // ImGui::SetCursorPosX((itemWidth  / 2) - (textSize.x / 2));
+        float itemWidth = float(this->m_iconSize);
 
         ImGui::TextWrapped(str);
 

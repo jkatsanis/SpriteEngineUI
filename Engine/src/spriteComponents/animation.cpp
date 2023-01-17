@@ -70,7 +70,7 @@ void s2d::Animation::update()
 
 		this->ptr_appliedSprite->getSprite().setTexture(this->m_textures[currentFrame], true);
 		sf::Vector2u tempSize = this->m_textures[currentFrame].getSize();
-		this->ptr_appliedSprite->transform.scale = Vector2(tempSize.x, tempSize.y);
+		this->ptr_appliedSprite->transform.scale = Vector2(float(tempSize.x), float(tempSize.y));
 		this->ptr_appliedSprite->path = this->m_paths[currentFrame];
 
 		if (this->currentFrame == this->m_textures.size() - 1)

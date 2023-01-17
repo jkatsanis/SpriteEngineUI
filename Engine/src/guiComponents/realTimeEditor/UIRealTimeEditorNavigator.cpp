@@ -24,7 +24,7 @@ s2d::UIRealTimeEditorNavigator::UIRealTimeEditorNavigator(sf::RenderWindow& wind
 
 	s2d::GameObject::rects.push_back(this->m_windowRectangle);
 	m_windowRectangle_texture.loadFromFile("EngineAssets/Sprites/transparent.png");
-	this->m_vecPos = s2d::GameObject::rects.size() - 1;
+	this->m_vecPos = int(s2d::GameObject::rects.size()) - 1;
 	s2d::GameObject::rects[this->m_vecPos].setSize(sf::Vector2f(1920, 1080));
 	s2d::GameObject::rects[this->m_vecPos].setOutlineColor(sf::Color(255, 255, 255));
 	s2d::GameObject::rects[this->m_vecPos].setOutlineThickness(4.0f);
@@ -149,7 +149,7 @@ void s2d::UIRealTimeEditorNavigator::loadCameraSettingsFromFile()
 
 void s2d::UIRealTimeEditorNavigator::setChangedPosition()
 {
-	this->m_cursor.position = s2d::Vector2(sf::Mouse::getPosition(*this->m_ptr_renderWindow).x, sf::Mouse::getPosition(*this->m_ptr_renderWindow).y);
+	this->m_cursor.position = s2d::Vector2(float(sf::Mouse::getPosition(*this->m_ptr_renderWindow).x), float(sf::Mouse::getPosition(*this->m_ptr_renderWindow).y));
 
 	this->m_cursor.setLastPosition();
 }

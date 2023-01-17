@@ -20,8 +20,6 @@ int s2d::SpriteData::getHighestIndex()
 			{
 				continue;
 			}		
-			std::cout << line << std::endl;
-
 
 			index = atoi(line.c_str());
 		}

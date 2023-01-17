@@ -55,7 +55,7 @@ void s2d::Renderer::drawSprites()
         {
             if (ptr_activeSprites->sortingLayerIndex == i)
             {
-                ptr_activeSprites->updateTransformPosition();
+                ptr_activeSprites->update();
                 this->m_ptr_renderWindow->draw(ptr_activeSprites->getSprite());
             }
         }

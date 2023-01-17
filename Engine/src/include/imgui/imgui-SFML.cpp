@@ -556,7 +556,7 @@ void ProcessEvent(const sf::Event& event) {
     if (s_currWindowCtx->windowHasFocus) {
         switch (event.type) {
         case sf::Event::MouseMoved:
-            io.AddMousePosEvent(event.mouseMove.x, event.mouseMove.y);
+            io.AddMousePosEvent(float(event.mouseMove.x), float(event.mouseMove.y));
             s_currWindowCtx->mouseMoved = true;
             break;
         case sf::Event::MouseButtonPressed: // fall-through

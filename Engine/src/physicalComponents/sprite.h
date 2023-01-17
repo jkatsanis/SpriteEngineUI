@@ -24,13 +24,17 @@ namespace s2d
 		int m_id;
 		int m_parentId;
 		int m_childCount;
-		int m_listPos;
+
+		/// <summary>
+		/// This is only used if it is a child. It is the position in the vector
+		/// from the parent sprite
+		/// </summary>
+		int m_childListPos;
 
 		void initVariables(std::string name, s2d::Vector2 spawnPos, std::string path);
 		void setTextureSize();
 
-	public:
-		
+	public:	
 		// General info
 		std::string name;
 		std::string path;
@@ -51,25 +55,24 @@ namespace s2d
 		Sprite(std::string name, s2d::Vector2 spawnPosition, std::string path, bool addToWindowByConstruction);
 
 		void resetChildData();
-		void updateTransformPosition();
 		void setSpriteTexture(std::string path);
 		void setParent(s2d::Sprite* sprite);
 		void addSpriteToScene();
 		bool containsChild(s2d::Sprite* child);
-		s2d::Vector2 getOrigininalPosition();
 	
+		void update();
 	public:
-
 		void setId(const int id) { this->m_id = id; }
 		void setVectorPosition(const int vec) { this->m_vectorPosition = vec; }
 
 		int getId() const { return this->m_id; }
 		int getParentId() const { return this->m_parentId; }
 		int getChildCount() const { return this->m_childCount; }
-		int getChildListPosition() const { return this->m_listPos; }
+		int getChildListPosition() const { return this->m_childListPos; }
 
 		int getVectorPosition() { return this->m_vectorPosition; }
 		sf::Sprite& getSprite() { return this->m_sprite; }																
+		s2d::Vector2 getOrigininalPosition();
 
 	public:
 		static void initActiveSprites();

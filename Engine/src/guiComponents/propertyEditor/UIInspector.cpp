@@ -251,11 +251,8 @@ void s2d::UIInspector::spriteRendererComponent()
 		ImGui::SetCursorPos(ImVec2(x += 100, y - 5));
 		ImGui::InputText("##spriteRenderer", input, CHAR_MAX);
 
-		//std::cout << s2d::UIAssetFolder::dragAndDropPath;
-
 		if (ImGui::IsItemHovered() && ImGui::IsMouseReleased(0) && s2d::UIAssetFolder::dragAndDropPath != " ")
 		{
-			std::cout << "ih";
 			this->m_currentSpriteInInspector->setSpriteTexture(s2d::UIAssetFolder::dragAndDropPath);
 		}
 
@@ -475,8 +472,6 @@ char* s2d::UIInspector::getNamePathSplit(std::string path)
 
 	pick = val > val2 ? splittetSring : splittetSrin2;
 	valPick = val > val2 ? val : val2;
-
-	std::cout << (val > val2);
 
 	char* input = pick[valPick].data();
 	return input;

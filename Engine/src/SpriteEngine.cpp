@@ -21,6 +21,10 @@ int main()
 
     while (engine.ptr_renderWindow->isOpen())
     { 
+        if (s2d::Input::onKeyPress(s2d::KeyBoardCode::A))
+        {
+            std::cout << s2d::Sprite::activeSprites[0]->transform.m_attachedSprite->getId();
+        }
        // std::cout << s2d::Sprite::activeSprites[0]->path << std::endl;
         engine.update();
     }

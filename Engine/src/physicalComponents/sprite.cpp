@@ -26,22 +26,7 @@ void s2d::Sprite::resetChildData()
 	this->parent->childs.erase(parent->childs.begin() + this->getChildListPosition() - 1);
 	this->m_parentId = -1;
 	this->parent = nullptr;
-	this->m_listPos = -1;
-}
-
-void s2d::Sprite::updateTransformPosition()
-{
-	//Setting it centered 
-	float x = 960 + this->transform.position.x - this->transform.scale.x / 2;
-	float y = 540 - this->transform.position.y - this->transform.scale.y / 2;
-	this->getSprite().setPosition(sf::Vector2f(x, y));
-
-	//Setting the last position, temoporary "nextPos" needed
-	if (this->transform.nextPos != this->transform.position)
-	{
-		this->transform.lastPos = this->transform.nextPos;
-		this->transform.nextPos = this->transform.position;
-	}
+	this->m_childListPos = -1;
 }
 
 void s2d::Sprite::setSpriteTexture(std::string path)
@@ -61,7 +46,7 @@ void s2d::Sprite::setSpriteTexture(std::string path)
 void s2d::Sprite::setParent(s2d::Sprite* parent)
 {
 	parent->m_childCount++;
-	this->m_listPos = parent->m_childCount + 1;
+	this->m_childListPos = parent->m_childCount + 1;
 	this->parent = parent;
 	this->m_parentId = parent->m_id;
 
@@ -72,7 +57,7 @@ void s2d::Sprite::setParent(s2d::Sprite* parent)
 
 void s2d::Sprite::addSpriteToScene()
 {
-	this->m_vectorPosition = s2d::Sprite::activeSprites.size() + 1;
+	this->m_vectorPosition = int(s2d::Sprite::activeSprites.size() + 1);
 	s2d::Sprite::activeSprites.push_back(this);
 }
 
@@ -98,12 +83,17 @@ s2d::Vector2 s2d::Sprite::getOrigininalPosition()
 	return s2d::Vector2(x, y);
 }
 
+void s2d::Sprite::update()
+{
+	this->transform.updateTransformPosition();
+}
+
 //Private functions
 
 void s2d::Sprite::initVariables(std::string name, s2d::Vector2 spawnPos, std::string path)
 {
 	this->m_childCount = -1;
-	this->m_listPos = -1;
+	this->m_childListPos = -1;
 	this->m_parentId = -1;
 
 	// ID
@@ -137,6 +127,7 @@ void s2d::Sprite::initVariables(std::string name, s2d::Vector2 spawnPos, std::st
 	//Finally setting the sprite
 	this->m_sprite = sprite;
 
+	this->transform = s2d::Transform(this);
 	this->collider = s2d::BoxCollider(this);
 	this->physicsBody = s2d::PhsysicsBody();
 }
@@ -144,7 +135,7 @@ void s2d::Sprite::initVariables(std::string name, s2d::Vector2 spawnPos, std::st
 void s2d::Sprite::setTextureSize()
 {
 	sf::Vector2u tempSize = m_texture.getSize();
-	this->transform.scale = Vector2(tempSize.x, tempSize.y);
+	this->transform.scale = Vector2(float(tempSize.x), float(tempSize.y));
 }
 
 //Static functions
@@ -177,6 +168,12 @@ void s2d::Sprite::initActiveSprites()
 			Sprite* sprite = new Sprite();
 
 			//INITIIALIZING PROPS
+			
+			// Components
+			sprite->transform = s2d::Transform(sprite);
+			sprite->collider = BoxCollider(sprite);
+			sprite->animator = s2d::Animator(sprite);
+
 			sprite->name = propertys[0];
 			sprite->setVectorPosition(atoi(propertys[1].c_str()));
 			sprite->transform.position.x = std::stof(propertys[2].c_str());
@@ -196,8 +193,6 @@ void s2d::Sprite::initActiveSprites()
 			sprite->m_sprite.setTexture(sprite->m_texture);
 	
 			//Collider
-			sprite->collider = BoxCollider(sprite);
-
 			sprite->collider.boxColliderWidthLeftOrRight.x = std::stof(propertys[5].c_str());
 			sprite->collider.boxColliderWidthLeftOrRight.y = std::stof(propertys[6].c_str());
 
@@ -226,14 +221,13 @@ void s2d::Sprite::initActiveSprites()
 			sprite->transform.lastPos.y = std::stof(propertys[20]);
 
 			//list pos
-			sprite->m_listPos = atoi(propertys[21].c_str());
+			sprite->m_childListPos = atoi(propertys[21].c_str());
 			sprite->m_childCount = atoi(propertys[22].c_str());
 
 			//Position to parent x, and y
 			sprite->transform.positionToParent.x = std::stof(propertys[23]);
 			sprite->transform.positionToParent.y = std::stof(propertys[24]);
 
-			sprite->animator = s2d::Animator(sprite);
 			sprite->animator.exists = propertys[25] == "True";
 
 			//Pushing the sprite
