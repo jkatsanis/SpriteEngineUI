@@ -1,2 +1,0 @@
-TransformPoxX;TransformPosY;Zoom
-376.682922;367.476685;2.299999

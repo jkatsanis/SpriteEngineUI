@@ -1,0 +1,5 @@
+﻿  Testing.cpp
+C:\Dev\SpriteEngineUI\FlabyBird\assets\scripts\Testing.cpp(63,36): warning C4305: '=': truncation from 'double' to 'float'
+C:\Dev\SpriteEngineUI\FlabyBird\assets\scripts\Testing.cpp(64,38): warning C4305: '=': truncation from 'double' to 'float'
+C:\Dev\SpriteEngineUI\FlabyBird\assets\scripts\Testing.cpp(73,32): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+  Assets.vcxproj -> C:\Dev\SpriteEngineUI\FlabyBird\x64\Debug\Assets.exe

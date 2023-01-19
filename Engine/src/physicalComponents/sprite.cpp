@@ -14,8 +14,8 @@ s2d::Sprite::Sprite(std::string name, s2d::Vector2 spawnPosition, std::string pa
 {
 	initVariables(name, spawnPosition, path);
 
-	if(addToWindowByConstruction)
-		s2d::Sprite::activeSprites.push_back(this);
+	if (addToWindowByConstruction)
+		this->addSpriteToScene();
 }
 
 //Public functions

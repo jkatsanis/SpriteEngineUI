@@ -1,2 +1,0 @@
-engine path to user project
-..\Assets

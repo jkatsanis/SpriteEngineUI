@@ -21,12 +21,6 @@ int main()
 
     while (engine.ptr_renderWindow->isOpen())
     { 
-        if (s2d::Input::onKeyPress(s2d::KeyBoardCode::A))
-        {
-            s2d::Vector2 scale = s2d::Vector2(x + 2, x + 2);
-            x++;
-            s2d::Sprite::activeSprites[2]->transform.setScale(scale);
-        }
         engine.update();
     }
 
