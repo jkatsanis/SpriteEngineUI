@@ -209,24 +209,53 @@ void s2d::UIInspector::drawRectangleOverCurrentObject()
 
 void s2d::UIInspector::transformComponent()
 {
-	//Setting UI transform
-	if (ImGui::TreeNode("Transform"))
-	{
-		ImGui::SetCursorPos(ImVec2(ImGui::GetCursorPos().x, ImGui::GetCursorPos().y + 20));
-		ImGui::SetCursorPos(ImVec2(40, 150));
+	auto inputXY = [](const char* label, float& inputX, float& inputY, float x, float y)
+	{	
+		static float s_inputWidth = 80;
+
+		ImGui::Text(label);
+		ImGui::SetCursorPos(ImVec2(x + 90, y + 13));
 		ImGui::Text("X");
-		ImGui::PushItemWidth(100);
-		ImGui::SetCursorPos(ImVec2(80 - 5, 145));
-		ImGui::InputFloat("##x", &this->m_currentSpriteInInspector->transform.position.x, 0, 0, "%g");
+		ImGui::PushItemWidth(s_inputWidth);
+		ImGui::SetCursorPos(ImVec2(x + 120, y + 8));
+
+		std::string x_inputId = std::string("##x") + std::string(label);
+
+		ImGui::InputFloat(x_inputId.c_str(), &inputX, 0, 0, "%g");
 		ImGui::PopItemWidth();
 
-		ImGui::SetCursorPos(ImVec2(200, 146));
+		x += 120;
+		ImGui::SetCursorPos(ImVec2(x + 90, y + 13));
 		ImGui::Text("Y");
-		ImGui::PushItemWidth(100);
-		ImGui::SetCursorPos(ImVec2(240 - 5, 145));
-		ImGui::InputFloat("##y", &this->m_currentSpriteInInspector->transform.position.y, 0, 0, "%g");
-		ImGui::Dummy(ImVec2(0, 12));
+		ImGui::PushItemWidth(s_inputWidth);
+		ImGui::SetCursorPos(ImVec2(x + 120, y + 8));
+
+		std::string y_inputId = std::string("##y") + std::string(label);
+
+		ImGui::InputFloat(y_inputId.c_str(), &inputY, 0, 0, "%g");
 		ImGui::PopItemWidth();
+	};
+
+	if (ImGui::TreeNode("Transform"))
+	{
+		float x = ImGui::GetCursorPosX();
+		float y = ImGui::GetCursorPosY();
+
+		ImGui::Dummy(ImVec2(0, 8));
+		inputXY("Position", this->m_currentSpriteInInspector->transform.position.x, 
+			this->m_currentSpriteInInspector->transform.position.y, x, y);
+
+		y += 45;
+
+		s2d::Vector2 temp_scale = this->m_currentSpriteInInspector->transform.getScale();
+
+		ImGui::Dummy(ImVec2(0, 3));
+		inputXY("Scale", temp_scale.x, temp_scale.y, x, y);
+
+		this->m_currentSpriteInInspector->transform.setScale(temp_scale);
+
+		ImGui::SetCursorPos(ImVec2(x, y + 50));
+
 		ImGui::TreePop();
 
 	}

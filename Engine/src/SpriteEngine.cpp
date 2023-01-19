@@ -16,16 +16,16 @@ int main()
         // Closing the engine since the user doesnt want to open a project;
         return -1;
     }
-
+    int x = 1;
     s2d::GameEngine engine;
 
     while (engine.ptr_renderWindow->isOpen())
     { 
         if (s2d::Input::onKeyPress(s2d::KeyBoardCode::A))
         {
-          
-            std::cout << s2d::Sprite::activeSprites[0]->transform.scale.x << std::endl;
-            //s2d::Sprite::activeSprites[0]->transform.scale.x = 2;
+            s2d::Vector2 scale = s2d::Vector2(x + 2, x + 2);
+            x++;
+            s2d::Sprite::activeSprites[2]->transform.setScale(scale);
         }
         engine.update();
     }

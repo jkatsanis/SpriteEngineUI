@@ -13,8 +13,7 @@ s2d::Transform::Transform()
 
 s2d::Transform::Transform(s2d::Sprite* attachedSprite)
 {
-	this->scale = s2d::Vector2(1.0f, 1.0f);
-	this->m_attachedSprite = nullptr;
+	this->m_scale = s2d::Vector2(1.0f, 1.0f);
 	this->keepOpenInHirachy = false;
 	this->position = s2d::Vector2(0.0f, 0.0f);
 	this->posiitonChanged = false;		
@@ -43,6 +42,19 @@ void s2d::Transform::updateTransformPosition()
 	this->m_attachedSprite->getSprite().setPosition(sf::Vector2f(x, y));
 
 	this->setLastPosition();
+}
+
+void s2d::Transform::setScale(const s2d::Vector2& scale)
+{
+	if(this->m_scale == scale)
+	{
+		return;
+	}
+	this->m_scale = scale;
+	this->textureSize *= scale;
+	this->m_attachedSprite->getSprite().setScale(sf::Vector2f(this->m_scale.x, this->m_scale.y));
+	s2d::Vector2 size = s2d::Vector2(this->m_attachedSprite->getTexture().getSize().x, this->m_attachedSprite->getTexture().getSize().y);
+	this->textureSize = size * this->getScale();
 }
 
 //Public static functions

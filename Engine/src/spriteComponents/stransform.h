@@ -9,10 +9,11 @@ namespace s2d
 	class Sprite;
 	class Transform 
 	{
-	
+	private:
+		s2d::Vector2 m_scale;
+
 	public:
 		s2d::Vector2 position;
-		s2d::Vector2 scale;
 		s2d::Vector2 textureSize;
 		s2d::Vector2 nextPos;
 		s2d::Vector2 lastPos;
@@ -33,7 +34,10 @@ namespace s2d
 		void setLastPosition();
 
 		void updateTransformPosition();
-		void setSpriteTexture(const std::string& path);
+
+	public:
+		void setScale(const s2d::Vector2& scale);
+		s2d::Vector2 const getScale() { return this->m_scale; }
 
 	public:
 		//Used in poll events

@@ -14,6 +14,7 @@ namespace s2d
 		s2d::Vector2 lastPos;
 		s2d::Vector2 nextPos;
 		s2d::Vector2 size;
+		s2d::Vector2 scale;
 
 		Transform();
 

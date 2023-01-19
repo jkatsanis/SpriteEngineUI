@@ -11,6 +11,8 @@ void Testing::start()
 
 void Testing::update()
 {
+	std::string fps = "fps " + std::to_string(s2d::Time::fps);
+	ImGui::Text(fps.c_str());
 	if (s2d::Input::onKeyHold(s2d::KeyBoardCode::A))
 	{
 		thisSprite->transform.position.x -= this->m_spriteSpeed * s2d::Time::deltaTime;

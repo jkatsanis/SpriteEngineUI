@@ -204,7 +204,9 @@ void s2d::Sprite::initActiveSprites()
 			sprite->setVectorPosition(atoi(propertys[1].c_str()));
 			sprite->transform.position.x = std::stof(propertys[2].c_str());
 			sprite->transform.position.y = std::stof(propertys[3].c_str());
-			sprite->path = propertys[4];
+			sprite->transform.scale.x = std::stof(propertys[4].c_str());
+			sprite->transform.scale.y = std::stof(propertys[5].c_str());
+			sprite->path = propertys[6];
 
 			if (!sprite->m_texture.loadFromFile(sprite->path))
 			{
@@ -223,40 +225,41 @@ void s2d::Sprite::initActiveSprites()
 			//Setting BoxCollider
 			sprite->collider = BoxCollider(sprite);
 
-			sprite->collider.boxColliderWidthLeftOrRight.x = std::stof(propertys[5].c_str()) * s2d::GameObject::ssizeMultipliyer;
-			sprite->collider.boxColliderWidthLeftOrRight.y = std::stof(propertys[6].c_str()) * s2d::GameObject::ssizeMultipliyer;
+			sprite->collider.boxColliderWidthLeftOrRight.x = std::stof(propertys[7].c_str()) * s2d::GameObject::ssizeMultipliyer;
+			sprite->collider.boxColliderWidthLeftOrRight.y = std::stof(propertys[8].c_str()) * s2d::GameObject::ssizeMultipliyer;
 
-			sprite->collider.boxColliderHeightUpOrDown.x = std::stof(propertys[7].c_str()) * s2d::GameObject::ssizeMultipliyer;
-			sprite->collider.boxColliderHeightUpOrDown.y = std::stof(propertys[8].c_str()) * s2d::GameObject::ssizeMultipliyer;
-			sprite->collider.exists = propertys[9] == "True";
-			sprite->collider.isSolid = propertys[10] == "True";
+			sprite->collider.boxColliderHeightUpOrDown.x = std::stof(propertys[9].c_str()) * s2d::GameObject::ssizeMultipliyer;
+			sprite->collider.boxColliderHeightUpOrDown.y = std::stof(propertys[10].c_str()) * s2d::GameObject::ssizeMultipliyer;
+			sprite->collider.exists = propertys[11] == "True";
+			sprite->collider.isSolid = propertys[12] == "True";
 
 			//Sorting Layer
-			sprite->sortingLayerIndex = atoi(propertys[11].c_str());
+			sprite->sortingLayerIndex = atoi(propertys[13].c_str());
 
 			//PhysicsBody
-			sprite->physicsBody.gravity = std::stof(propertys[12].c_str());
-			sprite->physicsBody.mass = std::stof(propertys[13].c_str());
-			sprite->physicsBody.exists = propertys[14] == "True";
+			sprite->physicsBody.gravity = std::stof(propertys[14].c_str());
+			sprite->physicsBody.mass = std::stof(propertys[15].c_str());
+			sprite->physicsBody.exists = propertys[16] == "True";
 			sprite->physicsBody.ptr_attachedSprite = sprite;
 
 			//parentId, ID
-			sprite->m_id = atoi(propertys[15].c_str());
-			sprite->m_parentId = atoi(propertys[16].c_str());
+			sprite->m_id = atoi(propertys[17].c_str());
+			sprite->m_parentId = atoi(propertys[18].c_str());
 
 			//Last pos, next pos
-			sprite->transform.nextPos.x = std::stof(propertys[17]);
-			sprite->transform.nextPos.y = std::stof(propertys[18]);
+			sprite->transform.nextPos.x = std::stof(propertys[19]);
+			sprite->transform.nextPos.y = std::stof(propertys[20]);
 
-			sprite->transform.lastPos.x = std::stof(propertys[19]);
-			sprite->transform.lastPos.y = std::stof(propertys[20]);
+			sprite->transform.lastPos.x = std::stof(propertys[21]);
+			sprite->transform.lastPos.y = std::stof(propertys[22]);
 
 			//list pos
-			sprite->m_childCount = atoi(propertys[22].c_str());
+			sprite->m_childListPos = atoi(propertys[23].c_str());
+			sprite->m_childCount = atoi(propertys[24].c_str());
 
 			//Position to parent x, and y
-			sprite->transform.positionToParent.x = std::stof(propertys[23]);
-			sprite->transform.positionToParent.y = std::stof(propertys[24]);
+			sprite->transform.positionToParent.x = std::stof(propertys[25]);
+			sprite->transform.positionToParent.y = std::stof(propertys[26]);
 
 			sprite->transform.position *= s2d::GameObject::ssizeMultipliyer;
 			sprite->transform.lastPos *= s2d::GameObject::ssizeMultipliyer;
@@ -264,6 +267,7 @@ void s2d::Sprite::initActiveSprites()
 
 			sprite->transform.positionToParent.x *= s2d::GameObject::ssizeMultipliyer;
 			sprite->transform.positionToParent.y *= s2d::GameObject::ssizeMultipliyer;
+
 			//Pushing the sprite
 			s2d::Sprite::activeSprites.push_back(sprite);
 

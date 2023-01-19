@@ -24,7 +24,6 @@ namespace s2d
 		bool isSolid;
 		bool canCollide;
 		bool exists;
-		bool isInCollision;
 
 		s2d::BoxColliderPositionData positionData;
 		s2d::Sprite* sprite;
@@ -41,6 +40,8 @@ namespace s2d
 		//what is the j index? Eventually we collide we a object two times and so we need to push the object 
 		//In two directions. When we We pushed it we reset the array and check for new collisions
 		bool checkCollision(s2d::BoxCollider& other, const int jIndex);
+
+		bool isInCollision() { return !this->positionData.isEverythingUnknown(); }
 
 	public:
 		static void checkCollisions();

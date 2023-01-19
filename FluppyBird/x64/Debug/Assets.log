@@ -1,5 +1,5 @@
 ﻿  Testing.cpp
-C:\Dev\SpriteEngineUI\FluppyBird\assets\scripts\Testing.cpp(43,36): warning C4305: '=': truncation from 'double' to 'float'
-C:\Dev\SpriteEngineUI\FluppyBird\assets\scripts\Testing.cpp(44,38): warning C4305: '=': truncation from 'double' to 'float'
-C:\Dev\SpriteEngineUI\FluppyBird\assets\scripts\Testing.cpp(53,32): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Dev\SpriteEngineUI\FluppyBird\assets\scripts\Testing.cpp(47,36): warning C4305: '=': truncation from 'double' to 'float'
+C:\Dev\SpriteEngineUI\FluppyBird\assets\scripts\Testing.cpp(48,38): warning C4305: '=': truncation from 'double' to 'float'
+C:\Dev\SpriteEngineUI\FluppyBird\assets\scripts\Testing.cpp(57,32): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
   Assets.vcxproj -> C:\Dev\SpriteEngineUI\FluppyBird\x64\Debug\Assets.exe

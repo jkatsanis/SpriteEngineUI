@@ -39,8 +39,7 @@ void s2d::Sprite::setSpriteTexture(std::string path)
 	this->m_sprite.setTexture(this->m_texture, true);
 
 	//Setting sprite size also in init and setTexture
-	sf::Vector2u tempSize = m_texture.getSize();
-	this->transform.textureSize = s2d::Vector2(float(tempSize.x), float(tempSize.y));
+	this->setScaleBasedOnTextureSize();
 }
 
 void s2d::Sprite::setParent(s2d::Sprite* parent)
@@ -86,7 +85,7 @@ s2d::Vector2 s2d::Sprite::getOrigininalPosition()
 void s2d::Sprite::update()
 {
 	this->transform.updateTransformPosition();
-//	this->setSizeBasedOnScale();
+	//this->setSizeBasedOnScale();
 }
 
 //Private functions
@@ -125,7 +124,7 @@ void s2d::Sprite::initVariables(std::string name, s2d::Vector2 spawnPos, std::st
 	sprite.setTexture(this->m_texture);
 
 	//Setting sprite size also in init and setTexture
-	setTextureSize();
+	setScaleBasedOnTextureSize();
 
 	//Finally setting the sprite
 	this->m_sprite = sprite;
@@ -133,16 +132,10 @@ void s2d::Sprite::initVariables(std::string name, s2d::Vector2 spawnPos, std::st
 	this->physicsBody = s2d::PhsysicsBody();
 }
 
-void s2d::Sprite::setTextureSize()
+void s2d::Sprite::setScaleBasedOnTextureSize()
 {
-	sf::Vector2u tempSize = m_texture.getSize();
-	this->transform.textureSize = Vector2(float(tempSize.x), float(tempSize.y));
-}
-
-void s2d::Sprite::setSizeBasedOnScale()
-{
-	sf::Vector2f scale = sf::Vector2f(this->transform.scale.x, this->transform.scale.y);
-	this->m_sprite.setScale(scale);
+	s2d::Vector2 size = s2d::Vector2(this->m_texture.getSize().x, this->m_texture.getSize().y);
+	this->transform.textureSize = size * this->transform.getScale();
 }
 
 //Static functions
@@ -185,8 +178,7 @@ void s2d::Sprite::initActiveSprites()
 			sprite->setVectorPosition(atoi(propertys[1].c_str()));
 			sprite->transform.position.x = std::stof(propertys[2].c_str());
 			sprite->transform.position.y = std::stof(propertys[3].c_str());
-			sprite->transform.scale.x = std::stof(propertys[4].c_str());
-			sprite->transform.scale.y = std::stof(propertys[5].c_str());
+			sprite->transform.setScale(s2d::Vector2(std::stof(propertys[4].c_str()), std::stof(propertys[5].c_str())));
 			sprite->path = s2d::EngineData::s_pathToUserProject + "\\" + propertys[6];
 
 			//INFO: Setting box collider props 5 - 8 down lol

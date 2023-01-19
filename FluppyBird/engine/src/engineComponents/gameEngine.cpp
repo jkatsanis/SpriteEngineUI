@@ -124,13 +124,13 @@ void s2d::GameEngine::update()
 	this->pollEvents();
 
 	// Loading everything for 1s
-	if (s2d::Time::timePassed > 1)
+	if (s2d::Time::timePassed > 3)
 	{
+		s2d::BoxCollider::checkCollisions();
+
 		this->updateWindowStyle();
 		this->updateUserScriptsAndGUI();
 
-
-		s2d::BoxCollider::checkCollisions();
 		s2d::Physics::update();
 		s2d::GameObject::camera.update();
 	}
@@ -153,7 +153,7 @@ void s2d::GameEngine::start()
 
 	//Engine 
 	this->windowEvent.type = sf::Event::GainedFocus;
-	this->ptr_renderWindow = new sf::RenderWindow(sf::VideoMode(1920, 1080), s2d::GameData::name, sf::Style::Default);
+	this->ptr_renderWindow = new sf::RenderWindow(sf::VideoMode(1920, 1080), s2d::GameData::name, sf::Style::Fullscreen);
 
 	s2d::GameObject::camera = s2d::Camera(this->ptr_renderWindow);
 

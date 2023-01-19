@@ -32,8 +32,7 @@ void s2d::Sprite::setSpriteTexture(const std::string path)
 	this->m_sprite.setTexture(this->m_texture, true);
 
 	//Setting sprite size also in init and setTexture
-	sf::Vector2u tempSize = m_texture.getSize();
-	this->transform.size = s2d::Vector2(float(tempSize.x), float(tempSize.y));
+	this->setScaleBasedOnTextureSize();
 }
 
 void s2d::Sprite::addSpriteToScene()
@@ -47,8 +46,8 @@ void s2d::Sprite::setSpritePosition()
 	if (!this->collider.positionData.isEverythingUnknown())
 		this->pushSetup();
 
-	float x = 960 + this->transform.position.x - this->transform.size.x / 2;
-	float y = 540 - this->transform.position.y - this->transform.size.y / 2;
+	float x = 960 + this->transform.position.x - this->transform.textureSize.x / 2;
+	float y = 540 - this->transform.position.y - this->transform.textureSize.y / 2;
 
 	this->getSprite().setPosition(sf::Vector2f(x, y));
 
@@ -72,12 +71,22 @@ s2d::Vector2 s2d::Sprite::getOrigininalPosition()
 	return s2d::Vector2(x, y);
 }
 
+void s2d::Sprite::renderInstant()
+{
+	this->updateHightestLayerIndex();
+}
+
+void s2d::Sprite::update()
+{
+	this->transform.updateTransformPosition();
+}
+
 //Private functions
 
-void s2d::Sprite::setTextureSize()
+void s2d::Sprite::setScaleBasedOnTextureSize()
 {
-	sf::Vector2u tempSize = m_texture.getSize();
-	this->transform.size = Vector2(tempSize.x, tempSize.y);
+	s2d::Vector2 size = s2d::Vector2(this->m_texture.getSize().x, this->m_texture.getSize().y);
+	this->transform.textureSize = size * this->transform.getScale();
 }
 
 void s2d::Sprite::initVariables(std::string name, s2d::Vector2 spawnPos, std::string path)
@@ -110,7 +119,7 @@ void s2d::Sprite::initVariables(std::string name, s2d::Vector2 spawnPos, std::st
 	sprite.setTexture(this->m_texture);
 
 	//Setting sprite size also in init and setTexture
-	setTextureSize();
+	setScaleBasedOnTextureSize();
 
 	//Finally setting the sprite
 	this->m_sprite = sprite;
@@ -166,11 +175,6 @@ s2d::Sprite* s2d::Sprite::getNode()
 	return parent->getNode();
 }
 
-void s2d::Sprite::renderInstant()
-{
-	this->updateHightestLayerIndex();
-}
-
 void s2d::Sprite::initActiveSprites()
 {
 	//! INFO ! ALWAYS SCALE THINGS UP BY 1.5F!
@@ -200,12 +204,15 @@ void s2d::Sprite::initActiveSprites()
 			Sprite* sprite = new Sprite();
 
 			//INITIIALIZING PROPS
+
+			sprite->transform = s2d::Transform(sprite);
+
 			sprite->name = propertys[0];
 			sprite->setVectorPosition(atoi(propertys[1].c_str()));
 			sprite->transform.position.x = std::stof(propertys[2].c_str());
 			sprite->transform.position.y = std::stof(propertys[3].c_str());
-			sprite->transform.scale.x = std::stof(propertys[4].c_str());
-			sprite->transform.scale.y = std::stof(propertys[5].c_str());
+			sprite->transform.setScale(s2d::Vector2(std::stof(propertys[4].c_str()), std::stof(propertys[5].c_str())));
+
 			sprite->path = propertys[6];
 
 			if (!sprite->m_texture.loadFromFile(sprite->path))
@@ -219,7 +226,7 @@ void s2d::Sprite::initActiveSprites()
 			sf::Vector2u tempSize = sprite->m_texture.getSize();
 
 			//Multiplying size with 1.5f because we scale it up by 1.5f lol
-			sprite->transform.size = Vector2(tempSize.x * s2d::GameObject::ssizeMultipliyer, tempSize.y * s2d::GameObject::ssizeMultipliyer);
+			sprite->transform.textureSize = Vector2(tempSize.x * s2d::GameObject::ssizeMultipliyer, tempSize.y * s2d::GameObject::ssizeMultipliyer);
 			sprite->m_sprite.setTexture(sprite->m_texture);
 
 			//Setting BoxCollider

@@ -32,8 +32,7 @@ namespace s2d
 		int m_childListPos;
 
 		void initVariables(std::string name, s2d::Vector2 spawnPos, std::string path);
-		void setTextureSize();
-		void setSizeBasedOnScale();
+		void setScaleBasedOnTextureSize();
 
 	public:	
 		// General info
@@ -72,7 +71,8 @@ namespace s2d
 		int getChildListPosition() const { return this->m_childListPos; }
 
 		int getVectorPosition() { return this->m_vectorPosition; }
-		sf::Sprite& getSprite() { return this->m_sprite; }																
+		sf::Sprite& getSprite() { return this->m_sprite; }	
+		sf::Texture& getTexture() { return this->m_texture; }
 		s2d::Vector2 getOrigininalPosition();
 
 	public:

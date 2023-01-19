@@ -11,6 +11,7 @@ void Testing::start()
 	up = s2d::Sprite::getSpriteByName("up");
 	down = s2d::Sprite::getSpriteByName("down");
 	camera = &s2d::GameObject::camera;
+	this->m_collided = false;
 }
 
 void Testing::update()
@@ -19,16 +20,19 @@ void Testing::update()
 	ImGui::SetCursorPos(ImVec2(800, 200));
 	ImGui::Text(score.c_str());
 	up->transform.position.x -= 700 * s2d::Time::deltaTime;
-	down->transform.position.x -= 700 * s2d::Time::deltaTime;
+	down->transform.position.x -= 700 * s2d::Time::deltaTime;	
 
-	if (thisSprite->collider.collidingSprite != nullptr)
+	if (thisSprite->collider.collidingSprite != nullptr && !this->m_collided)
 	{
+		std::cout << thisSprite->collider.collidingSprite->name;
+
 		if (thisSprite->collider.collidingSprite->name == "up"
 			|| thisSprite->collider.collidingSprite->name == "down")
 		{
-			//s/2d::Sprite* spr = new s2d::Sprite("name", s2d::Vector2(0, 0), "assets\\Sprites\\gameOver.png", true);
-			//spr->sortingLayerIndex = 2;
-			//spr->renderInstant();
+			this->m_collided = true;
+			s2d::Sprite* spr = new s2d::Sprite("name", s2d::Vector2(0, 0), "assets\\Sprites\\gameOver.png", true);
+			spr->sortingLayerIndex = 2;
+			spr->renderInstant();
 		}
 	}
 	m_timeToPressAgain += s2d::Time::deltaTime;
@@ -36,7 +40,7 @@ void Testing::update()
 	{
 		m_timeToPressAgain = 0;
 		thisSprite->physicsBody.velocity.y = 0;
-		s2d::Physics::addForce(thisSprite, s2d::Vector2(0, 1), 0.8f);
+		s2d::Physics::addForce(thisSprite, s2d::Vector2(0, 1), 2.0f);
 	}
 	if (up->transform.position.x < -1000)
 	{
@@ -52,7 +56,8 @@ void Testing::update()
 
 		up->transform.position.y = 0 - random_number;
 		down->transform.position.y = up->transform.position.y + 1500;
-
 	}
+
+//	this->camera->transform.position = thisSprite->transform.position;
 }
  

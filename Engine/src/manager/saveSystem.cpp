@@ -33,8 +33,8 @@ std::string s2d::flc::getPropertyLineWithSeperator(Sprite* sprite)
 	std::string vecpos = std::to_string(sprite->getVectorPosition());
 	std::string transformPosX = std::to_string(sprite->transform.position.x);
 	std::string transformPosY = std::to_string(sprite->transform.position.y);
-	std::string scaleX = std::to_string(sprite->transform.scale.x);
-	std::string scaleY = std::to_string(sprite->transform.scale.y);
+	std::string scaleX = std::to_string(sprite->transform.getScale().x);
+	std::string scaleY = std::to_string(sprite->transform.getScale().y);
 	std::string spritePath = std::splitStringTillLastWord(sprite->path, s2d::EngineData::s_pathToUserProject);
 
 	std::string boxColliderWidthLeftOrRightX = std::to_string(sprite->collider.boxColliderWidthLeftOrRight.x);

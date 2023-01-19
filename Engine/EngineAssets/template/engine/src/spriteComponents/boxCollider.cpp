@@ -30,10 +30,10 @@ bool s2d::BoxCollider::checkCollision(s2d::BoxCollider& other, const int jIndex)
     float otherGetPosX = other.sprite->getSprite().getPosition().x;
     float otherGetPosY = other.sprite->getSprite().getPosition().y;
 
-    if (getPosX + sprite->transform.size.x + this->boxColliderWidthLeftOrRight.y >= otherGetPosX + other.boxColliderWidthLeftOrRight.x
-        && getPosX + this->boxColliderWidthLeftOrRight.x <= otherGetPosX + other.boxColliderWidthLeftOrRight.y + other.sprite->transform.size.x
-        && getPosY + sprite->transform.size.y + this->boxColliderHeightUpOrDown.y >= otherGetPosY + other.boxColliderHeightUpOrDown.x
-        && getPosY + this->boxColliderHeightUpOrDown.x <= otherGetPosY + other.boxColliderHeightUpOrDown.y + other.sprite->transform.size.y)
+    if (getPosX + sprite->transform.textureSize.x + this->boxColliderWidthLeftOrRight.y >= otherGetPosX + other.boxColliderWidthLeftOrRight.x
+        && getPosX + this->boxColliderWidthLeftOrRight.x <= otherGetPosX + other.boxColliderWidthLeftOrRight.y + other.sprite->transform.textureSize.x
+        && getPosY + sprite->transform.textureSize.y + this->boxColliderHeightUpOrDown.y >= otherGetPosY + other.boxColliderHeightUpOrDown.x
+        && getPosY + this->boxColliderHeightUpOrDown.x <= otherGetPosY + other.boxColliderHeightUpOrDown.y + other.sprite->transform.textureSize.y)
     {
         if (other.isSolid && this->isSolid)
             checkPositions(other, jIndex);
@@ -65,8 +65,8 @@ void s2d::BoxCollider::checkPositions(const BoxCollider& other, const int jIndex
     short range = 10;
 
     // Right
-    if (this->sprite->getOrigininalPosition().x + this->sprite->transform.size.x >= other.sprite->getOrigininalPosition().x
-        && this->sprite->getOrigininalPosition().x + this->sprite->transform.size.x <= other.sprite->getOrigininalPosition().x + range)
+    if (this->sprite->getOrigininalPosition().x + this->sprite->transform.textureSize.x >= other.sprite->getOrigininalPosition().x
+        && this->sprite->getOrigininalPosition().x + this->sprite->transform.textureSize.x <= other.sprite->getOrigininalPosition().x + range)
     {
         this->positionData.position[this->collisionCnt] = s2d::BoxColliderPositionData::Position::Right;
         this->collisionCnt++;
@@ -75,8 +75,8 @@ void s2d::BoxCollider::checkPositions(const BoxCollider& other, const int jIndex
 
     // Left
 
-    if (this->sprite->getOrigininalPosition().x <= other.sprite->getOrigininalPosition().x + other.sprite->transform.size.x
-        && this->sprite->getOrigininalPosition().x + range >= other.sprite->getOrigininalPosition().x + other.sprite->transform.size.x)
+    if (this->sprite->getOrigininalPosition().x <= other.sprite->getOrigininalPosition().x + other.sprite->transform.textureSize.x
+        && this->sprite->getOrigininalPosition().x + range >= other.sprite->getOrigininalPosition().x + other.sprite->transform.textureSize.x)
     {
         this->positionData.position[this->collisionCnt] = s2d::BoxColliderPositionData::Position::Left;
         this->collisionCnt++;
@@ -86,8 +86,8 @@ void s2d::BoxCollider::checkPositions(const BoxCollider& other, const int jIndex
 
     // Down
 
-    if (this->sprite->getOrigininalPosition().y + this->sprite->transform.size.y >= other.sprite->getOrigininalPosition().y
-        && (this->sprite->getOrigininalPosition().y + this->sprite->transform.size.y <= other.sprite->getOrigininalPosition().y + range))
+    if (this->sprite->getOrigininalPosition().y + this->sprite->transform.textureSize.y >= other.sprite->getOrigininalPosition().y
+        && (this->sprite->getOrigininalPosition().y + this->sprite->transform.textureSize.y <= other.sprite->getOrigininalPosition().y + range))
     {
         this->positionData.position[this->collisionCnt] = s2d::BoxColliderPositionData::Position::Down;
         this->collisionCnt++;
@@ -96,8 +96,8 @@ void s2d::BoxCollider::checkPositions(const BoxCollider& other, const int jIndex
 
     // Top
 
-    if (this->sprite->getOrigininalPosition().y <= other.sprite->getOrigininalPosition().y + other.sprite->transform.size.y
-        && (this->sprite->getOrigininalPosition().y + range >= other.sprite->getOrigininalPosition().y + other.sprite->transform.size.y))
+    if (this->sprite->getOrigininalPosition().y <= other.sprite->getOrigininalPosition().y + other.sprite->transform.textureSize.y
+        && (this->sprite->getOrigininalPosition().y + range >= other.sprite->getOrigininalPosition().y + other.sprite->transform.textureSize.y))
     {
         this->positionData.position[this->collisionCnt] = s2d::BoxColliderPositionData::Position::Up;
         this->collisionCnt++;

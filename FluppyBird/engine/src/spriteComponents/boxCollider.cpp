@@ -6,10 +6,10 @@
 //Its always important to give everything a "default value"
 
 s2d::BoxCollider::BoxCollider()
-    : isSolid(false), canCollide(false), exists(false), isInCollision(false), sprite(nullptr), collidingSprite(nullptr), collisionCnt(0) { }
+    : isSolid(false), canCollide(false), exists(false), sprite(nullptr), collidingSprite(nullptr), collisionCnt(0) { }
 
 s2d::BoxCollider::BoxCollider(s2d::Sprite* sprite)
-   : exists(false), isInCollision(false), collidingSprite(nullptr), sprite(sprite), canCollide(false), isSolid(false), collisionCnt(0) { }
+   : exists(false), collidingSprite(nullptr), sprite(sprite), canCollide(false), isSolid(false), collisionCnt(0) { }
 
 
 bool s2d::BoxCollider::checkCollision(s2d::BoxCollider& other, const int jIndex)
@@ -37,6 +37,7 @@ bool s2d::BoxCollider::checkCollision(s2d::BoxCollider& other, const int jIndex)
     {
         if (other.isSolid && this->isSolid)
             checkPositions(other, jIndex);
+        this->positionData.position[this->collisionCnt] = s2d::BoxColliderPositionData::Collision;
         return true;
     }
     return false;
@@ -83,7 +84,6 @@ void s2d::BoxCollider::checkPositions(const BoxCollider& other, const int jIndex
         return;
     }
 
-
     // Down
 
     if (this->sprite->getOrigininalPosition().y + this->sprite->transform.size.y >= other.sprite->getOrigininalPosition().y
@@ -112,31 +112,24 @@ void s2d::BoxCollider::checkPositions(const BoxCollider& other, const int jIndex
 
 void s2d::BoxCollider::checkCollisions()
 {
-
     for (int i = 0; i < s2d::Sprite::activeSprites.size(); i++)
-    {
-        int nCollide = 0;
-
+    {      
         for (int j = i + 1; j < s2d::Sprite::activeSprites.size(); j++)
         {
             if (checkIAndJPCollisions(i, j))
             {
-                s2d::Sprite::activeSprites[i]->collider.isInCollision = true;
-                s2d::Sprite::activeSprites[j]->collider.isInCollision = true;
-
                 s2d::Sprite::activeSprites[i]->collider.collidingSprite = s2d::Sprite::activeSprites[j];
                 s2d::Sprite::activeSprites[j]->collider.collidingSprite = s2d::Sprite::activeSprites[i];
-            }
-            else
-            {
-                //Counting the times we dont collide so we can set the "isInCollision" bool to false
-                nCollide++;
-            }
-            if (nCollide == j)
-            {
-                s2d::Sprite::activeSprites[i]->collider.collidingSprite = nullptr;
-                s2d::Sprite::activeSprites[i]->collider.isInCollision = false;
-            }
+            }       
+        }
+    }
+
+    // set the colliding sprite to nulltpr if the sprite doens't collide
+    for (int i = 0; i < s2d::Sprite::activeSprites.size(); i++)
+    {
+        if (s2d::Sprite::activeSprites[i]->collider.positionData.isEverythingUnknown())
+        {
+            s2d::Sprite::activeSprites[i]->collider.collidingSprite = nullptr;
         }
     }
 }
