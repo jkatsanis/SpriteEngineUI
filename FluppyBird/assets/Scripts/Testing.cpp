@@ -16,7 +16,8 @@ void Testing::start()
 
 void Testing::update()
 {
-	std::string score = "Score: " + std::to_string(s2d::Time::fps);
+	std::string s = (thisSprite->collider.collidingSprite != nullptr) ? thisSprite->collider.collidingSprite->name : "none";
+	std::string score = "Score: " + s;
 	ImGui::SetCursorPos(ImVec2(800, 200));
 	ImGui::Text(score.c_str());
 	up->transform.position.x -= 700 * s2d::Time::deltaTime;
@@ -29,10 +30,10 @@ void Testing::update()
 		if (thisSprite->collider.collidingSprite->name == "up"
 			|| thisSprite->collider.collidingSprite->name == "down")
 		{
-			this->m_collided = true;
-			s2d::Sprite* spr = new s2d::Sprite("name", s2d::Vector2(0, 0), "assets\\Sprites\\gameOver.png", true);
-			spr->sortingLayerIndex = 2;
-			spr->renderInstant();
+			//this->m_collided = true;
+			//s2d::Sprite* spr = new s2d::Sprite("name", s2d::Vector2(0, 0), "assets\\Sprites\\gameOver.png", true);
+			//spr->sortingLayerIndex = 2;
+			//spr->renderInstant();
 		}
 	}
 	m_timeToPressAgain += s2d::Time::deltaTime;
@@ -40,7 +41,7 @@ void Testing::update()
 	{
 		m_timeToPressAgain = 0;
 		thisSprite->physicsBody.velocity.y = 0;
-		s2d::Physics::addForce(thisSprite, s2d::Vector2(0, 1), 2.0f);
+		s2d::Physics::addForce(thisSprite, s2d::Vector2(0, 1), 1.0f);
 	}
 	if (up->transform.position.x < -1000)
 	{

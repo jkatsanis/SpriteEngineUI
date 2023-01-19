@@ -136,7 +136,7 @@ void s2d::UIRealTimeEditorNavigator::loadCameraSettingsFromFile()
 
 			//Splitting line
 			std::string delimiter = ";";
-			std::string* propertys = std::splitString(line, delimiter);
+			std::vector<std::string> propertys = std::splitString(line, delimiter);
 
 			//INITIIALIZING PROPS
 			this->m_camera.transform.position.x = std::stof(propertys[0].c_str());

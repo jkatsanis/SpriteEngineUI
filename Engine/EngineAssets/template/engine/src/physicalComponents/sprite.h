@@ -32,7 +32,7 @@ namespace s2d
 		void initVariables(std::string name, s2d::Vector2 spawnPos, std::string path);
 		void pushSetup();
 		void pushSpriteFromCollider(s2d::BoxColliderPositionData::Position p, bool smaller, float& tXY, float& lXY, float& nXY);
-		void setScaleBasedOnTextureSize();
+		void setTextureSize();
 
 	public:
 		// General info
@@ -74,9 +74,8 @@ namespace s2d
 		/// 'new' sprite, do not use this functions if you don't have a reason to 
 		/// </summary>
 		void renderInstant();
-
-		void update();
 	public:
+
 		void setId(const int id) { this->m_id = id; }
 		void setVectorPosition(const int vec) { this->m_vectorPosition = vec; }
 

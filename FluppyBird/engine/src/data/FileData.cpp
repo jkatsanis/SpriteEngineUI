@@ -23,7 +23,7 @@ void s2d::FileData::setWindowBackground()
 
 			//Splitting line
 			std::string delimiter = ";";
-			std::string* propertys = std::splitString(line, delimiter);
+			std::vector<std::string> propertys = std::splitString(line, delimiter);
 
 			//INITIIALIZING PROPS
 			vec.x = atoi(propertys[0].c_str());

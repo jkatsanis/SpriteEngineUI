@@ -29,7 +29,7 @@ int s2d::SpriteData::getHighestIndex()
 	return index;
 }
 
-std::string s2d::SpriteData::defaultSpritePath = "EngineAssets/Sprites/default.png";
+std::string s2d::SpriteData::defaultSpritePath = "EngineAssets\\Sprites\\default.png";
 
 /// <summary>
 /// This is the highest sprite id currently. 

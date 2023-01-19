@@ -15,7 +15,8 @@ namespace s2d
 			Down = 0,
 			Left,
 			Right,
-			Up
+			Up,
+			Collision
 		};
 
 		//This is the array containing the sprites which collide around us

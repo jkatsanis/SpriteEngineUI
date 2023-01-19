@@ -52,11 +52,11 @@ void s2d::UIAnimationKeyFrameEditor::inputData()
 	if (ImGui::IsItemHovered() && ImGui::IsMouseReleased(0) && s2d::UIAssetFolder::dragAndDropPath != " ")
 	{
 		this->keyFramePath = s2d::UIAssetFolder::dragAndDropPath;
-		strcpy_s(this->keyFramePathArr, s2d::UIInspector::getNamePathSplit(s2d::UIAssetFolder::dragAndDropPath));
+		strcpy_s(this->keyFramePathArr, s2d::UIInspector::getNamePathSplit(s2d::UIAssetFolder::dragAndDropPath).c_str());
 	}
 	else
 	{
-		strcpy_s(this->keyFramePathArr, s2d::UIInspector::getNamePathSplit(this->keyFramePath.c_str()));
+		strcpy_s(this->keyFramePathArr, s2d::UIInspector::getNamePathSplit(this->keyFramePath.c_str()).c_str());
 	}
 
 }

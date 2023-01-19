@@ -236,7 +236,7 @@ bool s2d::flc::checkIfProjectExistInFile(std::string& ref)
 
 			//Splitting line
 			std::string delimiter = ";";
-			std::string* propertys = std::splitString(line, delimiter);
+			std::vector<std::string> propertys = std::splitString(line, delimiter);
 
 			ref += line + "\n";
 			
@@ -278,7 +278,7 @@ bool s2d::flc::checkIfProjcetAlreadyExists(const std::string& path)
 
 			//Splitting line
 			std::string delimiter = ";";
-			std::string* propertys = std::splitString(line, delimiter);
+			std::vector<std::string> propertys = std::splitString(line, delimiter);
 
 			found = propertys[INDEX_AT_PATH] == path;
 
@@ -321,7 +321,7 @@ void s2d::flc::removeInvalidPathsFromFile()
 
 			//Splitting line
 			std::string delimiter = ";";
-			std::string* propertys = std::splitString(line, delimiter);
+			std::vector<std::string> propertys = std::splitString(line, delimiter);
 			
 			std::string absulutePath = propertys[1];
 

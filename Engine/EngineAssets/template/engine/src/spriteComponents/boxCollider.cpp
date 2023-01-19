@@ -6,10 +6,10 @@
 //Its always important to give everything a "default value"
 
 s2d::BoxCollider::BoxCollider()
-    : isSolid(false), canCollide(false), exists(false), isInCollision(false), sprite(nullptr), collidingSprite(nullptr), collisionCnt(0) { }
+    : isSolid(false), canCollide(false), exists(false), sprite(nullptr), collidingSprite(nullptr), collisionCnt(0) { }
 
 s2d::BoxCollider::BoxCollider(s2d::Sprite* sprite)
-   : exists(false), isInCollision(false), collidingSprite(nullptr), sprite(sprite), canCollide(false), isSolid(false), collisionCnt(0) { }
+   : exists(false), collidingSprite(nullptr), sprite(sprite), canCollide(false), isSolid(false), collisionCnt(0) { }
 
 
 bool s2d::BoxCollider::checkCollision(s2d::BoxCollider& other, const int jIndex)
@@ -37,6 +37,7 @@ bool s2d::BoxCollider::checkCollision(s2d::BoxCollider& other, const int jIndex)
     {
         if (other.isSolid && this->isSolid)
             checkPositions(other, jIndex);
+        this->positionData.position[this->collisionCnt] = s2d::BoxColliderPositionData::Collision;
         return true;
     }
     return false;
@@ -65,8 +66,8 @@ void s2d::BoxCollider::checkPositions(const BoxCollider& other, const int jIndex
     short range = 10;
 
     // Right
-    if (this->sprite->getOrigininalPosition().x + this->sprite->transform.textureSize.x >= other.sprite->getOrigininalPosition().x
-        && this->sprite->getOrigininalPosition().x + this->sprite->transform.textureSize.x <= other.sprite->getOrigininalPosition().x + range)
+    if (this->sprite->getOrigininalPosition().x + this->sprite->transform.textureSize.x + this->sprite->collider.boxColliderWidthLeftOrRight.y >= other.sprite->getOrigininalPosition().x + other.boxColliderWidthLeftOrRight.x
+        && this->sprite->getOrigininalPosition().x + this->sprite->transform.textureSize.x  + this->sprite->collider.boxColliderWidthLeftOrRight.y <= other.sprite->getOrigininalPosition().x + other.boxColliderWidthLeftOrRight.x + range)
     {
         this->positionData.position[this->collisionCnt] = s2d::BoxColliderPositionData::Position::Right;
         this->collisionCnt++;
@@ -75,19 +76,18 @@ void s2d::BoxCollider::checkPositions(const BoxCollider& other, const int jIndex
 
     // Left
 
-    if (this->sprite->getOrigininalPosition().x <= other.sprite->getOrigininalPosition().x + other.sprite->transform.textureSize.x
-        && this->sprite->getOrigininalPosition().x + range >= other.sprite->getOrigininalPosition().x + other.sprite->transform.textureSize.x)
+    if (this->sprite->getOrigininalPosition().x + this->boxColliderWidthLeftOrRight.x <= other.sprite->getOrigininalPosition().x + other.sprite->transform.textureSize.x + other.boxColliderWidthLeftOrRight.y
+        && this->sprite->getOrigininalPosition().x + this->boxColliderWidthLeftOrRight.x + range>= other.sprite->getOrigininalPosition().x + other.sprite->transform.textureSize.x + other.boxColliderWidthLeftOrRight.y)
     {
         this->positionData.position[this->collisionCnt] = s2d::BoxColliderPositionData::Position::Left;
         this->collisionCnt++;
         return;
     }
 
-
     // Down
 
-    if (this->sprite->getOrigininalPosition().y + this->sprite->transform.textureSize.y >= other.sprite->getOrigininalPosition().y
-        && (this->sprite->getOrigininalPosition().y + this->sprite->transform.textureSize.y <= other.sprite->getOrigininalPosition().y + range))
+    if (this->sprite->getOrigininalPosition().y + this->sprite->transform.textureSize.y + this->sprite->collider.boxColliderHeightUpOrDown.y >= other.sprite->getOrigininalPosition().y + other.boxColliderHeightUpOrDown.x
+        && (this->sprite->getOrigininalPosition().y + this->sprite->transform.textureSize.y + this->sprite->collider.boxColliderHeightUpOrDown.y <= other.sprite->getOrigininalPosition().y + other.boxColliderHeightUpOrDown.x + range))
     {
         this->positionData.position[this->collisionCnt] = s2d::BoxColliderPositionData::Position::Down;
         this->collisionCnt++;
@@ -96,8 +96,8 @@ void s2d::BoxCollider::checkPositions(const BoxCollider& other, const int jIndex
 
     // Top
 
-    if (this->sprite->getOrigininalPosition().y <= other.sprite->getOrigininalPosition().y + other.sprite->transform.textureSize.y
-        && (this->sprite->getOrigininalPosition().y + range >= other.sprite->getOrigininalPosition().y + other.sprite->transform.textureSize.y))
+    if (this->sprite->getOrigininalPosition().y + this->boxColliderHeightUpOrDown.x <= other.sprite->getOrigininalPosition().y + other.sprite->transform.textureSize.y + other.boxColliderHeightUpOrDown.y
+        && (this->sprite->getOrigininalPosition().y + +this->sprite->collider.boxColliderHeightUpOrDown.y + range >= other.sprite->getOrigininalPosition().y + other.sprite->transform.textureSize.y + other.boxColliderHeightUpOrDown.y))
     {
         this->positionData.position[this->collisionCnt] = s2d::BoxColliderPositionData::Position::Up;
         this->collisionCnt++;
@@ -112,31 +112,24 @@ void s2d::BoxCollider::checkPositions(const BoxCollider& other, const int jIndex
 
 void s2d::BoxCollider::checkCollisions()
 {
-
     for (int i = 0; i < s2d::Sprite::activeSprites.size(); i++)
-    {
-        int nCollide = 0;
-
+    {      
         for (int j = i + 1; j < s2d::Sprite::activeSprites.size(); j++)
         {
             if (checkIAndJPCollisions(i, j))
             {
-                s2d::Sprite::activeSprites[i]->collider.isInCollision = true;
-                s2d::Sprite::activeSprites[j]->collider.isInCollision = true;
-
                 s2d::Sprite::activeSprites[i]->collider.collidingSprite = s2d::Sprite::activeSprites[j];
                 s2d::Sprite::activeSprites[j]->collider.collidingSprite = s2d::Sprite::activeSprites[i];
-            }
-            else
-            {
-                //Counting the times we dont collide so we can set the "isInCollision" bool to false
-                nCollide++;
-            }
-            if (nCollide == j)
-            {
-                s2d::Sprite::activeSprites[i]->collider.collidingSprite = nullptr;
-                s2d::Sprite::activeSprites[i]->collider.isInCollision = false;
-            }
+            }       
+        }
+    }
+
+    // set the colliding sprite to nulltpr if the sprite doens't collide
+    for (int i = 0; i < s2d::Sprite::activeSprites.size(); i++)
+    {
+        if (s2d::Sprite::activeSprites[i]->collider.positionData.isEverythingUnknown())
+        {
+            s2d::Sprite::activeSprites[i]->collider.collidingSprite = nullptr;
         }
     }
 }

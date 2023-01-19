@@ -35,7 +35,7 @@ void s2d::PhsysicsBody::fixedUpdate()
 
     if (this->exists)
     {
-        if (this->ptr_attachedSprite->collider.isInCollision && this->ptr_attachedSprite->collider.positionData.isEqual(s2d::BoxColliderPositionData::Down))
+        if (this->ptr_attachedSprite->collider.isInCollision() && this->ptr_attachedSprite->collider.positionData.isEqual(s2d::BoxColliderPositionData::Down))
         {
             this->velocity.y = 0.0f;
         }

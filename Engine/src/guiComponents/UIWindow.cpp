@@ -33,7 +33,7 @@ s2d::Vector3 s2d::UIWindow::getWindowBackgroundColorFromFile()
 
 			//Splitting line
 			std::string delimiter = ";";
-			std::string* propertys = std::splitString(line, delimiter);
+			std::vector<std::string> propertys = std::splitString(line, delimiter);
 
 			//INITIIALIZING PROPS
 			vec.x = std::stof(propertys[0].c_str());

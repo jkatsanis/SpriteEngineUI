@@ -32,7 +32,7 @@ void s2d::Sprite::setSpriteTexture(const std::string path)
 	this->m_sprite.setTexture(this->m_texture, true);
 
 	//Setting sprite size also in init and setTexture
-	this->setScaleBasedOnTextureSize();
+	this->setTextureSize();
 }
 
 void s2d::Sprite::addSpriteToScene()
@@ -76,14 +76,10 @@ void s2d::Sprite::renderInstant()
 	this->updateHightestLayerIndex();
 }
 
-void s2d::Sprite::update()
-{
-	this->transform.updateTransformPosition();
-}
 
 //Private functions
 
-void s2d::Sprite::setScaleBasedOnTextureSize()
+void s2d::Sprite::setTextureSize()
 {
 	s2d::Vector2 size = s2d::Vector2(this->m_texture.getSize().x, this->m_texture.getSize().y);
 	this->transform.textureSize = size * this->transform.getScale();
@@ -91,6 +87,8 @@ void s2d::Sprite::setScaleBasedOnTextureSize()
 
 void s2d::Sprite::initVariables(std::string name, s2d::Vector2 spawnPos, std::string path)
 {
+	this->transform = s2d::Transform(this);
+
 	this->m_childCount = -1;
 	this->m_parentId = -1;
 
@@ -119,7 +117,7 @@ void s2d::Sprite::initVariables(std::string name, s2d::Vector2 spawnPos, std::st
 	sprite.setTexture(this->m_texture);
 
 	//Setting sprite size also in init and setTexture
-	setScaleBasedOnTextureSize();
+	setTextureSize();
 
 	//Finally setting the sprite
 	this->m_sprite = sprite;
@@ -198,7 +196,7 @@ void s2d::Sprite::initActiveSprites()
 
 			//Splitting line
 			std::string delimiter = ";";
-			std::string* propertys = std::splitString(line, delimiter);
+			std::vector<std::string> propertys = std::splitString(line, delimiter);
 
 			//Creating empty sprite, then pushing it back
 			Sprite* sprite = new Sprite();
@@ -277,11 +275,6 @@ void s2d::Sprite::initActiveSprites()
 
 			//Pushing the sprite
 			s2d::Sprite::activeSprites.push_back(sprite);
-
-			//End of INITING
-
-			//Deleting the propertys since we dont need them anymore
-			delete[] propertys;
 		}
 	}
 

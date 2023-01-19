@@ -87,6 +87,7 @@ namespace s2d
 
 		int getVectorPosition() { return this->m_vectorPosition; }
 		sf::Sprite& getSprite() { return this->m_sprite; }
+		sf::Texture& getTexture() { return this->m_texture; }
 
 	public:
 		static void initActiveSprites();

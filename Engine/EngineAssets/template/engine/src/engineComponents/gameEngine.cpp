@@ -124,13 +124,13 @@ void s2d::GameEngine::update()
 	this->pollEvents();
 
 	// Loading everything for 1s
-	if (s2d::Time::timePassed > 1)
+	if (s2d::Time::timePassed > 1.5f)
 	{
+		s2d::BoxCollider::checkCollisions();
+
 		this->updateWindowStyle();
 		this->updateUserScriptsAndGUI();
 
-
-		s2d::BoxCollider::checkCollisions();
 		s2d::Physics::update();
 		s2d::GameObject::camera.update();
 	}

@@ -17,6 +17,7 @@ private:
 	s2d::Sprite* up;
 	s2d::Sprite* down;
 
+	bool m_collided;
 	int m_score;
 	float m_spriteSpeed;
 	float m_timeToPressAgain;

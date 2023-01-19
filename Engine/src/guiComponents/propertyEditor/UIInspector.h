@@ -78,7 +78,7 @@ namespace s2d
 
 	public:
 
-		static char* getNamePathSplit(std::string string);
+		static std::string getNamePathSplit(std::string path);
 	};
 }
 

@@ -1,32 +1,12 @@
-﻿  Testing.cpp
-  physics.cpp
-  gameEngine.cpp
-  renderer.cpp
-  main.cpp
-  sprite.cpp
-C:\Dev\Scale\engine\src\physicalComponents\sprite.cpp(88,89): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
+﻿  stransform.cpp
+C:\Dev\Scale2\engine\src\spriteComponents\stransform.cpp(56,131): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
           with
           [
               T=unsigned int
           ]
-C:\Dev\Scale\engine\src\physicalComponents\sprite.cpp(88,60): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
+C:\Dev\Scale2\engine\src\spriteComponents\stransform.cpp(56,81): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
           with
           [
               T=unsigned int
           ]
-  boxCollider.cpp
-  childSystem.cpp
-  physicsBody.cpp
-  stransform.cpp
-C:\Dev\Scale\engine\src\spriteComponents\stransform.cpp(56,131): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
-          with
-          [
-              T=unsigned int
-          ]
-C:\Dev\Scale\engine\src\spriteComponents\stransform.cpp(56,81): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
-          with
-          [
-              T=unsigned int
-          ]
-  Generating Code...
-  Assets.vcxproj -> C:\Dev\Scale\x64\Debug\Assets.exe
+  Assets.vcxproj -> C:\Dev\Scale2\x64\Debug\Assets.exe

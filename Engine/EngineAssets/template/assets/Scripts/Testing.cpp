@@ -11,7 +11,9 @@ void Testing::start()
 
 void Testing::update()
 {
-	std::string fps = "fps " + std::to_string(s2d::Time::fps);
+	std::string s = thisSprite->collider.collidingSprite != nullptr ? thisSprite->collider.collidingSprite->name : " none ";
+
+	std::string fps = "fdps " + s;
 	ImGui::Text(fps.c_str());
 	if (s2d::Input::onKeyHold(s2d::KeyBoardCode::A))
 	{

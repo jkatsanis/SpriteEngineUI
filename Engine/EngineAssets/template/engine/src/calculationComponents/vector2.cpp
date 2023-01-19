@@ -64,8 +64,6 @@ s2d::Vector2 s2d::Vector2::operator*(const s2d::Vector2& rhs)
 	return s2d::Vector2(this->x * rhs.x, this->y * rhs.y);
 }
 
-
-
 std::ostream& s2d::operator<<(std::ostream& os, const s2d::Vector2& rhs)
 {
 	os << rhs.x << " x " << rhs.y << " y ";

@@ -1,5 +1,30 @@
-﻿  Testing.cpp
-C:\Dev\SpriteEngineUI\FluppyBird\assets\scripts\Testing.cpp(47,36): warning C4305: '=': truncation from 'double' to 'float'
-C:\Dev\SpriteEngineUI\FluppyBird\assets\scripts\Testing.cpp(48,38): warning C4305: '=': truncation from 'double' to 'float'
-C:\Dev\SpriteEngineUI\FluppyBird\assets\scripts\Testing.cpp(57,32): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+﻿  FileData.cpp
+C:\Dev\SpriteEngineUI\FluppyBird\engine\src\data\FileData.cpp(29,16): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Dev\SpriteEngineUI\FluppyBird\engine\src\data\FileData.cpp(30,16): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Dev\SpriteEngineUI\FluppyBird\engine\src\data\FileData.cpp(31,16): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+  gameEngine.cpp
+  boxCollider.cpp
+  sprite.cpp
+C:\Dev\SpriteEngineUI\FluppyBird\engine\src\physicalComponents\sprite.cpp(84,89): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
+          with
+          [
+              T=unsigned int
+          ]
+C:\Dev\SpriteEngineUI\FluppyBird\engine\src\physicalComponents\sprite.cpp(84,60): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
+          with
+          [
+              T=unsigned int
+          ]
+  stransform.cpp
+C:\Dev\SpriteEngineUI\FluppyBird\engine\src\spriteComponents\stransform.cpp(56,131): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
+          with
+          [
+              T=unsigned int
+          ]
+C:\Dev\SpriteEngineUI\FluppyBird\engine\src\spriteComponents\stransform.cpp(56,81): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
+          with
+          [
+              T=unsigned int
+          ]
+  Generating Code...
   Assets.vcxproj -> C:\Dev\SpriteEngineUI\FluppyBird\x64\Debug\Assets.exe

@@ -61,8 +61,6 @@ void s2d::Transform::setScale(const s2d::Vector2& scale)
 
 void s2d::Transform::onPositionChange(s2d::Sprite* sprite)
 {
-	s2d::BoxCollider::checkCollisions();
-
 	ChildSystem::resetPositionWhenChildIsColliding(sprite);
 	ChildSystem::updatePositionToParent(sprite);
 	ChildSystem::updateChildPositionRecursivly(sprite);

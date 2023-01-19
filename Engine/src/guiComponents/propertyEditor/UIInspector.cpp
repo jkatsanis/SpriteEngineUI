@@ -255,9 +255,7 @@ void s2d::UIInspector::transformComponent()
 		this->m_currentSpriteInInspector->transform.setScale(temp_scale);
 
 		ImGui::SetCursorPos(ImVec2(x, y + 50));
-
 		ImGui::TreePop();
-
 	}
 }
 
@@ -266,7 +264,7 @@ void s2d::UIInspector::spriteRendererComponent()
 	//Setting Sprite Renderer Component
 	if (ImGui::TreeNode("Sprite Renderer"))
 	{
-		char* input = s2d::UIInspector::getNamePathSplit(this->m_currentSpriteInInspector->path);
+		std::string input = s2d::UIInspector::getNamePathSplit(this->m_currentSpriteInInspector->path);
 		this->m_spriteName = this->m_currentSpriteInInspector->name;
 
 		float y = ImGui::GetCursorPos().y;
@@ -277,7 +275,7 @@ void s2d::UIInspector::spriteRendererComponent()
 
 		// -5 Because we need our sprite renderer to be cool
 		ImGui::SetCursorPos(ImVec2(x += 100, y - 5));
-		ImGui::InputText("##spriteRenderer", input, CHAR_MAX);
+		ImGui::InputText("##spriteRenderer", &input[0], CHAR_MAX);
 
 		if (ImGui::IsItemHovered() && ImGui::IsMouseReleased(0) && s2d::UIAssetFolder::dragAndDropPath != " ")
 		{
@@ -487,22 +485,13 @@ bool s2d::UIInspector::isInspectorSpriteEqualToActiveSprites()
 
 //static functions
 
-char* s2d::UIInspector::getNamePathSplit(std::string path)
+std::string s2d::UIInspector::getNamePathSplit(std::string path)
 {
-	int val;
-	int val2;
+	std::vector<std::string> pick;
 
-	std::string* pick;
-	int valPick;
+	std::vector<std::string> splittetSring = std::splitString(path, "\\");
 
-	std::string* splittetSring = std::splitString(path, "/", val);
-	std::string* splittetSrin2 = std::splitString(path, "\\", val2);
-
-	pick = val > val2 ? splittetSring : splittetSrin2;
-	valPick = val > val2 ? val : val2;
-
-	char* input = pick[valPick].data();
-	return input;
+	return splittetSring[splittetSring.size() -1];
 }
 
 //Public functions

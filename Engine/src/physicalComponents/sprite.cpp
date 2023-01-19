@@ -162,7 +162,7 @@ void s2d::Sprite::initActiveSprites()
 
 			//Splitting line
 			std::string delimiter = ";";
-			std::string* propertys = std::splitString(line, delimiter);
+			std::vector<std::string> propertys = std::splitString(line, delimiter);
 
 			//Creating empty sprite, then pushing it back
 			Sprite* sprite = new Sprite();
@@ -235,9 +235,6 @@ void s2d::Sprite::initActiveSprites()
 			s2d::Sprite::activeSprites.push_back(sprite);
 
 			//End of INITING
-
-			//Deleting the propertys since we dont need them anymore
-			delete[] propertys;
 		}
 	}
 

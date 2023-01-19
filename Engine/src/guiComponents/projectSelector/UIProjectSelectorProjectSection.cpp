@@ -280,7 +280,7 @@ std::vector<s2d::UserProjectInfo> s2d::UIProjectSelectorProjectSection::readProj
 
 			//Splitting line
 			std::string delimiter = ";";
-			std::string* propertys = std::splitString(line, delimiter);
+			std::vector<std::string> propertys = std::splitString(line, delimiter);
 
 			std::string pathToVerify = propertys[1] + "\\engine\\saves\\verify.vsn";
 
