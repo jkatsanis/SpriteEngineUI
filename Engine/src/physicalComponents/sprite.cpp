@@ -39,7 +39,7 @@ void s2d::Sprite::setSpriteTexture(std::string path)
 	this->m_sprite.setTexture(this->m_texture, true);
 
 	//Setting sprite size also in init and setTexture
-	this->setScaleBasedOnTextureSize();
+	this->setTextureSizeBasedOnScale();
 }
 
 void s2d::Sprite::setParent(s2d::Sprite* parent)
@@ -123,19 +123,19 @@ void s2d::Sprite::initVariables(std::string name, s2d::Vector2 spawnPos, std::st
 
 	sprite.setTexture(this->m_texture);
 
-	//Setting sprite size also in init and setTexture
-	setScaleBasedOnTextureSize();
-
 	//Finally setting the sprite
 	this->m_sprite = sprite;
 	this->collider = s2d::BoxCollider(this);
 	this->physicsBody = s2d::PhsysicsBody();
+
+	//Setting sprite size also in init and setTexture
+	this->transform.setScale(s2d::Vector2(1, 1));
 }
 
-void s2d::Sprite::setScaleBasedOnTextureSize()
+void s2d::Sprite::setTextureSizeBasedOnScale()
 {
-	//::Vector2 size = s2d::Vector2(this->m_texture.getSize().x, this->m_texture.getSize().y);
-	//this->transform.textureSize = size * this->transform.getScale();
+	this->transform.setTextureSize(this->transform.getScale());
+
 }
 
 //Static functions

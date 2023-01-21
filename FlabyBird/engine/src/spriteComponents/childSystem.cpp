@@ -36,7 +36,7 @@ void s2d::ChildSystem::updatePositionRevursivWhenChildIsColliding(s2d::Sprite* c
 
 void s2d::ChildSystem::resetPositionWhenChildIsColliding(s2d::Sprite* child)
 {
-	if (!child->collider.isInCollision())
+	if (child->collider.positionData.isCollidingInAnyDirection())
 	{
 		return;
 	}

@@ -3,6 +3,8 @@
 #include <calculationComponents/vector2.h>
 #include <engineComponents/sTime.h>
 
+#define PHYISCS_UPDATE 0.01f
+
 namespace s2d
 {
 	class Sprite;

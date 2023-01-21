@@ -20,33 +20,10 @@ int main()
     s2d::GameEngine engine;
 
     while (engine.ptr_renderWindow->isOpen())
-    { 
+    {  
         if (s2d::Input::onKeyPress(s2d::KeyBoardCode::A))
         {
-            s2d::Sprite* spr = s2d::Sprite::activeSprites[3];
-
-            spr->getSprite().setOrigin(100, 71);
-            spr->getSprite().setScale(1, 1);
-            spr->getSprite().setOrigin(0, 0);
-
-            sf::IntRect textureRect = spr->getSprite().getTextureRect();
-            spr->transform.textureSize = s2d::Vector2(textureRect.width * 1, textureRect.height * 1);
-        }
-        if (s2d::Input::onKeyPress(s2d::KeyBoardCode::B))
-        {
-            s2d::Vector2 scale = { -2, 1 };
-            s2d::Sprite* spr = s2d::Sprite::activeSprites[3];
-            spr->getSprite().setOrigin(100, 71);
-            spr->getSprite().setScale(scale.x, scale.y);
-            spr->getSprite().setOrigin(200, 0);
-
-            if (scale.x < 0)
-            {
-                scale.x *= -1;
-            }
-
-            sf::IntRect textureRect = spr->getSprite().getTextureRect();
-            spr->transform.textureSize = s2d::Vector2(textureRect.width * scale.x, textureRect.height * scale.y);
+            std::cout << s2d::UIHirachy::selectedSprite->name << std::endl;
         }
         engine.update();
     }

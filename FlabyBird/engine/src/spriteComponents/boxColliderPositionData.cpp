@@ -13,12 +13,12 @@ void s2d::BoxColliderPositionData::resetPosition()
 	}
 }
 
-bool s2d::BoxColliderPositionData::isEverythingUnknown()
+bool s2d::BoxColliderPositionData::isCollidingInAnyDirection()
 {
  	int cnt = 0;
 	for (int i = 0; i < s2d::BoxColliderPositionData::s_canCollideSpritesAround; i++)
 	{
-		if (this->position[i] == s2d::BoxColliderPositionData::Position::Unknown)
+		if (this->position[i] == s2d::BoxColliderPositionData::Position::Unknown || this->position[i] == s2d::BoxColliderPositionData::Position::Collision)
 		{
 			cnt++;
 		}

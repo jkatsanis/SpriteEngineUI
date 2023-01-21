@@ -46,8 +46,10 @@ void s2d::Sprite::addSpriteToScene()
 void s2d::Sprite::setSpritePosition()
 {
 	//Pushing the sprites from a collider if 1 exists && we collided && IF everyting is unknown (no sprite collidng) then why a check
-	if (!this->collider.positionData.isEverythingUnknown())
+	if (!this->collider.positionData.isCollidingInAnyDirection())
+	{
 		this->pushSetup();
+	}
 
 	float x = 960 + this->transform.position.x - this->transform.textureSize.x / 2;
 	float y = 540 - this->transform.position.y - this->transform.textureSize.y / 2;
@@ -78,7 +80,6 @@ void s2d::Sprite::renderInstant()
 {
 	this->updateHightestLayerIndex();
 }
-
 
 //Private functions
 

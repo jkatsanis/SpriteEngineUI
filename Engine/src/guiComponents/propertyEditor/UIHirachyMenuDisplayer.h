@@ -5,6 +5,7 @@
 
 namespace s2d
 {
+	class UIHirachy;
 	class UIHirachySpriteDisplayer;
 	class UIHirachyMenuDisplayer
 	{

@@ -23,7 +23,17 @@ namespace s2d
 		Position position[255 * 2];
 
 		void resetPosition();	
-		bool isEverythingUnknown();
+
+		/// <summary>
+		/// This method returns true if the sprite is solid while colliding in a sprite in a certain direction
+		/// </summary>
+		bool isCollidingInAnyDirection();
+
+		/// <summary>
+		/// returns true if the direction passed exists in the array
+		/// </summary>
+		/// <param name="p"></param>
+		/// <returns></returns>
 		bool isEqual(s2d::BoxColliderPositionData::Position p);
 	};
 }

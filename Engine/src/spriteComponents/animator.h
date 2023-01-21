@@ -27,21 +27,15 @@ namespace s2d
 
 		void createAnimation(std::string name, std::vector<std::string> textures, float delay, bool useBaseSprite);
 
-		/*
-		  * @brief Playing while it executes wont affect anything, you need to stop the animationd and play it then
-		  * @param name the animation it should play
-		*/
 		void play(std::string name);
 		void stop(std::string name);
 
 		void update();
 
 		void resetComponent();
+
 	public:
 
-		/*
-		  * @brief Will stop all animations of all sprites 
-		*/
 		static void stopAllAnimations();
 	};
 }

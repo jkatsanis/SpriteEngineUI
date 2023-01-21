@@ -13,7 +13,7 @@ namespace s2d
 
 		static void update();
 
-		static void addForce(s2d::Sprite* sprite, const s2d::Vector2& vector, float direction);
+		static void addForce(s2d::Sprite* sprite, const s2d::Vector2& direction, float force);
 	};
 }
 

@@ -32,7 +32,7 @@ namespace s2d
 		int m_childListPos;
 
 		void initVariables(std::string name, s2d::Vector2 spawnPos, std::string path);
-		void setScaleBasedOnTextureSize();
+		void setTextureSizeBasedOnScale();
 
 	public:	
 		// General info

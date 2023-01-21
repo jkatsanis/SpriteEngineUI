@@ -2,7 +2,7 @@
 
 s2d::UIInspector::UIInspector()
 {
-	this->m_currentSpriteInInspector = new s2d::Sprite();
+	this->m_currentSpriteInInspector = nullptr;
 	this->m_menuName = "menu";
 	this->m_windowSizeWidth = 390.0f;
 	s2d::GameObject::rects.push_back(m_rectangle);
@@ -20,13 +20,13 @@ void s2d::UIInspector::render()
 {
 	//Setting it here transparent because if we go down and out box collider is actually getting used it will update to green automatic
 	s2d::GameObject::rects[1].setOutlineColor(sf::Color(0, 0, 255, 0));
-
+	//s2d::UIHirachy::selectedSprite = s2d::Sprite::activeSprites[3];
 	if (s2d::UIHirachy::selectedSprite != nullptr)
 	{
 		this->m_currentSpriteInInspector = s2d::UIHirachy::selectedSprite;
-	}
-	if (isInspectorSpriteEqualToActiveSprites() && s2d::UIHirachy::selectedSprite != nullptr)
-	{
+
+		std::cout << this->m_currentSpriteInInspector->name << std::endl;
+
 		this->state = s2d::InspectorState::SpriteEditorWindow;
 		this->m_inputName = &this->m_currentSpriteInInspector->name[0];
 
@@ -49,6 +49,9 @@ void s2d::UIInspector::render()
 	else //Since we dont clicked a valid sprite we display the default inspector view
 	{
 		this->state = s2d::InspectorState::GameWindowEditor;
+		this->m_currentSpriteInInspector = nullptr;
+		this->m_currentComponentSelected = " ";
+		this->m_spriteName = " ";
 
 		//Setting the rect to transparent because we dont want to show it when we deletet a sprite/´display default insp view
 		s2d::GameObject::rects[0].setOutlineColor(sf::Color(0, 0, 255, 0));
@@ -382,7 +385,7 @@ void s2d::UIInspector::physicsBodyComponent()
 void s2d::UIInspector::componentSelector()
 {
 	ImGui::SetCursorPos(ImVec2(14, 766));
-	const char* components[] =
+	static const char* components[] =
 	{
 		"BoxCollider",
 		"PhysicsBody",
@@ -448,10 +451,6 @@ void s2d::UIInspector::animatorComponent()
 
 void s2d::UIInspector::setCompontents()
 {
-	//Dont forget to add an option to remove a component
-
-	if (this->m_currentComponentSelected == nullptr)
-		return;
 	if (this->m_currentComponentSelected == "BoxCollider")
 	{
 		this->m_currentSpriteInInspector->collider.exists = true;
@@ -473,6 +472,10 @@ void s2d::UIInspector::setCompontents()
 
 bool s2d::UIInspector::isInspectorSpriteEqualToActiveSprites()
 {
+	if (this->m_currentSpriteInInspector == nullptr)
+	{
+		return false;
+	}
 	for (const Sprite* sprite : s2d::Sprite::activeSprites)
 	{
 		if (m_currentSpriteInInspector->name == sprite->name)

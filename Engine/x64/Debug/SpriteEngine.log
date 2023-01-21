@@ -1,22 +1,49 @@
-﻿  transform.cpp
-C:\Dev\SpriteEngineUI\Engine\src\spriteComponents\transform.cpp(74,79): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
+﻿  SpriteEngine.cpp
+  gameEngine.cpp
+  renderer.cpp
+  UIWindow.cpp
+  UIProjectSelector.cpp
+  UIProjectSelectorProjectSection.cpp
+  UIAnimation.cpp
+  UIAnimationEditor.cpp
+  UIAnimationKeyFrameEditor.cpp
+  UIAssetFolder.cpp
+  UIHirachy.cpp
+  UIHirachyMenuDisplayer.cpp
+  UIHirachySpriteDisplay.cpp
+  UIInspector.cpp
+  UIInspectorBoxCollider.cpp
+  UIToolButtons.cpp
+  UIRealTimeEditor.cpp
+  UIRealTimeEditorTransform.cpp
+  saveSystem.cpp
+  sprite.cpp
+  Generating Code...
+  Compiling...
+  animation.cpp
+  animator.cpp
+  boxCollider.cpp
+  childSystem.cpp
+  transform.cpp
+C:\Dev\SpriteEngineUI\Engine\src\spriteComponents\transform.cpp(80,79): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
           with
           [
               T=int
           ]
-C:\Dev\SpriteEngineUI\Engine\src\spriteComponents\transform.cpp(74,60): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
+C:\Dev\SpriteEngineUI\Engine\src\spriteComponents\transform.cpp(80,60): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
           with
           [
               T=int
           ]
-C:\Dev\SpriteEngineUI\Engine\src\spriteComponents\transform.cpp(78,60): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
+C:\Dev\SpriteEngineUI\Engine\src\spriteComponents\transform.cpp(84,60): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
           with
           [
               T=int
           ]
-C:\Dev\SpriteEngineUI\Engine\src\spriteComponents\transform.cpp(82,63): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
+C:\Dev\SpriteEngineUI\Engine\src\spriteComponents\transform.cpp(88,63): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
           with
           [
               T=int
           ]
+  Generating Code...
   SpriteEngine.vcxproj -> C:\Dev\SpriteEngineUI\Engine\x64\Debug\SpriteEngine.exe

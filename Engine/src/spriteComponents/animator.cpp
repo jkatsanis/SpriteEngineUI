@@ -65,7 +65,8 @@ void s2d::Animator::update()
 
 void s2d::Animator::resetComponent()
 {
-	this->ptr_attachedSprite = nullptr;
+	this->animationPlaying.name = "";
+	this->animationPlaying.isAAnimationPlaying = false;
 	this->exists = false;
 	this->animations.clear();
 }

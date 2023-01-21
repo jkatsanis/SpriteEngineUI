@@ -13,7 +13,7 @@ s2d::Transform::Transform()
 
 s2d::Transform::Transform(s2d::Sprite* attachedSprite)
 {
-	this->m_scale = s2d::Vector2(1.0f, 1.0f);
+	this->m_scale = s2d::Vector2(0.0f, 0.0f);
 	this->keepOpenInHirachy = false;
 	this->position = s2d::Vector2(0.0f, 0.0f);
 	this->posiitonChanged = false;		
@@ -44,13 +44,8 @@ void s2d::Transform::updateTransformPosition()
 	this->setLastPosition();
 }
 
-void s2d::Transform::setScale(const s2d::Vector2& scale)
+void s2d::Transform::setTextureSize(const s2d::Vector2& scale)
 {
-	if (this->m_scale == scale)
-	{
-		return;
-	}
-
 	s2d::Vector2 multiply = scale;
 
 	if (multiply.x < 0)
@@ -64,6 +59,17 @@ void s2d::Transform::setScale(const s2d::Vector2& scale)
 
 	sf::IntRect textureRect = this->m_attachedSprite->getSprite().getTextureRect();
 	this->textureSize = s2d::Vector2(textureRect.width * multiply.x, textureRect.height * multiply.y);
+}
+
+void s2d::Transform::setScale(const s2d::Vector2& scale)
+{
+	if (this->m_scale == scale)
+	{
+		return;
+	}
+
+	this->setTextureSize(scale);
+	sf::IntRect textureRect = this->m_attachedSprite->getSprite().getTextureRect();
 
 	this->m_scale = scale;
 	this->m_attachedSprite->getSprite().setOrigin(100, 71);

@@ -29,20 +29,19 @@ void s2d::PhsysicsBody::fixedUpdate()
 {
     if (!this->exists || this->ptr_attachedSprite == nullptr || this->gravity == 0) return;
 
-	//ALl Physic calcutions will happen here! -> calle from s2d::physics::update();
+    //ALl Physic calcutions will happen here! -> calle from s2d::physics::update();
 
     this->ptr_attachedSprite->transform.position += this->velocity * s2d::Time::deltaTime;
 
     if (this->exists)
     {
-        if (this->ptr_attachedSprite->collider.isInCollision() && this->ptr_attachedSprite->collider.positionData.isEqual(s2d::BoxColliderPositionData::Down))
+        if (this->ptr_attachedSprite->collider.positionData.isEqual(s2d::BoxColliderPositionData::Down))
         {
             this->velocity.y = 0.0f;
         }
-        else
-        {
-            this->velocity.y -= this->gravity * s2d::Time::deltaTime;
-        }
+       
+        this->velocity.y -= this->gravity / 10;
+        
     }
 }
 

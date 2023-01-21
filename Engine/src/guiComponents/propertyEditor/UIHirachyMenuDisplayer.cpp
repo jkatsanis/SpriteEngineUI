@@ -1,5 +1,6 @@
 #include "UIHirachyMenuDisplayer.h"
 #include <UIHirachySpriteDisplay.h>
+#include <UIHirachy.h>
 
 
 // Constructor 
@@ -141,5 +142,6 @@ void s2d::UIHirachyMenuDisplayer::deleteButton()
 
 		delete this->m_spriteDisplayer->deleteSprite;
 		this->m_spriteDisplayer->deleteSprite = nullptr;
+		s2d::UIHirachy::selectedSprite = nullptr;
 	}
 }

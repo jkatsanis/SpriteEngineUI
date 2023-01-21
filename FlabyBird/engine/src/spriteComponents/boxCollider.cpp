@@ -38,7 +38,20 @@ bool s2d::BoxCollider::checkCollision(s2d::BoxCollider& other, const int jIndex)
         if (other.isSolid && this->isSolid)
             checkPositions(other, jIndex);
         this->positionData.position[this->collisionCnt] = s2d::BoxColliderPositionData::Collision;
+        this->collisionCnt++;
         return true;
+    }
+    return false;
+}
+
+bool s2d::BoxCollider::isInCollision()
+{
+    for (short i = 0; i < s2d::BoxColliderPositionData::s_canCollideSpritesAround; i++)
+    {
+        if (this->positionData.position[i] == s2d::BoxColliderPositionData::Position::Collision)
+        {
+            return true;
+        }
     }
     return false;
 }
@@ -64,7 +77,6 @@ bool s2d::BoxCollider::checkIAndJPCollisions(int i, int j)
 void s2d::BoxCollider::checkPositions(const BoxCollider& other, const int jIndex)
 {
     short range = 10;
-
     // Right
     if (this->sprite->getOrigininalPosition().x + this->sprite->transform.textureSize.x + this->sprite->collider.boxColliderWidthLeftOrRight.y >= other.sprite->getOrigininalPosition().x + other.boxColliderWidthLeftOrRight.x
         && this->sprite->getOrigininalPosition().x + this->sprite->transform.textureSize.x  + this->sprite->collider.boxColliderWidthLeftOrRight.y <= other.sprite->getOrigininalPosition().x + other.boxColliderWidthLeftOrRight.x + range)
@@ -127,7 +139,7 @@ void s2d::BoxCollider::checkCollisions()
     // set the colliding sprite to nulltpr if the sprite doens't collide
     for (int i = 0; i < s2d::Sprite::activeSprites.size(); i++)
     {
-        if (s2d::Sprite::activeSprites[i]->collider.positionData.isEverythingUnknown())
+        if (s2d::Sprite::activeSprites[i]->collider.positionData.isCollidingInAnyDirection())
         {
             s2d::Sprite::activeSprites[i]->collider.collidingSprite = nullptr;
         }

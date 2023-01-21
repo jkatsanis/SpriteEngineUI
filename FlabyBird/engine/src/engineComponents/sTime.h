@@ -17,6 +17,7 @@ namespace s2d
 		static float deltaTime;
 		static sf::Clock deltaClock;
 		static float timePassed;
+		static float timePassedTillLastPhysicsUpdate;
 
 		Time() = delete;
 

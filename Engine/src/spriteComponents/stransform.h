@@ -35,6 +35,8 @@ namespace s2d
 
 		void updateTransformPosition();
 
+		void setTextureSize(const s2d::Vector2& scale);
+
 	public:
 		void setScale(const s2d::Vector2& scale);
 		s2d::Vector2 const getScale() { return this->m_scale; }
