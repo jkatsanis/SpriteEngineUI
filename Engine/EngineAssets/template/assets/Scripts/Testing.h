@@ -11,7 +11,6 @@
 class Testing : s2d::GameData
 {
 private:
-
 	s2d::Camera* camera;
 	s2d::Sprite* thisSprite;
 	s2d::Sprite* up;

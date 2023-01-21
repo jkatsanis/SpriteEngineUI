@@ -50,11 +50,41 @@ void s2d::Transform::setScale(const s2d::Vector2& scale)
 	{
 		return;
 	}
+
+	s2d::Vector2 multiply = scale;
+
+	if (multiply.x < 0)
+	{
+		multiply.x = multiply.x * -1;
+	}
+	if (multiply.y < 0)
+	{
+		multiply.y = multiply.y * -1;
+	}
+
+	sf::IntRect textureRect = this->m_attachedSprite->getSprite().getTextureRect();
+	this->textureSize = s2d::Vector2(textureRect.width * multiply.x, textureRect.height * multiply.y);
+
 	this->m_scale = scale;
-	this->textureSize *= scale;
-	this->m_attachedSprite->getSprite().setScale(sf::Vector2f(this->m_scale.x, this->m_scale.y));
-	s2d::Vector2 size = s2d::Vector2(this->m_attachedSprite->getTexture().getSize().x, this->m_attachedSprite->getTexture().getSize().y);
-	this->textureSize = size * this->getScale();
+	this->m_attachedSprite->getSprite().setOrigin(100, 71);
+	this->m_attachedSprite->getSprite().setScale(scale.x, scale.y);
+
+	if (scale.x < 0 && scale.y < 0)
+	{
+		this->m_attachedSprite->getSprite().setOrigin(textureRect.width, textureRect.height);
+	}
+	else if (scale.x < 0)
+	{
+		this->m_attachedSprite->getSprite().setOrigin(textureRect.width, 0);
+	}
+	else if (scale.y < 0)
+	{
+		this->m_attachedSprite->getSprite().setOrigin(0, textureRect.height);
+	}
+	else
+	{
+		this->m_attachedSprite->getSprite().setOrigin(0, 0);
+	}
 }
 
 //Public static functions

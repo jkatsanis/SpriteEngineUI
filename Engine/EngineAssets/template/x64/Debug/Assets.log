@@ -1,12 +1,2 @@
-﻿  stransform.cpp
-C:\Dev\Scale2\engine\src\spriteComponents\stransform.cpp(56,131): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
-          with
-          [
-              T=unsigned int
-          ]
-C:\Dev\Scale2\engine\src\spriteComponents\stransform.cpp(56,81): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
-          with
-          [
-              T=unsigned int
-          ]
-  Assets.vcxproj -> C:\Dev\Scale2\x64\Debug\Assets.exe
+﻿  Testing.cpp
+  Assets.vcxproj -> C:\Dev\SpriteEngineUI\FlabyBird\x64\Debug\Assets.exe

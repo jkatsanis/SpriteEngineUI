@@ -134,8 +134,8 @@ void s2d::Sprite::initVariables(std::string name, s2d::Vector2 spawnPos, std::st
 
 void s2d::Sprite::setScaleBasedOnTextureSize()
 {
-	s2d::Vector2 size = s2d::Vector2(this->m_texture.getSize().x, this->m_texture.getSize().y);
-	this->transform.textureSize = size * this->transform.getScale();
+	//::Vector2 size = s2d::Vector2(this->m_texture.getSize().x, this->m_texture.getSize().y);
+	//this->transform.textureSize = size * this->transform.getScale();
 }
 
 //Static functions
@@ -178,7 +178,6 @@ void s2d::Sprite::initActiveSprites()
 			sprite->setVectorPosition(atoi(propertys[1].c_str()));
 			sprite->transform.position.x = std::stof(propertys[2].c_str());
 			sprite->transform.position.y = std::stof(propertys[3].c_str());
-			sprite->transform.setScale(s2d::Vector2(std::stof(propertys[4].c_str()), std::stof(propertys[5].c_str())));
 			sprite->path = s2d::EngineData::s_pathToUserProject + "\\" + propertys[6];
 
 			//INFO: Setting box collider props 5 - 8 down lol
@@ -192,7 +191,8 @@ void s2d::Sprite::initActiveSprites()
 			sf::Vector2u tempSize = sprite->m_texture.getSize();
 			sprite->transform.textureSize = Vector2(float(tempSize.x), float(tempSize.y));
 			sprite->m_sprite.setTexture(sprite->m_texture);
-	
+			sprite->transform.setScale(s2d::Vector2(std::stof(propertys[4].c_str()), std::stof(propertys[5].c_str())));
+
 			//Collider
 			sprite->collider.boxColliderWidthLeftOrRight.x = std::stof(propertys[7].c_str());
 			sprite->collider.boxColliderWidthLeftOrRight.y = std::stof(propertys[8].c_str());

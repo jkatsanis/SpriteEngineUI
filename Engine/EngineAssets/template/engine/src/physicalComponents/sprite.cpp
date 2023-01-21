@@ -17,7 +17,9 @@ s2d::Sprite::Sprite(std::string name, s2d::Vector2 spawnPosition, std::string pa
 	initVariables(name, spawnPosition, path);
 
 	if (addToWindowByConstruction)
-		s2d::Sprite::activeSprites.push_back(this);
+	{
+		this->addSpriteToScene();
+	}
 }
 
 //Public functions
@@ -37,6 +39,7 @@ void s2d::Sprite::setSpriteTexture(const std::string path)
 
 void s2d::Sprite::addSpriteToScene()
 {
+	this->m_vectorPosition = int(s2d::Sprite::activeSprites.size() + 1);
 	s2d::Sprite::activeSprites.push_back(this);
 }
 
@@ -81,8 +84,11 @@ void s2d::Sprite::renderInstant()
 
 void s2d::Sprite::setTextureSize()
 {
-	s2d::Vector2 size = s2d::Vector2(this->m_texture.getSize().x, this->m_texture.getSize().y);
-	this->transform.textureSize = size * this->transform.getScale();
+	/*s2d::Vector2 size = s2d::Vector2(this->m_texture.getSize().x, this->m_texture.getSize().y);
+
+	s2d::Vector2 scale = this->transform.getScale();
+
+	this->transform.textureSize = size * scale;*/
 }
 
 void s2d::Sprite::initVariables(std::string name, s2d::Vector2 spawnPos, std::string path)
@@ -209,16 +215,12 @@ void s2d::Sprite::initActiveSprites()
 			sprite->setVectorPosition(atoi(propertys[1].c_str()));
 			sprite->transform.position.x = std::stof(propertys[2].c_str());
 			sprite->transform.position.y = std::stof(propertys[3].c_str());
-			sprite->transform.setScale(s2d::Vector2(std::stof(propertys[4].c_str()), std::stof(propertys[5].c_str())));
-
 			sprite->path = propertys[6];
 
 			if (!sprite->m_texture.loadFromFile(sprite->path))
 			{
 				//Console log!
 			}
-			//Setting scale
-			sprite->m_sprite.setScale(sprite->m_sprite.getScale().x * s2d::GameObject::ssizeMultipliyer, sprite->m_sprite.getScale().y * s2d::GameObject::ssizeMultipliyer);
 
 			//Setting sprite size also in init and setTexture
 			sf::Vector2u tempSize = sprite->m_texture.getSize();
@@ -226,6 +228,8 @@ void s2d::Sprite::initActiveSprites()
 			//Multiplying size with 1.5f because we scale it up by 1.5f lol
 			sprite->transform.textureSize = Vector2(tempSize.x * s2d::GameObject::ssizeMultipliyer, tempSize.y * s2d::GameObject::ssizeMultipliyer);
 			sprite->m_sprite.setTexture(sprite->m_texture);
+
+			sprite->transform.setScale(s2d::Vector2(std::stof(propertys[4].c_str()), std::stof(propertys[5].c_str())));
 
 			//Setting BoxCollider
 			sprite->collider = BoxCollider(sprite);
@@ -323,6 +327,24 @@ s2d::Sprite* s2d::Sprite::getSpriteByName(std::string name)
 		}
 	}
 	return nullptr;
+}
+
+void s2d::Sprite::deleteSpriteByName(const std::string& name)
+{
+	// TODO: Delete child from parent 
+
+	for (int i = 0; i < s2d::Sprite::activeSprites.size(); i++)
+	{
+		if (s2d::Sprite::activeSprites[i]->name == name)
+		{
+			//deleting the deletet sprite + freeing it
+			s2d::Sprite* spr = s2d::Sprite::activeSprites[i];
+			std::cout << spr->getVectorPosition() << std::endl;
+			s2d::Sprite::activeSprites.erase((s2d::Sprite::activeSprites.begin() + spr->getVectorPosition() - 1));
+			delete spr;
+			spr = nullptr;
+		}
+	}
 }
 
 s2d::Sprite* s2d::Sprite::getSpriteById(int id)

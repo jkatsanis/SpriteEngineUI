@@ -95,6 +95,7 @@ namespace s2d
 		static void updateHightestLayerIndex();
 		static s2d::Sprite* getSpriteById(int id);
 		static Sprite* getSpriteByName(std::string name);
+		static void deleteSpriteByName(const std::string& name);
 
 		static int highestLayerIndex;
 

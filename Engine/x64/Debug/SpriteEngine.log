@@ -1,12 +1,22 @@
-﻿  sprite.cpp
-C:\Dev\SpriteEngineUI\Engine\src\physicalComponents\sprite.cpp(137,89): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
+﻿  transform.cpp
+C:\Dev\SpriteEngineUI\Engine\src\spriteComponents\transform.cpp(74,79): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
           with
           [
-              T=unsigned int
+              T=int
           ]
-C:\Dev\SpriteEngineUI\Engine\src\physicalComponents\sprite.cpp(137,60): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
+C:\Dev\SpriteEngineUI\Engine\src\spriteComponents\transform.cpp(74,60): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
           with
           [
-              T=unsigned int
+              T=int
+          ]
+C:\Dev\SpriteEngineUI\Engine\src\spriteComponents\transform.cpp(78,60): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
+          with
+          [
+              T=int
+          ]
+C:\Dev\SpriteEngineUI\Engine\src\spriteComponents\transform.cpp(82,63): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
+          with
+          [
+              T=int
           ]
   SpriteEngine.vcxproj -> C:\Dev\SpriteEngineUI\Engine\x64\Debug\SpriteEngine.exe
