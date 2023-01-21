@@ -13,7 +13,7 @@ void s2d::BoxColliderPositionData::resetPosition()
 	}
 }
 
-bool s2d::BoxColliderPositionData::isCollidingInAnyDirection()
+bool s2d::BoxColliderPositionData::isNotCollidingInAnyDirection()
 {
  	int cnt = 0;
 	for (int i = 0; i < s2d::BoxColliderPositionData::s_canCollideSpritesAround; i++)
@@ -38,4 +38,4 @@ bool s2d::BoxColliderPositionData::isEqual(s2d::BoxColliderPositionData::Positio
 	return false;
 }
 
-int s2d::BoxColliderPositionData::s_canCollideSpritesAround = 255 * 2;
+int s2d::BoxColliderPositionData::s_canCollideSpritesAround = 100;

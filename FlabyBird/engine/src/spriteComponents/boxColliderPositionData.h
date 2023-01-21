@@ -20,14 +20,14 @@ namespace s2d
 		};
 
 		//This is the array containing the sprites which collide around us
-		Position position[255 * 2];
+		Position position[100];
 
 		void resetPosition();	
 
 		/// <summary>
 		/// This method returns true if the sprite is solid while colliding in a sprite in a certain direction
 		/// </summary>
-		bool isCollidingInAnyDirection();
+		bool isNotCollidingInAnyDirection();
 
 		/// <summary>
 		/// returns true if the direction passed exists in the array

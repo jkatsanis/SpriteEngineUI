@@ -52,7 +52,11 @@ namespace s2d
 		Sprite();
 		Sprite(std::string name, s2d::Vector2 spawnPosition, std::string path);
 		Sprite(std::string name, s2d::Vector2 spawnPosition, std::string path, bool addToWindowByConstruction);
-
+		
+		/// <summary>
+		/// Position, texture, scale, gets updatet in renderer.cpp
+		/// </summary>
+		/// <param name="path"></param>
 		void setSpriteTexture(const std::string path);
 		void setSpritePosition();
 

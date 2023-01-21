@@ -24,9 +24,6 @@ void s2d::UIInspector::render()
 	if (s2d::UIHirachy::selectedSprite != nullptr)
 	{
 		this->m_currentSpriteInInspector = s2d::UIHirachy::selectedSprite;
-
-		std::cout << this->m_currentSpriteInInspector->name << std::endl;
-
 		this->state = s2d::InspectorState::SpriteEditorWindow;
 		this->m_inputName = &this->m_currentSpriteInInspector->name[0];
 
@@ -64,7 +61,7 @@ void s2d::UIInspector::render()
 	ImGui::SetWindowPos(ImVec2(1530.0f, 0.0f));
 	ImGui::SetWindowSize(ImVec2(this->m_windowSizeWidth, 1080.0f));
 
-	this->isHovered = ImGui::IsWindowHovered(ImGuiHoveredFlags_AllowWhenBlockedByActiveItem);
+	this->isHovered = ImGui::IsWindowHovered(ImGuiHoveredFlags_AllowWhenBlockedByActiveItem | ImGuiHoveredFlags_AllowWhenBlockedByPopup);
 }
 
 void s2d::UIInspector::checkDupeName()
@@ -166,8 +163,6 @@ void s2d::UIInspector::gameEngineViewSetting()
 
 		ImGui::TreePop();
 	}
-
-
 }
 
 #pragma endregion
@@ -408,7 +403,7 @@ void s2d::UIInspector::componentSelector()
 		}
 		ImGui::EndCombo();
 	}
-
+	
 	ImGui::Dummy(ImVec2(0, 7));
 	ImGui::Separator();
 }

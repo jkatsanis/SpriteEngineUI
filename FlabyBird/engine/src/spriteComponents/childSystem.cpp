@@ -36,7 +36,11 @@ void s2d::ChildSystem::updatePositionRevursivWhenChildIsColliding(s2d::Sprite* c
 
 void s2d::ChildSystem::resetPositionWhenChildIsColliding(s2d::Sprite* child)
 {
-	if (child->collider.positionData.isCollidingInAnyDirection())
+	if (child->parent == nullptr)
+	{
+		return;
+	}
+	if (child->collider.positionData.isNotCollidingInAnyDirection())
 	{
 		return;
 	}
@@ -44,7 +48,7 @@ void s2d::ChildSystem::resetPositionWhenChildIsColliding(s2d::Sprite* child)
 
 	setBoxColliderPosition(child, node);
 
-	s2d::ChildSystem::updatePositionRevursivWhenChildIsColliding(node);
+	//s2d::ChildSystem::updatePositionRevursivWhenChildIsColliding(node);
 }
 
 

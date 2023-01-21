@@ -139,7 +139,7 @@ void s2d::BoxCollider::checkCollisions()
     // set the colliding sprite to nulltpr if the sprite doens't collide
     for (int i = 0; i < s2d::Sprite::activeSprites.size(); i++)
     {
-        if (s2d::Sprite::activeSprites[i]->collider.positionData.isCollidingInAnyDirection())
+        if (!s2d::Sprite::activeSprites[i]->collider.isInCollision())
         {
             s2d::Sprite::activeSprites[i]->collider.collidingSprite = nullptr;
         }

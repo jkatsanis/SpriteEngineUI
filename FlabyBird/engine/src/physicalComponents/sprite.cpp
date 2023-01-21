@@ -46,7 +46,7 @@ void s2d::Sprite::addSpriteToScene()
 void s2d::Sprite::setSpritePosition()
 {
 	//Pushing the sprites from a collider if 1 exists && we collided && IF everyting is unknown (no sprite collidng) then why a check
-	if (!this->collider.positionData.isCollidingInAnyDirection())
+	if (!this->collider.positionData.isNotCollidingInAnyDirection())
 	{
 		this->pushSetup();
 	}
@@ -78,6 +78,7 @@ s2d::Vector2 s2d::Sprite::getOrigininalPosition()
 
 void s2d::Sprite::renderInstant()
 {
+	this->setSpriteTexture(this->path);
 	this->updateHightestLayerIndex();
 }
 
@@ -85,11 +86,7 @@ void s2d::Sprite::renderInstant()
 
 void s2d::Sprite::setTextureSize()
 {
-	/*s2d::Vector2 size = s2d::Vector2(this->m_texture.getSize().x, this->m_texture.getSize().y);
-
-	s2d::Vector2 scale = this->transform.getScale();
-
-	this->transform.textureSize = size * scale;*/
+	this->transform.setTextureSize(this->transform.getScale());
 }
 
 void s2d::Sprite::initVariables(std::string name, s2d::Vector2 spawnPos, std::string path)

@@ -153,7 +153,7 @@ void s2d::GameEngine::start()
 
 	//Engine 
 	this->windowEvent.type = sf::Event::GainedFocus;
-	this->ptr_renderWindow = new sf::RenderWindow(sf::VideoMode(1920, 1080), s2d::GameData::name, sf::Style::Default);
+	this->ptr_renderWindow = new sf::RenderWindow(sf::VideoMode(1920, 1080), s2d::GameData::name, sf::Style::Fullscreen);
 
 	s2d::GameObject::camera = s2d::Camera(this->ptr_renderWindow);
 
@@ -162,5 +162,6 @@ void s2d::GameEngine::start()
 	ImGui::SFML::Init(*this->ptr_renderWindow);
 
 	this->m_renderer = s2d::Renderer(this->ptr_renderWindow);
+
 }
 

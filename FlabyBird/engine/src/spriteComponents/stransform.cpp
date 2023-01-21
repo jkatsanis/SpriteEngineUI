@@ -34,6 +34,23 @@ void s2d::Transform::setLastPosition()
 	}
 }
 
+void s2d::Transform::setTextureSize(const s2d::Vector2& scale)
+{
+	s2d::Vector2 multiply = scale;
+
+	if (multiply.x < 0)
+	{
+		multiply.x = multiply.x * -1;
+	}
+	if (multiply.y < 0)
+	{
+		multiply.y = multiply.y * -1;
+	}
+
+	sf::IntRect textureRect = this->m_attachedSprite->getSprite().getTextureRect();
+	this->textureSize = s2d::Vector2(textureRect.width * multiply.x, textureRect.height * multiply.y);
+}
+
 void s2d::Transform::updateTransformPosition()
 {
 	//Setting it centered 
@@ -51,19 +68,8 @@ void s2d::Transform::setScale(const s2d::Vector2& scale)
 		return;
 	}
 
-	s2d::Vector2 multiply = scale;
-
-	if (multiply.x < 0)
-	{
-		multiply.x = multiply.x * -1;
-	}
-	if (multiply.y < 0)
-	{
-		multiply.y = multiply.y * -1;
-	}
-
+	this->setTextureSize(scale);
 	sf::IntRect textureRect = this->m_attachedSprite->getSprite().getTextureRect();
-	this->textureSize = s2d::Vector2(textureRect.width * multiply.x, textureRect.height * multiply.y);
 
 	this->m_scale = scale;
 	this->m_attachedSprite->getSprite().setOrigin(100, 71);
