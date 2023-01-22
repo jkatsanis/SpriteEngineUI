@@ -1,4 +1,5 @@
 #include "gameEngine.h"
+#include <SFML/OpenGL.hpp>
 
 s2d::GameEngine::GameEngine()
 {
@@ -153,7 +154,8 @@ void s2d::GameEngine::start()
 
 	//Engine 
 	this->windowEvent.type = sf::Event::GainedFocus;
-	this->ptr_renderWindow = new sf::RenderWindow(sf::VideoMode(1920, 1080), s2d::GameData::name, sf::Style::Fullscreen);
+	this->ptr_renderWindow = new sf::RenderWindow(sf::VideoMode(1920, 1080),
+		s2d::GameData::name, sf::Style::Fullscreen);
 
 	s2d::GameObject::camera = s2d::Camera(this->ptr_renderWindow);
 

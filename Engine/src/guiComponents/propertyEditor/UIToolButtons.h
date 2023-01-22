@@ -14,14 +14,22 @@
 
 namespace s2d
 {
+	enum class EditorTools
+	{
+		PositionTool,
+		ScaleTool
+	};
 	class UIToolButtons
 	{
 	private:
 		s2d::Vector3 m_windowbBackgroundToSave;
 
 		void askWithButtonForPlayGame();
+		void toolSelector();
+
 	public:
 		bool isHovered;
+		EditorTools editorTools;
 
 		UIToolButtons();
 

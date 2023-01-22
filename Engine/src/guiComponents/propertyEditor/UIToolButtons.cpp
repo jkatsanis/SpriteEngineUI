@@ -17,7 +17,8 @@ void s2d::UIToolButtons::createToolsAndButtons()
 	ImGui::SetWindowSize(ImVec2(1280, 100.0f));
 
 	//Button at the top to click and play game 
-	askWithButtonForPlayGame();
+	this->askWithButtonForPlayGame();
+	this->toolSelector();
 
 	this->isHovered = ImGui::IsWindowHovered(ImGuiHoveredFlags_AllowWhenBlockedByActiveItem);
 
@@ -83,4 +84,14 @@ void s2d::UIToolButtons::askWithButtonForPlayGame()
 		delete[] wideString;
 	}
 
+}
+
+void s2d::UIToolButtons::toolSelector()
+{
+	ImGui::SetCursorPosY(ImGui::GetCursorPosY() - 35);
+
+	if (s2d::FontManager::displaySmybolAsButton(ICON_FA_ARROWS))
+	{
+		this->editorTools = s2d::EditorTools::PositionTool;
+	}
 }

@@ -79,6 +79,7 @@ void s2d::FontManager::InitFonts(ImGuiIO& io)
 
 	static const ImWchar ranges[] =
 	{
+		0xf047, 0xf047, // Arrows
 		0xf002, 0xf002, // Search
 		0xf067, 0xf067, // Plus
 		0xf044, 0xf044, // Edit

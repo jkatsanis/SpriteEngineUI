@@ -67,21 +67,6 @@
     <Filter Include="src\Components\guiComponents\window">
       <UniqueIdentifier>{02751834-ac55-40d5-adb9-30901e17b7bf}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\Components\engineComponents">
-      <UniqueIdentifier>{54cb8602-ec46-4994-8890-81ef8ad9b2e9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\Components\engineComponents\event">
-      <UniqueIdentifier>{7694d3ab-842c-49be-9fe1-7b895fcfcbf9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\Components\engineComponents\engjne">
-      <UniqueIdentifier>{2de54da9-9bcc-4edd-ac70-3718fc9f6063}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\Components\engineComponents\input">
-      <UniqueIdentifier>{ba19a56c-6740-4b61-a244-294f007f9007}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\Components\engineComponents\time">
-      <UniqueIdentifier>{a9ba8dba-ec0d-476b-839a-8def425d9835}</UniqueIdentifier>
-    </Filter>
     <Filter Include="src\Components\calculationComponents">
       <UniqueIdentifier>{c5da6a4c-8986-454c-9eac-00ff2473f51d}</UniqueIdentifier>
     </Filter>
@@ -109,29 +94,11 @@
     <Filter Include="src\Include/headers\__include\icons">
       <UniqueIdentifier>{dd2b3d52-cf91-49e0-ab72-74e04ae139f0}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\Components\engineComponents\data">
-      <UniqueIdentifier>{36c21588-c40b-4a06-b73d-1f63d6e810e0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\Components\engineComponents\data\sprite">
-      <UniqueIdentifier>{c5e08365-c873-4cce-bcc1-55715c290484}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\Components\engineComponents\data\UI">
-      <UniqueIdentifier>{85ea485f-3b17-4cd6-addd-d5d1df266625}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\Components\engineComponents\data\file">
-      <UniqueIdentifier>{c39b7ee3-d525-459c-8c6f-3fafec5223d0}</UniqueIdentifier>
-    </Filter>
     <Filter Include="src\Components\guiComponents\projectSelector">
       <UniqueIdentifier>{5b085ae3-eaf8-4d87-b9fe-c4f627d9d8c7}</UniqueIdentifier>
     </Filter>
     <Filter Include="src\Components\guiComponents\projectSelector\selector">
       <UniqueIdentifier>{73a01882-7de8-4de4-98a4-cbaa87a99896}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\Components\engineComponents\data\engine">
-      <UniqueIdentifier>{7a5a6dea-281f-4d88-aea8-91d046ba54c2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\Components\engineComponents\renderer">
-      <UniqueIdentifier>{11e41f95-0da7-436a-bfac-ed4cf7d78271}</UniqueIdentifier>
     </Filter>
     <Filter Include="src\Components\guiComponents\projectSelector\create/open">
       <UniqueIdentifier>{f7276a62-4241-416b-a8ed-710d28d88a06}</UniqueIdentifier>
@@ -147,6 +114,45 @@
     </Filter>
     <Filter Include="src\Components\manager\fileDialgo">
       <UniqueIdentifier>{4fbfab22-2202-40a3-bf2e-13ae7c38df85}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Components\guiComponents\engineComponents">
+      <UniqueIdentifier>{54cb8602-ec46-4994-8890-81ef8ad9b2e9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Components\guiComponents\engineComponents\event">
+      <UniqueIdentifier>{7694d3ab-842c-49be-9fe1-7b895fcfcbf9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Components\guiComponents\engineComponents\engjne">
+      <UniqueIdentifier>{2de54da9-9bcc-4edd-ac70-3718fc9f6063}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Components\guiComponents\engineComponents\input">
+      <UniqueIdentifier>{ba19a56c-6740-4b61-a244-294f007f9007}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Components\guiComponents\engineComponents\time">
+      <UniqueIdentifier>{a9ba8dba-ec0d-476b-839a-8def425d9835}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Components\guiComponents\engineComponents\data">
+      <UniqueIdentifier>{36c21588-c40b-4a06-b73d-1f63d6e810e0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Components\guiComponents\engineComponents\data\sprite">
+      <UniqueIdentifier>{c5e08365-c873-4cce-bcc1-55715c290484}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Components\guiComponents\engineComponents\data\UI">
+      <UniqueIdentifier>{85ea485f-3b17-4cd6-addd-d5d1df266625}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Components\guiComponents\engineComponents\data\file">
+      <UniqueIdentifier>{c39b7ee3-d525-459c-8c6f-3fafec5223d0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Components\guiComponents\engineComponents\data\engine">
+      <UniqueIdentifier>{7a5a6dea-281f-4d88-aea8-91d046ba54c2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Components\guiComponents\engineComponents\renderer">
+      <UniqueIdentifier>{11e41f95-0da7-436a-bfac-ed4cf7d78271}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Components\guiComponents\realTimeEditor\transform">
+      <UniqueIdentifier>{eeaaa006-8948-4acf-814e-d408247860ab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Components\guiComponents\realTimeEditor\navigator">
+      <UniqueIdentifier>{15595d5a-f23b-40e8-ab8f-3ef28627da21}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -165,9 +171,6 @@
     <ClCompile Include="src\include\imgui\imgui-SFML.cpp">
       <Filter>src\Include/headers\__include\imgui\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\guiComponents\realTimeEditor\UIRealTimeEditor.cpp">
-      <Filter>src\Components\guiComponents\realTimeEditor</Filter>
-    </ClCompile>
     <ClCompile Include="src\guiComponents\propertyEditor\UIAnimation.cpp">
       <Filter>src\Components\guiComponents\animation</Filter>
     </ClCompile>
@@ -179,12 +182,6 @@
     </ClCompile>
     <ClCompile Include="src\guiComponents\propertyEditor\UIAssetFolder.cpp">
       <Filter>src\Components\guiComponents\assets</Filter>
-    </ClCompile>
-    <ClCompile Include="src\guiComponents\realTimeEditor\UIRealTimeEditorNavigator.cpp">
-      <Filter>src\Components\guiComponents\realTimeEditor</Filter>
-    </ClCompile>
-    <ClCompile Include="src\guiComponents\realTimeEditor\UIRealTimeEditorTransform.cpp">
-      <Filter>src\Components\guiComponents\realTimeEditor</Filter>
     </ClCompile>
     <ClCompile Include="src\guiComponents\propertyEditor\UIHirachy.cpp">
       <Filter>src\Components\guiComponents\hirachy</Filter>
@@ -202,7 +199,7 @@
       <Filter>src\Components\manager\font</Filter>
     </ClCompile>
     <ClCompile Include="src\data\spriteData.cpp">
-      <Filter>src\Components\engineComponents\data\sprite</Filter>
+      <Filter>src\Components\guiComponents\engineComponents\data\sprite</Filter>
     </ClCompile>
     <ClCompile Include="src\physicalComponents\camera.cpp">
       <Filter>src\Components\physicalComponents\camera</Filter>
@@ -214,13 +211,13 @@
       <Filter>src\Components\physicalComponents\sprite</Filter>
     </ClCompile>
     <ClCompile Include="src\data\UIInfo.cpp">
-      <Filter>src\Components\engineComponents\data\UI</Filter>
+      <Filter>src\Components\guiComponents\engineComponents\data\UI</Filter>
     </ClCompile>
     <ClCompile Include="src\data\UIIconData.cpp">
-      <Filter>src\Components\engineComponents\data\UI</Filter>
+      <Filter>src\Components\guiComponents\engineComponents\data\UI</Filter>
     </ClCompile>
     <ClCompile Include="src\data\fileData.cpp">
-      <Filter>src\Components\engineComponents\data\file</Filter>
+      <Filter>src\Components\guiComponents\engineComponents\data\file</Filter>
     </ClCompile>
     <ClCompile Include="src\spriteComponents\animation.cpp">
       <Filter>src\Components\spriteComponents\animation</Filter>
@@ -253,16 +250,16 @@
       <Filter>src\Components\spriteComponents\transform</Filter>
     </ClCompile>
     <ClCompile Include="src\engineComponents\event.cpp">
-      <Filter>src\Components\engineComponents\event</Filter>
+      <Filter>src\Components\guiComponents\engineComponents\event</Filter>
     </ClCompile>
     <ClCompile Include="src\engineComponents\gameEngine.cpp">
-      <Filter>src\Components\engineComponents\engjne</Filter>
+      <Filter>src\Components\guiComponents\engineComponents\engjne</Filter>
     </ClCompile>
     <ClCompile Include="src\engineComponents\input.cpp">
-      <Filter>src\Components\engineComponents\input</Filter>
+      <Filter>src\Components\guiComponents\engineComponents\input</Filter>
     </ClCompile>
     <ClCompile Include="src\engineComponents\time.cpp">
-      <Filter>src\Components\engineComponents\time</Filter>
+      <Filter>src\Components\guiComponents\engineComponents\time</Filter>
     </ClCompile>
     <ClCompile Include="src\calculationComponents\vector2.cpp">
       <Filter>src\Components\calculationComponents</Filter>
@@ -284,10 +281,22 @@
       <Filter>src\Components\guiComponents\projectSelector\create/open</Filter>
     </ClCompile>
     <ClCompile Include="src\data\engineData.cpp">
-      <Filter>src\Components\engineComponents\data\engine</Filter>
+      <Filter>src\Components\guiComponents\engineComponents\data\engine</Filter>
     </ClCompile>
     <ClCompile Include="src\engineComponents\renderer.cpp">
-      <Filter>src\Components\engineComponents\renderer</Filter>
+      <Filter>src\Components\guiComponents\engineComponents\renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\guiComponents\realTimeEditor\UIRealTimeEditor.cpp">
+      <Filter>src\Components\guiComponents\realTimeEditor\transform</Filter>
+    </ClCompile>
+    <ClCompile Include="src\guiComponents\realTimeEditor\UIRealTimeEditorTransform.cpp">
+      <Filter>src\Components\guiComponents\realTimeEditor\transform</Filter>
+    </ClCompile>
+    <ClCompile Include="src\guiComponents\realTimeEditor\UIRealTimeEditorTransformPosition.cpp">
+      <Filter>src\Components\guiComponents\realTimeEditor\transform</Filter>
+    </ClCompile>
+    <ClCompile Include="src\guiComponents\realTimeEditor\UIRealTimeEditorNavigator.cpp">
+      <Filter>src\Components\guiComponents\realTimeEditor\navigator</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -648,44 +657,35 @@
     <ClInclude Include="src\guiComponents\propertyEditor\UIInspector.h">
       <Filter>src\Components\guiComponents\inspector</Filter>
     </ClInclude>
-    <ClInclude Include="src\guiComponents\realTimeEditor\UIRealTimeEditor.h">
-      <Filter>src\Components\guiComponents\realTimeEditor</Filter>
-    </ClInclude>
-    <ClInclude Include="src\guiComponents\realTimeEditor\UIRealTimeEditorNavigator.h">
-      <Filter>src\Components\guiComponents\realTimeEditor</Filter>
-    </ClInclude>
-    <ClInclude Include="src\guiComponents\realTimeEditor\UIRealTimeEditorTransform.h">
-      <Filter>src\Components\guiComponents\realTimeEditor</Filter>
-    </ClInclude>
     <ClInclude Include="src\guiComponents\propertyEditor\UIToolButtons.h">
       <Filter>src\Components\guiComponents\tools</Filter>
     </ClInclude>
     <ClInclude Include="src\engineComponents\event.h">
-      <Filter>src\Components\engineComponents\event</Filter>
+      <Filter>src\Components\guiComponents\engineComponents\event</Filter>
     </ClInclude>
     <ClInclude Include="src\physicalComponents\gameObject.h">
       <Filter>src\Components\physicalComponents\gameObject</Filter>
     </ClInclude>
     <ClInclude Include="src\engineComponents\gameEngine.h">
-      <Filter>src\Components\engineComponents\engjne</Filter>
+      <Filter>src\Components\guiComponents\engineComponents\engjne</Filter>
     </ClInclude>
     <ClInclude Include="src\guiComponents\UIWindow.h">
       <Filter>src\Components\guiComponents\window</Filter>
     </ClInclude>
     <ClInclude Include="src\data\UIInfo.h">
-      <Filter>src\Components\engineComponents\data\UI</Filter>
+      <Filter>src\Components\guiComponents\engineComponents\data\UI</Filter>
     </ClInclude>
     <ClInclude Include="src\data\UIIconData.h">
-      <Filter>src\Components\engineComponents\data\UI</Filter>
+      <Filter>src\Components\guiComponents\engineComponents\data\UI</Filter>
     </ClInclude>
     <ClInclude Include="src\engineComponents\input.h">
-      <Filter>src\Components\engineComponents\input</Filter>
+      <Filter>src\Components\guiComponents\engineComponents\input</Filter>
     </ClInclude>
     <ClInclude Include="src\engineComponents\keyBoard.h">
-      <Filter>src\Components\engineComponents\input</Filter>
+      <Filter>src\Components\guiComponents\engineComponents\input</Filter>
     </ClInclude>
     <ClInclude Include="src\engineComponents\stime.h">
-      <Filter>src\Components\engineComponents\time</Filter>
+      <Filter>src\Components\guiComponents\engineComponents\time</Filter>
     </ClInclude>
     <ClInclude Include="src\manager\saveSystem.h">
       <Filter>src\Components\manager\files</Filter>
@@ -694,10 +694,10 @@
       <Filter>src\Components\manager\font</Filter>
     </ClInclude>
     <ClInclude Include="src\data\fileData.h">
-      <Filter>src\Components\engineComponents\data\file</Filter>
+      <Filter>src\Components\guiComponents\engineComponents\data\file</Filter>
     </ClInclude>
     <ClInclude Include="src\data\spriteData.h">
-      <Filter>src\Components\engineComponents\data\sprite</Filter>
+      <Filter>src\Components\guiComponents\engineComponents\data\sprite</Filter>
     </ClInclude>
     <ClInclude Include="src\physicalComponents\sprite.h">
       <Filter>src\Components\physicalComponents\sprite</Filter>
@@ -748,16 +748,28 @@
       <Filter>src\Components\guiComponents\projectSelector\create/open</Filter>
     </ClInclude>
     <ClInclude Include="src\data\projectInfo.h">
-      <Filter>src\Components\engineComponents\data</Filter>
+      <Filter>src\Components\guiComponents\engineComponents\data</Filter>
     </ClInclude>
     <ClInclude Include="src\data\engineData.h">
-      <Filter>src\Components\engineComponents\data\engine</Filter>
+      <Filter>src\Components\guiComponents\engineComponents\data\engine</Filter>
     </ClInclude>
     <ClInclude Include="src\engineComponents\renderer.h">
-      <Filter>src\Components\engineComponents\renderer</Filter>
+      <Filter>src\Components\guiComponents\engineComponents\renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\guiComponents\colors.h">
       <Filter>src\Components\guiComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="src\guiComponents\realTimeEditor\UIRealTimeEditor.h">
+      <Filter>src\Components\guiComponents\realTimeEditor\transform</Filter>
+    </ClInclude>
+    <ClInclude Include="src\guiComponents\realTimeEditor\UIRealTimeEditorTransform.h">
+      <Filter>src\Components\guiComponents\realTimeEditor\transform</Filter>
+    </ClInclude>
+    <ClInclude Include="src\guiComponents\realTimeEditor\UIRealTimeEditorTransformPosition.h">
+      <Filter>src\Components\guiComponents\realTimeEditor\transform</Filter>
+    </ClInclude>
+    <ClInclude Include="src\guiComponents\realTimeEditor\UIRealTimeEditorNavigator.h">
+      <Filter>src\Components\guiComponents\realTimeEditor\navigator</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
