@@ -1,1 +1,0 @@
-Please create only 255 / child-sprites childs!
