@@ -28,7 +28,7 @@ You can find a Introduction to the engine on [YouTube](https://www.youtube.com/w
 1. **Create a Project**
     In the folder open the .exe and create a new project by clicking on the create button. 
 
-    ![Screenshots](.git/selector.png)
+    ![Screenshots](GitHub/selector.png)
 
     A File Dialog will open, select where u want to create the project and hit the '**+**' button.
 
@@ -45,14 +45,15 @@ You can find a Introduction to the engine on [YouTube](https://www.youtube.com/w
 
    You can create a new **Sprite ptr** in your class:
 
-   ![Screenshot](decleration.png)
+   ![Screenshot](GitHub/decleration.png)
 
    You can give the **Sprite ptr** a address by calling the **s2d::Sprite::getSpriteByName("name");** function, to search for a sprite with the name **'name'**. This will return a **'nullptr'** or the adress to this sprite.
 
-    ![Screenshot](start.png)
+    ![Screenshot](GitHub/start.png)
 
     Finally you can change the properties of the sprite using the **update** function for example: 
-  ![Screenshot](update.png)
+
+    ![Screenshot](GitHub/update.png)
 
 
    
