@@ -46,15 +46,35 @@ You can find a Introduction to the engine on [YouTube](https://www.youtube.com/w
 
    You can create a new **Sprite ptr** in your class:
 
-   ![Screenshot](GitHub/decleration.png)
+    ```C++
+    class Testing : GameData
+    {
+        private:
+        Sprite* m_sprite;
+    }
 
+    ```
    You can give the **Sprite ptr** a address by calling the **s2d::Sprite::getSpriteByName("name");** function, to search for a sprite with the name **'name'**. This will return a **'nullptr'** or the adress to this sprite.
 
-    ![Screenshot](GitHub/start.png)
+    ```C++
+    void Testing::start()
+    {
+        this->m_sprite = Sprite::getSpriteByName("name");
+    }
+    ```
 
     Finally you can change the properties of the sprite using the **update** function for example: 
 
-    ![Screenshot](GitHub/update.png)
+
+    ```C++
+    void Testing::update()
+    {
+        if(Input::onKeyHold(KeyBoardCode::A))
+        {
+            this->m_sprite.transform.position.x -= 700 * Time::deltaTime;
+        }
+    }
+    ```
 
 
    
