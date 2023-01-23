@@ -26,6 +26,7 @@ You can get started by downloading the Engine folder [here](https//github.com)
 You can find a Introduction to the engine on [YouTube](https://www.youtube.com/watch?v=pnCD5dKhpmg)
 
 1. **Create a Project**
+
     In the folder open the .exe and create a new project by clicking on the create button. 
 
     ![Screenshots](GitHub/selector.png)
@@ -38,7 +39,7 @@ You can find a Introduction to the engine on [YouTube](https://www.youtube.com/w
 
     I'am **looking to add** a feature where u can build the project in a folder with it's name, containing all the dll's and **renamed files**. 
 
-2. How Do I Script My Sprites?
+2. **How Do I Script My Sprites?**
 
    In the Game Engine you can right click in the Asset folder and select **New -> C++ Script**, this will create a new Script containing the **update** and **start** functions.
    (You can find the docs the the functions in the engine)
