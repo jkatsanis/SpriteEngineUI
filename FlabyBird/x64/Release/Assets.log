@@ -1,6 +1,58 @@
-﻿  Assets.cpp
+﻿  event.cpp
+  FileData.cpp
+C:\Dev\SpriteEngineUI\FlabyBird\engine\src\data\FileData.cpp(29,16): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Dev\SpriteEngineUI\FlabyBird\engine\src\data\FileData.cpp(30,16): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Dev\SpriteEngineUI\FlabyBird\engine\src\data\FileData.cpp(31,16): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+  gameEngine.cpp
+  gameData.cpp
+  input.cpp
+  sTime.cpp
+  imgui-SFML.cpp
+C:\Dev\SpriteEngineUI\FlabyBird\engine\src\include\imgui\imgui-SFML.cpp(559,67): warning C4244: 'argument': conversion from 'const int' to 'float', possible loss of data
+C:\Dev\SpriteEngineUI\FlabyBird\engine\src\include\imgui\imgui-SFML.cpp(559,48): warning C4244: 'argument': conversion from 'const int' to 'float', possible loss of data
+  imgui.cpp
+  imgui_draw.cpp
+  imgui_tables.cpp
+  imgui_widgets.cpp
+  camera.cpp
+  boxCollider.cpp
+  boxColliderPositionData.cpp
+  childSystem.cpp
+  gameObject.cpp
+  physicsBody.cpp
+  sprite.cpp
+  spriteData.cpp
+  stransform.cpp
+C:\Dev\SpriteEngineUI\FlabyBird\engine\src\spriteComponents\stransform.cpp(80,79): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
+          with
+          [
+              T=int
+          ]
+C:\Dev\SpriteEngineUI\FlabyBird\engine\src\spriteComponents\stransform.cpp(80,60): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
+          with
+          [
+              T=int
+          ]
+C:\Dev\SpriteEngineUI\FlabyBird\engine\src\spriteComponents\stransform.cpp(84,60): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
+          with
+          [
+              T=int
+          ]
+C:\Dev\SpriteEngineUI\FlabyBird\engine\src\spriteComponents\stransform.cpp(88,63): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
+          with
+          [
+              T=int
+          ]
+  Compiling...
+  vector2.cpp
+  vector3.cpp
+  physics.cpp
+  main.cpp
+  Testing.cpp
+  GUIManager.cpp
+  renderer.cpp
   Generating code
-  Compiler switch has changed, fall back to full compilation.
-  All 5 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  Previous IPDB was built with incompatible compiler, fall back to full compilation.
+  All 1779 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
   Finished generating code
-  Assets.vcxproj -> C:\Programmieren\c++\Projects\Testing\SFML\SpriteEngineTest\Assets\x64\Release\Assets.exe
+  Assets.vcxproj -> C:\Dev\SpriteEngineUI\FlabyBird\x64\Release\Assets.exe

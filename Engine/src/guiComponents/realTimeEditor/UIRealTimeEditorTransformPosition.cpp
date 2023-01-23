@@ -38,33 +38,19 @@ void s2d::UIRealTimeEditorTransformPosition::update()
     // Check if we click on a sprite in the editor
     s2d::Sprite* clickedSprite = this->checkIfMouseClickedOnSprite();
 
-    if (clickedSprite != nullptr)
+    sf::Vector2i cursorPos = sf::Mouse::getPosition(*this->m_ptr_Window);
+    this->m_cursorWorldPos = this->m_ptr_Window->mapPixelToCoords(cursorPos);
+    this->m_cursor.position = s2d::Vector2(this->m_cursorWorldPos.x, this->m_cursorWorldPos.y);
+    this->m_cursor.setLastPosition();
+
+    if (clickedSprite != nullptr && this->m_clickedSprite != nullptr)
     {
-        std::cout << clickedSprite->name << std::endl;
+        this->moveComponent();
     }
-
-  
-
-    
-
-    //sf::Vector2i cursorPos = sf::Mouse::getPosition(*this->m_ptr_Window);
-    //this->m_cursorWorldPos = this->m_ptr_Window->mapPixelToCoords(cursorPos);
-    //this->m_cursor.position = s2d::Vector2(this->m_cursorWorldPos.x, this->m_cursorWorldPos.y);
-    //this->m_cursor.setLastPosition();
-
-    //if (clickedSprite != nullptr)
-    //{
-    //    std::cout << clickedSprite->name << std::endl;
-
-    //    this->m_clickedSprite = clickedSprite;
-    //    s2d::UIHirachy::selectedSprite = this->m_clickedSprite;
-
-    //    this->moveComponent();
-    //}
-    //else
-    //{
-    //    this->m_clickedSprite = nullptr;
-    //}
+    else
+    {
+        this->m_clickedSprite = nullptr;
+    }
 
 }
 
@@ -163,6 +149,8 @@ s2d::Sprite* s2d::UIRealTimeEditorTransformPosition::checkIfMouseClickedOnSprite
 
     if (highest != -1)
     {
+        this->m_clickedSprite = s2d::Sprite::activeSprites[ve - 1];
+        s2d::UIHirachy::selectedSprite = this->m_clickedSprite;
         return s2d::Sprite::activeSprites[ve -1];
     }
 
