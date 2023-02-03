@@ -90,8 +90,15 @@ void s2d::UIToolButtons::toolSelector()
 {
 	ImGui::SetCursorPosY(ImGui::GetCursorPosY() - 35);
 
+	ImGui::PushStyleColor(ImGuiCol_Button, IM_COL32(55, 55, 55, 1));
 	if (s2d::FontManager::displaySmybolAsButton(ICON_FA_ARROWS))
 	{
 		this->editorTools = s2d::EditorTools::PositionTool;
+	}
+	ImGui::PopStyleColor();
+	ImGui::SameLine();
+	if (s2d::FontManager::displaySmybolAsButton(ICON_FA_PLUS))
+	{
+		this->editorTools = s2d::EditorTools::ScaleTool;
 	}
 }

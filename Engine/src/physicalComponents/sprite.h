@@ -44,7 +44,7 @@ namespace s2d
 		s2d::BoxCollider collider;
 		s2d::PhsysicsBody physicsBody;
 		s2d::Transform transform;
-		s2d::Animator animator;
+		s2d::Animator animator; 
 
 		//Parent / child infos
 		std::vector<s2d::Sprite*> childs;

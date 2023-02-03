@@ -1,2 +1,4 @@
 name;absulutePathStr;date;relativePath
 FlabyBird;C:\Dev\SpriteEngineUI\FlabyBird;2023/19/01 10:41:42;..\FlabyBird
+GTEs;C:\Dev\GTEs;2023/26/01 15:49:24;..\..\GTEs
+Keks;C:\Dev\Keks;2023/01/02 08:54:31;..\..\Keks

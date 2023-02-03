@@ -465,22 +465,6 @@ void s2d::UIInspector::setCompontents()
 
 #pragma endregion
 
-bool s2d::UIInspector::isInspectorSpriteEqualToActiveSprites()
-{
-	if (this->m_currentSpriteInInspector == nullptr)
-	{
-		return false;
-	}
-	for (const Sprite* sprite : s2d::Sprite::activeSprites)
-	{
-		if (m_currentSpriteInInspector->name == sprite->name)
-		{
-			return true;
-		}
-	}
-	return false;
-}
-
 //static functions
 
 std::string s2d::UIInspector::getNamePathSplit(std::string path)

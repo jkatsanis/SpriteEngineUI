@@ -46,7 +46,6 @@ namespace s2d
 	    s2d::Vector3 m_defaultBackgroundColor;
 
 		void render();
-		bool isInspectorSpriteEqualToActiveSprites();
 
 		void setupComponents();
 		void transformComponent();

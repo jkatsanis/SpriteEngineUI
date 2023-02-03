@@ -13,7 +13,7 @@ s2d::GameEngine::GameEngine()
     this->m_isWindowFullScreen = false;
 
     this->m_UIRealTimeEditor = s2d::UIRealTimeEditor(*ptr_renderWindow, &this->windowEvent, &this->m_UIWindow.isAnyUIWindowHovered, 
-        &this->m_UIWindow.getInspector().state, &this->event);
+        &this->m_UIWindow.getInspector().state, &this->event, &this->m_UIWindow.getTools().editorTools);
 
     //Setting other classes
     s2d::Sprite::initActiveSprites();

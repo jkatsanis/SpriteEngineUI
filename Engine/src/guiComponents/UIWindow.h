@@ -28,6 +28,7 @@ namespace s2d
 	    void update();
 
 		UIInspector& getInspector() { return this->m_UIInspector; }
+		UIToolButtons& getTools() { return this->m_UIToolButtons; }
 
 	public:
 		static void renderStyle(ImGuiStyle* style);

@@ -298,6 +298,9 @@
     <ClCompile Include="src\guiComponents\realTimeEditor\UIRealTimeEditorNavigator.cpp">
       <Filter>src\Components\guiComponents\realTimeEditor\navigator</Filter>
     </ClCompile>
+    <ClCompile Include="src\guiComponents\realTimeEditor\UIRealTimeEditorTransfsormScale.cpp">
+      <Filter>src\Components\guiComponents\realTimeEditor\transform</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\include\imgui\imconfig.h">
@@ -770,6 +773,9 @@
     </ClInclude>
     <ClInclude Include="src\guiComponents\realTimeEditor\UIRealTimeEditorNavigator.h">
       <Filter>src\Components\guiComponents\realTimeEditor\navigator</Filter>
+    </ClInclude>
+    <ClInclude Include="src\guiComponents\realTimeEditor\UIRealTimeEditorTransfsormScale.h">
+      <Filter>src\Components\guiComponents\realTimeEditor\transform</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
