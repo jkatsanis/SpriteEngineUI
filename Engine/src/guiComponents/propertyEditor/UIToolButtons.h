@@ -9,23 +9,24 @@
 #include <manager/fontManager.h>
 #include <data/engineData.h>
 #include <Windows.h>
+#include <guiComponents/colors.h>
+#include <UIToolButtonsModels.h>
 
-//Inlcluding game.h here, because we need to be able to create from here the game since here is the start button
+#define TOOLS_SIZE 2
 
 namespace s2d
 {
-	enum class EditorTools
-	{
-		PositionTool,
-		ScaleTool
-	};
 	class UIToolButtons
 	{
 	private:
+		s2d::Tool m_tools[TOOLS_SIZE];
 		s2d::Vector3 m_windowbBackgroundToSave;
+
+		bool m_clickedOnBtn;
 
 		void askWithButtonForPlayGame();
 		void toolSelector();
+		void removeBackgroundFromButtons();
 
 	public:
 		bool isHovered;
@@ -35,7 +36,7 @@ namespace s2d
 
 		void createToolsAndButtons();
 
-		void setBackgroundColorToSave(s2d::Vector3 color);
+		void setBackgroundColorToSave(const s2d::Vector3& color);
 	};
 }
 

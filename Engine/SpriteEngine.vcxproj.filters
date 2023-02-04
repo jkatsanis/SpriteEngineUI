@@ -301,6 +301,12 @@
     <ClCompile Include="src\guiComponents\realTimeEditor\UIRealTimeEditorTransfsormScale.cpp">
       <Filter>src\Components\guiComponents\realTimeEditor\transform</Filter>
     </ClCompile>
+    <ClCompile Include="src\guiComponents\propertyEditor\UIToolButtonsModels.h">
+      <Filter>src\Components\guiComponents\tools</Filter>
+    </ClCompile>
+    <ClCompile Include="src\guiComponents\UI.cpp">
+      <Filter>src\Components\guiComponents</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\include\imgui\imconfig.h">
@@ -776,6 +782,9 @@
     </ClInclude>
     <ClInclude Include="src\guiComponents\realTimeEditor\UIRealTimeEditorTransfsormScale.h">
       <Filter>src\Components\guiComponents\realTimeEditor\transform</Filter>
+    </ClInclude>
+    <ClInclude Include="src\guiComponents\UI.h">
+      <Filter>src\Components\guiComponents</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

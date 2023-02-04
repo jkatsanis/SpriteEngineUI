@@ -73,7 +73,7 @@ namespace s2d
 		int getVectorPosition() { return this->m_vectorPosition; }
 		sf::Sprite& getSprite() { return this->m_sprite; }	
 		sf::Texture& getTexture() { return this->m_texture; }
-		s2d::Vector2 getOrigininalPosition();
+		s2d::Vector2 getOrigininalPosition() const;
 
 	public:
 		static void initActiveSprites();

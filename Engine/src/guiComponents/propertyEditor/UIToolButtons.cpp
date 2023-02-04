@@ -2,11 +2,19 @@
 
 s2d::UIToolButtons::UIToolButtons()
 {
+	this->editorTools = s2d::EditorTools::PositionTool;
 	this->isHovered = false;
+
+	this->m_tools[0] = s2d::Tool(s2d::EditorTools::PositionTool, ICON_FA_ARROWS);
+	this->m_tools[1] = s2d::Tool(s2d::EditorTools::ScaleTool, ICON_FA_PLUS);
+
+	this->m_tools[0].background = true;
+	this->m_clickedOnBtn = true;
 }
 
 void s2d::UIToolButtons::createToolsAndButtons()
 {
+	std::cout << (int)this->editorTools << std::endl;
 	//Pushing transperany
 	ImGui::PushStyleVar(ImGuiStyleVar_Alpha, 1.1f);
 
@@ -27,7 +35,7 @@ void s2d::UIToolButtons::createToolsAndButtons()
 	ImGui::PopStyleVar();
 }
 
-void s2d::UIToolButtons::setBackgroundColorToSave(s2d::Vector3 color)
+void s2d::UIToolButtons::setBackgroundColorToSave(const s2d::Vector3& color)
 {
 	this->m_windowbBackgroundToSave = color;
 }
@@ -90,15 +98,37 @@ void s2d::UIToolButtons::toolSelector()
 {
 	ImGui::SetCursorPosY(ImGui::GetCursorPosY() - 35);
 
-	ImGui::PushStyleColor(ImGuiCol_Button, IM_COL32(55, 55, 55, 1));
-	if (s2d::FontManager::displaySmybolAsButton(ICON_FA_ARROWS))
+	for (int i = 0; i < TOOLS_SIZE; i++)
 	{
-		this->editorTools = s2d::EditorTools::PositionTool;
-	}
-	ImGui::PopStyleColor();
-	ImGui::SameLine();
-	if (s2d::FontManager::displaySmybolAsButton(ICON_FA_PLUS))
-	{
-		this->editorTools = s2d::EditorTools::ScaleTool;
+		if (this->m_tools[i].background)
+		{
+			ImGui::PushStyleColor(ImGuiCol_Button, REAL_EDITOR_BUTTON_BG_COLOR);
+		}
+		if (s2d::FontManager::displaySmybolAsButton(this->m_tools[i].icon.c_str()))
+		{
+			this->m_clickedOnBtn = true;
+			this->editorTools = this->m_tools[i].tool;
+		}
+		if (this->m_tools[i].background)
+		{
+			ImGui::PopStyleColor();
+		}
+		if (this->m_clickedOnBtn)
+		{
+			this->removeBackgroundFromButtons();
+			this->m_clickedOnBtn = false;
+			this->m_tools[i].background = true;
+		}
+		ImGui::SameLine();
 	}
 }
+
+void s2d::UIToolButtons::removeBackgroundFromButtons()
+{
+	for (int i = 0; i < TOOLS_SIZE; i++)
+	{
+		this->m_tools[i].background = false;
+	}
+}
+
+

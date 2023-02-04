@@ -24,7 +24,6 @@ c:\dev\spriteengineui\engine\x64\debug\uianimationkeyframeeditor.obj
 c:\dev\spriteengineui\engine\x64\debug\uiinfo.obj
 c:\dev\spriteengineui\engine\x64\debug\uianimation.obj
 c:\dev\spriteengineui\engine\x64\debug\uiinspectorboxcollider.obj
-c:\dev\spriteengineui\engine\x64\debug\uirealtimeeditor.obj
 c:\dev\spriteengineui\engine\x64\debug\vector3.obj
 c:\dev\spriteengineui\engine\x64\debug\transform.obj
 c:\dev\spriteengineui\engine\x64\debug\uiassetfolder.obj
@@ -40,13 +39,18 @@ c:\dev\spriteengineui\engine\x64\debug\imgui_tables.obj
 c:\dev\spriteengineui\engine\x64\debug\imgui_draw.obj
 c:\dev\spriteengineui\engine\x64\debug\imgui.obj
 c:\dev\spriteengineui\engine\x64\debug\imgui-sfml.obj
+c:\dev\spriteengineui\engine\x64\debug\ui.obj
+c:\dev\spriteengineui\engine\x64\debug\uitoolbuttonsmodels.obj
+c:\dev\spriteengineui\engine\x64\debug\uirealtimeeditortransfsormscale.obj
+c:\dev\spriteengineui\engine\x64\debug\uirealtimeeditortransformposition.obj
 c:\dev\spriteengineui\engine\x64\debug\uiprojectselectorprojectsection.obj
 c:\dev\spriteengineui\engine\x64\debug\uihirachyspritedisplay.obj
 c:\dev\spriteengineui\engine\x64\debug\uihirachymenudisplayer.obj
-c:\dev\spriteengineui\engine\x64\debug\uirealtimeeditortransform.obj
 c:\dev\spriteengineui\engine\x64\debug\uirealtimeeditornavigator.obj
 c:\dev\spriteengineui\engine\x64\debug\uiicondata.obj
 c:\dev\spriteengineui\engine\x64\debug\uianimationeditor.obj
+c:\dev\spriteengineui\engine\x64\debug\uirealtimeeditortransform.obj
+c:\dev\spriteengineui\engine\x64\debug\uirealtimeeditor.obj
 c:\dev\spriteengineui\engine\x64\debug\spriteengine.exe
 c:\dev\spriteengineui\engine\x64\debug\spriteengine.ilk
 c:\dev\spriteengineui\engine\x64\debug\spriteengine.pdb

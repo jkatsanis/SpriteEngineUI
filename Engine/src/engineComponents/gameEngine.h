@@ -10,6 +10,7 @@
 #include <vector>
 #include <engineComponents/event.h>
 #include <engineComponents/renderer.h>
+#include <guiComponents/UI.h>
 
 namespace s2d
 {
@@ -36,7 +37,7 @@ namespace s2d
 		//Deleting all the sprites here since when we close the engine we dont need anymore
 		~GameEngine();
 
-		void update();	
+		void update();
 
 	};
 }

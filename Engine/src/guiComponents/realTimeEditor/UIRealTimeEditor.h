@@ -4,7 +4,6 @@
 #include <UIRealTimeEditorTransform.h>
 #include <UIInspector.h>
 #include <UIToolButtons.h>
-#include <UIRealTimeEditorTransfsormScale.h>
 
 namespace s2d
 {

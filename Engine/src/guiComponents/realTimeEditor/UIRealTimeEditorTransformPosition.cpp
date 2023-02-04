@@ -7,7 +7,6 @@ s2d::UIRealTimeEditorTransformPosition::UIRealTimeEditorTransformPosition()
 {
     this->m_windowEvent = nullptr;
     this->m_isAnyUIWindowHovered = nullptr;
-    this->m_cursorRangeToClick = -1;
     this->m_ptr_Window = nullptr;
     this->m_clickedSprite = nullptr;
     this->m_ptr_Inspectorstate = nullptr;
@@ -20,7 +19,6 @@ s2d::UIRealTimeEditorTransformPosition::UIRealTimeEditorTransformPosition(sf::Re
     this->m_windowEvent = windowEvent;
     this->m_isAnyUIWindowHovered = isAnyUIWindowHovered;
     this->m_ptr_Inspectorstate = ptr_Inspectorstate;
-    this->m_cursorRangeToClick = 25;
     this->m_ptr_Window = window;
     this->m_clickedSprite = nullptr;
     this->m_realeasedCursorOnSprite = false;
@@ -38,10 +36,8 @@ void s2d::UIRealTimeEditorTransformPosition::update()
     // Check if we click on a sprite in the editor
     s2d::Sprite* clickedSprite = this->checkIfMouseClickedOnSprite();
 
-    sf::Vector2i cursorPos = sf::Mouse::getPosition(*this->m_ptr_Window);
-    this->m_cursorWorldPos = this->m_ptr_Window->mapPixelToCoords(cursorPos);
-    this->m_cursor.position = s2d::Vector2(this->m_cursorWorldPos.x, this->m_cursorWorldPos.y);
-    this->m_cursor.setLastPosition();
+    this->m_cursorWorldPos = s2d::UI::getWorldCordinates();
+    s2d::UI::setCursorToWorldCoordinates(this->m_cursorWorldPos);
 
     if (clickedSprite != nullptr && this->m_clickedSprite != nullptr)
     {
@@ -66,9 +62,9 @@ void s2d::UIRealTimeEditorTransformPosition::moveComponent()
     float m = x - this->m_clickedSprite->transform.position.x;
     float my = y - this->m_clickedSprite->transform.position.y;
 
-    if (this->m_cursor.posiitonChanged)
+    if (s2d::UI::cursor.posiitonChanged)
     {
-        s2d::Vector2 moved = this->m_cursor.lastPos - this->m_cursor.position;
+        s2d::Vector2 moved = s2d::UI::cursor.lastPos - s2d::UI::cursor.position;
         m += moved.x;
         my -= moved.y;
     }
@@ -83,22 +79,10 @@ void s2d::UIRealTimeEditorTransformPosition::moveComponent()
 
 bool s2d::UIRealTimeEditorTransformPosition::checkClick(s2d::Sprite& sprite)
 {
-    sf::Vector2i cursorPos = sf::Mouse::getPosition(*this->m_ptr_Window);
-    this->m_cursorWorldPos = this->m_ptr_Window->mapPixelToCoords(cursorPos);
-
-    float getPosX = sprite.getSprite().getPosition().x;
-    float getPosY = sprite.getSprite().getPosition().y;
-
-    float otherGetPosX = this->m_cursorWorldPos.x;
-    float otherGetPosY = this->m_cursorWorldPos.y;
-
-    bool collided = (getPosX + sprite.transform.textureSize.x >= otherGetPosX
-        && getPosX <= otherGetPosX + this->m_cursorRangeToClick
-        && getPosY + sprite.transform.textureSize.y >= otherGetPosY
-        && getPosY <= otherGetPosY + this->m_cursorRangeToClick);
+    bool collied = s2d::UI::isCursorClickedOnSprite(&sprite);
 
 
-    if (collided && this->m_windowEvent->type == s2d::Event::Type::MousePressedLeft)
+    if (collied && this->m_windowEvent->type == s2d::Event::Type::MousePressedLeft)
     {
         this->m_clickedSpriteId = sprite.getId();
 
@@ -151,7 +135,7 @@ s2d::Sprite* s2d::UIRealTimeEditorTransformPosition::checkIfMouseClickedOnSprite
     {
         this->m_clickedSprite = s2d::Sprite::activeSprites[ve - 1];
         s2d::UIHirachy::selectedSprite = this->m_clickedSprite;
-        return s2d::Sprite::activeSprites[ve -1];
+        return s2d::Sprite::activeSprites[ve - 1];
     }
 
     return nullptr;

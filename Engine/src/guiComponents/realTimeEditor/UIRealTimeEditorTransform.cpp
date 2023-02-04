@@ -16,10 +16,19 @@ s2d::UIRealTimeEditorTransform::UIRealTimeEditorTransform(sf::RenderWindow* wind
     this->m_positionChanger = s2d::UIRealTimeEditorTransformPosition(window, ptr_Inspectorstate, isAnyUIWindowHovered, windowEvent);
 }
 
+
 // Public functions
 
 void s2d::UIRealTimeEditorTransform::update()
 {
-    std::cout << ((int)*this->m_currentTool) << std::endl;;
-    this->m_positionChanger.update();
+    if (this->m_currentTool == nullptr)
+    {
+        return;
+    }
+    
+    if(*this->m_currentTool == s2d::EditorTools::PositionTool)
+        this->m_positionChanger.update();
+
+    if (*this->m_currentTool == s2d::EditorTools::ScaleTool)
+        this->m_scaleChanger.update();
 }

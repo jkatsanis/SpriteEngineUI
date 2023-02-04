@@ -74,7 +74,7 @@ bool s2d::Sprite::containsChild(s2d::Sprite* child)
 	return contains;
 }
 
-s2d::Vector2 s2d::Sprite::getOrigininalPosition()
+s2d::Vector2 s2d::Sprite::getOrigininalPosition() const
 {
 	float x = this->m_sprite.getPosition().x;
 	float y = this->m_sprite.getPosition().y;

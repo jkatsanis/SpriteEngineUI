@@ -2,21 +2,20 @@
 
 #include "SFML/Graphics.hpp"
 #include <UIInspector.h>
+#include <guiComponents/UI.h>
 
 namespace s2d
 {
 	class UIRealTimeEditorTransformPosition
 	{
 	private:
-		sf::Vector2f m_cursorWorldPos;
+		s2d::Vector2 m_cursorWorldPos;
 		sf::RenderWindow* m_ptr_Window;
 		s2d::InspectorState* m_ptr_Inspectorstate;
-		s2d::Transform m_cursor;
 		s2d::Event* m_windowEvent;
 		bool m_realeasedCursorOnSprite;
-		short m_cursorRangeToClick;
 		bool* m_isAnyUIWindowHovered;
-		
+
 		// Data of sprite we clicked
 		s2d::Sprite* m_clickedSprite;
 		int m_clickedSpriteId;
@@ -30,7 +29,7 @@ namespace s2d
 
 		UIRealTimeEditorTransformPosition();
 		UIRealTimeEditorTransformPosition(sf::RenderWindow* window, s2d::InspectorState* ptr_Inspectorstate, bool* hovered, s2d::Event* windowEvent);
-		
+
 		void update();
 	};
 }
