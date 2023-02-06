@@ -7,19 +7,17 @@ s2d::UIRealTimeEditorTransformPosition::UIRealTimeEditorTransformPosition()
 {
     this->m_windowEvent = nullptr;
     this->m_isAnyUIWindowHovered = nullptr;
-    this->m_ptr_Window = nullptr;
     this->m_clickedSprite = nullptr;
     this->m_ptr_Inspectorstate = nullptr;
     this->m_realeasedCursorOnSprite = false;
     this->m_clickedSpriteId = -1;
 }
 
-s2d::UIRealTimeEditorTransformPosition::UIRealTimeEditorTransformPosition(sf::RenderWindow* window, s2d::InspectorState* ptr_Inspectorstate, bool* isAnyUIWindowHovered, s2d::Event* windowEvent)
+s2d::UIRealTimeEditorTransformPosition::UIRealTimeEditorTransformPosition(s2d::InspectorState* ptr_Inspectorstate, bool* isAnyUIWindowHovered, s2d::Event* windowEvent)
 {
     this->m_windowEvent = windowEvent;
     this->m_isAnyUIWindowHovered = isAnyUIWindowHovered;
     this->m_ptr_Inspectorstate = ptr_Inspectorstate;
-    this->m_ptr_Window = window;
     this->m_clickedSprite = nullptr;
     this->m_realeasedCursorOnSprite = false;
     this->m_clickedSpriteId = -1;

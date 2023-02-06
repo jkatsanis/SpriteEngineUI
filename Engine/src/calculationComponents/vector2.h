@@ -1,6 +1,7 @@
 #pragma once
 
 #include <iostream>
+#include <SFML/Graphics.hpp>
 
 namespace s2d
 {
@@ -20,6 +21,7 @@ namespace s2d
 		s2d::Vector2 operator+(const s2d::Vector2& rhs);
 		s2d::Vector2 operator*=(const s2d::Vector2& rhs);
 		s2d::Vector2 operator/=(const s2d::Vector2& rhs);
+		s2d::Vector2 operator/=(const float rhs);
 		s2d::Vector2 operator*(const s2d::Vector2& rhs);
 
 		friend std::ostream& operator<<(std::ostream& os, const s2d::Vector2& rhs);

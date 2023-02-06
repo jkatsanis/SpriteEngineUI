@@ -21,10 +21,6 @@ int main()
 
     while (engine.ptr_renderWindow->isOpen())
     {  
-        if (s2d::Input::onKeyPress(s2d::KeyBoardCode::A))
-        {
-            std::cout << s2d::UIHirachy::selectedSprite->name << std::endl;
-        }
         engine.update();
     }
 

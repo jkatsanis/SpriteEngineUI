@@ -9,11 +9,12 @@ s2d::UIRealTimeEditorTransform::UIRealTimeEditorTransform()
     this->m_positionChanger = s2d::UIRealTimeEditorTransformPosition();
 }
 
-s2d::UIRealTimeEditorTransform::UIRealTimeEditorTransform(sf::RenderWindow* window, s2d::InspectorState* ptr_Inspectorstate,
+s2d::UIRealTimeEditorTransform::UIRealTimeEditorTransform(s2d::InspectorState* ptr_Inspectorstate,
     bool* isAnyUIWindowHovered, s2d::Event* windowEvent, const s2d::EditorTools* tool)
 {
     this->m_currentTool = tool;
-    this->m_positionChanger = s2d::UIRealTimeEditorTransformPosition(window, ptr_Inspectorstate, isAnyUIWindowHovered, windowEvent);
+    this->m_scaleChanger = s2d::UIRealTimeEditorTransfsormScale(windowEvent);
+    this->m_positionChanger = s2d::UIRealTimeEditorTransformPosition(ptr_Inspectorstate, isAnyUIWindowHovered, windowEvent);
 }
 
 

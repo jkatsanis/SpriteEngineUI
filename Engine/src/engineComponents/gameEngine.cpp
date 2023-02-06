@@ -20,6 +20,7 @@ s2d::GameEngine::GameEngine()
     s2d::Input::setEvent(&this->event);
     s2d::SpriteData::highestSpriteID = s2d::SpriteData::getHighestIndex();
     s2d::UI::setRenderWindow(this->ptr_renderWindow);
+    s2d::UI::setS2DEvent(&this->event);
     //End
 
     ImGui::SFML::Init(*this->ptr_renderWindow);

@@ -61,6 +61,28 @@ void s2d::Transform::setTextureSize(const s2d::Vector2& scale)
 	this->textureSize = s2d::Vector2(textureRect.width * multiply.x, textureRect.height * multiply.y);
 }
 
+void s2d::Transform::calculateScaleXByWorldPosition(const float posX)
+{
+	float scaleX = posX / this->textureSize.x;
+
+	this->setScale(s2d::Vector2(scaleX, this->m_scale.y));
+}
+
+s2d::Vector2 s2d::Transform::getDefaultTextureSize() const
+{
+	s2d::Vector2 scale = this->m_scale;
+
+	if (this->m_scale.x < 0)
+	{
+		scale.x = scale.x * -1;
+	}
+	if (this->m_scale.y < 0)
+	{
+		scale.y = scale.y * -1;
+	}
+	return s2d::Vector2(this->textureSize.x / scale.x, this->textureSize.y / scale.y);
+}
+
 void s2d::Transform::setScale(const s2d::Vector2& scale)
 {
 	if (this->m_scale == scale)

@@ -37,6 +37,16 @@ namespace s2d
 
 		void setTextureSize(const s2d::Vector2& scale);
 
+
+		/// <summary>
+		/// This method takes in a world posX and calculates 
+		/// the scale needed to reach this world pos
+		/// </summary>
+		/// <param name="size"></param>
+		void calculateScaleXByWorldPosition(const float posX);
+
+		s2d::Vector2 getDefaultTextureSize() const;
+
 	public:
 		void setScale(const s2d::Vector2& scale);
 		s2d::Vector2 const getScale() { return this->m_scale; }

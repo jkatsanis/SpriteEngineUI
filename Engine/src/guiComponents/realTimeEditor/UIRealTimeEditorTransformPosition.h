@@ -10,7 +10,6 @@ namespace s2d
 	{
 	private:
 		s2d::Vector2 m_cursorWorldPos;
-		sf::RenderWindow* m_ptr_Window;
 		s2d::InspectorState* m_ptr_Inspectorstate;
 		s2d::Event* m_windowEvent;
 		bool m_realeasedCursorOnSprite;
@@ -28,7 +27,7 @@ namespace s2d
 	public:
 
 		UIRealTimeEditorTransformPosition();
-		UIRealTimeEditorTransformPosition(sf::RenderWindow* window, s2d::InspectorState* ptr_Inspectorstate, bool* hovered, s2d::Event* windowEvent);
+		UIRealTimeEditorTransformPosition(s2d::InspectorState* ptr_Inspectorstate, bool* hovered, s2d::Event* windowEvent);
 
 		void update();
 	};

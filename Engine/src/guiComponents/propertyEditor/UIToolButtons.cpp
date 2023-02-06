@@ -14,7 +14,6 @@ s2d::UIToolButtons::UIToolButtons()
 
 void s2d::UIToolButtons::createToolsAndButtons()
 {
-	std::cout << (int)this->editorTools << std::endl;
 	//Pushing transperany
 	ImGui::PushStyleVar(ImGuiStyleVar_Alpha, 1.1f);
 

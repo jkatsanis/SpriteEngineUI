@@ -1,2 +1,10 @@
-﻿  UIRealTimeEditorTransform.cpp
+﻿  SpriteEngine.cpp
+  gameEngine.cpp
+  UIRealTimeEditor.cpp
+  UIRealTimeEditorTransform.cpp
+  UIRealTimeEditorTransfsormScale.cpp
+C:\Dev\SpriteEngineUI\Engine\src\guiComponents\realTimeEditor\UIRealTimeEditorTransfsormScale.cpp(11,50): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+C:\Dev\SpriteEngineUI\Engine\src\guiComponents\realTimeEditor\UIRealTimeEditorTransfsormScale.cpp(19,50): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+C:\Dev\SpriteEngineUI\Engine\src\guiComponents\realTimeEditor\UIRealTimeEditorTransfsormScale.cpp(24,50): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+  Generating Code...
   SpriteEngine.vcxproj -> C:\Dev\SpriteEngineUI\Engine\x64\Debug\SpriteEngine.exe
