@@ -31,5 +31,12 @@ void s2d::UIRealTimeEditorTransform::update()
         this->m_positionChanger.update();
 
     if (*this->m_currentTool == s2d::EditorTools::ScaleTool)
+    {
+        this->m_scaleChanger.renderDolls();
         this->m_scaleChanger.update();
+    }
+    else
+    {
+        this->m_scaleChanger.unrenderDolls();
+    }
 }

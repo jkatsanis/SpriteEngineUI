@@ -43,6 +43,8 @@ namespace s2d
 		UIRealTimeEditorNavigator();
 		UIRealTimeEditorNavigator(sf::RenderWindow& renderWindow, sf::Event* event, bool* isAnyUIWindowHovered);
 
+		const s2d::Camera& getCamera() const { return this->m_camera; }
+
 		void update();
 	};
 }

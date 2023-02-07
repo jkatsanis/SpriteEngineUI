@@ -13,8 +13,8 @@ namespace s2d
 	class UIRealTimeEditorTransform
 	{
 	private:
-		UIRealTimeEditorTransformPosition m_positionChanger;
-		UIRealTimeEditorTransfsormScale m_scaleChanger;
+		s2d::UIRealTimeEditorTransformPosition m_positionChanger;
+		s2d::UIRealTimeEditorTransfsormScale m_scaleChanger;
 
 		const s2d::EditorTools* m_currentTool;
 
