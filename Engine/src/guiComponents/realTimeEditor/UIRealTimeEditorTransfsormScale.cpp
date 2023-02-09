@@ -9,7 +9,7 @@ s2d::UIRealTimeEditorTransfsormScale::UIRealTimeEditorTransfsormScale()
 }
 
 s2d::UIRealTimeEditorTransfsormScale::UIRealTimeEditorTransfsormScale(s2d::Event* event)
-{	
+{
 	sf::RectangleShape shape;
 	shape.setSize(sf::Vector2f(DEFAULT_DOLL_SCALE, DEFAULT_DOLL_SCALE));
 	shape.setFillColor(sf::Color(255, 255, 255));
@@ -22,6 +22,9 @@ s2d::UIRealTimeEditorTransfsormScale::UIRealTimeEditorTransfsormScale(s2d::Event
 
 		s2d::GameObject::rects.push_back(this->m_scaleDotts->shape);
 	}
+
+	this->m_scale = s2d::Vector2(1, 1);
+	this->unrenderDolls();
 
 	this->m_event = event;
 }
@@ -38,7 +41,7 @@ void s2d::UIRealTimeEditorTransfsormScale::update()
 		this->setPos(pos);
 		this->scaleChanger(focusedSprite);
 		this->reset();
-		
+
 		this->m_currentCursorPos = s2d::UI::getWorldCordinates();
 	}
 }
@@ -140,10 +143,19 @@ void s2d::UIRealTimeEditorTransfsormScale::getPos(const s2d::Sprite* focusedSpri
 	s2d::Vector2 originalPos = focusedSprite->getOrigininalPosition();
 	s2d::Vector2 textureSize = focusedSprite->transform.textureSize;
 
-	pos[0] = sf::Vector2f(originalPos.x + textureSize.x, originalPos.y + textureSize.y / 2);
+	if (focusedSprite->transform.getScale().x < 0)
+	{
+		pos[0] = sf::Vector2f(originalPos.x, originalPos.y + textureSize.y / 2);
+	}
+	else
+	{
+		pos[0] = sf::Vector2f(originalPos.x + textureSize.x, originalPos.y + textureSize.y / 2);
+	}
+	if (focusedSprite->transform.getScale().y < 0)
+	{
+		textureSize.y = 0;
+	}
 	pos[1] = sf::Vector2f(originalPos.x + textureSize.x / 2 - DEFAULT_DOLL_SCALE / 2, originalPos.y + textureSize.y);
-	pos[2] = sf::Vector2f(originalPos.x - DEFAULT_DOLL_SCALE, originalPos.y + textureSize.y / 2);
-	pos[3] = sf::Vector2f(originalPos.x + textureSize.x / 2 - DEFAULT_DOLL_SCALE / 2, originalPos.y - DEFAULT_DOLL_SCALE);
 }
 
 void s2d::UIRealTimeEditorTransfsormScale::setPos(const sf::Vector2f pos[])

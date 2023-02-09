@@ -49,7 +49,7 @@ namespace s2d
 
 	public:
 		void setScale(const s2d::Vector2& scale);
-		s2d::Vector2 const getScale() { return this->m_scale; }
+		s2d::Vector2 const getScale() const { return this->m_scale; }
 
 	public:
 		//Used in poll events

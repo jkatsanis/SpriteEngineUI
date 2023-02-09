@@ -13,21 +13,24 @@ s2d::Animator::Animator(Sprite* ptr_attachedSprite)
 {
 	this->exists = false;
 	this->ptr_attachedSprite = ptr_attachedSprite;
+	this->animationPlaying.isAAnimationPlaying = false;
+	this->animationPlaying.name = "<Unknown>";
 }
 
 void s2d::Animator::createAnimation(std::string name, std::vector<std::string> textures, float delay, bool useBaseSprite)
 {
 	EXIST;
-	std::cout << "create";
 	animations.push_back(Animation(ptr_attachedSprite, name, textures, delay, useBaseSprite));
 }
 
 void s2d::Animator::play(std::string name)
 {
-	EXIST;	std::cout << "play";
+	EXIST;	
 
 	for (Animation& anim : animations)
 	{
+		std::cout << anim.name;
+
 		if (anim.name == name && !this->animationPlaying.isAAnimationPlaying)
 		{
 			this->animationPlaying.name = name;
@@ -65,7 +68,7 @@ void s2d::Animator::update()
 
 void s2d::Animator::resetComponent()
 {
-	this->animationPlaying.name = "";
+	this->animationPlaying.name = "<Unknown>";;
 	this->animationPlaying.isAAnimationPlaying = false;
 	this->exists = false;
 	this->animations.clear();

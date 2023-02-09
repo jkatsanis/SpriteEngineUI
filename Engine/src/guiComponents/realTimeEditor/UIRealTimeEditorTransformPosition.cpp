@@ -32,19 +32,16 @@ void s2d::UIRealTimeEditorTransformPosition::update()
         return;
     }
     // Check if we click on a sprite in the editor
-    s2d::Sprite* clickedSprite = this->checkIfMouseClickedOnSprite();
+    this->m_clickedSprite = this->checkIfMouseClickedOnSprite();
 
     this->m_cursorWorldPos = s2d::UI::getWorldCordinates();
     s2d::UI::setCursorToWorldCoordinates(this->m_cursorWorldPos);
 
-    if (clickedSprite != nullptr && this->m_clickedSprite != nullptr)
+    if (this->m_clickedSprite != nullptr)
     {
         this->moveComponent();
     }
-    else
-    {
-        this->m_clickedSprite = nullptr;
-    }
+
 
 }
 

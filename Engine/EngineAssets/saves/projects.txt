@@ -1,2 +1,2 @@
 name;absulutePathStr;date;relativePath
-ImATest;C:\Dev\ImATest;2023/07/02 10:39:42;..\..\ImATest
+Egal;C:\Dev\Egal;2023/09/02 13:44:42;..\..\Egal

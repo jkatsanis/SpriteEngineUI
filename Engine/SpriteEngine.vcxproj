@@ -156,6 +156,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="keyFrame.cpp" />
     <ClCompile Include="src\engineComponents\renderer.cpp" />
     <ClCompile Include="src\data\engineData.cpp" />
     <ClCompile Include="src\manager\fileDialogs.cpp" />
@@ -209,6 +210,7 @@
     <ClCompile Include="src\guiComponents\UI.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="keyFrame.h" />
     <ClInclude Include="src\guiComponents\colors.h" />
     <ClInclude Include="src\engineComponents\renderer.h" />
     <ClInclude Include="src\data\engineData.h" />

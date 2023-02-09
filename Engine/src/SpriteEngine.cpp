@@ -16,11 +16,23 @@ int main()
         // Closing the engine since the user doesnt want to open a project;
         return -1;
     }
-    int x = 1;
     s2d::GameEngine engine;
+
+    s2d::Sprite* spr = s2d::Sprite::activeSprites[0];
+
+    std::string x = s2d::EngineData::s_pathToUserProject + "\\assets\\Sprites\\big.png";
+
+    std::vector<std::string> path = { x };
+
+    spr->animator.createAnimation("name", path, 1, true);
 
     while (engine.ptr_renderWindow->isOpen())
     {  
+        if (s2d::Input::onKeyPress(s2d::KeyBoardCode::A))
+        {
+            spr->animator.play("name");
+        }
+
         engine.update();
     }
 

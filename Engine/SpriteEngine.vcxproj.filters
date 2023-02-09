@@ -307,6 +307,7 @@
     <ClCompile Include="src\guiComponents\UI.cpp">
       <Filter>src\Components\guiComponents</Filter>
     </ClCompile>
+    <ClCompile Include="keyFrame.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\include\imgui\imconfig.h">
@@ -786,6 +787,7 @@
     <ClInclude Include="src\guiComponents\UI.h">
       <Filter>src\Components\guiComponents</Filter>
     </ClInclude>
+    <ClInclude Include="keyFrame.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="saves\textFiles\imguibasics.txt">

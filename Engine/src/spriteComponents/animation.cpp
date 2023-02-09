@@ -1,6 +1,8 @@
 #include "Animation.h"
 #include <physicalComponents/sprite.h>
 
+#include <engineComponents/input.h>
+
 //Public functions
 
 s2d::Animation::Animation(Sprite* ptr_appliedSprite, std::string name, std::vector<std::string> textures, float delay, bool useBaseSprite)
@@ -36,6 +38,7 @@ void s2d::Animation::setVectorSizes(const std::vector<std::string>& textures)
 		this->m_textures[0].loadFromFile(this->ptr_appliedSprite->path);
 		for (int i = 1; i <= textures.size(); i++)
 		{
+			std::cout << textures[i - 1] << std::endl;
 			this->m_textures[i].loadFromFile(textures[i - 1]);
 		}
 	}
@@ -63,6 +66,14 @@ void s2d::Animation::play()
 //This methods updates the animation with the delay
 void s2d::Animation::update()
 {
+	if (s2d::Input::onKeyPress(s2d::KeyBoardCode::B))
+	{
+		std::cout << this->m_textures.size() << std::endl;
+		for (int i = 0; i < this->m_textures.size(); i++)
+		{
+			std::cout << this->m_paths[i] << std::endl;
+		}
+	}
 	this->timePassed += Time::deltaTime;
 	if (timePassed >= delay / 100)
 	{

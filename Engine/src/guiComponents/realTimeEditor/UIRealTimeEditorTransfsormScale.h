@@ -5,12 +5,12 @@
 #include <UIHirachy.h>
 #include <guiComponents/UI.h>
 
-#define SCALE_DOTTS 4
+#define SCALE_DOTTS 2
 #define DEFAULT_DOLL_SCALE 35
 
 namespace s2d
 {
-	struct ScaleDott 
+	struct ScaleDott
 	{
 		sf::RectangleShape shape;
 		short vecpos;

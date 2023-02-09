@@ -1,3 +1,2 @@
-﻿  UIRealTimeEditorTransfsormScale.cpp
-C:\Dev\SpriteEngineUI\Engine\src\guiComponents\realTimeEditor\UIRealTimeEditorTransfsormScale.cpp(19,63): warning C4267: '=': conversion from 'size_t' to 'short', possible loss of data
+﻿  animation.cpp
   SpriteEngine.vcxproj -> C:\Dev\SpriteEngineUI\Engine\x64\Debug\SpriteEngine.exe
