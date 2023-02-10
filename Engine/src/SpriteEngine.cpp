@@ -21,10 +21,11 @@ int main()
     s2d::Sprite* spr = s2d::Sprite::activeSprites[0];
 
     std::string x = s2d::EngineData::s_pathToUserProject + "\\assets\\Sprites\\big.png";
+    std::string y = s2d::EngineData::s_pathToUserProject + "\\assets\\Sprites\\down.png";
 
-    std::vector<std::string> path = { x };
+    std::vector<std::string> path = { x, y };
 
-    spr->animator.createAnimation("name", path, 1, true);
+    spr->animator.createAnimation("name", path, 150, true);
 
     while (engine.ptr_renderWindow->isOpen())
     {  
@@ -32,7 +33,7 @@ int main()
         {
             spr->animator.play("name");
         }
-
+    
         engine.update();
     }
 

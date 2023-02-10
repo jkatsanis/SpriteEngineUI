@@ -16,7 +16,7 @@ namespace s2d
         std::string m_basePath;
 		bool m_usebaseNextFrame;
 
-		void setVectorSizes(const std::vector<std::string>& textures);
+		void setVectorSizes();
 
 	public:
 		std::string name;

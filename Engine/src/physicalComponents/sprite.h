@@ -56,6 +56,7 @@ namespace s2d
 
 		void resetChildData();
 		void setSpriteTexture(std::string path);
+		void setSpriteTexture(const sf::Texture& texture);
 		void setParent(s2d::Sprite* sprite);
 		void addSpriteToScene();
 		bool containsChild(s2d::Sprite* child);

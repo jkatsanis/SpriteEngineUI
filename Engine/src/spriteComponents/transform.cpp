@@ -83,9 +83,9 @@ s2d::Vector2 s2d::Transform::getDefaultTextureSize() const
 	return s2d::Vector2(this->textureSize.x / scale.x, this->textureSize.y / scale.y);
 }
 
-void s2d::Transform::setScale(const s2d::Vector2& scale)
+void s2d::Transform::setScale(const s2d::Vector2& scale, bool b)
 {
-	if (this->m_scale == scale)
+	if (this->m_scale == scale && !b)
 	{
 		return;
 	}

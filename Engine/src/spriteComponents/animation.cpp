@@ -18,38 +18,39 @@ s2d::Animation::Animation(Sprite* ptr_appliedSprite, std::string name, std::vect
 	this->m_basePath = this->ptr_appliedSprite->path;
 	this->m_paths = textures;
 
-	setVectorSizes(textures);
+	this->setVectorSizes();
 }
 
 //Private methods
 
-void s2d::Animation::setVectorSizes(const std::vector<std::string>& textures)
+void s2d::Animation::setVectorSizes()
 {
 	if (this->m_useBaseSprite)
 	{
-		this->m_paths = std::vector<std::string>(textures.size() + 1);
+		std::vector<std::string> temp = this->m_paths;
+		this->m_paths.resize(this->m_paths.size() + 1);
+		this->m_paths[0] = this->ptr_appliedSprite->path;
 
-		for (int i = 1; i <= textures.size(); i++)
+		for (int i = 1; i < this->m_paths.size(); i++)
 		{
-			this->m_paths[i] = textures[i - 1];
+			this->m_paths[i] = temp[i - 1];
 		}
 
-		this->m_textures = std::vector<sf::Texture>(textures.size() + 1);
-		this->m_textures[0].loadFromFile(this->ptr_appliedSprite->path);
-		for (int i = 1; i <= textures.size(); i++)
+		this->m_textures = std::vector<sf::Texture>(this->m_paths.size());
+
+		for (int i = 0; i < this->m_paths.size(); i++)
 		{
-			std::cout << textures[i - 1] << std::endl;
-			this->m_textures[i].loadFromFile(textures[i - 1]);
+			this->m_textures[i].loadFromFile(this->m_paths[i]);
 		}
 	}
 	else
 	{
 
-		this->m_textures = std::vector<sf::Texture>(textures.size());
+		this->m_textures = std::vector<sf::Texture>(this->m_paths.size());
 
-		for (int i = 0; i < textures.size(); i++)
+		for (int i = 0; i < this->m_paths.size(); i++)
 		{
-			this->m_textures[i].loadFromFile(textures[i]);
+			this->m_textures[i].loadFromFile(this->m_paths[i]);
 		}
 	}
 }
@@ -78,10 +79,9 @@ void s2d::Animation::update()
 	if (timePassed >= delay / 100)
 	{
 		this->timePassed = 0;
-
-		this->ptr_appliedSprite->getSprite().setTexture(this->m_textures[currentFrame], true);
-		sf::Vector2u tempSize = this->m_textures[currentFrame].getSize();
-		this->ptr_appliedSprite->transform.textureSize = Vector2(float(tempSize.x), float(tempSize.y));
+		std::cout << "y" << std::endl;
+		this->ptr_appliedSprite->setSpriteTexture(this->m_textures[currentFrame]);
+	    this->ptr_appliedSprite->transform.setScale(this->ptr_appliedSprite->transform.getScale(), true);
 		this->ptr_appliedSprite->path = this->m_paths[currentFrame];
 
 		if (this->currentFrame == this->m_textures.size() - 1)

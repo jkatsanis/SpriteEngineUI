@@ -42,6 +42,14 @@ void s2d::Sprite::setSpriteTexture(std::string path)
 	this->setTextureSizeBasedOnScale();
 }
 
+void s2d::Sprite::setSpriteTexture(const sf::Texture& texture)
+{
+	this->m_sprite.setTexture(texture, true);
+
+	//Setting sprite size also in init and setTexture
+	this->setTextureSizeBasedOnScale();
+}
+
 void s2d::Sprite::setParent(s2d::Sprite* parent)
 {
 	parent->m_childCount++;
