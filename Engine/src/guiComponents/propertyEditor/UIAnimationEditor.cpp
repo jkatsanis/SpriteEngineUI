@@ -40,7 +40,6 @@ void s2d::UIAnimationEditor::beginWindow()
 {
 	this->display = true;
 	ImGui::Begin("##Editor", NULL, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_HorizontalScrollbar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse);
-	ImGui::SetWindowFontScale(s2d::UIInfo::sdefaultFontSize - 0.25f);
 	ImGui::SetWindowSize(ImVec2(900, 350));
 
 	ImGui::SetCursorPos(ImVec2(0, 50));
@@ -49,9 +48,9 @@ void s2d::UIAnimationEditor::beginWindow()
 
 void s2d::UIAnimationEditor::editorTimeLine()
 {
-	if (ImGui::Button(ICON_FA_PLAY))
+	if (s2d::FontManager::displaySmybolAsButton(ICON_FA_PLAY))
 	{
-
+		// Play animation
 	}
 	ImGui::SameLine();
 
@@ -65,18 +64,10 @@ void s2d::UIAnimationEditor::editorTimeLine()
 	ImGui::Text(text.c_str());
 }
 
-void s2d::UIAnimationEditor::settings()
-{
-	ImGui::Dummy(ImVec2(0, 15));
-	ImGui::Text(" Delay");
-	ImGui::SetCursorPos(ImVec2(ImGui::GetCursorPosX() + 107, ImGui::GetCursorPosY() - 30));
-	ImGui::SetNextItemWidth(75);
-	ImGui::InputFloat("##Delay", &anim->delay, 0, 0, "%g");
-}
-
 void s2d::UIAnimationEditor::addKeyFrame()
 {
-	ImGui::SetCursorPos(ImVec2(ImGui::GetCursorPosX() + 2, ImGui::GetCursorPosY()));
+	ImGui::Dummy(ImVec2(0, 200));
+	ImGui::SetCursorPos(ImVec2(ImGui::GetCursorPosX() + 2 + ImGui::GetScrollX(), ImGui::GetCursorPosY()));
 	if (ImGui::Button("Add KeyFrame"))
 	{
 		if (s2d::UIHirachy::selectedSprite != nullptr)
@@ -100,7 +91,6 @@ void s2d::UIAnimationEditor::displayEditor()
 {
 	this->beginWindow();
 	this->editorTimeLine();
-	this->settings();
 	this->addKeyFrame();
 	this->closeWindow();
 }

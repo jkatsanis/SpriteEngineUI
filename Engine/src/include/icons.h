@@ -1214,7 +1214,7 @@
 #define ICON_FA_PLANE_SLASH "\xee\x81\xa9"	// U+e069
 #define ICON_FA_PLANET_MOON "\xee\x80\x9f"	// U+e01f
 #define ICON_FA_PLANET_RINGED "\xee\x80\xa0"	// U+e020
-#define ICON_FA_PLAY "\xef\x81\x8b"	// U+f04b
+#define ICON_FA_PLAY u8"\uf04b"	// U+f04b
 #define ICON_FA_PLAY_CIRCLE "\xef\x85\x84"	// U+f144
 #define ICON_FA_PLUG "\xef\x87\xa6"	// U+f1e6
 #define ICON_FA_PLUS u8"\uf067"	// U+f067

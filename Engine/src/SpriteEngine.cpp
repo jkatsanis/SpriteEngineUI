@@ -21,14 +21,20 @@ int main()
     s2d::Sprite* spr = s2d::Sprite::activeSprites[0];
 
     std::string s1 = s2d::EngineData::s_pathToUserProject + "\\assets\\Sprites\\big.png";
-    std::string s2 = s2d::EngineData::s_pathToUserProject + "\\assets\\Sprites\\down.png";
+    std::string s2 = s2d::EngineData::s_pathToUserProject + "\\assets\\Sprites\\bird.png";
 
-    s2d::KeyFrame x = s2d::KeyFrame(s1, 12.0f);
-    s2d::KeyFrame y = s2d::KeyFrame(s2, 12.0f);
+    // After 200ms to this
+    s2d::KeyFrame x = s2d::KeyFrame(s1, 1);
 
-    std::vector<s2d::KeyFrame> path = { x, y };
+    // s1 stuck 200ms 
+    s2d::KeyFrame y = s2d::KeyFrame(s2, 1);
+    s2d::KeyFrame z = s2d::KeyFrame(s2, 1);
 
-    spr->animator.createAnimation("name", path, 500, 1);
+    // Directly to start
+
+    std::vector<s2d::KeyFrame> path = { x, y, z };
+
+    spr->animator.createAnimation("name", path, 100, 1);
 
     while (engine.ptr_renderWindow->isOpen())
     {  
@@ -36,7 +42,10 @@ int main()
         {
             spr->animator.play("name");
         }
-    
+        if (s2d::Input::onKeyPress(s2d::KeyBoardCode::B))
+        {
+            spr->animator.stop("name");
+        }
         engine.update();
     }
 

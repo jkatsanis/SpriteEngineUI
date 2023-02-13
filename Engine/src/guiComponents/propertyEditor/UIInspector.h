@@ -32,6 +32,9 @@ namespace s2d
 		sf::RectangleShape m_boxCollider;
 		sf::Texture m_textureOverSprite;
 
+		// The input width of the sprite renderer 
+		float m_spriteInputWidth;
+
 		//When the box collider component is open we want to display the rectangle as a box collider and not as a rectangle
 		float m_windowSizeWidth;
 		const char* m_currentComponentSelected;

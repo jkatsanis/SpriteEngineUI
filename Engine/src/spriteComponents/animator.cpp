@@ -40,7 +40,6 @@ void s2d::Animator::play(std::string name)
 void s2d::Animator::stop(std::string name)
 {
 	EXIST;
-	std::cout << "stop";
 	for (Animation& anim : animations)
 	{
 		if (anim.name == name && anim.isPlaying)

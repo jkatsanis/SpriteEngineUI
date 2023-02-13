@@ -6,6 +6,7 @@
 #include <icons.h>
 #include <imgui_internal.h>
 #include <UIAnimationKeyFrameEditor.h>
+#include <guiComponents/colors.h>
 
 namespace s2d
 {
@@ -19,7 +20,6 @@ namespace s2d
 		void beginWindow();
 		void closeWindow();
 		void editorTimeLine();
-		void settings();
 
 	public:
 		bool isHovered;

@@ -16,7 +16,7 @@ s2d::UIRealTimeEditorTransfsormScale::UIRealTimeEditorTransfsormScale(s2d::Event
 
 	for (int i = 0; i < SCALE_DOTTS; i++)
 	{
-		this->m_scaleDotts[i].vecpos = s2d::GameObject::rects.size();
+		this->m_scaleDotts[i].vecpos = (short)s2d::GameObject::rects.size();
 		this->m_scaleDotts[i].shape = shape;
 		this->m_scaleDotts[i].clicked = false;
 

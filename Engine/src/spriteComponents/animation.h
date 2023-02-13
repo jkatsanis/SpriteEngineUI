@@ -12,10 +12,9 @@ namespace s2d
 	{
 	private:
 		std::vector<sf::Texture> m_textures;
-		std::vector<std::string> m_paths;
+		std::vector<s2d::KeyFrame> m_keyFrames;
 		bool m_useBaseSprite;
         std::string m_basePath;
-		bool m_usebaseNextFrame;
 
 		void setVectorSizes();
 
@@ -35,7 +34,7 @@ namespace s2d
 		void update();
 		void stop();
 
-		int getFrameSize() { return int(this->m_paths.size()); }
+		int getFrameSize() { return int(this->m_keyFrames.size()); }
 
 	public:
 		static void updateAllAnimations();

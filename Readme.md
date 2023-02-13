@@ -2,6 +2,10 @@
 
 This Project is a simple **2D Game Engine** designed to be fully understand by one Person.
 
+## Tools used
+- **SFML**
+- **Dear ImGui** 
+
 ## Features
 
 - **UI Editor**

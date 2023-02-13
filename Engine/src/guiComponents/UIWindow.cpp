@@ -100,9 +100,8 @@ void s2d::UIWindow::update()
 	this->m_UIHirachy.createHirachyWindow();
 	this->m_UIToolButtons.createToolsAndButtons();
 	this->m_UIInspector.createUIInspector();
-
-	this->m_UIAssetFolder.createAssetLinkerWindow();
 	this->m_UIAnimation.createUIAnimationWindow();
+	this->m_UIAssetFolder.createAssetLinkerWindow();
 
 	if (this->m_UIHirachy.isHovered || this->m_UIToolButtons.isHovered || this->m_UIInspector.isHovered || this->m_UIAssetFolder.isHovered || this->m_UIAnimation.isHovered)
 	{

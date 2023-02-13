@@ -30,7 +30,6 @@ void s2d::UIAnimation::createUIAnimationWindow()
 		this->displayAnimations();
 		this->addAnimationsToAnimator();
 
-		ImGui::SetWindowFontScale(s2d::UIInfo::sdefaultFontSize);
 		ImGui::SetWindowSize(ImVec2(500, 500));
 
 		this->isHovered = ImGui::IsWindowHovered();

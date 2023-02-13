@@ -16,7 +16,6 @@ void s2d::UIAnimationKeyFrameEditor::beginWindow()
 {
 	ImGui::Begin("##KeyFrameEditor", NULL, ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_HorizontalScrollbar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse);
 	ImGui::SetWindowSize(ImVec2(350, 200));
-	ImGui::SetWindowFontScale(s2d::UIInfo::sdefaultFontSize - 0.25f);
 
 	ImGui::Text("Keyframe Adder");
 	ImGui::SameLine();
@@ -38,11 +37,11 @@ void s2d::UIAnimationKeyFrameEditor::inputData()
 	static int pos = 0;
 
 	ImGui::Text("Position");
-	ImGui::SameLine();
+	ImGui::SetCursorPos(ImVec2(ImGui::GetCursorPosX() + 107, ImGui::GetCursorPosY() - 30));
 	ImGui::SetNextItemWidth(50);
 	ImGui::InputInt("##Position", &pos, 0, 0);
 
-	ImGui::Dummy(ImVec2(0, 15));
+	ImGui::Dummy(ImVec2(0, 7));
 
 
 	ImGui::Text("Sprite");
@@ -65,6 +64,7 @@ void s2d::UIAnimationKeyFrameEditor::closeWindowAndSafeKeyFrame()
 {
 	this->isHovered = ImGui::IsWindowHovered();
 
+	ImGui::SetCursorPosX(ImGui::GetCursorPosX() - 8);
 	if (ImGui::Button("Done"))
 	{
 		this->isKeyFrameMenuOpen = false;

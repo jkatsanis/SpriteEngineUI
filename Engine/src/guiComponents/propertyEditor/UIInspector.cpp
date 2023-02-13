@@ -2,9 +2,11 @@
 
 s2d::UIInspector::UIInspector()
 {
+	this->m_spriteInputWidth = 200.0f;
+	this->m_windowSizeWidth = 390.0f;
+
 	this->m_currentSpriteInInspector = nullptr;
 	this->m_menuName = "menu";
-	this->m_windowSizeWidth = 390.0f;
 	s2d::GameObject::rects.push_back(m_rectangle);
 	s2d::GameObject::rects.push_back(this->m_boxCollider);
 
@@ -271,8 +273,8 @@ void s2d::UIInspector::spriteRendererComponent()
 		ImGui::SetCursorPos(ImVec2(x += 15.0f, y += 10));
 		ImGui::Text("sprite");
 
-		// -5 Because we need our sprite renderer to be cool
 		ImGui::SetCursorPos(ImVec2(x += 100, y - 5));
+		ImGui::SetNextItemWidth(this->m_spriteInputWidth);
 		ImGui::InputText("##spriteRenderer", &input[0], CHAR_MAX);
 
 		if (ImGui::IsItemHovered() && ImGui::IsMouseReleased(0) && s2d::UIAssetFolder::dragAndDropPath != " ")
