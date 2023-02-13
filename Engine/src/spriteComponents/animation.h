@@ -3,6 +3,7 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include "Time.h"
+#include <spriteComponents/keyFrame.h>
 
 namespace s2d
 {
@@ -26,9 +27,9 @@ namespace s2d
 
 		bool isPlaying;
 
-		Sprite* ptr_appliedSprite;
+	    Sprite* ptr_appliedSprite;
 
-		Animation(Sprite* ptr_appliedSprite, std::string name, std::vector<std::string>, float delay, bool useBaseSprite);
+		Animation(Sprite* ptr_appliedSprite, const std::string& name, const std::vector<s2d::KeyFrame>& frames, const float delay, const bool useBaseSprite);
 
 		void play();
 		void update();

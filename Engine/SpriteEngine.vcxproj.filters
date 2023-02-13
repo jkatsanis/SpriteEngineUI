@@ -70,30 +70,6 @@
     <Filter Include="src\Components\calculationComponents">
       <UniqueIdentifier>{c5da6a4c-8986-454c-9eac-00ff2473f51d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\Include/headers">
-      <UniqueIdentifier>{800e3cbb-218b-49c5-9e04-66156fb14b6d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\Include/headers\_header">
-      <UniqueIdentifier>{89e7c979-1702-4404-8d8c-1a48bfa2e8ae}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\Include/headers\__include">
-      <UniqueIdentifier>{864c27ba-0579-4cea-aa4a-cf5dac221324}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\Include/headers\__include\imgui">
-      <UniqueIdentifier>{6a3d8e24-8e44-47d3-9d55-58ebbf9fa6a1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\Include/headers\__include\imgui\Header Files">
-      <UniqueIdentifier>{5c78c5f1-6a31-43bb-8b92-f7d6c5a83d17}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\Include/headers\__include\imgui\Source Files">
-      <UniqueIdentifier>{2ec18db2-afd9-4d13-b409-246c7c3fb890}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\Include/headers\__include\sfml">
-      <UniqueIdentifier>{03cde5eb-f33e-456d-b530-4bfface60632}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\Include/headers\__include\icons">
-      <UniqueIdentifier>{dd2b3d52-cf91-49e0-ab72-74e04ae139f0}</UniqueIdentifier>
-    </Filter>
     <Filter Include="src\Components\guiComponents\projectSelector">
       <UniqueIdentifier>{5b085ae3-eaf8-4d87-b9fe-c4f627d9d8c7}</UniqueIdentifier>
     </Filter>
@@ -154,22 +130,46 @@
     <Filter Include="src\Components\guiComponents\realTimeEditor\navigator">
       <UniqueIdentifier>{15595d5a-f23b-40e8-ab8f-3ef28627da21}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Components\guiComponents\Include/headers">
+      <UniqueIdentifier>{800e3cbb-218b-49c5-9e04-66156fb14b6d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Components\guiComponents\Include/headers\_header">
+      <UniqueIdentifier>{89e7c979-1702-4404-8d8c-1a48bfa2e8ae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Components\guiComponents\Include/headers\__include">
+      <UniqueIdentifier>{864c27ba-0579-4cea-aa4a-cf5dac221324}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Components\guiComponents\Include/headers\__include\imgui">
+      <UniqueIdentifier>{6a3d8e24-8e44-47d3-9d55-58ebbf9fa6a1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Components\guiComponents\Include/headers\__include\imgui\Header Files">
+      <UniqueIdentifier>{5c78c5f1-6a31-43bb-8b92-f7d6c5a83d17}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Components\guiComponents\Include/headers\__include\imgui\Source Files">
+      <UniqueIdentifier>{2ec18db2-afd9-4d13-b409-246c7c3fb890}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Components\guiComponents\Include/headers\__include\sfml">
+      <UniqueIdentifier>{03cde5eb-f33e-456d-b530-4bfface60632}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Components\guiComponents\Include/headers\__include\icons">
+      <UniqueIdentifier>{dd2b3d52-cf91-49e0-ab72-74e04ae139f0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\include\imgui\imgui.cpp">
-      <Filter>src\Include/headers\__include\imgui\Source Files</Filter>
+      <Filter>src\Components\guiComponents\Include/headers\__include\imgui\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\include\imgui\imgui_draw.cpp">
-      <Filter>src\Include/headers\__include\imgui\Source Files</Filter>
+      <Filter>src\Components\guiComponents\Include/headers\__include\imgui\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\include\imgui\imgui_tables.cpp">
-      <Filter>src\Include/headers\__include\imgui\Source Files</Filter>
+      <Filter>src\Components\guiComponents\Include/headers\__include\imgui\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\include\imgui\imgui_widgets.cpp">
-      <Filter>src\Include/headers\__include\imgui\Source Files</Filter>
+      <Filter>src\Components\guiComponents\Include/headers\__include\imgui\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\include\imgui\imgui-SFML.cpp">
-      <Filter>src\Include/headers\__include\imgui\Source Files</Filter>
+      <Filter>src\Components\guiComponents\Include/headers\__include\imgui\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\guiComponents\propertyEditor\UIAnimation.cpp">
       <Filter>src\Components\guiComponents\animation</Filter>
@@ -307,338 +307,337 @@
     <ClCompile Include="src\guiComponents\UI.cpp">
       <Filter>src\Components\guiComponents</Filter>
     </ClCompile>
-    <ClCompile Include="keyFrame.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\include\imgui\imconfig.h">
-      <Filter>src\Include/headers\__include\imgui\Header Files</Filter>
+      <Filter>src\Components\guiComponents\Include/headers\__include\imgui\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\include\imgui\imconfig-SFML.h">
-      <Filter>src\Include/headers\__include\imgui\Header Files</Filter>
+      <Filter>src\Components\guiComponents\Include/headers\__include\imgui\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\include\imgui\imgui.h">
-      <Filter>src\Include/headers\__include\imgui\Header Files</Filter>
+      <Filter>src\Components\guiComponents\Include/headers\__include\imgui\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\include\imgui\imgui_internal.h">
-      <Filter>src\Include/headers\__include\imgui\Header Files</Filter>
+      <Filter>src\Components\guiComponents\Include/headers\__include\imgui\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\include\imgui\imgui-SFML.h">
-      <Filter>src\Include/headers\__include\imgui\Header Files</Filter>
+      <Filter>src\Components\guiComponents\Include/headers\__include\imgui\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\include\imgui\imgui-SFML_export.h">
-      <Filter>src\Include/headers\__include\imgui\Header Files</Filter>
+      <Filter>src\Components\guiComponents\Include/headers\__include\imgui\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\include\imgui\imstb_truetype.h">
-      <Filter>src\Include/headers\__include\imgui\Header Files</Filter>
+      <Filter>src\Components\guiComponents\Include/headers\__include\imgui\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\include\imgui\imstb_rectpack.h">
-      <Filter>src\Include/headers\__include\imgui\Header Files</Filter>
+      <Filter>src\Components\guiComponents\Include/headers\__include\imgui\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\include\imgui\imstb_textedit.h">
-      <Filter>src\Include/headers\__include\imgui\Header Files</Filter>
+      <Filter>src\Components\guiComponents\Include/headers\__include\imgui\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\include\icons.h">
-      <Filter>src\Include/headers\__include\icons</Filter>
+      <Filter>src\Components\guiComponents\Include/headers\__include\icons</Filter>
     </ClInclude>
     <ClInclude Include="src\include\SFML\Graphics\View.hpp">
-      <Filter>src\Include/headers\__include\sfml</Filter>
+      <Filter>src\Components\guiComponents\Include/headers\__include\sfml</Filter>
     </ClInclude>
     <ClInclude Include="src\include\SFML\Window\WindowStyle.hpp">
-      <Filter>src\Include/headers\__include\sfml</Filter>
+      <Filter>src\Components\guiComponents\Include/headers\__include\sfml</Filter>
     </ClInclude>
     <ClInclude Include="src\include\SFML\Window\WindowHandle.hpp">
-      <Filter>src\Include/headers\__include\sfml</Filter>
+      <Filter>src\Components\guiComponents\Include/headers\__include\sfml</Filter>
     </ClInclude>
     <ClInclude Include="src\include\SFML\Window\Window.hpp">
-      <Filter>src\Include/headers\__include\sfml</Filter>
+      <Filter>src\Components\guiComponents\Include/headers\__include\sfml</Filter>
     </ClInclude>
     <ClInclude Include="src\include\SFML\Window.hpp">
-      <Filter>src\Include/headers\__include\sfml</Filter>
+      <Filter>src\Components\guiComponents\Include/headers\__include\sfml</Filter>
     </ClInclude>
     <ClInclude Include="src\include\SFML\Window\VideoMode.hpp">
-      <Filter>src\Include/headers\__include\sfml</Filter>
+      <Filter>src\Components\guiComponents\Include/headers\__include\sfml</Filter>
     </ClInclude>
     <ClInclude Include="src\include\SFML\Graphics\VertexBuffer.hpp">
-      <Filter>src\Include/headers\__include\sfml</Filter>
+      <Filter>src\Components\guiComponents\Include/headers\__include\sfml</Filter>
     </ClInclude>
     <ClInclude Include="src\include\SFML\Graphics\VertexArray.hpp">
-      <Filter>src\Include/headers\__include\sfml</Filter>
+      <Filter>src\Components\guiComponents\Include/headers\__include\sfml</Filter>
     </ClInclude>
     <ClInclude Include="src\include\SFML\System\Vector3.hpp">
-      <Filter>src\Include/headers\__include\sfml</Filter>
+      <Filter>src\Components\guiComponents\Include/headers\__include\sfml</Filter>
     </ClInclude>
     <ClInclude Include="src\include\SFML\Graphics\Vertex.hpp">
-      <Filter>src\Include/headers\__include\sfml</Filter>
+      <Filter>src\Components\guiComponents\Include/headers\__include\sfml</Filter>
     </ClInclude>
     <ClInclude Include="src\include\SFML\System\Vector2.hpp">
-      <Filter>src\Include/headers\__include\sfml</Filter>
+      <Filter>src\Components\guiComponents\Include/headers\__include\sfml</Filter>
     </ClInclude>
     <ClInclude Include="src\include\SFML\System\Utf.hpp">
-      <Filter>src\Include/headers\__include\sfml</Filter>
+      <Filter>src\Components\guiComponents\Include/headers\__include\sfml</Filter>
     </ClInclude>
     <ClInclude Include="src\include\SFML\Network\UdpSocket.hpp">
-      <Filter>src\Include/headers\__include\sfml</Filter>
+      <Filter>src\Components\guiComponents\Include/headers\__include\sfml</Filter>
     </ClInclude>
     <ClInclude Include="src\include\SFML\Graphics\Transformable.hpp">
-      <Filter>src\Include/headers\__include\sfml</Filter>
+      <Filter>src\Components\guiComponents\Include/headers\__include\sfml</Filter>
     </ClInclude>
     <ClInclude Include="src\include\SFML\Graphics\Transform.hpp">
-      <Filter>src\Include/headers\__include\sfml</Filter>
+      <Filter>src\Components\guiComponents\Include/headers\__include\sfml</Filter>
     </ClInclude>
     <ClInclude Include="src\include\SFML\System\Time.hpp">
-      <Filter>src\Include/headers\__include\sfml</Filter>
+      <Filter>src\Components\guiComponents\Include/headers\__include\sfml</Filter>
     </ClInclude>
     <ClInclude Include="src\include\SFML\Window\Touch.hpp">
-      <Filter>src\Include/headers\__include\sfml</Filter>
+      <Filter>src\Components\guiComponents\Include/headers\__include\sfml</Filter>
     </ClInclude>
     <ClInclude Include="src\include\SFML\System\ThreadLocalPtr.hpp">
-      <Filter>src\Include/headers\__include\sfml</Filter>
+      <Filter>src\Components\guiComponents\Include/headers\__include\sfml</Filter>
     </ClInclude>
     <ClInclude Include="src\include\SFML\System\ThreadLocal.hpp">
-      <Filter>src\Include/headers\__include\sfml</Filter>
+      <Filter>src\Components\guiComponents\Include/headers\__include\sfml</Filter>
     </ClInclude>
     <ClInclude Include="src\include\SFML\System\Thread.hpp">
-      <Filter>src\Include/headers\__include\sfml</Filter>
+      <Filter>src\Components\guiComponents\Include/headers\__include\sfml</Filter>
     </ClInclude>
     <ClInclude Include="src\include\SFML\Graphics\Texture.hpp">
-      <Filter>src\Include/headers\__include\sfml</Filter>
+      <Filter>src\Components\guiComponents\Include/headers\__include\sfml</Filter>
     </ClInclude>
     <ClInclude Include="src\include\SFML\Network\TcpSocket.hpp">
-      <Filter>src\Include/headers\__include\sfml</Filter>
+      <Filter>src\Components\guiComponents\Include/headers\__include\sfml</Filter>
     </ClInclude>
     <ClInclude Include="src\include\SFML\Graphics\Text.hpp">
-      <Filter>src\Include/headers\__include\sfml</Filter>
+      <Filter>src\Components\guiComponents\Include/headers\__include\sfml</Filter>
     </ClInclude>
     <ClInclude Include="src\include\SFML\Network\TcpListener.hpp">
-      <Filter>src\Include/headers\__include\sfml</Filter>
+      <Filter>src\Components\guiComponents\Include/headers\__include\sfml</Filter>
     </ClInclude>
     <ClInclude Include="src\include\SFML\System.hpp">
-      <Filter>src\Include/headers\__include\sfml</Filter>
+      <Filter>src\Components\guiComponents\Include/headers\__include\sfml</Filter>
     </ClInclude>
     <ClInclude Include="src\include\SFML\System\String.hpp">
-      <Filter>src\Include/headers\__include\sfml</Filter>
+      <Filter>src\Components\guiComponents\Include/headers\__include\sfml</Filter>
     </ClInclude>
     <ClInclude Include="src\include\stdExtension.h">
-      <Filter>src\Include/headers\__include\sfml</Filter>
+      <Filter>src\Components\guiComponents\Include/headers\__include\sfml</Filter>
     </ClInclude>
     <ClInclude Include="src\include\SFML\Graphics\Sprite.hpp">
-      <Filter>src\Include/headers\__include\sfml</Filter>
+      <Filter>src\Components\guiComponents\Include/headers\__include\sfml</Filter>
     </ClInclude>
     <ClInclude Include="src\include\SFML\Audio\SoundStream.hpp">
-      <Filter>src\Include/headers\__include\sfml</Filter>
+      <Filter>src\Components\guiComponents\Include/headers\__include\sfml</Filter>
     </ClInclude>
     <ClInclude Include="src\include\SFML\Audio\SoundSource.hpp">
-      <Filter>src\Include/headers\__include\sfml</Filter>
+      <Filter>src\Components\guiComponents\Include/headers\__include\sfml</Filter>
     </ClInclude>
     <ClInclude Include="src\include\SFML\Audio\SoundRecorder.hpp">
-      <Filter>src\Include/headers\__include\sfml</Filter>
+      <Filter>src\Components\guiComponents\Include/headers\__include\sfml</Filter>
     </ClInclude>
     <ClInclude Include="src\include\SFML\Audio\SoundFileReader.hpp">
-      <Filter>src\Include/headers\__include\sfml</Filter>
+      <Filter>src\Components\guiComponents\Include/headers\__include\sfml</Filter>
     </ClInclude>
     <ClInclude Include="src\include\SFML\Audio\SoundFileWriter.hpp">
-      <Filter>src\Include/headers\__include\sfml</Filter>
+      <Filter>src\Components\guiComponents\Include/headers\__include\sfml</Filter>
     </ClInclude>
     <ClInclude Include="src\include\SFML\Audio\SoundFileFactory.hpp">
-      <Filter>src\Include/headers\__include\sfml</Filter>
+      <Filter>src\Components\guiComponents\Include/headers\__include\sfml</Filter>
     </ClInclude>
     <ClInclude Include="src\include\SFML\Audio\SoundBuffer.hpp">
-      <Filter>src\Include/headers\__include\sfml</Filter>
+      <Filter>src\Components\guiComponents\Include/headers\__include\sfml</Filter>
     </ClInclude>
     <ClInclude Include="src\include\SFML\Audio\SoundBufferRecorder.hpp">
-      <Filter>src\Include/headers\__include\sfml</Filter>
+      <Filter>src\Components\guiComponents\Include/headers\__include\sfml</Filter>
     </ClInclude>
     <ClInclude Include="src\include\SFML\Audio\Sound.hpp">
-      <Filter>src\Include/headers\__include\sfml</Filter>
+      <Filter>src\Components\guiComponents\Include/headers\__include\sfml</Filter>
     </ClInclude>
     <ClInclude Include="src\include\SFML\Network\SocketHandle.hpp">
-      <Filter>src\Include/headers\__include\sfml</Filter>
+      <Filter>src\Components\guiComponents\Include/headers\__include\sfml</Filter>
     </ClInclude>
     <ClInclude Include="src\include\SFML\Network\SocketSelector.hpp">
-      <Filter>src\Include/headers\__include\sfml</Filter>
+      <Filter>src\Components\guiComponents\Include/headers\__include\sfml</Filter>
     </ClInclude>
     <ClInclude Include="src\include\SFML\Network\Socket.hpp">
-      <Filter>src\Include/headers\__include\sfml</Filter>
+      <Filter>src\Components\guiComponents\Include/headers\__include\sfml</Filter>
     </ClInclude>
     <ClInclude Include="src\include\SFML\System\Sleep.hpp">
-      <Filter>src\Include/headers\__include\sfml</Filter>
+      <Filter>src\Components\guiComponents\Include/headers\__include\sfml</Filter>
     </ClInclude>
     <ClInclude Include="src\include\SFML\Graphics\Shape.hpp">
-      <Filter>src\Include/headers\__include\sfml</Filter>
+      <Filter>src\Components\guiComponents\Include/headers\__include\sfml</Filter>
     </ClInclude>
     <ClInclude Include="src\include\SFML\Graphics\Shader.hpp">
-      <Filter>src\Include/headers\__include\sfml</Filter>
+      <Filter>src\Components\guiComponents\Include/headers\__include\sfml</Filter>
     </ClInclude>
     <ClInclude Include="src\include\SFML\Window\Sensor.hpp">
-      <Filter>src\Include/headers\__include\sfml</Filter>
+      <Filter>src\Components\guiComponents\Include/headers\__include\sfml</Filter>
     </ClInclude>
     <ClInclude Include="src\include\SFML\Graphics\RenderWindow.hpp">
-      <Filter>src\Include/headers\__include\sfml</Filter>
+      <Filter>src\Components\guiComponents\Include/headers\__include\sfml</Filter>
     </ClInclude>
     <ClInclude Include="src\include\SFML\Graphics\RenderTexture.hpp">
-      <Filter>src\Include/headers\__include\sfml</Filter>
+      <Filter>src\Components\guiComponents\Include/headers\__include\sfml</Filter>
     </ClInclude>
     <ClInclude Include="src\include\SFML\Graphics\RenderStates.hpp">
-      <Filter>src\Include/headers\__include\sfml</Filter>
+      <Filter>src\Components\guiComponents\Include/headers\__include\sfml</Filter>
     </ClInclude>
     <ClInclude Include="src\include\SFML\Graphics\RenderTarget.hpp">
-      <Filter>src\Include/headers\__include\sfml</Filter>
+      <Filter>src\Components\guiComponents\Include/headers\__include\sfml</Filter>
     </ClInclude>
     <ClInclude Include="src\include\SFML\Graphics\RectangleShape.hpp">
-      <Filter>src\Include/headers\__include\sfml</Filter>
+      <Filter>src\Components\guiComponents\Include/headers\__include\sfml</Filter>
     </ClInclude>
     <ClInclude Include="src\include\SFML\Graphics\Rect.hpp">
-      <Filter>src\Include/headers\__include\sfml</Filter>
+      <Filter>src\Components\guiComponents\Include/headers\__include\sfml</Filter>
     </ClInclude>
     <ClInclude Include="src\include\SFML\Graphics\PrimitiveType.hpp">
-      <Filter>src\Include/headers\__include\sfml</Filter>
+      <Filter>src\Components\guiComponents\Include/headers\__include\sfml</Filter>
     </ClInclude>
     <ClInclude Include="src\include\SFML\Network\Packet.hpp">
-      <Filter>src\Include/headers\__include\sfml</Filter>
+      <Filter>src\Components\guiComponents\Include/headers\__include\sfml</Filter>
     </ClInclude>
     <ClInclude Include="src\include\SFML\System\NonCopyable.hpp">
-      <Filter>src\Include/headers\__include\sfml</Filter>
+      <Filter>src\Components\guiComponents\Include/headers\__include\sfml</Filter>
     </ClInclude>
     <ClInclude Include="src\include\SFML\Audio\OutputSoundFile.hpp">
-      <Filter>src\Include/headers\__include\sfml</Filter>
+      <Filter>src\Components\guiComponents\Include/headers\__include\sfml</Filter>
     </ClInclude>
     <ClInclude Include="src\include\SFML\OpenGL.hpp">
-      <Filter>src\Include/headers\__include\sfml</Filter>
+      <Filter>src\Components\guiComponents\Include/headers\__include\sfml</Filter>
     </ClInclude>
     <ClInclude Include="src\include\SFML\Network.hpp">
-      <Filter>src\Include/headers\__include\sfml</Filter>
+      <Filter>src\Components\guiComponents\Include/headers\__include\sfml</Filter>
     </ClInclude>
     <ClInclude Include="src\include\SFML\System\NativeActivity.hpp">
-      <Filter>src\Include/headers\__include\sfml</Filter>
+      <Filter>src\Components\guiComponents\Include/headers\__include\sfml</Filter>
     </ClInclude>
     <ClInclude Include="src\include\SFML\System\Mutex.hpp">
-      <Filter>src\Include/headers\__include\sfml</Filter>
+      <Filter>src\Components\guiComponents\Include/headers\__include\sfml</Filter>
     </ClInclude>
     <ClInclude Include="src\include\SFML\Audio\Music.hpp">
-      <Filter>src\Include/headers\__include\sfml</Filter>
+      <Filter>src\Components\guiComponents\Include/headers\__include\sfml</Filter>
     </ClInclude>
     <ClInclude Include="src\include\SFML\Window\Mouse.hpp">
-      <Filter>src\Include/headers\__include\sfml</Filter>
+      <Filter>src\Components\guiComponents\Include/headers\__include\sfml</Filter>
     </ClInclude>
     <ClInclude Include="src\include\SFML\System\MemoryInputStream.hpp">
-      <Filter>src\Include/headers\__include\sfml</Filter>
+      <Filter>src\Components\guiComponents\Include/headers\__include\sfml</Filter>
     </ClInclude>
     <ClInclude Include="src\include\SFML\Main.hpp">
-      <Filter>src\Include/headers\__include\sfml</Filter>
+      <Filter>src\Components\guiComponents\Include/headers\__include\sfml</Filter>
     </ClInclude>
     <ClInclude Include="src\include\SFML\System\Lock.hpp">
-      <Filter>src\Include/headers\__include\sfml</Filter>
+      <Filter>src\Components\guiComponents\Include/headers\__include\sfml</Filter>
     </ClInclude>
     <ClInclude Include="src\include\SFML\Audio\Listener.hpp">
-      <Filter>src\Include/headers\__include\sfml</Filter>
+      <Filter>src\Components\guiComponents\Include/headers\__include\sfml</Filter>
     </ClInclude>
     <ClInclude Include="src\include\SFML\Window\Keyboard.hpp">
-      <Filter>src\Include/headers\__include\sfml</Filter>
+      <Filter>src\Components\guiComponents\Include/headers\__include\sfml</Filter>
     </ClInclude>
     <ClInclude Include="src\include\SFML\Window\Joystick.hpp">
-      <Filter>src\Include/headers\__include\sfml</Filter>
+      <Filter>src\Components\guiComponents\Include/headers\__include\sfml</Filter>
     </ClInclude>
     <ClInclude Include="src\include\SFML\Network\IpAddress.hpp">
-      <Filter>src\Include/headers\__include\sfml</Filter>
+      <Filter>src\Components\guiComponents\Include/headers\__include\sfml</Filter>
     </ClInclude>
     <ClInclude Include="src\include\SFML\System\InputStream.hpp">
-      <Filter>src\Include/headers\__include\sfml</Filter>
+      <Filter>src\Components\guiComponents\Include/headers\__include\sfml</Filter>
     </ClInclude>
     <ClInclude Include="src\include\SFML\Audio\InputSoundFile.hpp">
-      <Filter>src\Include/headers\__include\sfml</Filter>
+      <Filter>src\Components\guiComponents\Include/headers\__include\sfml</Filter>
     </ClInclude>
     <ClInclude Include="src\include\SFML\Graphics\Image.hpp">
-      <Filter>src\Include/headers\__include\sfml</Filter>
+      <Filter>src\Components\guiComponents\Include/headers\__include\sfml</Filter>
     </ClInclude>
     <ClInclude Include="src\include\SFML\Network\Http.hpp">
-      <Filter>src\Include/headers\__include\sfml</Filter>
+      <Filter>src\Components\guiComponents\Include/headers\__include\sfml</Filter>
     </ClInclude>
     <ClInclude Include="src\include\SFML\GpuPreference.hpp">
-      <Filter>src\Include/headers\__include\sfml</Filter>
+      <Filter>src\Components\guiComponents\Include/headers\__include\sfml</Filter>
     </ClInclude>
     <ClInclude Include="src\include\SFML\Graphics.hpp">
-      <Filter>src\Include/headers\__include\sfml</Filter>
+      <Filter>src\Components\guiComponents\Include/headers\__include\sfml</Filter>
     </ClInclude>
     <ClInclude Include="src\include\SFML\Graphics\Glyph.hpp">
-      <Filter>src\Include/headers\__include\sfml</Filter>
+      <Filter>src\Components\guiComponents\Include/headers\__include\sfml</Filter>
     </ClInclude>
     <ClInclude Include="src\include\SFML\Graphics\Glsl.hpp">
-      <Filter>src\Include/headers\__include\sfml</Filter>
+      <Filter>src\Components\guiComponents\Include/headers\__include\sfml</Filter>
     </ClInclude>
     <ClInclude Include="src\include\SFML\Window\GlResource.hpp">
-      <Filter>src\Include/headers\__include\sfml</Filter>
+      <Filter>src\Components\guiComponents\Include/headers\__include\sfml</Filter>
     </ClInclude>
     <ClInclude Include="src\include\SFML\Network\Ftp.hpp">
-      <Filter>src\Include/headers\__include\sfml</Filter>
+      <Filter>src\Components\guiComponents\Include/headers\__include\sfml</Filter>
     </ClInclude>
     <ClInclude Include="src\include\SFML\Graphics\Font.hpp">
-      <Filter>src\Include/headers\__include\sfml</Filter>
+      <Filter>src\Components\guiComponents\Include/headers\__include\sfml</Filter>
     </ClInclude>
     <ClInclude Include="src\include\SFML\System\FileInputStream.hpp">
-      <Filter>src\Include/headers\__include\sfml</Filter>
+      <Filter>src\Components\guiComponents\Include/headers\__include\sfml</Filter>
     </ClInclude>
     <ClInclude Include="src\include\SFML\Audio\Export.hpp">
-      <Filter>src\Include/headers\__include\sfml</Filter>
+      <Filter>src\Components\guiComponents\Include/headers\__include\sfml</Filter>
     </ClInclude>
     <ClInclude Include="src\include\SFML\System\Export.hpp">
-      <Filter>src\Include/headers\__include\sfml</Filter>
+      <Filter>src\Components\guiComponents\Include/headers\__include\sfml</Filter>
     </ClInclude>
     <ClInclude Include="src\include\SFML\Network\Export.hpp">
-      <Filter>src\Include/headers\__include\sfml</Filter>
+      <Filter>src\Components\guiComponents\Include/headers\__include\sfml</Filter>
     </ClInclude>
     <ClInclude Include="src\include\SFML\Window\Export.hpp">
-      <Filter>src\Include/headers\__include\sfml</Filter>
+      <Filter>src\Components\guiComponents\Include/headers\__include\sfml</Filter>
     </ClInclude>
     <ClInclude Include="src\include\SFML\Graphics\Export.hpp">
-      <Filter>src\Include/headers\__include\sfml</Filter>
+      <Filter>src\Components\guiComponents\Include/headers\__include\sfml</Filter>
     </ClInclude>
     <ClInclude Include="src\include\SFML\Window\Event.hpp">
-      <Filter>src\Include/headers\__include\sfml</Filter>
+      <Filter>src\Components\guiComponents\Include/headers\__include\sfml</Filter>
     </ClInclude>
     <ClInclude Include="src\include\SFML\System\Err.hpp">
-      <Filter>src\Include/headers\__include\sfml</Filter>
+      <Filter>src\Components\guiComponents\Include/headers\__include\sfml</Filter>
     </ClInclude>
     <ClInclude Include="src\include\SFML\Graphics\Drawable.hpp">
-      <Filter>src\Include/headers\__include\sfml</Filter>
+      <Filter>src\Components\guiComponents\Include/headers\__include\sfml</Filter>
     </ClInclude>
     <ClInclude Include="src\include\dirent.h">
-      <Filter>src\Include/headers\__include\sfml</Filter>
+      <Filter>src\Components\guiComponents\Include/headers\__include\sfml</Filter>
     </ClInclude>
     <ClInclude Include="src\include\SFML\Window\Cursor.hpp">
-      <Filter>src\Include/headers\__include\sfml</Filter>
+      <Filter>src\Components\guiComponents\Include/headers\__include\sfml</Filter>
     </ClInclude>
     <ClInclude Include="src\include\SFML\Graphics\ConvexShape.hpp">
-      <Filter>src\Include/headers\__include\sfml</Filter>
+      <Filter>src\Components\guiComponents\Include/headers\__include\sfml</Filter>
     </ClInclude>
     <ClInclude Include="src\include\SFML\Window\ContextSettings.hpp">
-      <Filter>src\Include/headers\__include\sfml</Filter>
+      <Filter>src\Components\guiComponents\Include/headers\__include\sfml</Filter>
     </ClInclude>
     <ClInclude Include="src\include\SFML\Config.hpp">
-      <Filter>src\Include/headers\__include\sfml</Filter>
+      <Filter>src\Components\guiComponents\Include/headers\__include\sfml</Filter>
     </ClInclude>
     <ClInclude Include="src\include\SFML\Window\Context.hpp">
-      <Filter>src\Include/headers\__include\sfml</Filter>
+      <Filter>src\Components\guiComponents\Include/headers\__include\sfml</Filter>
     </ClInclude>
     <ClInclude Include="src\include\SFML\Graphics\Color.hpp">
-      <Filter>src\Include/headers\__include\sfml</Filter>
+      <Filter>src\Components\guiComponents\Include/headers\__include\sfml</Filter>
     </ClInclude>
     <ClInclude Include="src\include\SFML\Window\Clipboard.hpp">
-      <Filter>src\Include/headers\__include\sfml</Filter>
+      <Filter>src\Components\guiComponents\Include/headers\__include\sfml</Filter>
     </ClInclude>
     <ClInclude Include="src\include\SFML\System\Clock.hpp">
-      <Filter>src\Include/headers\__include\sfml</Filter>
+      <Filter>src\Components\guiComponents\Include/headers\__include\sfml</Filter>
     </ClInclude>
     <ClInclude Include="src\include\SFML\Graphics\CircleShape.hpp">
-      <Filter>src\Include/headers\__include\sfml</Filter>
+      <Filter>src\Components\guiComponents\Include/headers\__include\sfml</Filter>
     </ClInclude>
     <ClInclude Include="src\include\SFML\Graphics\BlendMode.hpp">
-      <Filter>src\Include/headers\__include\sfml</Filter>
+      <Filter>src\Components\guiComponents\Include/headers\__include\sfml</Filter>
     </ClInclude>
     <ClInclude Include="src\include\SFML\Audio.hpp">
-      <Filter>src\Include/headers\__include\sfml</Filter>
+      <Filter>src\Components\guiComponents\Include/headers\__include\sfml</Filter>
     </ClInclude>
     <ClInclude Include="src\include\SFML\Audio\AlResource.hpp">
-      <Filter>src\Include/headers\__include\sfml</Filter>
+      <Filter>src\Components\guiComponents\Include/headers\__include\sfml</Filter>
     </ClInclude>
     <ClInclude Include="src\guiComponents\propertyEditor\UIAnimation.h">
       <Filter>src\Components\guiComponents\animation</Filter>
@@ -743,10 +742,10 @@
       <Filter>src\Components\calculationComponents</Filter>
     </ClInclude>
     <ClInclude Include="src\headers\ImGui.h">
-      <Filter>src\Include/headers\_header</Filter>
+      <Filter>src\Components\guiComponents\Include/headers\_header</Filter>
     </ClInclude>
     <ClInclude Include="src\headers\SpriteEngine.h">
-      <Filter>src\Include/headers\_header</Filter>
+      <Filter>src\Components\guiComponents\Include/headers\_header</Filter>
     </ClInclude>
     <ClInclude Include="src\manager\fileDialogs.h">
       <Filter>src\Components\manager\fileDialgo</Filter>
@@ -787,7 +786,9 @@
     <ClInclude Include="src\guiComponents\UI.h">
       <Filter>src\Components\guiComponents</Filter>
     </ClInclude>
-    <ClInclude Include="keyFrame.h" />
+    <ClInclude Include="src\spriteComponents\keyFrame.h">
+      <Filter>src\Components\guiComponents\animation</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="saves\textFiles\imguibasics.txt">
@@ -808,31 +809,31 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="src\include\SFML\System\Vector3.inl">
-      <Filter>src\Include/headers\__include\sfml</Filter>
+      <Filter>src\Components\guiComponents\Include/headers\__include\sfml</Filter>
     </None>
     <None Include="src\include\SFML\System\Vector2.inl">
-      <Filter>src\Include/headers\__include\sfml</Filter>
+      <Filter>src\Components\guiComponents\Include/headers\__include\sfml</Filter>
     </None>
     <None Include="src\include\SFML\System\Utf.inl">
-      <Filter>src\Include/headers\__include\sfml</Filter>
+      <Filter>src\Components\guiComponents\Include/headers\__include\sfml</Filter>
     </None>
     <None Include="src\include\SFML\System\ThreadLocalPtr.inl">
-      <Filter>src\Include/headers\__include\sfml</Filter>
+      <Filter>src\Components\guiComponents\Include/headers\__include\sfml</Filter>
     </None>
     <None Include="src\include\SFML\System\Thread.inl">
-      <Filter>src\Include/headers\__include\sfml</Filter>
+      <Filter>src\Components\guiComponents\Include/headers\__include\sfml</Filter>
     </None>
     <None Include="src\include\SFML\System\String.inl">
-      <Filter>src\Include/headers\__include\sfml</Filter>
+      <Filter>src\Components\guiComponents\Include/headers\__include\sfml</Filter>
     </None>
     <None Include="src\include\SFML\Audio\SoundFileFactory.inl">
-      <Filter>src\Include/headers\__include\sfml</Filter>
+      <Filter>src\Components\guiComponents\Include/headers\__include\sfml</Filter>
     </None>
     <None Include="src\include\SFML\Graphics\Rect.inl">
-      <Filter>src\Include/headers\__include\sfml</Filter>
+      <Filter>src\Components\guiComponents\Include/headers\__include\sfml</Filter>
     </None>
     <None Include="src\include\SFML\Graphics\Glsl.inl">
-      <Filter>src\Include/headers\__include\sfml</Filter>
+      <Filter>src\Components\guiComponents\Include/headers\__include\sfml</Filter>
     </None>
   </ItemGroup>
 </Project>

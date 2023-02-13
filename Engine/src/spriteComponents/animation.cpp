@@ -3,9 +3,9 @@
 
 #include <engineComponents/input.h>
 
-//Public functions
+// Constructor
 
-s2d::Animation::Animation(Sprite* ptr_appliedSprite, std::string name, std::vector<std::string> textures, float delay, bool useBaseSprite)
+s2d::Animation::Animation(Sprite* ptr_appliedSprite, const std::string& name, const std::vector<s2d::KeyFrame>& frames, const float delay, const bool useBaseSprite)
 {
 	this->timePassed = 2.0f;
 	this->delay = delay;
@@ -16,7 +16,13 @@ s2d::Animation::Animation(Sprite* ptr_appliedSprite, std::string name, std::vect
 	this->m_useBaseSprite = useBaseSprite;
 	this->m_usebaseNextFrame = (useBaseSprite) ? true : false;
 	this->m_basePath = this->ptr_appliedSprite->path;
-	this->m_paths = textures;
+	
+	this->m_paths.resize(frames.size());
+
+	for (int i = 0; i < frames.size(); i++)
+	{
+		this->m_paths[i] = frames[i].path;
+	}
 
 	this->setVectorSizes();
 }
@@ -57,29 +63,18 @@ void s2d::Animation::setVectorSizes()
 
 //Public methods
 
-//This method will start the animation and will set the current framt to zero
 void s2d::Animation::play()
 {
-	this->currentFrame = 0;
+	this->currentFrame = (this->m_useBaseSprite) ? 1 : 0;
 	this->isPlaying = true;
 }
 
-//This methods updates the animation with the delay
 void s2d::Animation::update()
 {
-	if (s2d::Input::onKeyPress(s2d::KeyBoardCode::B))
-	{
-		std::cout << this->m_textures.size() << std::endl;
-		for (int i = 0; i < this->m_textures.size(); i++)
-		{
-			std::cout << this->m_paths[i] << std::endl;
-		}
-	}
 	this->timePassed += Time::deltaTime;
 	if (timePassed >= delay / 100)
 	{
 		this->timePassed = 0;
-		std::cout << "y" << std::endl;
 		this->ptr_appliedSprite->setSpriteTexture(this->m_textures[currentFrame]);
 	    this->ptr_appliedSprite->transform.setScale(this->ptr_appliedSprite->transform.getScale(), true);
 		this->ptr_appliedSprite->path = this->m_paths[currentFrame];

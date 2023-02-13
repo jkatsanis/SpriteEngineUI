@@ -99,15 +99,15 @@ void s2d::Transform::setScale(const s2d::Vector2& scale, bool b)
 
 	if (scale.x < 0 && scale.y < 0)
 	{
-		this->m_attachedSprite->getSprite().setOrigin(textureRect.width, textureRect.height);
+		this->m_attachedSprite->getSprite().setOrigin((float)textureRect.width, (float)textureRect.height);
 	}
 	else if (scale.x < 0)
 	{
-		this->m_attachedSprite->getSprite().setOrigin(textureRect.width, 0);
+		this->m_attachedSprite->getSprite().setOrigin((float)textureRect.width, 0);
 	}
 	else if (scale.y < 0)
 	{
-		this->m_attachedSprite->getSprite().setOrigin(0, textureRect.height);
+		this->m_attachedSprite->getSprite().setOrigin(0, (float)textureRect.height);
 	}
 	else
 	{

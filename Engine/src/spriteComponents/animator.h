@@ -4,6 +4,7 @@
 #include <vector>
 #include <spriteComponents/animation.h>
 #include <engineComponents/stime.h>
+#include <spriteComponents/keyFrame.h>
 
 namespace s2d
 {
@@ -25,7 +26,7 @@ namespace s2d
 		Animator();
 		Animator(Sprite* ptr_attachedSprite);
 
-		void createAnimation(std::string name, std::vector<std::string> textures, float delay, bool useBaseSprite);
+		void createAnimation(const std::string& name, const std::vector<s2d::KeyFrame>& frame, const float delay, const bool useBaseSprites);
 
 		void play(std::string name);
 		void stop(std::string name);
