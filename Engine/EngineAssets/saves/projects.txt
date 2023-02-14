@@ -1,2 +1,2 @@
 name;absulutePathStr;date;relativePath
-BadTiming;C:\Dev\BadTiming;2023/13/02 13:39:29;..\..\BadTiming
+GLONL;C:\Dev\GLONL;2023/14/02 08:59:55;..\..\GLONL

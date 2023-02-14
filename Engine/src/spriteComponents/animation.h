@@ -33,6 +33,8 @@ namespace s2d
 		void play();
 		void update();
 		void stop();
+		int getSize() const { return (int)this->m_keyFrames.size(); }
+		const std::vector<s2d::KeyFrame>& getKeyFrames() const { return this->m_keyFrames; }
 
 		int getFrameSize() { return int(this->m_keyFrames.size()); }
 

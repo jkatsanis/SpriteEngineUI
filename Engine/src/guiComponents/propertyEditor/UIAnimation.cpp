@@ -2,8 +2,7 @@
 
 s2d::UIAnimation::UIAnimation()
 {
-	this->m_UIAnimationEditor.anim = nullptr;
-	this->m_UIAnimationEditor.display = false;
+	this->m_UIAnimationEditor.resetAnim();
 	this->m_file_name = "";
 }
 
@@ -13,6 +12,7 @@ void s2d::UIAnimation::createUIAnimationWindow()
 {
 	if (s2d::UIInfo::srenderAssetFolder || s2d::UIHirachy::selectedSprite == nullptr)
 	{
+		this->isHovered = false;
 		return;
 	}	
 
@@ -79,7 +79,8 @@ void s2d::UIAnimation::displayAnimations()
 
 		if (s2d::FontManager::displaySmybolAsButton(button.c_str()))
 		{
-			this->m_UIAnimationEditor.anim = &anim;
+			// setting animation for the UIAnimationEditor
+			this->m_UIAnimationEditor.setAnim(&anim);
 			this->m_UIAnimationEditor.displayEditor();
 		}
 	}
@@ -109,6 +110,7 @@ void s2d::UIAnimation::addAnimationsToAnimator()
 
 	if (ImGui::IsPopupOpen("Lol") && ImGui::IsKeyReleased(ImGuiKey_Enter))
 	{
+		// Add animation to the current
 		//s2d::UIHirachy::selectedSprite->animator.createAnimation(this->mogus, { "d", "d" }, 500, true);
 	}
 }

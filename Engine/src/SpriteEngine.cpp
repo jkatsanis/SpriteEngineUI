@@ -21,14 +21,15 @@ int main()
     s2d::Sprite* spr = s2d::Sprite::activeSprites[0];
 
     std::string s1 = s2d::EngineData::s_pathToUserProject + "\\assets\\Sprites\\big.png";
-    std::string s2 = s2d::EngineData::s_pathToUserProject + "\\assets\\Sprites\\bird.png";
+    std::string s2 = s2d::EngineData::s_pathToUserProject + "\\assets\\Sprites\\down.png";
 
     // After 200ms to this
-    s2d::KeyFrame x = s2d::KeyFrame(s1, 1);
+    s2d::KeyFrame x = s2d::KeyFrame(s1, 3);
 
     // s1 stuck 200ms 
-    s2d::KeyFrame y = s2d::KeyFrame(s2, 1);
-    s2d::KeyFrame z = s2d::KeyFrame(s2, 1);
+    s2d::KeyFrame y = s2d::KeyFrame(s2, 5);
+    s2d::KeyFrame z = s2d::KeyFrame(s2, 2);
+   // s2d::KeyFrame z = s2d::KeyFrame(s2, 0);
 
     // Directly to start
 
