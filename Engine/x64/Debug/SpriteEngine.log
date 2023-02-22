@@ -1,7 +1,10 @@
 ﻿  SpriteEngine.cpp
+  gameEngine.cpp
+  UIWindow.cpp
+  UIProjectSelector.cpp
   UIAnimation.cpp
   UIAnimationEditor.cpp
-C:\Dev\SpriteEngineUI\Engine\src\guiComponents\propertyEditor\UIAnimationEditor.cpp(74,34): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Dev\SpriteEngineUI\Engine\src\guiComponents\propertyEditor\UIAnimationEditor.cpp(103,34): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Dev\SpriteEngineUI\Engine\src\guiComponents\propertyEditor\UIAnimationEditor.cpp(85,34): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Dev\SpriteEngineUI\Engine\src\guiComponents\propertyEditor\UIAnimationEditor.cpp(152,34): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
   Generating Code...
   SpriteEngine.vcxproj -> C:\Dev\SpriteEngineUI\Engine\x64\Debug\SpriteEngine.exe

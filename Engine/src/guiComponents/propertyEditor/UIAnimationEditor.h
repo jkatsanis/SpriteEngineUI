@@ -10,21 +10,28 @@
 
 namespace s2d
 {
+	struct KeyFrameSelected
+	{
+		int position;
+		const s2d::KeyFrame* keyFrameSelected;
+		bool isClicked;
+	};
 	class UIAnimationEditor
 	{
 	private:
 		const int m_CURSOR_SPACE = 50;
 		int m_keyFramesToEdit;
-		UIAnimationKeyFrameEditor editor;
+		s2d::UIAnimationKeyFrameEditor editor;
 
 		void renderKeyFrames();
 		void addKeyFrame();
 		void beginWindow();
 		void closeWindow();
 		void editorTimeLine();
+		void displayKeyFrameInfo();
 
 		s2d::Animation* m_anim;
-
+		s2d::KeyFrameSelected m_keyFrameSelected;
 	public:
 		bool isHovered;
 		bool display;

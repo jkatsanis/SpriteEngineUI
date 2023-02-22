@@ -90,7 +90,6 @@ void s2d::UIToolButtons::askWithButtonForPlayGame()
 
 		delete[] wideString;
 	}
-
 }
 
 void s2d::UIToolButtons::toolSelector()

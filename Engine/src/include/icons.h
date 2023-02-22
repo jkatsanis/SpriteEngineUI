@@ -1496,7 +1496,7 @@
 #define ICON_FA_SPLOTCH "\xef\x96\xbc"	// U+f5bc
 #define ICON_FA_SPRAY_CAN "\xef\x96\xbd"	// U+f5bd
 #define ICON_FA_SPRINKLER "\xee\x80\xb5"	// U+e035
-#define ICON_FA_SQUARE "\xef\x83\x88"	// U+f0c8
+#define ICON_FA_SQUARE u8"\uf0c8"	// U+f0c8
 #define ICON_FA_SQUARE_FULL "\xef\x91\x9c"	// U+f45c
 #define ICON_FA_SQUARE_ROOT "\xef\x9a\x97"	// U+f697
 #define ICON_FA_SQUARE_ROOT_ALT "\xef\x9a\x98"	// U+f698

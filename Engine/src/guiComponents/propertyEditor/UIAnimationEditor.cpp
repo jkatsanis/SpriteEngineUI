@@ -9,6 +9,7 @@ s2d::UIAnimationEditor::UIAnimationEditor()
 	this->editor = s2d::UIAnimationKeyFrameEditor();
 	this->m_anim = nullptr;
 	this->display = false;
+	this->m_keyFrameSelected.keyFrameSelected = nullptr;
 	this->isHovered = false;
 }
 
@@ -60,9 +61,19 @@ void s2d::UIAnimationEditor::editorTimeLine()
 {
 	float y = ImGui::GetCursorPosY() + 10;
 
-	if (s2d::FontManager::displaySmybolAsButton(ICON_FA_PLAY))
+	if (!this->m_anim->isPlaying)
 	{
-		// Play animation
+		if (s2d::FontManager::displaySmybolAsButton(ICON_FA_PLAY))
+		{
+			this->m_anim->play();
+		}
+	}
+	else
+	{
+		if (s2d::FontManager::displaySmybolAsButton(ICON_FA_SQUARE))
+		{
+			this->m_anim->stop();
+		}
 	}
 
 	ImGui::SetCursorPos(ImVec2(100, y));
@@ -76,10 +87,36 @@ void s2d::UIAnimationEditor::editorTimeLine()
 	
 
 	this->renderKeyFrames();
+	this->displayKeyFrameInfo();
+}
+
+void s2d::UIAnimationEditor::displayKeyFrameInfo()
+{
+	if (this->m_keyFrameSelected.keyFrameSelected == nullptr)
+	{
+		return;
+	}
+
+	const std::string keyFrameSelected = "KeyFrame Selected: " + std::to_string(this->m_keyFrameSelected.position);
+	ImGui::Text(keyFrameSelected.c_str());
+
+	if (ImGui::Button("Delete"))
+	{
+		// TODO: Delete keyframes
+	}
+
+	if(this->m_keyFrameSelected.keyFrameSelected != nullptr && this->m_keyFrameSelected.isClicked)
+    		
+
+	if (!sf::Mouse::isButtonPressed(sf::Mouse::Left))
+	{
+		
+	}
 }
 
 void s2d::UIAnimationEditor::renderKeyFrames()
 {
+	const static float s_keyFrameSize = 18;
 	const std::vector<s2d::KeyFrame>& frames = this->m_anim->getKeyFrames();
 	const float y = ImGui::GetCursorPosY() + 40;
 	float currentMs = 0;
@@ -94,15 +131,28 @@ void s2d::UIAnimationEditor::renderKeyFrames()
 		}
 		if (currentMs == frames[cnt].delay)
 		{
+			ImGui::SetCursorPosX(ImGui::GetCursorPosX() - s_keyFrameSize / 2);
+			ImGui::PushStyleColor(ImGuiCol_Button, REAL_EDITOR_BUTTON_BG_COLOR);
+
+			const std::string buttonName = "o" + std::string("##") + std::to_string(i);
+
+			if(ImGui::Button(buttonName.c_str()))
+			{
+				this->m_keyFrameSelected.isClicked = true;
+				this->m_keyFrameSelected.keyFrameSelected = &frames[cnt];
+				this->m_keyFrameSelected.position = i;
+			}
+			ImGui::PopStyleColor();
+
 			currentMs = 0;
 			cnt++;
-			ImGui::Text("o");
 		}
 		currentMs++;
 
 		ImGui::SetCursorPos(ImVec2(100 + i * this->m_CURSOR_SPACE, y));
-
 	}
+	ImGui::NewLine();
+	ImGui::Dummy(ImVec2(0, 20));
 }
 
 void s2d::UIAnimationEditor::addKeyFrame()
