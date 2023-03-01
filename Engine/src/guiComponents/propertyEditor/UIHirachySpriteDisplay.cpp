@@ -13,7 +13,7 @@ s2d::UIHirachySpriteDisplayer::UIHirachySpriteDisplayer()
 	this->deleteSprite = nullptr;
 }
 
-// Public methodf
+// Public method
 
 void s2d::UIHirachySpriteDisplayer::addSpritesToHirachy()
 {

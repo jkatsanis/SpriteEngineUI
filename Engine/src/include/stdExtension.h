@@ -119,5 +119,15 @@ namespace std
 		}
 		return "folder";
 	}
+
+	template<class T>
+	static void removeAt(std::vector<T>& vec, int pos)
+	{
+		if (pos >= vec.size())
+		{
+			return;
+		}
+		vec.erase(vec.begin() + pos);
+	}
 }
 

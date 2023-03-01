@@ -1,10 +1,7 @@
-﻿  SpriteEngine.cpp
-  gameEngine.cpp
-  UIWindow.cpp
-  UIProjectSelector.cpp
-  UIAnimation.cpp
-  UIAnimationEditor.cpp
-C:\Dev\SpriteEngineUI\Engine\src\guiComponents\propertyEditor\UIAnimationEditor.cpp(85,34): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Dev\SpriteEngineUI\Engine\src\guiComponents\propertyEditor\UIAnimationEditor.cpp(152,34): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-  Generating Code...
+﻿  UIAnimationKeyFrameEditor.cpp
+C:\Dev\SpriteEngineUI\Engine\src\guiComponents\propertyEditor\UIAnimationKeyFrameEditor.cpp(88,23): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Dev\SpriteEngineUI\Engine\src\guiComponents\propertyEditor\UIAnimationKeyFrameEditor.cpp(96,19): warning C4244: '+=': conversion from 'float' to 'int', possible loss of data
+C:\Dev\SpriteEngineUI\Engine\src\guiComponents\propertyEditor\UIAnimationKeyFrameEditor.cpp(131,15): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Dev\SpriteEngineUI\Engine\src\guiComponents\propertyEditor\UIAnimationKeyFrameEditor.cpp(132,37): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Dev\SpriteEngineUI\Engine\src\guiComponents\propertyEditor\UIAnimationKeyFrameEditor.cpp(134,56): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
   SpriteEngine.vcxproj -> C:\Dev\SpriteEngineUI\Engine\x64\Debug\SpriteEngine.exe

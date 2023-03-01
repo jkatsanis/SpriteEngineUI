@@ -213,6 +213,7 @@ void s2d::UIInspector::transformComponent()
 	{	
 		static float s_inputWidth = 80;
 
+		ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 15);
 		ImGui::Text(label);
 		ImGui::SetCursorPos(ImVec2(x + 90, y + 13));
 		ImGui::Text("X");
@@ -271,7 +272,7 @@ void s2d::UIInspector::spriteRendererComponent()
 		float x = ImGui::GetCursorPos().x;
 
 		ImGui::SetCursorPos(ImVec2(x += 15.0f, y += 10));
-		ImGui::Text("sprite");
+		ImGui::Text("Sprite");
 
 		ImGui::SetCursorPos(ImVec2(x += 100, y - 5));
 		ImGui::SetNextItemWidth(this->m_spriteInputWidth);

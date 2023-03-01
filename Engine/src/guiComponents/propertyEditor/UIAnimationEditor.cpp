@@ -78,13 +78,13 @@ void s2d::UIAnimationEditor::editorTimeLine()
 
 	ImGui::SetCursorPos(ImVec2(100, y));
 
-	for (int i = 1; i <= this->m_keyFramesToEdit; i++)
+	for (int i = 0; i <= this->m_keyFramesToEdit; i++)
 	{
 		ImGui::Text(std::to_string(i).c_str());
 
-		ImGui::SetCursorPos(ImVec2(100 + i * this->m_CURSOR_SPACE, y));
+		ImGui::SetCursorPos(ImVec2(100 + (i + 1) * this->m_CURSOR_SPACE, y));
 	}
-	
+
 
 	this->renderKeyFrames();
 	this->displayKeyFrameInfo();
@@ -100,29 +100,28 @@ void s2d::UIAnimationEditor::displayKeyFrameInfo()
 	const std::string keyFrameSelected = "KeyFrame Selected: " + std::to_string(this->m_keyFrameSelected.position);
 	ImGui::Text(keyFrameSelected.c_str());
 
-	if (ImGui::Button("Delete"))
+	if (this->m_keyFrameSelected.position != 0 && ImGui::Button("Delete"))
 	{
-		// TODO: Delete keyframes
+		this->m_anim->deleteKeyFrame(this->m_keyFrameSelected.position);
 	}
 
-	if(this->m_keyFrameSelected.keyFrameSelected != nullptr && this->m_keyFrameSelected.isClicked)
-    		
 
-	if (!sf::Mouse::isButtonPressed(sf::Mouse::Left))
-	{
-		
-	}
 }
 
 void s2d::UIAnimationEditor::renderKeyFrames()
 {
+	const static float s_sizeTo0Frame = 100;
 	const static float s_keyFrameSize = 18;
 	const std::vector<s2d::KeyFrame>& frames = this->m_anim->getKeyFrames();
 	const float y = ImGui::GetCursorPosY() + 40;
 	float currentMs = 0;
-
+	float add = 0;
 	int cnt = 0;
 	std::string keyFrameTimeLine = std::string(10, ' ');
+
+	ImGui::NewLine();
+	ImGui::SetCursorPos(ImVec2(s_sizeTo0Frame , y));
+
 	for (int i = 0; i < this->m_keyFramesToEdit; i++)
 	{
 		if (cnt == frames.size())
@@ -131,12 +130,17 @@ void s2d::UIAnimationEditor::renderKeyFrames()
 		}
 		if (currentMs == frames[cnt].delay)
 		{
-			ImGui::SetCursorPosX(ImGui::GetCursorPosX() - s_keyFrameSize / 2);
+			if (i >= 10)
+			{
+				add = 6;
+			}
+
+			ImGui::SetCursorPosX(ImGui::GetCursorPosX() - s_keyFrameSize / 2 + add);
 			ImGui::PushStyleColor(ImGuiCol_Button, REAL_EDITOR_BUTTON_BG_COLOR);
 
 			const std::string buttonName = "o" + std::string("##") + std::to_string(i);
 
-			if(ImGui::Button(buttonName.c_str()))
+			if (ImGui::Button(buttonName.c_str()))
 			{
 				this->m_keyFrameSelected.isClicked = true;
 				this->m_keyFrameSelected.keyFrameSelected = &frames[cnt];
@@ -149,7 +153,7 @@ void s2d::UIAnimationEditor::renderKeyFrames()
 		}
 		currentMs++;
 
-		ImGui::SetCursorPos(ImVec2(100 + i * this->m_CURSOR_SPACE, y));
+		ImGui::SetCursorPos(ImVec2(100 + (i + 1) * this->m_CURSOR_SPACE, y));
 	}
 	ImGui::NewLine();
 	ImGui::Dummy(ImVec2(0, 20));
@@ -157,23 +161,25 @@ void s2d::UIAnimationEditor::renderKeyFrames()
 
 void s2d::UIAnimationEditor::addKeyFrame()
 {
-	ImGui::Dummy(ImVec2(0, 200));
 	ImGui::SetCursorPos(ImVec2(ImGui::GetCursorPosX() + 2 + ImGui::GetScrollX(), ImGui::GetCursorPosY()));
 	if (ImGui::Button("Add KeyFrame"))
 	{
 		if (s2d::UIHirachy::selectedSprite != nullptr)
+		{
 			this->editor.keyFramePath = s2d::UIHirachy::selectedSprite->path;
+		}
 		this->editor.isKeyFrameMenuOpen = true;
+		this->editor.setAnimation(this->m_anim);
 	}
 	if (this->editor.isKeyFrameMenuOpen)
 	{
-		this->editor.addKeyFrame();
-		this->isHovered = editor.isHovered;
+		this->editor.update();
 	}
-	else
-	{
-		this->isHovered = false;
-	}
+
+	this->isHovered = (this->editor.isHovered) 
+		? true 
+		: ImGui::IsWindowHovered(ImGuiHoveredFlags_AllowWhenBlockedByActiveItem | ImGuiHoveredFlags_AllowWhenBlockedByPopup);
+	
 }
 
 // Public methods
@@ -183,5 +189,5 @@ void s2d::UIAnimationEditor::displayEditor()
 	this->beginWindow();
 	this->editorTimeLine();
 	this->addKeyFrame();
-	this->closeWindow();
+	this->closeWindow(); 
 }

@@ -4,6 +4,7 @@
 
 s2d::UIAnimationKeyFrameEditor::UIAnimationKeyFrameEditor()
 {
+	this->pos = 0;
 	this->isHovered = false;
 	this->keyFramePath = s2d::SpriteData::defaultSpritePath;
 	this->isKeyFrameMenuOpen = false;
@@ -34,8 +35,6 @@ void s2d::UIAnimationKeyFrameEditor::beginWindow()
 
 void s2d::UIAnimationKeyFrameEditor::inputData()
 {
-	static int pos = 0;
-
 	ImGui::Text("Position");
 	ImGui::SetCursorPos(ImVec2(ImGui::GetCursorPosX() + 107, ImGui::GetCursorPosY() - 30));
 	ImGui::SetNextItemWidth(50);
@@ -67,17 +66,87 @@ void s2d::UIAnimationKeyFrameEditor::closeWindowAndSafeKeyFrame()
 	ImGui::SetCursorPosX(ImGui::GetCursorPosX() - 8);
 	if (ImGui::Button("Done"))
 	{
+		this->addKeyFrameToAnimation();
+		this->pos = -1;
+		this->keyFramePath = "";
+		this->m_animation = nullptr;
 		this->isKeyFrameMenuOpen = false;
 	}
 
 	ImGui::End();
 }
 
+void s2d::UIAnimationKeyFrameEditor::addKeyFrameToAnimation()
+{
+	if (pos < 0)
+	{
+		std::cout << "LOG: [ERROR] Tried to add a keyframe at a invalid position!";
+	}
+	int delay = 0;
+	s2d::KeyFrame* changeAfter = nullptr;
+	std::vector<s2d::KeyFrame>& ref = this->m_animation->getKeyFrames();
+	int size = ref.size();
+	int vecpos = 0;
+	bool invalid = false;
+
+	for (int i = 0; i < size; i++)
+	{
+		if (delay < pos)
+		{
+			delay += ref[i].delay;
+			vecpos++;
+		}
+	}
+
+	vecpos--;
+
+	if (pos == delay)
+	{
+		std::cout << "LOG: [ERROR] Tried to add a keyframe at a position where already a keyframe exists!";
+		vecpos *= -1;
+		return;
+	}
+	if (pos > delay)
+	{
+		invalid = true;
+		vecpos++;
+	}
+	
+	int fndelay = 0;
+	if (vecpos > 0 && pos < delay)
+	{		
+		fndelay = pos - ref[vecpos - 1].position;
+		if (vecpos == 1)
+		{
+			fndelay = pos;
+		}
+	}
+	else
+	{
+		fndelay = pos - delay;
+	}
+
+	if (!invalid)
+	{
+		int rmDelay = ref[vecpos].delay - pos;
+		ref[vecpos].delay = (pos - delay) * -1;
+	}
+	s2d::KeyFrame add = s2d::KeyFrame(this->keyFramePath, fndelay);
+	add.position = pos;
+
+	this->m_animation->addKeyFrameAt(vecpos, add);
+}
+
 // Public functions
 
-void s2d::UIAnimationKeyFrameEditor::addKeyFrame()
+void s2d::UIAnimationKeyFrameEditor::update()
 {
 	this->beginWindow();
 	this->inputData();
 	this->closeWindowAndSafeKeyFrame();
+}
+
+void s2d::UIAnimationKeyFrameEditor::setAnimation(s2d::Animation* anim)
+{
+	this->m_animation = anim;
 }

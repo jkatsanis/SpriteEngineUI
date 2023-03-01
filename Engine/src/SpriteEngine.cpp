@@ -22,19 +22,13 @@ int main()
     s2d::Sprite* spr = s2d::Sprite::activeSprites[0];
 
     std::string s1 = s2d::EngineData::s_pathToUserProject + "\\assets\\Sprites\\big.png";
+    std::string s3 = s2d::EngineData::s_pathToUserProject + "\\assets\\Sprites\\sprite#.png";
     std::string s2 = s2d::EngineData::s_pathToUserProject + "\\assets\\Sprites\\down.png";
 
-    // After 200ms to this
-    s2d::KeyFrame x = s2d::KeyFrame(s1, 3);
+    s2d::KeyFrame a = s2d::KeyFrame(s3, 2);
+    s2d::KeyFrame x = s2d::KeyFrame(s1, 5);
 
-    // s1 stuck 200ms 
-    s2d::KeyFrame y = s2d::KeyFrame(s2, 5);
-    s2d::KeyFrame z = s2d::KeyFrame(s2, 2);
-    // s2d::KeyFrame z = s2d::KeyFrame(s2, 0);
-
-     // Directly to start
-
-    std::vector<s2d::KeyFrame> path = { x, y, z };
+    std::vector<s2d::KeyFrame> path = { a, x };
 
     spr->animator.createAnimation("name", path, 100, 1);
 

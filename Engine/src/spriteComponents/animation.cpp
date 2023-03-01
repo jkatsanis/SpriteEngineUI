@@ -18,10 +18,13 @@ s2d::Animation::Animation(Sprite* ptr_appliedSprite, const std::string& name, co
 	
 	this->m_keyFrames.resize(frames.size());
 
+	int currentPos = 0;
 	for (int i = 0; i < frames.size(); i++)
 	{
 		this->m_keyFrames[i].path = frames[i].path;
 		this->m_keyFrames[i].delay = frames[i].delay;
+		currentPos += this->m_keyFrames[i].delay;
+		this->m_keyFrames[i].position = currentPos;
 	}
 
 	this->setVectorSizes();
@@ -64,9 +67,34 @@ void s2d::Animation::setVectorSizes()
 
 //Public methods
 
+void s2d::Animation::deleteKeyFrame(const int pos)
+{
+	int delay = 0;
+	for (int i = 0; i < this->m_keyFrames.size(); i++)
+	{
+		delay += this->m_keyFrames[i].delay;
+
+		if (delay == pos)
+		{
+			float delayAdd = this->m_keyFrames[i].delay;
+
+			std::removeAt(this->m_keyFrames, i);
+			std::removeAt(this->m_textures, i);
+
+			if (i + 1 > this->m_keyFrames.size())
+			{
+				return;
+			}
+			this->m_keyFrames[i].delay += delayAdd;
+
+			return;
+		}
+	}
+}
+
 void s2d::Animation::play()
 {
-	this->currentFrame = (this->m_useBaseSprite) ? 1 : 0;
+	this->currentFrame = (this->m_useBaseSprite) ? 0 : 0;
 	this->isPlaying = true;
 }
 
@@ -94,6 +122,34 @@ void s2d::Animation::stop()
 	this->currentFrame = -1;
 	this->ptr_appliedSprite->setSpriteTexture(this->m_basePath);
 	this->isPlaying = false;
+}
+
+s2d::KeyFrame& s2d::Animation::getKeyFrameAtMs(const float ms)
+{
+	float delay = 0;
+	for (int i = 0; i < this->m_keyFrames.size(); i++)
+	{
+		if (delay == ms)
+		{
+			return this->m_keyFrames[i];
+		}
+
+		delay += this->m_keyFrames[i].delay;
+	}
+}
+
+void s2d::Animation::addKeyFrameAt(const int vecpos, const s2d::KeyFrame& frame)
+{
+	sf::Texture text;
+
+	if (!text.loadFromFile(frame.path))
+	{
+		std::cout << "LOG: [ERROR] Cant read pixels from path " << frame.path << std::endl;
+		return;
+	}
+
+	this->m_keyFrames.insert(this->m_keyFrames.begin() + vecpos, frame);
+	this->m_textures.insert(this->m_textures.begin() + vecpos, text);
 }
 
 void s2d::Animation::updateAllAnimations()
