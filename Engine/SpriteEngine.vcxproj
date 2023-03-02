@@ -195,7 +195,7 @@
     <ClCompile Include="src\guiComponents\propertyEditor\UIInspectorBoxCollider.cpp" />
     <ClCompile Include="src\guiComponents\propertyEditor\UIAnimation.cpp" />
     <ClCompile Include="src\data\UIInfo.cpp" />
-    <ClCompile Include="src\guiComponents\propertyEditor\UIAnimationKeyFrameEditor.cpp" />
+    <ClCompile Include="src\guiComponents\propertyEditor\UIAnimationKeyFrameAdder.cpp" />
     <ClCompile Include="src\guiComponents\propertyEditor\UIAnimationEditor.cpp" />
     <ClCompile Include="src\data\UIIconData.cpp" />
     <ClCompile Include="src\guiComponents\realTimeEditor\UIRealTimeEditorNavigator.cpp" />
@@ -358,7 +358,7 @@
     <ClInclude Include="src\guiComponents\propertyEditor\UIInspectorBoxCollider.h" />
     <ClInclude Include="src\guiComponents\propertyEditor\UIAnimation.h" />
     <ClInclude Include="src\data\UIInfo.h" />
-    <ClInclude Include="src\guiComponents\propertyEditor\UIAnimationKeyFrameEditor.h" />
+    <ClInclude Include="src\guiComponents\propertyEditor\UIAnimationKeyFrameAdder.h" />
     <ClInclude Include="src\guiComponents\propertyEditor\UIAnimationEditor.h" />
     <ClInclude Include="src\data\UIIconData.h" />
     <ClInclude Include="src\guiComponents\realTimeEditor\UIRealTimeEditorNavigator.h" />

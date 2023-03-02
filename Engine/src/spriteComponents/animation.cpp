@@ -23,7 +23,7 @@ s2d::Animation::Animation(Sprite* ptr_appliedSprite, const std::string& name, co
 	{
 		this->m_keyFrames[i].path = frames[i].path;
 		this->m_keyFrames[i].delay = frames[i].delay;
-		currentPos += this->m_keyFrames[i].delay;
+		currentPos += (int)this->m_keyFrames[i].delay;
 		this->m_keyFrames[i].position = currentPos;
 	}
 
@@ -69,7 +69,7 @@ void s2d::Animation::setVectorSizes()
 
 void s2d::Animation::deleteKeyFrame(const int pos)
 {
-	int delay = 0;
+	float delay = 0;
 	for (int i = 0; i < this->m_keyFrames.size(); i++)
 	{
 		delay += this->m_keyFrames[i].delay;
@@ -136,6 +136,8 @@ s2d::KeyFrame& s2d::Animation::getKeyFrameAtMs(const float ms)
 
 		delay += this->m_keyFrames[i].delay;
 	}
+
+	return this->m_keyFrames[0];
 }
 
 void s2d::Animation::addKeyFrameAt(const int vecpos, const s2d::KeyFrame& frame)

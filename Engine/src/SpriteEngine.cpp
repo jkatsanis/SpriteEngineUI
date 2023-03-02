@@ -34,14 +34,6 @@ int main()
 
     while (engine.ptr_renderWindow->isOpen())
     {
-        if (s2d::Input::onKeyPress(s2d::KeyBoardCode::A))
-        {
-            spr->animator.play("name");
-        }
-        if (s2d::Input::onKeyPress(s2d::KeyBoardCode::B))
-        {
-            spr->animator.stop("name");
-        }
         engine.update();
     }
 

@@ -110,7 +110,6 @@ void s2d::UIAnimation::addAnimationsToAnimator()
 
 	if (ImGui::IsPopupOpen("Lol") && ImGui::IsKeyReleased(ImGuiKey_Enter))
 	{
-		// Add animation to the current
-		//s2d::UIHirachy::selectedSprite->animator.createAnimation(this->mogus, { "d", "d" }, 500, true);
+		s2d::UIHirachy::selectedSprite->animator.createAnimation(this->mogus, { }, 500, true);
 	}
 }

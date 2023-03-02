@@ -177,7 +177,7 @@
     <ClCompile Include="src\guiComponents\propertyEditor\UIAnimationEditor.cpp">
       <Filter>src\Components\guiComponents\animation</Filter>
     </ClCompile>
-    <ClCompile Include="src\guiComponents\propertyEditor\UIAnimationKeyFrameEditor.cpp">
+    <ClCompile Include="src\guiComponents\propertyEditor\UIAnimationKeyFrameAdder.cpp">
       <Filter>src\Components\guiComponents\animation</Filter>
     </ClCompile>
     <ClCompile Include="src\guiComponents\propertyEditor\UIAssetFolder.cpp">
@@ -645,7 +645,7 @@
     <ClInclude Include="src\guiComponents\propertyEditor\UIAnimationEditor.h">
       <Filter>src\Components\guiComponents\animation</Filter>
     </ClInclude>
-    <ClInclude Include="src\guiComponents\propertyEditor\UIAnimationKeyFrameEditor.h">
+    <ClInclude Include="src\guiComponents\propertyEditor\UIAnimationKeyFrameAdder.h">
       <Filter>src\Components\guiComponents\animation</Filter>
     </ClInclude>
     <ClInclude Include="src\guiComponents\propertyEditor\UIAssetFolder.h">

@@ -20,7 +20,7 @@ c:\dev\spriteengineui\engine\x64\debug\uiprojectselector.obj
 c:\dev\spriteengineui\engine\x64\debug\filedialogs.obj
 c:\dev\spriteengineui\engine\x64\debug\enginedata.obj
 c:\dev\spriteengineui\engine\x64\debug\renderer.obj
-c:\dev\spriteengineui\engine\x64\debug\uianimationkeyframeeditor.obj
+c:\dev\spriteengineui\engine\x64\debug\uianimationkeyframeadder.obj
 c:\dev\spriteengineui\engine\x64\debug\uiinfo.obj
 c:\dev\spriteengineui\engine\x64\debug\uianimation.obj
 c:\dev\spriteengineui\engine\x64\debug\uiinspectorboxcollider.obj
@@ -51,7 +51,6 @@ c:\dev\spriteengineui\engine\x64\debug\uirealtimeeditortransform.obj
 c:\dev\spriteengineui\engine\x64\debug\uirealtimeeditornavigator.obj
 c:\dev\spriteengineui\engine\x64\debug\uiicondata.obj
 c:\dev\spriteengineui\engine\x64\debug\uianimationeditor.obj
-c:\dev\spriteengineui\engine\x64\debug\keyframe.obj
 c:\dev\spriteengineui\engine\x64\debug\spriteengine.exe
 c:\dev\spriteengineui\engine\x64\debug\spriteengine.ilk
 c:\dev\spriteengineui\engine\x64\debug\spriteengine.pdb

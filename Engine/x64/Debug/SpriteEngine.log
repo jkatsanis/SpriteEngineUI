@@ -1,7 +1,2 @@
-﻿  UIAnimationKeyFrameEditor.cpp
-C:\Dev\SpriteEngineUI\Engine\src\guiComponents\propertyEditor\UIAnimationKeyFrameEditor.cpp(88,23): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\Dev\SpriteEngineUI\Engine\src\guiComponents\propertyEditor\UIAnimationKeyFrameEditor.cpp(96,19): warning C4244: '+=': conversion from 'float' to 'int', possible loss of data
-C:\Dev\SpriteEngineUI\Engine\src\guiComponents\propertyEditor\UIAnimationKeyFrameEditor.cpp(131,15): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-C:\Dev\SpriteEngineUI\Engine\src\guiComponents\propertyEditor\UIAnimationKeyFrameEditor.cpp(132,37): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Dev\SpriteEngineUI\Engine\src\guiComponents\propertyEditor\UIAnimationKeyFrameEditor.cpp(134,56): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
+﻿  UIAnimationKeyFrameAdder.cpp
   SpriteEngine.vcxproj -> C:\Dev\SpriteEngineUI\Engine\x64\Debug\SpriteEngine.exe

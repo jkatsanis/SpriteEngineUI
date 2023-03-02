@@ -6,7 +6,7 @@ s2d::UIAnimationEditor::UIAnimationEditor()
 {
 	// 100 by default, will increase with the animation size
 	this->m_keyFramesToEdit = 100;
-	this->editor = s2d::UIAnimationKeyFrameEditor();
+	this->keyFrameAdder = s2d::UIAnimationKeyFrameAdder();
 	this->m_anim = nullptr;
 	this->display = false;
 	this->m_keyFrameSelected.keyFrameSelected = nullptr;
@@ -82,7 +82,7 @@ void s2d::UIAnimationEditor::editorTimeLine()
 	{
 		ImGui::Text(std::to_string(i).c_str());
 
-		ImGui::SetCursorPos(ImVec2(100 + (i + 1) * this->m_CURSOR_SPACE, y));
+		ImGui::SetCursorPos(ImVec2(100.0f + ((int)i + 1.0f) * this->m_CURSOR_SPACE, y));
 	}
 
 
@@ -97,11 +97,12 @@ void s2d::UIAnimationEditor::displayKeyFrameInfo()
 		return;
 	}
 
-	const std::string keyFrameSelected = "KeyFrame Selected: " + std::to_string(this->m_keyFrameSelected.position);
+	const std::string keyFrameSelected = "KeyFrabe Selected: " + std::to_string(this->m_keyFrameSelected.position);
 	ImGui::Text(keyFrameSelected.c_str());
 
 	if (this->m_keyFrameSelected.position != 0 && ImGui::Button("Delete"))
 	{
+		this->m_anim->stop();
 		this->m_anim->deleteKeyFrame(this->m_keyFrameSelected.position);
 	}
 
@@ -153,7 +154,7 @@ void s2d::UIAnimationEditor::renderKeyFrames()
 		}
 		currentMs++;
 
-		ImGui::SetCursorPos(ImVec2(100 + (i + 1) * this->m_CURSOR_SPACE, y));
+		ImGui::SetCursorPos(ImVec2(100.0f + ((int)i + 1.0f) * this->m_CURSOR_SPACE, y));
 	}
 	ImGui::NewLine();
 	ImGui::Dummy(ImVec2(0, 20));
@@ -166,17 +167,12 @@ void s2d::UIAnimationEditor::addKeyFrame()
 	{
 		if (s2d::UIHirachy::selectedSprite != nullptr)
 		{
-			this->editor.keyFramePath = s2d::UIHirachy::selectedSprite->path;
+			this->keyFrameAdder.m_keyFramePath = s2d::UIHirachy::selectedSprite->path;
 		}
-		this->editor.isKeyFrameMenuOpen = true;
-		this->editor.setAnimation(this->m_anim);
+		this->keyFrameAdder.isKeyFrameMenuOpen = true;
+		this->keyFrameAdder.setAnimation(this->m_anim);
 	}
-	if (this->editor.isKeyFrameMenuOpen)
-	{
-		this->editor.update();
-	}
-
-	this->isHovered = (this->editor.isHovered) 
+	this->isHovered = (this->keyFrameAdder.isHovered) 
 		? true 
 		: ImGui::IsWindowHovered(ImGuiHoveredFlags_AllowWhenBlockedByActiveItem | ImGuiHoveredFlags_AllowWhenBlockedByPopup);
 	
@@ -190,4 +186,9 @@ void s2d::UIAnimationEditor::displayEditor()
 	this->editorTimeLine();
 	this->addKeyFrame();
 	this->closeWindow(); 
+
+	if (this->keyFrameAdder.isKeyFrameMenuOpen)
+	{
+		this->keyFrameAdder.update();
+	}
 }

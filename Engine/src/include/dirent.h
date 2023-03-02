@@ -952,7 +952,8 @@ _wseekdir(_WDIR *dirp, long loc)
 
 exit_failure:
 	/* Ensure that readdir will return NULL */
-	dirp->invalid = 1;
+	if(dirp != nullptr)
+		dirp->invalid = 1;
 }
 
 /* Seek directory stream to offset */

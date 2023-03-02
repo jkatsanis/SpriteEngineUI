@@ -5,7 +5,7 @@
 #include <data/UIInfo.h>
 #include <icons.h>
 #include <imgui_internal.h>
-#include <UIAnimationKeyFrameEditor.h>
+#include <UIAnimationKeyFrameAdder.h>
 #include <guiComponents/colors.h>
 
 namespace s2d
@@ -21,7 +21,7 @@ namespace s2d
 	private:
 		const int m_CURSOR_SPACE = 50;
 		int m_keyFramesToEdit;
-		s2d::UIAnimationKeyFrameEditor editor;
+		s2d::UIAnimationKeyFrameAdder keyFrameAdder;
 
 		void renderKeyFrames();
 		void addKeyFrame();
