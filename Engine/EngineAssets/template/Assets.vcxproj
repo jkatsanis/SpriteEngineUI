@@ -180,6 +180,7 @@
     <ClCompile Include="engine\src\engineComponents\renderer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="engine\src\engineComponents\base.h" />
     <ClInclude Include="engine\src\engineComponents\event.h" />
     <ClInclude Include="engine\src\data\FileData.h" />
     <ClInclude Include="engine\src\engineComponents\gameEngine.h" />

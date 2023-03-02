@@ -143,7 +143,6 @@ void s2d::Sprite::initVariables(std::string name, s2d::Vector2 spawnPos, std::st
 void s2d::Sprite::setTextureSizeBasedOnScale()
 {
 	this->transform.setTextureSize(this->transform.getScale());
-
 }
 
 //Static functions

@@ -207,6 +207,7 @@
     <ClCompile Include="src\guiComponents\realTimeEditor\UIRealTimeEditorTransfsormScale.cpp" />
     <ClCompile Include="src\guiComponents\propertyEditor\UIToolButtonsModels.h" />
     <ClCompile Include="src\guiComponents\UI.cpp" />
+    <ClCompile Include="src\guiComponents\propertyEditor\UIAssetTools.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\spriteComponents\keyFrame.h" />
@@ -369,6 +370,7 @@
     <ClInclude Include="src\guiComponents\realTimeEditor\UIRealTimeEditorTransformPosition.h" />
     <ClInclude Include="src\guiComponents\realTimeEditor\UIRealTimeEditorTransfsormScale.h" />
     <ClInclude Include="src\guiComponents\UI.h" />
+    <ClInclude Include="src\guiComponents\propertyEditor\UIAssetTools.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="addingNewSpriteProp.txt" />

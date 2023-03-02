@@ -7,8 +7,9 @@
 #include <calculationComponents/physics.h>
 #include <random>
 #include <imgui.h>
+#include <engineComponents/base.h>
 
-class Testing : s2d::GameData
+class Testing : public s2d::Base
 {
 private:
 	s2d::Camera* camera;
@@ -20,10 +21,5 @@ private:
 	int m_score;
 	float m_spriteSpeed;
 	float m_timeToPressAgain;
-public:
-
-	void start();
-
-	void update();
 };
 

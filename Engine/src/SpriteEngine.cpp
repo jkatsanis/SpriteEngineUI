@@ -19,19 +19,6 @@ int main()
 
     s2d::GameEngine engine;
 
-    s2d::Sprite* spr = s2d::Sprite::activeSprites[0];
-
-    std::string s1 = s2d::EngineData::s_pathToUserProject + "\\assets\\Sprites\\big.png";
-    std::string s3 = s2d::EngineData::s_pathToUserProject + "\\assets\\Sprites\\sprite#.png";
-    std::string s2 = s2d::EngineData::s_pathToUserProject + "\\assets\\Sprites\\down.png";
-
-    s2d::KeyFrame a = s2d::KeyFrame(s3, 2);
-    s2d::KeyFrame x = s2d::KeyFrame(s1, 5);
-
-    std::vector<s2d::KeyFrame> path = { a, x };
-
-    spr->animator.createAnimation("name", path, 100, 1);
-
     while (engine.ptr_renderWindow->isOpen())
     {
         engine.update();

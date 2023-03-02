@@ -26,9 +26,9 @@ void s2d::FileData::setWindowBackground()
 			std::vector<std::string> propertys = std::splitString(line, delimiter);
 
 			//INITIIALIZING PROPS
-			vec.x = atoi(propertys[0].c_str());
-			vec.y = atoi(propertys[1].c_str());
-			vec.z = atoi(propertys[2].c_str());
+			vec.x = std::stof(propertys[0].c_str());
+			vec.y = std::stof(propertys[1].c_str());
+			vec.z = std::stof(propertys[2].c_str());
 		}
 		backgroundFile.close();
 

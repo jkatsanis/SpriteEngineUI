@@ -555,6 +555,9 @@
     <ClInclude Include="engine\src\engineComponents\renderer.h">
       <Filter>engine src\engineComponents\renderer</Filter>
     </ClInclude>
+    <ClInclude Include="engine\src\engineComponents\base.h">
+      <Filter>engine src\engineComponents\gameEngiine</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="src\libraries\include\SFML\Graphics\Glsl.inl">

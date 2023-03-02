@@ -7,6 +7,7 @@
 #include <data/UIInfo.h>
 #include <array>
 #include <data/UIIconData.h>
+#include <UIAssetTools.h>
 
 namespace s2d
 {		
@@ -16,8 +17,8 @@ namespace s2d
 	class UIAssetFolder
 	{
 	private:
-		s2d::UIIconData data;
-
+		s2d::UIAssetTools m_tools;
+		s2d::UIIconData m_data;
 		std::string currentPath;
 		std::string currentName;
 		int m_iconSize;

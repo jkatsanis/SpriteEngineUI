@@ -8,7 +8,6 @@ s2d::UIAssetFolder::UIAssetFolder()
     this->m_padding = 130;
 
     this->isHovered = false;
-    this->isHovered = false;
     this->m_interacted = false;
     this->m_draggingItem = false;
     this->m_hoveredOverItem = false;
@@ -19,10 +18,12 @@ s2d::UIAssetFolder::UIAssetFolder()
 void s2d::UIAssetFolder::createAssetLinkerWindow()
 {
     ImGui::PushStyleVar(ImGuiStyleVar_Alpha, 1.1f);
-    ImGui::Begin("Assets", NULL, ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize);
-    this->render();
-    ImGui::End() ;
-
+    if (ImGui::Begin("Assets", NULL, ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize))
+    {
+        this->render();
+        this->m_tools.update(isHovered);
+        ImGui::End();
+    }
     ImGui::PopStyleVar();
 
     if (s2d::UIAssetFolder::dragAndDropPath != " ")
@@ -85,7 +86,7 @@ void s2d::UIAssetFolder::getAllFilesInDir(const char* path, const char* name)
         std::string name = "##" + std::string(str);
 
         // Init icon texture
-        ImTextureID id = this->data.getId(icon);
+        ImTextureID id = this->m_data.getId(icon);
         bool isFolder = (icon == "folder");
 
         if (ImGui::ImageButton(name.c_str(), id, ImVec2(float(this->m_iconSize), float(this->m_iconSize))))

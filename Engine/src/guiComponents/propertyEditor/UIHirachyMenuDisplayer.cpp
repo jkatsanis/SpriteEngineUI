@@ -29,8 +29,6 @@ void s2d::UIHirachyMenuDisplayer::createMenuPopup()
 		ImGui::OpenPopup(this->m_menuName);
 	}
 
-	ImGui::SetNextWindowSize(ImVec2(150, 200));
-
 	//Rendering the popup
 	renderMenuPopup();
 
@@ -83,8 +81,6 @@ void s2d::UIHirachyMenuDisplayer::deleteChildsRecursivly(s2d::Sprite* toDelete)
 
 void s2d::UIHirachyMenuDisplayer::createButton()
 {
-	ImGui::SetNextWindowSize(ImVec2(100, 40));
-
 	//Right click menu in the HY 
 	if (ImGui::BeginMenu("Create"))
 	{
