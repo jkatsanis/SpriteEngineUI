@@ -5,6 +5,7 @@ This Project is a simple **2D Game Engine** designed to be fully understand by o
 ## Tools used
 - **SFML**
 - **Dear ImGui** 
+- **Rene** 
 
 ## Features
 
@@ -32,8 +33,6 @@ You can find a Introduction to the engine on [YouTube](https://www.youtube.com/w
 1. **Create a Project**
 
     In the folder open the .exe and create a new project by clicking on the create button. 
-
-    ![Screenshots](GitHub/selector.png)
 
     A File Dialog will open, select where u want to create the project and hit the '**+**' button.
 
