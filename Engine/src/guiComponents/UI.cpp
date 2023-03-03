@@ -75,6 +75,17 @@ void s2d::UI::setS2DEvent(s2d::Event* const event)
     s2d::UI::s_event = event;
 }
 
+void s2d::UI::setWindowScreenMiddle(const s2d::Vector2& windowSize)
+{
+    ImVec2 size = s2d::Vector2::toImVec2(windowSize);
+    ImVec2 newPos = ImVec2(s2d::Vector2::
+        toImVec2(s2d::Vector2(s2d::Vector2::SCREEN_MIDDLE.x - size.x / 2, 
+            s2d::Vector2::SCREEN_MIDDLE.y - size.y / 2)));
+
+    ImGui::SetWindowSize(size);
+    ImGui::SetWindowPos(newPos);
+}
+
 short s2d::UI::s_cursorHitbox = 20;
 const sf::RenderWindow* s2d::UI::s_ptr_Window = nullptr;
 sf::Vector2f s2d::UI::s_cursorWorldPos = sf::Vector2f(0, 0);

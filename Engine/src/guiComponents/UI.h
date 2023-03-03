@@ -26,6 +26,12 @@ namespace s2d
 
 		static void setRenderWindow(const sf::RenderWindow* window);
 		static void setS2DEvent(s2d::Event* const event);
+
+
+		/// <summary>
+		/// Only use this method when you have a active window
+		/// </summary>
+		static void setWindowScreenMiddle(const s2d::Vector2& size);
 	};
 }
 

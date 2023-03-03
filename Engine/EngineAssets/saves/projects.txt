@@ -1,2 +1,2 @@
 name;absulutePathStr;date;relativePath
-GLONL;C:\Dev\GLONL;2023/14/02 08:59:55;..\..\GLONL
+Mogus;C:\Dev\Mogus;2023/02/03 14:08:57;..\..\Mogus

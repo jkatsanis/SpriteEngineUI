@@ -63,9 +63,16 @@ s2d::Vector2 s2d::Vector2::operator*(const s2d::Vector2& rhs)
 	return s2d::Vector2(this->x * rhs.x, this->y * rhs.y);
 }
 
+ImVec2 s2d::Vector2::toImVec2(const s2d::Vector2& vec)
+{
+	return ImVec2(vec.x, vec.y);
+}
+
 
 std::ostream& s2d::operator<<(std::ostream& os, const s2d::Vector2& rhs)
 {
 	os << rhs.x << " x " << rhs.y << " y ";
 	return os;
 }
+
+const s2d::Vector2 s2d::Vector2::SCREEN_MIDDLE = s2d::Vector2(1920 / 2, 1080 / 2);

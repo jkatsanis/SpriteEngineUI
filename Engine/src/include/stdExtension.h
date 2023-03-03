@@ -2,9 +2,20 @@
 
 #include <iostream>
 #include <vector>
-
+#include <fstream>
+ 
 namespace std
 {
+	static void createFileWithContent(const std::string& content, const std::string& name, const std::string& path)
+	{
+		std::string pathAndName = path + "\\" + name;
+		std::ofstream file(pathAndName);
+
+		file << content;
+
+		file.close();
+	}
+
 	static bool isTherAnotherFilter(const std::string& word, const std::string& filter, int idx)
 	{
 		int filterCnt = 0;

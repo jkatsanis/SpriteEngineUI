@@ -2,6 +2,8 @@
 
 s2d::UIAssetFolder::UIAssetFolder()
 {
+    this->m_tools = s2d::UIAssetTools(&this->currentPath, &this->m_currentDeletePath);
+
     this->currentPath = s2d::EngineData::s_pathToUserProject + "\\assets";
     this->currentName = "Assets";
     this->m_iconSize = 75;
@@ -11,6 +13,7 @@ s2d::UIAssetFolder::UIAssetFolder()
     this->m_interacted = false;
     this->m_draggingItem = false;
     this->m_hoveredOverItem = false;
+
 }
 
 //Public functions
@@ -59,18 +62,20 @@ void s2d::UIAssetFolder::render()
 }
 
 void s2d::UIAssetFolder::getAllFilesInDir(const char* path, const char* name)
-{   
+{
     struct dirent* entry;
     DIR* dir = opendir(path);
     if (dir == NULL) {
         return;
     }
     m_interacted = false;
- 
+
     while ((entry = readdir(dir)) != NULL)
     {
         const char* str = entry->d_name;
         std::string std_name(str);
+        ImVec2 textSize = ImGui::CalcTextSize(str);
+        float itemWidth = float(this->m_iconSize);
 
         //Checks if the string has only chars like ../../ ..
         if (!std::isStringValid(std_name))
@@ -78,14 +83,9 @@ void s2d::UIAssetFolder::getAllFilesInDir(const char* path, const char* name)
             continue;
         }
 
-        //We need to know if we got a folder or not for the recursion
         std::string icon = std::getFileExtension(std_name);
         std::string newPath = std::string(path) + "\\" + std_name;
-
-        //The name of the ImageButton
         std::string name = "##" + std::string(str);
-
-        // Init icon texture
         ImTextureID id = this->m_data.getId(icon);
         bool isFolder = (icon == "folder");
 
@@ -96,21 +96,24 @@ void s2d::UIAssetFolder::getAllFilesInDir(const char* path, const char* name)
             {
                 this->currentPath = newPath;
                 this->currentName = str;
-            }        
+            }
         }
-        if(!isFolder)
+
+        if (ImGui::IsItemHovered())
+        {
+            this->m_currentDeletePath = newPath;
+        }
+        if (!ImGui::IsAnyItemHovered() && !this->m_tools.isPopUpHovered())
+        {
+            this->m_currentDeletePath = "newPath" ;
+
+        }
+
+
+        if (!isFolder)
             this->setDragAndDrop(newPath, str);
 
-        ImGui::SetWindowFontScale(s2d::UIInfo::sdefaultFontSize);
-
-        ImVec2 textSize = ImGui::CalcTextSize(str);
-        float itemWidth = float(this->m_iconSize);
-
         ImGui::TextWrapped(str);
-
-        ImGui::SetWindowFontScale(s2d::UIInfo::sdefaultFontSize);
-
-        //next column to have it inline
         ImGui::NextColumn();
     }
 
@@ -149,9 +152,9 @@ void s2d::UIAssetFolder::goBackToBeforeFolder()
         {
             continue;
         }
-    
 
-         // Set current path to the folder clicked
+
+        // Set current path to the folder clicked
         if (ImGui::Button(props[i].c_str()))
         {
             this->currentPath = "";
@@ -165,7 +168,7 @@ void s2d::UIAssetFolder::goBackToBeforeFolder()
         }
 
         ImGui::SameLine();
-        if(i != props.size() - 1)
+        if (i != props.size() - 1)
             ImGui::Text(">");
         ImGui::SameLine();
     }
@@ -181,7 +184,7 @@ void s2d::UIAssetFolder::setDragAndDrop(std::string path, std::string name)
     if (ImGui::IsItemHovered() && ImGui::IsMouseDown(0) && !this->m_interacted && dragAndDropPath == " ")
     {
         this->m_draggingItem = true;
-        s2d::UIAssetFolder::dragAndDropPath = path;   
+        s2d::UIAssetFolder::dragAndDropPath = path;
         s2d::UIAssetFolder::dragAndDropName = name;
     }
     if (ImGui::IsMouseReleased(0))

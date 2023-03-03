@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <SFML/Graphics.hpp>
+#include <ImGui.h>
 
 namespace s2d
 {
@@ -25,6 +26,10 @@ namespace s2d
 		s2d::Vector2 operator*(const s2d::Vector2& rhs);
 
 		friend std::ostream& operator<<(std::ostream& os, const s2d::Vector2& rhs);
+
+	public:
+		static const s2d::Vector2 SCREEN_MIDDLE;
+		static ImVec2 toImVec2(const s2d::Vector2& vec);
 	};
 
 	std::ostream& operator<<(std::ostream& os, const s2d::Vector2& rhs);
