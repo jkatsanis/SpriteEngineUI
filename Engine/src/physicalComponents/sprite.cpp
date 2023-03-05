@@ -90,11 +90,6 @@ s2d::Vector2 s2d::Sprite::getOrigininalPosition() const
 	return s2d::Vector2(x, y);
 }
 
-void s2d::Sprite::update()
-{
-	this->transform.updateTransformPosition();
-	//this->setSizeBasedOnScale();
-}
 
 //Private functions
 

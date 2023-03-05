@@ -1,2 +1,4 @@
 name;absulutePathStr;date;relativePath
 Mogus;C:\Dev\Mogus;2023/02/03 14:08:57;..\..\Mogus
+MySpaceShooter;C:\Dev\MySpaceShooter;2023/04/03 12:45:23;..\..\MySpaceShooter
+TestintDelete;C:\Dev\TestintDelete;2023/05/03 21:49:13;..\..\TestintDelete

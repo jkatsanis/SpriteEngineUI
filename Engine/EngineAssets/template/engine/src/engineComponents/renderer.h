@@ -7,6 +7,8 @@
 #include <physicalComponents/sprite.h>
 #include <data/FileData.h>
 
+//#define UPDATE_SPRITE_TEXTURES_CONSISTENT 
+
 namespace s2d
 {
 	class Renderer
@@ -24,7 +26,6 @@ namespace s2d
 
 		void drawRectangles();
 		void drawSprites();
-		void updateSriteTextures();
 
 	public:
 		Renderer();
@@ -33,6 +34,11 @@ namespace s2d
 		void render();
 
 	public:
+
+		/// <summary>
+		/// UPDATES ALL sprite textures from the files (very inefficent)
+		/// </summary>
+		static void updateAllSpriteTextures();
 	};
 }
 

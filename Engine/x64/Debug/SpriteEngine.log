@@ -1,2 +1,33 @@
-﻿  UIAssetTools.cpp
+﻿  SpriteEngine.cpp
+  gameEngine.cpp
+  renderer.cpp
+  UI.cpp
+  UIWindow.cpp
+  UIProjectSelector.cpp
+  UIProjectSelectorProjectSection.cpp
+  UIAnimation.cpp
+  UIAnimationEditor.cpp
+  UIAnimationKeyFrameAdder.cpp
+  UIAssetFolder.cpp
+  UIAssetTools.cpp
+  UIHirachy.cpp
+  UIHirachyMenuDisplayer.cpp
+  UIHirachySpriteDisplay.cpp
+  UIInspector.cpp
+  UIInspectorBoxCollider.cpp
+  UIToolButtons.cpp
+  UIRealTimeEditor.cpp
+  UIRealTimeEditorTransform.cpp
+  Generating Code...
+  Compiling...
+  UIRealTimeEditorTransformPosition.cpp
+  UIRealTimeEditorTransfsormScale.cpp
+  saveSystem.cpp
+  sprite.cpp
+  animation.cpp
+  animator.cpp
+  boxCollider.cpp
+  childSystem.cpp
+  transform.cpp
+  Generating Code...
   SpriteEngine.vcxproj -> C:\Dev\SpriteEngineUI\Engine\x64\Debug\SpriteEngine.exe

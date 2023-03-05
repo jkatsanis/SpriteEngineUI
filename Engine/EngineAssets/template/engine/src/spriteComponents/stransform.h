@@ -1,8 +1,8 @@
-
 #pragma once
 
 #include <calculationComponents/vector2.h>
 #include <spriteComponents/childSystem.h>
+#include <spriteComponents/boxCollider.h>
 
 namespace s2d
 {
@@ -12,6 +12,14 @@ namespace s2d
 	private:
 		s2d::Vector2 m_scale;
 
+		/// <summary>
+		/// Sets the texture size
+		/// </summary>
+		/// <param name="scale">The scale for the new textureSize</param>
+		void setTextureSize(const s2d::Vector2& scale);
+
+		void pushSetup();
+		void pushSpriteFromCollider(s2d::BoxColliderPositionData::Position p, bool smaller, float& tXY, float& lXY, float& nXY);
 	public:
 		s2d::Vector2 position;
 		s2d::Vector2 textureSize;
@@ -33,8 +41,16 @@ namespace s2d
 		/// </summary>
 		void setLastPosition();
 
+		/// <summary>
+		/// DO NOT USE
+		/// </summary>
 		void updateTransformPosition();
-		void setScale(const s2d::Vector2& scale);
+
+		/// <summary>
+		/// Sets the new scale
+		/// </summary>
+		/// <param name="setScaleForce">Sets the scale even if its the same, not remommended</param>
+		void setScale(const s2d::Vector2& scale, bool setScaleForce = false);
 		s2d::Vector2 const getScale() { return this->m_scale; }
 
 	public:

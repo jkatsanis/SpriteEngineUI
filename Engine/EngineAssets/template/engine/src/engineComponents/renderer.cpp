@@ -4,6 +4,9 @@
 
 s2d::Renderer::Renderer()
 {
+    this->m_timeToUpdateSpriteTexture = 0.0f;
+    this->m_timeToUpdateLayerIndex = 0.0f;
+    this->m_timePassedTillNextSpriteTextureUpdate = 0.0f;
     this->m_timePassedToUpdateLayerIndex = 0;
     this->m_ptr_renderWindow = nullptr;
 }
@@ -41,18 +44,13 @@ void s2d::Renderer::drawSprites()
         this->m_timePassedToUpdateLayerIndex = 0;
     }
 
-    if (this->m_timePassedTillNextSpriteTextureUpdate > this->m_timeToUpdateSpriteTexture)
-    {
-        this->m_timePassedTillNextSpriteTextureUpdate = 0;
-        this->updateSriteTextures();
-    }
     for (int i = 0; i < s2d::Sprite::highestLayerIndex + 1; i++)
     {
         for (s2d::Sprite* ptr_activeSprites : s2d::Sprite::activeSprites)
         {
             if (ptr_activeSprites->sortingLayerIndex == i)
             {
-                ptr_activeSprites->setSpritePosition();
+                ptr_activeSprites->transform.updateTransformPosition();
                 this->m_ptr_renderWindow->draw(ptr_activeSprites->getSprite());
             }
         }
@@ -65,14 +63,6 @@ void s2d::Renderer::drawRectangles()
     for (sf::RectangleShape shape : s2d::GameObject::rects)
     {
         this->m_ptr_renderWindow->draw(shape);
-    }
-}
-
-void s2d::Renderer::updateSriteTextures()
-{
-    for (int i = 0; i < s2d::Sprite::activeSprites.size(); i++)
-    {
-        s2d::Sprite::activeSprites[i]->setSpriteTexture(s2d::Sprite::activeSprites[i]->path);
     }
 }
 
@@ -91,3 +81,12 @@ void s2d::Renderer::render()
 
 }
 
+// Public static functions
+
+void s2d::Renderer::updateAllSpriteTextures()
+{
+    for (int i = 0; i < s2d::Sprite::activeSprites.size(); i++)
+    {
+        s2d::Sprite::activeSprites[i]->setSpriteTexture(s2d::Sprite::activeSprites[i]->getPathOfTextureFile());
+    }
+}

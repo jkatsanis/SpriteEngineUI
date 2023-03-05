@@ -113,7 +113,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(SolutionDir)engine\src\include\lib</AdditionalLibraryDirectories>
-      <AdditionalDependencies>sfml-system-d.lib;sfml-audio-d.lib;sfml-graphics-d.lib;sfml-window-d.lib;sfml-network-d.lib;opengl32.lib</AdditionalDependencies>
+      <AdditionalDependencies>sfml-system.lib;sfml-audio.lib;sfml-graphics.lib;sfml-window.lib;sfml-network.lib;opengl32.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -147,7 +147,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(SolutionDir)engine\src\include\lib</AdditionalLibraryDirectories>
-      <AdditionalDependencies>sfml-system-d.lib;sfml-audio-d.lib;sfml-graphics-d.lib;sfml-window-d.lib;sfml-network-d.lib;opengl32.lib</AdditionalDependencies>
+      <AdditionalDependencies>sfml-system.lib;sfml-audio.lib;sfml-graphics.lib;sfml-window.lib;sfml-network.lib;opengl32.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -175,9 +175,9 @@
     <ClCompile Include="engine\src\calculationComponents\vector3.cpp" />
     <ClCompile Include="engine\src\calculationComponents\physics.cpp" />
     <ClCompile Include="engine\src\main.cpp" />
-    <ClCompile Include="assets\scripts\Testing.cpp" />
     <ClCompile Include="engine\src\manager\GUIManager.cpp" />
     <ClCompile Include="engine\src\engineComponents\renderer.cpp" />
+    <ClCompile Include="engine\src\calculationComponents\srandom.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="engine\src\engineComponents\base.h" />
@@ -211,6 +211,7 @@
     <ClInclude Include="engine\src\calculationComponents\physics.h" />
     <ClInclude Include="engine\src\manager\GUIManager.h" />
     <ClInclude Include="engine\src\engineComponents\renderer.h" />
+    <ClInclude Include="engine\src\calculationComponents\srandom.h" />
     <ClInclude Include="src\libraries\include\SFML\Audio.hpp" />
     <ClInclude Include="src\libraries\include\SFML\Audio\AlResource.hpp" />
     <ClInclude Include="src\libraries\include\SFML\Audio\Export.hpp" />
@@ -310,7 +311,6 @@
     <ClInclude Include="src\libraries\include\SFML\Window\WindowHandle.hpp" />
     <ClInclude Include="src\libraries\include\SFML\Window\WindowStyle.hpp" />
     <ClInclude Include="engine\src\engineComponents\sTime.h" />
-    <ClInclude Include="assets\Scripts\Testing.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="src\libraries\include\SFML\Audio\SoundFileFactory.inl" />

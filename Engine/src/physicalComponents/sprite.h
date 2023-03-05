@@ -60,8 +60,6 @@ namespace s2d
 		void setParent(s2d::Sprite* sprite);
 		void addSpriteToScene();
 		bool containsChild(s2d::Sprite* child);
-	
-		void update();
 	public:
 		void setId(const int id) { this->m_id = id; }
 		void setVectorPosition(const int vec) { this->m_vectorPosition = vec; }

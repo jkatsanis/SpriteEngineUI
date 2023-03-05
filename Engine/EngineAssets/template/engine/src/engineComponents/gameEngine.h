@@ -10,16 +10,15 @@
 #include <imgui-SFML.h>
 #include <manager/GUIManager.h>
 #include <engineComponents/renderer.h>
+#include <data/gameData.h>
 
 //All user files
-#include "Testing.h"
 
 namespace s2d
 {
     class GameEngine
 	{
 		//User classes, only 1 instance
-		Testing testing;
 
 		s2d::Renderer m_renderer;
 

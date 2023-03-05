@@ -77,7 +77,6 @@ void s2d::GameEngine::updateUserScriptsAndGUI()
 	ImGui::Begin("##MainWindow", NULL, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoBackground | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoMove);
 
 	//User update!
-	testing.update();
 
 	ImGui::SetWindowSize(ImVec2(1920, 1080));
 	ImGui::SetWindowPos(ImVec2(0, 0));
@@ -149,7 +148,7 @@ void s2d::GameEngine::start()
 	s2d::FileData::setWindowBackground();
 
 	//User start!
-	testing.start();
+
 
 	//Engine 
 	this->windowEvent.type = sf::Event::GainedFocus;

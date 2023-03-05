@@ -1,6 +1,6 @@
 #pragma once
 
-#include <gameData.h>
-#include <sprite.h>
-#include <boxCollider.h>
-#include <iostream>
+#include <data/gameData.h>
+#include <physicalComponents/sprite.h>
+#include <engineComponents/base.h>
+#include <engineComponents/input.h>

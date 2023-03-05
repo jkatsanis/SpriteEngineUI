@@ -7,13 +7,11 @@ s2d::Sprite::Sprite() { this->name = "Unknown"; this->transform.position = Vecto
 s2d::Sprite::Sprite(std::string name, s2d::Vector2 spawnPosition, std::string path)
 	: name(name)
 {
-	//INIT GETS NOT CALLED WHEN WE READ SPRITES FROM CSV
 	initVariables(name, spawnPosition, path);
 }
 
 s2d::Sprite::Sprite(std::string name, s2d::Vector2 spawnPosition, std::string path, bool addToWindowByConstruction)
 {
-	//INIT GETS NOT CALLED WHEN WE READ SPRITES FROM CSV
 	initVariables(name, spawnPosition, path);
 
 	if (addToWindowByConstruction)
@@ -24,46 +22,25 @@ s2d::Sprite::Sprite(std::string name, s2d::Vector2 spawnPosition, std::string pa
 
 //Public functions
 
+//////////////////////////////////////
+//// USER FUNCTIONS 
+/////////////////////////////////////
+
 void s2d::Sprite::setSpriteTexture(const std::string path)
 {
 	if (!this->m_texture.loadFromFile(path))
 	{
-		//No file
+		std::cout << "LOG: [ERROR] File was not found!";
 	}
-	this->path = path;
+	this->m_path = path;
 	this->m_sprite.setTexture(this->m_texture, true);
-
-	//Setting sprite size also in init and setTexture
-	this->setTextureSize();
+	this->transform.setScale(this->transform.getScale(), true);
 }
 
 void s2d::Sprite::addSpriteToScene()
 {
 	this->m_vectorPosition = int(s2d::Sprite::activeSprites.size() + 1);
 	s2d::Sprite::activeSprites.push_back(this);
-}
-
-void s2d::Sprite::setSpritePosition()
-{
-	//Pushing the sprites from a collider if 1 exists && we collided && IF everyting is unknown (no sprite collidng) then why a check
-	if (!this->collider.positionData.isEverythingUnknown())
-		this->pushSetup();
-
-	float x = 960 + this->transform.position.x - this->transform.textureSize.x / 2;
-	float y = 540 - this->transform.position.y - this->transform.textureSize.y / 2;
-
-	this->getSprite().setPosition(sf::Vector2f(x, y));
-
-	this->collider.positionData.resetPosition();
-	this->collider.collisionCnt = 0;
-
-	//Setting the last position, temoporary "nextPos" needed
-	if (this->transform.nextPos != this->transform.position)
-	{
-		this->transform.lastPos = this->transform.nextPos;
-		this->transform.nextPos = this->transform.position;
-	}
-
 }
 
 s2d::Vector2 s2d::Sprite::getOrigininalPosition()
@@ -79,17 +56,13 @@ void s2d::Sprite::renderInstant()
 	this->updateHightestLayerIndex();
 }
 
+void s2d::Sprite::updateSpriteTexture()
+{
+	this->setSpriteTexture(this->m_path);
+}
+
 
 //Private functions
-
-void s2d::Sprite::setTextureSize()
-{
-	/*s2d::Vector2 size = s2d::Vector2(this->m_texture.getSize().x, this->m_texture.getSize().y);
-
-	s2d::Vector2 scale = this->transform.getScale();
-
-	this->transform.textureSize = size * scale;*/
-}
 
 void s2d::Sprite::initVariables(std::string name, s2d::Vector2 spawnPos, std::string path)
 {
@@ -106,7 +79,7 @@ void s2d::Sprite::initVariables(std::string name, s2d::Vector2 spawnPos, std::st
 	this->childs = std::vector<s2d::Sprite*>(0);
 
 	this->name = name;
-	this->path = path;
+	this->m_path = path;
 	this->transform.position = spawnPos;
 	this->transform.lastPos = s2d::Vector2(0, 0);
 	this->transform.nextPos = this->transform.position;
@@ -122,50 +95,13 @@ void s2d::Sprite::initVariables(std::string name, s2d::Vector2 spawnPos, std::st
 
 	sprite.setTexture(this->m_texture);
 
-	//Setting sprite size also in init and setTexture
-	setTextureSize();
+	this->transform.setScale(this->transform.getScale());
 
 	//Finally setting the sprite
 	this->m_sprite = sprite;
 
 	this->collider = s2d::BoxCollider(this);
 	this->physicsBody = s2d::PhsysicsBody();
-}
-
-void s2d::Sprite::pushSetup()
-{
-	this->pushSpriteFromCollider(s2d::BoxColliderPositionData::Right, false, this->transform.position.x, this->transform.nextPos.x, this->transform.lastPos.x);
-	this->pushSpriteFromCollider(s2d::BoxColliderPositionData::Left, true, this->transform.position.x, this->transform.nextPos.x, this->transform.lastPos.x);
-	this->pushSpriteFromCollider(s2d::BoxColliderPositionData::Down, true, this->transform.position.y, this->transform.nextPos.y, this->transform.lastPos.y);
-	this->pushSpriteFromCollider(s2d::BoxColliderPositionData::Up, false, this->transform.position.y, this->transform.nextPos.y, this->transform.lastPos.y);
-}
-
-void s2d::Sprite::pushSpriteFromCollider(s2d::BoxColliderPositionData::Position p, bool smaller, float& tXY, float& lXY, float& nXY)
-{
-	if (!smaller)
-	{
-		if (this->collider.positionData.isEqual(p))
-		{
-			//We cant go into the gameobject when its right from us so we cant increment our x pos
-			if (tXY > lXY)
-			{
-				//Swap lol
-				tXY = lXY;
-				lXY = nXY;
-				nXY = tXY;
-			}
-		}
-		return;
-	}
-	if (this->collider.positionData.isEqual(p))
-	{
-		if (tXY < lXY)
-		{
-			tXY = lXY;
-			lXY = nXY;
-			nXY = tXY;
-		}
-	}
 }
 
 //Static functions
@@ -215,9 +151,9 @@ void s2d::Sprite::initActiveSprites()
 			sprite->setVectorPosition(atoi(propertys[1].c_str()));
 			sprite->transform.position.x = std::stof(propertys[2].c_str());
 			sprite->transform.position.y = std::stof(propertys[3].c_str());
-			sprite->path = propertys[6];
+			sprite->m_path = propertys[6];
 
-			if (!sprite->m_texture.loadFromFile(sprite->path))
+			if (!sprite->m_texture.loadFromFile(sprite->m_path))
 			{
 				//Console log!
 			}
@@ -332,18 +268,25 @@ s2d::Sprite* s2d::Sprite::getSpriteByName(std::string name)
 void s2d::Sprite::deleteSpriteByName(const std::string& name)
 {
 	// TODO: Delete child from parent 
-
+	int deleteteAt = 0;
 	for (int i = 0; i < s2d::Sprite::activeSprites.size(); i++)
 	{
 		if (s2d::Sprite::activeSprites[i]->name == name)
 		{
+			deleteteAt = i;
 			//deleting the deletet sprite + freeing it
 			s2d::Sprite* spr = s2d::Sprite::activeSprites[i];
-			std::cout << spr->getVectorPosition() << std::endl;
+	
 			s2d::Sprite::activeSprites.erase((s2d::Sprite::activeSprites.begin() + spr->getVectorPosition() - 1));
 			delete spr;
 			spr = nullptr;
+			break;
 		}
+	}
+
+	for (int i = deleteteAt; i < s2d::Sprite::activeSprites.size(); i++)
+	{
+		s2d::Sprite::activeSprites[i]->m_vectorPosition--;
 	}
 }
 
