@@ -13,33 +13,36 @@ s2d::FileDialog::FileDialog()
 
 s2d::FileDialog::FileDialog(std::string path, std::string icon, std::string title, ImVec2 windowSize)
 {
-    this->m_PATH = path;
-    this->m_WINDOW_SIZE = windowSize;
-    this->m_TITLE = title;
+    this->m_firstNodeText = path;
+    this->m_path = path;
+    this->m_windowSize = windowSize;
+    this->m_title = title;
     this->m_displayTitle = true;
     this->pathClicked = "";
     this->folderClicked = "";
-    this->m_ICON = icon;
+    this->m_icon = icon;
     this->windowFocus = true;
+    this->enableWindow();
 }
 
 // Public methods
 
-void s2d::FileDialog::reset()
+void s2d::FileDialog::disableWindow()
 {
+    this->pathClicked = "";
     this->windowFocus = true;
     this->m_displayTitle = true;
-    this->pathClicked = "";
+    this->folderClicked = "";
+    this->m_closeWindow = true;
 }
 
 void s2d::FileDialog::displayNodes()
 {
-    this->m_closeWindow = false;
-
     if(this->windowFocus)
         ImGui::SetNextWindowFocus();
-    ImGui::Begin("##FileDialoge", NULL, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoCollapse);
-
+    if (this->m_closeWindow)
+        return;
+    ImGui::Begin("##FileDialoge", NULL, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoCollapse);
 
     this->m_displayTitle = true;
     auto displayTitle = [](const std::string& title)
@@ -52,42 +55,41 @@ void s2d::FileDialog::displayNodes()
     };
 
 
-    std::string name = "x" + std::string("##") + this->m_PATH;
+    std::string name = "x" + std::string("##") + this->m_path;
     ImVec2 old = ImGui::GetCursorPos();
-    ImVec2 closeCursorPos = ImVec2(ImGui::GetCursorPosX() + this->m_WINDOW_SIZE.x - 60, ImGui::GetCursorPosY() - 5);
+    ImVec2 closeCursorPos = ImVec2(ImGui::GetCursorPosX() + this->m_windowSize.x - 60, ImGui::GetCursorPosY() - 5);
     ImGui::SetCursorPos(closeCursorPos);
 
     // Clicked at the "x", stop displaying the file dialoge
     if (ImGui::Button(name.c_str()))
     {
-        this->pathClicked = "";
-        this->m_closeWindow = true;
+        this->disableWindow();
     }
 
     ImGui::SetCursorPos(old);
 
     if (this->m_displayTitle)
     {
-        displayTitle(this->m_TITLE);
+        displayTitle(this->m_title);
         this->m_displayTitle = false;
 
-        const std::string BUTTON_NAME = this->m_ICON + "##" + this->m_PATH;
+        const std::string BUTTON_NAME = this->m_icon + "##" + this->m_path;
 
         // clicked on the icon of the right
-        if (this->displaySymbol(BUTTON_NAME, this->m_WINDOW_SIZE.x))
+        if (this->displaySymbol(BUTTON_NAME, this->m_windowSize.x))
         {
-            this->pathClicked = this->m_PATH;
+            this->pathClicked = this->m_path;
         }
         ImGui::SetNextItemOpen(true);
 
-        if (ImGui::TreeNode(this->m_PATH.c_str()))
+        if (ImGui::TreeNode(this->m_firstNodeText.c_str()))
         {
-            this->openFile(this->m_PATH.c_str());
+            this->openFile(this->m_path.c_str());
             ImGui::TreePop();
         }
     }
 
-    ImGui::SetWindowSize(this->m_WINDOW_SIZE);
+    ImGui::SetWindowSize(this->m_windowSize);
     ImGui::End();
 }
 
@@ -144,9 +146,9 @@ void s2d::FileDialog::openFile(const char* dir_path)
         if (entry->d_type == DT_DIR)
         {
             // clicked on the icon of the right
-            const std::string BUTTON_NAME = this->m_ICON + "##" + path;
+            const std::string BUTTON_NAME = this->m_icon + "##" + path;
 
-            if (this->displaySymbol(BUTTON_NAME, this->m_WINDOW_SIZE.x))
+            if (this->displaySymbol(BUTTON_NAME, this->m_windowSize.x))
             {
                 this->pathClicked = path;
                 this->folderClicked = entry->d_name;

@@ -5,10 +5,10 @@
 
 // Constructor
 
-s2d::Animation::Animation(Sprite* ptr_appliedSprite, const std::string& name, const std::vector<s2d::KeyFrame>& frames, const float delay, const bool useBaseSprite)
+s2d::Animation::Animation(Sprite* ptr_appliedSprite, const std::string& name, const std::string fileLocation, const std::vector<s2d::KeyFrame>& frames, const bool useBaseSprite)
 {
+	this->m_pathToFile = fileLocation;
 	this->timePassed = 2.0f;
-	this->delay = delay;
 	this->currentFrame = -1;
 	this->name = name;
 	this->ptr_appliedSprite = ptr_appliedSprite;

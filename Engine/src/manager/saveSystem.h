@@ -24,6 +24,7 @@ namespace s2d
 		void createCameraSaveFile(const s2d::Camera& camera);
 		void createIndexSaveFile();
 		void createKnownProjectDirFile();
+		void createAnimtionSaveFile();
 
 		bool isProjectPathValid(const std::string& path);
 		bool checkIfProjectExistInFile(std::string& ref);

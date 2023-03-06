@@ -15,20 +15,20 @@ namespace s2d
 		std::vector<s2d::KeyFrame> m_keyFrames;
 		bool m_useBaseSprite;
         std::string m_basePath;
+		std::string m_pathToFile;
 
 		void setVectorSizes();
 
 	public:
 		std::string name;
 		int currentFrame;
-		float delay;
 		float timePassed;
 
 		bool isPlaying;
 
 	    Sprite* ptr_appliedSprite;
 
-		Animation(Sprite* ptr_appliedSprite, const std::string& name, const std::vector<s2d::KeyFrame>& frames, const float delay, const bool useBaseSprite);
+		Animation(Sprite* ptr_appliedSprite, const std::string& name, const std::string fileLocation, const std::vector<s2d::KeyFrame>& frames, const bool useBaseSprite);
 
 		void deleteKeyFrame(const int pos);
 		void play();
@@ -41,6 +41,7 @@ namespace s2d
 		s2d::KeyFrame& getKeyFrameAtMs(const float ms);
 		int getFrameSize() { return int(this->m_keyFrames.size()); }
 
+		const std::string& getPathToFile() const { return this->m_pathToFile; }
 
 		/// <summary>
 		/// THIS METHOD DOES NOT SET THE KEYFRAME POSITION!!!

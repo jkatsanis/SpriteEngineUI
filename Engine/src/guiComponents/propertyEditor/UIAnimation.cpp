@@ -4,6 +4,9 @@ s2d::UIAnimation::UIAnimation()
 {
 	this->m_UIAnimationEditor.resetAnim();
 	this->m_file_name = "";
+	const std::string pathToAssets = s2d::EngineData::s_pathToUserProject + "\\" + "assets\\";
+	this->m_createAnimtionPathFileDialoge = s2d::FileDialog(pathToAssets, ICON_FA_PLUS, "Create Animation", ImVec2(500, 250));
+	this->m_createAnimtionPathFileDialoge.setFirstNode("assets");
 }
 
 //Public functions
@@ -32,7 +35,8 @@ void s2d::UIAnimation::createUIAnimationWindow()
 
 		ImGui::SetWindowSize(ImVec2(500, 500));
 
-		this->isHovered = ImGui::IsWindowHovered();
+		if(!this->isHovered)
+			this->isHovered = ImGui::IsWindowHovered(ImGuiHoveredFlags_AllowWhenBlockedByActiveItem | ImGuiHoveredFlags_AllowWhenBlockedByPopup);
 
 		ImGui::End();
 	}
@@ -44,9 +48,11 @@ void s2d::UIAnimation::createUIAnimationWindow()
 void s2d::UIAnimation::getFileNameInput()
 {
 	//Open popup
-	if(s2d::FontManager::displaySmybolAsButton(ICON_FA_PLUS, s2d::UIInfo::sdefaultFontSize -0.2f))
+	if (s2d::FontManager::displaySmybolAsButton(ICON_FA_PLUS, s2d::UIInfo::sdefaultFontSize - 0.2f))
 	{
-		ImGui::OpenPopup("Lol");
+		this->m_openFileDialog = true;
+		this->m_createAnimtionPathFileDialoge.enableWindow();
+		this->m_openInputWindow = true;
 	}
 
 	ImGui::SameLine();
@@ -56,15 +62,47 @@ void s2d::UIAnimation::getFileNameInput()
 	ImGui::Separator();
 	ImGui::SetWindowFontScale(s2d::UIInfo::sdefaultFontSize);
 
-	ImVec2 animation_pos = ImGui::GetCursorScreenPos();
-	ImGui::SetNextWindowPos(ImVec2(animation_pos.x + 22, animation_pos.y + 50));
-
-	//Popup input
-	if (ImGui::BeginPopup("Lol"))
+	if (this->m_openFileDialog)
 	{
-		ImGui::InputTextWithHint("##addFile", "<name>", this->mogus, CHAR_MAX);
+		if (this->m_createAnimtionPathFileDialoge.pathClicked == ""
+			&& !this->m_createAnimtionPathFileDialoge.closeWindow())
+		{
+			this->m_createAnimtionPathFileDialoge.enableWindow();
+			this->m_createAnimtionPathFileDialoge.displayNodes();
+		}
+	}
 
-		ImGui::EndPopup();
+	if (this->m_createAnimtionPathFileDialoge.pathClicked == "")
+	{
+		return;
+	}
+
+	if(ImGui::Begin("##CreateAnimtion", NULL, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse))
+	{
+		ImVec2 old = ImGui::GetCursorPos();
+		ImVec2 closeCursorPos = ImVec2(ImGui::GetCursorPosX() + 250, ImGui::GetCursorPosY() - 5);
+		ImGui::SetCursorPos(closeCursorPos);
+
+		// Clicked at the "x", stop displaying the file dialoge
+		if (ImGui::Button("x") || s2d::Input::onKeyPress(s2d::KeyBoardCode::Escape))
+		{
+			this->m_openInputWindow = false;
+			this->m_openFileDialog = false;
+			this->mogus[0] = '\0';
+			this->m_createAnimtionPathFileDialoge.disableWindow();
+		}
+		ImGui::SetCursorPos(old);
+
+		ImGui::InputTextWithHint("##addFile", "<name>", this->mogus, CHAR_MAX);
+		if (ImGui::IsItemHovered() || ImGui::IsItemFocused())
+		{
+			this->isHovered = true;
+		}
+		const std::string path = s2d::UI::getUserProjectPathSeperatetFromEnginePath(this->m_createAnimtionPathFileDialoge.pathClicked);
+		std::string createAnimtionAt = "Create animation file at: " + path;
+		ImGui::Text(createAnimtionAt.c_str());
+		
+		ImGui::End();
 	}
 }
 
@@ -104,12 +142,11 @@ void s2d::UIAnimation::displayTopOfEditor()
 
 void s2d::UIAnimation::addAnimationsToAnimator()
 {
-	if (!ImGui::IsPopupOpen("Lol"))
+	if (this->m_openInputWindow && ImGui::IsKeyReleased(ImGuiKey_Enter))
 	{
-	}
-
-	if (ImGui::IsPopupOpen("Lol") && ImGui::IsKeyReleased(ImGuiKey_Enter))
-	{
-		s2d::UIHirachy::selectedSprite->animator.createAnimation(this->mogus, { }, 500, true);
+		s2d::UIHirachy::selectedSprite->animator.createAnimation(this->mogus, this->m_createAnimtionPathFileDialoge.pathClicked, { }, true);
+		this->m_createAnimtionPathFileDialoge.disableWindow();
+		this->m_openFileDialog = false;
+		this->mogus[0] = '\0';
 	}
 }

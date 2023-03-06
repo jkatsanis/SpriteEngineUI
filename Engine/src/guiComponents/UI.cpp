@@ -75,6 +75,19 @@ void s2d::UI::setS2DEvent(s2d::Event* const event)
     s2d::UI::s_event = event;
 }
 
+std::string s2d::UI::getUserProjectPathSeperatetFromEnginePath(const std::string& path)
+{
+    std::string userProject = s2d::EngineData::s_nameOfUserProject;
+    int idx = path.find(userProject);
+    std::string finalStr = "";
+   // std::cout << path << std::endl;
+    for (int i = idx + userProject.size() + 1; i < path.size(); i++)
+    {
+        finalStr += path[i];
+    }
+    return finalStr;
+}
+
 void s2d::UI::setWindowScreenMiddle(const s2d::Vector2& windowSize)
 {
     ImVec2 size = s2d::Vector2::toImVec2(windowSize);

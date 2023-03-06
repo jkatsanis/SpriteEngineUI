@@ -49,7 +49,7 @@ void s2d::UIProjectSelectorProjectSection::createProject()
 	this->m_openFileDialog.folderClicked = this->m_createProjectName.data();
 
 	this->m_createProjectName = "";
-	this->m_createFileDialoge.reset();
+	this->m_createFileDialoge.disableWindow();
 }
 
 void s2d::UIProjectSelectorProjectSection::renderInfoOverProjects(float padding)
@@ -173,7 +173,7 @@ void s2d::UIProjectSelectorProjectSection::createPopupToCreateProject()
 		ImGui::SetCursorPos(cursorPos);
 		if (ImGui::Button(BUTTON_NAME.c_str()))
 		{
-			this->m_createFileDialoge.reset();
+			this->m_createFileDialoge.disableWindow();
 		}
 
 		ImGui::PushStyleColor(ImGuiCol_Button, SELECTOR_LEFT_BUTTONS_COLOR);
@@ -193,7 +193,7 @@ void s2d::UIProjectSelectorProjectSection::createPopupToCreateProject()
 		ImGui::SetCursorPosX(x += WINDOW_SIZE_X - 210);
 		if (ImGui::Button("Cancel"))
 		{
-			this->m_createFileDialoge.reset();
+			this->m_createFileDialoge.disableWindow();
 		}
 
 		ImGui::SetCursorPosY(y);
@@ -207,7 +207,7 @@ void s2d::UIProjectSelectorProjectSection::createPopupToCreateProject()
 			}
 			else
 			{
-				this->m_createFileDialoge.reset();
+				this->m_createFileDialoge.disableWindow();
 				std::cout << "LOG: There is already a project with that name!";
 			}
 		}
@@ -251,7 +251,7 @@ void s2d::UIProjectSelectorProjectSection::tryToOpenProject()
 	}
 	else if(this->m_openFileDialog.pathClicked != "")
 	{
-		this->m_openFileDialog.reset();
+		this->m_openFileDialog.disableWindow();
 		std::cout << "LOG: There is already a project in the list with this name!" << std::endl;
 	}
 }
@@ -304,6 +304,7 @@ s2d::CurrentFileDialog s2d::UIProjectSelectorProjectSection::getFileDialogeWhich
 
 	if (ImGui::Button("Create"))
 	{
+		this->m_createFileDialoge.enableWindow();
 		where = s2d::CurrentFileDialog::Create;
 	}
 
@@ -312,6 +313,7 @@ s2d::CurrentFileDialog s2d::UIProjectSelectorProjectSection::getFileDialogeWhich
 
 	if (ImGui::Button("Open"))
 	{
+		this->m_openFileDialog.enableWindow();
 		where = s2d::CurrentFileDialog::Open;
 	}
 

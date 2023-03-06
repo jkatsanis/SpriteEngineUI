@@ -43,12 +43,13 @@ void s2d::Renderer::drawSprites()
         s2d::Sprite::updateHightestLayerIndex();
         this->m_timePassedToUpdateLayerIndex = 0;
     }
-
+#ifdef LOAD_TEXTURE_FROM_FILES
     if (this->m_timePassedTillNextSpriteTextureUpdate > this->m_timeToUpdateSpriteTexture)
     {
         this->m_timePassedTillNextSpriteTextureUpdate = 0;
         this->updateSriteTextures();
     }
+#endif
     for (int i = 0; i < s2d::Sprite::highestLayerIndex + 1; i++)
     {
         for (s2d::Sprite* ptr_activeSprites : s2d::Sprite::activeSprites)

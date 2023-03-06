@@ -39,10 +39,9 @@ void s2d::UIRealTimeEditorTransformPosition::update()
 
     if (this->m_clickedSprite != nullptr)
     {
+        this->m_clickedSprite = s2d::UIHirachy::selectedSprite;
         this->moveComponent();
     }
-
-
 }
 
 // Private functions
@@ -104,7 +103,8 @@ s2d::Sprite* s2d::UIRealTimeEditorTransformPosition::checkIfMouseClickedOnSprite
     {
         // Checking if we have the same ID. If we wouldnt do that check it could just return
         // The next sprite in the list which would be wrong
-        if (this->m_realeasedCursorOnSprite && sf::Mouse::isButtonPressed(sf::Mouse::Left) && s2d::Sprite::activeSprites[i]->getId() == this->m_clickedSpriteId)
+        if (this->m_realeasedCursorOnSprite && sf::Mouse::isButtonPressed(sf::Mouse::Left) 
+            && s2d::Sprite::activeSprites[i]->getId() == this->m_clickedSpriteId)
         {
             return s2d::Sprite::activeSprites[i];
         }
@@ -130,7 +130,7 @@ s2d::Sprite* s2d::UIRealTimeEditorTransformPosition::checkIfMouseClickedOnSprite
     {
         this->m_clickedSprite = s2d::Sprite::activeSprites[ve - 1];
         s2d::UIHirachy::selectedSprite = this->m_clickedSprite;
-        return s2d::Sprite::activeSprites[ve - 1];
+        return this->m_clickedSprite;
     }
 
     return nullptr;

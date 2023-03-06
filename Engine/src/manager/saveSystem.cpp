@@ -195,6 +195,27 @@ void s2d::flc::createKnownProjectDirFile()
 
 }
 
+void s2d::flc::createAnimtionSaveFile()
+{
+	/*std::fstream animationFiles;
+	for (int i = 0; i < s2d::Sprite::activeSprites.size(); i++)
+	{
+		const s2d::Sprite* ptr_sprite = s2d::Sprite::activeSprites[i];
+		if (ptr_sprite->animator.exists)
+		{
+			for (const s2d::Animation& anim : ptr_sprite->animator.animations)
+			{
+				animationFiles.open(anim.name);
+
+				std::string content = std::to_string(ptr_sprite->getId()) + "\n";
+				content +=
+			}
+		}
+	}*/
+
+	std::cout << s2d::Sprite::activeSprites[0]->animator.animations[0].getPathToFile() << std::endl;
+}
+
 bool s2d::flc::isProjectPathValid(const std::string& path)
 {
 	// TODO logic to chck if verify.vsn is valid, just simple now

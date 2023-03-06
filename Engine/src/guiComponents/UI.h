@@ -27,6 +27,12 @@ namespace s2d
 		static void setRenderWindow(const sf::RenderWindow* window);
 		static void setS2DEvent(s2d::Event* const event);
 
+		/// <summary>
+		/// For example "..\\..\\LOL\\UserProject\\assets\\"
+		/// Returns: "assets\\"
+		/// </summary>
+		/// <returns></returns>
+		static std::string getUserProjectPathSeperatetFromEnginePath(const std::string& path);
 
 		/// <summary>
 		/// Only use this method when you have a active window

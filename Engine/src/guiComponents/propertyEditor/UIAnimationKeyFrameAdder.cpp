@@ -61,7 +61,7 @@ void s2d::UIAnimationKeyFrameAdder::inputData()
 
 void s2d::UIAnimationKeyFrameAdder::closeWindowAndSafeKeyFrame()
 {
-	this->isHovered = ImGui::IsWindowHovered();
+	this->isHovered = ImGui::IsWindowHovered(ImGuiHoveredFlags_AllowWhenBlockedByActiveItem | ImGuiHoveredFlags_AllowWhenBlockedByPopup);
 
 	ImGui::SetCursorPosX(ImGui::GetCursorPosX() - 8);
 	if (ImGui::Button("Done"))

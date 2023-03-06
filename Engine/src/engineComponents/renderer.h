@@ -6,6 +6,8 @@
 #include <imgui.h>
 #include <physicalComponents/sprite.h>
 
+//s#define LOAD_TEXTURE_FROM_FILES
+
 namespace s2d
 {
 	class Renderer
