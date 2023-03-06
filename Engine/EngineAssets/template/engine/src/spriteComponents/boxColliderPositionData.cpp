@@ -13,7 +13,7 @@ void s2d::BoxColliderPositionData::resetPosition()
 	}
 }
 
-bool s2d::BoxColliderPositionData::isEverythingUnknown()
+bool s2d::BoxColliderPositionData::isEverythingUnknown() const
 {
  	int cnt = 0;
 	for (int i = 0; i < s2d::BoxColliderPositionData::s_canCollideSpritesAround; i++)
@@ -26,7 +26,7 @@ bool s2d::BoxColliderPositionData::isEverythingUnknown()
 	return cnt == s2d::BoxColliderPositionData::s_canCollideSpritesAround;
 }
 
-bool s2d::BoxColliderPositionData::isEqual(s2d::BoxColliderPositionData::Position p)
+bool s2d::BoxColliderPositionData::isEqual(s2d::BoxColliderPositionData::Position p) const
 {
 	for (int i = 0; i < s2d::BoxColliderPositionData::s_canCollideSpritesAround; i++)
 	{

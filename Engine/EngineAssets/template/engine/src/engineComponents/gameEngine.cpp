@@ -31,7 +31,9 @@ void s2d::GameEngine::pollEngineEvents()
 		if (ptr_sprite->transform.position != ptr_sprite->transform.nextPos)
 		{
 			//Fire on pos event
+#ifdef CHILDSYSTEM
 			Transform::onPositionChange(ptr_sprite);
+#endif
 		}
 	}
 }
@@ -73,17 +75,20 @@ void s2d::GameEngine::pollEvents()
 
 void s2d::GameEngine::updateUserScriptsAndGUI()
 {
+#ifdef GUI
 	s2d::GUIManager::update();
 	ImGui::Begin("##MainWindow", NULL, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoBackground | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoMove);
+#endif
 
 	//User update!
+	game.update();
 
+#ifdef GUI 
 	ImGui::SetWindowSize(ImVec2(1920, 1080));
 	ImGui::SetWindowPos(ImVec2(0, 0));
 	ImGui::SetWindowFontScale(s2d::GUIManager::s_fontSize);
-
 	ImGui::End();
-
+#endif
 }
 
 void s2d::GameEngine::updateWindowStyle()
@@ -125,13 +130,19 @@ void s2d::GameEngine::update()
 	// Loading everything for 1s
 	if (s2d::Time::timePassed > 2.5f)
 	{
+#ifdef COLLISION
 		s2d::BoxCollider::checkCollisions();
-
+#endif
 		this->updateWindowStyle();
 		this->updateUserScriptsAndGUI();
 
+#ifdef PHYSICS
 		s2d::Physics::update();
+#endif
+
+#ifdef CAMERA
 		s2d::GameObject::camera.update();
+#endif
 	}
 
 	//Engine event
@@ -148,7 +159,7 @@ void s2d::GameEngine::start()
 	s2d::FileData::setWindowBackground();
 
 	//User start!
-
+	game.start();
 
 	//Engine 
 	this->windowEvent.type = sf::Event::GainedFocus;

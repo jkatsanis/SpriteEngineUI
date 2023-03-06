@@ -178,8 +178,11 @@
     <ClCompile Include="engine\src\manager\GUIManager.cpp" />
     <ClCompile Include="engine\src\engineComponents\renderer.cpp" />
     <ClCompile Include="engine\src\calculationComponents\srandom.cpp" />
+    <ClCompile Include="engine\src\engineComponents\initializer.cpp" />
+    <ClCompile Include="assets\Scripts\game.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="assets\Scripts\features.h" />
     <ClInclude Include="engine\src\engineComponents\base.h" />
     <ClInclude Include="engine\src\engineComponents\event.h" />
     <ClInclude Include="engine\src\data\FileData.h" />
@@ -212,6 +215,8 @@
     <ClInclude Include="engine\src\manager\GUIManager.h" />
     <ClInclude Include="engine\src\engineComponents\renderer.h" />
     <ClInclude Include="engine\src\calculationComponents\srandom.h" />
+    <ClInclude Include="engine\src\engineComponents\initializer.h" />
+    <ClInclude Include="assets\Scripts\game.h" />
     <ClInclude Include="src\libraries\include\SFML\Audio.hpp" />
     <ClInclude Include="src\libraries\include\SFML\Audio\AlResource.hpp" />
     <ClInclude Include="src\libraries\include\SFML\Audio\Export.hpp" />

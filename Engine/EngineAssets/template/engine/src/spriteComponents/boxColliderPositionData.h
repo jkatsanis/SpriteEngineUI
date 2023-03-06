@@ -23,7 +23,7 @@ namespace s2d
 		Position position[255 * 2];
 
 		void resetPosition();	
-		bool isEverythingUnknown();
-		bool isEqual(s2d::BoxColliderPositionData::Position p);
+		bool isEverythingUnknown() const;
+		bool isEqual(s2d::BoxColliderPositionData::Position p) const;
 	};
 }

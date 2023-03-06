@@ -1,3 +1,3 @@
 name;absulutePathStr;date;relativePath
-Mogus;C:\Dev\Mogus;2023/02/03 14:08:57;..\..\Mogus
-SpriteEngine-SpaceShooter;C:\Dev\MySpaceShooter\SpriteEngine-SpaceShooter;2023/06/03 10:26:02;..\..\MySpaceShooter\SpriteEngine-SpaceShooter
+space-shooter;C:\Dev\MySpaceShooter\space-shooter;2023/06/03 18:46:47;..\..\MySpaceShooter\space-shooter
+CloseMaEyes;C:\Dev\CloseMaEyes;2023/06/03 18:47:15;..\..\CloseMaEyes

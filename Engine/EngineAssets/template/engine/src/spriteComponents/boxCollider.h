@@ -41,7 +41,11 @@ namespace s2d
 		//In two directions. When we We pushed it we reset the array and check for new collisions
 		bool checkCollision(s2d::BoxCollider& other, const int jIndex);
 
-		bool isInCollision() { return !this->positionData.isEverythingUnknown(); }
+		// MAY BE WRONG
+		bool isInCollision() const
+		{
+			return this->positionData.isEqual(s2d::BoxColliderPositionData::Collision); 
+		}
 
 	public:
 		static void checkCollisions();

@@ -38,6 +38,7 @@ bool s2d::BoxCollider::checkCollision(s2d::BoxCollider& other, const int jIndex)
         if (other.isSolid && this->isSolid)
             checkPositions(other, jIndex);
         this->positionData.position[this->collisionCnt] = s2d::BoxColliderPositionData::Collision;
+        this->collisionCnt++;
         return true;
     }
     return false;
@@ -96,13 +97,15 @@ void s2d::BoxCollider::checkPositions(const BoxCollider& other, const int jIndex
 
     // Top
 
-    if (this->sprite->getOrigininalPosition().y + this->boxColliderHeightUpOrDown.x <= other.sprite->getOrigininalPosition().y + other.sprite->transform.textureSize.y + other.boxColliderHeightUpOrDown.y
-        && (this->sprite->getOrigininalPosition().y + +this->sprite->collider.boxColliderHeightUpOrDown.y + range >= other.sprite->getOrigininalPosition().y + other.sprite->transform.textureSize.y + other.boxColliderHeightUpOrDown.y))
-    {
+    // TODO: VALID CHECK FOR TOP!
+    //if (this->sprite->getOrigininalPosition().y + this->boxColliderHeightUpOrDown.x <= other.sprite->getOrigininalPosition().y + other.sprite->transform.textureSize.y + other.boxColliderHeightUpOrDown.y
+    //    && (this->sprite->getOrigininalPosition().y + this->sprite->collider.boxColliderHeightUpOrDown.y + range >= other.sprite->getOrigininalPosition().y + other.sprite->transform.textureSize.y + other.boxColliderHeightUpOrDown.y))
+    //{
+        std::cout << "hi";
         this->positionData.position[this->collisionCnt] = s2d::BoxColliderPositionData::Position::Up;
         this->collisionCnt++;
         return;
-    }
+    //
 }
 
 #pragma endregion

@@ -136,8 +136,17 @@ namespace s2d
 		static void updateHightestLayerIndex();
 		static s2d::Sprite* getSpriteById(int id);
 		static Sprite* getSpriteByName(std::string name);
-		static void deleteSpriteByName(const std::string& name);
 		static int highestLayerIndex;
+
+		/// <summary>
+		/// Deletes the sprite by the given name.
+		/// Hint if you get crashes:
+		/// 1. Make sure to not have duped names
+		/// 2. Make sure u are not deleting a nullptr
+		/// </summary>
+		/// <param name="name">The name of the sprite which should be deletet</param>
+		static void deleteSpriteByName(const std::string& name);
+
 
 		//Pointers getting deletet in gameWindow.cpp ~
 		static std::vector<s2d::Sprite*> activeSprites;

@@ -16,6 +16,13 @@ namespace std
 		file.close();
 	}
 
+	static void createFileWithContent(const std::string& content, const std::string& name, const std::string& path,const std::string extension)
+	{
+		std::string newName = std::string(name) += extension;
+		std::createFileWithContent(content, newName, path);
+	}
+
+
 	static bool isTherAnotherFilter(const std::string& word, const std::string& filter, int idx)
 	{
 		int filterCnt = 0;

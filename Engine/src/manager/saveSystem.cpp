@@ -213,7 +213,20 @@ void s2d::flc::createAnimtionSaveFile()
 		}
 	}*/
 
-	std::cout << s2d::Sprite::activeSprites[0]->animator.animations[0].getPathToFile() << std::endl;
+
+	//std::string name = s2d::Sprite::activeSprites[0]->animator.animations[0].name;
+	//std::string content = 
+	//	s2d::Sprite::activeSprites[0]->animator.animations[0].name + "\n" +
+	//	std::to_string(s2d::Sprite::activeSprites[0]->getId()) + "\n";
+
+	//const std::vector<s2d::KeyFrame>& frames = s2d::Sprite::activeSprites[0]->animator.animations[0].getKeyFrames();
+
+	//for (const s2d::KeyFrame& frame : frames)
+	//{
+	//	content += std::to_string(frame.delay) + std::string(";") + frame.path + "\n";
+	//}
+
+	//std::createFileWithContent(content, name, s2d::Sprite::activeSprites[0]->animator.animations[0].getPathToFile(), ".txt");
 }
 
 bool s2d::flc::isProjectPathValid(const std::string& path)
