@@ -26,6 +26,11 @@ This Project is a simple **2D Game Engine** designed to be fully understand by o
 
 ## Getting Started
 
+The engine calls the only 1 update and 1 Start Method of the "Game" class, if you create a new Script you need to
+call the update method from the script in the "Game" class. If you want to share Instances simply pass them in the 
+update methods or set a pointer to it in the start method. You can get acces to a sprite by calling the myPtr = s2d::Sprite::getSpriteByName() 
+method. Now you are able to use all kinds of features with the sprite. Please not that the engine does still have alot of bugs!
+
 You can get started by downloading the Engine folder [here](https//github.com)
 
 You can find a Introduction to the engine on [YouTube](https://www.youtube.com/watch?v=pnCD5dKhpmg)
