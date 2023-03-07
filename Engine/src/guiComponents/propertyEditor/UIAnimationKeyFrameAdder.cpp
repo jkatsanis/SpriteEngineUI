@@ -56,7 +56,6 @@ void s2d::UIAnimationKeyFrameAdder::inputData()
 	{
 		strcpy_s(this->m_keyFramePathDataHolder, s2d::UIInspector::getNamePathSplit(this->m_keyFramePath.c_str()).c_str());
 	}
-
 }
 
 void s2d::UIAnimationKeyFrameAdder::closeWindowAndSafeKeyFrame()
@@ -99,6 +98,15 @@ void s2d::UIAnimationKeyFrameAdder::addKeyFrameToAnimation()
 	}
 
 	vecpos--;
+
+	if (this->m_keyframePos == 0 && ref.size() != 0 && ref[0].position != 0)
+	{
+		s2d::KeyFrame add = s2d::KeyFrame(this->m_keyFramePath, 0);
+		add.position = this->m_keyframePos;
+
+		this->m_animation->addKeyFrameAt(0, add);
+		return;
+	}
 
 	if (this->m_keyframePos == delay)
 	{

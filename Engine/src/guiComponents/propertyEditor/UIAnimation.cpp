@@ -101,7 +101,8 @@ void s2d::UIAnimation::getFileNameInput()
 		const std::string path = s2d::UI::getUserProjectPathSeperatetFromEnginePath(this->m_createAnimtionPathFileDialoge.pathClicked);
 		std::string createAnimtionAt = "Create animation file at: " + path;
 		ImGui::Text(createAnimtionAt.c_str());
-		
+		ImGui::Text("Press Enter when u are done giving it a name");
+		ImGui::SetWindowSize(ImVec2(500, 120));
 		ImGui::End();
 	}
 }
@@ -144,7 +145,7 @@ void s2d::UIAnimation::addAnimationsToAnimator()
 {
 	if (this->m_openInputWindow && ImGui::IsKeyReleased(ImGuiKey_Enter))
 	{
-		s2d::UIHirachy::selectedSprite->animator.createAnimation(this->mogus, this->m_createAnimtionPathFileDialoge.pathClicked, { }, true);
+		s2d::UIHirachy::selectedSprite->animator.createAnimation(this->mogus, this->m_createAnimtionPathFileDialoge.pathClicked, { }, false);
 		this->m_createAnimtionPathFileDialoge.disableWindow();
 		this->m_openFileDialog = false;
 		this->mogus[0] = '\0';

@@ -100,7 +100,7 @@ void s2d::UIAnimationEditor::displayKeyFrameInfo()
 	const std::string keyFrameSelected = "KeyFrabe Selected: " + std::to_string(this->m_keyFrameSelected.position);
 	ImGui::Text(keyFrameSelected.c_str());
 
-	if (this->m_keyFrameSelected.position != 0 && ImGui::Button("Delete"))
+	if (ImGui::Button("Delete"))
 	{
 		this->m_anim->stop();
 		this->m_anim->deleteKeyFrame(this->m_keyFrameSelected.position);

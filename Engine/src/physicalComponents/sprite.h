@@ -32,8 +32,6 @@ namespace s2d
 		int m_childListPos;
 
 		void initVariables(std::string name, s2d::Vector2 spawnPos, std::string path);
-		void setTextureSizeBasedOnScale();
-
 	public:	
 		// General info
 		std::string name;
@@ -54,12 +52,29 @@ namespace s2d
 		Sprite(std::string name, s2d::Vector2 spawnPosition, std::string path);
 		Sprite(std::string name, s2d::Vector2 spawnPosition, std::string path, bool addToWindowByConstruction);
 
+		/// <summary>
+		/// Rests the parent data
+		/// </summary>
 		void resetChildData();
-		void setSpriteTexture(std::string path);
-		void setSpriteTexture(const sf::Texture& texture);
+
+		/// <summary>
+		/// Sets the new sprite texture
+		/// IT DOES LOAD IT FROM THE FILE
+		/// </summary>
+		/// <param name="path">Path to the file</param>
+		void setSpriteTexture(const std::string& path);
+
+		/// <summary>
+		/// Sets the new sprite texture
+		/// IT DOES NOT!!! LOAD THE TEXTURE FROM THE FILE
+		/// </summary>
+		/// <param name="texture">The already loaded texture</param>
+		/// <param name="path">The new path which needs to be set</param>
+		void setSpriteTexture(const sf::Texture& texture, const std::string& path);
+
 		void setParent(s2d::Sprite* sprite);
 		void addSpriteToScene();
-		bool containsChild(s2d::Sprite* child);
+		bool containsChild(const s2d::Sprite* child) const;
 	public:
 		void setId(const int id) { this->m_id = id; }
 		void setVectorPosition(const int vec) { this->m_vectorPosition = vec; }

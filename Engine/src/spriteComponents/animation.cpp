@@ -96,17 +96,20 @@ void s2d::Animation::play()
 {
 	this->currentFrame = (this->m_useBaseSprite) ? 0 : 0;
 	this->isPlaying = true;
+	this->m_basePath = this->ptr_appliedSprite->path;
 }
 
 void s2d::Animation::update()
 {
 	this->timePassed += Time::deltaTime;
+	if (this->m_keyFrames.size() == 0)
+	{
+		return;
+	}
 	if (timePassed >= this->m_keyFrames[currentFrame].delay / 100)
 	{
 		this->timePassed = 0;
-		this->ptr_appliedSprite->setSpriteTexture(this->m_textures[currentFrame]);
-	    this->ptr_appliedSprite->transform.setScale(this->ptr_appliedSprite->transform.getScale(), true);
-		this->ptr_appliedSprite->path = this->m_keyFrames[currentFrame].path;
+		this->ptr_appliedSprite->setSpriteTexture(this->m_textures[currentFrame], this->m_keyFrames[currentFrame].path);
 
 		if (this->currentFrame == this->m_textures.size() - 1)
 		{

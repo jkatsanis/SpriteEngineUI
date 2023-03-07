@@ -29,25 +29,21 @@ void s2d::Sprite::resetChildData()
 	this->m_childListPos = -1;
 }
 
-void s2d::Sprite::setSpriteTexture(std::string path)
+void s2d::Sprite::setSpriteTexture(const std::string& path)
 {
 	if (!this->m_texture.loadFromFile(path))
 	{
-		//No file
+		std::cout << "LOG: [ERROR] File was not found!";
 	}
 	this->path = path;
 	this->m_sprite.setTexture(this->m_texture, true);
-
-	//Setting sprite size also in init and setTexture
-	this->setTextureSizeBasedOnScale();
+	this->transform.setScale(this->transform.getScale(), true);
 }
 
-void s2d::Sprite::setSpriteTexture(const sf::Texture& texture)
+void s2d::Sprite::setSpriteTexture(const sf::Texture& texture, const std::string& pa)
 {
 	this->m_sprite.setTexture(texture, true);
 
-	//Setting sprite size also in init and setTexture
-	this->setTextureSizeBasedOnScale();
 }
 
 void s2d::Sprite::setParent(s2d::Sprite* parent)
@@ -68,7 +64,7 @@ void s2d::Sprite::addSpriteToScene()
 	s2d::Sprite::activeSprites.push_back(this);
 }
 
-bool s2d::Sprite::containsChild(s2d::Sprite* child)
+bool s2d::Sprite::containsChild(const s2d::Sprite* child) const
 {
 	bool contains = false;
 	for (s2d::Sprite* c : this->childs)
@@ -133,11 +129,6 @@ void s2d::Sprite::initVariables(std::string name, s2d::Vector2 spawnPos, std::st
 
 	//Setting sprite size also in init and setTexture
 	this->transform.setScale(s2d::Vector2(1, 1));
-}
-
-void s2d::Sprite::setTextureSizeBasedOnScale()
-{
-	this->transform.setTextureSize(this->transform.getScale());
 }
 
 //Static functions
