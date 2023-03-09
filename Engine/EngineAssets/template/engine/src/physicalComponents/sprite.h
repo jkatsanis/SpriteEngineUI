@@ -10,6 +10,7 @@
 #include <SFML/Graphics.hpp>
 #include <spriteComponents/physicsBody.h>
 #include <stdExtension.h>
+#include <spriteComponents/animator.h>
 
 namespace s2d
 {
@@ -18,7 +19,6 @@ namespace s2d
 	private:
 		int m_childCount;
 		int m_parentId;
-
 
 		sf::Sprite m_sprite;
 		sf::Texture m_texture;
@@ -43,6 +43,7 @@ namespace s2d
 		s2d::BoxCollider collider;
 		s2d::PhsysicsBody physicsBody;
 		s2d::Transform transform;
+		s2d::Animator animator;
 
 		//Parent / child infos
 		std::vector<s2d::Sprite*> childs;
@@ -84,7 +85,15 @@ namespace s2d
 		/// Sets the new texture of the sprite
 		/// </summary>
 		/// <param name="path">The path of the new texture</param>
-		void setSpriteTexture(const std::string path);
+		void setSpriteTexture(const std::string& path);
+
+		/// <summary>
+		/// Sets the new sprite texture
+		/// IT DOES NOT!!! LOAD THE TEXTURE FROM THE FILE
+		/// </summary>
+		/// <param name="texture">The already loaded texture</param>
+		/// <param name="path">The new path which needs to be set</param>
+		void setSpriteTexture(const sf::Texture& texture, const std::string& path);
 
 		/// <summary>
 		/// Pushed the sprite to the sprites vector, gets rendered

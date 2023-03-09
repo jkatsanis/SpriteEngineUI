@@ -28,9 +28,6 @@
     <Filter Include="engine src\spriteComponents\childsystem">
       <UniqueIdentifier>{a29e0b79-78d7-41bc-9f5e-8f52c1a95ced}</UniqueIdentifier>
     </Filter>
-    <Filter Include="engine src\spriteComponents\data">
-      <UniqueIdentifier>{3bdd92d5-412f-4930-92ff-ba5a29c61187}</UniqueIdentifier>
-    </Filter>
     <Filter Include="engine src\calculationComponents">
       <UniqueIdentifier>{ca6962c1-d60b-4044-8cde-48b5f7556083}</UniqueIdentifier>
     </Filter>
@@ -85,6 +82,9 @@
     <Filter Include="gamesrc">
       <UniqueIdentifier>{af3bc230-9144-4cff-928b-98b34053ef6b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="engine src\spriteComponents\animation">
+      <UniqueIdentifier>{fc7382e0-528a-47f0-9e95-c81f0cecb9ef}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="engine\src\spriteComponents\boxCollider.cpp">
@@ -104,9 +104,6 @@
     </ClCompile>
     <ClCompile Include="engine\src\spriteComponents\childSystem.cpp">
       <Filter>engine src\spriteComponents\childsystem</Filter>
-    </ClCompile>
-    <ClCompile Include="engine\src\spriteComponents\spriteData.cpp">
-      <Filter>engine src\spriteComponents\data</Filter>
     </ClCompile>
     <ClCompile Include="engine\src\physicalComponents\sprite.cpp">
       <Filter>engine src\physicalComponents\sprite</Filter>
@@ -173,6 +170,15 @@
     </ClCompile>
     <ClCompile Include="assets\Scripts\game.cpp">
       <Filter>gamesrc</Filter>
+    </ClCompile>
+    <ClCompile Include="engine\src\spriteComponents\spriteData.cpp">
+      <Filter>engine src\data</Filter>
+    </ClCompile>
+    <ClCompile Include="engine\src\spriteComponents\animator.cpp">
+      <Filter>engine src\spriteComponents\animation</Filter>
+    </ClCompile>
+    <ClCompile Include="engine\src\spriteComponents\animation.cpp">
+      <Filter>engine src\spriteComponents\animation</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -470,9 +476,6 @@
     <ClInclude Include="src\libraries\include\SFML\Window\Sensor.hpp">
       <Filter>engine src\_include\sfml</Filter>
     </ClInclude>
-    <ClInclude Include="engine\src\spriteComponents\spriteData.h">
-      <Filter>engine src\spriteComponents\data</Filter>
-    </ClInclude>
     <ClInclude Include="engine\src\spriteComponents\physicsBody.h">
       <Filter>engine src\spriteComponents\physicBody</Filter>
     </ClInclude>
@@ -575,7 +578,21 @@
     <ClInclude Include="assets\Scripts\game.h">
       <Filter>gamesrc</Filter>
     </ClInclude>
-    <ClInclude Include="assets\Scripts\features.h" />
+    <ClInclude Include="engine\src\spriteComponents\spriteData.h">
+      <Filter>engine src\data</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\src\spriteComponents\animator.h">
+      <Filter>engine src\spriteComponents\animation</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\src\spriteComponents\keyFrame.h">
+      <Filter>engine src\spriteComponents\animation</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\src\spriteComponents\animation.h">
+      <Filter>engine src\spriteComponents\animation</Filter>
+    </ClInclude>
+    <ClInclude Include="assets\Scripts\features.h">
+      <Filter>gamesrc</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="src\libraries\include\SFML\Graphics\Glsl.inl">

@@ -2,9 +2,27 @@
 
 #include <iostream>
 #include <vector>
+#include <fstream>
 
 namespace std
 {
+	static void createFileWithContent(const std::string& content, const std::string& name, const std::string& path)
+	{
+		std::string pathAndName = path + "\\" + name;
+		std::ofstream file(pathAndName);
+
+		file << content;
+
+		file.close();
+	}
+
+	static void createFileWithContent(const std::string& content, const std::string& name, const std::string& path, const std::string extension)
+	{
+		std::string newName = std::string(name) += extension;
+		std::createFileWithContent(content, newName, path);
+	}
+
+
 	static bool isTherAnotherFilter(const std::string& word, const std::string& filter, int idx)
 	{
 		int filterCnt = 0;
@@ -70,14 +88,13 @@ namespace std
 		int cnt = 0;
 		for (const char c : str)
 		{
-			if (c == '.' || c == '/')
+			if (c == '.' || c == '/' || c == '$')
 			{
 				cnt++;
 			}
 		}
 		return !(cnt == str.size());
 	}
-
 
 	static vector<std::string> splitString(std::string s, std::string delimiter)
 	{
@@ -93,6 +110,42 @@ namespace std
 
 		res.push_back(s.substr(pos_start));
 		return res;
+	}
+
+	static std::string getFileExtension(const std::string& file)
+	{
+		for (int i = 0; i < file.size(); i++)
+		{
+			if (file[i] == '.')
+			{
+				bool isValid = true;
+				std::string extension = "";
+				for (int j = i + 1; j < file.size(); j++)
+				{
+					extension += file[j];
+					if (file[j] == '.')
+					{
+						isValid = false;
+						break;
+					}
+				}
+				if (isValid)
+				{
+					return extension;
+				}
+			}
+		}
+		return "folder";
+	}
+
+	template<class T>
+	static void removeAt(std::vector<T>& vec, int pos)
+	{
+		if (pos >= vec.size())
+		{
+			return;
+		}
+		vec.erase(vec.begin() + pos);
 	}
 }
 

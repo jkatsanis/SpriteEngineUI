@@ -151,6 +151,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="engine\src\spriteComponents\animation.cpp" />
+    <ClCompile Include="engine\src\spriteComponents\animator.cpp" />
     <ClCompile Include="engine\src\engineComponents\event.cpp" />
     <ClCompile Include="engine\src\data\FileData.cpp" />
     <ClCompile Include="engine\src\engineComponents\gameEngine.cpp" />
@@ -182,6 +184,8 @@
     <ClCompile Include="assets\Scripts\game.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="engine\src\spriteComponents\animation.h" />
+    <ClInclude Include="engine\src\spriteComponents\animator.h" />
     <ClInclude Include="assets\Scripts\features.h" />
     <ClInclude Include="engine\src\engineComponents\base.h" />
     <ClInclude Include="engine\src\engineComponents\event.h" />
@@ -217,6 +221,7 @@
     <ClInclude Include="engine\src\calculationComponents\srandom.h" />
     <ClInclude Include="engine\src\engineComponents\initializer.h" />
     <ClInclude Include="assets\Scripts\game.h" />
+    <ClInclude Include="engine\src\spriteComponents\keyFrame.h" />
     <ClInclude Include="src\libraries\include\SFML\Audio.hpp" />
     <ClInclude Include="src\libraries\include\SFML\Audio\AlResource.hpp" />
     <ClInclude Include="src\libraries\include\SFML\Audio\Export.hpp" />

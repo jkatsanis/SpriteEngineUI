@@ -1,6 +1,6 @@
-#include "Initializer.h"
+#include "initializer.h"
 
 void s2d::Initializer::initAnimations(std::vector<s2d::Sprite*> to)
 {
-//std::string 
+	//std::vector<s2d::AN
 }

@@ -26,15 +26,21 @@ s2d::Sprite::Sprite(std::string name, s2d::Vector2 spawnPosition, std::string pa
 //// USER FUNCTIONS 
 /////////////////////////////////////
 
-void s2d::Sprite::setSpriteTexture(const std::string path)
+void s2d::Sprite::setSpriteTexture(const std::string& path)
 {
 	if (!this->m_texture.loadFromFile(path))
 	{
 		std::cout << "LOG: [ERROR] File was not found!";
 	}
-	this->m_path = path;
-	this->m_sprite.setTexture(this->m_texture, true);
+	this->setSpriteTexture(this->m_texture, path);
+}
+
+void s2d::Sprite::setSpriteTexture(const sf::Texture& texture, const std::string& path)
+{
 	this->transform.setScale(this->transform.getScale(), true);
+	this->m_sprite.setTexture(texture, true);
+
+	this->m_path = path;
 }
 
 void s2d::Sprite::addSpriteToScene()
@@ -100,6 +106,7 @@ void s2d::Sprite::initVariables(std::string name, s2d::Vector2 spawnPos, std::st
 	//Finally setting the sprite
 	this->m_sprite = sprite;
 
+	this->animator = s2d::Animator(this);
 	this->collider = s2d::BoxCollider(this);
 	this->physicsBody = s2d::PhsysicsBody();
 }
@@ -145,6 +152,7 @@ void s2d::Sprite::initActiveSprites()
 
 			//INITIIALIZING PROPS
 
+			sprite->animator = s2d::Animator(sprite);
 			sprite->transform = s2d::Transform(sprite);
 
 			sprite->name = propertys[0];

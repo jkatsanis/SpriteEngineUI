@@ -3,3 +3,4 @@
 #define GUI
 #define COLLISION
 #define CAMERA
+#define ANIMATION

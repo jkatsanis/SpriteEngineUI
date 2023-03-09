@@ -136,6 +136,10 @@ void s2d::GameEngine::update()
 		this->updateWindowStyle();
 		this->updateUserScriptsAndGUI();
 
+#ifdef ANIMATION
+		s2d::Animation::updateAllAnimations();
+#endif
+
 #ifdef PHYSICS
 		s2d::Physics::update();
 #endif
