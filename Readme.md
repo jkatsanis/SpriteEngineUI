@@ -13,15 +13,14 @@ This Project is a simple **2D Game Engine** designed to be fully understand by o
 - **Box Collision Detection**
 - **Parent-Child Collision Stopping** 
 - **Physics**
-- **Animations**
+- **Animations (also supporting UI editor now)**
 - **Scripting with C++** 
+- **Project Creator**
 
 ----    
 ## Enhancements
 - **Sound Manager**
-- **Animation supporting UI Editor**
 - **Automatic project builder**
-
 ---
 
 ## Getting Started
