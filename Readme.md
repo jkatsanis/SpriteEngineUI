@@ -54,9 +54,9 @@ You can find a Introduction to the engine on [YouTube](https://www.youtube.com/w
    You can create a new **Sprite ptr** in your class:
 
     ```C++
-    class Testing : GameData
+    class Game : public s2d::Base
     {
-        private:
+    private:
         Sprite* m_sprite;
     }
 
@@ -64,7 +64,7 @@ You can find a Introduction to the engine on [YouTube](https://www.youtube.com/w
    You can give the **Sprite ptr** a address by calling the **s2d::Sprite::getSpriteByName("name");** function, to search for a sprite with the name **'name'**. This will return a **'nullptr'** or the adress to this sprite.
 
     ```C++
-    void Testing::start()
+    void Game::start()
     {
         this->m_sprite = Sprite::getSpriteByName("name");
     }
@@ -74,7 +74,7 @@ You can find a Introduction to the engine on [YouTube](https://www.youtube.com/w
 
 
     ```C++
-    void Testing::update()
+    void Game::update()
     {
         if(Input::onKeyHold(KeyBoardCode::A))
         {
