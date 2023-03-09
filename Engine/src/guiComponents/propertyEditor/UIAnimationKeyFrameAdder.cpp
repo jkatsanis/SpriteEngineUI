@@ -99,7 +99,8 @@ void s2d::UIAnimationKeyFrameAdder::addKeyFrameToAnimation()
 
 	vecpos--;
 
-	if (this->m_keyframePos == 0 && ref.size() != 0 && ref[0].position != 0)
+	if (this->m_keyframePos == 0 && ref.size() == 0
+		|| this->m_keyframePos == 0 && ref.size() != 0 && ref[0].position != 0)
 	{
 		s2d::KeyFrame add = s2d::KeyFrame(this->m_keyFramePath, 0);
 		add.position = this->m_keyframePos;

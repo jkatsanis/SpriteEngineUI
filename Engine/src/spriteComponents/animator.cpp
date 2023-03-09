@@ -17,10 +17,10 @@ s2d::Animator::Animator(Sprite* ptr_attachedSprite)
 	this->animationPlaying.name = "<Unknown>";
 }
 
-void s2d::Animator::createAnimation(const std::string& name, const std::string& fileLocation, const std::vector<s2d::KeyFrame>& textures, const bool useBaseSprite)
+void s2d::Animator::createAnimation(const std::string& name, const std::string& fileLocation, const std::vector<s2d::KeyFrame>& textures)
 {
 	EXIST
-	animations.push_back(Animation(ptr_attachedSprite, name, fileLocation, textures, useBaseSprite));
+	animations.push_back(Animation(ptr_attachedSprite, name, fileLocation, textures));
 }
 
 void s2d::Animator::play(std::string name)

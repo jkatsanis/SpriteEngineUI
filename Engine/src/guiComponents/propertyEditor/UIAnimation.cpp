@@ -145,7 +145,7 @@ void s2d::UIAnimation::addAnimationsToAnimator()
 {
 	if (this->m_openInputWindow && ImGui::IsKeyReleased(ImGuiKey_Enter))
 	{
-		s2d::UIHirachy::selectedSprite->animator.createAnimation(this->mogus, this->m_createAnimtionPathFileDialoge.pathClicked, { }, false);
+		s2d::UIHirachy::selectedSprite->animator.createAnimation(this->mogus, this->m_createAnimtionPathFileDialoge.pathClicked, { });
 		this->m_createAnimtionPathFileDialoge.disableWindow();
 		this->m_openFileDialog = false;
 		this->mogus[0] = '\0';

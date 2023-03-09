@@ -26,7 +26,7 @@ namespace s2d
 		Animator();
 		Animator(Sprite* ptr_attachedSprite);
 
-		void createAnimation(const std::string& name, const std::string& fileLocation, const std::vector<s2d::KeyFrame>& frame, const bool useBaseSprites);
+		void createAnimation(const std::string& name, const std::string& fileLocation, const std::vector<s2d::KeyFrame>& frame);
 
 		void play(std::string name);
 		void stop(std::string name);

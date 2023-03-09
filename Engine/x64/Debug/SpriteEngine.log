@@ -1,2 +1,38 @@
-﻿  UIAnimationKeyFrameAdder.cpp
+﻿  SpriteEngine.cpp
+  engineData.cpp
+  spriteData.cpp
+  gameEngine.cpp
+  renderer.cpp
+  UI.cpp
+C:\Dev\SpriteEngineUI\Engine\src\guiComponents\UI.cpp(81,37): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Dev\SpriteEngineUI\Engine\src\guiComponents\UI.cpp(84,5): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+  UIWindow.cpp
+  UIProjectSelector.cpp
+  UIProjectSelectorProjectSection.cpp
+  UIAnimation.cpp
+  UIAnimationEditor.cpp
+  UIAnimationKeyFrameAdder.cpp
+  UIAssetFolder.cpp
+  UIAssetTools.cpp
+  UIHirachy.cpp
+  UIHirachyMenuDisplayer.cpp
+  UIHirachySpriteDisplay.cpp
+  UIInspector.cpp
+  UIInspectorBoxCollider.cpp
+  UIToolButtons.cpp
+  Generating Code...
+  Compiling...
+  UIRealTimeEditor.cpp
+  UIRealTimeEditorNavigator.cpp
+  UIRealTimeEditorTransform.cpp
+  UIRealTimeEditorTransformPosition.cpp
+  UIRealTimeEditorTransfsormScale.cpp
+  saveSystem.cpp
+  sprite.cpp
+  animation.cpp
+  animator.cpp
+  boxCollider.cpp
+  childSystem.cpp
+  transform.cpp
+  Generating Code...
   SpriteEngine.vcxproj -> C:\Dev\SpriteEngineUI\Engine\x64\Debug\SpriteEngine.exe

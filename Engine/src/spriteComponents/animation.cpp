@@ -5,7 +5,7 @@
 
 // Constructor
 
-s2d::Animation::Animation(Sprite* ptr_appliedSprite, const std::string& name, const std::string fileLocation, const std::vector<s2d::KeyFrame>& frames, const bool useBaseSprite)
+s2d::Animation::Animation(Sprite* ptr_appliedSprite, const std::string& name, const std::string fileLocation, const std::vector<s2d::KeyFrame>& frames)
 {
 	this->m_pathToFile = fileLocation;
 	this->timePassed = 2.0f;
@@ -13,8 +13,6 @@ s2d::Animation::Animation(Sprite* ptr_appliedSprite, const std::string& name, co
 	this->name = name;
 	this->ptr_appliedSprite = ptr_appliedSprite;
 	this->isPlaying = false;
-	this->m_useBaseSprite = useBaseSprite;
-	this->m_basePath = this->ptr_appliedSprite->path;
 	
 	this->m_keyFrames.resize(frames.size());
 
@@ -34,34 +32,11 @@ s2d::Animation::Animation(Sprite* ptr_appliedSprite, const std::string& name, co
 
 void s2d::Animation::setVectorSizes()
 {
-	if (this->m_useBaseSprite)
+	this->m_textures = std::vector<sf::Texture>(this->m_keyFrames.size());
+
+	for (int i = 0; i < this->m_keyFrames.size(); i++)
 	{
-		std::vector<s2d::KeyFrame> temp = this->m_keyFrames;
-		this->m_keyFrames.resize(this->m_keyFrames.size() + 1);
-		this->m_keyFrames[0].path = this->ptr_appliedSprite->path;
-		this->m_keyFrames[0].delay = 0;
-
-		for (int i = 1; i < this->m_keyFrames.size(); i++)
-		{
-			this->m_keyFrames[i] = temp[i - 1];
-		}
-
-		this->m_textures = std::vector<sf::Texture>(this->m_keyFrames.size());
-
-		for (int i = 0; i < this->m_keyFrames.size(); i++)
-		{
-			this->m_textures[i].loadFromFile(this->m_keyFrames[i].path);
-		}
-	}
-	else
-	{
-
-		this->m_textures = std::vector<sf::Texture>(this->m_keyFrames.size());
-
-		for (int i = 0; i < this->m_keyFrames.size(); i++)
-		{
-			this->m_textures[i].loadFromFile(this->m_keyFrames[i].path);
-		}
+		this->m_textures[i].loadFromFile(this->m_keyFrames[i].path);
 	}
 }
 
@@ -94,7 +69,7 @@ void s2d::Animation::deleteKeyFrame(const int pos)
 
 void s2d::Animation::play()
 {
-	this->currentFrame = (this->m_useBaseSprite) ? 0 : 0;
+	this->currentFrame = 0;
 	this->isPlaying = true;
 	this->m_basePath = this->ptr_appliedSprite->path;
 }
@@ -125,6 +100,7 @@ void s2d::Animation::stop()
 	this->currentFrame = -1;
 	this->ptr_appliedSprite->setSpriteTexture(this->m_basePath);
 	this->isPlaying = false;
+	this->m_basePath = "";
 }
 
 s2d::KeyFrame& s2d::Animation::getKeyFrameAtMs(const float ms)

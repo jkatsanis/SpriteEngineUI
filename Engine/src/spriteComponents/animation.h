@@ -13,9 +13,13 @@ namespace s2d
 	private:
 		std::vector<sf::Texture> m_textures;
 		std::vector<s2d::KeyFrame> m_keyFrames;
-		bool m_useBaseSprite;
-        std::string m_basePath;
 		std::string m_pathToFile;
+
+		/// <summary>
+		/// Gets set in the play function and gets resettet in the s
+		/// stop function
+		/// </summary>
+		std::string m_basePath;
 
 		void setVectorSizes();
 
@@ -28,7 +32,7 @@ namespace s2d
 
 	    Sprite* ptr_appliedSprite;
 
-		Animation(Sprite* ptr_appliedSprite, const std::string& name, const std::string fileLocation, const std::vector<s2d::KeyFrame>& frames, const bool useBaseSprite);
+		Animation(Sprite* ptr_appliedSprite, const std::string& name, const std::string fileLocation, const std::vector<s2d::KeyFrame>& frames);
 
 		void deleteKeyFrame(const int pos);
 		void play();
