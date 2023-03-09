@@ -30,7 +30,7 @@ s2d::GameEngine::GameEngine()
 
 s2d::GameEngine::~GameEngine()
 {
-    for (s2d::Sprite* sprite : s2d::Sprite::activeSprites)
+    for (s2d::Sprite* sprite : s2d::Sprite::s_sprites)
     {
         delete sprite;
     }
@@ -44,7 +44,7 @@ s2d::GameEngine::~GameEngine()
 
 void s2d::GameEngine::pollEngineEvents()
 {
-    for (s2d::Sprite* ptr_sprite : s2d::Sprite::activeSprites)
+    for (s2d::Sprite* ptr_sprite : s2d::Sprite::s_sprites)
     {
         if (ptr_sprite->transform.position != ptr_sprite->transform.nextPos)
         {
@@ -66,10 +66,11 @@ void s2d::GameEngine::pollEvents()
             s2d::Animator::stopAllAnimations();
 
             //We need to save our data | Dont forget to save it also in "UIToolButtons"
-            s2d::flc::createSaveFile(s2d::Sprite::activeSprites);
+            s2d::flc::createSaveFile(s2d::Sprite::s_sprites);
             s2d::flc::createWindowBackgroundSaveFile(this->m_UIWindow.getInspector().backgroundColor);
             s2d::flc::createCameraSaveFile(*s2d::GameObject::ptr_camera_tRealTimeEditor);
             s2d::flc::createIndexSaveFile();
+            s2d::flc::createKnownAnimationFile();
             s2d::flc::createAnimtionSaveFile();
             // Known projects file gets created in project selector
 

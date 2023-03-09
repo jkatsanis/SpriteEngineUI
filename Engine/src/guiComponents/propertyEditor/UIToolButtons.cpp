@@ -50,7 +50,7 @@ void s2d::UIToolButtons::askWithButtonForPlayGame()
 		s2d::Animator::stopAllAnimations();
 
 		//SAVING THE FILE AGAIN SINCE WE PRESS "PLAY"
-		s2d::flc::createSaveFile(s2d::Sprite::activeSprites);
+		s2d::flc::createSaveFile(s2d::Sprite::s_sprites);
 		s2d::flc::createWindowBackgroundSaveFile(this->m_windowbBackgroundToSave);
 		s2d::flc::createCameraSaveFile(*s2d::GameObject::ptr_camera_tRealTimeEditor);
 		s2d::flc::createIndexSaveFile();

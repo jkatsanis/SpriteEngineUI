@@ -17,10 +17,10 @@ s2d::Animator::Animator(Sprite* ptr_attachedSprite)
 	this->animationPlaying.name = "<Unknown>";
 }
 
-void s2d::Animator::createAnimation(const std::string& name, const std::string& fileLocation, const std::vector<s2d::KeyFrame>& textures)
+void s2d::Animator::createAnimation(const std::string& name, const std::vector<s2d::KeyFrame>& textures)
 {
 	EXIST;
-	animations.push_back(Animation(ptr_attachedSprite, name, fileLocation, textures));
+	animations.push_back(Animation(ptr_attachedSprite, name, textures));
 }
 
 void s2d::Animator::play(std::string name)
@@ -75,8 +75,8 @@ void s2d::Animator::resetComponent()
 
 void s2d::Animator::stopAllAnimations()
 {
-	for (int i = 0; i < s2d::Sprite::activeSprites.size(); i++)
+	for (int i = 0; i < s2d::Sprite::s_sprites.size(); i++)
 	{
-		s2d::Sprite::activeSprites[i]->animator.stop(s2d::Sprite::activeSprites[i]->animator.animationPlaying.name);
+		s2d::Sprite::s_sprites[i]->animator.stop(s2d::Sprite::s_sprites[i]->animator.animationPlaying.name);
 	}
 }

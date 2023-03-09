@@ -52,34 +52,27 @@ namespace s2d
 		Sprite();
 		Sprite(std::string name, s2d::Vector2 spawnPosition, std::string path);
 		Sprite(std::string name, s2d::Vector2 spawnPosition, std::string path, bool addToWindowByConstruction);
-
+		
 		//////////////////////////////////////
 		//// ENGINE FUNCTIONS 
 		/////////////////////////////////////
 
-		/// <summary>
-		/// DO NOT USE
-		/// </summary>
+		void setChildCount(const int cnt) { this->m_childCount = cnt; }
+		void setParentId(const int id) { this->m_parentId = id; }
 		void setId(const int id) { this->m_id = id; }
-
-		/// <summary>
-		/// DO NOT USE
-		/// </summary>
+		void setChildListPos(const int pos) { this->m_childListPos = pos; }
 		void setVectorPosition(const int vec) { this->m_vectorPosition = vec; }
-
-		/// <summary>
-		/// DO NOT USE
-		/// </summary>
 		sf::Sprite& getSprite() { return this->m_sprite; }
-
-		/// <summary>
-		/// DO NOT USE
-		/// </summary>
 		sf::Texture& getTexture() { return this->m_texture; }
 
 		//////////////////////////////////////
 		//// USER FUNCTIONS 
 		/////////////////////////////////////
+
+		/// <summary>
+		/// Gets the id of the parent
+		/// </summary>
+		int getParentId() const { return this->m_parentId; }
 
 		/// <summary>
 		/// Sets the new texture of the sprite
@@ -140,7 +133,6 @@ namespace s2d
 		int getVectorPosition() { return this->m_vectorPosition; }
 
 	public:
-		static void initActiveSprites();
 		static int getMaxNumber(std::vector<s2d::Sprite*>& vec);
 		static void updateHightestLayerIndex();
 		static s2d::Sprite* getSpriteById(int id);
@@ -158,7 +150,7 @@ namespace s2d
 
 
 		//Pointers getting deletet in gameWindow.cpp ~
-		static std::vector<s2d::Sprite*> activeSprites;
+		static std::vector<s2d::Sprite*> s_sprites;
 	};
 }
 

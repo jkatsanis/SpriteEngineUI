@@ -61,39 +61,6 @@
     <Filter Include="src\guiComponents\projectSelector\create/open">
       <UniqueIdentifier>{f7276a62-4241-416b-a8ed-710d28d88a06}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\guiComponents\engineComponents">
-      <UniqueIdentifier>{54cb8602-ec46-4994-8890-81ef8ad9b2e9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\guiComponents\engineComponents\event">
-      <UniqueIdentifier>{7694d3ab-842c-49be-9fe1-7b895fcfcbf9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\guiComponents\engineComponents\engjne">
-      <UniqueIdentifier>{2de54da9-9bcc-4edd-ac70-3718fc9f6063}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\guiComponents\engineComponents\input">
-      <UniqueIdentifier>{ba19a56c-6740-4b61-a244-294f007f9007}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\guiComponents\engineComponents\time">
-      <UniqueIdentifier>{a9ba8dba-ec0d-476b-839a-8def425d9835}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\guiComponents\engineComponents\data">
-      <UniqueIdentifier>{36c21588-c40b-4a06-b73d-1f63d6e810e0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\guiComponents\engineComponents\data\sprite">
-      <UniqueIdentifier>{c5e08365-c873-4cce-bcc1-55715c290484}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\guiComponents\engineComponents\data\UI">
-      <UniqueIdentifier>{85ea485f-3b17-4cd6-addd-d5d1df266625}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\guiComponents\engineComponents\data\file">
-      <UniqueIdentifier>{c39b7ee3-d525-459c-8c6f-3fafec5223d0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\guiComponents\engineComponents\data\engine">
-      <UniqueIdentifier>{7a5a6dea-281f-4d88-aea8-91d046ba54c2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\guiComponents\engineComponents\renderer">
-      <UniqueIdentifier>{11e41f95-0da7-436a-bfac-ed4cf7d78271}</UniqueIdentifier>
-    </Filter>
     <Filter Include="src\guiComponents\Include/headers">
       <UniqueIdentifier>{800e3cbb-218b-49c5-9e04-66156fb14b6d}</UniqueIdentifier>
     </Filter>
@@ -132,6 +99,39 @@
     </Filter>
     <Filter Include="src\physicalComponents\line">
       <UniqueIdentifier>{09c6640c-440d-47cd-ba53-d5617988500d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\engineComponents">
+      <UniqueIdentifier>{54cb8602-ec46-4994-8890-81ef8ad9b2e9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\engineComponents\event">
+      <UniqueIdentifier>{7694d3ab-842c-49be-9fe1-7b895fcfcbf9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\engineComponents\engjne">
+      <UniqueIdentifier>{2de54da9-9bcc-4edd-ac70-3718fc9f6063}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\engineComponents\input">
+      <UniqueIdentifier>{ba19a56c-6740-4b61-a244-294f007f9007}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\engineComponents\time">
+      <UniqueIdentifier>{a9ba8dba-ec0d-476b-839a-8def425d9835}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\engineComponents\data">
+      <UniqueIdentifier>{36c21588-c40b-4a06-b73d-1f63d6e810e0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\engineComponents\data\sprite">
+      <UniqueIdentifier>{c5e08365-c873-4cce-bcc1-55715c290484}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\engineComponents\data\UI">
+      <UniqueIdentifier>{85ea485f-3b17-4cd6-addd-d5d1df266625}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\engineComponents\data\file">
+      <UniqueIdentifier>{c39b7ee3-d525-459c-8c6f-3fafec5223d0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\engineComponents\data\engine">
+      <UniqueIdentifier>{7a5a6dea-281f-4d88-aea8-91d046ba54c2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\engineComponents\renderer">
+      <UniqueIdentifier>{11e41f95-0da7-436a-bfac-ed4cf7d78271}</UniqueIdentifier>
     </Filter>
     <Filter Include="src\spriteComponents">
       <UniqueIdentifier>{67a0e83c-1494-405a-aa99-5afc57ec0f5e}</UniqueIdentifier>
@@ -196,7 +196,7 @@
       <Filter>src\manager\font</Filter>
     </ClCompile>
     <ClCompile Include="src\data\spriteData.cpp">
-      <Filter>src\guiComponents\engineComponents\data\sprite</Filter>
+      <Filter>src\engineComponents\data\sprite</Filter>
     </ClCompile>
     <ClCompile Include="src\physicalComponents\camera.cpp">
       <Filter>src\physicalComponents\camera</Filter>
@@ -208,13 +208,13 @@
       <Filter>src\physicalComponents\sprite</Filter>
     </ClCompile>
     <ClCompile Include="src\data\UIInfo.cpp">
-      <Filter>src\guiComponents\engineComponents\data\UI</Filter>
+      <Filter>src\engineComponents\data\UI</Filter>
     </ClCompile>
     <ClCompile Include="src\data\UIIconData.cpp">
-      <Filter>src\guiComponents\engineComponents\data\UI</Filter>
+      <Filter>src\engineComponents\data\UI</Filter>
     </ClCompile>
     <ClCompile Include="src\data\fileData.cpp">
-      <Filter>src\guiComponents\engineComponents\data\file</Filter>
+      <Filter>src\engineComponents\data\file</Filter>
     </ClCompile>
     <ClCompile Include="src\spriteComponents\animation.cpp">
       <Filter>src\spriteComponents\animation</Filter>
@@ -247,16 +247,16 @@
       <Filter>src\spriteComponents\transform</Filter>
     </ClCompile>
     <ClCompile Include="src\engineComponents\event.cpp">
-      <Filter>src\guiComponents\engineComponents\event</Filter>
+      <Filter>src\engineComponents\event</Filter>
     </ClCompile>
     <ClCompile Include="src\engineComponents\gameEngine.cpp">
-      <Filter>src\guiComponents\engineComponents\engjne</Filter>
+      <Filter>src\engineComponents\engjne</Filter>
     </ClCompile>
     <ClCompile Include="src\engineComponents\input.cpp">
-      <Filter>src\guiComponents\engineComponents\input</Filter>
+      <Filter>src\engineComponents\input</Filter>
     </ClCompile>
     <ClCompile Include="src\engineComponents\time.cpp">
-      <Filter>src\guiComponents\engineComponents\time</Filter>
+      <Filter>src\engineComponents\time</Filter>
     </ClCompile>
     <ClCompile Include="src\calculationComponents\vector2.cpp">
       <Filter>src\calculationComponents</Filter>
@@ -278,10 +278,10 @@
       <Filter>src\guiComponents\projectSelector\create/open</Filter>
     </ClCompile>
     <ClCompile Include="src\data\engineData.cpp">
-      <Filter>src\guiComponents\engineComponents\data\engine</Filter>
+      <Filter>src\engineComponents\data\engine</Filter>
     </ClCompile>
     <ClCompile Include="src\engineComponents\renderer.cpp">
-      <Filter>src\guiComponents\engineComponents\renderer</Filter>
+      <Filter>src\engineComponents\renderer</Filter>
     </ClCompile>
     <ClCompile Include="src\guiComponents\realTimeEditor\UIRealTimeEditor.cpp">
       <Filter>src\guiComponents\realTimeEditor\transform</Filter>
@@ -670,43 +670,40 @@
       <Filter>src\guiComponents\tools</Filter>
     </ClInclude>
     <ClInclude Include="src\engineComponents\event.h">
-      <Filter>src\guiComponents\engineComponents\event</Filter>
+      <Filter>src\engineComponents\event</Filter>
     </ClInclude>
     <ClInclude Include="src\physicalComponents\gameObject.h">
       <Filter>src\physicalComponents\gameObject</Filter>
     </ClInclude>
     <ClInclude Include="src\engineComponents\gameEngine.h">
-      <Filter>src\guiComponents\engineComponents\engjne</Filter>
+      <Filter>src\engineComponents\engjne</Filter>
     </ClInclude>
     <ClInclude Include="src\guiComponents\UIWindow.h">
       <Filter>src\guiComponents\window</Filter>
     </ClInclude>
     <ClInclude Include="src\data\UIInfo.h">
-      <Filter>src\guiComponents\engineComponents\data\UI</Filter>
+      <Filter>src\engineComponents\data\UI</Filter>
     </ClInclude>
     <ClInclude Include="src\data\UIIconData.h">
-      <Filter>src\guiComponents\engineComponents\data\UI</Filter>
+      <Filter>src\engineComponents\data\UI</Filter>
     </ClInclude>
     <ClInclude Include="src\engineComponents\input.h">
-      <Filter>src\guiComponents\engineComponents\input</Filter>
+      <Filter>src\engineComponents\input</Filter>
     </ClInclude>
     <ClInclude Include="src\engineComponents\keyBoard.h">
-      <Filter>src\guiComponents\engineComponents\input</Filter>
+      <Filter>src\engineComponents\input</Filter>
     </ClInclude>
     <ClInclude Include="src\engineComponents\stime.h">
-      <Filter>src\guiComponents\engineComponents\time</Filter>
-    </ClInclude>
-    <ClInclude Include="src\manager\saveSystem.h">
-      <Filter>src\manager\files</Filter>
+      <Filter>src\engineComponents\time</Filter>
     </ClInclude>
     <ClInclude Include="src\manager\fontManager.h">
       <Filter>src\manager\font</Filter>
     </ClInclude>
     <ClInclude Include="src\data\fileData.h">
-      <Filter>src\guiComponents\engineComponents\data\file</Filter>
+      <Filter>src\engineComponents\data\file</Filter>
     </ClInclude>
     <ClInclude Include="src\data\spriteData.h">
-      <Filter>src\guiComponents\engineComponents\data\sprite</Filter>
+      <Filter>src\engineComponents\data\sprite</Filter>
     </ClInclude>
     <ClInclude Include="src\physicalComponents\sprite.h">
       <Filter>src\physicalComponents\sprite</Filter>
@@ -757,13 +754,13 @@
       <Filter>src\guiComponents\projectSelector\create/open</Filter>
     </ClInclude>
     <ClInclude Include="src\data\projectInfo.h">
-      <Filter>src\guiComponents\engineComponents\data</Filter>
+      <Filter>src\engineComponents\data</Filter>
     </ClInclude>
     <ClInclude Include="src\data\engineData.h">
-      <Filter>src\guiComponents\engineComponents\data\engine</Filter>
+      <Filter>src\engineComponents\data\engine</Filter>
     </ClInclude>
     <ClInclude Include="src\engineComponents\renderer.h">
-      <Filter>src\guiComponents\engineComponents\renderer</Filter>
+      <Filter>src\engineComponents\renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\guiComponents\colors.h">
       <Filter>src\guiComponents</Filter>
@@ -791,6 +788,9 @@
     </ClInclude>
     <ClInclude Include="src\guiComponents\propertyEditor\UIAssetTools.h">
       <Filter>src\guiComponents\assets</Filter>
+    </ClInclude>
+    <ClInclude Include="src\manager\saveSystem.h">
+      <Filter>src\manager\font</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

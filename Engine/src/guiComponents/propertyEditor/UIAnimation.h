@@ -23,7 +23,7 @@ namespace s2d
 
 		bool m_openFileDialog;
 		bool m_openInputWindow;
-		char mogus[150];
+		char m_animationFile[150];
 
 		void getFileNameInput();
 		void displayAnimations();

@@ -24,7 +24,6 @@ s2d::Animation::Animation(Sprite* ptr_appliedSprite, const std::string& name, co
 		currentPos += (int)this->m_keyFrames[i].delay;
 		this->m_keyFrames[i].position = currentPos;
 	}
-
 	this->setVectorSizes();
 }
 
@@ -44,14 +43,14 @@ void s2d::Animation::setVectorSizes()
 
 void s2d::Animation::deleteKeyFrame(const int pos)
 {
-	float delay = 0;
+	int delay = 0;
 	for (int i = 0; i < this->m_keyFrames.size(); i++)
 	{
 		delay += this->m_keyFrames[i].delay;
 
 		if (delay == pos)
 		{
-			float delayAdd = this->m_keyFrames[i].delay;
+			int delayAdd = this->m_keyFrames[i].delay;
 
 			std::removeAt(this->m_keyFrames, i);
 			std::removeAt(this->m_textures, i);
@@ -135,7 +134,7 @@ void s2d::Animation::addKeyFrameAt(const int vecpos, const s2d::KeyFrame& frame)
 
 void s2d::Animation::updateAllAnimations()
 {
-	for (s2d::Sprite* sprite : s2d::Sprite::activeSprites)
+	for (s2d::Sprite* sprite : s2d::Sprite::s_sprites)
 	{
 		sprite->animator.update();
 	}

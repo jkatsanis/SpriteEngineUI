@@ -59,9 +59,9 @@ void s2d::UIHirachyMenuDisplayer::deleteChildsRecursivly(s2d::Sprite* toDelete)
 	for (s2d::Sprite* child : toDelete->childs)
 	{
 		//Erasing it from the vector - deletet sprites because if we delete 1 sprite our list already pops back so we need to move 1 to
-		s2d::Sprite::activeSprites.erase(s2d::Sprite::activeSprites.begin() + child->getVectorPosition() - 1);
+		s2d::Sprite::s_sprites.erase(s2d::Sprite::s_sprites.begin() + child->getVectorPosition() - 1);
 
-		for (s2d::Sprite* spr : s2d::Sprite::activeSprites)
+		for (s2d::Sprite* spr : s2d::Sprite::s_sprites)
 		{
 			//Decrement the vector position so we dont have to rememer the deletet sprites
 			if (spr->getVectorPosition() > child->getVectorPosition())
@@ -89,7 +89,7 @@ void s2d::UIHirachyMenuDisplayer::createButton()
 		{
 			//Adding a new sprite to the hirachy + game scene	
 
-			int vectorPos = int(s2d::Sprite::activeSprites.size()) + 1;
+			int vectorPos = int(s2d::Sprite::s_sprites.size()) + 1;
 			std::string name = "Sprite " + std::to_string(vectorPos) + " id: " + std::to_string(s2d::SpriteData::highestSpriteID + 1);
 
 			s2d::Sprite* sprite = new s2d::Sprite(name, s2d::Vector2(0, 0), s2d::SpriteData::defaultSpritePath);
@@ -126,9 +126,9 @@ void s2d::UIHirachyMenuDisplayer::deleteButton()
 		this->deleteChildsRecursivly(this->m_spriteDisplayer->deleteSprite);
 
 		//deleting the deletet sprite + freeing it
-		s2d::Sprite::activeSprites.erase((s2d::Sprite::activeSprites.begin() + this->m_spriteDisplayer->deleteSprite->getVectorPosition() - 1));
+		s2d::Sprite::s_sprites.erase((s2d::Sprite::s_sprites.begin() + this->m_spriteDisplayer->deleteSprite->getVectorPosition() - 1));
 
-		for (s2d::Sprite* greater : s2d::Sprite::activeSprites)
+		for (s2d::Sprite* greater : s2d::Sprite::s_sprites)
 		{
 			if (greater->getVectorPosition() > this->m_spriteDisplayer->deleteSprite->getVectorPosition())
 			{

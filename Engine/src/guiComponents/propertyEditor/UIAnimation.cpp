@@ -88,12 +88,12 @@ void s2d::UIAnimation::getFileNameInput()
 		{
 			this->m_openInputWindow = false;
 			this->m_openFileDialog = false;
-			this->mogus[0] = '\0';
+			this->m_animationFile[0] = '\0';
 			this->m_createAnimtionPathFileDialoge.disableWindow();
 		}
 		ImGui::SetCursorPos(old);
 
-		ImGui::InputTextWithHint("##addFile", "<name>", this->mogus, CHAR_MAX);
+		ImGui::InputTextWithHint("##addFile", "<name>", this->m_animationFile, CHAR_MAX);
 		if (ImGui::IsItemHovered() || ImGui::IsItemFocused())
 		{
 			this->isHovered = true;
@@ -145,9 +145,13 @@ void s2d::UIAnimation::addAnimationsToAnimator()
 {
 	if (this->m_openInputWindow && ImGui::IsKeyReleased(ImGuiKey_Enter))
 	{
-		s2d::UIHirachy::selectedSprite->animator.createAnimation(this->mogus, this->m_createAnimtionPathFileDialoge.pathClicked, { });
+		if (this->m_animationFile[0] != '\0')
+		{
+			const std::string& path = s2d::UI::getUserProjectPathSeperatetFromEnginePath(this->m_createAnimtionPathFileDialoge.pathClicked);
+			s2d::UIHirachy::selectedSprite->animator.createAnimation(this->m_animationFile, path, { });
+		}
 		this->m_createAnimtionPathFileDialoge.disableWindow();
 		this->m_openFileDialog = false;
-		this->mogus[0] = '\0';
+		this->m_animationFile[0] = '\0';
 	}
 }

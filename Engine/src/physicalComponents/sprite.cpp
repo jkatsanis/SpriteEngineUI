@@ -60,8 +60,8 @@ void s2d::Sprite::setParent(s2d::Sprite* parent)
 
 void s2d::Sprite::addSpriteToScene()
 {
-	this->m_vectorPosition = int(s2d::Sprite::activeSprites.size() + 1);
-	s2d::Sprite::activeSprites.push_back(this);
+	this->m_vectorPosition = int(s2d::Sprite::s_sprites.size() + 1);
+	s2d::Sprite::s_sprites.push_back(this);
 }
 
 bool s2d::Sprite::containsChild(const s2d::Sprite* child) const
@@ -225,7 +225,7 @@ void s2d::Sprite::initActiveSprites()
 			sprite->animator.exists = propertys[27] == "True";
 
 			//Pushing the sprite
-			s2d::Sprite::activeSprites.push_back(sprite);
+			s2d::Sprite::s_sprites.push_back(sprite);
 
 			//End of INITING
 		}
@@ -234,7 +234,7 @@ void s2d::Sprite::initActiveSprites()
 	spriteFile.close();
 
 	//setting childs of sprites
-	for (s2d::Sprite* sprite : s2d::Sprite::activeSprites)
+	for (s2d::Sprite* sprite : s2d::Sprite::s_sprites)
 	{
 		if (sprite->m_parentId > 0)
 		{
@@ -267,7 +267,7 @@ int s2d::Sprite::getMaxNumber(std::vector<s2d::Sprite*>& vec)
 
 void s2d::Sprite::updateHightestLayerIndex()
 {
-	for (const s2d::Sprite* sprite : s2d::Sprite::activeSprites)
+	for (const s2d::Sprite* sprite : s2d::Sprite::s_sprites)
 	{
 		if (sprite->sortingLayerIndex > highestLayerIndex)
 			highestLayerIndex = sprite->sortingLayerIndex;
@@ -276,7 +276,7 @@ void s2d::Sprite::updateHightestLayerIndex()
 
 s2d::Sprite* s2d::Sprite::getSpriteById(int id)
 {
-	for (s2d::Sprite* sprite : s2d::Sprite::activeSprites)
+	for (s2d::Sprite* sprite : s2d::Sprite::s_sprites)
 	{
 		if (sprite->m_id == id)
 		{
@@ -286,5 +286,5 @@ s2d::Sprite* s2d::Sprite::getSpriteById(int id)
 	return nullptr;
 }
 
-std::vector<s2d::Sprite*> s2d::Sprite::activeSprites(0);
+std::vector<s2d::Sprite*> s2d::Sprite::s_sprites(0);
 int s2d::Sprite::highestLayerIndex = 0;

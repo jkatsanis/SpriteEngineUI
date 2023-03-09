@@ -51,11 +51,11 @@ bool s2d::BoxCollider::checkCollision(s2d::BoxCollider& other, const int jIndex)
 bool s2d::BoxCollider::checkIAndJPCollisions(int i, int j)
 {
     bool collided = false;
-    if (s2d::Sprite::activeSprites[i]->collider.checkCollision(s2d::Sprite::activeSprites[j]->collider, j))
+    if (s2d::Sprite::s_sprites[i]->collider.checkCollision(s2d::Sprite::s_sprites[j]->collider, j))
     {
         collided = true;
     }
-    if (s2d::Sprite::activeSprites[j]->collider.checkCollision(s2d::Sprite::activeSprites[i]->collider, j))
+    if (s2d::Sprite::s_sprites[j]->collider.checkCollision(s2d::Sprite::s_sprites[i]->collider, j))
     {
         collided = true;
     }
@@ -101,7 +101,6 @@ void s2d::BoxCollider::checkPositions(const BoxCollider& other, const int jIndex
     //if (this->sprite->getOrigininalPosition().y + this->boxColliderHeightUpOrDown.x <= other.sprite->getOrigininalPosition().y + other.sprite->transform.textureSize.y + other.boxColliderHeightUpOrDown.y
     //    && (this->sprite->getOrigininalPosition().y + this->sprite->collider.boxColliderHeightUpOrDown.y + range >= other.sprite->getOrigininalPosition().y + other.sprite->transform.textureSize.y + other.boxColliderHeightUpOrDown.y))
     //{
-        std::cout << "hi";
         this->positionData.position[this->collisionCnt] = s2d::BoxColliderPositionData::Position::Up;
         this->collisionCnt++;
         return;
@@ -115,24 +114,24 @@ void s2d::BoxCollider::checkPositions(const BoxCollider& other, const int jIndex
 
 void s2d::BoxCollider::checkCollisions()
 {
-    for (int i = 0; i < s2d::Sprite::activeSprites.size(); i++)
+    for (int i = 0; i < s2d::Sprite::s_sprites.size(); i++)
     {      
-        for (int j = i + 1; j < s2d::Sprite::activeSprites.size(); j++)
+        for (int j = i + 1; j < s2d::Sprite::s_sprites.size(); j++)
         {
             if (checkIAndJPCollisions(i, j))
             {
-                s2d::Sprite::activeSprites[i]->collider.collidingSprite = s2d::Sprite::activeSprites[j];
-                s2d::Sprite::activeSprites[j]->collider.collidingSprite = s2d::Sprite::activeSprites[i];
+                s2d::Sprite::s_sprites[i]->collider.collidingSprite = s2d::Sprite::s_sprites[j];
+                s2d::Sprite::s_sprites[j]->collider.collidingSprite = s2d::Sprite::s_sprites[i];
             }       
         }
     }
 
     // set the colliding sprite to nulltpr if the sprite doens't collide
-    for (int i = 0; i < s2d::Sprite::activeSprites.size(); i++)
+    for (int i = 0; i < s2d::Sprite::s_sprites.size(); i++)
     {
-        if (s2d::Sprite::activeSprites[i]->collider.positionData.isEverythingUnknown())
+        if (s2d::Sprite::s_sprites[i]->collider.positionData.isEverythingUnknown())
         {
-            s2d::Sprite::activeSprites[i]->collider.collidingSprite = nullptr;
+            s2d::Sprite::s_sprites[i]->collider.collidingSprite = nullptr;
         }
     }
 }

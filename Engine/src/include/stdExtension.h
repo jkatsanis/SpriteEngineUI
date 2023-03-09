@@ -8,8 +8,10 @@ namespace std
 {
 	static void createFileWithContent(const std::string& content, const std::string& name, const std::string& path)
 	{
-		std::string pathAndName = path + "\\" + name;
-		std::ofstream file(pathAndName);
+		std::string pathAndName = (name == "") ?  path : path + name;
+		std::ofstream file;
+
+		file.open(pathAndName);
 
 		file << content;
 
@@ -18,10 +20,14 @@ namespace std
 
 	static void createFileWithContent(const std::string& content, const std::string& name, const std::string& path,const std::string extension)
 	{
-		std::string newName = std::string(name) += extension;
+		std::string newName = name + extension;
 		std::createFileWithContent(content, newName, path);
 	}
 
+	static void createFileWithContent(const std::string& content, const std::string& path)
+	{
+		std::createFileWithContent(content, "", path);
+	}
 
 	static bool isTherAnotherFilter(const std::string& word, const std::string& filter, int idx)
 	{

@@ -165,7 +165,7 @@
     <ClCompile Include="engine\src\calculationComponents\srandom.cpp">
       <Filter>engine src\calculationComponents\rndm</Filter>
     </ClCompile>
-    <ClCompile Include="engine\src\engineComponents\initializer.cpp">
+    <ClCompile Include="engine\src\manager\initializer.cpp">
       <Filter>engine src\engineComponents\Initializer</Filter>
     </ClCompile>
     <ClCompile Include="assets\Scripts\game.cpp">
@@ -572,7 +572,7 @@
     <ClInclude Include="engine\src\calculationComponents\srandom.h">
       <Filter>engine src\calculationComponents\rndm</Filter>
     </ClInclude>
-    <ClInclude Include="engine\src\engineComponents\initializer.h">
+    <ClInclude Include="engine\src\manager\initializer.h">
       <Filter>engine src\engineComponents\Initializer</Filter>
     </ClInclude>
     <ClInclude Include="assets\Scripts\game.h">

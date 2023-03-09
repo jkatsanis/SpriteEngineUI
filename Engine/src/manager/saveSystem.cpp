@@ -214,19 +214,34 @@ void s2d::flc::createAnimtionSaveFile()
 	}*/
 
 
-	//std::string name = s2d::Sprite::activeSprites[0]->animator.animations[0].name;
-	//std::string content = 
-	//	s2d::Sprite::activeSprites[0]->animator.animations[0].name + "\n" +
-	//	std::to_string(s2d::Sprite::activeSprites[0]->getId()) + "\n";
+	std::string name = s2d::Sprite::s_sprites[0]->animator.animations[0].name;
+	std::string content = 
+		s2d::Sprite::s_sprites[0]->animator.animations[0].name + "\n" +
+		std::to_string(s2d::Sprite::s_sprites[0]->getId()) + "\n";
 
-	//const std::vector<s2d::KeyFrame>& frames = s2d::Sprite::activeSprites[0]->animator.animations[0].getKeyFrames();
+	const std::vector<s2d::KeyFrame>& frames = s2d::Sprite::s_sprites[0]->animator.animations[0].getKeyFrames();
 
-	//for (const s2d::KeyFrame& frame : frames)
-	//{
-	//	content += std::to_string(frame.delay) + std::string(";") + frame.path + "\n";
-	//}
+	for (const s2d::KeyFrame& frame : frames)
+	{
+		content += std::to_string(frame.delay) + std::string(";") + s2d::UI::getUserProjectPathSeperatetFromEnginePath(frame.path) + "\n";
+	}
 
-	//std::createFileWithContent(content, name, s2d::Sprite::activeSprites[0]->animator.animations[0].getPathToFile(), ".txt");
+	std::createFileWithContent(content, name, s2d::EngineData::s_pathToUserProject + "\\" + s2d::Sprite::s_sprites[0]->animator.animations[0].getPathToFile(), ".txt");
+}
+
+void s2d::flc::createKnownAnimationFile()
+{
+	std::string content = "PathToAnimation\n";
+
+	for (const s2d::Sprite* sprite : s2d::Sprite::s_sprites)
+	{
+		for (const s2d::Animation& animation : sprite->animator.animations)
+		{
+			content += animation.getPathToFile() + animation.name + EXTENSION_SAVE_FILE + "\n";
+		}
+	}
+
+	std::createFileWithContent(content, PATH_TO_KNOWN_ANIMATIONS);
 }
 
 bool s2d::flc::isProjectPathValid(const std::string& path)

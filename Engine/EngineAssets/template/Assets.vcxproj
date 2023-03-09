@@ -180,7 +180,7 @@
     <ClCompile Include="engine\src\manager\GUIManager.cpp" />
     <ClCompile Include="engine\src\engineComponents\renderer.cpp" />
     <ClCompile Include="engine\src\calculationComponents\srandom.cpp" />
-    <ClCompile Include="engine\src\engineComponents\initializer.cpp" />
+    <ClCompile Include="engine\src\manager\initializer.cpp" />
     <ClCompile Include="assets\Scripts\game.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -219,7 +219,7 @@
     <ClInclude Include="engine\src\manager\GUIManager.h" />
     <ClInclude Include="engine\src\engineComponents\renderer.h" />
     <ClInclude Include="engine\src\calculationComponents\srandom.h" />
-    <ClInclude Include="engine\src\engineComponents\initializer.h" />
+    <ClInclude Include="engine\src\manager\initializer.h" />
     <ClInclude Include="assets\Scripts\game.h" />
     <ClInclude Include="engine\src\spriteComponents\keyFrame.h" />
     <ClInclude Include="src\libraries\include\SFML\Audio.hpp" />

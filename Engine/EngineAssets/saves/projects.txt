@@ -1,4 +1,0 @@
-name;absulutePathStr;date;relativePath
-space-shooter;C:\Dev\MySpaceShooter\space-shooter;2023/06/03 18:46:47;..\..\MySpaceShooter\space-shooter
-CloseMaEyes;C:\Dev\CloseMaEyes;2023/06/03 18:47:15;..\..\CloseMaEyes
-TEstingAnimation;C:\Dev\TEstingAnimation;2023/07/03 08:57:52;..\..\TEstingAnimation

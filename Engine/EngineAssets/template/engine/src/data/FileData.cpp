@@ -9,7 +9,6 @@ void s2d::FileData::setWindowBackground()
 	backgroundFile.open("engine\\saves\\background.txt", std::ios::in);
 	if (backgroundFile.is_open())
 	{
-		std::cout << "hi";
 		std::string line;
 		int cnt = 0;
 		while (std::getline(backgroundFile, line))

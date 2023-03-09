@@ -17,7 +17,7 @@ s2d::UIHirachySpriteDisplayer::UIHirachySpriteDisplayer()
 
 void s2d::UIHirachySpriteDisplayer::addSpritesToHirachy()
 {
-	for (s2d::Sprite* sprite : s2d::Sprite::activeSprites)
+	for (s2d::Sprite* sprite : s2d::Sprite::s_sprites)
 	{
 		if (sprite->parent != nullptr)
 		{
@@ -83,7 +83,7 @@ void s2d::UIHirachySpriteDisplayer::childSystem(s2d::Sprite* sprite, bool isHEad
 			return;
 		}
 
-		for (s2d::Sprite* parent : s2d::Sprite::activeSprites)
+		for (s2d::Sprite* parent : s2d::Sprite::s_sprites)
 		{
 			for (s2d::Sprite* child : parent->childs)
 			{

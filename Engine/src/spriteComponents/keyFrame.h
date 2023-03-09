@@ -7,11 +7,11 @@ namespace s2d
 	struct KeyFrame
 	{  
 		std::string path;
-		float delay;
+		int delay;
 		int position;
 
-	     KeyFrame() { this->path = ""; this->delay = 0.0f; }
-		KeyFrame(const std::string& path, const float delay)
+	     KeyFrame() { this->path = ""; this->delay = 0; }
+		KeyFrame(const std::string& path, const int delay)
 		{
 			this->position = -1;
 			this->path = path;

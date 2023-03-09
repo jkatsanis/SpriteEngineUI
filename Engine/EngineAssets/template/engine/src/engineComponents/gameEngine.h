@@ -11,6 +11,7 @@
 #include <manager/GUIManager.h>
 #include <engineComponents/renderer.h>
 #include <features.h>
+#include <manager/initializer.h>
 
 //All user files
 

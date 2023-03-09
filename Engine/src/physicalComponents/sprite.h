@@ -98,7 +98,7 @@ namespace s2d
 		static int highestLayerIndex;
 
 		//Pointers getting deletet in gameWindow.cpp ~
-		static std::vector<s2d::Sprite*> activeSprites;
+		static std::vector<s2d::Sprite*> s_sprites;
 	};
 }
 

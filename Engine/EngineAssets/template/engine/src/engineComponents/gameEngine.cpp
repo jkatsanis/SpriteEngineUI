@@ -10,7 +10,7 @@ s2d::GameEngine::GameEngine()
 
 s2d::GameEngine::~GameEngine()
 {
-	for (s2d::Sprite* sprite : s2d::Sprite::activeSprites)
+	for (s2d::Sprite* sprite : s2d::Sprite::s_sprites)
 	{
 		delete sprite;
 	}
@@ -26,7 +26,7 @@ bool s2d::GameEngine::isGameRunning()
 
 void s2d::GameEngine::pollEngineEvents()
 {
-	for (s2d::Sprite* ptr_sprite : s2d::Sprite::activeSprites)
+	for (s2d::Sprite* ptr_sprite : s2d::Sprite::s_sprites)
 	{
 		if (ptr_sprite->transform.position != ptr_sprite->transform.nextPos)
 		{
@@ -158,7 +158,8 @@ void s2d::GameEngine::update()
 void s2d::GameEngine::start()
 {	
 	//Engine 
-	s2d::Sprite::initActiveSprites();
+	s2d::Initializer::initSprites();
+	s2d::Initializer::initAnimations();
 	s2d::Input::setEvent(&this->event);
 	s2d::FileData::setWindowBackground();
 

@@ -99,19 +99,19 @@ s2d::Sprite* s2d::UIRealTimeEditorTransformPosition::checkIfMouseClickedOnSprite
     int ve = -1;
     std::vector<s2d::Sprite*> spr;
 
-    for (int i = 0; i < s2d::Sprite::activeSprites.size(); i++)
+    for (int i = 0; i < s2d::Sprite::s_sprites.size(); i++)
     {
         // Checking if we have the same ID. If we wouldnt do that check it could just return
         // The next sprite in the list which would be wrong
         if (this->m_realeasedCursorOnSprite && sf::Mouse::isButtonPressed(sf::Mouse::Left) 
-            && s2d::Sprite::activeSprites[i]->getId() == this->m_clickedSpriteId)
+            && s2d::Sprite::s_sprites[i]->getId() == this->m_clickedSpriteId)
         {
-            return s2d::Sprite::activeSprites[i];
+            return s2d::Sprite::s_sprites[i];
         }
 
-        if (checkClick(*s2d::Sprite::activeSprites[i]))
+        if (checkClick(*s2d::Sprite::s_sprites[i]))
         {
-            spr.push_back(s2d::Sprite::activeSprites[i]);
+            spr.push_back(s2d::Sprite::s_sprites[i]);
         }
     }
 
@@ -128,7 +128,7 @@ s2d::Sprite* s2d::UIRealTimeEditorTransformPosition::checkIfMouseClickedOnSprite
 
     if (highest != -1)
     {
-        this->m_clickedSprite = s2d::Sprite::activeSprites[ve - 1];
+        this->m_clickedSprite = s2d::Sprite::s_sprites[ve - 1];
         s2d::UIHirachy::selectedSprite = this->m_clickedSprite;
         return this->m_clickedSprite;
     }

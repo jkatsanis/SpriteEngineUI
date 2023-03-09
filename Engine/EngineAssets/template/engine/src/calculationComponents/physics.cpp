@@ -4,7 +4,7 @@
 
 void s2d::Physics::update()
 {
-	for (s2d::Sprite* const ptr_activeSprite : s2d::Sprite::activeSprites)
+	for (s2d::Sprite* const ptr_activeSprite : s2d::Sprite::s_sprites)
 	{
 		ptr_activeSprite->physicsBody.fixedUpdate();
 	}	

@@ -81,7 +81,7 @@ void s2d::UIAnimationKeyFrameAdder::addKeyFrameToAnimation()
 	{
 		std::cout << "LOG: [ERROR] Tried to add a keyframe at a invalid position!";
 	}
-	float delay = 0;
+	int delay = 0;
 	s2d::KeyFrame* changeAfter = nullptr;
 	std::vector<s2d::KeyFrame>& ref = this->m_animation->getKeyFrames();
 	int size = (int)ref.size();
@@ -121,25 +121,25 @@ void s2d::UIAnimationKeyFrameAdder::addKeyFrameToAnimation()
 		vecpos++;
 	}
 	
-	float fndelay = 0;
+	int fndelay = 0;
 	if (vecpos > 0 && this->m_keyframePos < delay)
 	{		
 		int before = vecpos - 1;
-		fndelay = (float)this->m_keyframePos - ref[before].position;
+		fndelay = this->m_keyframePos - ref[before].position;
 
 		if (vecpos == 1)
 		{
-			fndelay = (float)this->m_keyframePos;
+			fndelay = this->m_keyframePos;
 		}
 	}
 	else
 	{
-		fndelay = (float)this->m_keyframePos - delay;
+		fndelay = this->m_keyframePos - delay;
 	}
 
 	if (!invalid)
 	{
-		float rmDelay = ref[vecpos].delay - this->m_keyframePos;
+		int rmDelay = ref[vecpos].delay - this->m_keyframePos;
 		ref[vecpos].delay = (this->m_keyframePos - delay) * -1;
 	}
 	s2d::KeyFrame add = s2d::KeyFrame(this->m_keyFramePath, fndelay);

@@ -14,6 +14,9 @@
 #include <ctime>
 
 #include <dirent.h>
+#include <guiComponents/UI.h>
+
+#define EXTENSION_SAVE_FILE ".txt"
 
 namespace s2d
 {
@@ -25,15 +28,15 @@ namespace s2d
 		void createIndexSaveFile();
 		void createKnownProjectDirFile();
 		void createAnimtionSaveFile();
-
+		void createKnownAnimationFile();
 		bool isProjectPathValid(const std::string& path);
 		bool checkIfProjectExistInFile(std::string& ref);
 
 		/// <summary>
 		/// Checks if the absulute path exists in the 'knownProject' file
 		/// </summary>
-		/// <param name="path"></param>
-		/// <returns></returns>
+		/// <param name="path">path to prect</param>
+		/// <returns>True if there is a project</returns>
 		bool checkIfProjcetAlreadyExists(const std::string& path);
 
 		/// <summary>

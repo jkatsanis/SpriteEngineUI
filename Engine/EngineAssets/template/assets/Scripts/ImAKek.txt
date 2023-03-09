@@ -1,4 +1,0 @@
-ImAKek
-13
-0.000000;..\..\TEstingAnimation\assets\laser.png
-4.000000;..\..\TEstingAnimation\assets\asteroid.png

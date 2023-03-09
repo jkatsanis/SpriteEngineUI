@@ -52,7 +52,7 @@ void s2d::Renderer::drawSprites()
 #endif
     for (int i = 0; i < s2d::Sprite::highestLayerIndex + 1; i++)
     {
-        for (s2d::Sprite* ptr_activeSprites : s2d::Sprite::activeSprites)
+        for (s2d::Sprite* ptr_activeSprites : s2d::Sprite::s_sprites)
         {
             if (ptr_activeSprites->sortingLayerIndex == i)
             {
@@ -81,9 +81,9 @@ void s2d::Renderer::drawRectangles()
 
 void s2d::Renderer::updateSriteTextures()
 {
-    for (int i = 0; i < s2d::Sprite::activeSprites.size(); i++)
+    for (int i = 0; i < s2d::Sprite::s_sprites.size(); i++)
     {
-        s2d::Sprite::activeSprites[i]->setSpriteTexture(s2d::Sprite::activeSprites[i]->path);
+        s2d::Sprite::s_sprites[i]->setSpriteTexture(s2d::Sprite::s_sprites[i]->path);
     }
 }
 

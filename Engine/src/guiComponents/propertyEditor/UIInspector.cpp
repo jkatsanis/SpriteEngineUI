@@ -68,7 +68,7 @@ void s2d::UIInspector::render()
 
 void s2d::UIInspector::checkDupeName()
 {
-	for (s2d::Sprite* spr : s2d::Sprite::activeSprites)
+	for (s2d::Sprite* spr : s2d::Sprite::s_sprites)
 	{
 		if (this->m_currentSpriteInInspector->name == spr->name && this->m_currentSpriteInInspector->getId() != spr->getId())
 		{

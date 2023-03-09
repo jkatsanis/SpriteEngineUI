@@ -74,8 +74,8 @@ void s2d::Animator::resetComponent()
 
 void s2d::Animator::stopAllAnimations()
 {
-	for (int i = 0; i < s2d::Sprite::activeSprites.size(); i++)
+	for (int i = 0; i < s2d::Sprite::s_sprites.size(); i++)
 	{
-		s2d::Sprite::activeSprites[i]->animator.stop(s2d::Sprite::activeSprites[i]->animator.animationPlaying.name);
+		s2d::Sprite::s_sprites[i]->animator.stop(s2d::Sprite::s_sprites[i]->animator.animationPlaying.name);
 	}
 }

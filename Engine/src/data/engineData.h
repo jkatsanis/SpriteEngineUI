@@ -9,6 +9,8 @@
 #define PATH_TO_INDEX_FILE s2d::EngineData::s_pathToUserProject + "\\engine\\saves\\index.txt"
 #define PATH_TO_KNOWN_PROJECTS "EngineAssets\\saves\\projects.txt" 
 
+#define PATH_TO_KNOWN_ANIMATIONS s2d::EngineData::s_pathToUserProject + "\\engine\\saves\\animations.txt"
+
 namespace s2d
 {
 	class EngineData

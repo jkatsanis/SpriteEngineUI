@@ -5,10 +5,9 @@
 
 // Constructor
 
-s2d::Animation::Animation(Sprite* ptr_appliedSprite, const std::string& name, const std::string fileLocation, const std::vector<s2d::KeyFrame>& frames)
+s2d::Animation::Animation(Sprite* ptr_appliedSprite, const std::string& name, const std::vector<s2d::KeyFrame>& frames)
 {
-	this->m_pathToFile = fileLocation;
-	this->timePassed = 2.0f;
+	this->timePassed = 0.0f;
 	this->currentFrame = -1;
 	this->name = name;
 	this->ptr_appliedSprite = ptr_appliedSprite;
@@ -44,14 +43,14 @@ void s2d::Animation::setVectorSizes()
 
 void s2d::Animation::deleteKeyFrame(const int pos)
 {
-	float delay = 0;
+	int delay = 0;
 	for (int i = 0; i < this->m_keyFrames.size(); i++)
 	{
 		delay += this->m_keyFrames[i].delay;
 
 		if (delay == pos)
 		{
-			float delayAdd = this->m_keyFrames[i].delay;
+			int delayAdd = this->m_keyFrames[i].delay;
 
 			std::removeAt(this->m_keyFrames, i);
 			std::removeAt(this->m_textures, i);
@@ -69,6 +68,7 @@ void s2d::Animation::deleteKeyFrame(const int pos)
 
 void s2d::Animation::play()
 {
+	this->timePassed += s2d::Time::deltaTime;
 	this->currentFrame = 0;
 	this->isPlaying = true;
 	this->m_basePath = this->ptr_appliedSprite->getPathOfTextureFile();
@@ -81,7 +81,7 @@ void s2d::Animation::update()
 	{
 		return;
 	}
-	if (timePassed >= this->m_keyFrames[currentFrame].delay / 100)
+	if (this->timePassed >= this->m_keyFrames[currentFrame].delay / 100)
 	{
 		this->timePassed = 0;
 		this->ptr_appliedSprite->setSpriteTexture(this->m_textures[currentFrame], this->m_keyFrames[currentFrame].path);
@@ -103,9 +103,9 @@ void s2d::Animation::stop()
 	this->m_basePath = "";
 }
 
-s2d::KeyFrame& s2d::Animation::getKeyFrameAtMs(const float ms)
+s2d::KeyFrame& s2d::Animation::getKeyFrameAtMs(const int ms)
 {
-	float delay = 0;
+	int delay = 0;
 	for (int i = 0; i < this->m_keyFrames.size(); i++)
 	{
 		if (delay == ms)
@@ -135,7 +135,7 @@ void s2d::Animation::addKeyFrameAt(const int vecpos, const s2d::KeyFrame& frame)
 
 void s2d::Animation::updateAllAnimations()
 {
-	for (s2d::Sprite* sprite : s2d::Sprite::activeSprites)
+	for (s2d::Sprite* sprite : s2d::Sprite::s_sprites)
 	{
 		sprite->animator.update();
 	}
