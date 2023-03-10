@@ -39,7 +39,7 @@ void s2d::UIRealTimeEditorTransformPosition::update()
 
     if (this->m_clickedSprite != nullptr)
     {
-        this->m_clickedSprite = s2d::UIHirachy::selectedSprite;
+        this->m_clickedSprite = s2d::UIHirachy::s_selectedSprite;
         this->moveComponent();
     }
 }
@@ -130,7 +130,7 @@ s2d::Sprite* s2d::UIRealTimeEditorTransformPosition::checkIfMouseClickedOnSprite
     if (highest != -1)
     {
         this->m_clickedSprite = s2d::Sprite::s_sprites[ve - 1];
-        s2d::UIHirachy::selectedSprite = this->m_clickedSprite;
+        s2d::UIHirachy::s_selectedSprite = this->m_clickedSprite;
         return this->m_clickedSprite;
     }
 

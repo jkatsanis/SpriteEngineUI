@@ -30,6 +30,7 @@ namespace s2d
 
 		void update();
 		void setAnimation(s2d::Animation* anim);
+		void reset();
 	};
 }
 

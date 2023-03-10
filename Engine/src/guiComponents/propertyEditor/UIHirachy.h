@@ -36,7 +36,7 @@ namespace s2d
 		void createHirachyWindow();
 
 	public:
-		static s2d::Sprite* selectedSprite;
+		static s2d::Sprite* s_selectedSprite;
 	};
 }
 

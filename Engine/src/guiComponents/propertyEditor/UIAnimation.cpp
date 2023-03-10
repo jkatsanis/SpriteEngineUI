@@ -13,7 +13,7 @@ s2d::UIAnimation::UIAnimation()
 
 void s2d::UIAnimation::createUIAnimationWindow()
 {
-	if (s2d::UIInfo::srenderAssetFolder || s2d::UIHirachy::selectedSprite == nullptr)
+	if (s2d::UIInfo::srenderAssetFolder || s2d::UIHirachy::s_selectedSprite == nullptr)
 	{
 		this->isHovered = false;
 		return;
@@ -109,7 +109,7 @@ void s2d::UIAnimation::getFileNameInput()
 
 void s2d::UIAnimation::displayAnimations()
 {
-	for (s2d::Animation& anim : s2d::UIHirachy::selectedSprite->animator.animations)
+	for (s2d::Animation& anim : s2d::UIHirachy::s_selectedSprite->animator.animations)
 	{
 		ImGui::Text(anim.name.c_str());
 		ImGui::SetCursorPos(ImVec2(455, ImGui::GetCursorPosY() - 32.5f));
@@ -147,8 +147,11 @@ void s2d::UIAnimation::addAnimationsToAnimator()
 	{
 		if (this->m_animationFile[0] != '\0')
 		{
-			const std::string& path = s2d::UI::getUserProjectPathSeperatetFromEnginePath(this->m_createAnimtionPathFileDialoge.pathClicked);
-			s2d::UIHirachy::selectedSprite->animator.createAnimation(this->m_animationFile, path, { });
+			const std::string& path = 
+				s2d::UI::getUserProjectPathSeperatetFromEnginePath(this->m_createAnimtionPathFileDialoge.pathClicked)
+				+ this->m_animationFile
+				+ EXTENSION_ANIMATION_FILE;
+			s2d::UIHirachy::s_selectedSprite->animator.createAnimation(this->m_animationFile, path, { });
 		}
 		this->m_createAnimtionPathFileDialoge.disableWindow();
 		this->m_openFileDialog = false;

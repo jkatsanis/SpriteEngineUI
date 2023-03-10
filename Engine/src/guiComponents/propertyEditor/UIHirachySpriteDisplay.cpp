@@ -28,7 +28,7 @@ void s2d::UIHirachySpriteDisplayer::addSpritesToHirachy()
 		//We clicked no item, we should display a default inspector view because we set the selected sprit to nullptr
 		if (ImGui::IsMouseClicked(0) && !ImGui::IsAnyItemHovered() && ImGui::IsWindowHovered())
 		{
-			s2d::UIHirachy::selectedSprite = nullptr;
+			s2d::UIHirachy::s_selectedSprite = nullptr;
 		}
 
 		ImGui::Spacing();
@@ -122,7 +122,7 @@ void s2d::UIHirachySpriteDisplayer::displayTreeNode(s2d::Sprite* sprite, bool& p
 {
 	const char* name = sprite->name.c_str();
 
-	if (s2d::UIHirachy::selectedSprite != nullptr && s2d::UIHirachy::selectedSprite->getId() == sprite->getId())
+	if (s2d::UIHirachy::s_selectedSprite != nullptr && s2d::UIHirachy::s_selectedSprite->getId() == sprite->getId())
 	{
 		popStyle = true;
 		ImGui::PushStyleColor(ImGuiCol_Text, this->m_spriteSelectedColor);
@@ -130,9 +130,9 @@ void s2d::UIHirachySpriteDisplayer::displayTreeNode(s2d::Sprite* sprite, bool& p
 
 	// Iterating recursivly over the sprites, if we select 1 which gets not displayed in the 
 	// Hirachy this will open the trees for it
-	if (s2d::UIHirachy::selectedSprite != nullptr)
+	if (s2d::UIHirachy::s_selectedSprite != nullptr)
 	{
-		if (sprite->containsChild(s2d::UIHirachy::selectedSprite))
+		if (sprite->containsChild(s2d::UIHirachy::s_selectedSprite))
 		{
 			ImGui::SetNextItemOpen(true);
 		}
@@ -151,7 +151,7 @@ void s2d::UIHirachySpriteDisplayer::displayTreeNode(s2d::Sprite* sprite, bool& p
 		//Tree needs to be collapsed to delete the Sprite ( parent ) 
 		if (ImGui::IsItemClicked(0))
 		{
-			s2d::UIHirachy::selectedSprite = sprite;
+			s2d::UIHirachy::s_selectedSprite = sprite;
 		}
 		//Setting sprit which will be deletet when we right click and dlcik button delete
 		if (ImGui::IsItemClicked(1))
@@ -183,7 +183,7 @@ void s2d::UIHirachySpriteDisplayer::displayMenuItem(s2d::Sprite* sprite, bool po
 		ImGui::SetCursorPos(ImVec2(ImGui::GetCursorPosX() + 40, ImGui::GetCursorPosY()));
 	}
 
-	if (s2d::UIHirachy::selectedSprite != nullptr && s2d::UIHirachy::selectedSprite->getId() == sprite->getId())
+	if (s2d::UIHirachy::s_selectedSprite != nullptr && s2d::UIHirachy::s_selectedSprite->getId() == sprite->getId())
 	{
 		popStyle = true;
 		ImGui::PushStyleColor(ImGuiCol_Text, this->m_spriteSelectedColor);
@@ -207,6 +207,6 @@ void s2d::UIHirachySpriteDisplayer::displayMenuItem(s2d::Sprite* sprite, bool po
 	if (clicked)
 	{
 		//Setting  the sprite to selected when we click it in the HY
-		s2d::UIHirachy::selectedSprite = sprite;
+		s2d::UIHirachy::s_selectedSprite = sprite;
 	}
 }

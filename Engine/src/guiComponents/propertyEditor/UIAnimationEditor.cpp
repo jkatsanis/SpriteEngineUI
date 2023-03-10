@@ -94,19 +94,19 @@ void s2d::UIAnimationEditor::displayKeyFrameInfo()
 {
 	if (this->m_keyFrameSelected.keyFrameSelected == nullptr)
 	{
+		this->m_keyFrameSelected.position = -1;
 		return;
 	}
 
-	const std::string keyFrameSelected = "KeyFrabe Selected: " + std::to_string(this->m_keyFrameSelected.position);
+	const std::string keyFrameSelected = "KeyFrame Selected: " + std::to_string(this->m_keyFrameSelected.position);
 	ImGui::Text(keyFrameSelected.c_str());
 
 	if (ImGui::Button("Delete"))
 	{
 		this->m_anim->stop();
 		this->m_anim->deleteKeyFrame(this->m_keyFrameSelected.position);
+		this->m_keyFrameSelected.keyFrameSelected = nullptr;
 	}
-
-
 }
 
 void s2d::UIAnimationEditor::renderKeyFrames()
@@ -165,9 +165,9 @@ void s2d::UIAnimationEditor::addKeyFrame()
 	ImGui::SetCursorPos(ImVec2(ImGui::GetCursorPosX() + 2 + ImGui::GetScrollX(), ImGui::GetCursorPosY()));
 	if (ImGui::Button("Add KeyFrame"))
 	{
-		if (s2d::UIHirachy::selectedSprite != nullptr)
+		if (s2d::UIHirachy::s_selectedSprite != nullptr)
 		{
-			this->keyFrameAdder.m_keyFramePath = s2d::UIHirachy::selectedSprite->path;
+			this->keyFrameAdder.m_keyFramePath = s2d::UIHirachy::s_selectedSprite->path;
 		}
 		this->keyFrameAdder.isKeyFrameMenuOpen = true;
 		this->keyFrameAdder.setAnimation(this->m_anim);

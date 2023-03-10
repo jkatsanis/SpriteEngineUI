@@ -20,7 +20,7 @@ int main()
     s2d::GameEngine engine;
 
     while (engine.ptr_renderWindow->isOpen())
-    {
+    {    
         engine.update();
     }
 

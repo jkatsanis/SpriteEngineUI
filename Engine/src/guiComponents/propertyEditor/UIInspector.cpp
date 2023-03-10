@@ -23,9 +23,9 @@ void s2d::UIInspector::render()
 	//Setting it here transparent because if we go down and out box collider is actually getting used it will update to green automatic
 	s2d::GameObject::rects[1].setOutlineColor(sf::Color(0, 0, 255, 0));
 	//s2d::UIHirachy::selectedSprite = s2d::Sprite::activeSprites[3];
-	if (s2d::UIHirachy::selectedSprite != nullptr)
+	if (s2d::UIHirachy::s_selectedSprite != nullptr)
 	{
-		this->m_currentSpriteInInspector = s2d::UIHirachy::selectedSprite;
+		this->m_currentSpriteInInspector = s2d::UIHirachy::s_selectedSprite;
 		this->state = s2d::InspectorState::SpriteEditorWindow;
 		this->m_inputName = &this->m_currentSpriteInInspector->name[0];
 

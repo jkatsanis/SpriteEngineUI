@@ -46,5 +46,5 @@ void s2d::UIHirachy::displayHirachyComponents()
 }
 
 
-s2d::Sprite* s2d::UIHirachy::selectedSprite = nullptr;
+s2d::Sprite* s2d::UIHirachy::s_selectedSprite = nullptr;
 

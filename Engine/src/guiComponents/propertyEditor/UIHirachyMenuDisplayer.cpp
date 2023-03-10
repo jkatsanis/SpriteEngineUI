@@ -138,6 +138,6 @@ void s2d::UIHirachyMenuDisplayer::deleteButton()
 
 		delete this->m_spriteDisplayer->deleteSprite;
 		this->m_spriteDisplayer->deleteSprite = nullptr;
-		s2d::UIHirachy::selectedSprite = nullptr;
+		s2d::UIHirachy::s_selectedSprite = nullptr;
 	}
 }

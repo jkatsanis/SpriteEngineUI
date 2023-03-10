@@ -180,8 +180,7 @@ void s2d::Initializer::initAnimation(const std::string& path)
 
 	if (ptr_sprite != nullptr)
 	{
-		std::cout << ptr_sprite->animator.exists;
-		ptr_sprite->animator.createAnimation(animationName, s2d::UI::getUserProjectPathSeperatetFromEnginePath(newPath), frames);
+		ptr_sprite->animator.createAnimation(animationName, path, frames);
 	}
 }
 

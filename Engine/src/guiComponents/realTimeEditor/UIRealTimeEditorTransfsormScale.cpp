@@ -33,7 +33,7 @@ s2d::UIRealTimeEditorTransfsormScale::UIRealTimeEditorTransfsormScale(s2d::Event
 
 void s2d::UIRealTimeEditorTransfsormScale::update()
 {
-	s2d::Sprite* focusedSprite = s2d::UIHirachy::selectedSprite;
+	s2d::Sprite* focusedSprite = s2d::UIHirachy::s_selectedSprite;
 	if (focusedSprite != nullptr)
 	{
 		sf::Vector2f pos[SCALE_DOTTS];

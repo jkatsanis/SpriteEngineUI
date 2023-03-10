@@ -225,7 +225,7 @@ void s2d::flc::createAnimationSaveFile(const s2d::Sprite* ptr_sprite, const s2d:
 		content += std::to_string(frame.delay) + std::string(";") + s2d::UI::getUserProjectPathSeperatetFromEnginePath(frame.path) + "\n";
 	}
 
-	std::createFileWithContent(content, name, s2d::EngineData::s_pathToUserProject + "\\" + animationToSave.getPathToFile(), EXTENSION_ANIMATION_FILE);
+	std::createFileWithContent(content, s2d::EngineData::s_pathToUserProject + "\\" + animationToSave.getPathToFile());
 }
 
 void s2d::flc::createKnownAnimationFile()
@@ -237,7 +237,7 @@ void s2d::flc::createKnownAnimationFile()
 		for (const s2d::Animation& animation : sprite->animator.animations)
 		{
 			/// NO SEPERATION SINCE IT GETS ON "CREATE ANIMATION" SEPERATED
-			content  += animation.getPathToFile() + animation.name + EXTENSION_SAVE_FILE + "\n";
+			content  += animation.getPathToFile() + EXTENSION_SAVE_FILE + "\n";
 		}
 	}
 
