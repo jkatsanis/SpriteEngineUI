@@ -156,6 +156,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\manager\initializer.cpp" />
     <ClCompile Include="src\engineComponents\renderer.cpp" />
     <ClCompile Include="src\data\engineData.cpp" />
     <ClCompile Include="src\manager\fileDialogs.cpp" />
@@ -210,6 +211,7 @@
     <ClCompile Include="src\guiComponents\propertyEditor\UIAssetTools.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\manager\initializer.h" />
     <ClInclude Include="src\spriteComponents\keyFrame.h" />
     <ClInclude Include="src\guiComponents\colors.h" />
     <ClInclude Include="src\engineComponents\renderer.h" />

@@ -28,8 +28,8 @@ namespace s2d
 
 		void createAnimation(const std::string& name, const std::vector<s2d::KeyFrame>& frame);
 
-		void play(std::string name);
-		void stop(std::string name);
+		void play(const std::string& name);
+		void stop(const std::string& name);
 
 		void update();
 

@@ -195,38 +195,37 @@ void s2d::flc::createKnownProjectDirFile()
 
 }
 
-void s2d::flc::createAnimtionSaveFile()
+void s2d::flc::createAnimtionSaveFiles()
 {
-	/*std::fstream animationFiles;
-	for (int i = 0; i < s2d::Sprite::activeSprites.size(); i++)
+	std::fstream animationFiles;
+	for (int i = 0; i < s2d::Sprite::s_sprites.size(); i++)
 	{
-		const s2d::Sprite* ptr_sprite = s2d::Sprite::activeSprites[i];
+		const s2d::Sprite* ptr_sprite = s2d::Sprite::s_sprites[i];
 		if (ptr_sprite->animator.exists)
 		{
 			for (const s2d::Animation& anim : ptr_sprite->animator.animations)
 			{
-				animationFiles.open(anim.name);
-
-				std::string content = std::to_string(ptr_sprite->getId()) + "\n";
-				content +=
+				createAnimationSaveFile(ptr_sprite, anim);
 			}
 		}
-	}*/
+	}
+}
 
+void s2d::flc::createAnimationSaveFile(const s2d::Sprite* ptr_sprite, const s2d::Animation& animationToSave)
+{
+	std::string name = animationToSave.name;
+	std::string content =
+		animationToSave.name + "\n" +
+		std::to_string(ptr_sprite->getId()) + "\n";
 
-	std::string name = s2d::Sprite::s_sprites[0]->animator.animations[0].name;
-	std::string content = 
-		s2d::Sprite::s_sprites[0]->animator.animations[0].name + "\n" +
-		std::to_string(s2d::Sprite::s_sprites[0]->getId()) + "\n";
-
-	const std::vector<s2d::KeyFrame>& frames = s2d::Sprite::s_sprites[0]->animator.animations[0].getKeyFrames();
+	const std::vector<s2d::KeyFrame>& frames = animationToSave.getKeyFrames();
 
 	for (const s2d::KeyFrame& frame : frames)
 	{
 		content += std::to_string(frame.delay) + std::string(";") + s2d::UI::getUserProjectPathSeperatetFromEnginePath(frame.path) + "\n";
 	}
 
-	std::createFileWithContent(content, name, s2d::EngineData::s_pathToUserProject + "\\" + s2d::Sprite::s_sprites[0]->animator.animations[0].getPathToFile(), ".txt");
+	std::createFileWithContent(content, name, s2d::EngineData::s_pathToUserProject + "\\" + animationToSave.getPathToFile(), EXTENSION_ANIMATION_FILE);
 }
 
 void s2d::flc::createKnownAnimationFile()
@@ -237,7 +236,8 @@ void s2d::flc::createKnownAnimationFile()
 	{
 		for (const s2d::Animation& animation : sprite->animator.animations)
 		{
-			content += animation.getPathToFile() + animation.name + EXTENSION_SAVE_FILE + "\n";
+			/// NO SEPERATION SINCE IT GETS ON "CREATE ANIMATION" SEPERATED
+			content  += animation.getPathToFile() + animation.name + EXTENSION_SAVE_FILE + "\n";
 		}
 	}
 

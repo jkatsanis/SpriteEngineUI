@@ -15,7 +15,6 @@ namespace s2d
 	{
 	private:
 		float m_timePassedToUpdateLayerIndex;
-		float m_timePassedTillNextSpriteTextureUpdate;
 
 		unsigned short  m_timeToUpdateLayerIndex;
 		unsigned short m_timeToUpdateSpriteTexture;

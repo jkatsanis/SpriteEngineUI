@@ -125,7 +125,7 @@ void s2d::Animation::addKeyFrameAt(const int vecpos, const s2d::KeyFrame& frame)
 
 	if (!text.loadFromFile(frame.path))
 	{
-		std::cout << "LOG: [ERROR] Cant read pixels from path " << frame.path << std::endl;
+		std::cout << "LOG: [ERROR] Cant read pixels from file " << frame.path << std::endl;
 		return;
 	}
 

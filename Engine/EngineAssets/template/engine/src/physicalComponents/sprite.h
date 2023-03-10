@@ -88,6 +88,14 @@ namespace s2d
 		/// <param name="path">The new path which needs to be set</param>
 		void setSpriteTexture(const sf::Texture& texture, const std::string& path);
 
+
+		/// <summary>
+		/// LOADS the texture from the file and sets it scale
+		/// </summary>
+		/// <param name="path">Path to the .png file</param>
+		/// <param name="sclae">Scale to set</param>
+		void setSpriteTexture(const std::string& path, const s2d::Vector2& sclae);
+
 		/// <summary>
 		/// Pushed the sprite to the sprites vector, gets rendered
 		/// automaticly

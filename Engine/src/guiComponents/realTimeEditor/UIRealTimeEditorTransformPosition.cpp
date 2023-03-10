@@ -48,6 +48,7 @@ void s2d::UIRealTimeEditorTransformPosition::update()
 
 void s2d::UIRealTimeEditorTransformPosition::moveComponent()
 {
+    if (this->m_clickedSprite == nullptr) return;
     float x = this->m_cursorWorldPos.x - 960;
     float y = -(this->m_cursorWorldPos.y - 540);
 

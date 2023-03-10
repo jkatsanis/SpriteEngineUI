@@ -180,6 +180,7 @@
     <ClCompile Include="engine\src\spriteComponents\animation.cpp">
       <Filter>engine src\spriteComponents\animation</Filter>
     </ClCompile>
+    <ClCompile Include="assets\Scripts\jijii.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\libraries\include\SFML\Audio\AlResource.hpp">
@@ -590,9 +591,8 @@
     <ClInclude Include="engine\src\spriteComponents\animation.h">
       <Filter>engine src\spriteComponents\animation</Filter>
     </ClInclude>
-    <ClInclude Include="assets\Scripts\features.h">
-      <Filter>gamesrc</Filter>
-    </ClInclude>
+    <ClInclude Include="assets\Scripts\jijii.h" />
+    <ClInclude Include="assets\Scripts\features.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="src\libraries\include\SFML\Graphics\Glsl.inl">

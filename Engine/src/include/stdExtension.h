@@ -6,6 +6,10 @@
  
 namespace std
 {
+	/// <summary>
+	/// Not that the path shoudl look like this:
+	/// Path/MyPath/assets/
+	/// </summary>
 	static void createFileWithContent(const std::string& content, const std::string& name, const std::string& path)
 	{
 		std::string pathAndName = (name == "") ?  path : path + name;

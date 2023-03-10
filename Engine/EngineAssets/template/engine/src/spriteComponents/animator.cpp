@@ -23,22 +23,28 @@ void s2d::Animator::createAnimation(const std::string& name, const std::vector<s
 	animations.push_back(Animation(ptr_attachedSprite, name, textures));
 }
 
-void s2d::Animator::play(std::string name)
+void s2d::Animator::play(const std::string& name)
 {
 	EXIST;
+	bool found = false;
 	for (Animation& anim : animations)
 	{
 		if (anim.name == name && !this->animationPlaying.isAAnimationPlaying)
 		{
+			found = true;
 			this->animationPlaying.name = name;
 			this->animationPlaying.isAAnimationPlaying = true;
 			anim.play();
 		}
 	}
+	if (!found)
+	{
+		std::cout << "LOG [WARNING] Could not find animation (Maybe you passed a wrong name?)";
+	}
 	
 }
 
-void s2d::Animator::stop(std::string name)
+void s2d::Animator::stop(const std::string& name)
 {
 	EXIST;
 	for (Animation& anim : animations)

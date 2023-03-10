@@ -63,9 +63,7 @@ void s2d::Initializer::initSprites()
 			sprite->transform.position.x = std::stof(propertys[2].c_str());
 			sprite->transform.position.y = std::stof(propertys[3].c_str());
 
-			sprite->setSpriteTexture(propertys[6]);
-
-			sprite->transform.setScale(s2d::Vector2(std::stof(propertys[4].c_str()), std::stof(propertys[5].c_str())));
+			sprite->setSpriteTexture(propertys[6], s2d::Vector2(s2d::Vector2(std::stof(propertys[4].c_str()), std::stof(propertys[5].c_str()) )));
 
 			//Setting BoxCollider
 			sprite->collider = BoxCollider(sprite);
@@ -171,7 +169,6 @@ void s2d::Initializer::initAnimation(const std::string& path)
 				continue;
 			}
 			std::vector<std::string> propertys = std::splitString(line, DELIMITER);
-			std::cout << std::stof(propertys[0]) << std::endl;
 
 			frames.push_back(s2d::KeyFrame(propertys[1], atoi(propertys[0].c_str())));
 		}

@@ -11,6 +11,7 @@
 #include <engineComponents/event.h>
 #include <engineComponents/renderer.h>
 #include <guiComponents/UI.h>
+#include <manager/initializer.h>
 
 namespace s2d
 {

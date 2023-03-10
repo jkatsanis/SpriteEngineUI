@@ -5,6 +5,7 @@
 #include <fstream>
 #include <string>
 #include <data/engineData.h>
+#include <manager/initializer.h>
 
 namespace s2d
 {

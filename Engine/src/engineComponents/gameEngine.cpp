@@ -16,7 +16,8 @@ s2d::GameEngine::GameEngine()
         &this->m_UIWindow.getInspector().state, &this->event, &this->m_UIWindow.getTools().editorTools);
 
     //Setting other classes
-    s2d::Sprite::initActiveSprites();
+    s2d::Initializer::initSprites();
+    s2d::Initializer::initAnimations();
     s2d::Input::setEvent(&this->event);
     s2d::SpriteData::highestSpriteID = s2d::SpriteData::getHighestIndex();
     s2d::UI::setRenderWindow(this->ptr_renderWindow);
@@ -71,7 +72,7 @@ void s2d::GameEngine::pollEvents()
             s2d::flc::createCameraSaveFile(*s2d::GameObject::ptr_camera_tRealTimeEditor);
             s2d::flc::createIndexSaveFile();
             s2d::flc::createKnownAnimationFile();
-            s2d::flc::createAnimtionSaveFile();
+            s2d::flc::createAnimtionSaveFiles();
             // Known projects file gets created in project selector
 
             this->ptr_renderWindow->close();

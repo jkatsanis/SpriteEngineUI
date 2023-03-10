@@ -15,8 +15,7 @@
 
 #include <dirent.h>
 #include <guiComponents/UI.h>
-
-#define EXTENSION_SAVE_FILE ".txt"
+#include <manager/initializer.h>
 
 namespace s2d
 {
@@ -27,10 +26,11 @@ namespace s2d
 		void createCameraSaveFile(const s2d::Camera& camera);
 		void createIndexSaveFile();
 		void createKnownProjectDirFile();
-		void createAnimtionSaveFile();
+		void createAnimtionSaveFiles();
 		void createKnownAnimationFile();
 		bool isProjectPathValid(const std::string& path);
 		bool checkIfProjectExistInFile(std::string& ref);
+		void createAnimationSaveFile(const s2d::Sprite* ptr_sprite, const s2d::Animation& animationToSave);
 
 		/// <summary>
 		/// Checks if the absulute path exists in the 'knownProject' file

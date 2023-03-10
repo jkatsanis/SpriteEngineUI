@@ -58,10 +58,9 @@ namespace s2d
 		void resetChildData();
 
 		/// <summary>
-		/// Sets the new sprite texture
-		/// IT DOES LOAD IT FROM THE FILE
+		/// Sets the new texture of the sprite
 		/// </summary>
-		/// <param name="path">Path to the file</param>
+		/// <param name="path">The path of the new texture</param>
 		void setSpriteTexture(const std::string& path);
 
 		/// <summary>
@@ -72,11 +71,22 @@ namespace s2d
 		/// <param name="path">The new path which needs to be set</param>
 		void setSpriteTexture(const sf::Texture& texture, const std::string& path);
 
-		void setParent(s2d::Sprite* sprite);
+
+		/// <summary>
+		/// LOADS the texture from the file and sets it scale
+		/// </summary>
+		/// <param name="path">Path to the .png file</param>
+		/// <param name="sclae">Scale to set</param>
+		void setSpriteTexture(const std::string& path, const s2d::Vector2& sclae);
+
 		void addSpriteToScene();
 		bool containsChild(const s2d::Sprite* child) const;
 	public:
+		void setParent(s2d::Sprite* sprite);
+		void setChildCount(const int cnt) { this->m_childCount = cnt; }
+		void setParentId(const int id) { this->m_parentId = id; }
 		void setId(const int id) { this->m_id = id; }
+		void setChildListPos(const int pos) { this->m_childListPos = pos; }
 		void setVectorPosition(const int vec) { this->m_vectorPosition = vec; }
 
 		int getId() const { return this->m_id; }
@@ -90,7 +100,6 @@ namespace s2d
 		s2d::Vector2 getOrigininalPosition() const;
 
 	public:
-		static void initActiveSprites();
 		static int getMaxNumber(std::vector<s2d::Sprite*>& vec);
 		static void updateHightestLayerIndex();
 		static s2d::Sprite* getSpriteById(int id);

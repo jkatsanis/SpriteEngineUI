@@ -8,6 +8,7 @@
 #include <fstream>
 #include <stdExtension.h>
 #include <data/engineData.h>
+#include <manager/initializer.h>
 
 namespace s2d
 {

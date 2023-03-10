@@ -7,14 +7,14 @@ s2d::UIAssetTools::UIAssetTools()
 	this->m_isPopUpHoverd = false;
 	this->m_ptr_deleteFilePath = nullptr;
 	this->m_ptr_currentAssetPath = nullptr;
-	this->m_cppFileName[0] = '\0';
+	this->m_classFileName[0] = '\0';
 	this->m_openFileInput = false;
 }
 
 s2d::UIAssetTools::UIAssetTools(const std::string* currentAssetPath, const std::string* deleteItem)
 {
 	this->m_isPopUpHoverd = false;
-	this->m_cppFileName[0] = '\0';
+	this->m_classFileName[0] = '\0';
 	this->m_openFileInput = false;
 	this->m_ptr_currentAssetPath = currentAssetPath;
 	this->m_ptr_deleteFilePath = deleteItem;
@@ -26,10 +26,10 @@ void s2d::UIAssetTools::update(bool& hovered)
 {
 	this->getFileName();
 
-	if (this->m_cppFileName[0] != '\0' && !this->m_openFileInput)
+	if (this->m_classFileName[0] != '\0' && !this->m_openFileInput)
 	{
 		this->createFileContent();
-		this->m_cppFileName[0] = '\0';
+		this->m_classFileName[0] = '\0';
 	}
 
 	if (ImGui::IsMouseReleased(1) && hovered)
@@ -69,7 +69,7 @@ void s2d::UIAssetTools::getFileName()
 	if (ImGui::Begin("##input_file_name", NULL, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove))
 	{
 		ImGui::SetNextItemWidth(290);
-		ImGui::InputTextWithHint("##file_input", "<name>", this->m_cppFileName, CHAR_MAX);
+		ImGui::InputTextWithHint("##file_input", "<name>", this->m_classFileName, CHAR_MAX);
 		if (ImGui::Button("Create"))
 		{
 			this->m_openFileInput = false;
@@ -85,7 +85,7 @@ void s2d::UIAssetTools::createFileContent()
 	std::string header_content =
 		"#pragma once\n\n"
 		"#include <_header/SpriteEngine.h>\n\n"
-		"class " + std::string(this->m_cppFileName) + " : s2d::Base\n"
+		"class " + std::string(this->m_classFileName) + " : public s2d::Base\n"
 		"{\n"
 		"public:\n"
 		"   void update();\n"
@@ -93,22 +93,53 @@ void s2d::UIAssetTools::createFileContent()
 		"};\n";
 
 	std::string cpp_content =
-		"#include \"" + std::string(this->m_cppFileName) + ".h\"\n\n"
-		"void " + std::string(this->m_cppFileName) + "::start()\n"
+		"#include \"" + std::string(this->m_classFileName) + ".h\"\n\n"
+		"void " + std::string(this->m_classFileName) + "::start()\n"
 		"{\n"
 		"\n"
 		"}\n"
 		"\n"
-		"void " + std::string(this->m_cppFileName) + "::update()\n"
+		"void " + std::string(this->m_classFileName) + "::update()\n"
 		"{\n"
 		"\n"
 		"}\n"
 		"\n";
 
-	std::string path = *this->m_ptr_currentAssetPath + this->m_cppFileName;
+	std::string path = *this->m_ptr_currentAssetPath + "\\" + this->m_classFileName;
 
-	std::string cpp_name = std::string(this->m_cppFileName) + ".cpp";
-	std::string header_name = std::string(this->m_cppFileName) + ".h";
-	std::createFileWithContent(header_content, header_name, *this->m_ptr_currentAssetPath);
-	std::createFileWithContent(cpp_content, cpp_name, *this->m_ptr_currentAssetPath);
+	std::string cpp_name = std::string(this->m_classFileName);
+	std::string header_name = std::string(this->m_classFileName);
+	std::createFileWithContent(header_content, header_name, *this->m_ptr_currentAssetPath + "\\", ".h");
+	std::createFileWithContent(cpp_content, cpp_name, *this->m_ptr_currentAssetPath + "\\", ".cpp");
+	this->includeInUserProject(this->m_classFileName);
+}
+
+// Private functions
+
+void s2d::UIAssetTools::includeInUserProject(const std::string& fileName)
+{
+	const static int s_posCppInclude = 150;
+	std::string vcxprojFilePath = s2d::EngineData::s_pathToUserProject + "\\" + "Assets.vcxproj";
+	std::fstream vcProjectStream;
+
+	vcProjectStream.open(vcxprojFilePath);
+
+	std::string content = "";
+
+	if (vcProjectStream.is_open())
+	{
+		std::string line = "";
+		int cnt = 0;
+		while (std::getline(vcProjectStream, line))
+		{
+			cnt++;
+			content += line;
+			if (cnt == s_posCppInclude)
+			{
+
+			}
+		}
+
+		vcProjectStream.close();
+	}
 }

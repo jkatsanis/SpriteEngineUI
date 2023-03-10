@@ -35,15 +35,26 @@ void s2d::Sprite::setSpriteTexture(const std::string& path)
 	{
 		std::cout << "LOG: [ERROR] File was not found!";
 	}
-	this->path = path;
-	this->m_sprite.setTexture(this->m_texture, true);
-	this->transform.setScale(this->transform.getScale(), true);
+	this->setSpriteTexture(this->m_texture, path);
 }
 
-void s2d::Sprite::setSpriteTexture(const sf::Texture& texture, const std::string& pa)
+void s2d::Sprite::setSpriteTexture(const sf::Texture& texture, const std::string& path)
 {
 	this->m_sprite.setTexture(texture, true);
+	this->transform.setScale(this->transform.getScale(), true);
 
+	this->path = path;
+}
+
+void s2d::Sprite::setSpriteTexture(const std::string& path, const s2d::Vector2& scale)
+{
+	if (!this->m_texture.loadFromFile(path))
+	{
+		std::cout << "LOG: [ERROR] File was not found!";
+	}
+	this->m_sprite.setTexture(this->m_texture);
+	this->path = path;
+	this->transform.setScale(scale, true);
 }
 
 void s2d::Sprite::setParent(s2d::Sprite* parent)
@@ -132,121 +143,6 @@ void s2d::Sprite::initVariables(std::string name, s2d::Vector2 spawnPos, std::st
 }
 
 //Static functions
-
-void s2d::Sprite::initActiveSprites()
-{
-	std::fstream spriteFile;
-
-	//opening the file where all sprite data is
-
-	spriteFile.open(PATH_TO_SPRITE_FILE, std::ios::in);
-	if (spriteFile.is_open())
-	{
-		std::string line;
-		int cnt = 0;
-		while (std::getline(spriteFile, line))
-		{
-			cnt++;
-			//First line is the header so we dont need to check for it
-			if (cnt == 1)
-			{
-				continue;
-			}
-
-			//Splitting line
-			std::string delimiter = ";";
-			std::vector<std::string> propertys = std::splitString(line, delimiter);
-
-			//Creating empty sprite, then pushing it back
-			Sprite* sprite = new Sprite();
-
-			//INITIIALIZING PROPS
-			
-			// Components
-			sprite->transform = s2d::Transform(sprite);
-			sprite->collider = BoxCollider(sprite);
-			sprite->animator = s2d::Animator(sprite);
-
-			sprite->name = propertys[0];
-			sprite->setVectorPosition(atoi(propertys[1].c_str()));
-			sprite->transform.position.x = std::stof(propertys[2].c_str());
-			sprite->transform.position.y = std::stof(propertys[3].c_str());
-			sprite->path = s2d::EngineData::s_pathToUserProject + "\\" + propertys[6];
-
-			//INFO: Setting box collider props 5 - 8 down lol
-
-			if (!sprite->m_texture.loadFromFile(sprite->path))
-			{
-				//Console log!
-			}
-
-			//Setting sprite size also in init and setTexture
-			sf::Vector2u tempSize = sprite->m_texture.getSize();
-			sprite->transform.textureSize = Vector2(float(tempSize.x), float(tempSize.y));
-			sprite->m_sprite.setTexture(sprite->m_texture);
-			sprite->transform.setScale(s2d::Vector2(std::stof(propertys[4].c_str()), std::stof(propertys[5].c_str())));
-
-			//Collider
-			sprite->collider.boxColliderWidthLeftOrRight.x = std::stof(propertys[7].c_str());
-			sprite->collider.boxColliderWidthLeftOrRight.y = std::stof(propertys[8].c_str());
-
-			sprite->collider.boxColliderHeightUpOrDown.x = std::stof(propertys[9].c_str());
-			sprite->collider.boxColliderHeightUpOrDown.y = std::stof(propertys[10].c_str());
-			sprite->collider.exists = propertys[11] == "True";
-			sprite->collider.isSolid = propertys[12] == "True";
-
-			//Sorting Layer
-			sprite->sortingLayerIndex = atoi(propertys[13].c_str());
-
-			//PhysicsBody
-			sprite->physicsBody.gravity = std::stof(propertys[14].c_str());
-			sprite->physicsBody.mass = std::stof(propertys[15].c_str());
-			sprite->physicsBody.exists = propertys[16] == "True";
-
-			//parentId, ID
-			sprite->m_id = atoi(propertys[17].c_str());
-			sprite->m_parentId = atoi(propertys[18].c_str());
-
-			//Last pos, next pos
-			sprite->transform.nextPos.x = std::stof(propertys[19]);
-			sprite->transform.nextPos.y = std::stof(propertys[20]);
-
-			sprite->transform.lastPos.x = std::stof(propertys[21]);
-			sprite->transform.lastPos.y = std::stof(propertys[22]);
-
-			//list pos
-			sprite->m_childListPos = atoi(propertys[23].c_str());
-			sprite->m_childCount = atoi(propertys[24].c_str());
-
-			//Position to parent x, and y
-			sprite->transform.positionToParent.x = std::stof(propertys[25]);
-			sprite->transform.positionToParent.y = std::stof(propertys[26]);
-
-			sprite->animator.exists = propertys[27] == "True";
-
-			//Pushing the sprite
-			s2d::Sprite::s_sprites.push_back(sprite);
-
-			//End of INITING
-		}
-	}
-
-	spriteFile.close();
-
-	//setting childs of sprites
-	for (s2d::Sprite* sprite : s2d::Sprite::s_sprites)
-	{
-		if (sprite->m_parentId > 0)
-		{
-			s2d::Sprite* parent = s2d::Sprite::getSpriteById(sprite->m_parentId);
-			if (parent != nullptr)
-			{
-				sprite->parent = parent;
-				parent->childs.push_back(sprite);
-			}
-		}
-	}
-}
 
 int s2d::Sprite::getMaxNumber(std::vector<s2d::Sprite*>& vec)
 {

@@ -37,10 +37,20 @@ void s2d::Sprite::setSpriteTexture(const std::string& path)
 
 void s2d::Sprite::setSpriteTexture(const sf::Texture& texture, const std::string& path)
 {
-	this->transform.setScale(this->transform.getScale(), true);
 	this->m_sprite.setTexture(texture, true);
-
+	this->transform.setScale(this->transform.getScale(), true);
 	this->m_path = path;
+}
+
+void s2d::Sprite::setSpriteTexture(const std::string& path, const s2d::Vector2& scale)
+{
+	if (!this->m_texture.loadFromFile(path))
+	{
+		std::cout << "LOG: [ERROR] File was not found!";
+	}
+	this->m_sprite.setTexture(this->m_texture);
+	this->m_path = path;
+	this->transform.setScale(scale, true);
 }
 
 void s2d::Sprite::addSpriteToScene()

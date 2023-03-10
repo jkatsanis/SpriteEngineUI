@@ -1,0 +1,2 @@
+name;absulutePathStr;date;relativePath
+template;C:\Dev\SpriteEngineUI\Engine\EngineAssets\template;2023/10/03 06:55:41;EngineAssets\template
