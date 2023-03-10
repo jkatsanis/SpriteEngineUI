@@ -7,6 +7,7 @@
 
 s2d::Animation::Animation(Sprite* ptr_appliedSprite, const std::string& name, const std::string fileLocation, const std::vector<s2d::KeyFrame>& frames)
 {
+	this->m_basePath = ptr_appliedSprite->path;
 	this->m_pathToFile = fileLocation;
 	this->timePassed = 2.0f;
 	this->currentFrame = -1;
@@ -120,6 +121,12 @@ s2d::KeyFrame& s2d::Animation::getKeyFrameAtMs(const float ms)
 
 void s2d::Animation::addKeyFrameAt(const int vecpos, const s2d::KeyFrame& frame)
 {
+	if (this->isPlaying)
+	{
+		std::cout << "LOG: [Warning] Cant add keyframes while playing animation! " << frame.path << std::endl;
+		return;
+	}
+
 	sf::Texture text;
 
 	if (!text.loadFromFile(frame.path))
@@ -128,6 +135,7 @@ void s2d::Animation::addKeyFrameAt(const int vecpos, const s2d::KeyFrame& frame)
 		return;
 	}
 
+	this->m_basePath = this->ptr_appliedSprite->path;
 	this->m_keyFrames.insert(this->m_keyFrames.begin() + vecpos, frame);
 	this->m_textures.insert(this->m_textures.begin() + vecpos, text);
 }

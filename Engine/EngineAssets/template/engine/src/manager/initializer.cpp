@@ -170,7 +170,8 @@ void s2d::Initializer::initAnimation(const std::string& path)
 			}
 			std::vector<std::string> propertys = std::splitString(line, DELIMITER);
 
-			frames.push_back(s2d::KeyFrame(propertys[1], atoi(propertys[0].c_str())));
+			if(propertys[1] != "")
+				frames.push_back(s2d::KeyFrame(propertys[1], atoi(propertys[0].c_str())));
 		}
 
 	}

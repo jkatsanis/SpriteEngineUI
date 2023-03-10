@@ -151,7 +151,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="assets\Scripts\jijii.cpp" />
     <ClCompile Include="engine\src\spriteComponents\animation.cpp" />
     <ClCompile Include="engine\src\spriteComponents\animator.cpp" />
     <ClCompile Include="engine\src\engineComponents\event.cpp" />
@@ -186,7 +185,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="assets\Scripts\features.h" />
-    <ClInclude Include="assets\Scripts\jijii.h" />
     <ClInclude Include="engine\src\spriteComponents\animation.h" />
     <ClInclude Include="engine\src\spriteComponents\animator.h" />
     <ClInclude Include="engine\src\engineComponents\base.h" />

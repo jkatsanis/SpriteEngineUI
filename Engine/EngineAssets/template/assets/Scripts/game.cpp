@@ -10,13 +10,13 @@ void Game::update()
 	if (s2d::Input::onKeyPress(s2d::KeyBoardCode::A))
 	{
 		//std::cout << this->m_ptr_ship->animator.exists
-		this->m_ptr_ship->animator.play("raww");
+		this->m_ptr_ship->animator.play("Cof");
 	}
 
 	if (s2d::Input::onKeyPress(s2d::KeyBoardCode::B))
 	{
 
-		this->m_ptr_ship->animator.stop("raww");
+		this->m_ptr_ship->animator.stop("Cof");
 
 	}
 }

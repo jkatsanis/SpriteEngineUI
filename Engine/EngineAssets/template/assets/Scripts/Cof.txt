@@ -1,0 +1,4 @@
+Cof
+16
+1;assets\asteroid.png
+3;assets\overlay.png

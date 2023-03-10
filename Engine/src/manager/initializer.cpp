@@ -14,7 +14,6 @@ void s2d::Initializer::initAnimations()
 		int cnt = 0;
 		while (std::getline(knownAnimationFileStream, line))
 		{
-			std::cout << line << std::endl;
 			cnt++;
 			if (cnt == 1) continue;
 			s2d::Initializer::initAnimation(line);
@@ -170,7 +169,6 @@ void s2d::Initializer::initAnimation(const std::string& path)
 				continue;
 			}
 			std::vector<std::string> propertys = std::splitString(line, DELIMITER);
-			std::cout << std::stof(propertys[0]) << std::endl;
 
 			frames.push_back(s2d::KeyFrame(s2d::EngineData::s_pathToUserProject + "\\" + propertys[1], atoi(propertys[0].c_str())));
 		}

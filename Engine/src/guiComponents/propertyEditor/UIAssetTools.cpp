@@ -109,8 +109,12 @@ void s2d::UIAssetTools::createFileContent()
 
 	std::string cpp_name = std::string(this->m_classFileName);
 	std::string header_name = std::string(this->m_classFileName);
-	std::createFileWithContent(header_content, header_name, *this->m_ptr_currentAssetPath + "\\", ".h");
-	std::createFileWithContent(cpp_content, cpp_name, *this->m_ptr_currentAssetPath + "\\", ".cpp");
+
+	std::string cpp_file_path = *this->m_ptr_currentAssetPath + "\\" + header_name + ".cpp";
+	std::string hpp_file_path = *this->m_ptr_currentAssetPath + "\\" + header_name + ".h";
+
+	std::createFileWithContent(header_content, hpp_file_path);
+	std::createFileWithContent(cpp_content, cpp_file_path);
 	this->includeInUserProject(this->m_classFileName);
 }
 

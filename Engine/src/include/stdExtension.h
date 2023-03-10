@@ -8,11 +8,10 @@ namespace std
 {
 	/// <summary>
 	/// Not that the path shoudl look like this:
-	/// Path/MyPath/assets/
+	/// Path/MyPath/assets/myFile.extension
 	/// </summary>
-	static void createFileWithContent(const std::string& content, const std::string& name, const std::string& path)
+	static void createFileWithContent(const std::string& content, const std::string& pathAndName)
 	{
-		std::string pathAndName = (name == "") ?  path : path + name;
 		std::ofstream file;
 
 		file.open(pathAndName);
@@ -22,16 +21,7 @@ namespace std
 		file.close();
 	}
 
-	static void createFileWithContent(const std::string& content, const std::string& name, const std::string& path,const std::string extension)
-	{
-		std::string newName = name + extension;
-		std::createFileWithContent(content, newName, path);
-	}
 
-	static void createFileWithContent(const std::string& content, const std::string& path)
-	{
-		std::createFileWithContent(content, "", path);
-	}
 
 	static bool isTherAnotherFilter(const std::string& word, const std::string& filter, int idx)
 	{

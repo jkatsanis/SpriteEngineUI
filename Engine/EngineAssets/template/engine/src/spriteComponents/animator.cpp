@@ -39,7 +39,7 @@ void s2d::Animator::play(const std::string& name)
 	}
 	if (!found)
 	{
-		std::cout << "LOG [WARNING] Could not find animation (Maybe you passed a wrong name?)";
+		std::cout << "LOG [WARNING] Could not find animation (Maybe you tried playing it while it is active or you passed a wrong name?)" << std::endl;
 	}
 	
 }
