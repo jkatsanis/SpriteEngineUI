@@ -103,6 +103,7 @@ void s2d::UIAnimationEditor::displayKeyFrameInfo()
 
 	if (ImGui::Button("Delete"))
 	{
+		this->m_anim->play();
 		this->m_anim->stop();
 		this->m_anim->deleteKeyFrame(this->m_keyFrameSelected.position);
 		this->m_keyFrameSelected.keyFrameSelected = nullptr;

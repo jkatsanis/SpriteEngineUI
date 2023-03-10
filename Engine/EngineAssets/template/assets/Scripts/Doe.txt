@@ -1,0 +1,6 @@
+Doe
+16
+0;assets\ship.png
+100;assets\asteroid.png
+100;assets\laser.png
+150;assets\overlay.png

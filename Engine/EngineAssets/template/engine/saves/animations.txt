@@ -1,2 +1,2 @@
 PathToAnimation
-assets\Scripts\Cof.txt
+assets\Scripts\Doe.txt

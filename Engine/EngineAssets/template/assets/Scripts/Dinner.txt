@@ -1,3 +1,0 @@
-Dinner
-16
-5;assets\ship.png
