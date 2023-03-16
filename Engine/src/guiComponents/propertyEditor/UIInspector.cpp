@@ -13,7 +13,7 @@ s2d::UIInspector::UIInspector()
 	this->m_defaultBackgroundColor = s2d::Vector3(139, 165, 187);
 	this->state = s2d::InspectorState::None;
 
-	this->m_textureOverSprite.loadFromFile("EngineAssets/Sprites/transparent.png");
+	this->m_textureOverSprite.loadFromFile(PATH_TO_RESSOURCS"/Sprites/transparent.png");
 }
 
 //Private functions

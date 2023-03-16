@@ -17,8 +17,7 @@ namespace s2d
 	private:
 		//Setting display to false and shit in its own class
 		UIAnimationEditor m_UIAnimationEditor;
-		std::string m_current_sprite;
-		std::string m_file_name;
+		std::string m_fileName;
 		s2d::FileDialog m_createAnimtionPathFileDialoge;
 
 		bool m_openFileDialog;

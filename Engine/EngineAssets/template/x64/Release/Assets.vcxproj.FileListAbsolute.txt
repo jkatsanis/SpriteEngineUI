@@ -1,2 +1,0 @@
-C:\Programmieren\c++\Projects\Testing\SFML\SpriteEngineTest\Assets\x64\Release\Assets.exe
-C:\Dev\MySpaceShooter\x64\Release\Assets.exe

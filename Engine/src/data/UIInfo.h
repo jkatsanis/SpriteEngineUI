@@ -3,6 +3,7 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 #include <ImGui.h>
+#include <manager/initializer.h>
 
 namespace s2d
 {

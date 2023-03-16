@@ -1,0 +1,2 @@
+name;absulutePathStr;date;relativePath
+cal;C:\Dev\cal;2023/13/03 10:23:47;..\..\cal

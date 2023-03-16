@@ -81,17 +81,15 @@ void s2d::Animation::update()
 	{
 		return;
 	}
-	if (timePassed >= this->m_keyFrames[currentFrame].delay / 100)
+	if (this->timePassed >= this->m_keyFrames[currentFrame].delay / 100)
 	{
 		this->timePassed = 0;
 		this->ptr_appliedSprite->setSpriteTexture(this->m_textures[currentFrame], this->m_keyFrames[currentFrame].path);
-
-		if (this->currentFrame == this->m_textures.size() - 1)
-		{
-			this->currentFrame = -1;
-		}
-
 		this->currentFrame++;		
+		if (this->currentFrame == this->m_keyFrames.size())
+		{
+			this->currentFrame = 0;
+		}
 	}
 }
 

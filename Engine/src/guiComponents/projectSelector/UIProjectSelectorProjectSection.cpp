@@ -42,7 +42,7 @@ void s2d::UIProjectSelectorProjectSection::update()
 
 void s2d::UIProjectSelectorProjectSection::createProject()
 {
-	std::string tryToOpenPath = s2d::flc::copyDir("EngineAssets\\template", this->m_createFileDialoge.pathClicked, this->m_createProjectName);
+	std::string tryToOpenPath = s2d::flc::copyDir(PATH_TO_RESSOURCS"\\template", this->m_createFileDialoge.pathClicked, this->m_createProjectName);
 
 	// Setting the project we just selected to be displayed in the selector list
 	this->m_openFileDialog.pathClicked = tryToOpenPath + "\\";

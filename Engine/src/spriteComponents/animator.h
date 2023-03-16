@@ -5,6 +5,7 @@
 #include <spriteComponents/animation.h>
 #include <engineComponents/stime.h>
 #include <spriteComponents/keyFrame.h>
+#include <unordered_map>
 
 namespace s2d
 {
@@ -21,15 +22,16 @@ namespace s2d
 		AnimationPlaying animationPlaying;
 		bool exists;
 		Sprite* ptr_attachedSprite;
-		std::vector<Animation> animations;
+		std::unordered_map<std::string, Animation> animations;
 
 		Animator();
 		Animator(Sprite* ptr_attachedSprite);
 
 		void createAnimation(const std::string& name, const std::string& fileLocation, const std::vector<s2d::KeyFrame>& frame);
+		void removeAnimation(const std::string& name);
 
-		void play(std::string name);
-		void stop(std::string name);
+		void play(const std::string& name);
+		void stop(const std::string& name);
 
 		void update();
 

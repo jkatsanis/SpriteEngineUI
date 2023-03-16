@@ -1,2 +1,0 @@
-PathToAnimation
-assets\Scripts\Doe.txt

@@ -95,8 +95,8 @@ void s2d::FontManager::InitFonts(ImGuiIO& io)
 	config.GlyphRanges = ranges;
 
 	//Add the fonts (remember to fill in the correct path of your font
-	s2d::FontManager::defaultFont = io.Fonts->AddFontFromFileTTF("EngineAssets\\Fonts\\Arial.ttf", s2d::FontManager::fontSize);
-	s2d::FontManager::symbolFont = io.Fonts->AddFontFromFileTTF("EngineAssets\\Fonts\\fontawesome-webfont.ttf", s2d::FontManager::fontSize - 4, &config);
+	s2d::FontManager::defaultFont = io.Fonts->AddFontFromFileTTF(PATH_TO_RESSOURCS"\\Fonts\\Arial.ttf", s2d::FontManager::fontSize);
+	s2d::FontManager::symbolFont = io.Fonts->AddFontFromFileTTF(PATH_TO_RESSOURCS"\\Fonts\\fontawesome-webfont.ttf", s2d::FontManager::fontSize - 4, &config);
 
 	//This function is important else the program will crash with an assertion
 	ImGui::SFML::UpdateFontTexture();

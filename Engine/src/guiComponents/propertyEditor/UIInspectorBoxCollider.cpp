@@ -2,7 +2,7 @@
 
 s2d::UIInspectorBoxCollider::UIInspectorBoxCollider()
 {
-	this->m_texture.loadFromFile("EngineAssets/Sprites/transparent.png");
+	this->m_texture.loadFromFile(PATH_TO_RESSOURCS"/Sprites/transparent.png");
 }
 
 void s2d::UIInspectorBoxCollider::edit(float& x, float& y)

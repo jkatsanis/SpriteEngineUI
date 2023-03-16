@@ -203,9 +203,9 @@ void s2d::flc::createAnimtionSaveFiles()
 		const s2d::Sprite* ptr_sprite = s2d::Sprite::s_sprites[i];
 		if (ptr_sprite->animator.exists)
 		{
-			for (const s2d::Animation& anim : ptr_sprite->animator.animations)
+			for (const auto& anim : ptr_sprite->animator.animations)
 			{
-				createAnimationSaveFile(ptr_sprite, anim);
+				createAnimationSaveFile(ptr_sprite, anim.second);
 			}
 		}
 	}
@@ -235,10 +235,10 @@ void s2d::flc::createKnownAnimationFile()
 
 	for (const s2d::Sprite* sprite : s2d::Sprite::s_sprites)
 	{
-		for (const s2d::Animation& animation : sprite->animator.animations)
+		for (const auto& animation : sprite->animator.animations)
 		{
 			/// NO SEPERATION SINCE IT GETS ON "CREATE ANIMATION" SEPERATED
-			content  += animation.getPathToFile() + "\n";
+			content  += animation.second.getPathToFile() + "\n";
 		}
 	}
 

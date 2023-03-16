@@ -1,0 +1,2 @@
+name;vecpos;transformPosX;transformPosY;ScaleX;ScaleY;filepath;boxColliderWidthLeftOrRightX;boxColliderWidthLeftOrRighY;boxColliderHeightUpOrDownX;boxColliderHeightUpOrDownY;boxColliderExists;solid;sortingLayer;gravity;mass;physicsBodyExists;id;parentId;nextPosX;nextPosY;lastPosX;lastPosY;listPos;highestChild;positionToParentX;positionToParentY;animatorExists
+ship;1;0.000000;0.000000;1.000000;1.000000;assets\ship.png;0.000000;0.000000;0.000000;0.000000;False;False;0;0.000000;0.000000;False;16;-1;0.000000;0.000000;0.000000;-1.341492;-1;-1;0.000000;0.000000;True

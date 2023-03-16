@@ -1,7 +1,7 @@
 #include "Animator.h"
 #include <physicalComponents/sprite.h>
 
-#define EXIST if (!this->exists) return;
+#define EXIST if (!this->exists) return
 	
 s2d::Animator::Animator()
 {
@@ -19,46 +19,47 @@ s2d::Animator::Animator(Sprite* ptr_attachedSprite)
 
 void s2d::Animator::createAnimation(const std::string& name, const std::string& fileLocation, const std::vector<s2d::KeyFrame>& textures)
 {
-	EXIST
-	animations.push_back(Animation(ptr_attachedSprite, name, fileLocation, textures));
+	EXIST;
+	animations.insert( { name, Animation(ptr_attachedSprite, name, fileLocation, textures) });
 }
 
-void s2d::Animator::play(std::string name)
+void s2d::Animator::removeAnimation(const std::string& name)
 {
-	EXIST
-	for (Animation& anim : animations)
+	EXIST;
+	animations.erase(name);
+}
+
+void s2d::Animator::play(const std::string& name)
+{
+	EXIST;
+	auto it = this->animations.find(name);
+	if (it != this->animations.end())
 	{
-		if (anim.name == name && !this->animationPlaying.isAAnimationPlaying)
-		{
-			this->animationPlaying.name = name;
-			this->animationPlaying.isAAnimationPlaying = true;
-			anim.play();
-		}
+		this->animationPlaying.name = name;
+		this->animationPlaying.isAAnimationPlaying = true;
+		it->second.play();
 	}
 }
 
-void s2d::Animator::stop(std::string name)
+void s2d::Animator::stop(const std::string& name)
 {
 	EXIST;
-	for (Animation& anim : animations)
+	auto it = this->animations.find(name);
+	if (it != this->animations.end())
 	{
-		if (anim.name == name && anim.isPlaying)
-		{
-			this->animationPlaying.name = "<Unknown>";
-			this->animationPlaying.isAAnimationPlaying = false;
-			anim.stop();
-		}
+		this->animationPlaying.name = name;
+		this->animationPlaying.isAAnimationPlaying = true;
+		it->second.stop();
 	}
 }
 
 void s2d::Animator::update()
 {
 	EXIST;	
-
-	for (Animation& anim : this->ptr_attachedSprite->animator.animations)
+	for (auto& anim : this->animations)
 	{
-		if (anim.isPlaying)
-			anim.update();
+		if (anim.second.isPlaying)
+			anim.second.update();
 	}
 }
 

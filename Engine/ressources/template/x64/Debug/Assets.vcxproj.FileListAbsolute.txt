@@ -1,0 +1,14 @@
+C:\Dev\SpriteEngineUI\Assets\x64\Debug\Assets.exe
+C:\SpriteEngineUI\Assets\x64\Debug\Assets.exe
+C:\Dev\Assets\x64\Debug\Assets.exe
+C:\Dev\FluppyBird\x64\Debug\Assets.exe
+C:\Dev\SpriteEngineUI\FluppyBird\x64\Debug\Assets.exe
+C:\Dev\BeamVR - auf den schienen\SpriteEngineUI\FluppyBird\x64\Debug\Assets.exe
+C:\Dev\Scale\x64\Debug\Assets.exe
+C:\Dev\Scale2\x64\Debug\Assets.exe
+C:\Dev\SpriteEngineUI\FlabyBird\x64\Debug\Assets.exe
+C:\Dev\GLONL\x64\Debug\Assets.exe
+C:\Dev\MySpaceShooter\x64\Debug\Assets.exe
+C:\Dev\MySpaceShooter\SpriteEngine-SpaceShooter\x64\Debug\Assets.exe
+C:\Dev\SpriteEngineUI\Engine\EngineAssets\template\x64\Debug\Assets.exe
+C:\Dev\TEstingAnimation\x64\Debug\Assets.exe

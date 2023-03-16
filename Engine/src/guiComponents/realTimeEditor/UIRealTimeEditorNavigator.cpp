@@ -23,7 +23,7 @@ s2d::UIRealTimeEditorNavigator::UIRealTimeEditorNavigator(sf::RenderWindow& wind
 	this->m_scrollSpeed = 0.15f;
 
 	s2d::GameObject::rects.push_back(this->m_windowRectangle);
-	m_windowRectangle_texture.loadFromFile("EngineAssets/Sprites/transparent.png");
+	m_windowRectangle_texture.loadFromFile(PATH_TO_RESSOURCS"/Sprites/transparent.png");
 	this->m_vecPos = int(s2d::GameObject::rects.size()) - 1;
 	s2d::GameObject::rects[this->m_vecPos].setSize(sf::Vector2f(1920, 1080));
 	s2d::GameObject::rects[this->m_vecPos].setOutlineColor(sf::Color(255, 255, 255));
