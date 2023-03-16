@@ -21,6 +21,8 @@ namespace s2d
 {
 	namespace flc
 	{
+		void saveEverything(const s2d::Vector3& bg);
+
 		void createSaveFile(std::vector<s2d::Sprite*>& sprite);
 		void createWindowBackgroundSaveFile(const s2d::Vector3 windowBackground);
 		void createCameraSaveFile(const s2d::Camera& camera);

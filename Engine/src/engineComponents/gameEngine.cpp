@@ -4,6 +4,7 @@
 
 s2d::GameEngine::GameEngine()
 {
+    this->m_close = false;
     this->ptr_renderWindow = new sf::RenderWindow(sf::VideoMode(1920, 1080), "SpriteEngine", sf::Style::Default);
     this->windowEvent.type = sf::Event::GainedFocus;
     this->m_renderer = s2d::Renderer(this->ptr_renderWindow, &this->m_UIWindow.getInspector().backgroundColor);
@@ -63,19 +64,7 @@ void s2d::GameEngine::pollEvents()
         ImGui::SFML::ProcessEvent(this->windowEvent);
         if (this->windowEvent.type == sf::Event::Closed)
         {
-            //Stopping all animations so there wont be saved the current path of the sprite
-            s2d::Animator::stopAllAnimations();
-
-            //We need to save our data | Dont forget to save it also in "UIToolButtons"
-            s2d::flc::createSaveFile(s2d::Sprite::s_sprites);
-            s2d::flc::createWindowBackgroundSaveFile(this->m_UIWindow.getInspector().backgroundColor);
-            s2d::flc::createCameraSaveFile(*s2d::GameObject::ptr_camera_tRealTimeEditor);
-            s2d::flc::createIndexSaveFile();
-            s2d::flc::createKnownAnimationFile();
-            s2d::flc::createAnimtionSaveFiles();
-            // Known projects file gets created in project selector
-
-            this->ptr_renderWindow->close();
+            this->m_close = true;
         }
         if (!eventChanged)
         {
@@ -140,6 +129,38 @@ void s2d::GameEngine::updateWindowStyle()
     }
 }
 
+void s2d::GameEngine::saveDialoge()
+{
+    static const s2d::Vector2 SAVE_MENU_SIZE = s2d::Vector2(250, 55);
+
+    if (this->m_close)
+    {
+        if (ImGui::Begin("Close", NULL, 
+            ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoTitleBar))
+        {     
+            const ImVec2 CURSOR_POS = ImGui::GetCursorPos();
+            if (ImGui::Button("Save"))
+            {
+                s2d::flc::saveEverything(this->m_UIWindow.getInspector().backgroundColor);
+                this->ptr_renderWindow->close();
+            }
+            ImGui::SameLine();
+            if (ImGui::Button("Exit"))
+            {
+                this->ptr_renderWindow->close();
+            }
+            ImGui::SetCursorPos(ImVec2(CURSOR_POS.x + SAVE_MENU_SIZE.x - 50, CURSOR_POS.y));
+            if (ImGui::Button("x"))
+            {
+                this->m_close = false;
+            }
+
+            s2d::UI::setWindowScreenMiddle(SAVE_MENU_SIZE);
+            ImGui::End();
+        }
+    }
+}
+
 //public functions
 
 void s2d::GameEngine::update()
@@ -154,6 +175,7 @@ void s2d::GameEngine::update()
     ImGui::PushFont(s2d::FontManager::defaultFont);
     this->m_UIWindow.update();
     this->m_UIRealTimeEditor.update();
+    this->saveDialoge();
     ImGui::PopFont();
 
     s2d::Animation::updateAllAnimations();

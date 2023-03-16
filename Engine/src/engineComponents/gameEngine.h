@@ -23,10 +23,12 @@ namespace s2d
 		Renderer m_renderer;
 
 		bool m_isWindowFullScreen;
+		bool m_close;
 
 		void pollEngineEvents();
 		void pollEvents();
 		void updateWindowStyle();
+		void saveDialoge();
 
 	public:
 		s2d::Event event;

@@ -5,7 +5,7 @@ namespace s2d
 	enum class EditorTools
 	{
 		PositionTool,
-		ScaleTool
+		ScaleTool,
 	};
 	struct Tool
 	{

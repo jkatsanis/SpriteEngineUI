@@ -35,6 +35,8 @@ namespace s2d
 		UIToolButtons();
 
 		void createToolsAndButtons();
+		void buildProjectIntoFolder();
+		void hotkeys();
 
 		void setBackgroundColorToSave(const s2d::Vector3& color);
 	};

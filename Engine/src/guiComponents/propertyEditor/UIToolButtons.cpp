@@ -26,12 +26,37 @@ void s2d::UIToolButtons::createToolsAndButtons()
 	//Button at the top to click and play game 
 	this->askWithButtonForPlayGame();
 	this->toolSelector();
+	this->buildProjectIntoFolder();
+	this->hotkeys();
 
 	this->isHovered = ImGui::IsWindowHovered(ImGuiHoveredFlags_AllowWhenBlockedByActiveItem);
 
 	ImGui::End();
 
 	ImGui::PopStyleVar();
+}
+
+void s2d::UIToolButtons::buildProjectIntoFolder()
+{
+	ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 1100);
+	if (ImGui::BeginMenu("File"))
+	{
+		if (ImGui::MenuItem("Save", "Ctr + S"))
+		{
+			s2d::flc::saveEverything(this->m_windowbBackgroundToSave);
+		}	
+		ImGui::EndMenu();
+	}
+
+}
+
+void s2d::UIToolButtons::hotkeys()
+{
+	if (s2d::Input::onKeyHold(s2d::KeyBoardCode::LControl)
+		&& s2d::Input::onKeyPress(s2d::KeyBoardCode::S))
+	{
+		s2d::flc::saveEverything(this->m_windowbBackgroundToSave);
+	}
 }
 
 void s2d::UIToolButtons::setBackgroundColorToSave(const s2d::Vector3& color)
@@ -46,16 +71,7 @@ void s2d::UIToolButtons::askWithButtonForPlayGame()
 
 	if (s2d::FontManager::displaySmybolAsButton(ICON_FA_PLAY) || s2d::Input::onKeyRelease(s2d::KeyBoardCode::F5))
 	{
-		//EXETUING NEW EXE
-		s2d::Animator::stopAllAnimations();
-
-		//SAVING THE FILE AGAIN SINCE WE PRESS "PLAY"
-		s2d::flc::createSaveFile(s2d::Sprite::s_sprites);
-		s2d::flc::createWindowBackgroundSaveFile(this->m_windowbBackgroundToSave);
-		s2d::flc::createCameraSaveFile(*s2d::GameObject::ptr_camera_tRealTimeEditor);
-		s2d::flc::createIndexSaveFile();
-		s2d::flc::createKnownAnimationFile();
-		s2d::flc::createAnimtionSaveFiles();
+		s2d::flc::saveEverything(this->m_windowbBackgroundToSave);
 
 		wchar_t engineDirectory[MAX_PATH];
 		if (!GetCurrentDirectory(MAX_PATH, engineDirectory))
