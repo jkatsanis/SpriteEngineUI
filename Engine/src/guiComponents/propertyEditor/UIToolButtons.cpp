@@ -41,10 +41,14 @@ void s2d::UIToolButtons::buildProjectIntoFolder()
 	ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 1100);
 	if (ImGui::BeginMenu("File"))
 	{
-		if (ImGui::MenuItem("Save", "Ctr + S"))
+		if (ImGui::MenuItem("Save", "CTRL + S"))
 		{
 			s2d::flc::saveEverything(this->m_windowbBackgroundToSave);
 		}	
+		if (ImGui::MenuItem("Build", "CTRL + B"))
+		{
+			this->build();
+		}
 		ImGui::EndMenu();
 	}
 
@@ -57,6 +61,41 @@ void s2d::UIToolButtons::hotkeys()
 	{
 		s2d::flc::saveEverything(this->m_windowbBackgroundToSave);
 	}
+
+	if (s2d::Input::onKeyHold(s2d::KeyBoardCode::LControl)
+		&& s2d::Input::onKeyPress(s2d::KeyBoardCode::B))
+	{
+		this->build();
+	}
+}
+
+void s2d::UIToolButtons::build()
+{
+	s2d::flc::saveEverything(this->m_windowbBackgroundToSave);
+	const std::string PATH = s2d::EngineData::s_pathToUserProject + "\\" + s2d::EngineData::s_nameOfUserProject;
+	std::filesystem::path TARGET_PATH = s2d::EngineData::s_pathToUserProject + "\\" + s2d::EngineData::s_nameOfUserProject;
+	std::filesystem::path FILES_IN_FOLDER[FILE_AMOUNT] =
+	{
+		PATH_TO_USER_DEBUG_FOLDER"Assets.exe",
+		PATH_TO_USER_DEBUG_FOLDER"sfml-audio-d-2.dll",
+		PATH_TO_USER_DEBUG_FOLDER"sfml-graphics-d-2.dll",
+		PATH_TO_USER_DEBUG_FOLDER"sfml-network-d-2.dll",
+		PATH_TO_USER_DEBUG_FOLDER"sfml-system-d-2.dll",
+		PATH_TO_USER_DEBUG_FOLDER"sfml-window-d-2.dll",
+	};
+
+	s2d::flc::removeDir(PATH);
+	std::filesystem::create_directories(TARGET_PATH);
+
+	for (int i = 0; i < FILE_AMOUNT; i++)
+	{
+		auto fileTarget = TARGET_PATH / FILES_IN_FOLDER[i].filename();
+
+		std::filesystem::copy_file(FILES_IN_FOLDER[i], fileTarget, std::filesystem::copy_options::overwrite_existing);
+	}
+
+	s2d::flc::copyDir(s2d::EngineData::s_pathToUserProject + "\\assets", PATH, "\\assets", "ds");
+	s2d::flc::copyDir(s2d::EngineData::s_pathToUserProject + "\\engine", PATH, "\\engine", "ds");
 }
 
 void s2d::UIToolButtons::setBackgroundColorToSave(const s2d::Vector3& color)

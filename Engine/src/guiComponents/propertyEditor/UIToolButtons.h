@@ -11,8 +11,11 @@
 #include <Windows.h>
 #include <guiComponents/colors.h>
 #include <UIToolButtonsModels.h>
+#include <filesystem>
+#include <manager/saveSystem.h>
 
 #define TOOLS_SIZE 2
+#define FILE_AMOUNT 6
 
 namespace s2d
 {
@@ -27,6 +30,9 @@ namespace s2d
 		void askWithButtonForPlayGame();
 		void toolSelector();
 		void removeBackgroundFromButtons();
+		void buildProjectIntoFolder();
+		void hotkeys();
+		void build();
 
 	public:
 		bool isHovered;
@@ -35,9 +41,6 @@ namespace s2d
 		UIToolButtons();
 
 		void createToolsAndButtons();
-		void buildProjectIntoFolder();
-		void hotkeys();
-
 		void setBackgroundColorToSave(const s2d::Vector3& color);
 	};
 }

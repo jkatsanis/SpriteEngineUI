@@ -430,3 +430,37 @@ std::string s2d::flc::copyDir(const std::string& inputDir, const std::string& ou
 	return outputdir + std::string(name.c_str());
 }
 
+void s2d::flc::removeDir(const std::string& path)
+{
+	std::string rmDir = "rmdir " + path + " /s /q";
+	system(rmDir.c_str());
+}
+
+std::string s2d::flc::copyDir(const std::string& inputDir, const std::string& outputdir, const std::string& name, const std::string& exclude)
+{
+	std::fstream fs;
+
+	fs.open("exclude_file.txt", std::fstream::out);
+
+	if (fs.is_open())
+	{
+		fs << "\\src\\" << "\n";
+		fs << ".cpp" << "\n";
+		fs << ".h" << "\n";
+	}
+
+	fs.close();
+
+	std::string mkdir = "mkdir " + outputdir + std::string(name.c_str());
+
+	system(mkdir.c_str());
+
+	std::string copy = "xcopy /exclude:exclude_file.txt " + inputDir + " " + outputdir + std::string(name.c_str()) + " /E";
+
+	system(copy.c_str());
+
+	 
+
+	return outputdir + std::string(name.c_str());
+}
+

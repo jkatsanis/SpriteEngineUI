@@ -14,6 +14,8 @@
 #define EXTENSION_ANIMATION_FILE ".txt"
 #define PATH_TO_RESSOURCS "ressources"
 
+#define PATH_TO_USER_DEBUG_FOLDER s2d::EngineData::s_pathToUserProject + "\\x64\\Debug\\" 
+
 #define PATH_TO_ANIMATION_FILE s2d::EngineData::s_pathToUserProject + "\\engine\\saves\\animation.txt"
 #define PATH_TO_SPRITE_FILE s2d::EngineData::s_pathToUserProject + "\\engine\\saves\\sprites.txt"
 #define PATH_TO_BACKGROUND_FILE s2d::EngineData::s_pathToUserProject + "\\engine\\saves\\background.txt"

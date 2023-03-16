@@ -48,12 +48,14 @@ namespace s2d
 		void removeInvalidPathsFromFile();
 			
 		/// <summary>
-		/// Copies the CONTENT of the input DIR into the the ouput dir, 
+		/// Copies the CONTENT of the input DIR into the the output dir, 
 		/// there a folder gets created with the name you provided 
 		/// </summary>
 		/// <param name="name">The name the folder should have</param>
 		/// <returns>A absulute path to the directory</returns>
 		std::string copyDir(const std::string& inputDir, const std::string& outputdir, const std::string& name);
+		void removeDir(const std::string& path);
+		std::string copyDir(const std::string& inputDir, const std::string& outputdir, const std::string& name, const std::string& exclude);
 
 		std::string getPropertyLineWithSeperator(Sprite* sprite);
 	}

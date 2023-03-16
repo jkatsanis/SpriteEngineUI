@@ -21,8 +21,6 @@ namespace std
 		file.close();
 	}
 
-
-
 	static bool isTherAnotherFilter(const std::string& word, const std::string& filter, int idx)
 	{
 		int filterCnt = 0;
