@@ -55,7 +55,13 @@ namespace s2d
 		/// <returns>A absulute path to the directory</returns>
 		std::string copyDir(const std::string& inputDir, const std::string& outputdir, const std::string& name);
 		void removeDir(const std::string& path);
-		std::string copyDir(const std::string& inputDir, const std::string& outputdir, const std::string& name, const std::string& exclude);
+
+
+		/// <summary>
+		/// For folders = "\\folder\\
+		/// For files = ".cpp"
+		/// </summary>
+		std::string copyDir(const std::string& inputDir, const std::string& outputdir, const std::string& name, const std::vector<std::string>& exclude);
 
 		std::string getPropertyLineWithSeperator(Sprite* sprite);
 	}

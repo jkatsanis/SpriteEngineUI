@@ -94,8 +94,8 @@ void s2d::UIToolButtons::build()
 		std::filesystem::copy_file(FILES_IN_FOLDER[i], fileTarget, std::filesystem::copy_options::overwrite_existing);
 	}
 
-	s2d::flc::copyDir(s2d::EngineData::s_pathToUserProject + "\\assets", PATH, "\\assets", "ds");
-	s2d::flc::copyDir(s2d::EngineData::s_pathToUserProject + "\\engine", PATH, "\\engine", "ds");
+	s2d::flc::copyDir(s2d::EngineData::s_pathToUserProject + "\\assets", PATH, "\\assets", { "\\src\\", ".cpp", ".h" } );
+	s2d::flc::copyDir(s2d::EngineData::s_pathToUserProject + "\\engine", PATH, "\\engine", { "\\src\\", ".cpp", ".h" } );
 }
 
 void s2d::UIToolButtons::setBackgroundColorToSave(const s2d::Vector3& color)
