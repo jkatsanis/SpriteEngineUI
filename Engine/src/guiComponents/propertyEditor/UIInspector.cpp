@@ -469,8 +469,21 @@ void s2d::UIInspector::prefabComponent()
 
 		if (ImGui::TreeNode("Prefab"))
 		{
-			ImGui::Text("File location");
-			ImGui::InputText("##prbl", &this->m_pathToPrefab[0], CHAR_MAX);
+			ImGui::SetCursorPos(ImVec2(x += 45, y += 40));
+			const std::string fileLocation = "File location: " + this->m_currentSpriteInInspector->prefab.pathToFile;
+			ImGui::Text(fileLocation.c_str());
+
+			ImGui::SetCursorPos(ImVec2(x, y + 40));
+			ImGui::Text("Update file");
+			ImGui::SetCursorPos(ImVec2(x + 120, y + 35));
+			if (s2d::FontManager::displaySmybolAsButton(ICON_FA_RETWEET))
+			{
+				this->m_currentSpriteInInspector->prefab.updateFile();
+			}
+			ImGui::SetCursorPos(ImVec2(x, y + 80));
+			ImGui::Text("Load in memory ");
+			ImGui::SetCursorPos(ImVec2(x + 170, y + 75));
+			ImGui::Checkbox("##LoadInMemory", &this->m_currentSpriteInInspector->prefab.loadInMemory);
 			ImGui::TreePop();
 		}
 	}

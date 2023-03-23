@@ -48,8 +48,6 @@ namespace s2d
 		//Game window background color
 	    s2d::Vector3 m_defaultBackgroundColor;
 
-		std::string m_pathToPrefab;
-
 		void render();
 
 		void setupComponents();

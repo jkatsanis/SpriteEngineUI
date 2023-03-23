@@ -37,13 +37,8 @@ void s2d::flc::createSaveFile(std::vector<s2d::Sprite*>& sprites)
 
 }
 
-std::string s2d::flc::getPropertyLineWithSeperator(Sprite* sprite)
+std::string s2d::flc::getPropertyLineWithSeperator(const Sprite* sprite)
 {
-	auto boolToStr = [](const bool& b)
-	{
-		return b ? "True" : "False";
-	};
-
 	std::string line;
 	std::string vecpos = std::to_string(sprite->getVectorPosition());
 	std::string transformPosX = std::to_string(sprite->transform.position.x);
@@ -58,12 +53,12 @@ std::string s2d::flc::getPropertyLineWithSeperator(Sprite* sprite)
 	std::string boxColliderHeightUpOrDownX = std::to_string(sprite->collider.boxColliderHeightUpOrDown.x);
 	std::string boxColliderHeightUpOrDownY = std::to_string(sprite->collider.boxColliderHeightUpOrDown.y);
 
-	std::string colliderExists = boolToStr(sprite->collider.exists);
-	std::string isSolid = boolToStr(sprite->collider.isSolid);
+	std::string colliderExists = std::boolToStr(sprite->collider.exists);
+	std::string isSolid = std::boolToStr(sprite->collider.isSolid);
 	std::string sortingLayer = std::to_string(sprite->sortingLayerIndex);
 	std::string gravity = std::to_string(sprite->physicsBody.gravity);
 	std::string mass = std::to_string(sprite->physicsBody.mass);
-	std::string bodyExist = boolToStr(sprite->physicsBody.exists);
+	std::string bodyExist = std::boolToStr(sprite->physicsBody.exists);
 	std::string id = std::to_string(sprite->getId());
 	std::string parentId = std::to_string(sprite->getParentId());
 
@@ -79,7 +74,7 @@ std::string s2d::flc::getPropertyLineWithSeperator(Sprite* sprite)
 	std::string positionToParentX = std::to_string(sprite->transform.positionToParent.x);
 	std::string positionToParentY = std::to_string(sprite->transform.positionToParent.y);
 
-	std::string animatorExist = boolToStr(sprite->animator.exists);
+	std::string animatorExist = std::boolToStr(sprite->animator.exists);
 
 	//Name, vec, transform path
 	line = sprite->name + ";" + vecpos + ";" + transformPosX + ";" + transformPosY + ";" + scaleX + ";" + scaleY + ";" + spritePath;
@@ -244,10 +239,19 @@ void s2d::flc::createAnimationSaveFile(const s2d::Sprite* ptr_sprite, const s2d:
 	std::createFileWithContent(content, pathAndName);
 }
 
-void s2d::flc::createPrefabFile(const s2d::Sprite* content, const std::string& pathToFile)
+std::string s2d::flc::createOrUpdatePrefabFile(const s2d::Sprite* content, const std::string& pathToFile)
 {
+	//Getting filelocation as: \\assets
 	std::string fileContent = "";
 
+	fileContent += getPropertyLineWithSeperator(content) + "\n";
+	fileContent += std::boolToStr(content->prefab.loadInMemory);
+
+	std::string pathAndName = pathToFile + "\\" + content->name + EXTENSION_PREFAB_FILE;
+
+	std::createFileWithContent(fileContent, pathAndName);
+
+	return pathAndName;
 }
 
 void s2d::flc::createKnownAnimationFile()

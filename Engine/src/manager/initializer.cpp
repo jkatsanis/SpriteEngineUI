@@ -60,6 +60,7 @@ void s2d::Initializer::initSprites()
 			sprite->transform = s2d::Transform(sprite);
 			sprite->collider = BoxCollider(sprite);
 			sprite->animator = s2d::Animator(sprite);
+			sprite->prefab = s2d::Prefab(sprite);
 
 			sprite->name = propertys[0];
 			sprite->setVectorPosition(atoi(propertys[1].c_str()));

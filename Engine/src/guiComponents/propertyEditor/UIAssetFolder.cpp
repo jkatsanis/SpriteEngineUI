@@ -73,7 +73,12 @@ void s2d::UIAssetFolder::addPrefab()
 {
     if (this->m_ptr_rightClickedSprite != nullptr && ImGui::IsMouseReleased(0) && this->isHovered)
     {
-        std::cout << "hi";
+        const std::string pathAndName = s2d::flc::createOrUpdatePrefabFile(this->m_ptr_rightClickedSprite, this->currentPath);
+        const std::string absulutePathToPrefab = s2d::UI::getUserProjectPathSeperatetFromEnginePath(pathAndName);
+
+        this->m_ptr_rightClickedSprite->prefab.exists = true;
+        this->m_ptr_rightClickedSprite->prefab.pathToFile = absulutePathToPrefab;
+
     }
 }
 

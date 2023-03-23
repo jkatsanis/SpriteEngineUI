@@ -4,9 +4,6 @@
     <Filter Include="src">
       <UniqueIdentifier>{bf904c68-cf6a-4d6a-9444-10627122b7ef}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Txt">
-      <UniqueIdentifier>{bf63b532-77b8-448e-8aeb-ca2a01197922}</UniqueIdentifier>
-    </Filter>
     <Filter Include="src\calculationComponents">
       <UniqueIdentifier>{c5da6a4c-8986-454c-9eac-00ff2473f51d}</UniqueIdentifier>
     </Filter>
@@ -807,23 +804,6 @@
     <ClInclude Include="src\manager\saveSystem.h">
       <Filter>src\manager\files</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="saves\textFiles\imguibasics.txt">
-      <Filter>Txt</Filter>
-    </Text>
-    <Text Include="saves\textFiles\plan.txt">
-      <Filter>Txt</Filter>
-    </Text>
-    <Text Include="saves\textFiles\wichtigecppsachen.txt">
-      <Filter>Txt</Filter>
-    </Text>
-    <Text Include="addingNewSpriteProp.txt">
-      <Filter>Txt</Filter>
-    </Text>
-    <Text Include="saves\textFiles\addToAssets.txt">
-      <Filter>Txt</Filter>
-    </Text>
   </ItemGroup>
   <ItemGroup>
     <None Include="src\include\SFML\System\Vector3.inl">

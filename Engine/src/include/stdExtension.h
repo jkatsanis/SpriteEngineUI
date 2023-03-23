@@ -6,6 +6,12 @@
  
 namespace std
 {
+
+	static std::string boolToStr(bool b)
+	{
+		return b ? "True" : "False";
+	};
+
 	/// <summary>
 	/// Not that the path shoudl look like this:
 	/// Path/MyPath/assets/myFile.extension

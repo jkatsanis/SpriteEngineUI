@@ -10,6 +10,7 @@
 
 #define DELIMITER ";"
 
+#define EXTENSION_PREFAB_FILE ".prfb"
 #define EXTENSION_SAVE_FILE ".txt"
 #define EXTENSION_ANIMATION_FILE ".txt"
 #define PATH_TO_RESSOURCS "ressources"

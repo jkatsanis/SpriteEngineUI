@@ -377,13 +377,6 @@
     <ClInclude Include="src\guiComponents\propertyEditor\UIAssetTools.h" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="addingNewSpriteProp.txt" />
-    <Text Include="saves\textFiles\addToAssets.txt" />
-    <Text Include="saves\textFiles\plan.txt" />
-    <Text Include="saves\textFiles\imguibasics.txt" />
-    <Text Include="saves\textFiles\wichtigecppsachen.txt" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="src\include\SFML\Audio\SoundFileFactory.inl" />
     <None Include="src\include\SFML\Graphics\Glsl.inl" />
     <None Include="src\include\SFML\Graphics\Rect.inl" />

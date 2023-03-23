@@ -96,7 +96,7 @@ namespace s2d
 		int getChildCount() const { return this->m_childCount; }
 		int getChildListPosition() const { return this->m_childListPos; }
 
-		int getVectorPosition() { return this->m_vectorPosition; }
+		int getVectorPosition() const { return this->m_vectorPosition; }
 		sf::Sprite& getSprite() { return this->m_sprite; }	
 		sf::Texture& getTexture() { return this->m_texture; }
 		s2d::Vector2 getOrigininalPosition() const;
