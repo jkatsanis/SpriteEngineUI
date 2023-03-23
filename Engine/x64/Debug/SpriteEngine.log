@@ -1,12 +1,2 @@
-﻿  SpriteEngine.cpp
-  gameEngine.cpp
-  UIWindow.cpp
-  UIProjectSelector.cpp
-  UIProjectSelectorProjectSection.cpp
-  UIToolButtons.cpp
-  UIRealTimeEditor.cpp
-  UIRealTimeEditorTransform.cpp
-  saveSystem.cpp
-  Generating Code...
-  LINK : C:\Dev\SpriteEngineUI\Engine\x64\Debug\SpriteEngine.exe not found or not built by the last incremental link; performing full link
+﻿  UIAssetFolder.cpp
   SpriteEngine.vcxproj -> C:\Dev\SpriteEngineUI\Engine\x64\Debug\SpriteEngine.exe

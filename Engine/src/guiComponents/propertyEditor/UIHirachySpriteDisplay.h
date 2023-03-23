@@ -44,7 +44,7 @@ namespace s2d
 	public:
 
 		s2d::Sprite* childSelectedToParent;
-		s2d::Sprite* deleteSprite;
+		s2d::Sprite* rightClickedSprite;
 
 		UIHirachySpriteDisplayer();
 

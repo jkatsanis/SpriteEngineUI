@@ -10,7 +10,7 @@ s2d::UIHirachySpriteDisplayer::UIHirachySpriteDisplayer()
 		234.0f / 255.0f,
 		1.0f);
 	this->childSelectedToParent = nullptr;
-	this->deleteSprite = nullptr;
+	this->rightClickedSprite = nullptr;
 }
 
 // Public method
@@ -120,7 +120,7 @@ void s2d::UIHirachySpriteDisplayer::displayChildsRecursivly(s2d::Sprite* sprite)
 
 void s2d::UIHirachySpriteDisplayer::displayTreeNode(s2d::Sprite* sprite, bool& popStyle)
 {
-	const char* name = sprite->name.c_str();
+	std::string name = sprite->name.c_str();
 
 	if (s2d::UIHirachy::s_selectedSprite != nullptr && s2d::UIHirachy::s_selectedSprite->getId() == sprite->getId())
 	{
@@ -140,8 +140,14 @@ void s2d::UIHirachySpriteDisplayer::displayTreeNode(s2d::Sprite* sprite, bool& p
 	}
 
 	ImGui::SetCursorPosX(ImGui::GetCursorPosX() - 10);
+
+	if (sprite->prefab.exists)
+	{
+		name += " (Prefab)";
+	}
+
 	// Displaying the name
-	if (ImGui::TreeNode(name))
+	if (ImGui::TreeNode(name.c_str()))
 	{
 		if (popStyle)
 		{
@@ -156,7 +162,11 @@ void s2d::UIHirachySpriteDisplayer::displayTreeNode(s2d::Sprite* sprite, bool& p
 		//Setting sprit which will be deletet when we right click and dlcik button delete
 		if (ImGui::IsItemClicked(1))
 		{
-			deleteSprite = sprite;
+			rightClickedSprite = sprite;
+		}
+		else if (ImGui::IsMouseClicked(1))
+		{
+			rightClickedSprite = nullptr;
 		}
 
 		this->childSystem(sprite, false);
@@ -176,7 +186,7 @@ void s2d::UIHirachySpriteDisplayer::displayTreeNode(s2d::Sprite* sprite, bool& p
 
 void s2d::UIHirachySpriteDisplayer::displayMenuItem(s2d::Sprite* sprite, bool popStyle)
 {
-	const char* name = sprite->name.c_str();
+	std::string name = sprite->name.c_str();
 
 	if (sprite->parent != nullptr)
 	{
@@ -188,9 +198,13 @@ void s2d::UIHirachySpriteDisplayer::displayMenuItem(s2d::Sprite* sprite, bool po
 		popStyle = true;
 		ImGui::PushStyleColor(ImGuiCol_Text, this->m_spriteSelectedColor);
 	}
+	if (sprite->prefab.exists)
+	{
+		name += " (Prefab)";
+	}
 
 	// Displaying the sprite name
-	bool clicked = ImGui::MenuItem(name);
+	bool clicked = ImGui::MenuItem(name.c_str());
 	if (popStyle)
 	{
 		ImGui::PopStyleColor();
@@ -199,7 +213,11 @@ void s2d::UIHirachySpriteDisplayer::displayMenuItem(s2d::Sprite* sprite, bool po
 	//Setting sprit which will be deletet when we right click and dlcik button delete
 	if (ImGui::IsItemClicked(1))
 	{
-		deleteSprite = sprite;
+		rightClickedSprite = sprite;
+	}
+	else if (ImGui::IsMouseClicked(1))
+	{
+		rightClickedSprite = nullptr;
 	}
 
 	this->childSystem(sprite, false);

@@ -18,10 +18,8 @@ namespace s2d
 		UIAssetFolder m_UIAssetFolder;
 		UIAnimation m_UIAnimation;
 
-		Vector3 getWindowBackgroundColorFromFile();
-
 	public:
-		bool isAnyUIWindowHovered;
+		bool areAnyUIWindowsHovered;
 
 		UIWindow();
 

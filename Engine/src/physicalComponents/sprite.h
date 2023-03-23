@@ -12,6 +12,7 @@
 #include <spriteComponents/physicsBody.h>
 #include <spriteComponents/animator.h>
 #include <data/engineData.h>
+#include <spriteComponents/prefab.h>
 
 namespace s2d
 {
@@ -43,6 +44,7 @@ namespace s2d
 		s2d::PhsysicsBody physicsBody;
 		s2d::Transform transform;
 		s2d::Animator animator; 
+		s2d::Prefab prefab;
 
 		//Parent / child infos
 		std::vector<s2d::Sprite*> childs;

@@ -12,7 +12,6 @@ s2d::UIInspector::UIInspector()
 
 	this->m_defaultBackgroundColor = s2d::Vector3(139, 165, 187);
 	this->state = s2d::InspectorState::None;
-
 	this->m_textureOverSprite.loadFromFile(PATH_TO_RESSOURCS"/Sprites/transparent.png");
 }
 
@@ -192,6 +191,12 @@ void s2d::UIInspector::setupComponents()
 	if (this->m_currentSpriteInInspector->animator.exists)
 	{
 		this->animatorComponent();
+	}
+
+	// Prefab
+	if (this->m_currentSpriteInInspector->prefab.exists)
+	{
+		this->prefabComponent();
 	}
 
 	this->componentSelector();
@@ -387,7 +392,8 @@ void s2d::UIInspector::componentSelector()
 	{
 		"BoxCollider",
 		"PhysicsBody",
-		"Animator"
+		"Animator",
+		"Prefab"
 	};
 
 	if (ImGui::BeginCombo("##Components", "Add Components"))
@@ -447,6 +453,29 @@ void s2d::UIInspector::animatorComponent()
 	}
 }
 
+void s2d::UIInspector::prefabComponent()
+{
+	float x = ImGui::GetCursorPosX();
+	float y = ImGui::GetCursorPosY();
+
+	ImGui::SetCursorPos(ImVec2(x += 320, y -= 5));
+	if (s2d::FontManager::displaySmybolAsButton(ICON_FA_TRASH "##Prefab"))
+	{
+		this->m_currentSpriteInInspector->prefab.resetPrefab();
+	}
+	else
+	{
+		ImGui::SetCursorPos(ImVec2(x -= 320, y += 4));
+
+		if (ImGui::TreeNode("Prefab"))
+		{
+			ImGui::Text("File location");
+			ImGui::InputText("##prbl", &this->m_pathToPrefab[0], CHAR_MAX);
+			ImGui::TreePop();
+		}
+	}
+}
+
 void s2d::UIInspector::setCompontents()
 {
 	if (this->m_currentComponentSelected == "BoxCollider")
@@ -462,6 +491,11 @@ void s2d::UIInspector::setCompontents()
 	if (this->m_currentComponentSelected == "Animator")
 	{
 		this->m_currentSpriteInInspector->animator.exists = true;
+		this->m_currentComponentSelected = " ";
+	}
+	if (this->m_currentComponentSelected == "Prefab")
+	{
+		this->m_currentSpriteInInspector->prefab.exists = true;
 		this->m_currentComponentSelected = " ";
 	}
 }

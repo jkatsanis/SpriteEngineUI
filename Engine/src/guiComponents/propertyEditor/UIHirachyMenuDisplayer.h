@@ -29,6 +29,7 @@ namespace s2d
 
 		void createButton();
 		void deleteButton();
+		void toPrefabButton();
 
 	public:
 		bool isPopUpOpen;

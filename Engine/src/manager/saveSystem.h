@@ -33,6 +33,7 @@ namespace s2d
 		bool isProjectPathValid(const std::string& path);
 		bool checkIfProjectExistInFile(std::string& ref);
 		void createAnimationSaveFile(const s2d::Sprite* ptr_sprite, const s2d::Animation& animationToSave);
+		void createPrefabFile(const s2d::Sprite* content, const std::string& pathToFile);
 
 		/// <summary>
 		/// Checks if the absulute path exists in the 'knownProject' file

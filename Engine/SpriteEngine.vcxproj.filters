@@ -313,6 +313,9 @@
     <ClCompile Include="src\manager\initializer.cpp">
       <Filter>src\manager\initializer</Filter>
     </ClCompile>
+    <ClCompile Include="src\spriteComponents\prefab.cpp">
+      <Filter>src\physicalComponents\sprite</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\include\imgui\imconfig.h">
@@ -795,11 +798,14 @@
     <ClInclude Include="src\guiComponents\propertyEditor\UIAssetTools.h">
       <Filter>src\guiComponents\assets</Filter>
     </ClInclude>
-    <ClInclude Include="src\manager\saveSystem.h">
-      <Filter>src\manager\font</Filter>
-    </ClInclude>
     <ClInclude Include="src\manager\initializer.h">
       <Filter>src\manager\initializer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\spriteComponents\prefab.h">
+      <Filter>src\physicalComponents\sprite</Filter>
+    </ClInclude>
+    <ClInclude Include="src\manager\saveSystem.h">
+      <Filter>src\manager\files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

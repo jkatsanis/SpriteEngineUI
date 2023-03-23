@@ -8,6 +8,7 @@
 #include <array>
 #include <data/UIIconData.h>
 #include <UIAssetTools.h>
+#include <UIHirachy.h>
 
 namespace s2d
 {		
@@ -30,11 +31,16 @@ namespace s2d
 		bool m_draggingItem;
 		bool m_interacted;
 
+		const s2d::Sprite* m_ptr_rightClickedSprite;
+
 		void render();
 		void getAllFilesInDir(const char* path, const char* name);
 		void setDragAndDrop(std::string path, std::string name);
 		void beginColumns();
 		void goBackToBeforeFolder();
+		void addPrefab();
+
+		void init();
 
 	public:
 		bool isHovered;
@@ -42,6 +48,8 @@ namespace s2d
 		UIAssetFolder();
 
 		void createAssetLinkerWindow();
+
+		void setRightClickedSprite(const s2d::Sprite* clicked) { this->m_ptr_rightClickedSprite = clicked; }
 
 		//THIS IS THE PATH FROM THE .SLN file in the engine!
 		static std::string dragAndDropPath;

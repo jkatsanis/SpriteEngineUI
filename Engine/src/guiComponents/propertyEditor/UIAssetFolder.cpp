@@ -2,6 +2,12 @@
 
 s2d::UIAssetFolder::UIAssetFolder()
 {
+    this->init();
+}
+
+void s2d::UIAssetFolder::init()
+{
+    this->m_ptr_rightClickedSprite = nullptr;
     this->m_tools = s2d::UIAssetTools(&this->currentPath, &this->m_currentDeletePath);
 
     this->currentPath = s2d::EngineData::s_pathToUserProject + "\\assets";
@@ -13,7 +19,6 @@ s2d::UIAssetFolder::UIAssetFolder()
     this->m_interacted = false;
     this->m_draggingItem = false;
     this->m_hoveredOverItem = false;
-
 }
 
 //Public functions
@@ -25,6 +30,7 @@ void s2d::UIAssetFolder::createAssetLinkerWindow()
     {
         this->render();
         this->m_tools.update(isHovered);
+        this->addPrefab();
         ImGui::End();
     }
     ImGui::PopStyleVar();
@@ -46,6 +52,7 @@ void s2d::UIAssetFolder::createAssetLinkerWindow()
 
 }
 
+
 //private functions
 
 void s2d::UIAssetFolder::render()
@@ -59,6 +66,15 @@ void s2d::UIAssetFolder::render()
     ImGui::SetWindowSize(ImVec2(1280, 350));
 
     this->isHovered = ImGui::IsWindowHovered(ImGuiHoveredFlags_AllowWhenBlockedByActiveItem);
+}
+
+
+void s2d::UIAssetFolder::addPrefab()
+{
+    if (this->m_ptr_rightClickedSprite != nullptr && ImGui::IsMouseReleased(0) && this->isHovered)
+    {
+        std::cout << "hi";
+    }
 }
 
 void s2d::UIAssetFolder::getAllFilesInDir(const char* path, const char* name)

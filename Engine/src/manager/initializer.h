@@ -4,7 +4,7 @@
 #include <spriteComponents/animator.h>
 #include <physicalComponents/sprite.h>
 #include <guiComponents/UI.h>
-
+#include <calculationComponents/vector3.h>
 #include <string>
 #include <fstream>
 
@@ -36,6 +36,7 @@ namespace s2d
 
 		static void initAnimations();
 		static void initSprites();
+		static void initBackground(s2d::Vector3& vec);
 	};
 }
 

@@ -5,46 +5,7 @@
 s2d::UIWindow::UIWindow()
 {
 	//Default SFML WINDOW background color
-	this->m_UIInspector.backgroundColor = getWindowBackgroundColorFromFile();
-	this->isAnyUIWindowHovered = false;
-}
-
-//Private functions
-
-s2d::Vector3 s2d::UIWindow::getWindowBackgroundColorFromFile()
-{
-	Vector3 vec;
-	std::fstream backgroundFile;
-
-	//opening the file where all sprite data is
-	backgroundFile.open(PATH_TO_BACKGROUND_FILE, std::ios::in);
-	if (backgroundFile.is_open())
-	{
-		std::string line;
-		int cnt = 0;
-		while (std::getline(backgroundFile, line))
-		{
-			cnt++;
-			//First line is the header so we dont need to check for it
-			if (cnt == 1)
-			{
-				continue;
-			}
-
-			//Splitting line
-			std::string delimiter = ";";
-			std::vector<std::string> propertys = std::splitString(line, delimiter);
-
-			//INITIIALIZING PROPS
-			vec.x = std::stof(propertys[0].c_str());
-			vec.y = std::stof(propertys[1].c_str());
-			vec.z = std::stof(propertys[2].c_str());
-		}
-		backgroundFile.close();
-
-		return vec;
-	}
-	return vec;
+	this->areAnyUIWindowsHovered = false;
 }
 
 // Static functions
@@ -103,13 +64,15 @@ void s2d::UIWindow::update()
 	this->m_UIAnimation.createUIAnimationWindow();
 	this->m_UIAssetFolder.createAssetLinkerWindow();
 
+	this->m_UIAssetFolder.setRightClickedSprite(this->m_UIHirachy.getSpriteHold());
+
 	if (this->m_UIHirachy.isHovered || this->m_UIToolButtons.isHovered || this->m_UIInspector.isHovered || this->m_UIAssetFolder.isHovered || this->m_UIAnimation.isHovered)
 	{
-		this->isAnyUIWindowHovered = true;
+		this->areAnyUIWindowsHovered = true;
 	}
 	else
 	{
-		this->isAnyUIWindowHovered = false;
+		this->areAnyUIWindowsHovered = false;
 	}
 }
 

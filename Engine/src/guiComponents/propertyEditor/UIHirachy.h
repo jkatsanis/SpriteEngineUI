@@ -35,6 +35,7 @@ namespace s2d
 
 		void createHirachyWindow();
 
+		const s2d::Sprite* getSpriteHold() { return this->m_spriteDisplayer.childSelectedToParent; }
 	public:
 		static s2d::Sprite* s_selectedSprite;
 	};

@@ -244,6 +244,12 @@ void s2d::flc::createAnimationSaveFile(const s2d::Sprite* ptr_sprite, const s2d:
 	std::createFileWithContent(content, pathAndName);
 }
 
+void s2d::flc::createPrefabFile(const s2d::Sprite* content, const std::string& pathToFile)
+{
+	std::string fileContent = "";
+
+}
+
 void s2d::flc::createKnownAnimationFile()
 {
 	std::string content = "PathToAnimation\n";

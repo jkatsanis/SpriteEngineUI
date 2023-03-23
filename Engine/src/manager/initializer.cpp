@@ -134,6 +134,39 @@ void s2d::Initializer::initSprites()
 	}
 }
 
+void s2d::Initializer::initBackground(s2d::Vector3& vec)
+{
+	std::fstream backgroundFile;
+
+	//opening the file where all sprite data is
+	backgroundFile.open(PATH_TO_BACKGROUND_FILE, std::ios::in);
+	if (backgroundFile.is_open())
+	{
+		std::string line;
+		int cnt = 0;
+		while (std::getline(backgroundFile, line))
+		{
+			cnt++;
+			//First line is the header so we dont need to check for it
+			if (cnt == 1)
+			{
+				continue;
+			}
+
+			//Splitting line
+			std::string delimiter = ";";
+			std::vector<std::string> propertys = std::splitString(line, delimiter);
+
+			//INITIIALIZING PROPS
+			vec.x = std::stof(propertys[0].c_str());
+			vec.y = std::stof(propertys[1].c_str());
+			vec.z = std::stof(propertys[2].c_str());
+		}
+		backgroundFile.close();
+
+	}
+}
+
 
 // private static functions
 

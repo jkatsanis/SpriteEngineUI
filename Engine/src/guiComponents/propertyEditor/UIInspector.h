@@ -48,6 +48,8 @@ namespace s2d
 		//Game window background color
 	    s2d::Vector3 m_defaultBackgroundColor;
 
+		std::string m_pathToPrefab;
+
 		void render();
 
 		void setupComponents();
@@ -56,6 +58,7 @@ namespace s2d
 		void boxColliderComponent();
 		void physicsBodyComponent();
 		void animatorComponent();
+		void prefabComponent();
 
 		void componentSelector();
 		void setCompontents();
@@ -73,7 +76,6 @@ namespace s2d
 
 		// Get the value from UIWindow.cpp
 		s2d::Vector3 backgroundColor;
-
 		UIInspector();
 
 		void createUIInspector();

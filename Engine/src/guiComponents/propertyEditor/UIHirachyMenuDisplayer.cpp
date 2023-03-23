@@ -49,6 +49,7 @@ void s2d::UIHirachyMenuDisplayer::renderMenuPopup()
 	{
 		this->createButton();
 		this->deleteButton();
+		this->toPrefabButton();
 
 		ImGui::EndPopup();
 	}
@@ -105,15 +106,15 @@ void s2d::UIHirachyMenuDisplayer::createButton()
 
 void s2d::UIHirachyMenuDisplayer::deleteButton()
 {
-	if (ImGui::Button("Delete") && this->m_spriteDisplayer->deleteSprite != nullptr)
+	if (ImGui::Button("Delete") && this->m_spriteDisplayer->rightClickedSprite != nullptr)
 	{
 		//Erasing sprites from the list ( when deleting a child)
-		s2d::Sprite* parent = s2d::Sprite::getSpriteById(this->m_spriteDisplayer->deleteSprite->getParentId());
+		s2d::Sprite* parent = s2d::Sprite::getSpriteById(this->m_spriteDisplayer->rightClickedSprite->getParentId());
 		if (parent != nullptr)
 		{
 			for (s2d::Sprite* child : parent->childs)
 			{
-				if (child->getId() == this->m_spriteDisplayer->deleteSprite->getId())
+				if (child->getId() == this->m_spriteDisplayer->rightClickedSprite->getId())
 				{
 					//Erasing the child when deleting a child in a parent
 					parent->childs.erase(parent->childs.begin() + child->getChildListPosition() - 1);
@@ -123,21 +124,36 @@ void s2d::UIHirachyMenuDisplayer::deleteButton()
 
 		//Deleting the sprite(s) & chílds
 		//Deleting childs from HY scene + freeing them
-		this->deleteChildsRecursivly(this->m_spriteDisplayer->deleteSprite);
+		this->deleteChildsRecursivly(this->m_spriteDisplayer->rightClickedSprite);
 
 		//deleting the deletet sprite + freeing it
-		s2d::Sprite::s_sprites.erase((s2d::Sprite::s_sprites.begin() + this->m_spriteDisplayer->deleteSprite->getVectorPosition() - 1));
+		s2d::Sprite::s_sprites.erase((s2d::Sprite::s_sprites.begin() + this->m_spriteDisplayer->rightClickedSprite->getVectorPosition() - 1));
 
 		for (s2d::Sprite* greater : s2d::Sprite::s_sprites)
 		{
-			if (greater->getVectorPosition() > this->m_spriteDisplayer->deleteSprite->getVectorPosition())
+			if (greater->getVectorPosition() > this->m_spriteDisplayer->rightClickedSprite->getVectorPosition())
 			{
 				greater->setVectorPosition(greater->getVectorPosition() - 1);
 			}
 		}
 
-		delete this->m_spriteDisplayer->deleteSprite;
-		this->m_spriteDisplayer->deleteSprite = nullptr;
+		delete this->m_spriteDisplayer->rightClickedSprite;
+		this->m_spriteDisplayer->rightClickedSprite = nullptr;
 		s2d::UIHirachy::s_selectedSprite = nullptr;
+	}
+}
+
+void s2d::UIHirachyMenuDisplayer::toPrefabButton()
+{
+	ImGui::SetCursorPos(ImVec2(ImGui::GetCursorPosX() - 10, ImGui::GetCursorPosY() - 6));
+	if (ImGui::Button("Prefab"))
+	{
+		if (this->m_spriteDisplayer->rightClickedSprite == nullptr)
+		{
+			std::cout << "LOG [WARNING] Cant create a prefab of a nullptr!";
+			return;
+		}
+		this->m_spriteDisplayer->rightClickedSprite->prefab.exists = true;
+		std::cout << this->m_spriteDisplayer->rightClickedSprite->name << std::endl;
 	}
 }

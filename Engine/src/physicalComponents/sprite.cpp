@@ -137,6 +137,7 @@ void s2d::Sprite::initVariables(std::string name, s2d::Vector2 spawnPos, std::st
 	this->m_sprite = sprite;
 	this->collider = s2d::BoxCollider(this);
 	this->physicsBody = s2d::PhsysicsBody();
+	this->prefab = s2d::Prefab(this);
 
 	//Setting sprite size also in init and setTexture
 	this->transform.setScale(s2d::Vector2(1, 1));

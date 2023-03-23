@@ -13,12 +13,13 @@ s2d::GameEngine::GameEngine()
     this->ptr_renderWindow->setPosition(sf::Vector2i(desktop.width / 2 - this->ptr_renderWindow->getSize().x / 2, 0));
     this->m_isWindowFullScreen = false;
 
-    this->m_UIRealTimeEditor = s2d::UIRealTimeEditor(*ptr_renderWindow, &this->windowEvent, &this->m_UIWindow.isAnyUIWindowHovered, 
+    this->m_UIRealTimeEditor = s2d::UIRealTimeEditor(*ptr_renderWindow, &this->windowEvent, &this->m_UIWindow.areAnyUIWindowsHovered, 
         &this->m_UIWindow.getInspector().state, &this->event, &this->m_UIWindow.getTools().editorTools);
 
     //Setting other classes
     s2d::Initializer::initSprites();
     s2d::Initializer::initAnimations();
+    s2d::Initializer::initBackground(this->m_UIWindow.getInspector().backgroundColor);
     s2d::Input::setEvent(&this->event);
     s2d::SpriteData::highestSpriteID = s2d::SpriteData::getHighestIndex();
     s2d::UI::setRenderWindow(this->ptr_renderWindow);
