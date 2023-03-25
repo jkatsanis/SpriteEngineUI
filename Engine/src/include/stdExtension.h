@@ -6,7 +6,6 @@
  
 namespace std
 {
-
 	static std::string boolToStr(bool b)
 	{
 		return b ? "True" : "False";
@@ -20,7 +19,7 @@ namespace std
 	{
 		std::ofstream file;
 
-		file.open(pathAndName);
+		file.open(pathAndName, std::ios::out | std::ios::binary);
 
 		file << content;
 

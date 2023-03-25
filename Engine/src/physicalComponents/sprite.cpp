@@ -2,10 +2,11 @@
 
 //Constructor
 
+
+
 s2d::Sprite::Sprite() { this->name = "Unknown"; this->transform.position = Vector2(0, 0); }
 
 s2d::Sprite::Sprite(std::string name, s2d::Vector2 spawnPosition, std::string path)
-	: name(name)
 {
 	initVariables(name, spawnPosition, path);
 }
@@ -100,8 +101,9 @@ s2d::Vector2 s2d::Sprite::getOrigininalPosition() const
 
 //Private functions
 
-void s2d::Sprite::initVariables(std::string name, s2d::Vector2 spawnPos, std::string path)
+void s2d::Sprite::initVariables(std::string& name, s2d::Vector2& spawnPos, std::string& path)
 {
+	this->validateProperties(name, spawnPos, path);
 	this->transform = s2d::Transform(this);
 
 	this->m_childCount = -1;
@@ -128,7 +130,7 @@ void s2d::Sprite::initVariables(std::string name, s2d::Vector2 spawnPos, std::st
 
 	if (!this->m_texture.loadFromFile(path))
 	{
-		//Console log!
+		std::cout << "LOG [ERROR] Couldnt load texture from file!";
 	}
 
 	sprite.setTexture(this->m_texture);
@@ -142,6 +144,31 @@ void s2d::Sprite::initVariables(std::string name, s2d::Vector2 spawnPos, std::st
 	//Setting sprite size also in init and setTexture
 	this->transform.setScale(s2d::Vector2(1, 1));
 }
+
+void s2d::Sprite::validateProperties(std::string& name, s2d::Vector2& spawnPos, std::string& path)
+{
+	const char CHAR_INVALID_SYMBOLS[INVALID_SPRITE_SYMBOLS] = { ';' };
+	// VALIDATE NAME
+	for (int i = 0; i < s2d::Sprite::s_sprites.size(); i++)
+	{
+		if (name == s2d::Sprite::s_sprites[i]->name)
+		{
+			name = name + " (dupe) " + std::to_string(i);
+			std::cout << "LOG [ERROR] Cant have duped name renamed sprite!";
+		}
+	}
+	std::string original_name = name;
+
+	for (int i = 0; i < INVALID_SPRITE_SYMBOLS; i++)
+	{
+		name.erase(std::remove(name.begin(), name.end(), ':'), name.end());
+		if (name != original_name)
+		{
+			std::cout << "LOG [ERROR] Cant have invalid symbol!";
+		}
+	}
+}
+
 
 //Static functions
 

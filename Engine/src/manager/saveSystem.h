@@ -16,6 +16,7 @@
 #include <dirent.h>
 #include <guiComponents/UI.h>
 #include <manager/initializer.h>
+#include <sys/stat.h>
 
 namespace s2d
 {

@@ -448,6 +448,14 @@ void s2d::flc::removeDir(const std::string& path)
 
 std::string s2d::flc::copyDir(const std::string& inputDir, const std::string& outputdir, const std::string& name, const std::vector<std::string>& exclude)
 {
+	struct stat sb;
+
+	if (stat(inputDir.c_str(), &sb) == 0 && !(sb.st_mode & S_IFDIR)
+		|| stat(outputdir.c_str(), &sb) == 0 && !(sb.st_mode & S_IFDIR))
+	{
+		std::cout << "LOG [ERROR] Cant copy folder because input or output dir is invalid";
+		return "-1";
+	}
 	std::fstream fs;
 
 	fs.open("exclude_file.txt", std::fstream::out);

@@ -91,7 +91,7 @@ void s2d::UIHirachyMenuDisplayer::createButton()
 			//Adding a new sprite to the hirachy + game scene	
 
 			int vectorPos = int(s2d::Sprite::s_sprites.size()) + 1;
-			std::string name = "Sprite " + std::to_string(vectorPos) + " id: " + std::to_string(s2d::SpriteData::highestSpriteID + 1);
+			std::string name = "Sprite " + std::to_string(vectorPos) + " ID " + std::to_string(s2d::SpriteData::highestSpriteID + 1);
 
 			s2d::Sprite* sprite = new s2d::Sprite(name, s2d::Vector2(0, 0), s2d::SpriteData::defaultSpritePath);
 

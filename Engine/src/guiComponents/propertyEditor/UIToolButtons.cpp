@@ -91,7 +91,10 @@ void s2d::UIToolButtons::build()
 	{
 		auto fileTarget = TARGET_PATH / FILES_IN_FOLDER[i].filename();
 
-		std::filesystem::copy_file(FILES_IN_FOLDER[i], fileTarget, std::filesystem::copy_options::overwrite_existing);
+		if (std::filesystem::is_regular_file(FILES_IN_FOLDER[i]))
+		{
+			std::filesystem::copy_file(FILES_IN_FOLDER[i], fileTarget, std::filesystem::copy_options::overwrite_existing);
+		}
 	}
 
 	s2d::flc::copyDir(s2d::EngineData::s_pathToUserProject + "\\assets", PATH, "\\assets", { "\\src\\", ".cpp", ".h" } );

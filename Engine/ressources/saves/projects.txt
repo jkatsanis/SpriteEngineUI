@@ -1,5 +1,2 @@
 name;absulutePathStr;date;relativePath
-cal;C:\Dev\cal;2023/13/03 10:23:47;..\..\cal
-space-shooter;C:\Dev\MySpaceShooter\space-shooter;2023/16/03 09:22:18;..\..\MySpaceShooter\space-shooter
-PrefabTEsting;C:\Dev\PrefabTEsting;2023/21/03 11:19:01;..\..\PrefabTEsting
-Josef;C:\Dev\Josef;2023/23/03 07:29:53;..\..\Josef
+NewProjectGaming;C:\Dev\C++\NewProjectGaming;2023/25/03 23:30:13;..\..\NewProjectGaming

@@ -14,6 +14,8 @@
 #include <data/engineData.h>
 #include <spriteComponents/prefab.h>
 
+#define INVALID_SPRITE_SYMBOLS 1
+
 namespace s2d
 {
 	class Sprite
@@ -32,7 +34,8 @@ namespace s2d
 		/// </summary>
 		int m_childListPos;
 
-		void initVariables(std::string name, s2d::Vector2 spawnPos, std::string path);
+		void initVariables(std::string& name, s2d::Vector2& spawnPos, std::string& path);
+		void validateProperties(std::string& name, s2d::Vector2& spawnPos, std::string& path);
 	public:	
 		// General info
 		std::string name;

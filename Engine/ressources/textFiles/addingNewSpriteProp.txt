@@ -1,6 +1,0 @@
-1. Go to saveSytem.cpp and change the header
-2. Go to std::string s2d::flc::getPropertyLineWithSeperator(const Sprite& sprite) in saveSytem.cpp and add to the line the new props
-3. Go to sprite.cpp and Init the props (In the correct order like in the csv: ) name, pos, etc... also you may need to convert to other types
-4. Go to save system.cpp and also get the new component, also needs to hardcode in sprite.h the getComponent method
-
-Every data will be saved by string, flots and ints
