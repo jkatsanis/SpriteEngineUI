@@ -39,7 +39,7 @@ namespace s2d
 		/// Creates a prefab file
 		/// </summary>
 		/// <returns>The location and the name of the prefab</returns>
-		std::string createOrUpdatePrefabFile(const s2d::Sprite* content, const std::string& pathToFile);
+		std::string createOrUpdatePrefabFile(const s2d::Sprite* content, const std::string& pathToFile, const std::string& pathToOldFile);
 
 		/// <summary>
 		/// Checks if the absulute path exists in the 'knownProject' file

@@ -34,14 +34,17 @@ void s2d::Prefab::resetPrefab()
 
 void s2d::Prefab::updateFile()
 { 
-	std::string fileName = this->m_ptr_attachedSprite->name + EXTENSION_PREFAB_FILE;
+	const std::string oldName = fileName;
+	std::string fileName = this->fileName + EXTENSION_PREFAB_FILE;
+	this->fileName = this->m_ptr_attachedSprite->name;
 
-	int amountToDelete = this->pathToFile.size() - fileName.size();
+	int amountToDelete = fileName.size()
+		// + 1 Because we dont need the //
+		+ 1;
 
 	std::string fnPath = this->pathToFile;
-	fnPath.erase(fnPath.begin() + amountToDelete);
-
+	fnPath.resize(fnPath.size() - amountToDelete);
 	const std::string path = s2d::EngineData::s_pathToUserProject + "\\" + fnPath;
-	s2d::flc::createOrUpdatePrefabFile(this->m_ptr_attachedSprite, path);
+	s2d::flc::createOrUpdatePrefabFile(this->m_ptr_attachedSprite, path, oldName);
 }
 

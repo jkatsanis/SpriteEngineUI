@@ -18,6 +18,12 @@ namespace s2d
 		/// assets\\file
 		/// </summary>
 		std::string pathToFile;
+
+		/// <summary>
+		/// The file name of the active file. This may not be the actual prefab
+		/// sprite name because it didnt get upated yet
+		/// </summary>
+		std::string fileName;
 		bool exists;
 		bool loadInMemory;
 

@@ -3,7 +3,8 @@
 #include <iostream>
 #include <vector>
 #include <fstream>
- 
+#include <filesystem>
+
 namespace std
 {
 	static std::string boolToStr(bool b)
@@ -24,6 +25,11 @@ namespace std
 		file << content;
 
 		file.close();
+	}
+
+	static void removeFile(const std::string& path)
+	{
+		std::filesystem::remove(path);
 	}
 
 	static bool isTherAnotherFilter(const std::string& word, const std::string& filter, int idx)

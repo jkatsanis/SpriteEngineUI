@@ -239,7 +239,7 @@ void s2d::flc::createAnimationSaveFile(const s2d::Sprite* ptr_sprite, const s2d:
 	std::createFileWithContent(content, pathAndName);
 }
 
-std::string s2d::flc::createOrUpdatePrefabFile(const s2d::Sprite* content, const std::string& pathToFile)
+std::string s2d::flc::createOrUpdatePrefabFile(const s2d::Sprite* content, const std::string& pathToFile, const std::string& oldFileName)
 {
 	//Getting filelocation as: \\assets
 	std::string fileContent = "";
@@ -248,7 +248,11 @@ std::string s2d::flc::createOrUpdatePrefabFile(const s2d::Sprite* content, const
 	fileContent += std::boolToStr(content->prefab.loadInMemory);
 
 	std::string pathAndName = pathToFile + "\\" + content->name + EXTENSION_PREFAB_FILE;
-
+	std::string oldPathAndName = pathToFile + "\\" + oldFileName + EXTENSION_PREFAB_FILE;
+	if (pathAndName != oldPathAndName)
+	{
+		std::removeFile(oldPathAndName);
+	}
 	std::createFileWithContent(fileContent, pathAndName);
 
 	return pathAndName;

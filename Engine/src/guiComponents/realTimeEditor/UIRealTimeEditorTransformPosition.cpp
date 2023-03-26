@@ -44,6 +44,11 @@ void s2d::UIRealTimeEditorTransformPosition::update()
         this->m_clickedSprite = s2d::UIHirachy::s_selectedSprite;
         this->moveComponent();
     }
+    else
+    {
+        this->m_clickedSprite = nullptr;
+        this->m_realeasedCursorOnSprite = false;
+    }
 }
 
 // Private functions
