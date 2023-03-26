@@ -29,6 +29,8 @@ void s2d::UIRealTimeEditorTransformPosition::update()
 {
     if (*this->m_isAnyUIWindowHovered)
     {
+        this->m_clickedSprite = nullptr;
+        this->m_realeasedCursorOnSprite = false;
         return;
     }
     // Check if we click on a sprite in the editor
