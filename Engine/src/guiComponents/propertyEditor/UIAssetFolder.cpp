@@ -73,13 +73,15 @@ void s2d::UIAssetFolder::addPrefab()
 {
     if (this->m_ptr_rightClickedSprite != nullptr && ImGui::IsMouseReleased(0) && this->isHovered)
     {
-        const std::string pathAndName = s2d::flc::createOrUpdatePrefabFile(this->m_ptr_rightClickedSprite, this->currentPath, this->m_ptr_rightClickedSprite->prefab.fileName);
-        const std::string absulutePathToPrefab = s2d::UI::getUserProjectPathSeperatetFromEnginePath(pathAndName);
+        const std::string pathToFile = this->currentPath + "\\" + this->m_ptr_rightClickedSprite->name + EXTENSION_PREFAB_FILE;
+        const std::string pathAndName =
+            s2d::flc::createOrUpdatePrefabFile(this->m_ptr_rightClickedSprite, pathToFile, this->m_ptr_rightClickedSprite->prefab.pathToOldFile);
+        const std::string userPath = s2d::UI::getUserProjectPathSeperatetFromEnginePath(pathAndName);
 
         this->m_ptr_rightClickedSprite->prefab.exists = true;
-        this->m_ptr_rightClickedSprite->prefab.pathToFile = absulutePathToPrefab;
-        this->m_ptr_rightClickedSprite->prefab.fileName = this->m_ptr_rightClickedSprite->name;
-
+        this->m_ptr_rightClickedSprite->prefab.updateProps(
+            pathAndName, userPath, pathAndName, this->m_ptr_rightClickedSprite->name + EXTENSION_PREFAB_FILE
+        );
     }
 }
 

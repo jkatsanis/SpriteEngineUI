@@ -470,7 +470,7 @@ void s2d::UIInspector::prefabComponent()
 		if (ImGui::TreeNode("Prefab"))
 		{
 			ImGui::SetCursorPos(ImVec2(x += 45, y += 40));
-			const std::string fileLocation = "File location: " + this->m_currentSpriteInInspector->prefab.pathToFile;
+			const std::string fileLocation = "File location: " + this->m_currentSpriteInInspector->prefab.userPathToFile;
 			ImGui::Text(fileLocation.c_str());
 
 			ImGui::SetCursorPos(ImVec2(x, y + 40));

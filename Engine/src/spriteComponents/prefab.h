@@ -17,13 +17,22 @@ namespace s2d
 		/// The path from the user project to the file for example
 		/// assets\\file
 		/// </summary>
-		std::string pathToFile;
+		std::string enginePathToFile;
+
+		/// <summary>
+		/// Path from the user to the file
+		/// Example: assets\\prefabs\\hello.prfb
+		/// </summary>
+		std::string userPathToFile;
 
 		/// <summary>
 		/// The file name of the active file. This may not be the actual prefab
 		/// sprite name because it didnt get upated yet
 		/// </summary>
+		std::string pathToOldFile;
+
 		std::string fileName;
+
 		bool exists;
 		bool loadInMemory;
 
@@ -39,6 +48,8 @@ namespace s2d
 		/// Always needs to getupdated when changes are made in the editor or booleans are getting changed
 		/// </summary>
 		void updateFile();
+
+		void updateProps(const std::string& enginePath, const std::string& userPath, const std::string& pathToOldFile, const std::string fileName);
 	};
 }
 

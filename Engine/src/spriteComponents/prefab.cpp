@@ -29,22 +29,26 @@ void s2d::Prefab::resetPrefab()
 	//TODO: delete file 
 
 	this->exists = false;
-	this->pathToFile = "";
+	this->enginePathToFile = "";
 }
 
 void s2d::Prefab::updateFile()
 { 
-	const std::string oldName = fileName;
-	std::string fileName = this->fileName + EXTENSION_PREFAB_FILE;
-	this->fileName = this->m_ptr_attachedSprite->name;
+	uint8_t amountToDelete = fileName.size();	
+	std::string newPath = this->enginePathToFile;
+	newPath.resize(newPath.size() - amountToDelete);
 
-	int amountToDelete = fileName.size()
-		// + 1 Because we dont need the //
-		+ 1;
+	newPath += this->m_ptr_attachedSprite->name + EXTENSION_PREFAB_FILE;
 
-	std::string fnPath = this->pathToFile;
-	fnPath.resize(fnPath.size() - amountToDelete);
-	const std::string path = s2d::EngineData::s_pathToUserProject + "\\" + fnPath;
-	s2d::flc::createOrUpdatePrefabFile(this->m_ptr_attachedSprite, path, oldName);
+	s2d::flc::createOrUpdatePrefabFile(this->m_ptr_attachedSprite, newPath, this->pathToOldFile);
+	this->updateProps(newPath, s2d::UI::getUserProjectPathSeperatetFromEnginePath(newPath), newPath, this->m_ptr_attachedSprite->name + EXTENSION_PREFAB_FILE);
+}
+
+void s2d::Prefab::updateProps(const std::string& enginePath, const std::string& userPath, const std::string& pathToOldFile, const std::string fileName)
+{
+	this->userPathToFile = userPath;
+	this->enginePathToFile = enginePath;
+	this->fileName = fileName;
+	this->pathToOldFile = pathToOldFile;
 }
 
