@@ -29,6 +29,11 @@ namespace std
 
 	static void removeFile(const std::string& path)
 	{
+		if (!std::filesystem::exists(path))
+		{
+			std::cout << "LOG [ERROR] There is no file!";
+			return;
+		}
 		std::filesystem::remove(path);
 	}
 

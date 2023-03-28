@@ -111,6 +111,20 @@ void s2d::Initializer::initSprites()
 
 			sprite->animator.exists = propertys[27] == "True";
 
+			sprite->prefab.exists = propertys[28] == "True";
+			if (sprite->prefab.exists)
+			{
+				sprite->prefab.fileName = "kekw.prfb";
+				sprite->prefab.loadInMemory = propertys[29] == "True";
+				sprite->prefab.enginePathToFile = propertys[30];
+				sprite->prefab.pathToOldFile = propertys[30]; // Same
+				sprite->prefab.userPathToFile = s2d::UI::getUserProjectPathSeperatetFromEnginePath(propertys[30]);
+			}
+			else
+			{
+				sprite->prefab.resetPrefab();
+			}
+
 			//Pushing the sprite
 			s2d::Sprite::s_sprites.push_back(sprite);
 

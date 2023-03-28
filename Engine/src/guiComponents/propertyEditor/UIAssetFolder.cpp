@@ -8,7 +8,7 @@ s2d::UIAssetFolder::UIAssetFolder()
 void s2d::UIAssetFolder::init()
 {
     this->m_ptr_rightClickedSprite = nullptr;
-    this->m_tools = s2d::UIAssetTools(&this->currentPath, &this->m_currentDeletePath);
+    this->m_tools = s2d::UIAssetTools(&this->currentPath);
 
     this->currentPath = s2d::EngineData::s_pathToUserProject + "\\assets";
     this->currentName = "Assets";
@@ -37,8 +37,8 @@ void s2d::UIAssetFolder::createAssetLinkerWindow()
 
     if (s2d::UIAssetFolder::dragAndDropPath != " ")
     {
-        ImVec2 cursor = ImGui::GetCursorPos();
-        ImVec2 pos = ImVec2(float(sf::Mouse::getPosition().x - 100), float(sf::Mouse::getPosition().y + 10));
+        const ImVec2 cursor = ImGui::GetCursorPos();
+        const ImVec2 pos = ImVec2(float(sf::Mouse::getPosition().x - 100), float(sf::Mouse::getPosition().y + 10));
 
         if (ImGui::Begin("##Drag", NULL, ImGuiWindowFlags_NoTitleBar))
         {
@@ -74,14 +74,11 @@ void s2d::UIAssetFolder::addPrefab()
     if (this->m_ptr_rightClickedSprite != nullptr && ImGui::IsMouseReleased(0) && this->isHovered)
     {
         const std::string pathToFile = this->currentPath + "\\" + this->m_ptr_rightClickedSprite->name + EXTENSION_PREFAB_FILE;
-        const std::string pathAndName =
-            s2d::flc::createOrUpdatePrefabFile(this->m_ptr_rightClickedSprite, pathToFile, this->m_ptr_rightClickedSprite->prefab.pathToOldFile);
-        const std::string userPath = s2d::UI::getUserProjectPathSeperatetFromEnginePath(pathAndName);
 
-        this->m_ptr_rightClickedSprite->prefab.exists = true;
         this->m_ptr_rightClickedSprite->prefab.updateProps(
-            pathAndName, userPath, pathAndName, this->m_ptr_rightClickedSprite->name + EXTENSION_PREFAB_FILE
+            pathToFile, s2d::UI::getUserProjectPathSeperatetFromEnginePath(pathToFile), pathToFile, this->m_ptr_rightClickedSprite->name + EXTENSION_PREFAB_FILE
         );
+        s2d::flc::createOrUpdatePrefabFile(this->m_ptr_rightClickedSprite, pathToFile, this->m_ptr_rightClickedSprite->prefab.pathToOldFile);
     }
 }
 
@@ -92,13 +89,13 @@ void s2d::UIAssetFolder::getAllFilesInDir(const char* path, const char* name)
     if (dir == NULL) {
         return;
     }
-    m_interacted = false;
+    this->m_interacted = false;
 
     while ((entry = readdir(dir)) != NULL)
     {
         const char* str = entry->d_name;
-        std::string std_name(str);
-        ImVec2 textSize = ImGui::CalcTextSize(str);
+        const std::string std_name(str);
+        const ImVec2 textSize = ImGui::CalcTextSize(str);
         float itemWidth = float(this->m_iconSize);
 
         //Checks if the string has only chars like ../../ ..
@@ -107,11 +104,11 @@ void s2d::UIAssetFolder::getAllFilesInDir(const char* path, const char* name)
             continue;
         }
 
-        std::string icon = std::getFileExtension(std_name);
-        std::string newPath = std::string(path) + "\\" + std_name;
-        std::string name = "##" + std::string(str);
-        ImTextureID id = this->m_data.getId(icon);
-        bool isFolder = (icon == "folder");
+        const std::string icon = std::getFileExtension(std_name);
+        const std::string newPath = std::string(path) + "\\" + std_name;
+        const std::string name = "##" + std::string(str);
+        const ImTextureID id = this->m_data.getId(icon);
+        const bool isFolder = (icon == "folder");
 
         if (ImGui::ImageButton(name.c_str(), id, ImVec2(float(this->m_iconSize), float(this->m_iconSize))))
         {
@@ -122,18 +119,6 @@ void s2d::UIAssetFolder::getAllFilesInDir(const char* path, const char* name)
                 this->currentName = str;
             }
         }
-
-        if (ImGui::IsItemHovered())
-        {
-            this->m_currentDeletePath = newPath;
-        }
-        if (!ImGui::IsAnyItemHovered() && !this->m_tools.isPopUpHovered())
-        {
-            this->m_currentDeletePath = "newPath" ;
-
-        }
-
-
         if (!isFolder)
             this->setDragAndDrop(newPath, str);
 
@@ -148,7 +133,7 @@ void s2d::UIAssetFolder::goBackToBeforeFolder()
 {
     auto split = [](const std::string& str, char delimiter)
     {
-        std::vector<std::string> tokens;
+            std::vector<std::string> tokens;
         std::string::size_type start = 0;
         std::string::size_type end = 0;
         while ((end = str.find_first_of(delimiter, start)) != std::string::npos) {

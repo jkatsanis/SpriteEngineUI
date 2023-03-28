@@ -5,19 +5,17 @@
 s2d::UIAssetTools::UIAssetTools()
 {
 	this->m_isPopUpHoverd = false;
-	this->m_ptr_deleteFilePath = nullptr;
 	this->m_ptr_currentAssetPath = nullptr;
 	this->m_classFileName[0] = '\0';
 	this->m_openFileInput = false;
 }
 
-s2d::UIAssetTools::UIAssetTools(const std::string* currentAssetPath, const std::string* deleteItem)
+s2d::UIAssetTools::UIAssetTools(const std::string* currentAssetPath)
 {
 	this->m_isPopUpHoverd = false;
 	this->m_classFileName[0] = '\0';
 	this->m_openFileInput = false;
 	this->m_ptr_currentAssetPath = currentAssetPath;
-	this->m_ptr_deleteFilePath = deleteItem;
 }
 
 // Public functions
@@ -52,7 +50,7 @@ void s2d::UIAssetTools::update(bool& hovered)
 		}
 		if (ImGui::Button("Delete"))
 		{
-			std::cout << *this->m_ptr_deleteFilePath << std::endl;
+		
 		}
 		ImGui::EndPopup();
 	}

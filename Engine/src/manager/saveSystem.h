@@ -35,11 +35,7 @@ namespace s2d
 		bool checkIfProjectExistInFile(std::string& ref);
 		void createAnimationSaveFile(const s2d::Sprite* ptr_sprite, const s2d::Animation& animationToSave);
 
-		/// <summary>
-		/// Creates a prefab file
-		/// </summary>
-		/// <returns>The location and the name of the prefab</returns>
-		std::string createOrUpdatePrefabFile(const s2d::Sprite* content, const std::string& pathToFile, const std::string& pathToOldFile);
+		void createOrUpdatePrefabFile(const s2d::Sprite* content, const std::string& pathToFile, const std::string& pathToOldFile);
 
 		/// <summary>
 		/// Checks if the absulute path exists in the 'knownProject' file
@@ -62,7 +58,6 @@ namespace s2d
 		/// <returns>A absulute path to the directory</returns>
 		std::string copyDir(const std::string& inputDir, const std::string& outputdir, const std::string& name);
 		void removeDir(const std::string& path);
-
 
 		/// <summary>
 		/// For folders = "\\folder\\

@@ -24,7 +24,7 @@ void s2d::flc::createSaveFile(std::vector<s2d::Sprite*>& sprites)
 
 	if (spriteFile.is_open()) 
 	{
-		spriteFile << "name;vecpos;transformPosX;transformPosY;ScaleX;ScaleY;filepath;boxColliderWidthLeftOrRightX;boxColliderWidthLeftOrRighY;boxColliderHeightUpOrDownX;boxColliderHeightUpOrDownY;boxColliderExists;solid;sortingLayer;gravity;mass;physicsBodyExists;id;parentId;nextPosX;nextPosY;lastPosX;lastPosY;listPos;highestChild;positionToParentX;positionToParentY;animatorExists" << "\n";
+		spriteFile << "name;vecpos;transformPosX;transformPosY;ScaleX;ScaleY;filepath;boxColliderWidthLeftOrRightX;boxColliderWidthLeftOrRighY;boxColliderHeightUpOrDownX;boxColliderHeightUpOrDownY;boxColliderExists;solid;sortingLayer;gravity;mass;physicsBodyExists;id;parentId;nextPosX;nextPosY;lastPosX;lastPosY;listPos;highestChild;positionToParentX;positionToParentY;animatorExists;prefabExist;loadInMemory;pathToPrefab;savePrefab" << "\n";
 		for (Sprite* spr : sprites)
 		{
 			std::string line = getPropertyLineWithSeperator(spr);
@@ -76,6 +76,10 @@ std::string s2d::flc::getPropertyLineWithSeperator(const Sprite* sprite)
 
 	std::string animatorExist = std::boolToStr(sprite->animator.exists);
 
+	std::string prefabExist = std::boolToStr(sprite->prefab.exists);
+	std::string loadInMemory = std::boolToStr(sprite->prefab.loadInMemory);
+	std::string pathToPrefab = sprite->prefab.enginePathToFile;
+
 	//Name, vec, transform path
 	line = sprite->name + ";" + vecpos + ";" + transformPosX + ";" + transformPosY + ";" + scaleX + ";" + scaleY + ";" + spritePath;
 
@@ -103,7 +107,11 @@ std::string s2d::flc::getPropertyLineWithSeperator(const Sprite* sprite)
 	//ANIMATIONS
 
 	line += ";" + animatorExist;
-	
+
+	// Prefab
+
+	line += ";" + prefabExist + ";" + loadInMemory + ";" + pathToPrefab ;
+ 	
 	return line;
 }
 
@@ -239,21 +247,20 @@ void s2d::flc::createAnimationSaveFile(const s2d::Sprite* ptr_sprite, const s2d:
 	std::createFileWithContent(content, pathAndName);
 }
 
-std::string s2d::flc::createOrUpdatePrefabFile(const s2d::Sprite* content, const std::string& pathToFile, const std::string& oldFilePath)
+void s2d::flc::createOrUpdatePrefabFile(const s2d::Sprite* content, const std::string& pathToFile, const std::string& oldFilePath)
 {
 	//Getting filelocation as: \\assets
 	std::string fileContent = "";
 
-	fileContent += getPropertyLineWithSeperator(content) + "\n";
-	fileContent += std::boolToStr(content->prefab.loadInMemory);
+	fileContent += "name;vecpos;transformPosX;transformPosY;ScaleX;ScaleY;filepath;boxColliderWidthLeftOrRightX;boxColliderWidthLeftOrRighY;boxColliderHeightUpOrDownX;boxColliderHeightUpOrDownY;boxColliderExists;solid;sortingLayer;gravity;mass;physicsBodyExists;id;parentId;nextPosX;nextPosY;lastPosX;lastPosY;listPos;highestChild;positionToParentX;positionToParentY;animatorExists;prefabExist;loadInMemory;pathToPrefab\n";
 
-	if (pathToFile != oldFilePath)
+	fileContent += getPropertyLineWithSeperator(content) + "\n";
+
+	if (pathToFile != oldFilePath && oldFilePath != "")
 	{
 		std::removeFile(oldFilePath);
 	}
 	std::createFileWithContent(fileContent, pathToFile);
-
-	return pathToFile;
 }
 
 void s2d::flc::createKnownAnimationFile()

@@ -26,8 +26,6 @@ namespace s2d
 		int m_iconSize;
 		int m_padding;
 
-		std::string m_currentDeletePath;
-
 		bool m_hoveredOverItem;
 		bool m_draggingItem;
 		bool m_interacted;

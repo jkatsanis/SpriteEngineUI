@@ -15,7 +15,6 @@ namespace s2d
 	{
 	private:	
 		const std::string* m_ptr_currentAssetPath;
-		const std::string* m_ptr_deleteFilePath;
 		char m_classFileName[CPP_FILE_NAME_SIZE];
 
 		void getFileName();
@@ -25,7 +24,7 @@ namespace s2d
 		bool m_openFileInput;
 	public:
 		UIAssetTools();
-		UIAssetTools(const std::string* currentAssetPath, const std::string* deleteItem);
+		UIAssetTools(const std::string* currentAssetPath);
 
 		void update(bool& hovered);
 		void includeInUserProject(const std::string& fileName);
