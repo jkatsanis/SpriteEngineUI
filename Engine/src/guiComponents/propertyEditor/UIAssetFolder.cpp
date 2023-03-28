@@ -49,9 +49,7 @@ void s2d::UIAssetFolder::createAssetLinkerWindow()
             ImGui::End();
         }
     }
-
 }
-
 
 //private functions
 

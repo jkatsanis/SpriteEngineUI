@@ -7,6 +7,36 @@
 
 namespace std
 {
+	static std::string getFileOnPath(const std::string& path)
+	{
+		std::string fileName = "";
+		for (size_t i = path.size() - 1; i >= 0; i--)
+		{
+			if (path[i] == '\\')
+			{
+				break;
+			}
+			fileName.push_back(path[i]);
+		}
+		reverse(fileName.begin(), fileName.end());
+
+		return fileName;
+	}
+
+	static std::string removeExtension(const std::string& file)
+	{
+		std::string newFileName = "";
+		for (int i = 0; i < file.size(); i++)
+		{
+			if (file[i] == '.')
+			{
+				break;
+			}
+			newFileName.push_back(file[i]);
+		}
+		return newFileName;
+	}
+
 	static std::string boolToStr(bool b)
 	{
 		return b ? "True" : "False";

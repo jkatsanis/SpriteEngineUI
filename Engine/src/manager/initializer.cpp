@@ -114,7 +114,7 @@ void s2d::Initializer::initSprites()
 			sprite->prefab.exists = propertys[28] == "True";
 			if (sprite->prefab.exists)
 			{
-				sprite->prefab.fileName = "kekw.prfb";
+				sprite->prefab.fileName = std::getFileOnPath(propertys[30]);
 				sprite->prefab.loadInMemory = propertys[29] == "True";
 				sprite->prefab.enginePathToFile = propertys[30];
 				sprite->prefab.pathToOldFile = propertys[30]; // Same
