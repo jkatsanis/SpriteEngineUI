@@ -1,6 +1,19 @@
 #include "UIToolButtons.h"
 
+// Constructor
+
 s2d::UIToolButtons::UIToolButtons()
+{
+	this->init();
+}
+
+s2d::UIToolButtons::UIToolButtons(s2d::SpriteRepository& spriteRepo)
+{
+	this->init();
+	this->m_spriteRepository = &spriteRepo;
+}
+
+void s2d::UIToolButtons::init()
 {
 	this->editorTools = s2d::EditorTools::PositionTool;
 	this->isHovered = false;
@@ -11,6 +24,8 @@ s2d::UIToolButtons::UIToolButtons()
 	this->m_tools[0].background = true;
 	this->m_clickedOnBtn = true;
 }
+
+// Public functions
 
 void s2d::UIToolButtons::createToolsAndButtons()
 {
@@ -36,6 +51,13 @@ void s2d::UIToolButtons::createToolsAndButtons()
 	ImGui::PopStyleVar();
 }
 
+void s2d::UIToolButtons::setBackgroundColorToSave(const s2d::Vector3& color)
+{
+	this->m_windowbBackgroundToSave = color;
+}
+
+// Private functions
+
 void s2d::UIToolButtons::buildProjectIntoFolder()
 {
 	ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 1100);
@@ -43,7 +65,7 @@ void s2d::UIToolButtons::buildProjectIntoFolder()
 	{
 		if (ImGui::MenuItem("Save", "CTRL + S"))
 		{
-			s2d::flc::saveEverything(this->m_windowbBackgroundToSave);
+			s2d::flc::saveEverything(this->m_windowbBackgroundToSave, *this->m_spriteRepository);
 		}	
 		if (ImGui::MenuItem("Build", "CTRL + B"))
 		{
@@ -59,7 +81,7 @@ void s2d::UIToolButtons::hotkeys()
 	if (s2d::Input::onKeyHold(s2d::KeyBoardCode::LControl)
 		&& s2d::Input::onKeyPress(s2d::KeyBoardCode::S))
 	{
-		s2d::flc::saveEverything(this->m_windowbBackgroundToSave);
+		s2d::flc::saveEverything(this->m_windowbBackgroundToSave, *this->m_spriteRepository);
 	}
 
 	if (s2d::Input::onKeyHold(s2d::KeyBoardCode::LControl)
@@ -71,7 +93,7 @@ void s2d::UIToolButtons::hotkeys()
 
 void s2d::UIToolButtons::build()
 {
-	s2d::flc::saveEverything(this->m_windowbBackgroundToSave);
+	s2d::flc::saveEverything(this->m_windowbBackgroundToSave, *this->m_spriteRepository);
 	const std::string PATH = s2d::EngineData::s_pathToUserProject + "\\" + s2d::EngineData::s_nameOfUserProject;
 	std::filesystem::path TARGET_PATH = s2d::EngineData::s_pathToUserProject + "\\" + s2d::EngineData::s_nameOfUserProject;
 	std::filesystem::path FILES_IN_FOLDER[FILE_AMOUNT] =
@@ -101,11 +123,6 @@ void s2d::UIToolButtons::build()
 	s2d::flc::copyDir(s2d::EngineData::s_pathToUserProject + "\\engine", PATH, "\\engine", { "\\src\\", ".cpp", ".h" } );
 }
 
-void s2d::UIToolButtons::setBackgroundColorToSave(const s2d::Vector3& color)
-{
-	this->m_windowbBackgroundToSave = color;
-}
-
 void s2d::UIToolButtons::askWithButtonForPlayGame()
 {
 	ImGui::SetCursorPosX(500);
@@ -113,7 +130,7 @@ void s2d::UIToolButtons::askWithButtonForPlayGame()
 
 	if (s2d::FontManager::displaySmybolAsButton(ICON_FA_PLAY) || s2d::Input::onKeyRelease(s2d::KeyBoardCode::F5))
 	{
-		s2d::flc::saveEverything(this->m_windowbBackgroundToSave);
+		s2d::flc::saveEverything(this->m_windowbBackgroundToSave, *this->m_spriteRepository);
 
 		wchar_t engineDirectory[MAX_PATH];
 		if (!GetCurrentDirectory(MAX_PATH, engineDirectory))

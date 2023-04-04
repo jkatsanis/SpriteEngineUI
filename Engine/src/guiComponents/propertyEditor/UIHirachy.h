@@ -10,13 +10,13 @@
 #include <manager/fontManager.h>
 #include <UIHirachySpriteDisplay.h>
 #include <UIHirachyMenuDisplayer.h>
+#include <manager/spriteRepository.h>
 
 namespace s2d
 {
 	class UIHirachy
 	{
 	private:
-
 		s2d::UIHirachyMenuDisplayer m_menuDisplayer;
 		s2d::UIHirachySpriteDisplayer m_spriteDisplayer;
 
@@ -32,6 +32,7 @@ namespace s2d
 		bool isHovered;
 
 		UIHirachy();
+		UIHirachy(s2d::SpriteRepository& repo);
 
 		void createHirachyWindow();
 

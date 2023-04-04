@@ -21,7 +21,7 @@ namespace s2d
 	public:
 		UIRealTimeEditorTransform();
 		UIRealTimeEditorTransform(s2d::InspectorState* ptr_Inspectorstate, bool* hovered,  
-			s2d::Event* windowEvent, const s2d::EditorTools* currentToool);
+			s2d::Event* windowEvent, const s2d::EditorTools* currentToool, s2d::SpriteRepository& repo);
 
 		void update();
 	};

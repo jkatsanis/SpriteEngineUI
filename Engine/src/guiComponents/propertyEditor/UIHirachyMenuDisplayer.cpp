@@ -12,9 +12,10 @@ s2d::UIHirachyMenuDisplayer::UIHirachyMenuDisplayer()
 	this->m_menuName = "menu";
 }
 
-s2d::UIHirachyMenuDisplayer::UIHirachyMenuDisplayer(s2d::UIHirachySpriteDisplayer* displayer)
+s2d::UIHirachyMenuDisplayer::UIHirachyMenuDisplayer(s2d::UIHirachySpriteDisplayer* displayer, s2d::SpriteRepository& repo)
 	: m_spriteDisplayer(displayer)
 {
+	this->m_spriteRepository = &repo;
 	this->isPopUpOpen = false;
 	this->m_menuName = "menu";
 }
@@ -57,27 +58,29 @@ void s2d::UIHirachyMenuDisplayer::renderMenuPopup()
 
 void s2d::UIHirachyMenuDisplayer::deleteChildsRecursivly(s2d::Sprite* toDelete)
 {
-	for (s2d::Sprite* child : toDelete->childs)
-	{
-		//Erasing it from the vector - deletet sprites because if we delete 1 sprite our list already pops back so we need to move 1 to
-		s2d::Sprite::s_sprites.erase(s2d::Sprite::s_sprites.begin() + child->getVectorPosition() - 1);
 
-		for (s2d::Sprite* spr : s2d::Sprite::s_sprites)
-		{
-			//Decrement the vector position so we dont have to rememer the deletet sprites
-			if (spr->getVectorPosition() > child->getVectorPosition())
-				spr->setVectorPosition(spr->getVectorPosition() - 1);
-		}
+	// TODO
+	//for (s2d::Sprite* child : toDelete->childs)
+	//{
+	//	//Erasing it from the vector - deletet sprites because if we delete 1 sprite our list already pops back so we need to move 1 to
+	//	s2d::Sprite::s_sprites.erase(s2d::Sprite::s_sprites.begin() + child->getVectorPosition() - 1);
 
-		if (child->childs.size() > 0)
-		{
-			this->deleteChildsRecursivly(child);
-		}
-		delete child;
-	}
+	//	for (s2d::Sprite* spr : s2d::Sprite::s_sprites)
+	//	{
+	//		//Decrement the vector position so we dont have to rememer the deletet sprites
+	//		if (spr->getVectorPosition() > child->getVectorPosition())
+	//			spr->setVectorPosition(spr->getVectorPosition() - 1);
+	//	}
 
-	//Clearing the childs since the whole parent gets deletet
-	toDelete->childs.clear();
+	//	if (child->childs.size() > 0)
+	//	{
+	//		this->deleteChildsRecursivly(child);
+	//	}
+	//	delete child;
+	//}
+
+	////Clearing the childs since the whole parent gets deletet
+	//toDelete->childs.clear();
 }
 
 void s2d::UIHirachyMenuDisplayer::createButton()
@@ -90,13 +93,13 @@ void s2d::UIHirachyMenuDisplayer::createButton()
 		{
 			//Adding a new sprite to the hirachy + game scene	
 
-			int vectorPos = int(s2d::Sprite::s_sprites.size()) + 1;
+			int vectorPos = this->m_spriteRepository->amount() + 1;
+			
 			std::string name = "Sprite " + std::to_string(vectorPos) + " ID " + std::to_string(s2d::SpriteData::highestSpriteID + 1);
 
 			s2d::Sprite* sprite = new s2d::Sprite(name, s2d::Vector2(0, 0), s2d::SpriteData::defaultSpritePath);
-
-			// or true in the contrusctor
-			sprite->addSpriteToScene();
+	
+			this->m_spriteRepository->add(sprite);
 		}
 		ImGui::EndMenu();
 	}
@@ -108,38 +111,39 @@ void s2d::UIHirachyMenuDisplayer::deleteButton()
 {
 	if (ImGui::Button("Delete") && this->m_spriteDisplayer->rightClickedSprite != nullptr)
 	{
-		//Erasing sprites from the list ( when deleting a child)
-		s2d::Sprite* parent = s2d::Sprite::getSpriteById(this->m_spriteDisplayer->rightClickedSprite->getParentId());
-		if (parent != nullptr)
-		{
-			for (s2d::Sprite* child : parent->childs)
-			{
-				if (child->getId() == this->m_spriteDisplayer->rightClickedSprite->getId())
-				{
-					//Erasing the child when deleting a child in a parent
-					parent->childs.erase(parent->childs.begin() + child->getChildListPosition() - 1);
-				}
-			}
-		}
+		// TODO
+		////Erasing sprites from the list ( when deleting a child)
+		//s2d::Sprite* parent = s2d::Sprite::getSpriteById(this->m_spriteDisplayer->rightClickedSprite->getParentId());
+		//if (parent != nullptr)
+		//{
+		//	for (s2d::Sprite* child : parent->childs)
+		//	{
+		//		if (child->getId() == this->m_spriteDisplayer->rightClickedSprite->getId())
+		//		{
+		//			//Erasing the child when deleting a child in a parent
+		//			parent->childs.erase(parent->childs.begin() + child->getChildListPosition() - 1);
+		//		}
+		//	}
+		//}
 
-		//Deleting the sprite(s) & chílds
-		//Deleting childs from HY scene + freeing them
-		this->deleteChildsRecursivly(this->m_spriteDisplayer->rightClickedSprite);
+		////Deleting the sprite(s) & chílds
+		////Deleting childs from HY scene + freeing them
+		//this->deleteChildsRecursivly(this->m_spriteDisplayer->rightClickedSprite);
 
-		//deleting the deletet sprite + freeing it
-		s2d::Sprite::s_sprites.erase((s2d::Sprite::s_sprites.begin() + this->m_spriteDisplayer->rightClickedSprite->getVectorPosition() - 1));
+		////deleting the deletet sprite + freeing it
+		//s2d::Sprite::s_sprites.erase((s2d::Sprite::s_sprites.begin() + this->m_spriteDisplayer->rightClickedSprite->getVectorPosition() - 1));
 
-		for (s2d::Sprite* greater : s2d::Sprite::s_sprites)
-		{
-			if (greater->getVectorPosition() > this->m_spriteDisplayer->rightClickedSprite->getVectorPosition())
-			{
-				greater->setVectorPosition(greater->getVectorPosition() - 1);
-			}
-		}
+		//for (s2d::Sprite* greater : s2d::Sprite::s_sprites)
+		//{
+		//	if (greater->getVectorPosition() > this->m_spriteDisplayer->rightClickedSprite->getVectorPosition())
+		//	{
+		//		greater->setVectorPosition(greater->getVectorPosition() - 1);
+		//	}
+		//}
 
-		delete this->m_spriteDisplayer->rightClickedSprite;
-		this->m_spriteDisplayer->rightClickedSprite = nullptr;
-		s2d::UIHirachy::s_selectedSprite = nullptr;
+		//delete this->m_spriteDisplayer->rightClickedSprite;
+		//this->m_spriteDisplayer->rightClickedSprite = nullptr;
+		//s2d::UIHirachy::s_selectedSprite = nullptr;
 	}
 }
 

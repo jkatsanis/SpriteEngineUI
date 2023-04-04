@@ -13,7 +13,8 @@ s2d::UIRealTimeEditorTransformPosition::UIRealTimeEditorTransformPosition()
     this->m_clickedSpriteId = -1;
 }
 
-s2d::UIRealTimeEditorTransformPosition::UIRealTimeEditorTransformPosition(s2d::InspectorState* ptr_Inspectorstate, bool* isAnyUIWindowHovered, s2d::Event* windowEvent)
+s2d::UIRealTimeEditorTransformPosition::UIRealTimeEditorTransformPosition(s2d::InspectorState* ptr_Inspectorstate, bool* isAnyUIWindowHovered, 
+    s2d::Event* windowEvent, s2d::SpriteRepository& repo)
 {
     this->m_windowEvent = windowEvent;
     this->m_isAnyUIWindowHovered = isAnyUIWindowHovered;
@@ -21,6 +22,8 @@ s2d::UIRealTimeEditorTransformPosition::UIRealTimeEditorTransformPosition(s2d::I
     this->m_clickedSprite = nullptr;
     this->m_realeasedCursorOnSprite = false;
     this->m_clickedSpriteId = -1;
+
+    this->m_spriteRepository = &repo;
 }
 
 // Public functions
@@ -79,14 +82,14 @@ void s2d::UIRealTimeEditorTransformPosition::moveComponent()
 
 // Check if clicked on a sprite
 
-bool s2d::UIRealTimeEditorTransformPosition::checkClick(s2d::Sprite& sprite)
+bool s2d::UIRealTimeEditorTransformPosition::checkClick(s2d::Sprite* const sprite)
 {
-    bool collied = s2d::UI::isCursorClickedOnSprite(&sprite);
+    bool collied = s2d::UI::isCursorClickedOnSprite(sprite);
 
 
     if (collied && this->m_windowEvent->type == s2d::Event::Type::MousePressedLeft)
     {
-        this->m_clickedSpriteId = sprite.getId();
+        this->m_clickedSpriteId = sprite->getId();
 
         this->m_realeasedCursorOnSprite = true;
         return true;
@@ -107,19 +110,20 @@ s2d::Sprite* s2d::UIRealTimeEditorTransformPosition::checkIfMouseClickedOnSprite
     int ve = -1;
     std::vector<s2d::Sprite*> spr;
 
-    for (int i = 0; i < s2d::Sprite::s_sprites.size(); i++)
+    for (int i = 0; i < this->m_spriteRepository->amount(); i++)
     {
+        s2d::Sprite* const sprite = this->m_spriteRepository->readAt(i);
         // Checking if we have the same ID. If we wouldnt do that check it could just return
         // The next sprite in the list which would be wrong
         if (this->m_realeasedCursorOnSprite && sf::Mouse::isButtonPressed(sf::Mouse::Left) 
-            && s2d::Sprite::s_sprites[i]->getId() == this->m_clickedSpriteId)
+            && sprite->getId() == this->m_clickedSpriteId)
         {
-            return s2d::Sprite::s_sprites[i];
+            return sprite;
         }
 
-        if (checkClick(*s2d::Sprite::s_sprites[i]))
+        if (checkClick(sprite))
         {
-            spr.push_back(s2d::Sprite::s_sprites[i]);
+            spr.push_back(sprite);
         }
     }
 
@@ -136,10 +140,11 @@ s2d::Sprite* s2d::UIRealTimeEditorTransformPosition::checkIfMouseClickedOnSprite
 
     if (highest != -1)
     {
-        this->m_clickedSprite = s2d::Sprite::s_sprites[ve - 1];
+        this->m_clickedSprite = this->m_spriteRepository->readAt(ve - 1);
         s2d::UIHirachy::s_selectedSprite = this->m_clickedSprite;
         return this->m_clickedSprite;
     }
 
     return nullptr;
 }
+

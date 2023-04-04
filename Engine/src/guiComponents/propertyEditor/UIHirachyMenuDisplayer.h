@@ -1,5 +1,6 @@
 #pragma once
 
+#include <manager/spriteRepository.h>
 #include <physicalComponents/sprite.h>
 #include <ImGui.h>
 
@@ -12,6 +13,7 @@ namespace s2d
 	private:
 		const char* m_menuName;
 	    UIHirachySpriteDisplayer* m_spriteDisplayer;
+		s2d::SpriteRepository* m_spriteRepository;
 
 		/// <summary>
 		/// This method checks if a 'ImGui::Popup' is open. It will then call the 'createButton' and 'deleteButton' method.
@@ -35,7 +37,7 @@ namespace s2d
 		bool isPopUpOpen;
 
 		UIHirachyMenuDisplayer();
-		UIHirachyMenuDisplayer(UIHirachySpriteDisplayer* spriteDisplayer);
+		UIHirachyMenuDisplayer(UIHirachySpriteDisplayer* spriteDisplayer, s2d::SpriteRepository& repository);
 
 		/// <summary>
 		/// This method checks any mouse inputs which can either close or open a popup. It will also call the 'renderMenuPopup'

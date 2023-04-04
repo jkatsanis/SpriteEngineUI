@@ -4,7 +4,6 @@
 
 s2d::UIWindow::UIWindow()
 {
-	//Default SFML WINDOW background color
 	this->areAnyUIWindowsHovered = false;
 }
 
@@ -74,5 +73,13 @@ void s2d::UIWindow::update()
 	{
 		this->areAnyUIWindowsHovered = false;
 	}
+}
+
+void s2d::UIWindow::init(s2d::SpriteRepository& repo)
+{
+	this->areAnyUIWindowsHovered = false;
+	this->m_UIHirachy = s2d::UIHirachy(repo);
+	this->m_UIInspector = s2d::UIInspector(repo);
+	this->m_UIToolButtons = s2d::UIToolButtons(repo);
 }
 

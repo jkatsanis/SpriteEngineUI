@@ -2,13 +2,16 @@
 
 #include <ImGui.h>
 #include <physicalComponents/sprite.h>
+#include <manager/spriteRepository.h>
 
 namespace s2d
 {
+	class UIAssetFolder;
 	class UIHirachy;
 	class UIHirachySpriteDisplayer
 	{
 	private:
+		s2d::SpriteRepository* m_spriteRepository;
 		ImVec4 m_spriteSelectedColor;
 
 		/// <summary>
@@ -17,21 +20,21 @@ namespace s2d
 		/// -> Gets called in 'addSpritesToHirachy'
 		/// </summary>
 		/// <param name="sprite"></param>
-		void displayChildsRecursivly(s2d::Sprite* sprite);
+		void displayChildsRecursivly(s2d::Sprite* const sprite);
 
 		/// <summary>
 		/// This method handles the sprite in the Hirachy when its a parent. It will also search for a sprite in the Hirachy
 		/// (Iterate recursivly over it) and open trees to see it highligted.
 		/// -> gets called from 'displayChildsRecursivly'
 		/// </summary>
-		void displayTreeNode(s2d::Sprite* sprite, bool& popStyle);
+		void displayTreeNode(s2d::Sprite* const sprite, bool& popStyle);
 
 
 		/// <summary>
 		/// This method handles the sprite in the Hirachy when it doesnt have any childs. It will act the same as the the parent tho.
 		/// -> gets called from 'displayChildsRecursivly'
 		/// </summary>
-		void displayMenuItem(s2d::Sprite* sprite, bool popStyle);
+		void displayMenuItem(s2d::Sprite* const sprite, bool popStyle);
 
 		/// <summary>
 		/// This method handles the click events of 'displayMenuItem' and 'displayTreeNode'. It will check if the cursor got released on a (item) and then will set a 
@@ -39,14 +42,17 @@ namespace s2d
 		/// -> gets called in 'displayMenuItem' and 'displayTreeNode'
 		/// </summary>
 		///<param name="sprite"> The sprite which will have the child 'm_childSelectedToParent' </param>
-		void childSystem(s2d::Sprite* sprite, bool isHeader);
+		void childSystem(s2d::Sprite* const sprite, bool isHeader);
 
+		void init();
+		void addPrefab();
 	public:
 
 		s2d::Sprite* childSelectedToParent;
 		s2d::Sprite* rightClickedSprite;
 
 		UIHirachySpriteDisplayer();
+		UIHirachySpriteDisplayer(s2d::SpriteRepository& repository);
 
 		/// <summary>
 		/// This method iterates over all sprites WHICH ARE PARENTS and it will call the 'displayChildsRecursivly' function. It second job is to 

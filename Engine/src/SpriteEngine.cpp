@@ -10,6 +10,7 @@ int main()
         selector.update();  
     }
 
+
     // search where the error happens when u selet a invalid project
     if (s2d::EngineData::s_pathToUserProject == "")
     {

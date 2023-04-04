@@ -1,24 +1,29 @@
 #include "UIHirachySpriteDisplay.h"
 #include <UIHirachy.h>
+#include <UIAssetFolder.h>
 
 // Constructor
 
 s2d::UIHirachySpriteDisplayer::UIHirachySpriteDisplayer()
 {
-	this->m_spriteSelectedColor = ImVec4(139.0f / 255.0f,
-		180.0f / 255.0f,
-		234.0f / 255.0f,
-		1.0f);
-	this->childSelectedToParent = nullptr;
-	this->rightClickedSprite = nullptr;
+	init();
+}
+
+s2d::UIHirachySpriteDisplayer::UIHirachySpriteDisplayer(s2d::SpriteRepository& repository)
+{
+	init();
+	this->m_spriteRepository = &repository;
 }
 
 // Public method
 
 void s2d::UIHirachySpriteDisplayer::addSpritesToHirachy()
 {
-	for (s2d::Sprite* sprite : s2d::Sprite::s_sprites)
+	this->addPrefab();
+
+	for (size_t i = 0; i < this->m_spriteRepository->amount(); i++)
 	{
+		s2d::Sprite* const sprite = this->m_spriteRepository->readAt(i);
 		if (sprite->parent != nullptr)
 		{
 			continue;
@@ -54,8 +59,6 @@ void s2d::UIHirachySpriteDisplayer::displayWindowWhenChildIsGettingDragged()
 		{
 			ImGui::SetWindowPos(pos);
 			ImGui::SetWindowFontScale(s2d::UIInfo::sdefaultFontSize);
-
-
 			ImGui::Text(this->childSelectedToParent->name.c_str());
 			ImGui::End();
 		}
@@ -64,7 +67,7 @@ void s2d::UIHirachySpriteDisplayer::displayWindowWhenChildIsGettingDragged()
 
 // Private methods
 
-void s2d::UIHirachySpriteDisplayer::childSystem(s2d::Sprite* sprite, bool isHEader)
+void s2d::UIHirachySpriteDisplayer::childSystem(s2d::Sprite* const sprite, bool isHEader)
 {
 	//Setting child sprite (drag and drop)
 	if (this->childSelectedToParent == nullptr)
@@ -83,10 +86,13 @@ void s2d::UIHirachySpriteDisplayer::childSystem(s2d::Sprite* sprite, bool isHEad
 			return;
 		}
 
-		for (s2d::Sprite* parent : s2d::Sprite::s_sprites)
+
+		for (size_t i = 0; i < this->m_spriteRepository->amount(); i++)
 		{
-			for (s2d::Sprite* child : parent->childs)
+			s2d::Sprite* const parent = this->m_spriteRepository->readAt(i);
+			for (size_t i = 0; i < parent->childs.size(); i++)
 			{
+				s2d::Sprite* const child = *parent->childs[i].get();
 				if (child->getId() == this->childSelectedToParent->getId())
 				{
 					//When dragging a new sprite as child we need to remove the child from the current sprite 
@@ -95,6 +101,51 @@ void s2d::UIHirachySpriteDisplayer::childSystem(s2d::Sprite* sprite, bool isHEad
 			}
 		}
 		this->childSelectedToParent->setParent(sprite);
+	}
+}
+
+void s2d::UIHirachySpriteDisplayer::init()
+{
+	this->m_spriteSelectedColor = ImVec4(139.0f / 255.0f,
+		180.0f / 255.0f,
+		234.0f / 255.0f,
+		1.0f);
+	this->childSelectedToParent = nullptr;
+	this->rightClickedSprite = nullptr;
+	this->m_spriteRepository = nullptr;
+}
+
+void s2d::UIHirachySpriteDisplayer::addPrefab()
+{
+	const std::string path = s2d::UIAssetFolder::dragAndDropPath;
+	if (ImGui::IsMouseReleased(0) && path != "")
+	{
+		
+		std::string line;
+		std::ifstream prefabFileStream(path);
+		if (prefabFileStream.is_open())
+		{
+			short cnt = 0;
+			while (getline(prefabFileStream, line))
+			{
+				if (cnt < 1)
+				{
+					cnt++;
+					continue;
+				}
+
+				s2d::Sprite* sprite = new s2d::Sprite();
+				s2d::Initializer::initSprite(line, sprite);
+
+				sprite->prefab.updateProps(
+					path, s2d::UI::getUserProjectPathSeperatetFromEnginePath(path), path, std::getFileOnPath(path)
+				);
+				sprite->setId(s2d::Sprite::s_highestLayerIndex++);
+				sprite->addSpriteToScene();
+			}
+			prefabFileStream.close();
+		}
+		
 	}
 }
 
@@ -171,9 +222,10 @@ void s2d::UIHirachySpriteDisplayer::displayTreeNode(s2d::Sprite* sprite, bool& p
 
 		this->childSystem(sprite, false);
 
-		for (s2d::Sprite* child : sprite->childs)
+		for (size_t i = 0; i < this->m_spriteRepository->amount(); i++)
 		{
-			displayChildsRecursivly(child);
+			s2d::Sprite* const sprite = this->m_spriteRepository->readAt(i);
+			this->displayChildsRecursivly(sprite);
 		}
 		ImGui::TreePop();
 	}

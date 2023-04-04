@@ -13,6 +13,7 @@
 #include <spriteComponents/animator.h>
 #include <data/engineData.h>
 #include <spriteComponents/prefab.h>
+#include <manager/spriteRepository.h>
 
 #define INVALID_SPRITE_SYMBOLS 1
 
@@ -21,6 +22,8 @@ namespace s2d
 	class Sprite
 	{
 	private:
+		static s2d::SpriteRepository* s_spriteRepository;
+
 		sf::Sprite m_sprite;
 		sf::Texture m_texture;
 		int m_vectorPosition;
@@ -50,12 +53,25 @@ namespace s2d
 		s2d::Prefab prefab;
 
 		//Parent / child infos
-		std::vector<s2d::Sprite*> childs;
+		std::vector<std::unique_ptr<s2d::Sprite*>> childs;
 		s2d::Sprite* parent;
 
 		Sprite();
 		Sprite(std::string name, s2d::Vector2 spawnPosition, std::string path);
 		Sprite(std::string name, s2d::Vector2 spawnPosition, std::string path, bool addToWindowByConstruction);
+		~Sprite();
+
+
+		/// <summary>
+		/// Deletes all the childs of the sprite
+		/// </summary>
+		void deleteAllChilds();
+
+		/// <summary>
+		/// Deletes a sprite at the specified position
+		/// </summary>
+		/// <param name="idx">The idx of the child vector</param>
+		void deleteChildAt(uint8_t idx);
 
 		/// <summary>
 		/// Rests the parent data
@@ -108,11 +124,8 @@ namespace s2d
 		static int getMaxNumber(std::vector<s2d::Sprite*>& vec);
 		static void updateHightestLayerIndex();
 		static s2d::Sprite* getSpriteById(int id);
-
-		static int highestLayerIndex;
-
-		//Pointers getting deletet in gameWindow.cpp ~
-		static std::vector<s2d::Sprite*> s_sprites;
+		static void setSpriteRepository(s2d::SpriteRepository& repo) { s2d::Sprite::s_spriteRepository = &repo; }
+		static int s_highestLayerIndex;
 	};
 }
 

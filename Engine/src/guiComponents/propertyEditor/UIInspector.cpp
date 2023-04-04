@@ -2,17 +2,13 @@
 
 s2d::UIInspector::UIInspector()
 {
-	this->m_spriteInputWidth = 200.0f;
-	this->m_windowSizeWidth = 390.0f;
+	this->init();
+}
 
-	this->m_currentSpriteInInspector = nullptr;
-	this->m_menuName = "menu";
-	s2d::GameObject::rects.push_back(m_rectangle);
-	s2d::GameObject::rects.push_back(this->m_boxCollider);
-
-	this->m_defaultBackgroundColor = s2d::Vector3(139, 165, 187);
-	this->state = s2d::InspectorState::None;
-	this->m_textureOverSprite.loadFromFile(PATH_TO_RESSOURCS"/Sprites/transparent.png");
+s2d::UIInspector::UIInspector(s2d::SpriteRepository& spriteRepository)
+{
+	this->init();
+	this->m_spriteRepository = &spriteRepository;
 }
 
 //Private functions
@@ -67,14 +63,30 @@ void s2d::UIInspector::render()
 
 void s2d::UIInspector::checkDupeName()
 {
-	for (s2d::Sprite* spr : s2d::Sprite::s_sprites)
+	for (int i = 0; i < this->m_spriteRepository->amount(); i++)
 	{
-		if (this->m_currentSpriteInInspector->name == spr->name && this->m_currentSpriteInInspector->getId() != spr->getId())
+		s2d::Sprite* const sprite = this->m_spriteRepository->readAt(i);
+		if (this->m_currentSpriteInInspector->name == sprite->name && this->m_currentSpriteInInspector->getId() != sprite->getId())
 		{
 			this->m_currentSpriteInInspector->name = "<no dupe (" + std::to_string(SpriteData::dupeNameCounter) += ")>";
 			SpriteData::dupeNameCounter++;
 		}
 	}
+}
+
+void s2d::UIInspector::init()
+{
+	this->m_spriteInputWidth = 200.0f;
+	this->m_windowSizeWidth = 390.0f;
+
+	this->m_currentSpriteInInspector = nullptr;
+	this->m_menuName = "menu";
+	s2d::GameObject::rects.push_back(m_rectangle);
+	s2d::GameObject::rects.push_back(this->m_boxCollider);
+
+	this->m_defaultBackgroundColor = s2d::Vector3(139, 165, 187);
+	this->state = s2d::InspectorState::None;
+	this->m_textureOverSprite.loadFromFile(PATH_TO_RESSOURCS"/Sprites/transparent.png");
 }
 
 #pragma region  defaultInspectorView

@@ -4,20 +4,21 @@
 
 s2d::GameEngine::GameEngine()
 {
+    this->m_UIWindow.init(this->m_spriteRepository);
     this->m_close = false;
     this->ptr_renderWindow = new sf::RenderWindow(sf::VideoMode(1920, 1080), "SpriteEngine", sf::Style::Default);
     this->windowEvent.type = sf::Event::GainedFocus;
-    this->m_renderer = s2d::Renderer(this->ptr_renderWindow, &this->m_UIWindow.getInspector().backgroundColor);
+    this->m_renderer = s2d::Renderer(this->ptr_renderWindow, &this->m_UIWindow.getInspector().backgroundColor, this->m_spriteRepository);
 
     auto desktop = sf::VideoMode::getDesktopMode();
     this->ptr_renderWindow->setPosition(sf::Vector2i(desktop.width / 2 - this->ptr_renderWindow->getSize().x / 2, 0));
     this->m_isWindowFullScreen = false;
 
-    this->m_UIRealTimeEditor = s2d::UIRealTimeEditor(*ptr_renderWindow, &this->windowEvent, &this->m_UIWindow.areAnyUIWindowsHovered, 
-        &this->m_UIWindow.getInspector().state, &this->event, &this->m_UIWindow.getTools().editorTools);
-
+    this->m_UIRealTimeEditor = s2d::UIRealTimeEditor(*ptr_renderWindow, &this->windowEvent, &this->m_UIWindow.areAnyUIWindowsHovered,
+        &this->m_UIWindow.getInspector().state, &this->event, &this->m_UIWindow.getTools().editorTools, this->m_spriteRepository);
+    
     //Setting other classes
-    s2d::Initializer::initSprites();
+    s2d::Initializer::initSprites(this->m_spriteRepository);
     s2d::Initializer::initAnimations();
     s2d::Initializer::initBackground(this->m_UIWindow.getInspector().backgroundColor);
     s2d::Input::setEvent(&this->event);
@@ -33,11 +34,6 @@ s2d::GameEngine::GameEngine()
 
 s2d::GameEngine::~GameEngine()
 {
-    for (s2d::Sprite* sprite : s2d::Sprite::s_sprites)
-    {
-        delete sprite;
-    }
-
     delete this->ptr_renderWindow;
 
     ImGui::SFML::Shutdown();
@@ -47,12 +43,13 @@ s2d::GameEngine::~GameEngine()
 
 void s2d::GameEngine::pollEngineEvents()
 {
-    for (s2d::Sprite* ptr_sprite : s2d::Sprite::s_sprites)
+    for (int i = 0; i < this->m_spriteRepository.amount(); i++)
     {
-        if (ptr_sprite->transform.position != ptr_sprite->transform.nextPos)
+        s2d::Sprite* const sprite = this->m_spriteRepository.readAt(i);
+        if (sprite->transform.position != sprite->transform.nextPos)
         {
             //Fire on pos event
-            Transform::onPositionChange(ptr_sprite);
+            Transform::onPositionChange(sprite);
         }
     }
 }
@@ -80,7 +77,7 @@ void s2d::GameEngine::pollEvents()
                 event.type = s2d::Event::KeyPressed;
             }
             else if (this->windowEvent.type == sf::Event::MouseButtonPressed)
-            {      
+            {
                 if (this->windowEvent.mouseButton.button == sf::Mouse::Left)
                 {
                     event.type = s2d::Event::MousePressedLeft;
@@ -136,13 +133,13 @@ void s2d::GameEngine::saveDialoge()
 
     if (this->m_close)
     {
-        if (ImGui::Begin("Close", NULL, 
+        if (ImGui::Begin("Close", NULL,
             ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoTitleBar))
-        {     
+        {
             const ImVec2 CURSOR_POS = ImGui::GetCursorPos();
             if (ImGui::Button("Save"))
             {
-                s2d::flc::saveEverything(this->m_UIWindow.getInspector().backgroundColor);
+                s2d::flc::saveEverything(this->m_UIWindow.getInspector().backgroundColor, this->m_spriteRepository);
                 this->ptr_renderWindow->close();
             }
             ImGui::SameLine();
@@ -173,20 +170,16 @@ void s2d::GameEngine::update()
     this->pollEvents();
 
     //UIWindow (Engine)
-    ImGui::PushFont(s2d::FontManager::defaultFont);
-    this->m_UIWindow.update();
-    this->m_UIRealTimeEditor.update();
-    this->saveDialoge();
-    ImGui::PopFont();
 
-    s2d::Animation::updateAllAnimations();
+
+   // s2d::Animation::updateAllAnimations(this->m_spriteRepository);
 
     //Engine event
-    this->pollEngineEvents();
+   // this->pollEngineEvents();
 
     this->m_renderer.render();
 
     //Other classes
-    s2d::Time::update();
+   // s2d::Time::update();
 
 }

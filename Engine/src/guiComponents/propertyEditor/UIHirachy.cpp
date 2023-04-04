@@ -6,9 +6,15 @@
 s2d::UIHirachy::UIHirachy()
 {
 	this->isHovered = false;
-	this->m_menuDisplayer = s2d::UIHirachyMenuDisplayer(&this->m_spriteDisplayer);
+	this->m_menuDisplayer = s2d::UIHirachyMenuDisplayer();
 }
-									
+
+s2d::UIHirachy::UIHirachy(s2d::SpriteRepository& repo)
+{
+	this->isHovered = false;
+	this->m_menuDisplayer = s2d::UIHirachyMenuDisplayer(&this->m_spriteDisplayer, repo);
+	this->m_spriteDisplayer = s2d::UIHirachySpriteDisplayer(repo);
+}									
 
 //Public functions
 

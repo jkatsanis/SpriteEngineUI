@@ -1,8 +1,6 @@
  #include "sprite.h"
 
-//Constructor
-
-
+//Constructor / Destructor
 
 s2d::Sprite::Sprite() { this->name = "Unknown"; this->transform.position = Vector2(0, 0); }
 
@@ -19,7 +17,22 @@ s2d::Sprite::Sprite(std::string name, s2d::Vector2 spawnPosition, std::string pa
 		this->addSpriteToScene();
 }
 
+s2d::Sprite::~Sprite()
+{
+	this->deleteAllChilds();
+}
+
 //Public functions
+
+void s2d::Sprite::deleteAllChilds()
+{
+	this->childs.clear();
+}
+
+void s2d::Sprite::deleteChildAt(uint8_t idx)
+{
+	this->childs.erase(this->childs.begin() + idx);
+}
 
 void s2d::Sprite::resetChildData()
 {
@@ -67,25 +80,27 @@ void s2d::Sprite::setParent(s2d::Sprite* parent)
 
 	s2d::Transform::onPositionChange(this);
 
-	parent->childs.push_back(this);
+	parent->childs.push_back(std::make_unique<s2d::Sprite*>(this));
 }
 
 void s2d::Sprite::addSpriteToScene()
 {
-	this->m_vectorPosition = int(s2d::Sprite::s_sprites.size() + 1);
-	s2d::Sprite::s_sprites.push_back(this);
+	//this->m_sprite
+	//s2d::Sprite::s_sprites.push_back(this);
 }
 
 bool s2d::Sprite::containsChild(const s2d::Sprite* child) const
 {
 	bool contains = false;
-	for (s2d::Sprite* c : this->childs)
+	
+	for (int i = 0; i < this->childs.size(); i++)
 	{
-		if (c->m_id == child->getId())
+		const s2d::Sprite* spr = *this->childs[i].get();
+		if (child->m_id == spr->getId())
 		{
 			return true;
 		}
-		contains = c->containsChild(child);
+		contains = spr->containsChild(child);
 	}
 	return contains;
 }
@@ -115,7 +130,7 @@ void s2d::Sprite::initVariables(std::string& name, s2d::Vector2& spawnPos, std::
 	this->setId(s2d::SpriteData::highestSpriteID);
 
 	this->parent = nullptr;
-	this->childs = std::vector<s2d::Sprite*>(0);
+	this->childs = std::vector<std::unique_ptr<s2d::Sprite*>>(0);
 
 	this->name = name;
 	this->path = path;
@@ -149,9 +164,10 @@ void s2d::Sprite::validateProperties(std::string& name, s2d::Vector2& spawnPos, 
 {
 	const char CHAR_INVALID_SYMBOLS[INVALID_SPRITE_SYMBOLS] = { ';' };
 	// VALIDATE NAME
-	for (int i = 0; i < s2d::Sprite::s_sprites.size(); i++)
+	for (int i = 0; i < s2d::Sprite::s_spriteRepository->amount(); i++)
 	{
-		if (name == s2d::Sprite::s_sprites[i]->name)
+		s2d::Sprite* const sprite = s2d::Sprite::s_spriteRepository->readAt(i);
+		if (name == sprite->name)
 		{
 			name = name + " (dupe) " + std::to_string(i);
 			std::cout << "LOG [ERROR] Cant have duped name renamed sprite!";
@@ -191,17 +207,19 @@ int s2d::Sprite::getMaxNumber(std::vector<s2d::Sprite*>& vec)
 
 void s2d::Sprite::updateHightestLayerIndex()
 {
-	for (const s2d::Sprite* sprite : s2d::Sprite::s_sprites)
+	for (int i = 0; i < s2d::Sprite::s_spriteRepository->amount(); i++)
 	{
-		if (sprite->sortingLayerIndex > highestLayerIndex)
-			highestLayerIndex = sprite->sortingLayerIndex;
+		s2d::Sprite* const sprite = s2d::Sprite::s_spriteRepository->readAt(i);
+		if (sprite->sortingLayerIndex > s_highestLayerIndex)
+			s_highestLayerIndex = sprite->sortingLayerIndex;
 	}
 }
 
 s2d::Sprite* s2d::Sprite::getSpriteById(int id)
 {
-	for (s2d::Sprite* sprite : s2d::Sprite::s_sprites)
+	for (int i = 0; i < s2d::Sprite::s_spriteRepository->amount(); i++)
 	{
+		s2d::Sprite* const sprite = s2d::Sprite::s_spriteRepository->readAt(i);
 		if (sprite->m_id == id)
 		{
 			return sprite;
@@ -210,5 +228,5 @@ s2d::Sprite* s2d::Sprite::getSpriteById(int id)
 	return nullptr;
 }
 
-std::vector<s2d::Sprite*> s2d::Sprite::s_sprites(0);
-int s2d::Sprite::highestLayerIndex = 0;
+s2d::SpriteRepository* s2d::Sprite::s_spriteRepository = nullptr;
+int s2d::Sprite::s_highestLayerIndex = 0;

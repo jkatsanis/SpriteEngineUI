@@ -313,6 +313,7 @@
     <ClCompile Include="src\spriteComponents\prefab.cpp">
       <Filter>src\physicalComponents\sprite</Filter>
     </ClCompile>
+    <ClCompile Include="src\manager\spriteRepository.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\include\imgui\imconfig.h">
@@ -804,6 +805,7 @@
     <ClInclude Include="src\manager\saveSystem.h">
       <Filter>src\manager\files</Filter>
     </ClInclude>
+    <ClInclude Include="src\manager\spriteRepository.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="src\include\SFML\System\Vector3.inl">
