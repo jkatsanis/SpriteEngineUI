@@ -180,13 +180,7 @@
     <ClCompile Include="src\guiComponents\propertyEditor\UIAssetFolder.cpp">
       <Filter>src\guiComponents\assets</Filter>
     </ClCompile>
-    <ClCompile Include="src\guiComponents\propertyEditor\UIHirachy.cpp">
-      <Filter>src\guiComponents\hirachy</Filter>
-    </ClCompile>
-    <ClCompile Include="src\guiComponents\propertyEditor\UIHirachySpriteDisplay.cpp">
-      <Filter>src\guiComponents\hirachy</Filter>
-    </ClCompile>
-    <ClCompile Include="src\guiComponents\propertyEditor\UIHirachyMenuDisplayer.cpp">
+    <ClCompile Include="src\guiComponents\propertyEditor\UIHierarchy.cpp">
       <Filter>src\guiComponents\hirachy</Filter>
     </ClCompile>
     <ClCompile Include="src\manager\saveSystem.cpp">
@@ -267,7 +261,6 @@
     <ClCompile Include="src\guiComponents\UIWindow.cpp">
       <Filter>src\guiComponents\window</Filter>
     </ClCompile>
-    <ClCompile Include="src\SpriteEngine.cpp" />
     <ClCompile Include="src\manager\fileDialogs.cpp">
       <Filter>src\manager\fileDialgo</Filter>
     </ClCompile>
@@ -314,6 +307,7 @@
       <Filter>src\physicalComponents\sprite</Filter>
     </ClCompile>
     <ClCompile Include="src\manager\spriteRepository.cpp" />
+    <ClCompile Include="src\SpriteEngine.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\include\imgui\imconfig.h">
@@ -658,13 +652,7 @@
     <ClInclude Include="src\guiComponents\propertyEditor\UIAssetFolder.h">
       <Filter>src\guiComponents\assets</Filter>
     </ClInclude>
-    <ClInclude Include="src\guiComponents\propertyEditor\UIHirachy.h">
-      <Filter>src\guiComponents\hirachy</Filter>
-    </ClInclude>
-    <ClInclude Include="src\guiComponents\propertyEditor\UIHirachyMenuDisplayer.h">
-      <Filter>src\guiComponents\hirachy</Filter>
-    </ClInclude>
-    <ClInclude Include="src\guiComponents\propertyEditor\UIHirachySpriteDisplay.h">
+    <ClInclude Include="src\guiComponents\propertyEditor\UIHierarchy.h">
       <Filter>src\guiComponents\hirachy</Filter>
     </ClInclude>
     <ClInclude Include="src\guiComponents\propertyEditor\UIInspectorBoxCollider.h">

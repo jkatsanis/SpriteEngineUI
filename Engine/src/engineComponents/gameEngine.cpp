@@ -4,7 +4,7 @@
 
 s2d::GameEngine::GameEngine()
 {
-    this->m_UIWindow.init(this->m_spriteRepository);
+     this->m_UIWindow.init(this->m_spriteRepository);
     this->m_close = false;
     this->ptr_renderWindow = new sf::RenderWindow(sf::VideoMode(1920, 1080), "SpriteEngine", sf::Style::Default);
     this->windowEvent.type = sf::Event::GainedFocus;
@@ -15,9 +15,10 @@ s2d::GameEngine::GameEngine()
     this->m_isWindowFullScreen = false;
 
     this->m_UIRealTimeEditor = s2d::UIRealTimeEditor(*ptr_renderWindow, &this->windowEvent, &this->m_UIWindow.areAnyUIWindowsHovered,
-        &this->m_UIWindow.getInspector().state, &this->event, &this->m_UIWindow.getTools().editorTools, this->m_spriteRepository);
+        &this->m_UIWindow.getInspector().state, &this->event, this->m_spriteRepository);
     
     //Setting other classes
+    s2d::Sprite::setSpriteRepository(this->m_spriteRepository);
     s2d::Initializer::initSprites(this->m_spriteRepository);
     s2d::Initializer::initAnimations();
     s2d::Initializer::initBackground(this->m_UIWindow.getInspector().backgroundColor);
@@ -163,23 +164,26 @@ void s2d::GameEngine::saveDialoge()
 
 void s2d::GameEngine::update()
 {
-    //Fullscreen / Not Fullscreen
+    // Fullscreen / Not Fullscreen
     this->updateWindowStyle();
 
-    //Renderere / window events
+    // Renderere / window events
     this->pollEvents();
 
-    //UIWindow (Engine)
+    // UIWindow (Engine)
+    ImGui::PushFont(s2d::FontManager::defaultFont);
+    this->m_UIWindow.update();
+    this->m_UIRealTimeEditor.update();
+    this->saveDialoge();
+    ImGui::PopFont();
 
+    s2d::Animation::updateAllAnimations(this->m_spriteRepository);
 
-   // s2d::Animation::updateAllAnimations(this->m_spriteRepository);
-
-    //Engine event
-   // this->pollEngineEvents();
+    // Engine event
+    this->pollEngineEvents();
 
     this->m_renderer.render();
 
-    //Other classes
-   // s2d::Time::update();
-
+    // Other classes
+    s2d::Time::update();
 }

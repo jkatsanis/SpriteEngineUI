@@ -15,7 +15,7 @@ s2d::UIToolButtons::UIToolButtons(s2d::SpriteRepository& spriteRepo)
 
 void s2d::UIToolButtons::init()
 {
-	this->editorTools = s2d::EditorTools::PositionTool;
+	this->m_editor_tools = s2d::EditorTools::PositionTool;
 	this->isHovered = false;
 
 	this->m_tools[0] = s2d::Tool(s2d::EditorTools::PositionTool, ICON_FA_ARROWS);
@@ -182,7 +182,8 @@ void s2d::UIToolButtons::toolSelector()
 		if (s2d::FontManager::displaySmybolAsButton(this->m_tools[i].icon.c_str()))
 		{
 			this->m_clickedOnBtn = true;
-			this->editorTools = this->m_tools[i].tool;
+			this->m_editor_tools = this->m_tools[i].tool;
+			this->m_spriteRepository->current_tool = this->m_editor_tools;
 		}
 		if (this->m_tools[i].background)
 		{

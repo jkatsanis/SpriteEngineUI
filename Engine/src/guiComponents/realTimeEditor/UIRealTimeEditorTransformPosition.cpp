@@ -44,7 +44,7 @@ void s2d::UIRealTimeEditorTransformPosition::update()
 
     if (this->m_clickedSprite != nullptr)
     {
-        this->m_clickedSprite = s2d::UIHirachy::s_selectedSprite;
+        this->m_clickedSprite = this->m_spriteRepository->sprite_in_inspector;
         this->moveComponent();
     }
     else
@@ -107,7 +107,7 @@ bool s2d::UIRealTimeEditorTransformPosition::checkClick(s2d::Sprite* const sprit
 s2d::Sprite* s2d::UIRealTimeEditorTransformPosition::checkIfMouseClickedOnSprite()
 {
     int highest = -1;
-    int ve = -1;
+    std::string name = "";
     std::vector<s2d::Sprite*> spr;
 
     for (int i = 0; i < this->m_spriteRepository->amount(); i++)
@@ -133,15 +133,15 @@ s2d::Sprite* s2d::UIRealTimeEditorTransformPosition::checkIfMouseClickedOnSprite
     {
         if (sp->sortingLayerIndex >= highest)
         {
-            ve = sp->getVectorPosition();
+            name = sp->name;
             highest = sp->sortingLayerIndex;
         }
     }
 
     if (highest != -1)
     {
-        this->m_clickedSprite = this->m_spriteRepository->readAt(ve - 1);
-        s2d::UIHirachy::s_selectedSprite = this->m_clickedSprite;
+        this->m_clickedSprite = this->m_spriteRepository->getSpriteWithName(name);
+        this->m_spriteRepository->sprite_in_inspector = this->m_clickedSprite;
         return this->m_clickedSprite;
     }
 

@@ -26,7 +26,6 @@ namespace s2d
 
 		sf::Sprite m_sprite;
 		sf::Texture m_texture;
-		int m_vectorPosition;
 		int m_id;
 		int m_parentId;
 		int m_childCount;
@@ -58,7 +57,6 @@ namespace s2d
 
 		Sprite();
 		Sprite(std::string name, s2d::Vector2 spawnPosition, std::string path);
-		Sprite(std::string name, s2d::Vector2 spawnPosition, std::string path, bool addToWindowByConstruction);
 		~Sprite();
 
 
@@ -92,7 +90,6 @@ namespace s2d
 		/// <param name="path">The new path which needs to be set</param>
 		void setSpriteTexture(const sf::Texture& texture, const std::string& path);
 
-
 		/// <summary>
 		/// LOADS the texture from the file and sets it scale
 		/// </summary>
@@ -100,7 +97,8 @@ namespace s2d
 		/// <param name="sclae">Scale to set</param>
 		void setSpriteTexture(const std::string& path, const s2d::Vector2& sclae);
 
-		void addSpriteToScene();
+		bool isParent() const { return this->childs.size() != 0; }
+
 		bool containsChild(const s2d::Sprite* child) const;
 	public:
 		void setParent(s2d::Sprite* sprite);
@@ -108,14 +106,12 @@ namespace s2d
 		void setParentId(const int id) { this->m_parentId = id; }
 		void setId(const int id) { this->m_id = id; }
 		void setChildListPos(const int pos) { this->m_childListPos = pos; }
-		void setVectorPosition(const int vec) { this->m_vectorPosition = vec; }
 
 		int getId() const { return this->m_id; }
 		int getParentId() const { return this->m_parentId; }
 		int getChildCount() const { return this->m_childCount; }
 		int getChildListPosition() const { return this->m_childListPos; }
 
-		int getVectorPosition() const { return this->m_vectorPosition; }
 		sf::Sprite& getSprite() { return this->m_sprite; }	
 		sf::Texture& getTexture() { return this->m_texture; }
 		s2d::Vector2 getOrigininalPosition() const;

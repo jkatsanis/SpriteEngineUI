@@ -8,7 +8,6 @@
 #include <physicalComponents/gameObject.h>
 #include <UIInspectorBoxCollider.h>
 #include <data/UIInfo.h>
-#include <UIHirachy.h>
 #include <UIAssetFolder.h>
 #include <manager/fontManager.h>
 #include <manager/spriteRepository.h>
@@ -26,9 +25,6 @@ namespace s2d
 	private:
 		s2d::SpriteRepository* m_spriteRepository;
 
-		//Everytime when we select a new sprite in the HY this will be the pointer to it
-		s2d::Sprite* m_currentSpriteInInspector;
-		
 		std::string m_menuName;
 		std::string m_spriteName;
 		sf::RectangleShape m_rectangle;
@@ -49,7 +45,7 @@ namespace s2d
 		s2d::UIInspectorBoxCollider m_collider;
 
 		//Game window background color
-	    s2d::Vector3 m_defaultBackgroundColor;
+		s2d::Vector3 m_defaultBackgroundColor;
 
 		void render();
 
@@ -79,10 +75,12 @@ namespace s2d
 
 		// Get the value from UIWindow.cpp
 		s2d::Vector3 backgroundColor;
+
 		UIInspector();
-		UIInspector(s2d::SpriteRepository& spriteRepository);
 
 		void createUIInspector();
+
+		void setSpriteRepository(s2d::SpriteRepository& repo) { this->m_spriteRepository = &repo; }
 
 	public:
 

@@ -188,7 +188,7 @@
     <ClCompile Include="src\calculationComponents\vector2.cpp" />
     <ClCompile Include="src\engineComponents\time.cpp" />
     <ClCompile Include="src\guiComponents\UIWindow.cpp" />
-    <ClCompile Include="src\guiComponents\propertyEditor\UIHirachy.cpp" />
+    <ClCompile Include="src\guiComponents\propertyEditor\UIHierarchy.cpp" />
     <ClCompile Include="src\guiComponents\propertyEditor\UIToolButtons.cpp" />
     <ClCompile Include="src\guiComponents\propertyEditor\UIInspector.cpp" />
     <ClCompile Include="src\guiComponents\propertyEditor\UIAssetFolder.cpp" />
@@ -203,8 +203,6 @@
     <ClCompile Include="src\data\UIIconData.cpp" />
     <ClCompile Include="src\guiComponents\realTimeEditor\UIRealTimeEditorNavigator.cpp" />
     <ClCompile Include="src\guiComponents\realTimeEditor\UIRealTimeEditorTransform.cpp" />
-    <ClCompile Include="src\guiComponents\propertyEditor\UIHirachyMenuDisplayer.cpp" />
-    <ClCompile Include="src\guiComponents\propertyEditor\UIHirachySpriteDisplay.cpp" />
     <ClCompile Include="src\guiComponents\projectSelector\UIProjectSelectorProjectSection.cpp" />
     <ClCompile Include="src\guiComponents\realTimeEditor\UIRealTimeEditorTransformPosition.cpp" />
     <ClCompile Include="src\guiComponents\realTimeEditor\UIRealTimeEditorTransfsormScale.cpp" />
@@ -355,7 +353,7 @@
     <ClInclude Include="src\calculationComponents\vector2.h" />
     <ClInclude Include="src\engineComponents\stime.h" />
     <ClInclude Include="src\guiComponents\UIWindow.h" />
-    <ClInclude Include="src\guiComponents\propertyEditor\UIHirachy.h" />
+    <ClInclude Include="src\guiComponents\propertyEditor\UIHierarchy.h" />
     <ClInclude Include="src\guiComponents\propertyEditor\UIToolButtons.h" />
     <ClInclude Include="src\guiComponents\propertyEditor\UIInspector.h" />
     <ClInclude Include="src\guiComponents\propertyEditor\UIAssetFolder.h" />
@@ -370,8 +368,6 @@
     <ClInclude Include="src\data\UIIconData.h" />
     <ClInclude Include="src\guiComponents\realTimeEditor\UIRealTimeEditorNavigator.h" />
     <ClInclude Include="src\guiComponents\realTimeEditor\UIRealTimeEditorTransform.h" />
-    <ClInclude Include="src\guiComponents\propertyEditor\UIHirachyMenuDisplayer.h" />
-    <ClInclude Include="src\guiComponents\propertyEditor\UIHirachySpriteDisplay.h" />
     <ClInclude Include="src\guiComponents\projectSelector\UIProjectSelectorProjectSection.h" />
     <ClInclude Include="src\guiComponents\realTimeEditor\UIRealTimeEditorTransformPosition.h" />
     <ClInclude Include="src\guiComponents\realTimeEditor\UIRealTimeEditorTransfsormScale.h" />

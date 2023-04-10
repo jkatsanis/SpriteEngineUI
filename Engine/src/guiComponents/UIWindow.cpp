@@ -57,15 +57,13 @@ void s2d::UIWindow::update()
 	this->m_UIToolButtons.setBackgroundColorToSave(this->m_UIInspector.backgroundColor);
 
 	s2d::UIWindow::renderStyle(&ImGui::GetStyle());
-	this->m_UIHirachy.createHirachyWindow();
+	this->m_UIHierarchy.displayHierarchyWindow();
 	this->m_UIToolButtons.createToolsAndButtons();
 	this->m_UIInspector.createUIInspector();
 	this->m_UIAnimation.createUIAnimationWindow();
 	this->m_UIAssetFolder.createAssetLinkerWindow();
 
-	this->m_UIAssetFolder.setRightClickedSprite(this->m_UIHirachy.getSpriteHold());
-
-	if (this->m_UIHirachy.isHovered || this->m_UIToolButtons.isHovered || this->m_UIInspector.isHovered || this->m_UIAssetFolder.isHovered || this->m_UIAnimation.isHovered)
+	if (this->m_UIHierarchy.isHovered || this->m_UIToolButtons.isHovered || this->m_UIInspector.isHovered || this->m_UIAssetFolder.isHovered || this->m_UIAnimation.isHovered)
 	{
 		this->areAnyUIWindowsHovered = true;
 	}
@@ -77,9 +75,12 @@ void s2d::UIWindow::update()
 
 void s2d::UIWindow::init(s2d::SpriteRepository& repo)
 {
+	this->m_ptr_repo = &repo;
 	this->areAnyUIWindowsHovered = false;
-	this->m_UIHirachy = s2d::UIHirachy(repo);
-	this->m_UIInspector = s2d::UIInspector(repo);
+	this->m_UIHierarchy = s2d::UIHierarchy(repo);
+	this->m_UIInspector.setSpriteRepository(repo);
+	this->m_UIAssetFolder.setSpriteRepository(repo);
+	this->m_UIAnimation.setSpriteRepository(repo);
 	this->m_UIToolButtons = s2d::UIToolButtons(repo);
 }
 

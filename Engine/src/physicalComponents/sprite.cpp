@@ -9,14 +9,6 @@ s2d::Sprite::Sprite(std::string name, s2d::Vector2 spawnPosition, std::string pa
 	initVariables(name, spawnPosition, path);
 }
 
-s2d::Sprite::Sprite(std::string name, s2d::Vector2 spawnPosition, std::string path, bool addToWindowByConstruction)
-{
-	initVariables(name, spawnPosition, path);
-
-	if (addToWindowByConstruction)
-		this->addSpriteToScene();
-}
-
 s2d::Sprite::~Sprite()
 {
 	this->deleteAllChilds();
@@ -83,12 +75,6 @@ void s2d::Sprite::setParent(s2d::Sprite* parent)
 	parent->childs.push_back(std::make_unique<s2d::Sprite*>(this));
 }
 
-void s2d::Sprite::addSpriteToScene()
-{
-	//this->m_sprite
-	//s2d::Sprite::s_sprites.push_back(this);
-}
-
 bool s2d::Sprite::containsChild(const s2d::Sprite* child) const
 {
 	bool contains = false;
@@ -137,7 +123,6 @@ void s2d::Sprite::initVariables(std::string& name, s2d::Vector2& spawnPos, std::
 	this->transform.position = spawnPos;	
 	this->transform.lastPos = s2d::Vector2(0, 0);
 	this->transform.nextPos = this->transform.position;
-	this->m_vectorPosition = -1;
 	this->sortingLayerIndex = 0;
 	this->animator = s2d::Animator(this);
 
@@ -188,22 +173,6 @@ void s2d::Sprite::validateProperties(std::string& name, s2d::Vector2& spawnPos, 
 
 //Static functions
 
-int s2d::Sprite::getMaxNumber(std::vector<s2d::Sprite*>& vec)
-{
-	if (vec.size() == 0)
-	{
-		return 0;
-	}
-	int max = vec[0]->getVectorPosition();
-	for (int i = 1; i < vec.size(); i++)
-	{
-		if (max < vec[i]->getVectorPosition())
-		{
-			max = vec[i]->getVectorPosition();
-		}
-	}
-	return max;
-}
 
 void s2d::Sprite::updateHightestLayerIndex()
 {

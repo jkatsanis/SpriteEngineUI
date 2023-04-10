@@ -53,9 +53,9 @@ void s2d::Renderer::drawSprites()
 #endif
     for (size_t i = 0; i < s2d::Sprite::s_highestLayerIndex + 1; i++)
     {
-        for (size_t i = 0; i < this->m_spriteRepository->amount(); i++)
+        for (size_t j = 0; j < this->m_spriteRepository->amount(); j++)
         {
-            s2d::Sprite* const sprite = this->m_spriteRepository->readAt(i);
+            s2d::Sprite* const sprite = this->m_spriteRepository->readAt(j);
             if (sprite->sortingLayerIndex == i)
             {
                 sprite->transform.updateTransformPosition();

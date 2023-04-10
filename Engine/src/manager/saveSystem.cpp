@@ -42,7 +42,6 @@ void s2d::flc::createSaveFile(const s2d::SpriteRepository& spriteRepo)
 std::string s2d::flc::getPropertyLineWithSeperator(const Sprite* const sprite)
 {
 	std::string line;
-	std::string vecpos = std::to_string(sprite->getVectorPosition());
 	std::string transformPosX = std::to_string(sprite->transform.position.x);
 	std::string transformPosY = std::to_string(sprite->transform.position.y);
 	std::string scaleX = std::to_string(sprite->transform.getScale().x);
@@ -83,7 +82,7 @@ std::string s2d::flc::getPropertyLineWithSeperator(const Sprite* const sprite)
 	std::string pathToPrefab = sprite->prefab.enginePathToFile;
 
 	//Name, vec, transform path
-	line = sprite->name + ";" + vecpos + ";" + transformPosX + ";" + transformPosY + ";" + scaleX + ";" + scaleY + ";" + spritePath;
+	line = sprite->name + ";" + "0" + ";" + transformPosX + ";" + transformPosY + ";" + scaleX + ";" + scaleY + ";" + spritePath;
 
 	//BoxCollider
 	line += ";" + boxColliderWidthLeftOrRightX + ";" + boxColliderWidthLeftOrRightY + ";" + boxColliderHeightUpOrDownX + ";" + boxColliderHeightUpOrDownY + ";" + colliderExists + ";" + isSolid;

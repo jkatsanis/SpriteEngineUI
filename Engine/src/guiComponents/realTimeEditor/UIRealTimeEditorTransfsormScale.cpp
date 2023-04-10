@@ -8,8 +8,9 @@ s2d::UIRealTimeEditorTransfsormScale::UIRealTimeEditorTransfsormScale()
 	this->m_event = nullptr;
 }
 
-s2d::UIRealTimeEditorTransfsormScale::UIRealTimeEditorTransfsormScale(s2d::Event* event)
+s2d::UIRealTimeEditorTransfsormScale::UIRealTimeEditorTransfsormScale(s2d::Event* event, s2d::SpriteRepository& repo)
 {
+	this->m_ptr_repo = &repo;
 	sf::RectangleShape shape;
 	shape.setSize(sf::Vector2f(DEFAULT_DOLL_SCALE, DEFAULT_DOLL_SCALE));
 	shape.setFillColor(sf::Color(255, 255, 255));
@@ -33,7 +34,7 @@ s2d::UIRealTimeEditorTransfsormScale::UIRealTimeEditorTransfsormScale(s2d::Event
 
 void s2d::UIRealTimeEditorTransfsormScale::update()
 {
-	s2d::Sprite* focusedSprite = s2d::UIHirachy::s_selectedSprite;
+	s2d::Sprite* focusedSprite = this->m_ptr_repo->sprite_in_inspector;
 	if (focusedSprite != nullptr)
 	{
 		sf::Vector2f pos[SCALE_DOTTS];

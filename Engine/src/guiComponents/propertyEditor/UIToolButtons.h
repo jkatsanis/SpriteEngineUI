@@ -25,7 +25,7 @@ namespace s2d
 	private:
 		s2d::Tool m_tools[TOOLS_SIZE];
 		s2d::Vector3 m_windowbBackgroundToSave;
-
+		EditorTools m_editor_tools;
 		s2d::SpriteRepository* m_spriteRepository;
 
 		bool m_clickedOnBtn;
@@ -39,7 +39,6 @@ namespace s2d
 		void init();
 	public:
 		bool isHovered;
-		EditorTools editorTools;
 
 		UIToolButtons();
 		UIToolButtons(s2d::SpriteRepository& spriteRepo);

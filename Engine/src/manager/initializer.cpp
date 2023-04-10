@@ -41,7 +41,6 @@ void s2d::Initializer::initSprite(const std::string& line, s2d::Sprite* const sp
 	sprite->animator = s2d::Animator(sprite);
 
 	sprite->name = propertys[0];
-	sprite->setVectorPosition(atoi(propertys[1].c_str()));
 	sprite->transform.position.x = std::stof(propertys[2].c_str());
 	sprite->transform.position.y = std::stof(propertys[3].c_str());
 	sprite->path = s2d::EngineData::s_pathToUserProject + "\\" + propertys[6];
