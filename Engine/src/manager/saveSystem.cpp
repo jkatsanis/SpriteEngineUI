@@ -69,9 +69,6 @@ std::string s2d::flc::getPropertyLineWithSeperator(const Sprite* const sprite)
 	std::string lastPosX = std::to_string(sprite->transform.lastPos.x);
 	std::string lastPosY = std::to_string(sprite->transform.lastPos.y);
 
-	std::string listPos = std::to_string(sprite->getChildListPosition());
-	std::string childCount = std::to_string(sprite->getChildCount());
-
 	std::string positionToParentX = std::to_string(sprite->transform.positionToParent.x);
 	std::string positionToParentY = std::to_string(sprite->transform.positionToParent.y);
 
@@ -100,7 +97,7 @@ std::string s2d::flc::getPropertyLineWithSeperator(const Sprite* const sprite)
 	line += ";" + nextPosX + ";" + nextPosY + ";" + lastPosX + ";" + lastPosY;
 
 	//list pos ( childing)
-	line += ";" + listPos + ";" + childCount;
+	line += ";" + std::string("listpos") + ";" + "childCount";
 
 	//Pos to parent (x, y)
 	line += ";" + positionToParentX + ";" + positionToParentY;

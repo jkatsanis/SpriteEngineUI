@@ -4,6 +4,11 @@
 
 s2d::Renderer::Renderer()
 {
+    this->m_timeToUpdateLayerIndex = 2;
+    this->m_timeToUpdateSpriteTexture = 1;
+
+    this->m_timePassedTillNextSpriteTextureUpdate = this->m_timeToUpdateSpriteTexture;
+    this->m_timePassedToUpdateLayerIndex = this->m_timeToUpdateLayerIndex;
     this->m_timePassedToUpdateLayerIndex = 0;
     this->m_ptr_backGroundColor = nullptr;
     this->m_ptr_renderWindow = nullptr;

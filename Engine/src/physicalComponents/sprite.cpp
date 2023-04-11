@@ -2,7 +2,12 @@
 
 //Constructor / Destructor
 
-s2d::Sprite::Sprite() { this->name = "Unknown"; this->transform.position = Vector2(0, 0); }
+s2d::Sprite::Sprite()
+{
+	this->name = "Unknown";
+	this->transform.position = Vector2(0, 0);	
+	this->m_texture = new sf::Texture();
+}
 
 s2d::Sprite::Sprite(std::string name, s2d::Vector2 spawnPosition, std::string path)
 {
@@ -11,37 +16,53 @@ s2d::Sprite::Sprite(std::string name, s2d::Vector2 spawnPosition, std::string pa
 
 s2d::Sprite::~Sprite()
 {
-	this->deleteAllChilds();
+	this->clearAllChilds();
+	this->clearParentData();
+
+	delete this->m_texture;
+	this->m_texture = nullptr;
 }
 
 //Public functions
 
-void s2d::Sprite::deleteAllChilds()
+void s2d::Sprite::removeChild(const s2d::Sprite* child)
 {
-	this->childs.clear();
+	if (child == nullptr)
+	{
+		return;
+	}
+	for (size_t i = 0; i < this->ptr_childs.size(); i++)
+	{
+		if (child->getId() == this->ptr_childs[i]->getId())
+		{
+			this->ptr_childs.erase(this->ptr_childs.begin() + i);
+			return;
+		}
+	}
 }
 
-void s2d::Sprite::deleteChildAt(uint8_t idx)
+void s2d::Sprite::clearAllChilds()
 {
-	this->childs.erase(this->childs.begin() + idx);
+	this->ptr_childs.clear();
 }
 
-void s2d::Sprite::resetChildData()
+void s2d::Sprite::clearParentData()
 {
-	this->parent->m_childCount -= 1;
-	this->parent->childs.erase(parent->childs.begin() + this->m_childListPos - 1);
+	if (this->parent != nullptr)
+	{
+		this->parent->removeChild(this);
+		this->parent = nullptr;
+	}
 	this->m_parentId = -1;
-	this->parent = nullptr;
-	this->m_childListPos = -1;
 }
 
 void s2d::Sprite::setSpriteTexture(const std::string& path)
 {
-	if (!this->m_texture.loadFromFile(path))
+	if (!this->m_texture->loadFromFile(path))
 	{
 		std::cout << "LOG: [ERROR] File was not found!";
 	}
-	this->setSpriteTexture(this->m_texture, path);
+	this->setSpriteTexture(*this->m_texture, path);
 }
 
 void s2d::Sprite::setSpriteTexture(const sf::Texture& texture, const std::string& path)
@@ -54,34 +75,40 @@ void s2d::Sprite::setSpriteTexture(const sf::Texture& texture, const std::string
 
 void s2d::Sprite::setSpriteTexture(const std::string& path, const s2d::Vector2& scale)
 {
-	if (!this->m_texture.loadFromFile(path))
+	if (!this->m_texture->loadFromFile(path))
 	{
 		std::cout << "LOG: [ERROR] File was not found!";
 	}
-	this->m_sprite.setTexture(this->m_texture);
+	this->m_sprite.setTexture(*this->m_texture);
 	this->path = path;
 	this->transform.setScale(scale, true);
 }
 
 void s2d::Sprite::setParent(s2d::Sprite* parent)
 {
-	parent->m_childCount++;
-	this->m_childListPos = parent->m_childCount + 1;
+	if (parent == nullptr)
+	{
+		return;
+	}
+
+	// Clean up (Before) parent
+	if (this->parent != nullptr)
+	{
+		this->parent->removeChild(this);
+		this->parent = nullptr;
+	}
+	this->m_parentId = parent->getId();
 	this->parent = parent;
-	this->m_parentId = parent->m_id;
-
-	s2d::Transform::onPositionChange(this);
-
-	parent->childs.push_back(std::make_unique<s2d::Sprite*>(this));
+	parent->ptr_childs.push_back(this);
 }
 
 bool s2d::Sprite::containsChild(const s2d::Sprite* child) const
 {
 	bool contains = false;
 	
-	for (int i = 0; i < this->childs.size(); i++)
+	for (int i = 0; i < this->ptr_childs.size(); i++)
 	{
-		const s2d::Sprite* spr = *this->childs[i].get();
+		const s2d::Sprite* spr = this->ptr_childs[i];
 		if (child->m_id == spr->getId())
 		{
 			return true;
@@ -104,11 +131,11 @@ s2d::Vector2 s2d::Sprite::getOrigininalPosition() const
 
 void s2d::Sprite::initVariables(std::string& name, s2d::Vector2& spawnPos, std::string& path)
 {
+	this->m_texture = new sf::Texture();
+
 	this->validateProperties(name, spawnPos, path);
 	this->transform = s2d::Transform(this);
 
-	this->m_childCount = -1;
-	this->m_childListPos = -1;
 	this->m_parentId = -1;
 
 	// ID
@@ -116,7 +143,7 @@ void s2d::Sprite::initVariables(std::string& name, s2d::Vector2& spawnPos, std::
 	this->setId(s2d::SpriteData::highestSpriteID);
 
 	this->parent = nullptr;
-	this->childs = std::vector<std::unique_ptr<s2d::Sprite*>>(0);
+	this->ptr_childs = std::vector<s2d::Sprite*>(0);
 
 	this->name = name;
 	this->path = path;
@@ -128,12 +155,12 @@ void s2d::Sprite::initVariables(std::string& name, s2d::Vector2& spawnPos, std::
 
 	sf::Sprite sprite;
 
-	if (!this->m_texture.loadFromFile(path))
+	if (!this->m_texture->loadFromFile(path))
 	{
 		std::cout << "LOG [ERROR] Couldnt load texture from file!";
 	}
 
-	sprite.setTexture(this->m_texture);
+	sprite.setTexture(*this->m_texture);
 
 	//Finally setting the sprite
 	this->m_sprite = sprite;

@@ -652,9 +652,6 @@
     <ClInclude Include="src\guiComponents\propertyEditor\UIAssetFolder.h">
       <Filter>src\guiComponents\assets</Filter>
     </ClInclude>
-    <ClInclude Include="src\guiComponents\propertyEditor\UIHierarchy.h">
-      <Filter>src\guiComponents\hirachy</Filter>
-    </ClInclude>
     <ClInclude Include="src\guiComponents\propertyEditor\UIInspectorBoxCollider.h">
       <Filter>src\guiComponents\inspector</Filter>
     </ClInclude>
@@ -794,6 +791,9 @@
       <Filter>src\manager\files</Filter>
     </ClInclude>
     <ClInclude Include="src\manager\spriteRepository.h" />
+    <ClInclude Include="src\guiComponents\propertyEditor\UIHierarchy.h">
+      <Filter>src\guiComponents\hirachy</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="src\include\SFML\System\Vector3.inl">

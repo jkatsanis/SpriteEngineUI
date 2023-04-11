@@ -12,9 +12,9 @@ void s2d::ChildSystem::updatePositionToParent(s2d::Sprite* child)
 
 void s2d::ChildSystem::updateChildPositionToParentRecursivly(s2d::Sprite* parent)
 {
-	for (int i = 0; i < parent->childs.size(); i++)
+	for (int i = 0; i < parent->ptr_childs.size(); i++)
 	{
-		s2d::Sprite* child = *parent->childs[i].get();
+		s2d::Sprite* child = parent->ptr_childs[i];
 		s2d::Vector2 distance = s2d::Vector2(parent->transform.position - child->transform.position);
 		child->transform.positionToParent = distance;
 
@@ -24,9 +24,9 @@ void s2d::ChildSystem::updateChildPositionToParentRecursivly(s2d::Sprite* parent
 
 void s2d::ChildSystem::updateChildPositionRecursivly(s2d::Sprite* parent)
 {
-	for(int i = 0; i < parent->childs.size(); i++)
+	for(int i = 0; i < parent->ptr_childs.size(); i++)
 	{
-		s2d::Sprite* child = *parent->childs[i].get();
+		s2d::Sprite* child = parent->ptr_childs[i];
 		child->transform.position =  parent->transform.position - child->transform.positionToParent;
 		updateChildPositionRecursivly(child);
 	}

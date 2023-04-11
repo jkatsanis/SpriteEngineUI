@@ -15,6 +15,9 @@ namespace s2d
         std::vector<s2d::Sprite*> m_sprites;
 
         size_t getIndexAtName(const std::string& name) const;
+        void addChildsToDelete(std::vector<s2d::Sprite*>& childs, s2d::Sprite* parent);
+        void eraseWithId(uint8_t id);
+
     public:
         s2d::Sprite* child_to_parent;
         s2d::Sprite* right_clicked_sprite;

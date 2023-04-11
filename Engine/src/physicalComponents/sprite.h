@@ -25,16 +25,9 @@ namespace s2d
 		static s2d::SpriteRepository* s_spriteRepository;
 
 		sf::Sprite m_sprite;
-		sf::Texture m_texture;
+	    sf::Texture* m_texture;
 		int m_id;
 		int m_parentId;
-		int m_childCount;
-
-		/// <summary>
-		/// This is only used if it is a child. It is the position in the vector
-		/// from the parent sprite
-		/// </summary>
-		int m_childListPos;
 
 		void initVariables(std::string& name, s2d::Vector2& spawnPos, std::string& path);
 		void validateProperties(std::string& name, s2d::Vector2& spawnPos, std::string& path);
@@ -52,29 +45,32 @@ namespace s2d
 		s2d::Prefab prefab;
 
 		//Parent / child infos
-		std::vector<std::unique_ptr<s2d::Sprite*>> childs;
+		// Pointer to all the childs.
+		// The childs are located in the sprite repository
+		// So no deletions are happening here
+		std::vector<s2d::Sprite*> ptr_childs;
 		s2d::Sprite* parent;
 
 		Sprite();
 		Sprite(std::string name, s2d::Vector2 spawnPosition, std::string path);
 		~Sprite();
 
+		/// <summary>
+		/// Removes the child from the childs list
+		/// </summary>
+		/// <param name="child">Child</param>
+		void removeChild(const s2d::Sprite* child);
 
 		/// <summary>
-		/// Deletes all the childs of the sprite
+		/// Clears all the childs of the sprite
+		/// DOES NOT DELETE THEM
 		/// </summary>
-		void deleteAllChilds();
+		void clearAllChilds();
 
 		/// <summary>
-		/// Deletes a sprite at the specified position
+		/// Erases the child from the parents list if contains
 		/// </summary>
-		/// <param name="idx">The idx of the child vector</param>
-		void deleteChildAt(uint8_t idx);
-
-		/// <summary>
-		/// Rests the parent data
-		/// </summary>
-		void resetChildData();
+		void clearParentData();
 
 		/// <summary>
 		/// Sets the new texture of the sprite
@@ -97,27 +93,22 @@ namespace s2d
 		/// <param name="sclae">Scale to set</param>
 		void setSpriteTexture(const std::string& path, const s2d::Vector2& sclae);
 
-		bool isParent() const { return this->childs.size() != 0; }
+		bool isParent() const { return this->ptr_childs.size() != 0; }
 
 		bool containsChild(const s2d::Sprite* child) const;
 	public:
 		void setParent(s2d::Sprite* sprite);
-		void setChildCount(const int cnt) { this->m_childCount = cnt; }
 		void setParentId(const int id) { this->m_parentId = id; }
 		void setId(const int id) { this->m_id = id; }
-		void setChildListPos(const int pos) { this->m_childListPos = pos; }
 
 		int getId() const { return this->m_id; }
 		int getParentId() const { return this->m_parentId; }
-		int getChildCount() const { return this->m_childCount; }
-		int getChildListPosition() const { return this->m_childListPos; }
 
 		sf::Sprite& getSprite() { return this->m_sprite; }	
-		sf::Texture& getTexture() { return this->m_texture; }
+		sf::Texture& getTexture() { return *this->m_texture; }
 		s2d::Vector2 getOrigininalPosition() const;
 
 	public:
-		static int getMaxNumber(std::vector<s2d::Sprite*>& vec);
 		static void updateHightestLayerIndex();
 		static s2d::Sprite* getSpriteById(int id);
 		static void setSpriteRepository(s2d::SpriteRepository& repo) { s2d::Sprite::s_spriteRepository = &repo; }

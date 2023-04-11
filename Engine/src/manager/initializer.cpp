@@ -84,11 +84,7 @@ void s2d::Initializer::initSprite(const std::string& line, s2d::Sprite* const sp
 		sprite->transform.lastPos.y = std::stof(propertys[22]);
 
 	#pragma endregion
-	# pragma region list pos
-		sprite->setChildListPos(atoi(propertys[23].c_str()));
-		sprite->setChildCount(atoi(propertys[24].c_str()));
 
-	#pragma endregion
 	# pragma region Position to parent x, and y
 		sprite->transform.positionToParent.x = std::stof(propertys[25]);
 		sprite->transform.positionToParent.y = std::stof(propertys[26]);
@@ -142,7 +138,7 @@ void s2d::Initializer::initSprites(s2d::SpriteRepository& spriteRepo)
 			if (parent != nullptr)
 			{
 				sprite->parent = parent;
-				parent->childs.push_back(std::make_unique<s2d::Sprite*>(sprite));
+				parent->ptr_childs.push_back(sprite);
 			}
 		}
 	}
