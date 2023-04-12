@@ -46,7 +46,7 @@ void s2d::Renderer::drawSprites()
     //2s passed we can update out hightest layer index
     if (this->m_timePassedToUpdateLayerIndex > m_timeToUpdateLayerIndex)
     {
-        s2d::Sprite::updateHightestLayerIndex();
+        this->m_spriteRepository->updateHighestLayerIndex();
         this->m_timePassedToUpdateLayerIndex = 0;
     }
 #ifdef LOAD_TEXTURE_FROM_FILES
@@ -56,7 +56,7 @@ void s2d::Renderer::drawSprites()
         this->updateSriteTextures();
     }
 #endif
-    for (size_t i = 0; i < s2d::Sprite::s_highestLayerIndex + 1; i++)
+    for (size_t i = 0; i < this->m_spriteRepository->getHighestLayerIndex() + 1; i++)
     {
         for (size_t j = 0; j < this->m_spriteRepository->amount(); j++)
         {

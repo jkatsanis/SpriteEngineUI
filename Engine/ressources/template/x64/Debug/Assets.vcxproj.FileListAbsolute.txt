@@ -12,3 +12,4 @@ C:\Dev\MySpaceShooter\x64\Debug\Assets.exe
 C:\Dev\MySpaceShooter\SpriteEngine-SpaceShooter\x64\Debug\Assets.exe
 C:\Dev\SpriteEngineUI\Engine\EngineAssets\template\x64\Debug\Assets.exe
 C:\Dev\TEstingAnimation\x64\Debug\Assets.exe
+C:\Dev\SpriteEngineUI\Engine\ressources\template\x64\Debug\Assets.exe

@@ -1,0 +1,5 @@
+Im
+16
+0;assets\ship.png
+10;assets\asteroid.png
+10;assets\ship.png

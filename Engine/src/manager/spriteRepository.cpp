@@ -69,6 +69,10 @@ void s2d::SpriteRepository::deleteWithName(const std::string& name)
 
 void s2d::SpriteRepository::add(s2d::Sprite* ptr)
 {
+    // Validate properties
+    // Set id
+    this->highestSpriteId++;
+    ptr->validateProperties(this->highestSpriteId, *this);
     this->m_sprites.push_back(ptr);
 }
 
@@ -86,7 +90,29 @@ s2d::Sprite* s2d::SpriteRepository::getSpriteWithName(const std::string& name)
     return nullptr;
 }
 
-// Privat functions
+s2d::Sprite* s2d::SpriteRepository::getSpriteWithId(int id)
+{
+    for (int i = 0; i < this->m_sprites.size(); i++)
+    {
+        s2d::Sprite* const sprite = this->m_sprites[i];
+        if (sprite->getId() == id)
+        {
+            return sprite;
+        }
+    }
+    return nullptr;
+}
+
+void s2d::SpriteRepository::updateHighestLayerIndex()
+{
+    for (int i = 0; i < this->m_sprites.size(); i++)
+    {
+        s2d::Sprite* const sprite = this->m_sprites[i];
+        if (sprite->sortingLayerIndex > m_highestLayerIndex)
+            m_highestLayerIndex = sprite->sortingLayerIndex;
+    }
+}
+// Private functions
 
 size_t s2d::SpriteRepository::getIndexAtName(const std::string& name) const
 {

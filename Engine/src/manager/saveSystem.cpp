@@ -10,7 +10,7 @@ void s2d::flc::saveEverything(const s2d::Vector3& bg, s2d::SpriteRepository& toS
 	s2d::flc::createSaveFile(toSave);
 	s2d::flc::createWindowBackgroundSaveFile(bg);
 	s2d::flc::createCameraSaveFile(*s2d::GameObject::ptr_camera_tRealTimeEditor);
-	s2d::flc::createIndexSaveFile();
+	s2d::flc::createIndexSaveFile(toSave);
 	s2d::flc::createKnownAnimationFile(toSave);
 	s2d::flc::createAnimtionSaveFiles(toSave);
 	// Known projects file gets created in project selector
@@ -150,9 +150,9 @@ void s2d::flc::createCameraSaveFile(const s2d::Camera& camera)
 	}
 }
 
-void s2d::flc::createIndexSaveFile()
+void s2d::flc::createIndexSaveFile(s2d::SpriteRepository& repo)
 {
-	int index = s2d::SpriteData::highestSpriteID;
+	int index = repo.highestSpriteId;
 	std::fstream indexFile;
 
 	indexFile.open(PATH_TO_INDEX_FILE, std::ios::out);

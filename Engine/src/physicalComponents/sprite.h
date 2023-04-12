@@ -22,15 +22,12 @@ namespace s2d
 	class Sprite
 	{
 	private:
-		static s2d::SpriteRepository* s_spriteRepository;
-
 		sf::Sprite m_sprite;
 	    sf::Texture* m_texture;
 		int m_id;
 		int m_parentId;
 
 		void initVariables(std::string& name, s2d::Vector2& spawnPos, std::string& path);
-		void validateProperties(std::string& name, s2d::Vector2& spawnPos, std::string& path);
 	public:	
 		// General info
 		std::string name;
@@ -54,6 +51,8 @@ namespace s2d
 		Sprite();
 		Sprite(std::string name, s2d::Vector2 spawnPosition, std::string path);
 		~Sprite();
+
+		void validateProperties(int id, s2d::SpriteRepository& repo);
 
 		/// <summary>
 		/// Removes the child from the childs list
@@ -98,21 +97,17 @@ namespace s2d
 		bool containsChild(const s2d::Sprite* child) const;
 	public:
 		void setParent(s2d::Sprite* sprite);
-		void setParentId(const int id) { this->m_parentId = id; }
-		void setId(const int id) { this->m_id = id; }
 
 		int getId() const { return this->m_id; }
 		int getParentId() const { return this->m_parentId; }
+
+		void setId(int id) { this->m_id = id; }
+		void setParentId(int id) { this->m_parentId = id; }
 
 		sf::Sprite& getSprite() { return this->m_sprite; }	
 		sf::Texture& getTexture() { return *this->m_texture; }
 		s2d::Vector2 getOrigininalPosition() const;
 
-	public:
-		static void updateHightestLayerIndex();
-		static s2d::Sprite* getSpriteById(int id);
-		static void setSpriteRepository(s2d::SpriteRepository& repo) { s2d::Sprite::s_spriteRepository = &repo; }
-		static int s_highestLayerIndex;
 	};
 }
 

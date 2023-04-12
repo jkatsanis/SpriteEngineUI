@@ -62,14 +62,15 @@ void s2d::UIInspector::checkDupeName()
 		if (this->m_spriteRepository->sprite_in_inspector->name == sprite->name 
 			&& this->m_spriteRepository->sprite_in_inspector->getId() != sprite->getId())
 		{
-			this->m_spriteRepository->sprite_in_inspector->name = "<no dupe (" + std::to_string(SpriteData::dupeNameCounter) += ")>";
-			SpriteData::dupeNameCounter++;
+			this->m_spriteRepository->sprite_in_inspector->name = "<no dupe (" + std::to_string(this->m_spriteRepository->dupeNameCounter) += ")>";
+			this->m_spriteRepository->dupeNameCounter++;
 		}
 	}
 }
 
 void s2d::UIInspector::init()
 {
+	this->m_collider.init();
 	this->m_spriteInputWidth = 200.0f;
 	this->m_windowSizeWidth = 390.0f;
 

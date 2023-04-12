@@ -306,8 +306,10 @@
     <ClCompile Include="src\spriteComponents\prefab.cpp">
       <Filter>src\physicalComponents\sprite</Filter>
     </ClCompile>
-    <ClCompile Include="src\manager\spriteRepository.cpp" />
     <ClCompile Include="src\SpriteEngine.cpp" />
+    <ClCompile Include="src\manager\spriteRepository.cpp">
+      <Filter>src\manager</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\include\imgui\imconfig.h">
@@ -790,9 +792,11 @@
     <ClInclude Include="src\manager\saveSystem.h">
       <Filter>src\manager\files</Filter>
     </ClInclude>
-    <ClInclude Include="src\manager\spriteRepository.h" />
     <ClInclude Include="src\guiComponents\propertyEditor\UIHierarchy.h">
       <Filter>src\guiComponents\hirachy</Filter>
+    </ClInclude>
+    <ClInclude Include="src\manager\spriteRepository.h">
+      <Filter>src\manager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

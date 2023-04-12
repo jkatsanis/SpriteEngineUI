@@ -18,12 +18,11 @@ s2d::GameEngine::GameEngine()
         &this->m_UIWindow.getInspector().state, &this->event, this->m_spriteRepository);
     
     //Setting other classes
-    s2d::Sprite::setSpriteRepository(this->m_spriteRepository);
     s2d::Initializer::initSprites(this->m_spriteRepository);
-    s2d::Initializer::initAnimations();
+    s2d::Initializer::initAnimations(this->m_spriteRepository);
     s2d::Initializer::initBackground(this->m_UIWindow.getInspector().backgroundColor);
     s2d::Input::setEvent(&this->event);
-    s2d::SpriteData::highestSpriteID = s2d::SpriteData::getHighestIndex();
+    s2d::Initializer::initIds(this->m_spriteRepository.highestSpriteId);
     s2d::UI::setRenderWindow(this->ptr_renderWindow);
     s2d::UI::setS2DEvent(&this->event);
     //End

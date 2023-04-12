@@ -2,7 +2,7 @@
 
 // public static functions
 
-void s2d::Initializer::initAnimations()
+void s2d::Initializer::initAnimations(s2d::SpriteRepository& repo)
 {
 	std::fstream knownAnimationFileStream;
 
@@ -16,7 +16,7 @@ void s2d::Initializer::initAnimations()
 		{
 			cnt++;
 			if (cnt == 1) continue;
-			s2d::Initializer::initAnimation(line);
+			s2d::Initializer::initAnimation(line, repo);
 		}
 
 		knownAnimationFileStream.close();
@@ -134,7 +134,7 @@ void s2d::Initializer::initSprites(s2d::SpriteRepository& spriteRepo)
 		s2d::Sprite* const sprite = spriteRepo.readAt(i);
 		if (sprite->getParentId() > 0)
 		{
-			s2d::Sprite* parent = s2d::Sprite::getSpriteById(sprite->getParentId());
+			s2d::Sprite* parent = spriteRepo.getSpriteWithId(sprite->getParentId());
 			if (parent != nullptr)
 			{
 				sprite->parent = parent;
@@ -177,10 +177,39 @@ void s2d::Initializer::initBackground(s2d::Vector3& vec)
 	}
 }
 
+void s2d::Initializer::initIds(uint32_t& highestId)
+{
+	std::fstream indexFile;
+	int index = 0;
+
+	//opening the file where all sprite data is
+	indexFile.open(PATH_TO_INDEX_FILE, std::ios::in);
+
+	if (indexFile.is_open())
+	{
+		std::string line;
+		int cnt = 0;
+		while (std::getline(indexFile, line))
+		{
+			cnt++;
+			//First line is the header so we dont need to check for it
+			if (cnt == 1)
+			{
+				continue;
+			}
+
+			index = atoi(line.c_str());
+		}
+	}
+	indexFile.close();
+
+	highestId = index;
+}
+
 
 // private static functions
 
-void s2d::Initializer::initAnimation(const std::string& path)
+void s2d::Initializer::initAnimation(const std::string& path, s2d::SpriteRepository& repo)
 {
 	std::string newPath = s2d::EngineData::s_pathToUserProject + "\\" + path;
 	std::fstream animationFileStream;
@@ -208,7 +237,7 @@ void s2d::Initializer::initAnimation(const std::string& path)
 			{
 				// read only the ID of the sprite to apply the animtion
 				int idx = std::stoi(line);
-				ptr_sprite = s2d::Sprite::getSpriteById(idx);
+				ptr_sprite = repo.getSpriteWithId(idx);
 				continue;
 			}
 			std::vector<std::string> propertys = std::splitString(line, DELIMITER);

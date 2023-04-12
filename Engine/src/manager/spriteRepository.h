@@ -13,6 +13,7 @@ namespace s2d
     {
     private:
         std::vector<s2d::Sprite*> m_sprites;
+        uint32_t m_highestLayerIndex;
 
         size_t getIndexAtName(const std::string& name) const;
         void addChildsToDelete(std::vector<s2d::Sprite*>& childs, s2d::Sprite* parent);
@@ -26,6 +27,9 @@ namespace s2d
 
         s2d::EditorTools current_tool;
 
+        uint32_t highestSpriteId;
+        uint32_t dupeNameCounter;
+
         SpriteRepository();
         ~SpriteRepository();
     
@@ -36,6 +40,11 @@ namespace s2d
         void deleteWithName(const std::string& name);
         void add(s2d::Sprite* ref);
         s2d::Sprite* getSpriteWithName(const std::string& name);
+        s2d::Sprite* getSpriteWithId(int id);
+
+        void updateHighestLayerIndex();
+
+        uint32_t getHighestLayerIndex() const { return this->m_highestLayerIndex; }
     };
 }
 

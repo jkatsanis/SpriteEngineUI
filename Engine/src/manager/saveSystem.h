@@ -27,7 +27,7 @@ namespace s2d
 		void createSaveFile(const SpriteRepository& spriteRepo);
 		void createWindowBackgroundSaveFile(const s2d::Vector3 windowBackground);
 		void createCameraSaveFile(const s2d::Camera& camera);
-		void createIndexSaveFile();
+		void createIndexSaveFile(s2d::SpriteRepository& repo);
 		void createKnownProjectDirFile();
 		void createAnimtionSaveFiles(const s2d::SpriteRepository& spriteRepository);
 		void createKnownAnimationFile(const s2d::SpriteRepository& spriteRepository);

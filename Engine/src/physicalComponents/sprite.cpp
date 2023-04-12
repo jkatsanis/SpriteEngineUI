@@ -126,22 +126,41 @@ s2d::Vector2 s2d::Sprite::getOrigininalPosition() const
 	return s2d::Vector2(x, y);
 }
 
+void s2d::Sprite::validateProperties(int id, s2d::SpriteRepository& repo)
+{
+	const char CHAR_INVALID_SYMBOLS[INVALID_SPRITE_SYMBOLS] = { ';' };
+	// VALIDATE NAME
+	for (int i = 0; i < repo.amount(); i++)
+	{
+		s2d::Sprite* const sprite = repo.readAt(i);
+		if (this->name == sprite->name)
+		{
+			name = name + " (dupe) " + std::to_string(i);
+			std::cout << "LOG [ERROR] Cant have duped name renamed sprite!";
+		}
+	}
+	std::string original_name = name;
+
+	for (int i = 0; i < INVALID_SPRITE_SYMBOLS; i++)
+	{
+		name.erase(std::remove(name.begin(), name.end(), ':'), name.end());
+		if (name != original_name)
+		{
+			std::cout << "LOG [ERROR] Cant have invalid symbol!";
+		}
+	}
+}
+
 
 //Private functions
 
 void s2d::Sprite::initVariables(std::string& name, s2d::Vector2& spawnPos, std::string& path)
 {
+	// ID's get managed by the sprite repo!
+
 	this->m_texture = new sf::Texture();
-
-	this->validateProperties(name, spawnPos, path);
 	this->transform = s2d::Transform(this);
-
 	this->m_parentId = -1;
-
-	// ID
-	s2d::SpriteData::highestSpriteID++;
-	this->setId(s2d::SpriteData::highestSpriteID);
-
 	this->parent = nullptr;
 	this->ptr_childs = std::vector<s2d::Sprite*>(0);
 
@@ -171,58 +190,3 @@ void s2d::Sprite::initVariables(std::string& name, s2d::Vector2& spawnPos, std::
 	//Setting sprite size also in init and setTexture
 	this->transform.setScale(s2d::Vector2(1, 1));
 }
-
-void s2d::Sprite::validateProperties(std::string& name, s2d::Vector2& spawnPos, std::string& path)
-{
-	const char CHAR_INVALID_SYMBOLS[INVALID_SPRITE_SYMBOLS] = { ';' };
-	// VALIDATE NAME
-	for (int i = 0; i < s2d::Sprite::s_spriteRepository->amount(); i++)
-	{
-		s2d::Sprite* const sprite = s2d::Sprite::s_spriteRepository->readAt(i);
-		if (name == sprite->name)
-		{
-			name = name + " (dupe) " + std::to_string(i);
-			std::cout << "LOG [ERROR] Cant have duped name renamed sprite!";
-		}
-	}
-	std::string original_name = name;
-
-	for (int i = 0; i < INVALID_SPRITE_SYMBOLS; i++)
-	{
-		name.erase(std::remove(name.begin(), name.end(), ':'), name.end());
-		if (name != original_name)
-		{
-			std::cout << "LOG [ERROR] Cant have invalid symbol!";
-		}
-	}
-}
-
-
-//Static functions
-
-
-void s2d::Sprite::updateHightestLayerIndex()
-{
-	for (int i = 0; i < s2d::Sprite::s_spriteRepository->amount(); i++)
-	{
-		s2d::Sprite* const sprite = s2d::Sprite::s_spriteRepository->readAt(i);
-		if (sprite->sortingLayerIndex > s_highestLayerIndex)
-			s_highestLayerIndex = sprite->sortingLayerIndex;
-	}
-}
-
-s2d::Sprite* s2d::Sprite::getSpriteById(int id)
-{
-	for (int i = 0; i < s2d::Sprite::s_spriteRepository->amount(); i++)
-	{
-		s2d::Sprite* const sprite = s2d::Sprite::s_spriteRepository->readAt(i);
-		if (sprite->m_id == id)
-		{
-			return sprite;
-		}
-	}
-	return nullptr;
-}
-
-s2d::SpriteRepository* s2d::Sprite::s_spriteRepository = nullptr;
-int s2d::Sprite::s_highestLayerIndex = 0;

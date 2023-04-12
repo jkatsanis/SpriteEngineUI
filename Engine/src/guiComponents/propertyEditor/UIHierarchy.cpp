@@ -28,11 +28,6 @@ void s2d::UIHierarchy::displayHierarchyWindow()
 	this->displayChildToParent();
 	this->setSpriteAsChild();
 
-	if (this->m_ptr_repo->sprite_in_inspector != nullptr)
-	{
-		std::cout << this->m_ptr_repo->sprite_in_inspector->name << std::endl;
-	}
-
 	// Cleaning up
 
 	this->cleanRepoSpritesUp(anyHovered);
@@ -72,7 +67,7 @@ void s2d::UIHierarchy::addSprite()
 	if (ImGui::MenuItem("Sprite"))
 	{
 		const size_t vectorPos = this->m_ptr_repo->amount() + 1;
-		const std::string name = "Sprite " + std::to_string(vectorPos) + " ID " + std::to_string(s2d::SpriteData::highestSpriteID + 1);
+		const std::string name = "Sprite " + std::to_string(vectorPos) + " ID " + std::to_string(this->m_ptr_repo->highestSpriteId + 1);
 
 		s2d::Sprite* sprite = new s2d::Sprite(name, s2d::Vector2(0, 0), s2d::SpriteData::defaultSpritePath);
 
@@ -86,11 +81,17 @@ void s2d::UIHierarchy::deleteSprite()
 	{
 		return;
 	}
-	this->m_ptr_repo->deleteWithName(this->m_ptr_repo->sprited_hovered_in_hierarchy->name);
-	if (this->m_ptr_repo->sprited_hovered_in_hierarchy->getId() == this->m_ptr_repo->sprite_in_inspector->getId())
+	if (this->m_ptr_repo->sprite_in_inspector != nullptr)
 	{
-		this->m_ptr_repo->sprite_in_inspector = nullptr;
+		if (this->m_ptr_repo->sprited_hovered_in_hierarchy->getId() == this->m_ptr_repo->sprite_in_inspector->getId())
+		{
+			this->m_ptr_repo->sprite_in_inspector = nullptr;
+		}
 	}
+
+	this->m_ptr_repo->sprite_in_inspector = nullptr;
+	
+	this->m_ptr_repo->deleteWithName(this->m_ptr_repo->sprited_hovered_in_hierarchy->name);
 	this->m_ptr_repo->sprited_hovered_in_hierarchy = nullptr;
 }
 
