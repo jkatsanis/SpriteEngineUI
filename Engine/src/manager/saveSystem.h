@@ -22,15 +22,15 @@ namespace s2d
 {
 	namespace flc
 	{
-		void saveEverything(const s2d::Vector3& bg);
+		void saveEverything(const s2d::Vector3& bg, s2d::SpriteRepository& toSave);
 
-		void createSaveFile(std::vector<s2d::Sprite*>& sprite);
+		void createSaveFile(const SpriteRepository& spriteRepo);
 		void createWindowBackgroundSaveFile(const s2d::Vector3 windowBackground);
 		void createCameraSaveFile(const s2d::Camera& camera);
-		void createIndexSaveFile();
+		void createIndexSaveFile(s2d::SpriteRepository& repo);
 		void createKnownProjectDirFile();
-		void createAnimtionSaveFiles();
-		void createKnownAnimationFile();
+		void createAnimtionSaveFiles(const s2d::SpriteRepository& spriteRepository);
+		void createKnownAnimationFile(const s2d::SpriteRepository& spriteRepository);
 		bool isProjectPathValid(const std::string& path);
 		bool checkIfProjectExistInFile(std::string& ref);
 		void createAnimationSaveFile(const s2d::Sprite* ptr_sprite, const s2d::Animation& animationToSave);
@@ -65,7 +65,7 @@ namespace s2d
 		/// </summary>
 		std::string copyDir(const std::string& inputDir, const std::string& outputdir, const std::string& name, const std::vector<std::string>& exclude);
 
-		std::string getPropertyLineWithSeperator(const Sprite* sprite);
+		std::string getPropertyLineWithSeperator(const Sprite* const sprite);
 	}
 }
 

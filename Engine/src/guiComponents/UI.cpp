@@ -78,10 +78,10 @@ void s2d::UI::setS2DEvent(s2d::Event* const event)
 std::string s2d::UI::getUserProjectPathSeperatetFromEnginePath(const std::string& path)
 {
     std::string userProject = s2d::EngineData::s_nameOfUserProject;
-    int idx = path.find(userProject);
+    int idx = (int)path.find(userProject);
     std::string finalStr = "";
    // std::cout << path << std::endl;
-    for (int i = idx + userProject.size() + 1; i < path.size(); i++)
+    for (int i = idx + (int)userProject.size() + 1; i < path.size(); i++)
     {
         finalStr += path[i];
     }

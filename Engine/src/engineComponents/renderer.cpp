@@ -4,13 +4,19 @@
 
 s2d::Renderer::Renderer()
 {
+    this->m_timeToUpdateLayerIndex = 2;
+    this->m_timeToUpdateSpriteTexture = 1;
+
+    this->m_timePassedTillNextSpriteTextureUpdate = this->m_timeToUpdateSpriteTexture;
+    this->m_timePassedToUpdateLayerIndex = this->m_timeToUpdateLayerIndex;
     this->m_timePassedToUpdateLayerIndex = 0;
     this->m_ptr_backGroundColor = nullptr;
     this->m_ptr_renderWindow = nullptr;
 }
 
-s2d::Renderer::Renderer(sf::RenderWindow* renderWindow, const s2d::Vector3* bg)
+s2d::Renderer::Renderer(sf::RenderWindow* renderWindow, const s2d::Vector3* bg, s2d::SpriteRepository& spritRepo)
 {
+    this->m_spriteRepository = &spritRepo;
     this->m_timePassedToUpdateLayerIndex = 0;
     this->m_ptr_renderWindow = renderWindow;
     this->m_ptr_backGroundColor = bg;
@@ -40,7 +46,7 @@ void s2d::Renderer::drawSprites()
     //2s passed we can update out hightest layer index
     if (this->m_timePassedToUpdateLayerIndex > m_timeToUpdateLayerIndex)
     {
-        s2d::Sprite::updateHightestLayerIndex();
+        this->m_spriteRepository->updateHighestLayerIndex();
         this->m_timePassedToUpdateLayerIndex = 0;
     }
 #ifdef LOAD_TEXTURE_FROM_FILES
@@ -50,14 +56,15 @@ void s2d::Renderer::drawSprites()
         this->updateSriteTextures();
     }
 #endif
-    for (int i = 0; i < s2d::Sprite::highestLayerIndex + 1; i++)
+    for (size_t i = 0; i < this->m_spriteRepository->getHighestLayerIndex() + 1; i++)
     {
-        for (s2d::Sprite* ptr_activeSprites : s2d::Sprite::s_sprites)
+        for (size_t j = 0; j < this->m_spriteRepository->amount(); j++)
         {
-            if (ptr_activeSprites->sortingLayerIndex == i)
+            s2d::Sprite* const sprite = this->m_spriteRepository->readAt(j);
+            if (sprite->sortingLayerIndex == i)
             {
-                ptr_activeSprites->transform.updateTransformPosition();
-                this->m_ptr_renderWindow->draw(ptr_activeSprites->getSprite());
+                sprite->transform.updateTransformPosition();
+                this->m_ptr_renderWindow->draw(sprite->getSprite());
             }
         }
     }
@@ -81,9 +88,10 @@ void s2d::Renderer::drawRectangles()
 
 void s2d::Renderer::updateSriteTextures()
 {
-    for (int i = 0; i < s2d::Sprite::s_sprites.size(); i++)
+    for (int i = 0; i < this->m_spriteRepository->amount(); i++)
     {
-        s2d::Sprite::s_sprites[i]->setSpriteTexture(s2d::Sprite::s_sprites[i]->path);
+        s2d::Sprite* const sprite = this->m_spriteRepository->readAt(i);
+        sprite->setSpriteTexture(sprite->path);
     }
 }
 

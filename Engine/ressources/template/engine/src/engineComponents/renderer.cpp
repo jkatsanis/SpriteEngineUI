@@ -37,18 +37,19 @@ void s2d::Renderer::drawSprites()
     //2s passed we can update out hightest layer index
     if (this->m_timePassedToUpdateLayerIndex > m_timeToUpdateLayerIndex)
     {
-        s2d::Sprite::updateHightestLayerIndex();
+        this->m_ptr_repo->updateHighestLayerIndex();
         this->m_timePassedToUpdateLayerIndex = 0;
     }
 
-    for (int i = 0; i < s2d::Sprite::highestLayerIndex + 1; i++)
+    for (int i = 0; i < this->m_ptr_repo->getHighestLayerIndex() + 1; i++)
     {
-        for (s2d::Sprite* ptr_activeSprites : s2d::Sprite::s_sprites)
+        for (int j = 0; j < this->m_ptr_repo->amount(); j++)
         {
-            if (ptr_activeSprites->sortingLayerIndex == i)
+            s2d::Sprite* const sprite = this->m_ptr_repo->readAt(j);
+            if (sprite->sortingLayerIndex == i)
             {
-                ptr_activeSprites->transform.updateTransformPosition();
-                this->m_ptr_renderWindow->draw(ptr_activeSprites->getSprite());
+                sprite->transform.updateTransformPosition();
+                this->m_ptr_renderWindow->draw(sprite->getSprite());
             }
         }
     }
@@ -80,10 +81,10 @@ void s2d::Renderer::render()
 
 // Public static functions
 
-void s2d::Renderer::updateAllSpriteTextures()
+void s2d::Renderer::updateAllSpriteTextures(s2d::SpriteRepository& repo)
 {
-    for (int i = 0; i < s2d::Sprite::s_sprites.size(); i++)
+    for (size_t i = 0; i < repo.amount(); i++)
     {
-        s2d::Sprite::s_sprites[i]->setSpriteTexture(s2d::Sprite::s_sprites[i]->getPathOfTextureFile());
+       repo.readAt(i)->setSpriteTexture(repo.readAt(i)->getPathOfTextureFile());
     }
 }

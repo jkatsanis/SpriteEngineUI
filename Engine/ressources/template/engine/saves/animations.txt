@@ -1,2 +1,2 @@
 PathToAnimation
-assets\Scripts\Doe.txt
+assets\Scripts\Im.txt

@@ -5,6 +5,7 @@
 #include <physicalComponents/sprite.h>
 #include <guiComponents/UI.h>
 #include <calculationComponents/vector3.h>
+#include <manager/spriteRepository.h>
 #include <string>
 #include <fstream>
 
@@ -31,13 +32,15 @@ namespace s2d
 	class Initializer
 	{
 	private:
-		static void initAnimation(const std::string& path);
+		static void initAnimation(const std::string& path, s2d::SpriteRepository& repo);
 	public:
 		Initializer() = delete;
 
-		static void initAnimations();
-		static void initSprites();
+		static void initAnimations(s2d::SpriteRepository& repo);
+		static void initSprite(const std::string& line, s2d::Sprite* const sprite);
+		static void initSprites(s2d::SpriteRepository& spriteRepo);
 		static void initBackground(s2d::Vector3& vec);
+		static void initIds(uint32_t& highestId);
 	};
 }
 

@@ -171,7 +171,6 @@
     <ClCompile Include="engine\src\physicalComponents\gameObject.cpp" />
     <ClCompile Include="engine\src\spriteComponents\physicsBody.cpp" />
     <ClCompile Include="engine\src\physicalComponents\sprite.cpp" />
-    <ClCompile Include="engine\src\spriteComponents\spriteData.cpp" />
     <ClCompile Include="engine\src\spriteComponents\stransform.cpp" />
     <ClCompile Include="engine\src\calculationComponents\vector2.cpp" />
     <ClCompile Include="engine\src\calculationComponents\vector3.cpp" />
@@ -182,9 +181,11 @@
     <ClCompile Include="engine\src\calculationComponents\srandom.cpp" />
     <ClCompile Include="engine\src\manager\initializer.cpp" />
     <ClCompile Include="assets\Scripts\game.cpp" />
+    <ClCompile Include="engine\src\manager\spriteRepository.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="assets\Scripts\features.h" />
+    <ClInclude Include="engine\src\data\engineConfig.h" />
     <ClInclude Include="engine\src\spriteComponents\animation.h" />
     <ClInclude Include="engine\src\spriteComponents\animator.h" />
     <ClInclude Include="engine\src\engineComponents\base.h" />
@@ -211,7 +212,6 @@
     <ClInclude Include="engine\src\physicalComponents\gameObject.h" />
     <ClInclude Include="engine\src\spriteComponents\physicsBody.h" />
     <ClInclude Include="engine\src\physicalComponents\sprite.h" />
-    <ClInclude Include="engine\src\spriteComponents\spriteData.h" />
     <ClInclude Include="engine\src\spriteComponents\stransform.h" />
     <ClInclude Include="engine\src\calculationComponents\vector2.h" />
     <ClInclude Include="engine\src\calculationComponents\vector3.h" />
@@ -222,6 +222,7 @@
     <ClInclude Include="engine\src\manager\initializer.h" />
     <ClInclude Include="assets\Scripts\game.h" />
     <ClInclude Include="engine\src\spriteComponents\keyFrame.h" />
+    <ClInclude Include="engine\src\manager\spriteRepository.h" />
     <ClInclude Include="src\libraries\include\SFML\Audio.hpp" />
     <ClInclude Include="src\libraries\include\SFML\Audio\AlResource.hpp" />
     <ClInclude Include="src\libraries\include\SFML\Audio\Export.hpp" />
