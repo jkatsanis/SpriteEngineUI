@@ -1,2 +1,39 @@
-﻿  UIAssetFolder.cpp
+﻿  SpriteEngine.cpp
+  UIIconData.cpp
+C:\Dev\SpriteEngineUI\Engine\src\data\UIIconData.cpp(8,78): warning C4312: '<function-style-cast>': conversion from 'unsigned int' to 'ImTextureID' of greater size
+C:\Dev\SpriteEngineUI\Engine\src\data\UIIconData.cpp(9,74): warning C4312: '<function-style-cast>': conversion from 'unsigned int' to 'ImTextureID' of greater size
+  UIInfo.cpp
+  spriteData.cpp
+  gameEngine.cpp
+  renderer.cpp
+  UI.cpp
+  UIWindow.cpp
+  UIProjectSelector.cpp
+  UIProjectSelectorProjectSection.cpp
+  UIAnimation.cpp
+  UIAnimationKeyFrameAdder.cpp
+  UIAssetFolder.cpp
+  UIAssetTools.cpp
+  UIHierarchy.cpp
+  UIInspector.cpp
+  UIInspectorBoxCollider.cpp
+  UIToolButtons.cpp
+  UIToolButtonsModels.h
+  UIRealTimeEditor.cpp
+  Generating Code...
+  Compiling...
+  UIRealTimeEditorNavigator.cpp
+  UIRealTimeEditorTransform.cpp
+  UIRealTimeEditorTransformPosition.cpp
+  UIRealTimeEditorTransfsormScale.cpp
+  fileDialogs.cpp
+  fontManager.cpp
+  initializer.cpp
+  saveSystem.cpp
+  sprite.cpp
+  boxCollider.cpp
+  childSystem.cpp
+  prefab.cpp
+  transform.cpp
+  Generating Code...
   SpriteEngine.vcxproj -> C:\Dev\SpriteEngineUI\Engine\x64\Debug\SpriteEngine.exe

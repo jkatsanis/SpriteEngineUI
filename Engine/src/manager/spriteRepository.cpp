@@ -5,6 +5,8 @@
 
 s2d::SpriteRepository::SpriteRepository()
 {
+    this->assetFolderData.dragAndDropName = " ";
+    this->assetFolderData.dragAndDropPath = " ";
     this->current_tool = s2d::EditorTools::PositionTool;
     this->sprited_hovered_in_hierarchy = nullptr;
     this->sprite_in_inspector = nullptr;

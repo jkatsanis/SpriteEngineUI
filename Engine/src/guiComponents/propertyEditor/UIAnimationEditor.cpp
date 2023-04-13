@@ -168,7 +168,7 @@ void s2d::UIAnimationEditor::addKeyFrame()
 	{
 		if (this->m_ptr_repo->sprite_in_inspector != nullptr)
 		{
-			this->keyFrameAdder.m_keyFramePath = this->m_ptr_repo->sprite_in_inspector->path;
+			this->keyFrameAdder.keyFramePath = this->m_ptr_repo->sprite_in_inspector->path;
 		}
 		this->keyFrameAdder.isKeyFrameMenuOpen = true;
 		this->keyFrameAdder.setAnimation(this->m_anim);
@@ -192,4 +192,10 @@ void s2d::UIAnimationEditor::displayEditor()
 	{
 		this->keyFrameAdder.update();
 	}
+}
+
+void s2d::UIAnimationEditor::setSpriteRepository(s2d::SpriteRepository& repo)
+{
+	this->m_ptr_repo = &repo;
+	this->keyFrameAdder.setSpriteRepository(repo);
 }

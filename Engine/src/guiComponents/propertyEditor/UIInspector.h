@@ -23,7 +23,7 @@ namespace s2d
 	class UIInspector
 	{
 	private:
-		s2d::SpriteRepository* m_spriteRepository;
+		s2d::SpriteRepository* m_ptr_repo;
 
 		std::string m_menuName;
 		std::string m_spriteName;
@@ -80,7 +80,7 @@ namespace s2d
 
 		void createUIInspector();
 
-		void setSpriteRepository(s2d::SpriteRepository& repo) { this->m_spriteRepository = &repo; }
+		void setSpriteRepository(s2d::SpriteRepository& repo) { this->m_ptr_repo = &repo; }
 
 	public:
 

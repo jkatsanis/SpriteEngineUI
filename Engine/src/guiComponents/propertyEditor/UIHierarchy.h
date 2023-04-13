@@ -29,10 +29,10 @@ namespace s2d
 
 		void addSprite();
 		void deleteSprite();
-
 		void cleanRepoSpritesUp(bool isAnyHovered);
-
 		void setMenuitemHovered(bool& any_hovered, s2d::Sprite* sprite);
+
+		void addPrefab();
 
 	public:		
 		bool isHovered;

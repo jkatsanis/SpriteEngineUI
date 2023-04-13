@@ -32,7 +32,7 @@ namespace s2d
 		// General info
 		std::string name;
 		std::string path;
-		uint32_t sortingLayerIndex;
+		int32_t sortingLayerIndex;
 
 		// Components
 		s2d::BoxCollider collider;

@@ -6,7 +6,7 @@ s2d::UIAnimationKeyFrameAdder::UIAnimationKeyFrameAdder()
 {
 	this->m_keyframePos = 0;
 	this->isHovered = false;
-	this->m_keyFramePath = s2d::SpriteData::defaultSpritePath;
+	this->keyFramePath = s2d::SpriteData::defaultSpritePath;
 	this->isKeyFrameMenuOpen = false;
 }
 
@@ -47,14 +47,14 @@ void s2d::UIAnimationKeyFrameAdder::inputData()
 	ImGui::SetCursorPos(ImVec2(ImGui::GetCursorPosX() + 107, ImGui::GetCursorPosY() - 30));
 	ImGui::InputText("##spriteAdder", this->m_keyFramePathDataHolder, CHAR_MAX);
 
-	if (ImGui::IsItemHovered() && ImGui::IsMouseReleased(0) && s2d::UIAssetFolder::dragAndDropPath != " ")
+	if (ImGui::IsItemHovered() && ImGui::IsMouseReleased(0) && this->m_ptr_repo->assetFolderData.dragAndDropPath != " ")
 	{
-		this->m_keyFramePath = s2d::UIAssetFolder::dragAndDropPath;
-		strcpy_s(this->m_keyFramePathDataHolder, s2d::UIInspector::getNamePathSplit(s2d::UIAssetFolder::dragAndDropPath).c_str());
+		this->keyFramePath = this->m_ptr_repo->assetFolderData.dragAndDropPath;
+		strcpy_s(this->m_keyFramePathDataHolder, s2d::UIInspector::getNamePathSplit(this->m_ptr_repo->assetFolderData.dragAndDropPath).c_str());
 	}
 	else
 	{
-		strcpy_s(this->m_keyFramePathDataHolder, s2d::UIInspector::getNamePathSplit(this->m_keyFramePath.c_str()).c_str());
+		strcpy_s(this->m_keyFramePathDataHolder, s2d::UIInspector::getNamePathSplit(this->keyFramePath.c_str()).c_str());
 	}
 }
 
@@ -99,7 +99,7 @@ void s2d::UIAnimationKeyFrameAdder::addKeyFrameToAnimation()
 	if (this->m_keyframePos == 0 && ref.size() == 0
 		|| this->m_keyframePos == 0 && ref.size() != 0 && ref[0].position != 0)
 	{
-		s2d::KeyFrame add = s2d::KeyFrame(this->m_keyFramePath, 0);
+		s2d::KeyFrame add = s2d::KeyFrame(this->keyFramePath, 0);
 		add.position = this->m_keyframePos;
 
 		this->m_animation->addKeyFrameAt(0, add);
@@ -141,7 +141,7 @@ void s2d::UIAnimationKeyFrameAdder::addKeyFrameToAnimation()
 		ref[vecpos].delay = (this->m_keyframePos - delay) * -1;
 	}
 
-	s2d::KeyFrame add = s2d::KeyFrame(this->m_keyFramePath, fndelay);
+	s2d::KeyFrame add = s2d::KeyFrame(this->keyFramePath, fndelay);
 	add.position = this->m_keyframePos;
 
 	this->m_animation->addKeyFrameAt(vecpos, add);
@@ -169,7 +169,7 @@ void s2d::UIAnimationKeyFrameAdder::setAnimation(s2d::Animation* anim)
 void s2d::UIAnimationKeyFrameAdder::reset()
 {
 	this->m_keyframePos = -1;
-	this->m_keyFramePath = "";
+	this->keyFramePath = "";
 	this->m_animation = nullptr;
 	this->isKeyFrameMenuOpen = false;
 	this->isHovered = false;

@@ -44,6 +44,6 @@ namespace s2d
 		UIAnimationEditor();
 
 		void displayEditor();
-		void setSpriteRepository(s2d::SpriteRepository& repo) { this->m_ptr_repo = &repo; }
+		void setSpriteRepository(s2d::SpriteRepository& repo);
 	};
 }

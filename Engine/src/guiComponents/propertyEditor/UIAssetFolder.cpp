@@ -34,7 +34,7 @@ void s2d::UIAssetFolder::createAssetLinkerWindow()
     }
     ImGui::PopStyleVar();
 
-    if (s2d::UIAssetFolder::dragAndDropPath != " ")
+    if (this->m_ptr_repo->assetFolderData.dragAndDropPath != " ")
     {
         const ImVec2 cursor = ImGui::GetCursorPos();
         const ImVec2 pos = ImVec2(float(sf::Mouse::getPosition().x - 100), float(sf::Mouse::getPosition().y + 10));
@@ -44,7 +44,7 @@ void s2d::UIAssetFolder::createAssetLinkerWindow()
             ImGui::SetWindowPos(pos);
             ImGui::SetWindowFontScale(s2d::UIInfo::sdefaultFontSize);
 
-            ImGui::Text(s2d::UIAssetFolder::dragAndDropName.c_str());
+            ImGui::Text(this->m_ptr_repo->assetFolderData.dragAndDropName.c_str());
             ImGui::End();
         }
     }
@@ -188,18 +188,18 @@ void s2d::UIAssetFolder::setDragAndDrop(std::string path, std::string name)
 {
     //Check if we hover over the menu item used later on for drag and drop
 
-    if (ImGui::IsItemHovered() && ImGui::IsMouseDown(0) && !this->m_interacted && dragAndDropPath == " ")
+    if (ImGui::IsItemHovered() && ImGui::IsMouseDown(0) && !this->m_interacted && this->m_ptr_repo->assetFolderData.dragAndDropPath == " ")
     {
         this->m_draggingItem = true;
-        s2d::UIAssetFolder::dragAndDropPath = path;
-        s2d::UIAssetFolder::dragAndDropName = name;
+        this->m_ptr_repo->assetFolderData.dragAndDropPath = path;
+        this->m_ptr_repo->assetFolderData.dragAndDropName = name;
     }
     if (ImGui::IsMouseReleased(0))
     {
         this->m_interacted = true;
         this->m_draggingItem = false;
         this->m_hoveredOverItem = false;
-        s2d::UIAssetFolder::dragAndDropPath = " ";
+        this->m_ptr_repo->assetFolderData.dragAndDropPath = " ";
     }
 }
 
@@ -215,7 +215,3 @@ void s2d::UIAssetFolder::beginColumns()
 
     ImGui::Columns(columnCount, 0, false);
 }
-
-
-std::string s2d::UIAssetFolder::dragAndDropPath = " ";
-std::string s2d::UIAssetFolder::dragAndDropName = " ";

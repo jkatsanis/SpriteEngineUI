@@ -12,6 +12,7 @@ namespace s2d
 	{
 	private:
 		s2d::Animation* m_animation;
+		s2d::SpriteRepository* m_ptr_repo;
 
 		void beginWindow();
 		void inputData();
@@ -24,13 +25,15 @@ namespace s2d
 	public:
 		bool isKeyFrameMenuOpen;
 		bool isHovered;
-		std::string m_keyFramePath;
+		std::string keyFramePath;
 
 		UIAnimationKeyFrameAdder();
 
 		void update();
 		void setAnimation(s2d::Animation* anim);
 		void reset();
+
+		void setSpriteRepository(s2d::SpriteRepository& repo) { this->m_ptr_repo = &repo; }
 	};
 }
 

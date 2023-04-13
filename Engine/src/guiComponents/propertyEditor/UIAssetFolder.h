@@ -47,10 +47,6 @@ namespace s2d
 		void createAssetLinkerWindow();
 
 		void setSpriteRepository(s2d::SpriteRepository& repo) { this->m_ptr_repo = &repo; }
-
-		//THIS IS THE PATH FROM THE .SLN file in the engine!
-		static std::string dragAndDropPath;
-		static std::string dragAndDropName;
 	};
 }
 

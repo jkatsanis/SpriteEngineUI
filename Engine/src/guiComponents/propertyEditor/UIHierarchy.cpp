@@ -151,6 +151,11 @@ void s2d::UIHierarchy::setMenuitemHovered(bool& any_hovered, s2d::Sprite* sprite
 	}
 }
 
+void s2d::UIHierarchy::addPrefab()
+{
+//	if(this->m_ptr_repo.)
+}
+
 bool s2d::UIHierarchy::displaySprites()
 {
 	bool anyHoverd = false;

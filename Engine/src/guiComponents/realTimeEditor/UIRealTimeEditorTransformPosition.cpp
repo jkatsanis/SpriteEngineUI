@@ -106,7 +106,7 @@ bool s2d::UIRealTimeEditorTransformPosition::checkClick(s2d::Sprite* const sprit
 
 s2d::Sprite* s2d::UIRealTimeEditorTransformPosition::checkIfMouseClickedOnSprite()
 {
-    int highest = -1;
+    int32_t highest = -1;
     std::string name = "";
     std::vector<s2d::Sprite*> spr;
 
