@@ -5,6 +5,7 @@
 #include <imgui-SFML.h>
 #include <imgui.h>
 #include <physicalComponents/sprite.h>
+#include <manager/spriteRepository.h>
 
 //s#define LOAD_TEXTURE_FROM_FILES
 
@@ -21,6 +22,7 @@ namespace s2d
 
 		sf::RenderWindow* m_ptr_renderWindow;
 		const s2d::Vector3* m_ptr_backGroundColor;
+		s2d::SpriteRepository* m_spriteRepository;
 
 		void draw();
 
@@ -31,7 +33,7 @@ namespace s2d
 
 	public:
 		Renderer();
-		Renderer(sf::RenderWindow* renderWindow, const s2d::Vector3* bg);
+		Renderer(sf::RenderWindow* renderWindow, const s2d::Vector3* bg, s2d::SpriteRepository& spriteRepo);
 
 	   void render();
 	};

@@ -171,14 +171,14 @@
     <ClCompile Include="assets\Scripts\game.cpp">
       <Filter>gamesrc</Filter>
     </ClCompile>
-    <ClCompile Include="engine\src\spriteComponents\spriteData.cpp">
-      <Filter>engine src\data</Filter>
-    </ClCompile>
     <ClCompile Include="engine\src\spriteComponents\animator.cpp">
       <Filter>engine src\spriteComponents\animation</Filter>
     </ClCompile>
     <ClCompile Include="engine\src\spriteComponents\animation.cpp">
       <Filter>engine src\spriteComponents\animation</Filter>
+    </ClCompile>
+    <ClCompile Include="engine\src\manager\spriteRepository.cpp">
+      <Filter>engine src\manager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -578,9 +578,6 @@
     <ClInclude Include="assets\Scripts\game.h">
       <Filter>gamesrc</Filter>
     </ClInclude>
-    <ClInclude Include="engine\src\spriteComponents\spriteData.h">
-      <Filter>engine src\data</Filter>
-    </ClInclude>
     <ClInclude Include="engine\src\spriteComponents\animator.h">
       <Filter>engine src\spriteComponents\animation</Filter>
     </ClInclude>
@@ -591,6 +588,12 @@
       <Filter>engine src\spriteComponents\animation</Filter>
     </ClInclude>
     <ClInclude Include="assets\Scripts\features.h" />
+    <ClInclude Include="engine\src\manager\spriteRepository.h">
+      <Filter>engine src\manager</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\src\data\engineConfig.h">
+      <Filter>engine src\data</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="src\libraries\include\SFML\Graphics\Glsl.inl">

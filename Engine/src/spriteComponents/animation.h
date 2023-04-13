@@ -4,6 +4,7 @@
 #include <iostream>
 #include "Time.h"
 #include <spriteComponents/keyFrame.h>
+#include <manager/spriteRepository.h>
 
 namespace s2d
 {
@@ -55,7 +56,7 @@ namespace s2d
 		void addKeyFrameAt(const int vecpos, const s2d::KeyFrame& frame);
 
 	public:
-		static void updateAllAnimations();
+		static void updateAllAnimations(s2d::SpriteRepository& toUpdate);
 	};
 }
 

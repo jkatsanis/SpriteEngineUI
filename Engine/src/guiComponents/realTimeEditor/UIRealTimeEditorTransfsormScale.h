@@ -2,7 +2,6 @@
 
 #include <SFML/Graphics.hpp>
 #include <physicalComponents/gameObject.h>
-#include <UIHirachy.h>
 #include <guiComponents/UI.h>
 
 #define SCALE_DOTTS 2
@@ -21,6 +20,7 @@ namespace s2d
 	private:
 		ScaleDott m_scaleDotts[SCALE_DOTTS];
 
+		s2d::SpriteRepository* m_ptr_repo;
 		s2d::Vector2 m_scale;
 		s2d::Vector2 m_currentCursorPos;
 		s2d::Event* m_event;
@@ -35,7 +35,7 @@ namespace s2d
 
 	public:
 		UIRealTimeEditorTransfsormScale();
-		UIRealTimeEditorTransfsormScale(s2d::Event* event);
+		UIRealTimeEditorTransfsormScale(s2d::Event* event, s2d::SpriteRepository& repo);
 
 		void renderDolls();
 		void unrenderDolls();

@@ -5,6 +5,7 @@
 #include <spriteComponents/animation.h>
 #include <engineComponents/stime.h>
 #include <spriteComponents/keyFrame.h>
+#include <manager/spriteRepository.h>
 #include <unordered_map>
 
 namespace s2d
@@ -39,7 +40,7 @@ namespace s2d
 
 	public:
 
-		static void stopAllAnimations();
+		static void stopAllAnimations(s2d::SpriteRepository& toUpdate);
 	};
 }
 

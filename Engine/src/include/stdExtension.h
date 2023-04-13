@@ -10,9 +10,9 @@ namespace std
 	static std::string getFileOnPath(const std::string& path)
 	{
 		std::string fileName = "";
-		for (size_t i = path.size() - 1; i >= 0; i--)
+		for (int i = (int)path.size() - 1; i >= 0; i--)
 		{
-			if (path[i] == '\\')
+			if (path[(size_t)i] == '\\')
 			{
 				break;
 			}

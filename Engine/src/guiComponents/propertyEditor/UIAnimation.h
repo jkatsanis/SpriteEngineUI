@@ -5,10 +5,10 @@
 #include <icons.h>
 #include <iostream>
 #include <physicalComponents/sprite.h>
-#include <UIHirachy.h>
 #include <UIAnimationEditor.h>
 #include <manager/fontManager.h>
 #include <manager/fileDialogs.h>
+#include <engineComponents/input.h>
 
 namespace s2d
 {
@@ -16,6 +16,7 @@ namespace s2d
 	{
 	private:
 		//Setting display to false and shit in its own class
+		s2d::SpriteRepository* m_ptr_repo;
 		UIAnimationEditor m_UIAnimationEditor;
 		std::string m_fileName;
 		s2d::FileDialog m_createAnimtionPathFileDialoge;
@@ -35,5 +36,6 @@ namespace s2d
 		UIAnimation();
 
 		void createUIAnimationWindow();
+		void setSpriteRepository(s2d::SpriteRepository& repo);
 	};
 }

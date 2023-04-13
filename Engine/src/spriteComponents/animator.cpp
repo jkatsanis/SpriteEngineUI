@@ -73,10 +73,11 @@ void s2d::Animator::resetComponent()
 
 //Static functions
 
-void s2d::Animator::stopAllAnimations()
+void s2d::Animator::stopAllAnimations(s2d::SpriteRepository& toUpdate)
 {
-	for (int i = 0; i < s2d::Sprite::s_sprites.size(); i++)
+	for (int i = 0; i < toUpdate.amount(); i++)
 	{
-		s2d::Sprite::s_sprites[i]->animator.stop(s2d::Sprite::s_sprites[i]->animator.animationPlaying.name);
+		s2d::Sprite* const sprite = toUpdate.readAt(i);
+		sprite->animator.stop(sprite->animator.animationPlaying.name);
 	}
 }

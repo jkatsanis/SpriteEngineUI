@@ -7,7 +7,6 @@ s2d::UIAssetFolder::UIAssetFolder()
 
 void s2d::UIAssetFolder::init()
 {
-    this->m_ptr_rightClickedSprite = nullptr;
     this->m_tools = s2d::UIAssetTools(&this->currentPath);
 
     this->currentPath = s2d::EngineData::s_pathToUserProject + "\\assets";
@@ -29,8 +28,8 @@ void s2d::UIAssetFolder::createAssetLinkerWindow()
     if (ImGui::Begin("Assets", NULL, ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize))
     {
         this->render();
-        this->m_tools.update(isHovered);
         this->addPrefab();
+        this->m_tools.update(isHovered);
         ImGui::End();
     }
     ImGui::PopStyleVar();
@@ -63,20 +62,21 @@ void s2d::UIAssetFolder::render()
     ImGui::SetWindowFontScale(s2d::UIInfo::sdefaultFontSize);
     ImGui::SetWindowSize(ImVec2(1280, 350));
 
-    this->isHovered = ImGui::IsWindowHovered(ImGuiHoveredFlags_AllowWhenBlockedByActiveItem);
+    this->isHovered = ImGui::IsWindowHovered(ImGuiHoveredFlags_AllowWhenBlockedByActiveItem | ImGuiHoveredFlags_AllowWhenBlockedByPopup);
 }
 
 
 void s2d::UIAssetFolder::addPrefab()
 {
-    if (this->m_ptr_rightClickedSprite != nullptr && ImGui::IsMouseReleased(0) && this->isHovered)
+    if (this->m_ptr_repo->child_to_parent != nullptr && ImGui::IsMouseReleased(0 && this->isHovered))
     {
-        const std::string pathToFile = this->currentPath + "\\" + this->m_ptr_rightClickedSprite->name + EXTENSION_PREFAB_FILE;
+        std::cout << "y";
+        const std::string pathToFile = this->currentPath + "\\" + this->m_ptr_repo->child_to_parent->name + EXTENSION_PREFAB_FILE;
 
-        this->m_ptr_rightClickedSprite->prefab.updateProps(
-            pathToFile, s2d::UI::getUserProjectPathSeperatetFromEnginePath(pathToFile), pathToFile, this->m_ptr_rightClickedSprite->name + EXTENSION_PREFAB_FILE
+        this->m_ptr_repo->child_to_parent->prefab.updateProps(
+            pathToFile, s2d::UI::getUserProjectPathSeperatetFromEnginePath(pathToFile), pathToFile, this->m_ptr_repo->child_to_parent->name + EXTENSION_PREFAB_FILE
         );
-        s2d::flc::createOrUpdatePrefabFile(this->m_ptr_rightClickedSprite, pathToFile, this->m_ptr_rightClickedSprite->prefab.pathToOldFile);
+        s2d::flc::createOrUpdatePrefabFile(this->m_ptr_repo->child_to_parent, pathToFile, this->m_ptr_repo->child_to_parent->prefab.pathToOldFile);
     }
 }
 

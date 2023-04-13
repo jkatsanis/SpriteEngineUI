@@ -38,9 +38,15 @@ void s2d::Prefab::resetPrefab()
 
 void s2d::Prefab::updateFile()
 { 
-	int amountToDelete = (int)fileName.size();	
-	std::string newPath = this->enginePathToFile;
-	newPath.resize(newPath.size() - amountToDelete);
+	std::string newPath = "";
+
+	size_t erase = this->enginePathToFile.size() - fileName.size();
+
+	for (int i = 0; i < erase + 1; i++)
+	{
+		newPath.push_back(this->enginePathToFile[i]);
+	}
+	newPath.pop_back();
 
 	newPath += this->m_ptr_attachedSprite->name + EXTENSION_PREFAB_FILE;
 
