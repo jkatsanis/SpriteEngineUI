@@ -1,8 +1,6 @@
 #include "UIInspectorBoxCollider.h"
 
-s2d::UIInspectorBoxCollider::UIInspectorBoxCollider() { }
-
-void s2d::UIInspectorBoxCollider::init()
+s2d::UIInspectorBoxCollider::UIInspectorBoxCollider()
 {
 	this->m_texture.loadFromFile(PATH_TO_RESSOURCS"/Sprites/transparent.png");
 }

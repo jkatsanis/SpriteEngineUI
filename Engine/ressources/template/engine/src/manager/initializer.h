@@ -20,13 +20,12 @@ namespace s2d
 	class Initializer
 	{
 	private:
-		static void initAnimation(const std::string& path, s2d::SpriteRepository& repo);
+		static void initAnimation(const std::string& path);
 	public:
 		Initializer() = delete;
 
-		static void initAnimations(s2d::SpriteRepository& repo);
-		static void initSprites(s2d::SpriteRepository& repo);
-		static void initIds(uint32_t& highestId);
+		static void initAnimations();
+		static void initSprites();
 	};
 }
 

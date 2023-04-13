@@ -82,7 +82,7 @@ void s2d::UIAnimationEditor::editorTimeLine()
 	{
 		ImGui::Text(std::to_string(i).c_str());
 
-		ImGui::SetCursorPos(ImVec2(100.0f + ((int)i + 1.0f) * CURSOR_SPACE, y));
+		ImGui::SetCursorPos(ImVec2(100.0f + ((int)i + 1.0f) * this->m_CURSOR_SPACE, y));
 	}
 
 
@@ -155,7 +155,7 @@ void s2d::UIAnimationEditor::renderKeyFrames()
 		}
 		currentMs++;
 
-		ImGui::SetCursorPos(ImVec2(100.0f + ((int)i + 1.0f) * CURSOR_SPACE, y));
+		ImGui::SetCursorPos(ImVec2(100.0f + ((int)i + 1.0f) * this->m_CURSOR_SPACE, y));
 	}
 	ImGui::NewLine();
 	ImGui::Dummy(ImVec2(0, 20));
@@ -166,9 +166,9 @@ void s2d::UIAnimationEditor::addKeyFrame()
 	ImGui::SetCursorPos(ImVec2(ImGui::GetCursorPosX() + 2 + ImGui::GetScrollX(), ImGui::GetCursorPosY()));
 	if (ImGui::Button("Add KeyFrame"))
 	{
-		if (this->m_ptr_repo->sprite_in_inspector != nullptr)
+		if (s2d::UIHirachy::s_selectedSprite != nullptr)
 		{
-			this->keyFrameAdder.m_keyFramePath = this->m_ptr_repo->sprite_in_inspector->path;
+			this->keyFrameAdder.m_keyFramePath = s2d::UIHirachy::s_selectedSprite->path;
 		}
 		this->keyFrameAdder.isKeyFrameMenuOpen = true;
 		this->keyFrameAdder.setAnimation(this->m_anim);

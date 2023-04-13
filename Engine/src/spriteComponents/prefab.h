@@ -36,7 +36,7 @@ namespace s2d
 		bool loadInMemory;
 
 		Prefab();
-		Prefab(s2d::Sprite* m_attached);
+		Prefab(s2d::Sprite* const m_attached);
 		
 		/// <summary>
 		/// Resets the data and deletes the FILE!

@@ -8,8 +8,6 @@
 #include <UIAnimationKeyFrameAdder.h>
 #include <guiComponents/colors.h>
 
-#define CURSOR_SPACE 50
-
 namespace s2d
 {
 	struct KeyFrameSelected
@@ -21,8 +19,8 @@ namespace s2d
 	class UIAnimationEditor
 	{
 	private:
+		const int m_CURSOR_SPACE = 50;
 		int m_keyFramesToEdit;
-		s2d::SpriteRepository* m_ptr_repo;
 		s2d::UIAnimationKeyFrameAdder keyFrameAdder;
 
 		void renderKeyFrames();
@@ -44,6 +42,5 @@ namespace s2d
 		UIAnimationEditor();
 
 		void displayEditor();
-		void setSpriteRepository(s2d::SpriteRepository& repo) { this->m_ptr_repo = &repo; }
 	};
 }

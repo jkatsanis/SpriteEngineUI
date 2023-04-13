@@ -12,7 +12,6 @@
 #include <engineComponents/renderer.h>
 #include <features.h>
 #include <manager/initializer.h>
-#include <manager/spriteRepository.h>
 
 //All user files
 
@@ -23,9 +22,8 @@ namespace s2d
     class GameEngine
 	{
 		//User classes, only 1 instance
-		Game m_game;
+		Game game;
 
-		s2d::SpriteRepository m_sprite_repository;
 		s2d::Renderer m_renderer;
 
 		float m_timePassed;

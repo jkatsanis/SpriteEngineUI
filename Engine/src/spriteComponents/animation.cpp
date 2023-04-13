@@ -138,11 +138,10 @@ void s2d::Animation::addKeyFrameAt(const int vecpos, const s2d::KeyFrame& frame)
 	this->m_textures.insert(this->m_textures.begin() + vecpos, text);
 }
 
-void s2d::Animation::updateAllAnimations(s2d::SpriteRepository& toUpdate)
+void s2d::Animation::updateAllAnimations()
 {
-	for (int i = 0; i < toUpdate.amount(); i++)
+	for (s2d::Sprite* sprite : s2d::Sprite::s_sprites)
 	{
-		s2d::Sprite* const sprite = toUpdate.readAt(i);
 		sprite->animator.update();
 	}
 }

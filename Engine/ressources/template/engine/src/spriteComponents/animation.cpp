@@ -5,16 +5,14 @@
 
 // Constructor
 
-s2d::Animation::Animation(Sprite* ptr_appliedSprite, const std::string& name, const std::string fileLocation, const std::vector<s2d::KeyFrame>& frames)
+s2d::Animation::Animation(Sprite* ptr_appliedSprite, const std::string& name, const std::vector<s2d::KeyFrame>& frames)
 {
-	this->m_basePath = ptr_appliedSprite->getId();
-	this->m_pathToFile = fileLocation;
-	this->timePassed = 2.0f;
+	this->timePassed = 0.0f;
 	this->currentFrame = -1;
 	this->name = name;
 	this->ptr_appliedSprite = ptr_appliedSprite;
 	this->isPlaying = false;
-
+	
 	this->m_keyFrames.resize(frames.size());
 
 	int currentPos = 0;
@@ -25,6 +23,7 @@ s2d::Animation::Animation(Sprite* ptr_appliedSprite, const std::string& name, co
 		currentPos += (int)this->m_keyFrames[i].delay;
 		this->m_keyFrames[i].position = currentPos;
 	}
+
 	this->setVectorSizes();
 }
 
@@ -69,9 +68,10 @@ void s2d::Animation::deleteKeyFrame(const int pos)
 
 void s2d::Animation::play()
 {
+	this->timePassed += s2d::Time::deltaTime;
 	this->currentFrame = 0;
 	this->isPlaying = true;
-	this->m_basePath = this->ptr_appliedSprite->getId();
+	this->m_basePath = this->ptr_appliedSprite->getPathOfTextureFile();
 }
 
 void s2d::Animation::update()
@@ -85,11 +85,13 @@ void s2d::Animation::update()
 	{
 		this->timePassed = 0;
 		this->ptr_appliedSprite->setSpriteTexture(this->m_textures[currentFrame], this->m_keyFrames[currentFrame].path);
-		this->currentFrame++;
-		if (this->currentFrame == this->m_keyFrames.size())
+
+		if (this->currentFrame == this->m_textures.size() - 1)
 		{
-			this->currentFrame = 0;
+			this->currentFrame = -1;
 		}
+
+		this->currentFrame++;		
 	}
 }
 
@@ -101,9 +103,9 @@ void s2d::Animation::stop()
 	this->m_basePath = "";
 }
 
-s2d::KeyFrame& s2d::Animation::getKeyFrameAtMs(const float ms)
+s2d::KeyFrame& s2d::Animation::getKeyFrameAtMs(const int ms)
 {
-	float delay = 0;
+	int delay = 0;
 	for (int i = 0; i < this->m_keyFrames.size(); i++)
 	{
 		if (delay == ms)
@@ -119,32 +121,23 @@ s2d::KeyFrame& s2d::Animation::getKeyFrameAtMs(const float ms)
 
 void s2d::Animation::addKeyFrameAt(const int vecpos, const s2d::KeyFrame& frame)
 {
-	if (this->isPlaying)
-	{
-		std::cout << "LOG: [Warning] Cant add keyframes while playing animation! " << frame.path << std::endl;
-		return;
-	}
-
 	sf::Texture text;
 
 	if (!text.loadFromFile(frame.path))
 	{
-		std::cout << "LOG: [ERROR] Cant read pixels from path " << frame.path << std::endl;
+		std::cout << "LOG: [ERROR] Cant read pixels from file " << frame.path << std::endl;
 		return;
 	}
 
-	this->m_basePath = this->ptr_appliedSprite->getId();
 	this->m_keyFrames.insert(this->m_keyFrames.begin() + vecpos, frame);
 	this->m_textures.insert(this->m_textures.begin() + vecpos, text);
 }
 
-void s2d::Animation::updateAllAnimations(s2d::SpriteRepository& toUpdate)
+void s2d::Animation::updateAllAnimations()
 {
-	for (int i = 0; i < toUpdate.amount(); i++)
+	for (s2d::Sprite* sprite : s2d::Sprite::s_sprites)
 	{
-		s2d::Sprite* const sprite = toUpdate.readAt(i);
 		sprite->animator.update();
 	}
 }
 
- 

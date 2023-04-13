@@ -1,41 +1,45 @@
-﻿  spriteRepository.cpp
-C:\Dev\SpriteEngineUI\Engine\src\manager\spriteRepository.cpp(111,39): warning C4018: '>': signed/unsigned mismatch
-  prefab.cpp
-  initializer.cpp
-  renderer.cpp
-  fileDialogs.cpp
-  UIProjectSelector.cpp
-  fontManager.cpp
-  childSystem.cpp
-  boxCollider.cpp
-  spriteData.cpp
-  saveSystem.cpp
-  sprite.cpp
-  gameEngine.cpp
-  SpriteEngine.cpp
-  UIWindow.cpp
-  UIHierarchy.cpp
-  UIToolButtons.cpp
-  UIInspector.cpp
-  UIAssetFolder.cpp
-  transform.cpp
-  Generating Code...
-  Compiling...
-  UIRealTimeEditor.cpp
-  UIInspectorBoxCollider.cpp
-  UIAnimation.cpp
-  UIInfo.cpp
-  UIAnimationKeyFrameAdder.cpp
+﻿  SpriteEngine.cpp
   UIIconData.cpp
 C:\Dev\SpriteEngineUI\Engine\src\data\UIIconData.cpp(8,78): warning C4312: '<function-style-cast>': conversion from 'unsigned int' to 'ImTextureID' of greater size
 C:\Dev\SpriteEngineUI\Engine\src\data\UIIconData.cpp(9,74): warning C4312: '<function-style-cast>': conversion from 'unsigned int' to 'ImTextureID' of greater size
+  UIInfo.cpp
+  spriteData.cpp
+  gameEngine.cpp
+  renderer.cpp
+  UI.cpp
+C:\Dev\SpriteEngineUI\Engine\src\guiComponents\UI.cpp(81,37): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Dev\SpriteEngineUI\Engine\src\guiComponents\UI.cpp(84,5): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+  UIWindow.cpp
+  UIProjectSelector.cpp
+  UIProjectSelectorProjectSection.cpp
+  UIAnimation.cpp
+  UIAnimationEditor.cpp
+  UIAnimationKeyFrameAdder.cpp
+  UIAssetFolder.cpp
+  UIAssetTools.cpp
+  UIHirachy.cpp
+  UIHirachyMenuDisplayer.cpp
+  UIHirachySpriteDisplay.cpp
+  UIInspector.cpp
+  UIInspectorBoxCollider.cpp
+  Generating Code...
+  Compiling...
+  UIToolButtons.cpp
+  UIRealTimeEditor.cpp
   UIRealTimeEditorNavigator.cpp
   UIRealTimeEditorTransform.cpp
-  UIProjectSelectorProjectSection.cpp
   UIRealTimeEditorTransformPosition.cpp
   UIRealTimeEditorTransfsormScale.cpp
-  UIToolButtonsModels.h
-  UI.cpp
-  UIAssetTools.cpp
+  fileDialogs.cpp
+  fontManager.cpp
+  initializer.cpp
+  saveSystem.cpp
+  sprite.cpp
+  animation.cpp
+  animator.cpp
+  boxCollider.cpp
+  childSystem.cpp
+  prefab.cpp
+  transform.cpp
   Generating Code...
   SpriteEngine.vcxproj -> C:\Dev\SpriteEngineUI\Engine\x64\Debug\SpriteEngine.exe

@@ -7,6 +7,7 @@ s2d::UIAssetFolder::UIAssetFolder()
 
 void s2d::UIAssetFolder::init()
 {
+    this->m_ptr_rightClickedSprite = nullptr;
     this->m_tools = s2d::UIAssetTools(&this->currentPath);
 
     this->currentPath = s2d::EngineData::s_pathToUserProject + "\\assets";
@@ -68,14 +69,14 @@ void s2d::UIAssetFolder::render()
 
 void s2d::UIAssetFolder::addPrefab()
 {
-    if (this->m_ptr_repo->right_clicked_sprite != nullptr && ImGui::IsMouseReleased(0) && this->isHovered)
+    if (this->m_ptr_rightClickedSprite != nullptr && ImGui::IsMouseReleased(0) && this->isHovered)
     {
-        const std::string pathToFile = this->currentPath + "\\" + this->m_ptr_repo->right_clicked_sprite->name + EXTENSION_PREFAB_FILE;
+        const std::string pathToFile = this->currentPath + "\\" + this->m_ptr_rightClickedSprite->name + EXTENSION_PREFAB_FILE;
 
-        this->m_ptr_repo->right_clicked_sprite->prefab.updateProps(
-            pathToFile, s2d::UI::getUserProjectPathSeperatetFromEnginePath(pathToFile), pathToFile, this->m_ptr_repo->right_clicked_sprite->name + EXTENSION_PREFAB_FILE
+        this->m_ptr_rightClickedSprite->prefab.updateProps(
+            pathToFile, s2d::UI::getUserProjectPathSeperatetFromEnginePath(pathToFile), pathToFile, this->m_ptr_rightClickedSprite->name + EXTENSION_PREFAB_FILE
         );
-        s2d::flc::createOrUpdatePrefabFile(this->m_ptr_repo->right_clicked_sprite, pathToFile, this->m_ptr_repo->right_clicked_sprite->prefab.pathToOldFile);
+        s2d::flc::createOrUpdatePrefabFile(this->m_ptr_rightClickedSprite, pathToFile, this->m_ptr_rightClickedSprite->prefab.pathToOldFile);
     }
 }
 

@@ -13,7 +13,7 @@ s2d::UIAnimation::UIAnimation()
 
 void s2d::UIAnimation::createUIAnimationWindow()
 {
-	if (s2d::UIInfo::srenderAssetFolder || this->m_ptr_repo->sprite_in_inspector == nullptr)
+	if (s2d::UIInfo::srenderAssetFolder || s2d::UIHirachy::s_selectedSprite == nullptr)
 	{
 		this->isHovered = false;
 		return;
@@ -42,11 +42,6 @@ void s2d::UIAnimation::createUIAnimationWindow()
 	}
 }
 
-void s2d::UIAnimation::setSpriteRepository(s2d::SpriteRepository& repo)
-{
-	this->m_ptr_repo = &repo;
-	this->m_UIAnimationEditor.setSpriteRepository(repo);
-}
 
 //Private functions
 
@@ -114,7 +109,7 @@ void s2d::UIAnimation::getFileNameInput()
 
 void s2d::UIAnimation::displayAnimations()
 {
-	for (auto& anim : this->m_ptr_repo->sprite_in_inspector->animator.animations)
+	for (auto& anim : s2d::UIHirachy::s_selectedSprite->animator.animations)
 	{
 		ImGui::Text(anim.second.name.c_str());
 		ImGui::SetCursorPos(ImVec2(455, ImGui::GetCursorPosY() - 32.5f));
@@ -162,7 +157,7 @@ void s2d::UIAnimation::addAnimationsToAnimator()
 				s2d::UI::getUserProjectPathSeperatetFromEnginePath(this->m_createAnimtionPathFileDialoge.pathClicked)
 				+ this->m_animationFile
 				+ EXTENSION_ANIMATION_FILE;
-			this->m_ptr_repo->sprite_in_inspector->animator.createAnimation(this->m_animationFile, path, { });
+			s2d::UIHirachy::s_selectedSprite->animator.createAnimation(this->m_animationFile, path, { });
 		}
 		this->m_createAnimtionPathFileDialoge.disableWindow();
 		this->m_openFileDialog = false;

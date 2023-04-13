@@ -3,8 +3,8 @@
 #include <physicalComponents/sprite.h>
 #include <ImGui.h>
 #include <icons.h>
+#include <UIHirachy.h>
 #include <UIAssetFolder.h>
-#include <manager/fontManager.h>
 
 namespace s2d
 {
@@ -15,8 +15,6 @@ namespace s2d
 
 	public:
 		UIInspectorBoxCollider();
-
-		void init();
 
 		void edit(float& x, float& y);
 	    void solid(float& x, float& y, s2d::Sprite* sprite);

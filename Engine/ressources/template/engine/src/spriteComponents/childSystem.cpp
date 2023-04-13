@@ -12,7 +12,7 @@ void s2d::ChildSystem::updatePositionToParent(s2d::Sprite* child)
 
 void s2d::ChildSystem::updateChildPositionRecursivly(s2d::Sprite* parent)
 {
-	for (s2d::Sprite* child : parent->ptr_childs)
+	for (s2d::Sprite* child : parent->childs)
 	{
 		child->transform.position = parent->transform.position - child->transform.positionToParent;
 		s2d::Vector2 distance = s2d::Vector2(parent->transform.position - child->transform.position);
@@ -27,7 +27,7 @@ void s2d::ChildSystem::updateChildPositionRecursivly(s2d::Sprite* parent)
 void s2d::ChildSystem::updatePositionRevursivWhenChildIsColliding(s2d::Sprite* child)
 {
 	//Iterating over all sprites so set the position enum
-	for (s2d::Sprite* node : child->ptr_childs)
+	for (s2d::Sprite* node : child->childs)
 	{
 		setBoxColliderPosition(node, child);
 	}

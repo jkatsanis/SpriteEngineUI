@@ -11,7 +11,7 @@ namespace s2d
 		
 		Physics() = delete;
 
-		static void update(s2d::SpriteRepository& repo);
+		static void update();
 
 		static void addForce(s2d::Sprite* sprite, const s2d::Vector2& vector, float direction);
 	};

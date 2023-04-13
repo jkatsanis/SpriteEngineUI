@@ -1,5 +1,3 @@
-#pragma once
-
 #include <iostream>
 
 namespace s2d

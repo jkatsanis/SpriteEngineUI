@@ -5,8 +5,6 @@
 #include <spriteComponents/animation.h>
 #include <engineComponents/stime.h>
 #include <spriteComponents/keyFrame.h>
-#include <manager/spriteRepository.h>
-#include <unordered_map>
 
 namespace s2d
 {
@@ -23,13 +21,12 @@ namespace s2d
 		AnimationPlaying animationPlaying;
 		bool exists;
 		Sprite* ptr_attachedSprite;
-		std::unordered_map<std::string, Animation> animations;
+		std::vector<Animation> animations;
 
 		Animator();
 		Animator(Sprite* ptr_attachedSprite);
 
-		void createAnimation(const std::string& name, const std::string& fileLocation, const std::vector<s2d::KeyFrame>& frame);
-		void removeAnimation(const std::string& name);
+		void createAnimation(const std::string& name, const std::vector<s2d::KeyFrame>& frame);
 
 		void play(const std::string& name);
 		void stop(const std::string& name);
@@ -40,7 +37,7 @@ namespace s2d
 
 	public:
 
-		static void stopAllAnimations(s2d::SpriteRepository& toUpdate);
+		static void stopAllAnimations();
 	};
 }
 
