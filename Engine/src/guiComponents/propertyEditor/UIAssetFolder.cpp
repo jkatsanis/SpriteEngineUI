@@ -5,14 +5,13 @@ s2d::UIAssetFolder::UIAssetFolder()
     this->init();
 }
 
+
 void s2d::UIAssetFolder::init()
 {
     this->m_tools = s2d::UIAssetTools(&this->currentPath);
 
     this->currentPath = s2d::EngineData::s_pathToUserProject + "\\assets";
     this->currentName = "Assets";
-    this->m_iconSize = 70;
-    this->m_padding = 130;
 
     this->isHovered = false;
     this->m_interacted = false;
@@ -36,9 +35,9 @@ void s2d::UIAssetFolder::createAssetLinkerWindow()
     if (ImGui::Begin("Assets", NULL, ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoMove | 
         ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoScrollbar))
     {
-        this->render();
         this->addPrefab();
         this->m_tools.update(isHovered);
+        this->render();
         ImGui::End();
     }
     ImGui::PopStyleVar();
@@ -65,23 +64,30 @@ void s2d::UIAssetFolder::render()
 {
     this->renderFolderHierarchy();
     this->renderCloseRectangle();
+    this->renderContentBrowser();
+   
+    this->isHovered = ImGui::IsWindowHovered(
+        ImGuiHoveredFlags_AllowWhenBlockedByActiveItem
+        | ImGuiHoveredFlags_AllowWhenBlockedByPopup
+        | ImGuiHoveredFlags_ChildWindows);
+}
 
+void s2d::UIAssetFolder::renderContentBrowser()
+{
     ImGui::SetCursorPos(ImVec2(UIASSET_FOLDER_WIDTH + FOLDER_HIERACHY_PADDING * 1.5f, FOLDER_HIERACHY_PADDING));
     ImGui::PushStyleColor(ImGuiCol_ChildBg, ImVec4(FILE_DISPLAYER_COLOR / 255.0f, FILE_DISPLAYER_COLOR / 255.0f, FILE_DISPLAYER_COLOR / 255.0f, 255.0f));
-    ImGui::BeginChild("##file-displayer", ImVec2(this->m_windowSize.x - (FOLDER_HIERACHY_PADDING * 1.8f + UIASSET_FOLDER_WIDTH), this->m_windowSize.y ), false, ImGuiWindowFlags_NoScrollbar);
-    
-     /*   this->goBackToBeforeFolder();*/
-    ImGui::SetCursorPos(ImVec2(this->m_fileContentPadding + 10, this->m_fileContentPadding));
+    ImGui::BeginChild("##file-displayer-container", ImVec2(this->m_windowSize.x - (FOLDER_HIERACHY_PADDING * 1.8f + UIASSET_FOLDER_WIDTH), this->m_windowSize.y), false, ImGuiWindowFlags_NoScrollbar);
+
+    /*   this->goBackToBeforeFolder();*/
+    ImGui::SetCursorPos(ImVec2(5, this->m_fileContentPadding));
     ImGui::PushStyleVar(ImGuiStyleVar_FrameRounding, 7.0f); // Set rounding to 5 pixels
     ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(5.0f, 3.0f)); // Add some padding for visual clarity
     this->m_fileFilter.Draw("Search", 200);
-    ImGui::Dummy(ImVec2(0, 10));
+    ImGui::Dummy(ImVec2(10, 10));
     ImGui::PopStyleVar(2);
 
-    ImGui::SetCursorPosX(ImGui::GetCursorPosX() + this->m_fileContentPadding);
     this->beginColumns();
     this->getAllFilesInDir(this->currentPath.c_str(), this->currentName.c_str());
-
     ImGui::EndChild();
     ImGui::PopStyleColor();
 
@@ -89,11 +95,7 @@ void s2d::UIAssetFolder::render()
     ImGui::SetWindowFontScale(s2d::UIInfo::s_defaultFontSize);
     ImGui::SetWindowSize(this->m_windowSize);
 
-    this->isHovered = ImGui::IsWindowHovered(ImGuiHoveredFlags_AllowWhenBlockedByActiveItem
-        | ImGuiHoveredFlags_AllowWhenBlockedByPopup
-        | ImGuiHoveredFlags_ChildWindows);
 }
-
 
 void s2d::UIAssetFolder::addPrefab()
 {
@@ -112,8 +114,8 @@ void s2d::UIAssetFolder::addPrefab()
 void s2d::UIAssetFolder::renderFolderHierarchy()
 {
     ImGui::SetCursorPos(ImVec2(FOLDER_HIERACHY_PADDING, FOLDER_HIERACHY_PADDING));
-    ImGui::BeginChild("##folder-hierarchy", ImVec2(UIASSET_FOLDER_WIDTH, this->m_windowSize.y));
-    this->renderFolderHierarchyRecursiv(std::string(PATH_TO_USER_ASSET_FOLDER).c_str(), "Assets");
+    ImGui::BeginChild("##folder-hierarchy", ImVec2(UIASSET_FOLDER_WIDTH, this->m_windowSize.y), false);
+    this->renderFolderHierarchyRecursiv(std::string(PATH_TO_USER_ASSET_FOLDER).c_str(), "Assets", true);
     ImGui::EndChild();
 }
 
@@ -139,7 +141,7 @@ void s2d::UIAssetFolder::renderCloseRectangle()
     ImGui::EndChild();
 }
 
-void s2d::UIAssetFolder::renderFolderHierarchyRecursiv(const char* path, const char* name)
+void s2d::UIAssetFolder::renderFolderHierarchyRecursiv(const char* path, const char* name, bool openNextTreeNode)
 {
     struct dirent* entry;
     DIR* dir = opendir(path);
@@ -153,7 +155,7 @@ void s2d::UIAssetFolder::renderFolderHierarchyRecursiv(const char* path, const c
         s2d::FontManager::displaySymbolInMenuItem(ICON_FA_FOLDER, name);
         return;
     }
-    if (s2d::FontManager::displaySymbolInTreeNode(ICON_FA_FOLDER, name))
+    if (s2d::FontManager::displaySymbolInTreeNode(ICON_FA_FOLDER, name, openNextTreeNode))
     {
         while ((entry = readdir(dir)) != NULL)
         {
@@ -168,7 +170,6 @@ void s2d::UIAssetFolder::renderFolderHierarchyRecursiv(const char* path, const c
                 continue;
             }
 
-
             //We need to know if we got a folder or not for the recursion
             folder = std::isFolder(std_name);
 
@@ -178,7 +179,7 @@ void s2d::UIAssetFolder::renderFolderHierarchyRecursiv(const char* path, const c
             if (folder)
             {
                 const char* ch = newPath.c_str();
-                renderFolderHierarchyRecursiv(ch, str);
+                renderFolderHierarchyRecursiv(ch, str, false);
             }
         }
         ImGui::TreePop();
@@ -188,6 +189,7 @@ void s2d::UIAssetFolder::renderFolderHierarchyRecursiv(const char* path, const c
 
 void s2d::UIAssetFolder::getAllFilesInDir(const char* path, const char* name)
 {
+    uint8_t cnt = 0;
     struct dirent* entry;
     DIR* dir = opendir(path);
     if (dir == NULL) {
@@ -197,10 +199,11 @@ void s2d::UIAssetFolder::getAllFilesInDir(const char* path, const char* name)
 
     while ((entry = readdir(dir)) != NULL)
     {
+        cnt++;
         const char* str = entry->d_name;
         const std::string std_name(str);
         const ImVec2 textSize = ImGui::CalcTextSize(str);
-        float itemWidth = float(this->m_iconSize);
+        float itemWidth = ICONS_SIZE;
 
         // Checks if the string has only chars like ../../ ..
         if (!std::isStringValid(std_name))
@@ -216,7 +219,6 @@ void s2d::UIAssetFolder::getAllFilesInDir(const char* path, const char* name)
 
         if (this->m_fileFilter.PassFilter(name.c_str()))
         {
-      
             ImVec2 child_size = ImVec2(120, 200);
 
             const std::string fileChildWindow = "##" + std::string(entry->d_name);
@@ -253,11 +255,14 @@ void s2d::UIAssetFolder::getAllFilesInDir(const char* path, const char* name)
             ImGui::SetCursorPos(ImVec2(ImGui::GetCursorPosX() + 20, ImGui::GetCursorPosY() - 80));
             ImGui::TextWrapped(std::removeExtension(str).c_str());
             ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 20);
-            ImGui::SetCursorPosY(0 + child_size.y - 30);
+            ImGui::SetCursorPosY(0 + child_size.y - 35);
             ImGui::TextColored(ImVec4(0.4f, 0.4f, 0.4f, 1.0f), std::getFileExtension(str).c_str());
             ImGui::EndChild(); 
             ImGui::PopStyleColor();
-
+            if (cnt >= MAX_COLUMNS)
+            {
+                ImGui::SetCursorPosY(ImGui::GetCursorPosY() + PADDING_BETWEEN_ROWS);
+            }
             ImGui::NextColumn();
         }
     }
@@ -344,12 +349,12 @@ void s2d::UIAssetFolder::setDragAndDrop(std::string path, std::string name)
 void s2d::UIAssetFolder::beginColumns()
 {
     float panelWidth = ImGui::GetContentRegionAvail().x;
-    int columnCount = (int)(panelWidth / this->m_padding);
+    int columnCount = (int)(panelWidth / PADDING_BETWEEN_COLUMS);
 
     if (columnCount < 1)
     {
         columnCount = 1;
-    }
 
+    }
     ImGui::Columns(columnCount, 0, false);
 }

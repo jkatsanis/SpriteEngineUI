@@ -61,7 +61,7 @@ bool s2d::FontManager::displaySmybolAsButton(const char* symbol, ImVec2 cursorPo
 	return displaySmybolAsButton(symbol);
 }
 
-bool s2d::FontManager::displaySymbolInTreeNode(const char* symbol, std::string name)
+bool s2d::FontManager::displaySymbolInTreeNode(const char* symbol, std::string name, bool openNode)
 {
 	const ImVec2 cursor = ImVec2(ImGui::GetCursorPos().x, ImGui::GetCursorPosY());
 	ImGui::SetCursorPos(ImVec2(cursor.x + 30, cursor.y));
@@ -70,6 +70,8 @@ bool s2d::FontManager::displaySymbolInTreeNode(const char* symbol, std::string n
 
 	const std::string whiteSpaces = std::string("    ") + name;
 	name = whiteSpaces.c_str();
+	if(openNode)
+		ImGui::SetNextItemOpen(true);
 	return ImGui::TreeNode(name.c_str());
 }
 

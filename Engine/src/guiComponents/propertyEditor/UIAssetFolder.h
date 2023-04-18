@@ -20,6 +20,10 @@
 #define CLOSE_RECTANGLE_SIZE ImVec2(150, FOLDER_HIERACHY_PADDING)
 
 #define CLOSE_RECTANGLE_INNER_PADDING 7
+#define MAX_COLUMNS 9
+#define PADDING_BETWEEN_ROWS 20
+#define PADDING_BETWEEN_COLUMS 130
+#define ICONS_SIZE 70
 
 namespace s2d
 {		
@@ -34,8 +38,6 @@ namespace s2d
 		s2d::UIIconData m_data;
 		std::string currentPath;
 		std::string currentName;
-		float m_iconSize;
-		int m_padding;
 		ImVec2 m_windowSize;
 		float m_fileContentPadding;
 
@@ -54,7 +56,12 @@ namespace s2d
 		void renderFolderHierarchy();
 		void renderCloseRectangle();
 
-		void renderFolderHierarchyRecursiv(const char* path, const char* name);
+		void renderFolderHierarchyRecursiv(const char* path, const char* name, bool openNextTreeNode);
+
+		/// <summary>
+		/// Renders the selected path (NOT RECURSIV)
+		/// </summary>
+		void renderContentBrowser();
 
 		void init();
 
