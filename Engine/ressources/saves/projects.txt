@@ -1,3 +1,2 @@
 name;absulutePathStr;date;relativePath
-template;C:\Dev\SpriteEngineUI\Engine\ressources\template;2023/12/04 20:12:15;ressources\template
-Nu;C:\Dev\Nu;2023/18/04 09:53:06;..\..\Nu
+New;C:\Dev\C++\New;2023/18/04 14:05:44;..\..\New

@@ -10,14 +10,14 @@ namespace s2d
 	{
 	public:
 		sf::Texture textureFolder;
-		ImTextureID textureIDFodler;
+		uint32_t textureIDFodler;
 
 		sf::Texture textureFile;
-		ImTextureID textureIDFile;
+		uint32_t textureIDFile;
 
 		// Init all textures and get the paths from UIInfo
 		UIIconData();
 
-		ImTextureID getId(std::string fileExtension);
+		uint32_t getId(std::string fileExtension);
 	};
 }

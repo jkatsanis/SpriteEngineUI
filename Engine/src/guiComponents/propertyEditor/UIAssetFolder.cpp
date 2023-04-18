@@ -11,15 +11,16 @@ void s2d::UIAssetFolder::init()
 
     this->currentPath = s2d::EngineData::s_pathToUserProject + "\\assets";
     this->currentName = "Assets";
-    this->m_iconSize = 75;
+    this->m_iconSize = 70;
     this->m_padding = 130;
 
     this->isHovered = false;
     this->m_interacted = false;
     this->m_draggingItem = false;
     this->m_hoveredOverItem = false;
+    this->m_fileContentPadding = 15;
 
-    this->m_windowSize = ImVec2(1280 + 250, 350);
+    this->m_windowSize = ImVec2(1280 + 250, 400);
 }
  
 //Public functions
@@ -32,7 +33,8 @@ void s2d::UIAssetFolder::createAssetLinkerWindow()
         return;
     }
     ImGui::PushStyleVar(ImGuiStyleVar_Alpha, 1.1f);
-    if (ImGui::Begin("Assets", NULL, ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoTitleBar))
+    if (ImGui::Begin("Assets", NULL, ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoMove | 
+        ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoScrollbar))
     {
         this->render();
         this->addPrefab();
@@ -66,17 +68,25 @@ void s2d::UIAssetFolder::render()
 
     ImGui::SetCursorPos(ImVec2(UIASSET_FOLDER_WIDTH + FOLDER_HIERACHY_PADDING * 1.5f, FOLDER_HIERACHY_PADDING));
     ImGui::PushStyleColor(ImGuiCol_ChildBg, ImVec4(FILE_DISPLAYER_COLOR / 255.0f, FILE_DISPLAYER_COLOR / 255.0f, FILE_DISPLAYER_COLOR / 255.0f, 255.0f));
-    ImGui::BeginChild("##file-displayer");
+    ImGui::BeginChild("##file-displayer", ImVec2(this->m_windowSize.x - (FOLDER_HIERACHY_PADDING * 1.8f + UIASSET_FOLDER_WIDTH), this->m_windowSize.y ), false, ImGuiWindowFlags_NoScrollbar);
+    
+     /*   this->goBackToBeforeFolder();*/
+    ImGui::SetCursorPos(ImVec2(this->m_fileContentPadding + 10, this->m_fileContentPadding));
+    ImGui::PushStyleVar(ImGuiStyleVar_FrameRounding, 7.0f); // Set rounding to 5 pixels
+    ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(5.0f, 3.0f)); // Add some padding for visual clarity
+    this->m_fileFilter.Draw("Search", 200);
+    ImGui::Dummy(ImVec2(0, 10));
+    ImGui::PopStyleVar(2);
 
- /*   this->goBackToBeforeFolder();
+    ImGui::SetCursorPosX(ImGui::GetCursorPosX() + this->m_fileContentPadding);
     this->beginColumns();
-    this->getAllFilesInDir(this->currentPath.c_str(), this->currentName.c_str());*/
+    this->getAllFilesInDir(this->currentPath.c_str(), this->currentName.c_str());
 
     ImGui::EndChild();
     ImGui::PopStyleColor();
 
-    ImGui::SetWindowPos(ImVec2(0, 730));
-    ImGui::SetWindowFontScale(0.8f);
+    ImGui::SetWindowPos(ImVec2(0, 1080 - this->m_windowSize.y));
+    ImGui::SetWindowFontScale(s2d::UIInfo::s_defaultFontSize);
     ImGui::SetWindowSize(this->m_windowSize);
 
     this->isHovered = ImGui::IsWindowHovered(ImGuiHoveredFlags_AllowWhenBlockedByActiveItem
@@ -101,13 +111,8 @@ void s2d::UIAssetFolder::addPrefab()
 
 void s2d::UIAssetFolder::renderFolderHierarchy()
 {
-    float adder = 95 + FOLDER_HIERACHY_PADDING;
-    if (*this->m_ptr_repo->isFullScreened)
-    {
-        adder = FOLDER_HIERACHY_PADDING;
-    }
     ImGui::SetCursorPos(ImVec2(FOLDER_HIERACHY_PADDING, FOLDER_HIERACHY_PADDING));
-    ImGui::BeginChild("##folder-hierarchy", ImVec2(UIASSET_FOLDER_WIDTH, this->m_windowSize.y - adder));
+    ImGui::BeginChild("##folder-hierarchy", ImVec2(UIASSET_FOLDER_WIDTH, this->m_windowSize.y));
     this->renderFolderHierarchyRecursiv(std::string(PATH_TO_USER_ASSET_FOLDER).c_str(), "Assets");
     ImGui::EndChild();
 }
@@ -116,7 +121,7 @@ void s2d::UIAssetFolder::renderCloseRectangle()
 {
     ImGui::SetCursorPosX(FOLDER_HIERACHY_PADDING);
     ImGui::SetCursorPosY(0);
-    ImGui::PushStyleColor(ImGuiCol_ChildBg, ImVec4(0.085, 0.085, 0.085, 1));
+    ImGui::PushStyleColor(ImGuiCol_ChildBg, ImVec4(0.085f, 0.085f, 0.085f, 1.0f));
     ImGui::BeginChild("##close-rectangle-assets", CLOSE_RECTANGLE_SIZE);
     ImGui::SetCursorPos(ImVec2(ImGui::GetCursorPosX() + CLOSE_RECTANGLE_INNER_PADDING, ImGui::GetCursorPosY() + CLOSE_RECTANGLE_INNER_PADDING));
 
@@ -148,7 +153,6 @@ void s2d::UIAssetFolder::renderFolderHierarchyRecursiv(const char* path, const c
         s2d::FontManager::displaySymbolInMenuItem(ICON_FA_FOLDER, name);
         return;
     }
-
     if (s2d::FontManager::displaySymbolInTreeNode(ICON_FA_FOLDER, name))
     {
         while ((entry = readdir(dir)) != NULL)
@@ -163,6 +167,7 @@ void s2d::UIAssetFolder::renderFolderHierarchyRecursiv(const char* path, const c
             {
                 continue;
             }
+
 
             //We need to know if we got a folder or not for the recursion
             folder = std::isFolder(std_name);
@@ -197,7 +202,7 @@ void s2d::UIAssetFolder::getAllFilesInDir(const char* path, const char* name)
         const ImVec2 textSize = ImGui::CalcTextSize(str);
         float itemWidth = float(this->m_iconSize);
 
-        //Checks if the string has only chars like ../../ ..
+        // Checks if the string has only chars like ../../ ..
         if (!std::isStringValid(std_name))
         {
             continue;
@@ -206,23 +211,55 @@ void s2d::UIAssetFolder::getAllFilesInDir(const char* path, const char* name)
         const std::string icon = std::getFileExtension(std_name);
         const std::string newPath = std::string(path) + "\\" + std_name;
         const std::string name = "##" + std::string(str);
-        const ImTextureID id = this->m_data.getId(icon);
+        const uint32_t id = this->m_data.getId(icon);
         const bool isFolder = (icon == "folder");
 
-        if (ImGui::ImageButton(name.c_str(), id, ImVec2(float(this->m_iconSize), float(this->m_iconSize))))
+        if (this->m_fileFilter.PassFilter(name.c_str()))
         {
-            //Display the item if its a folder
-            if (isFolder)
-            {
-                this->currentPath = newPath;
-                this->currentName = str;
-            }
-        }
-        if (!isFolder)
-            this->setDragAndDrop(newPath, str);
+      
+            ImVec2 child_size = ImVec2(120, 200);
 
-        ImGui::TextWrapped(str);
-        ImGui::NextColumn();
+            const std::string fileChildWindow = "##" + std::string(entry->d_name);
+            ImGui::PushStyleColor(ImGuiCol_ChildBg, ImVec4(0.095f, 0.095f, 0.095f, 1.0f));
+            ImGui::BeginChild(fileChildWindow.c_str(), child_size, false, ImGuiWindowFlags_NoBackground);
+            
+            ImVec2 windowPos = ImGui::GetWindowPos();
+            ImVec2 windowSize = ImGui::GetWindowSize();
+
+            ImDrawList* drawList = ImGui::GetWindowDrawList();
+            float rounding = 10.0f; // set the rounding value
+
+            ImVec2 topLeft = windowPos;
+            ImVec2 bottomRight = ImVec2(windowPos.x + windowSize.x, windowPos.y + windowSize.y);
+
+            // Draw the rounded rectangle shape
+            drawList->AddRectFilled(topLeft, bottomRight, ImColor(24, 24, 24), rounding);
+            drawList->AddRect(topLeft, bottomRight, ImColor(0, 0, 0), rounding);
+
+
+            if (ImGui::ImageButton(name.c_str(), (ImTextureID)id, 
+                ImVec2(120, 185)))
+            {
+                // Display the item if its a folder
+                if (isFolder)
+                {
+                    this->currentPath = newPath;
+                    this->currentName = str;
+                }
+            }
+            if (!isFolder)
+                this->setDragAndDrop(newPath, str);
+
+            ImGui::SetCursorPos(ImVec2(ImGui::GetCursorPosX() + 20, ImGui::GetCursorPosY() - 80));
+            ImGui::TextWrapped(std::removeExtension(str).c_str());
+            ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 20);
+            ImGui::SetCursorPosY(0 + child_size.y - 30);
+            ImGui::TextColored(ImVec4(0.4f, 0.4f, 0.4f, 1.0f), std::getFileExtension(str).c_str());
+            ImGui::EndChild(); 
+            ImGui::PopStyleColor();
+
+            ImGui::NextColumn();
+        }
     }
 
     closedir(dir);
@@ -232,7 +269,7 @@ void s2d::UIAssetFolder::goBackToBeforeFolder()
 {
     auto split = [](const std::string& str, char delimiter)
     {
-            std::vector<std::string> tokens;
+        std::vector<std::string> tokens;
         std::string::size_type start = 0;
         std::string::size_type end = 0;
         while ((end = str.find_first_of(delimiter, start)) != std::string::npos) {

@@ -1,6 +1,6 @@
 #include "UIInfo.h"
 
-float s2d::UIInfo::s_defaultFontSize = 1.0f;
+float s2d::UIInfo::s_defaultFontSize = 0.8f;
 bool s2d::UIInfo::s_renderAssetFolder = true;
 bool s2d::UIInfo::s_isAssetFolderActive = true;
 

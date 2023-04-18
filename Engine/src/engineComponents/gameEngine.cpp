@@ -149,6 +149,7 @@ void s2d::GameEngine::saveDialoge()
             if (ImGui::Button("Exit"))
             {
                 this->ptr_renderWindow->close();
+                return;
             }
             ImGui::SetCursorPos(ImVec2(CURSOR_POS.x + SAVE_MENU_SIZE.x - 50, CURSOR_POS.y));
             if (ImGui::Button("x"))

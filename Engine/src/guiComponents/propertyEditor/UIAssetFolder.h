@@ -34,9 +34,12 @@ namespace s2d
 		s2d::UIIconData m_data;
 		std::string currentPath;
 		std::string currentName;
-		int m_iconSize;
+		float m_iconSize;
 		int m_padding;
 		ImVec2 m_windowSize;
+		float m_fileContentPadding;
+
+		ImGuiTextFilter m_fileFilter;
 
 		bool m_hoveredOverItem;
 		bool m_draggingItem;

@@ -5,11 +5,11 @@ s2d::UIIconData::UIIconData()
     this->textureFile.loadFromFile(s2d::UIInfo::s_defaultIcon);
     this->textureFolder.loadFromFile(s2d::UIInfo::s_folderIcon);
 
-    this->textureIDFodler = ImTextureID(this->textureFolder.getNativeHandle());
-    this->textureIDFile = ImTextureID(this->textureFile.getNativeHandle());
+    this->textureIDFodler = this->textureFolder.getNativeHandle();
+    this->textureIDFile =  this->textureFile.getNativeHandle();
 }
 
-ImTextureID s2d::UIIconData::getId(std::string fileExtension)
+uint32_t s2d::UIIconData::getId(std::string fileExtension)
 {
     if (fileExtension == "folder")
     {
@@ -19,5 +19,5 @@ ImTextureID s2d::UIIconData::getId(std::string fileExtension)
     {
         return this->textureIDFile;
     }
-    return ImTextureID();
+    return 0;
 }
