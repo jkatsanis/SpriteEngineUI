@@ -35,7 +35,7 @@ void s2d::UIWindow::renderStyle(ImGuiStyle* style)
 	style->Colors[ImGuiCol_FrameBgActive] = ImColor(45, 45, 45);
 	style->Colors[ImGuiCol_FrameBgHovered] = ImColor(50, 50, 50);
 
-	style->Colors[ImGuiCol_WindowBg] = ImColor(22, 22, 32, 255);
+	style->Colors[ImGuiCol_WindowBg] = ImColor(36, 36, 36);
 
 	style->Colors[ImGuiCol_TextSelectedBg] = ImColor(30, 30, 30);
 
@@ -43,6 +43,8 @@ void s2d::UIWindow::renderStyle(ImGuiStyle* style)
 	style->Colors[ImGuiCol_SliderGrabActive] = ImColor(25, 25, 25);
 
 	style->Colors[ImGuiCol_CheckMark] = ImColor(255, 255, 255);
+
+	style->Colors[ImGuiCol_ChildBg] = ImColor(26, 26, 26);
 
 	style->FrameRounding = 4.0f;
 	style->GrabRounding = 4.0f;

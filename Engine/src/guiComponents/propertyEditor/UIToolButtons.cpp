@@ -34,7 +34,7 @@ void s2d::UIToolButtons::createToolsAndButtons()
 
 	ImGui::Begin(" ", NULL, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoMove);
 
-	ImGui::SetWindowFontScale(s2d::UIInfo::sdefaultFontSize);
+	ImGui::SetWindowFontScale(s2d::UIInfo::s_defaultFontSize);
 	ImGui::SetWindowPos(ImVec2(250, 0));
 	ImGui::SetWindowSize(ImVec2(1280, 100.0f));
 

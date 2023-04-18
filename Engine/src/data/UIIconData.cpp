@@ -2,8 +2,8 @@
 
 s2d::UIIconData::UIIconData()
 {
-    this->textureFile.loadFromFile(s2d::UIInfo::sdefaultIcon);
-    this->textureFolder.loadFromFile(s2d::UIInfo::sfolderIcon);
+    this->textureFile.loadFromFile(s2d::UIInfo::s_defaultIcon);
+    this->textureFolder.loadFromFile(s2d::UIInfo::s_folderIcon);
 
     this->textureIDFodler = ImTextureID(this->textureFolder.getNativeHandle());
     this->textureIDFile = ImTextureID(this->textureFile.getNativeHandle());

@@ -63,7 +63,7 @@ void s2d::UIProjectSelector::renderProjectDataOrDocs()
 			this->docsData();
 
 		ImGui::SetWindowPos(ImVec2(192, 0));
-		ImGui::SetWindowFontScale(s2d::UIInfo::sdefaultFontSize);
+		ImGui::SetWindowFontScale(s2d::UIInfo::s_defaultFontSize);
 		ImGui::SetWindowSize(ImVec2(960 - 192, 540));
 		ImGui::End();
 	}

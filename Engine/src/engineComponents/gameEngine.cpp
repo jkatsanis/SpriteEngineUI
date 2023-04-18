@@ -30,6 +30,8 @@ s2d::GameEngine::GameEngine()
     ImGui::SFML::Init(*this->ptr_renderWindow);
 
     this->ptr_renderWindow->setKeyRepeatEnabled(false);
+
+    this->m_spriteRepository.isFullScreened = &this->m_isWindowFullScreen;
 }
 
 s2d::GameEngine::~GameEngine()
@@ -141,6 +143,7 @@ void s2d::GameEngine::saveDialoge()
             {
                 s2d::flc::saveEverything(this->m_UIWindow.getInspector().backgroundColor, this->m_spriteRepository);
                 this->ptr_renderWindow->close();
+                return;
             }
             ImGui::SameLine();
             if (ImGui::Button("Exit"))

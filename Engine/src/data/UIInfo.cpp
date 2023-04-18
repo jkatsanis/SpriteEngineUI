@@ -1,8 +1,9 @@
 #include "UIInfo.h"
 
-float s2d::UIInfo::sdefaultFontSize = 1.0f;
-bool s2d::UIInfo::srenderAssetFolder = true;
+float s2d::UIInfo::s_defaultFontSize = 1.0f;
+bool s2d::UIInfo::s_renderAssetFolder = true;
+bool s2d::UIInfo::s_isAssetFolderActive = true;
 
-std::string s2d::UIInfo::sfolderIcon = PATH_TO_RESSOURCS"\\Icons\\assetFolder.png";
-std::string s2d::UIInfo::sdefaultIcon = PATH_TO_RESSOURCS"\\Icons\\defaultIcon.png";
+std::string s2d::UIInfo::s_folderIcon = PATH_TO_RESSOURCS"\\Icons\\assetFolder.png";
+std::string s2d::UIInfo::s_defaultIcon = PATH_TO_RESSOURCS"\\Icons\\defaultIcon.png";
 

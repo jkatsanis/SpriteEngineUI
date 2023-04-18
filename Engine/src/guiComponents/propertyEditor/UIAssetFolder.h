@@ -9,6 +9,17 @@
 #include <data/UIIconData.h>
 #include <UIAssetTools.h>
 #include <manager/saveSystem.h>
+#include <manager/fontManager.h>
+#include <icons.h>
+#include <manager/fileDialogs.h>
+
+#define CLOSE_RECTANGLE_PADDIND_X 50
+#define FOLDER_HIERACHY_PADDING 32
+#define UIASSET_FOLDER_WIDTH 200
+#define FILE_DISPLAYER_COLOR 30.0f
+#define CLOSE_RECTANGLE_SIZE ImVec2(150, FOLDER_HIERACHY_PADDING)
+
+#define CLOSE_RECTANGLE_INNER_PADDING 7
 
 namespace s2d
 {		
@@ -25,6 +36,7 @@ namespace s2d
 		std::string currentName;
 		int m_iconSize;
 		int m_padding;
+		ImVec2 m_windowSize;
 
 		bool m_hoveredOverItem;
 		bool m_draggingItem;
@@ -36,6 +48,10 @@ namespace s2d
 		void beginColumns();
 		void goBackToBeforeFolder();
 		void addPrefab();
+		void renderFolderHierarchy();
+		void renderCloseRectangle();
+
+		void renderFolderHierarchyRecursiv(const char* path, const char* name);
 
 		void init();
 

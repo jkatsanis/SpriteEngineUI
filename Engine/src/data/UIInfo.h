@@ -12,11 +12,12 @@ namespace s2d
 		UIInfo() = delete;
 
 	public:
-		static float sdefaultFontSize;
-		static bool srenderAssetFolder;
+		static float s_defaultFontSize;
+		static bool s_renderAssetFolder;
+		static bool s_isAssetFolderActive;
 
-		static std::string sfolderIcon;
-		static std::string sdefaultIcon;
+		static std::string s_folderIcon;
+		static std::string s_defaultIcon;
 	};
 }
 

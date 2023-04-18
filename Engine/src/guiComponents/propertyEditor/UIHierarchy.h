@@ -4,8 +4,8 @@
 #include <ImGui.h>
 
 #include <physicalComponents/sprite.h>
+#include <data/UIInfo.h>
 
-#define WINDOW_SIZE ImVec2(250.0f, 1080.0f)
 #define WINDOW_POS ImVec2(0.0f, 0.0f)
 #define SPRITE_SELECTED_COLOR ImVec4(139.0f / 255.0f, 180.0f / 255.0f, 234.0f / 255.0f,1.0f)
 
@@ -18,6 +18,7 @@ namespace s2d
 	private:
 		s2d::SpriteRepository* m_ptr_repo;
 		bool m_waitOneFrame;
+		ImVec2 m_windowSize;
 
 		void displayContextPopup();
 		bool displaySprites();

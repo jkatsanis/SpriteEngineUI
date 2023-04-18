@@ -36,6 +36,7 @@ namespace s2d
         uint32_t dupeNameCounter;
 
         AssetFolderData assetFolderData;
+        bool* isFullScreened;
 
         SpriteRepository();
         ~SpriteRepository();

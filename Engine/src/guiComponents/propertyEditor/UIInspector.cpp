@@ -47,7 +47,7 @@ void s2d::UIInspector::render()
 	}
 
 	//Setting Inspector window size
-	ImGui::SetWindowFontScale(s2d::UIInfo::sdefaultFontSize);
+	ImGui::SetWindowFontScale(s2d::UIInfo::s_defaultFontSize);
 	ImGui::SetWindowPos(ImVec2(1530.0f, 0.0f));
 	ImGui::SetWindowSize(ImVec2(this->m_windowSizeWidth, 1080.0f));
 
@@ -156,9 +156,9 @@ void s2d::UIInspector::gameEngineViewSetting()
 
 		//Zoom
 		ImGui::Dummy(ImVec2(0, 10));
-		ImGui::SetWindowFontScale(s2d::UIInfo::sdefaultFontSize + 0.1f);
+		ImGui::SetWindowFontScale(s2d::UIInfo::s_defaultFontSize + 0.1f);
 		ImGui::Text("Zoom");
-		ImGui::SetWindowFontScale(s2d::UIInfo::sdefaultFontSize);
+		ImGui::SetWindowFontScale(s2d::UIInfo::s_defaultFontSize);
 		ImGui::SameLine();
 		ImGui::SetCursorPos(ImVec2(x -= 120, y += 54));
 		ImGui::SliderFloat("##Zoom", &s2d::GameObject::ptr_camera_tRealTimeEditor->cameraZoom, 0.1f, 4.0f, "%g");
@@ -376,10 +376,10 @@ void s2d::UIInspector::physicsBodyComponent()
 
 			ImGui::Text("Gravity");
 			ImGui::PushItemWidth(55);
-			ImGui::SetWindowFontScale(s2d::UIInfo::sdefaultFontSize - 0.2f);
+			ImGui::SetWindowFontScale(s2d::UIInfo::s_defaultFontSize - 0.2f);
 			ImGui::SetCursorPos(ImVec2(x += 125, y -= 6.0f));
 			ImGui::InputFloat("##gravity", &this->m_ptr_repo->sprite_in_inspector->physicsBody.gravity, 0, 0, "%g");
-			ImGui::SetWindowFontScale(s2d::UIInfo::sdefaultFontSize);
+			ImGui::SetWindowFontScale(s2d::UIInfo::s_defaultFontSize);
 			ImGui::PopItemWidth();
 
 			ImGui::Dummy(ImVec2(0, 5));
@@ -387,11 +387,11 @@ void s2d::UIInspector::physicsBodyComponent()
 			ImGui::SetCursorPosX(x - 122);
 			ImGui::Text("Mass");
 			ImGui::PushItemWidth(55);
-			ImGui::SetWindowFontScale(s2d::UIInfo::sdefaultFontSize - 0.2f);
+			ImGui::SetWindowFontScale(s2d::UIInfo::s_defaultFontSize - 0.2f);
 			ImGui::SetCursorPos(ImVec2(x, y += 45.0f));
 			ImGui::InputFloat("##mass", &this->m_ptr_repo->sprite_in_inspector->physicsBody.mass, 0, 0, "%g");
 			ImGui::PopItemWidth();
-			ImGui::SetWindowFontScale(s2d::UIInfo::sdefaultFontSize);
+			ImGui::SetWindowFontScale(s2d::UIInfo::s_defaultFontSize);
 
 			ImGui::TreePop();
 		}
@@ -455,10 +455,10 @@ void s2d::UIInspector::animatorComponent()
 			ImGui::SetCursorPos(ImVec2(x += 73.5f, y -= 2.5f));
 			if (s2d::FontManager::displaySmybolAsButton(ICON_FA_EDIT))
 			{
-				if (s2d::UIInfo::srenderAssetFolder)
-					s2d::UIInfo::srenderAssetFolder = false;
+				if (s2d::UIInfo::s_renderAssetFolder)
+					s2d::UIInfo::s_renderAssetFolder = false;
 				else
-					s2d::UIInfo::srenderAssetFolder = true;
+					s2d::UIInfo::s_renderAssetFolder = true;
 			}
 
 			ImGui::TreePop();

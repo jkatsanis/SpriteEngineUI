@@ -15,12 +15,19 @@ s2d::UIHierarchy::UIHierarchy(s2d::SpriteRepository& repo)
 	this->isHovered = false;
 	this->m_ptr_repo = &repo;
 	this->m_ptr_repo->sprite_in_inspector = nullptr;
+	this->m_windowSize = ImVec2(250.0f, 1080.0f - 350.0f);
 }
 
 //Public functions
 
 void s2d::UIHierarchy::displayHierarchyWindow()
 {
+	// Set window size if asset folder does not render
+
+	this->m_windowSize = (s2d::UIInfo::s_isAssetFolderActive)
+		? ImVec2(250.0f, 1080.0f - 350.0f)
+		: ImVec2(250.0f, 1080.0f);
+
 	ImGui::Begin("UIHierarchy", NULL, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoMove);
 
 	// Render Hierarchy
@@ -37,7 +44,7 @@ void s2d::UIHierarchy::displayHierarchyWindow()
 	this->isHovered = ImGui::IsWindowHovered(ImGuiHoveredFlags_AllowWhenBlockedByActiveItem | ImGuiHoveredFlags_AllowWhenBlockedByPopup);
 
 	ImGui::SetWindowPos(WINDOW_POS);
-	ImGui::SetWindowSize(WINDOW_SIZE);
+	ImGui::SetWindowSize(this->m_windowSize);
 	ImGui::End();
 }
 

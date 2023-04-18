@@ -13,7 +13,7 @@ s2d::UIAnimation::UIAnimation()
 
 void s2d::UIAnimation::createUIAnimationWindow()
 {
-	if (s2d::UIInfo::srenderAssetFolder || this->m_ptr_repo->sprite_in_inspector == nullptr)
+	if (s2d::UIInfo::s_renderAssetFolder || this->m_ptr_repo->sprite_in_inspector == nullptr)
 	{
 		this->isHovered = false;
 		return;
@@ -53,7 +53,7 @@ void s2d::UIAnimation::setSpriteRepository(s2d::SpriteRepository& repo)
 void s2d::UIAnimation::getFileNameInput()
 {
 	//Open popup
-	if (s2d::FontManager::displaySmybolAsButton(ICON_FA_PLUS, s2d::UIInfo::sdefaultFontSize - 0.2f))
+	if (s2d::FontManager::displaySmybolAsButton(ICON_FA_PLUS, s2d::UIInfo::s_defaultFontSize - 0.2f))
 	{
 		this->m_openFileDialog = true;
 		this->m_createAnimtionPathFileDialoge.enableWindow();
@@ -62,10 +62,10 @@ void s2d::UIAnimation::getFileNameInput()
 
 	ImGui::SameLine();
 	ImGui::SetCursorPosY(ImGui::GetCursorPosY() - 2);
-	ImGui::SetWindowFontScale(s2d::UIInfo::sdefaultFontSize - 0.2f);
+	ImGui::SetWindowFontScale(s2d::UIInfo::s_defaultFontSize - 0.2f);
 	ImGui::Text("Add animations");
 	ImGui::Separator();
-	ImGui::SetWindowFontScale(s2d::UIInfo::sdefaultFontSize);
+	ImGui::SetWindowFontScale(s2d::UIInfo::s_defaultFontSize);
 
 	if (this->m_openFileDialog)
 	{
@@ -146,7 +146,7 @@ void s2d::UIAnimation::displayTopOfEditor()
 	//Close button
 	if (ImGui::Button("x"))
 	{
-		s2d::UIInfo::srenderAssetFolder = true;
+		s2d::UIInfo::s_renderAssetFolder = true;
 	}
 
 	ImGui::Separator();

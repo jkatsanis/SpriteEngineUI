@@ -51,7 +51,7 @@ bool s2d::FontManager::displaySmybolAsButton(const char* symbol, float defaultFo
 	ImGui::PopFont();
 	ImGui::PushFont(s2d::FontManager::defaultFont);
 
-	ImGui::SetWindowFontScale(s2d::UIInfo::sdefaultFontSize);
+	ImGui::SetWindowFontScale(s2d::UIInfo::s_defaultFontSize);
 	return clicked;
 }
 
@@ -59,6 +59,30 @@ bool s2d::FontManager::displaySmybolAsButton(const char* symbol, ImVec2 cursorPo
 {
 	ImGui::SetCursorPos(ImVec2(cursorPos.x, cursorPos.y));
 	return displaySmybolAsButton(symbol);
+}
+
+bool s2d::FontManager::displaySymbolInTreeNode(const char* symbol, std::string name)
+{
+	const ImVec2 cursor = ImVec2(ImGui::GetCursorPos().x, ImGui::GetCursorPosY());
+	ImGui::SetCursorPos(ImVec2(cursor.x + 30, cursor.y));
+	s2d::FontManager::displaySmybolAsText(symbol);
+	ImGui::SetCursorPos(cursor);
+
+	const std::string whiteSpaces = std::string("    ") + name;
+	name = whiteSpaces.c_str();
+	return ImGui::TreeNode(name.c_str());
+}
+
+bool s2d::FontManager::displaySymbolInMenuItem(const char* symbol, std::string name)
+{
+	const ImVec2 cursor = ImVec2(ImGui::GetCursorPos().x, ImGui::GetCursorPosY());
+	ImGui::SetCursorPos(ImVec2(cursor.x + 30, cursor.y));
+	s2d::FontManager::displaySmybolAsText(symbol);
+	ImGui::SetCursorPos(cursor);
+
+	const std::string whiteSpaces = std::string("           ") + name;
+	name = whiteSpaces.c_str();
+	return ImGui::MenuItem(name.c_str());
 }
 
 void s2d::FontManager::InitFonts(ImGuiIO& io)
@@ -79,6 +103,9 @@ void s2d::FontManager::InitFonts(ImGuiIO& io)
 
 	static const ImWchar ranges[] =
 	{
+		0xf1c9, 0xf1c9, // File Codes
+		0xf37e, 0xf37e, // Browser
+		0xf07b, 0xf07b, // Folder
 		0xf0c8, 0xf0c8, // Square
 		0xf04b, 0xf04b, // Play
 		0xf047, 0xf047, // Arrows

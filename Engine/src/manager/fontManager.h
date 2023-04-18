@@ -21,7 +21,8 @@ namespace s2d
 		static bool displaySmybolAsButton(const char* symbol, ImFont* font = nullptr);
 		static bool displaySmybolAsButton(const char* symbol, float defaultFontSize);
 		static bool displaySmybolAsButton(const char* symbol, ImVec2 cursorPos);
-
+		static bool displaySymbolInTreeNode(const char* symbol, std::string name);
+		static bool displaySymbolInMenuItem(const char* symbol, std::string name);
 		static void InitFonts(ImGuiIO& io);
 	};
 

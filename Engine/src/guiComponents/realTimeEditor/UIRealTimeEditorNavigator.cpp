@@ -43,9 +43,9 @@ void s2d::UIRealTimeEditorNavigator::update()
 
 	//Camera update (updating every frame)
 	this->m_camera.update();
+	s2d::GameObject::ptr_camera_tRealTimeEditor = &this->m_camera;
 
 	if (*this->m_isAnyUIWindowHovered) return;
-	s2d::GameObject::ptr_camera_tRealTimeEditor = &this->m_camera;
 
 	this->navigateRightClick();
 	this->navigateArrows();
