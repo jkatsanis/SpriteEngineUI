@@ -4,23 +4,27 @@
 
 s2d::UIAssetTools::UIAssetTools()
 {
-	this->m_isPopUpHoverd = false;
+	this->m_isPopUpOpen = false;
+
+	this->m_ptr_hoveredIconName = nullptr;
 	this->m_ptr_currentAssetPath = nullptr;
 	this->m_classFileName[0] = '\0';
 	this->m_openFileInput = false;
 }
 
-s2d::UIAssetTools::UIAssetTools(const std::string* currentAssetPath)
+s2d::UIAssetTools::UIAssetTools(const std::string* currentAssetPath, std::string* hoveredIconName)
 {
-	this->m_isPopUpHoverd = false;
+	this->m_isPopUpOpen = false;
 	this->m_classFileName[0] = '\0';
 	this->m_openFileInput = false;
 	this->m_ptr_currentAssetPath = currentAssetPath;
+	this->m_ptr_hoveredIconName = hoveredIconName;
+	this->m_windoFontSize = 1;
 }
 
 // Public functions
 
-void s2d::UIAssetTools::update(bool& hovered)
+void s2d::UIAssetTools::update()
 {
 	this->getFileName();
 
@@ -29,15 +33,16 @@ void s2d::UIAssetTools::update(bool& hovered)
 		this->createFileContent();
 		this->m_classFileName[0] = '\0';
 	}
+	ImGui::SetWindowFontScale(this->m_windoFontSize);
 
-	if (ImGui::IsMouseReleased(1) && hovered)
+	if (ImGui::IsMouseReleased(1))
 	{
 		ImGui::OpenPopup(INPUT_POPUP_NAME);
 	}
 
 	if (ImGui::IsPopupOpen(INPUT_POPUP_NAME))
 	{
-		hovered = true;
+		this->m_isPopUpOpen = true;
 		ImGui::BeginPopup(INPUT_POPUP_NAME);
 		if (ImGui::BeginMenu("Create"))
 		{
@@ -48,13 +53,34 @@ void s2d::UIAssetTools::update(bool& hovered)
 			}
 			ImGui::EndMenu();
 		}
+		ImGui::SetCursorPosX(ImGui::GetCursorPosX() - 7);
 		if (ImGui::Button("Delete"))
 		{
-		
+			const std::string d = *this->m_ptr_currentAssetPath;
+		    std::string m = *this->m_ptr_hoveredIconName;
+			
+			if (m != "")
+			{
+				std::string fileName = "";
+
+				for (int i = 2; i < m.size(); i++)
+				{
+					fileName.push_back(m[i]);
+				}
+
+				const std::string deletePath = d + "\\" + fileName;
+				std::filesystem::remove_all(deletePath);
+
+				*this->m_ptr_hoveredIconName = "";
+			}
 		}
 		ImGui::EndPopup();
 	}
-	this->m_isPopUpHoverd = ImGui::IsItemHovered();
+	else
+	{
+		this->m_isPopUpOpen = false;
+	}
+	ImGui::SetWindowFontScale(s2d::UIInfo::s_defaultFontSize);
 }
 
 void s2d::UIAssetTools::getFileName()

@@ -99,6 +99,14 @@ void s2d::UI::setWindowScreenMiddle(const s2d::Vector2& windowSize)
     ImGui::SetWindowPos(newPos);
 }
 
+bool s2d::UI::isHovered(const ImVec2& windowPos, const ImVec2& windowSize)
+{
+    ImVec2 mousePos = ImVec2(s2d::UI::s_guiCorsor.position.x, s2d::UI::s_guiCorsor.position.y);
+
+    return mousePos.x >= windowPos.x && mousePos.x <= windowPos.x + windowSize.x &&
+        mousePos.y >= windowPos.y && mousePos.y <= windowPos.y + windowSize.y;
+}
+
 void s2d::UI::update()
 {
     // Transform postion changer cursor

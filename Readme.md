@@ -1,4 +1,4 @@
-# Welcome To Sprite Egnine
+# Welcome To Sprite Engine
 
 This Project is a simple **2D Game Engine** designed to be fully understand by one Person.
 
@@ -16,11 +16,13 @@ This Project is a simple **2D Game Engine** designed to be fully understand by o
 - **Animations (also supporting UI editor now)**
 - **Scripting with C++** 
 - **Project Creator**
+- **Automatic project builder**
 
 ----    
 ## Enhancements
 - **Sound Manager**
-- **Automatic project builder**
+- **More C++ Functions**
+- **Cleaner design**
 ---
 
 ## Getting Started

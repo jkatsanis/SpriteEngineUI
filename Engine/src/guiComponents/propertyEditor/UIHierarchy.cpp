@@ -134,8 +134,13 @@ void s2d::UIHierarchy::setMenuitemHovered(bool& any_hovered, s2d::Sprite* sprite
 		ImGui::PushStyleColor(ImGuiCol_Text, SPRITE_SELECTED_COLOR);
 	}
 
+	std::string name = sprite->name;
+	if (sprite->prefab.exists)
+	{
+		name += " (Prefab)";
+	}
 	// Set sprite in inspector
-	ImGui::MenuItem(sprite->name.c_str());
+	ImGui::MenuItem(name.c_str());
 	if (ImGui::IsItemHovered(ImGuiHoveredFlags_AllowWhenOverlapped)
 		&& ImGui::IsMouseReleased(0))
 	{
@@ -149,7 +154,7 @@ void s2d::UIHierarchy::setMenuitemHovered(bool& any_hovered, s2d::Sprite* sprite
 
 	if (ImGui::IsItemHovered(ImGuiHoveredFlags_AllowWhenOverlapped))
 	{
-		if (ImGui::IsMouseDown(0) && this->m_ptr_repo->child_to_parent == nullptr)
+		if (ImGui::IsMouseDown(0) && this->m_ptr_repo->child_to_parent == nullptr && this->m_ptr_repo->assetFolderData.dragAndDropPath == " ")
 		{
 			this->m_ptr_repo->child_to_parent = sprite;
 		}
@@ -204,7 +209,12 @@ void s2d::UIHierarchy::displaySpriteSeperated(s2d::Sprite* parent, bool& b)
 			popStyle = true;
 			ImGui::PushStyleColor(ImGuiCol_Text, SPRITE_SELECTED_COLOR);
 		}
-		if (ImGui::TreeNode(parent->name.c_str()))
+		std::string name = parent->name;
+		if (parent->prefab.exists)
+		{
+			name += " (Prefab)";
+		}
+		if (ImGui::TreeNode(name.c_str()))
 		{
 			if (popStyle)
 			{

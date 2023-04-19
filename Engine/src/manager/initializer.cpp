@@ -91,7 +91,12 @@ void s2d::Initializer::initSprite(const std::string& line, s2d::Sprite* const sp
 		sprite->transform.positionToParent.y = std::stof(propertys[26]);
 
 		sprite->animator.exists = propertys[27] == "True";
+	#pragma endregion
 
+	# pragma region Prefab
+		sprite->prefab.exists = propertys[28] == "True";
+		sprite->prefab.loadInMemory = propertys[29] == "True";
+		sprite->prefab.enginePathToFile = propertys[30];
 	#pragma endregion
 }
 

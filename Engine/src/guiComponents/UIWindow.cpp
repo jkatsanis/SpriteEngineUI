@@ -27,7 +27,7 @@ void s2d::UIWindow::renderStyle(ImGuiStyle* style)
 	style->Colors[ImGuiCol_HeaderActive] = ImColor(0, 0, 0, 0);
 
 	style->Colors[ImGuiCol_Button] = ImColor(0, 0, 0, 0);
-	style->Colors[ImGuiCol_ButtonActive] = ImColor(15, 15, 25);
+	style->Colors[ImGuiCol_ButtonActive] = ImColor(48, 48, 48, 0);
 	style->Colors[ImGuiCol_ButtonHovered] = ImColor(100, 90, 100, 100);
 
 	//The background of (input) 

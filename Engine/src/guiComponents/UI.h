@@ -30,15 +30,20 @@ namespace s2d
 
 		/// <summary>
 		/// For example "..\\..\\LOL\\UserProject\\assets\\"
-		/// Returns: "assets\\"
 		/// </summary>
-		/// <returns></returns>
+		/// <returns>Path from the user project to the file/folder</returns>
 		static std::string getUserProjectPathSeperatetFromEnginePath(const std::string& path);
 
 		/// <summary>
 		/// Only use this method when you have a active window
 		/// </summary>
 		static void setWindowScreenMiddle(const s2d::Vector2& size);
+
+		/// <summary>
+		/// Checks if the given area is hovered, does ignore literally everything
+		/// </summary>
+		/// <returns>True if hovered</returns>
+		static bool isHovered(const ImVec2& windowPos, const ImVec2& windowSize);
 
 		static void update();
 	};

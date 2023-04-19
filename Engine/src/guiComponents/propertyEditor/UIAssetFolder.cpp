@@ -8,7 +8,7 @@ s2d::UIAssetFolder::UIAssetFolder()
 
 void s2d::UIAssetFolder::init()
 {
-    this->m_tools = s2d::UIAssetTools(&this->currentPath);
+    this->m_tools = s2d::UIAssetTools(&this->currentPath, &this->m_toHoverItemName);
 
     this->currentPath = s2d::EngineData::s_pathToUserProject + "\\assets";
     this->currentName = "assets";
@@ -39,7 +39,10 @@ void s2d::UIAssetFolder::createAssetLinkerWindow()
     {
         this->resizeWindow();
         this->addPrefab();
-        this->m_tools.update(isHovered);
+        if (this->isHovered)
+        {
+            this->m_tools.update();
+        }
         this->render();
         ImGui::End();
     }
@@ -47,15 +50,12 @@ void s2d::UIAssetFolder::createAssetLinkerWindow()
 
     if (this->m_ptr_repo->assetFolderData.dragAndDropPath != " ")
     {
-        const ImVec2 cursor = ImGui::GetCursorPos();
-        const ImVec2 pos = ImVec2(float(sf::Mouse::getPosition().x - 100), float(sf::Mouse::getPosition().y + 10));
-
-        if (ImGui::Begin("##Drag", NULL, ImGuiWindowFlags_NoTitleBar))
+        if (ImGui::Begin("##Drag-Path", NULL, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoTitleBar))
         {
-            ImGui::SetWindowPos(pos);
+            const ImVec2 window_pos = ImGui::GetMousePos();
             ImGui::SetWindowFontScale(s2d::UIInfo::s_defaultFontSize);
-
             ImGui::Text(this->m_ptr_repo->assetFolderData.dragAndDropName.c_str());
+            ImGui::SetWindowPos(ImVec2(window_pos.x - 15, window_pos.y - 15));
             ImGui::End();
         }
     }
@@ -69,10 +69,7 @@ void s2d::UIAssetFolder::render()
     this->renderCloseRectangle();
     this->renderContentBrowser();
 
-    this->isHovered = ImGui::IsWindowHovered(
-        ImGuiHoveredFlags_AllowWhenBlockedByActiveItem
-        | ImGuiHoveredFlags_AllowWhenBlockedByPopup
-        | ImGuiHoveredFlags_ChildWindows);
+    this->isHovered = s2d::UI::isHovered(ImVec2(0, 1080 - this->m_windowSize.y), this->m_windowSize);
 }
 
 void s2d::UIAssetFolder::renderContentBrowser()
@@ -147,15 +144,15 @@ void s2d::UIAssetFolder::addPrefab()
     {
         return;
     }
-    if (this->m_ptr_repo->child_to_parent != nullptr && ImGui::IsMouseReleased(0 && this->isHovered))
+    if (this->m_ptr_repo->child_to_parent != nullptr && ImGui::IsMouseReleased(0) && this->isHovered)
     {
-        std::cout << "y";
         const std::string pathToFile = this->currentPath + "\\" + this->m_ptr_repo->child_to_parent->name + EXTENSION_PREFAB_FILE;
-
+        
+        const std::string pathToOldFile = this->m_ptr_repo->child_to_parent->prefab.enginePathToFile;
         this->m_ptr_repo->child_to_parent->prefab.updateProps(
             pathToFile, s2d::UI::getUserProjectPathSeperatetFromEnginePath(pathToFile), pathToFile, this->m_ptr_repo->child_to_parent->name + EXTENSION_PREFAB_FILE
         );
-        s2d::flc::createOrUpdatePrefabFile(this->m_ptr_repo->child_to_parent, pathToFile, this->m_ptr_repo->child_to_parent->prefab.pathToOldFile);
+        s2d::flc::createOrUpdatePrefabFile(this->m_ptr_repo->child_to_parent, pathToFile, pathToOldFile);
     }
 }
 
@@ -180,8 +177,7 @@ void s2d::UIAssetFolder::renderCloseRectangle()
     ImGui::SetCursorPos(ImVec2(ImGui::GetCursorPosX() + 30
         , ImGui::GetCursorPosY() - ImGui::CalcTextSize(ICON_FA_FILE_CODE).y - 1));
     ImGui::Text("Assets");
-    ImGui::SetCursorPos(ImVec2(CLOSE_RECTANGLE_SIZE.x - 30,
-        ImGui::GetCursorPosY() - ImGui::CalcTextSize("Assets").y - 10));
+    ImGui::SetCursorPos(ImVec2(ImGui::GetCursorPosX() + ImGui::CalcTextSize("Assets").x + 60, ImGui::GetCursorPosY() - 30));
     if (ImGui::Button("x"))
     {
         s2d::UIInfo::s_isAssetFolderActive = false;
@@ -253,7 +249,10 @@ void s2d::UIAssetFolder::renderFilesWithChildWindow(const std::string& name, con
     int adder = 1;
     if (this->m_toHoverItemName == name)
     {
-        this->m_toHoverItemName = "";
+        if (!this->m_tools.isPopUpOpen())
+        {
+            this->m_toHoverItemName = "";
+        }
         this->m_isItemHovered = false;
         adder = 2;
     }
@@ -435,7 +434,10 @@ void s2d::UIAssetFolder::goBackToBeforeFolder()
 void s2d::UIAssetFolder::setDragAndDrop(std::string path, std::string name)
 {
     //Check if we hover over the menu item used later on for drag and drop
-
+    if (this->m_ptr_repo->child_to_parent != nullptr)
+    {
+        return;
+    }
     if (ImGui::IsItemHovered() && ImGui::IsMouseDown(0) && !this->m_interacted && this->m_ptr_repo->assetFolderData.dragAndDropPath == " ")
     {
         this->m_draggingItem = true;
@@ -448,6 +450,7 @@ void s2d::UIAssetFolder::setDragAndDrop(std::string path, std::string name)
         this->m_draggingItem = false;
         this->m_hoveredOverItem = false;
         this->m_ptr_repo->assetFolderData.dragAndDropPath = " ";
+        this->m_ptr_repo->assetFolderData.dragAndDropName = " ";
     }
 }
 
