@@ -20,6 +20,8 @@ void s2d::UIAssetFolder::init()
     this->m_fileContentPadding = 15;
 
     this->m_windowSize = ImVec2(1280 + 250, 400);
+    this->m_toHoverItemName = "";
+    this->m_isAssetFolderTreeNodeOpen = true;
 }
  
 //Public functions
@@ -97,8 +99,18 @@ void s2d::UIAssetFolder::renderContentBrowser()
 
 }
 
+void s2d::UIAssetFolder::setCurrentPath(const std::string& path, const std::string& name)
+{
+    this->currentName = name;
+    this->currentPath = path;
+}
+
 void s2d::UIAssetFolder::addPrefab()
 {
+    if (this->m_ptr_repo == nullptr)
+    {
+        return;
+    }
     if (this->m_ptr_repo->child_to_parent != nullptr && ImGui::IsMouseReleased(0 && this->isHovered))
     {
         std::cout << "y";
@@ -115,7 +127,8 @@ void s2d::UIAssetFolder::renderFolderHierarchy()
 {
     ImGui::SetCursorPos(ImVec2(FOLDER_HIERACHY_PADDING, FOLDER_HIERACHY_PADDING));
     ImGui::BeginChild("##folder-hierarchy", ImVec2(UIASSET_FOLDER_WIDTH, this->m_windowSize.y), false);
-    this->renderFolderHierarchyRecursiv(std::string(PATH_TO_USER_ASSET_FOLDER).c_str(), "Assets", true);
+    this->renderFolderHierarchyRecursiv(std::string(PATH_TO_USER_ASSET_FOLDER).c_str(), "Assets", this->m_isAssetFolderTreeNodeOpen);
+    this->m_isAssetFolderTreeNodeOpen = false;
     ImGui::EndChild();
 }
 
@@ -152,11 +165,18 @@ void s2d::UIAssetFolder::renderFolderHierarchyRecursiv(const char* path, const c
 
     if (!s2d::FileDialog::checkIfADirHasSubDirs(path))
     {
-        s2d::FontManager::displaySymbolInMenuItem(ICON_FA_FOLDER, name);
+        if (s2d::FontManager::displaySymbolInMenuItem(ICON_FA_FOLDER, name))
+        {
+            this->setCurrentPath(path, name);
+        }
         return;
     }
     if (s2d::FontManager::displaySymbolInTreeNode(ICON_FA_FOLDER, name, openNextTreeNode))
     {
+        if (ImGui::IsItemClicked())
+        {
+            this->setCurrentPath(path, name);
+        }
         while ((entry = readdir(dir)) != NULL)
         {
             bool folder = true;
@@ -187,16 +207,119 @@ void s2d::UIAssetFolder::renderFolderHierarchyRecursiv(const char* path, const c
     closedir(dir);
 }
 
+void s2d::UIAssetFolder::renderFilesWithChildWindow(const std::string& name, const std::string& newPath, const std::string& entryPath, bool isFolder, uint32_t textureId, uint8_t columCnt)
+{
+    bool resetHoveredItem = false;
+    float rounding = 10.0f;
+    ImVec2 child_size = ImVec2(120, 220);
+
+    // The multiplyer for the color (hover effect)
+    int adder = 1;
+    if (this->m_toHoverItemName == name)
+    {
+        this->m_toHoverItemName = "";
+        this->m_isItemHovered = false;
+        adder = 2;
+    }
+    const std::string fileChildWindow = "##" + std::string(entryPath);
+
+    // Drawing a rounded window
+    ImGui::PushStyleColor(ImGuiCol_ChildBg, ImVec4(adder + 0.095f, adder + 0.095f, adder + 0.095f, 1.0f));
+    ImGui::BeginChild(fileChildWindow.c_str(), child_size, false, ImGuiWindowFlags_NoBackground);
+
+    ImVec2 windowPos = ImGui::GetWindowPos();
+    ImVec2 windowSize = ImGui::GetWindowSize();
+
+    ImDrawList* drawList = ImGui::GetWindowDrawList();
+
+    ImVec2 topLeft = windowPos;
+    ImVec2 bottomRight = ImVec2(windowPos.x + windowSize.x, windowPos.y + windowSize.y);
+
+    // Draw the rounded rectangle shape
+    drawList->AddRectFilled(topLeft, bottomRight, ImColor(adder * 24, adder * 24, adder * 24), rounding);
+    drawList->AddRect(topLeft, bottomRight, ImColor(0, 0, 0), rounding);
+
+    ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(0, 0, 0, 0));
+    if (ImGui::ImageButton(name.c_str(), (ImTextureID)textureId,
+        ImVec2(120, 185)))
+    {
+        // Display the item if its a folder
+        if (isFolder)
+        {
+            resetHoveredItem = true;
+            this->setCurrentPath(newPath, entryPath);
+        }
+    }
+
+    // Setting current item which is hovered
+    if (m_toHoverItemName == "")
+    {
+        this->m_isItemHovered = ImGui::IsItemHovered();
+        if (this->m_isItemHovered)
+            m_toHoverItemName = name;
+    }
+    ImGui::PopStyleColor();
+
+    // Make the file "selectable"
+    if (!isFolder)
+        this->setDragAndDrop(newPath, entryPath);
+
+    // Adding - for to long names
+    std::string withoutExt = std::removeExtension(entryPath);
+    float textSizeX = ImGui::CalcTextSize(withoutExt.c_str()).x;
+    std::string newTextWraped = "";
+    if (textSizeX > 80)
+    {
+        // To big text size
+        for (int i = 0; i < withoutExt.size() / 2; i++)
+        {
+            newTextWraped += withoutExt[i];
+        }
+        newTextWraped += " -\n";
+        for (int i = withoutExt.size() / 2; i < withoutExt.size(); i++)
+        {
+            newTextWraped += withoutExt[i];
+        }
+    }
+    else
+    {
+        newTextWraped = withoutExt;
+    }
+
+    // Info text at the bottom
+    ImGui::SetCursorPos(ImVec2(ImGui::GetCursorPosX() + 20, ImGui::GetCursorPosY() - 80));
+    ImGui::TextWrapped(newTextWraped.c_str());
+    ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 20);
+    ImGui::SetCursorPosY(0 + child_size.y - 35);
+    ImGui::TextColored(ImVec4(0.4f, 0.4f, 0.4f, 1.0f), std::getFileExtension(entryPath).c_str());
+    ImGui::EndChild();
+    ImGui::PopStyleColor();
+
+    // Setting spacing for rows
+    if (columCnt >= MAX_COLUMNS)
+    {
+        ImGui::SetCursorPosY(ImGui::GetCursorPosY() + PADDING_BETWEEN_ROWS);
+    }
+    this->m_isItemHovered = false;
+
+    if (resetHoveredItem)
+    {
+        this->m_toHoverItemName = "";
+    }
+
+    ImGui::NextColumn();
+}
+
 void s2d::UIAssetFolder::getAllFilesInDir(const char* path, const char* name)
 {
     uint8_t cnt = 0;
+
     struct dirent* entry;
     DIR* dir = opendir(path);
     if (dir == NULL) {
         return;
     }
     this->m_interacted = false;
-
     while ((entry = readdir(dir)) != NULL)
     {
         cnt++;
@@ -219,51 +342,7 @@ void s2d::UIAssetFolder::getAllFilesInDir(const char* path, const char* name)
 
         if (this->m_fileFilter.PassFilter(name.c_str()))
         {
-            ImVec2 child_size = ImVec2(120, 200);
-
-            const std::string fileChildWindow = "##" + std::string(entry->d_name);
-            ImGui::PushStyleColor(ImGuiCol_ChildBg, ImVec4(0.095f, 0.095f, 0.095f, 1.0f));
-            ImGui::BeginChild(fileChildWindow.c_str(), child_size, false, ImGuiWindowFlags_NoBackground);
-            
-            ImVec2 windowPos = ImGui::GetWindowPos();
-            ImVec2 windowSize = ImGui::GetWindowSize();
-
-            ImDrawList* drawList = ImGui::GetWindowDrawList();
-            float rounding = 10.0f; // set the rounding value
-
-            ImVec2 topLeft = windowPos;
-            ImVec2 bottomRight = ImVec2(windowPos.x + windowSize.x, windowPos.y + windowSize.y);
-
-            // Draw the rounded rectangle shape
-            drawList->AddRectFilled(topLeft, bottomRight, ImColor(24, 24, 24), rounding);
-            drawList->AddRect(topLeft, bottomRight, ImColor(0, 0, 0), rounding);
-
-
-            if (ImGui::ImageButton(name.c_str(), (ImTextureID)id, 
-                ImVec2(120, 185)))
-            {
-                // Display the item if its a folder
-                if (isFolder)
-                {
-                    this->currentPath = newPath;
-                    this->currentName = str;
-                }
-            }
-            if (!isFolder)
-                this->setDragAndDrop(newPath, str);
-
-            ImGui::SetCursorPos(ImVec2(ImGui::GetCursorPosX() + 20, ImGui::GetCursorPosY() - 80));
-            ImGui::TextWrapped(std::removeExtension(str).c_str());
-            ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 20);
-            ImGui::SetCursorPosY(0 + child_size.y - 35);
-            ImGui::TextColored(ImVec4(0.4f, 0.4f, 0.4f, 1.0f), std::getFileExtension(str).c_str());
-            ImGui::EndChild(); 
-            ImGui::PopStyleColor();
-            if (cnt >= MAX_COLUMNS)
-            {
-                ImGui::SetCursorPosY(ImGui::GetCursorPosY() + PADDING_BETWEEN_ROWS);
-            }
-            ImGui::NextColumn();
+            this->renderFilesWithChildWindow(name, newPath, std_name, isFolder, id, cnt);
         }
     }
 

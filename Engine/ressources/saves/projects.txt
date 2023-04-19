@@ -1,2 +1,2 @@
 name;absulutePathStr;date;relativePath
-New;C:\Dev\C++\New;2023/18/04 14:05:44;..\..\New
+Nu;C:\Dev\Nu;2023/19/04 06:23:49;..\..\Nu

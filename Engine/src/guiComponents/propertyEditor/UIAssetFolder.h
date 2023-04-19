@@ -33,6 +33,11 @@ namespace s2d
 	class UIAssetFolder
 	{
 	private:
+		std::string m_toHoverItemName;
+		bool m_isItemHovered;
+
+		bool m_isAssetFolderTreeNodeOpen;
+
 		s2d::SpriteRepository* m_ptr_repo;
 		s2d::UIAssetTools m_tools;
 		s2d::UIIconData m_data;
@@ -58,10 +63,14 @@ namespace s2d
 
 		void renderFolderHierarchyRecursiv(const char* path, const char* name, bool openNextTreeNode);
 
+		void renderFilesWithChildWindow(const std::string& name, const std::string& newPath, const std::string& entryPath, bool isFolder, uint32_t textureId, uint8_t columCnt);
+
 		/// <summary>
 		/// Renders the selected path (NOT RECURSIV)
 		/// </summary>
 		void renderContentBrowser();
+
+		void setCurrentPath(const std::string& path, const std::string& name);
 
 		void init();
 
