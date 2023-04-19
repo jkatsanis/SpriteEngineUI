@@ -37,6 +37,7 @@ void s2d::UIAssetFolder::createAssetLinkerWindow()
     if (ImGui::Begin("Assets", NULL, ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoMove | 
         ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse))
     {
+        this->resizeWindow();
         this->addPrefab();
         this->m_tools.update(isHovered);
         this->render();
@@ -103,6 +104,41 @@ void s2d::UIAssetFolder::setCurrentPath(const std::string& path, const std::stri
 {
     this->currentName = name;
     this->currentPath = path;
+}
+
+void s2d::UIAssetFolder::resizeWindow()
+{
+    bool popStyle = false;
+    ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 200);
+    ImGui::SetCursorPosY(ImGui::GetCursorPosY() - 10);
+    if (this->m_clickedOnResizeButton)
+    {
+        ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0, 0, 0, 1));
+        popStyle = true;
+    }
+    s2d::FontManager::displaySmybolAsButton(ICON_FA_ARROW_UP);
+    if(ImGui::IsItemHovered() && ImGui::IsMouseClicked(0))
+    {
+        this->m_clickedOnResizeButton = true;
+    }
+    if (this->m_clickedOnResizeButton && ImGui::IsMouseDown(0))
+    {
+        float movedy = 0;
+        if (s2d::UI::s_guiCorsor.posiitonChanged)
+        {
+            s2d::Vector2 moved = s2d::UI::s_guiCorsor.lastPos - s2d::UI::s_guiCorsor.position;
+            movedy = moved.y;
+        }
+        this->m_windowSize.y += movedy;
+    }
+    else
+    {
+        this->m_clickedOnResizeButton = false;
+    }
+    if (popStyle)
+    {
+        ImGui::PopStyleColor();
+    }
 }
 
 void s2d::UIAssetFolder::addPrefab()
@@ -241,7 +277,7 @@ void s2d::UIAssetFolder::renderFilesWithChildWindow(const std::string& name, con
 
     ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(0, 0, 0, 0));
     if (ImGui::ImageButton(name.c_str(), (ImTextureID)textureId,
-        ImVec2(120, 185)))
+        ImVec2(120, 183)))
     {
         // Display the item if its a folder
         if (isFolder)

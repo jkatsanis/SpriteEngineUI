@@ -51,7 +51,7 @@ namespace s2d
 		bool m_hoveredOverItem;
 		bool m_draggingItem;
 		bool m_interacted;
-
+		bool m_clickedOnResizeButton;
 		void render();
 		void getAllFilesInDir(const char* path, const char* name);
 		void setDragAndDrop(std::string path, std::string name);
@@ -72,6 +72,7 @@ namespace s2d
 
 		void setCurrentPath(const std::string& path, const std::string& name);
 
+		void resizeWindow();
 		void init();
 
 	public:
@@ -82,6 +83,7 @@ namespace s2d
 		void createAssetLinkerWindow();
 
 		void setSpriteRepository(s2d::SpriteRepository& repo) { this->m_ptr_repo = &repo; }
+		const ImVec2* getSizePtr() { return &this->m_windowSize; }
 	};
 }
 

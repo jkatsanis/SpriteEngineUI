@@ -5,7 +5,7 @@
 #include <ImGui.h>
 #include <manager/initializer.h>
 
-#define ICONS_AMOUNT 4
+#define ICONS_AMOUNT 5
 
 namespace s2d
 {
@@ -18,10 +18,7 @@ namespace s2d
 		static bool s_renderAssetFolder;
 		static bool s_isAssetFolderActive;
 
-		static std::string s_folderIcon;
-		static std::string s_defaultIcon;
-		static std::string s_prefabIcon;
-		static std::string s_codeIcon;
+		const static std::string s_icons[ICONS_AMOUNT];
 	};
 }
 

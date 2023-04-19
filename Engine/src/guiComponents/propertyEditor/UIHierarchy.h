@@ -35,12 +35,16 @@ namespace s2d
 
 		void addPrefab();
 
+		const ImVec2* m_ptr_assetWindowSize;
+
 	public:		
 		bool isHovered;
 
 		UIHierarchy();
 		UIHierarchy(s2d::SpriteRepository& repo);
 		void displayHierarchyWindow();
+
+		void setPtrToWindow(const ImVec2* ptr) { this->m_ptr_assetWindowSize = ptr; }
 	};
 }
 

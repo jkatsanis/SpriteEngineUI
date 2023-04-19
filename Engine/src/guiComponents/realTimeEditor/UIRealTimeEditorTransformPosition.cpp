@@ -5,6 +5,7 @@
 
 s2d::UIRealTimeEditorTransformPosition::UIRealTimeEditorTransformPosition()
 {
+    this->m_spriteRepository = nullptr;
     this->m_windowEvent = nullptr;
     this->m_isAnyUIWindowHovered = nullptr;
     this->m_clickedSprite = nullptr;
@@ -40,7 +41,6 @@ void s2d::UIRealTimeEditorTransformPosition::update()
     this->m_clickedSprite = this->checkIfMouseClickedOnSprite();
 
     this->m_cursorWorldPos = s2d::UI::getWorldCordinates();
-    s2d::UI::setCursorToWorldCoordinates(this->m_cursorWorldPos);
 
     if (this->m_clickedSprite != nullptr)
     {
@@ -62,14 +62,12 @@ void s2d::UIRealTimeEditorTransformPosition::moveComponent()
     float x = this->m_cursorWorldPos.x - 960;
     float y = -(this->m_cursorWorldPos.y - 540);
 
-    s2d::Vector2 pos = s2d::Vector2(this->m_cursorWorldPos.x - 960, -(this->m_cursorWorldPos.y - 540));
-
     float m = x - this->m_clickedSprite->transform.position.x;
     float my = y - this->m_clickedSprite->transform.position.y;
 
-    if (s2d::UI::cursor.posiitonChanged)
+    if (s2d::UI::s_gameCursor.posiitonChanged)
     {
-        s2d::Vector2 moved = s2d::UI::cursor.lastPos - s2d::UI::cursor.position;
+        s2d::Vector2 moved = s2d::UI::s_gameCursor.lastPos - s2d::UI::s_gameCursor.position;
         m += moved.x;
         my -= moved.y;
     }

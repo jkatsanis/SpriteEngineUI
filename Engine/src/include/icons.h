@@ -89,7 +89,7 @@
 #define ICON_FA_ARROW_TO_LEFT "\xef\x8c\xbe"	// U+f33e
 #define ICON_FA_ARROW_TO_RIGHT "\xef\x8d\x80"	// U+f340
 #define ICON_FA_ARROW_TO_TOP "\xef\x8d\x81"	// U+f341
-#define ICON_FA_ARROW_UP "\xef\x81\xa2"	// U+f062
+#define ICON_FA_ARROW_UP u8"\uf062"	// U+f062
 #define ICON_FA_ARROWS u8"\uf047"	// U+f047
 #define ICON_FA_ARROWS_ALT "\xef\x82\xb2"	// U+f0b2
 #define ICON_FA_ARROWS_ALT_H "\xef\x8c\xb7"	// U+f337

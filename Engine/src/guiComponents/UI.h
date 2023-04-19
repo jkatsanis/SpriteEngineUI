@@ -17,7 +17,8 @@ namespace s2d
 	public:
 		UI() = delete;
 
-		static s2d::Transform cursor;
+		static s2d::Transform s_gameCursor;
+		static s2d::Transform s_guiCorsor;
 
 		static bool isCursorClickedOnSprite(const s2d::Sprite* check);
 		static s2d::Vector2 getWorldCordinates();
@@ -38,6 +39,8 @@ namespace s2d
 		/// Only use this method when you have a active window
 		/// </summary>
 		static void setWindowScreenMiddle(const s2d::Vector2& size);
+
+		static void update();
 	};
 }
 

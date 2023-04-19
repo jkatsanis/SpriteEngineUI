@@ -29,7 +29,8 @@ namespace s2d
 
 		/// <summary>
 		/// This method sets the last position of the transform. Needs to be user called.
-		/// Sets "positionChanged" to true if it did that succesfully. Needs to be called after the position changed (!)
+		/// Sets "positionChanged" to true if it did that succesfully. 
+		/// Needs to be called after the position changed (!)(!)
 		/// </summary>
 		void setLastPosition();
 		void updateTransformPosition();

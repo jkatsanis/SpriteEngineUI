@@ -25,7 +25,7 @@ void s2d::UIHierarchy::displayHierarchyWindow()
 	// Set window size if asset folder does not render
 
 	this->m_windowSize = (s2d::UIInfo::s_isAssetFolderActive)
-		? ImVec2(250.0f, 1080.0f - 350.0f)
+		? ImVec2(250.0f, 1080.0f - this->m_ptr_assetWindowSize->y)
 		: ImVec2(250.0f, 1080.0f);
 
 	ImGui::Begin("UIHierarchy", NULL, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoMove);

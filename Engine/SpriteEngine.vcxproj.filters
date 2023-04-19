@@ -267,9 +267,6 @@
     <ClCompile Include="src\guiComponents\projectSelector\UIProjectSelector.cpp">
       <Filter>src\guiComponents\projectSelector\selector</Filter>
     </ClCompile>
-    <ClCompile Include="src\guiComponents\projectSelector\UIProjectSelectorProjectSection.cpp">
-      <Filter>src\guiComponents\projectSelector\create/open</Filter>
-    </ClCompile>
     <ClCompile Include="src\data\engineData.cpp">
       <Filter>src\data\engine</Filter>
     </ClCompile>
@@ -309,6 +306,9 @@
     <ClCompile Include="src\SpriteEngine.cpp" />
     <ClCompile Include="src\manager\spriteRepository.cpp">
       <Filter>src\manager</Filter>
+    </ClCompile>
+    <ClCompile Include="src\guiComponents\projectSelector\UIProjectSelectorProjectSection.cpp">
+      <Filter>src\guiComponents\projectSelector\create/open</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

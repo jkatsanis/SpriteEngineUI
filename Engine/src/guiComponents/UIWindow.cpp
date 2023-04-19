@@ -58,6 +58,7 @@ void s2d::UIWindow::update()
 	//When we press play we need to save our data again, lol
 	this->m_UIToolButtons.setBackgroundColorToSave(this->m_UIInspector.backgroundColor);
 
+	s2d::UI::update();
 	s2d::UIWindow::renderStyle(&ImGui::GetStyle());
 	this->m_UIHierarchy.displayHierarchyWindow();
 	this->m_UIToolButtons.createToolsAndButtons();
@@ -84,5 +85,7 @@ void s2d::UIWindow::init(s2d::SpriteRepository& repo)
 	this->m_UIAssetFolder.setSpriteRepository(repo);
 	this->m_UIAnimation.setSpriteRepository(repo);
 	this->m_UIToolButtons = s2d::UIToolButtons(repo);
+
+	this->m_UIHierarchy.setPtrToWindow(this->m_UIAssetFolder.getSizePtr());
 }
 

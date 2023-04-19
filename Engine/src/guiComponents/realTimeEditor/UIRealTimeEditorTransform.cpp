@@ -5,6 +5,7 @@
 
 s2d::UIRealTimeEditorTransform::UIRealTimeEditorTransform()
 {
+    this->m_spriteRepository = nullptr;
     this->m_positionChanger = s2d::UIRealTimeEditorTransformPosition();
 }
 
