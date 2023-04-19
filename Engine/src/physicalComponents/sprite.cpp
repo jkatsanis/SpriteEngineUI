@@ -128,6 +128,7 @@ s2d::Vector2 s2d::Sprite::getOrigininalPosition() const
 
 void s2d::Sprite::validateProperties(uint32_t id, s2d::SpriteRepository& repo)
 {
+	this->m_id = id;
 	const char CHAR_INVALID_SYMBOLS[INVALID_SPRITE_SYMBOLS] = { ';' };
 	// VALIDATE NAME
 	for (int i = 0; i < repo.amount(); i++)

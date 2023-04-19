@@ -37,6 +37,8 @@ namespace s2d
 
 		const ImVec2* m_ptr_assetWindowSize;
 
+		bool m_foundHovering;
+
 	public:		
 		bool isHovered;
 

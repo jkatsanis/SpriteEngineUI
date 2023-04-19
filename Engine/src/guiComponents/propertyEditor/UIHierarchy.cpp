@@ -7,10 +7,12 @@ s2d::UIHierarchy::UIHierarchy()
 	this->isHovered = false;
 	this->m_ptr_repo = nullptr;
 	this->m_waitOneFrame = false;
+	this->m_ptr_assetWindowSize = nullptr;
 }
 
 s2d::UIHierarchy::UIHierarchy(s2d::SpriteRepository& repo)
 {
+	this->m_ptr_assetWindowSize = nullptr;
 	this->m_waitOneFrame = false;
 	this->isHovered = false;
 	this->m_ptr_repo = &repo;
@@ -31,6 +33,11 @@ void s2d::UIHierarchy::displayHierarchyWindow()
 	ImGui::Begin("UIHierarchy", NULL, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoMove);
 
 	// Render Hierarchy
+
+	if (!ImGui::IsPopupOpen(POPUP_NAME))
+	{
+		this->m_foundHovering = false;
+	}
 
     bool anyHovered = this->displaySprites();
 	this->displayContextPopup();
@@ -154,12 +161,18 @@ void s2d::UIHierarchy::setMenuitemHovered(bool& any_hovered, s2d::Sprite* sprite
 
 	if (ImGui::IsItemHovered(ImGuiHoveredFlags_AllowWhenOverlapped))
 	{
+		this->m_foundHovering = true;
+		std::cout << "kek";
 		if (ImGui::IsMouseDown(0) && this->m_ptr_repo->child_to_parent == nullptr && this->m_ptr_repo->assetFolderData.dragAndDropPath == " ")
 		{
 			this->m_ptr_repo->child_to_parent = sprite;
 		}
 		any_hovered = true;
 		this->m_ptr_repo->sprited_hovered_in_hierarchy = sprite;
+	}
+	else if(!this->m_foundHovering && !ImGui::IsPopupOpen(POPUP_NAME))
+	{
+		this->m_ptr_repo->sprited_hovered_in_hierarchy = nullptr;
 	}
 }
 
@@ -231,8 +244,13 @@ void s2d::UIHierarchy::displaySpriteSeperated(s2d::Sprite* parent, bool& b)
 				{
 					this->m_ptr_repo->child_to_parent = parent;
 				}
+				this->m_foundHovering = true;
 				b = true;
 				this->m_ptr_repo->sprited_hovered_in_hierarchy = parent;
+			}
+			else if (!this->m_foundHovering && !ImGui::IsPopupOpen(POPUP_NAME))
+			{
+				this->m_ptr_repo->sprited_hovered_in_hierarchy = nullptr;
 			}
 			for (size_t i = 0; i < parent->ptr_childs.size(); i++)
 			{
@@ -270,6 +288,10 @@ void s2d::UIHierarchy::displayChildToParent()
 
 void s2d::UIHierarchy::setSpriteAsChild()
 {
+	if (this->m_ptr_repo->sprited_hovered_in_hierarchy != nullptr)
+	{
+		std::cout << this->m_ptr_repo->sprited_hovered_in_hierarchy->name;
+	}
 	if (ImGui::IsMouseReleased(0) && this->m_ptr_repo->sprited_hovered_in_hierarchy != nullptr
 		&& this->m_ptr_repo->child_to_parent != nullptr
 		&& this->m_ptr_repo->child_to_parent->name != this->m_ptr_repo->sprited_hovered_in_hierarchy->name

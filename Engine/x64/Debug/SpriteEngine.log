@@ -1,4 +1,2 @@
-﻿  UIAssetFolder.cpp
-C:\Dev\C++\SpriteEngineUI\Engine\src\guiComponents\propertyEditor\UIAssetFolder.cpp(278,8): warning C4312: 'type cast': conversion from 'uint32_t' to 'ImTextureID' of greater size
-C:\Dev\C++\SpriteEngineUI\Engine\src\guiComponents\propertyEditor\UIAssetFolder.cpp(314,9): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-  SpriteEngine.vcxproj -> C:\Dev\C++\SpriteEngineUI\Engine\x64\Debug\SpriteEngine.exe
+﻿  UIHierarchy.cpp
+  SpriteEngine.vcxproj -> C:\Dev\SpriteEngineUI\Engine\x64\Debug\SpriteEngine.exe
