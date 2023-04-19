@@ -5,6 +5,8 @@
 #include <ImGui.h>
 #include <manager/initializer.h>
 
+#define ICONS_AMOUNT 4
+
 namespace s2d
 {
 	class UIInfo
@@ -18,6 +20,8 @@ namespace s2d
 
 		static std::string s_folderIcon;
 		static std::string s_defaultIcon;
+		static std::string s_prefabIcon;
+		static std::string s_codeIcon;
 	};
 }
 

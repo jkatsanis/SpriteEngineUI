@@ -11,7 +11,7 @@ void s2d::UIAssetFolder::init()
     this->m_tools = s2d::UIAssetTools(&this->currentPath);
 
     this->currentPath = s2d::EngineData::s_pathToUserProject + "\\assets";
-    this->currentName = "Assets";
+    this->currentName = "assets";
 
     this->isHovered = false;
     this->m_interacted = false;
@@ -35,7 +35,7 @@ void s2d::UIAssetFolder::createAssetLinkerWindow()
     }
     ImGui::PushStyleVar(ImGuiStyleVar_Alpha, 1.1f);
     if (ImGui::Begin("Assets", NULL, ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoMove | 
-        ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoScrollbar))
+        ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse))
     {
         this->addPrefab();
         this->m_tools.update(isHovered);
@@ -67,7 +67,7 @@ void s2d::UIAssetFolder::render()
     this->renderFolderHierarchy();
     this->renderCloseRectangle();
     this->renderContentBrowser();
-   
+
     this->isHovered = ImGui::IsWindowHovered(
         ImGuiHoveredFlags_AllowWhenBlockedByActiveItem
         | ImGuiHoveredFlags_AllowWhenBlockedByPopup
@@ -80,7 +80,7 @@ void s2d::UIAssetFolder::renderContentBrowser()
     ImGui::PushStyleColor(ImGuiCol_ChildBg, ImVec4(FILE_DISPLAYER_COLOR / 255.0f, FILE_DISPLAYER_COLOR / 255.0f, FILE_DISPLAYER_COLOR / 255.0f, 255.0f));
     ImGui::BeginChild("##file-displayer-container", ImVec2(this->m_windowSize.x - (FOLDER_HIERACHY_PADDING * 1.8f + UIASSET_FOLDER_WIDTH), this->m_windowSize.y), false, ImGuiWindowFlags_NoScrollbar);
 
-    /*   this->goBackToBeforeFolder();*/
+    this->goBackToBeforeFolder();
     ImGui::SetCursorPos(ImVec2(5, this->m_fileContentPadding));
     ImGui::PushStyleVar(ImGuiStyleVar_FrameRounding, 7.0f); // Set rounding to 5 pixels
     ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(5.0f, 3.0f)); // Add some padding for visual clarity
@@ -351,58 +351,48 @@ void s2d::UIAssetFolder::getAllFilesInDir(const char* path, const char* name)
 
 void s2d::UIAssetFolder::goBackToBeforeFolder()
 {
-    auto split = [](const std::string& str, char delimiter)
+    ImGui::SetCursorPos(ImVec2(ImGui::GetCursorPosX() + 300, ImGui::GetCursorPosY() + 10));
+    const std::vector<std::string> pathParts = std::splitString(this->currentPath, "\\");
+    std::vector<std::string> validParts;
+    for (int i = 0; i < pathParts.size(); i++)
     {
-        std::vector<std::string> tokens;
-        std::string::size_type start = 0;
-        std::string::size_type end = 0;
-        while ((end = str.find_first_of(delimiter, start)) != std::string::npos) {
-            tokens.push_back(str.substr(start, end - start));
-            start = str.find_first_not_of(delimiter, end);
+        if (std::isStringValid(pathParts[i]) && pathParts[i] != "Assets" && pathParts[i] != s2d::EngineData::s_nameOfUserProject)
+        {
+            validParts.push_back(pathParts[i]);
         }
-        if (start != std::string::npos) {
-            tokens.push_back(str.substr(start));
-        }
-        return tokens;
-    };
+    }
 
-
-    std::vector<std::string> props;
-    props = split(this->currentPath, '\\');
-
-    for (int i = 0; i < props.size(); i++)
+    for (int i = 0; i < validParts.size(); i++)
     {
-        // Alot of hard code path shit done here, gonna change in future
-        if (props[i] == "#")
-        {
-            break;
-        }
-        if (props[i] == ".." || props[i] == "Assets")
-        {
-            continue;
-        }
-
-
+        bool popStyle = false;
         // Set current path to the folder clicked
-        if (ImGui::Button(props[i].c_str()))
+        if (this->currentName == validParts[i])
+        {
+            ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0, 0, 0, 1));
+            popStyle = true;
+        }
+        if (ImGui::Button(validParts[i].c_str()) && this->currentName != validParts[i])
         {
             this->currentPath = "";
-            this->currentName = props[i];
+            this->currentName = validParts[i];
+            currentPath = s2d::EngineData::s_pathToUserProject;
             for (int j = 0; j <= i; j++)
             {
-                currentPath += (j != i) ? props[j] + "\\" : props[j];
+                 currentPath += + "\\" + validParts[j];
             }
 
             break;
         }
-
+        if (popStyle)
+        {
+            ImGui::PopStyleColor();
+        }
         ImGui::SameLine();
-        if (i != props.size() - 1)
+        if (i != validParts.size() - 1)
             ImGui::Text(">");
         ImGui::SameLine();
     }
-    ImGui::Dummy(ImVec2(0, 30));
-    ImGui::Separator();
+    
 
 }
 

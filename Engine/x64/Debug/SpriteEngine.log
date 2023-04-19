@@ -1,6 +1,4 @@
-﻿  UIAnimationKeyFrameAdder.cpp
-  UIAssetFolder.cpp
+﻿  UIAssetFolder.cpp
 C:\Dev\SpriteEngineUI\Engine\src\guiComponents\propertyEditor\UIAssetFolder.cpp(243,8): warning C4312: 'type cast': conversion from 'uint32_t' to 'ImTextureID' of greater size
 C:\Dev\SpriteEngineUI\Engine\src\guiComponents\propertyEditor\UIAssetFolder.cpp(279,9): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-  Generating Code...
   SpriteEngine.vcxproj -> C:\Dev\SpriteEngineUI\Engine\x64\Debug\SpriteEngine.exe
