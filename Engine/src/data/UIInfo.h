@@ -38,6 +38,7 @@ namespace s2d
 
 		static OpenWindow s_is_asset_folder_open;
 		static OpenWindow s_is_hierarchy_open;
+		static OpenWindow s_is_inspector_open;
 
 		const static std::string s_icons[ICONS_AMOUNT];
 	};

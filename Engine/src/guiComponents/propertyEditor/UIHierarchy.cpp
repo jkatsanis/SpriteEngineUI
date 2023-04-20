@@ -244,7 +244,7 @@ void s2d::UIHierarchy::renderHierarchyOptions()
 
 	ImGui::SetCursorPosY(ImGui::GetCursorPosY() - 5);
 	ImGui::SetCursorPosX(0);
-	ImGui::BeginChild("##options-container", ImVec2(this->m_window_size.x, 45));
+	ImGui::BeginChild("##hierarchy-options-container", ImVec2(this->m_window_size.x, 45));
 
 	ImGui::SetCursorPos(ImVec2(0, ImGui::GetCursorPosY() + 10));
 	ImGui::PushStyleVar(ImGuiStyleVar_FrameRounding, 7.0f); // Set rounding to 5 pixels

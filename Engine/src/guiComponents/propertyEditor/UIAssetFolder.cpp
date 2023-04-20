@@ -28,6 +28,8 @@ void s2d::UIAssetFolder::init()
 
 void s2d::UIAssetFolder::createAssetLinkerWindow()
 {
+    float temp = ((*this->m_ptr_inspector_size_x) - 390);
+    this->m_window_size.x = ASSET_FOLDER_DEFAULT_WINDOW_SIZE.x - temp;
     if (s2d::UI::handleCloseAndReloadWindow(
         s2d::UIInfo::s_is_asset_folder_open.is_open, s2d::UIInfo::s_is_asset_folder_open.reload,
         this->is_hovered,
@@ -35,6 +37,7 @@ void s2d::UIAssetFolder::createAssetLinkerWindow()
     {
         return;
     }
+
 
     ImGui::PushStyleVar(ImGuiStyleVar_Alpha, 1.1f);
     if (ImGui::Begin("assets", NULL, 

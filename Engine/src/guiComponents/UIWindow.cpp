@@ -56,17 +56,17 @@ void s2d::UIWindow::renderStyle(ImGuiStyle* style)
 void s2d::UIWindow::update()
 {
 	//When we press play we need to save our data again, lol
-	this->m_UIToolButtons.setBackgroundColorToSave(this->m_UIInspector.backgroundColor);
+	this->m_UIToolButtons.setBackgroundColorToSave(this->m_UIInspector.background_color);
 
 	s2d::UI::update();
 	s2d::UIWindow::renderStyle(&ImGui::GetStyle());
 	this->m_UIHierarchy.displayHierarchyWindow();
 	this->m_UIToolButtons.createToolsAndButtons();
-	//this->m_UIInspector.createUIInspector();
+	this->m_UIInspector.createUIInspector();
 	this->m_UIAnimation.createUIAnimationWindow();
 	this->m_UIAssetFolder.createAssetLinkerWindow();
 
-	if (this->m_UIHierarchy.is_hovered || this->m_UIToolButtons.is_hovered || this->m_UIInspector.isHovered || this->m_UIAssetFolder.is_hovered || this->m_UIAnimation.isHovered)
+	if (this->m_UIHierarchy.is_hovered || this->m_UIToolButtons.is_hovered || this->m_UIInspector.is_hovered || this->m_UIAssetFolder.is_hovered || this->m_UIAnimation.isHovered)
 	{
 		this->areAnyUIWindowsHovered = true;
 	}
@@ -88,5 +88,6 @@ void s2d::UIWindow::init(s2d::SpriteRepository& repo)
 
 	// Setting up shared ptr for the other UI windows. 
 	this->m_UIHierarchy.setPtrToWindow(this->m_UIAssetFolder.getSizePtr());
+	this->m_UIAssetFolder.setInspectorXPtr(this->m_UIInspector.getSizePtrX());
 }
 

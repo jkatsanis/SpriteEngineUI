@@ -5,53 +5,93 @@ s2d::UIInspector::UIInspector()
 	this->init();
 }
 
+void s2d::UIInspector::init()
+{
+	this->m_collider.init();
+	this->m_sprite_input_width = 200.0f;
+	this->m_window_size_width = 390.0f;
+
+	this->m_menu_name = "menu";
+	s2d::GameObject::rects.push_back(m_rectangle);
+	s2d::GameObject::rects.push_back(this->m_box_collider);
+
+	this->m_window_size = INSPECTOR_DEFAULT_WINDOW_SIZE;
+	this->state = s2d::InspectorState::None;
+	this->m_texture_over_sprite.loadFromFile(PATH_TO_RESSOURCS"/Sprites/transparent.png");
+}
+
 //Private functions
 
 void s2d::UIInspector::render()
 {
-	//Setting it here transparent because if we go down and out box collider is actually getting used it will update to green automatic
-	s2d::GameObject::rects[1].setOutlineColor(sf::Color(0, 0, 255, 0));
-	//s2d::UIHirachy::selectedSprite = s2d::Sprite::activeSprites[3];
-	if (this->m_ptr_repo->sprite_in_inspector != nullptr)
+	if (s2d::UI::handleCloseAndReloadWindow(
+		s2d::UIInfo::s_is_inspector_open.is_open, s2d::UIInfo::s_is_inspector_open.reload,
+		this->is_hovered,
+		this->m_window_size, INSPECTOR_DEFAULT_WINDOW_SIZE))
 	{
-		this->state = s2d::InspectorState::SpriteEditorWindow;
-		this->m_inputName = &this->m_ptr_repo->sprite_in_inspector->name[0];
-
-		ImGui::SetCursorPos(ImVec2(15, 46));
-		ImGui::InputText("##name", this->m_inputName, CHAR_MAX);
-		this->m_ptr_repo->sprite_in_inspector->name = std::string(this->m_inputName);
-
-		this->checkDupeName();
-
-		//Spacing
-		ImGui::Dummy(ImVec2(0.0f, 6.2f));
-
-		//Line
-		ImGui::Separator();
-		this->drawRectangleOverCurrentObject();
-
-		//COMPONENTS
-		this->setupComponents();
-	}
-	else //Since we dont clicked a valid sprite we display the default inspector view
-	{
-		this->state = s2d::InspectorState::GameWindowEditor;
-		this->m_ptr_repo->sprite_in_inspector = nullptr;
-		this->m_currentComponentSelected = " ";
-		this->m_spriteName = " ";
-
-		//Setting the rect to transparent because we dont want to show it when we deletet a sprite/´display default insp view
-		s2d::GameObject::rects[0].setOutlineColor(sf::Color(0, 0, 255, 0));
-
-		this->displayDefaultInspectorView();
+		return;
 	}
 
-	//Setting Inspector window size
+	ImGui::Begin("##sprite-inspector", NULL, DEFAULT_WINDOW_FLAGS);
+
+	// Close rectangle
+	s2d::UI::renderCloseRectangle(this->m_window_size.x - 300, "a", "##inspector", "Inspector", 0);
+
+	// Left arrow
+	this->resizeWindow();
+
+	if (this->m_ptr_repo->sprited_hovered_in_hierarchy != nullptr)
+	{
+		// Handle a sprite
+	}
+	else
+	{
+		// Handle it if no sprite is selected
+	}
+
+	ImGui::SetWindowPos(ImVec2(INSPECTOR_WINDOW_POS.x + INSPECTOR_DEFAULT_WINDOW_SIZE.x - this->m_window_size.x, INSPECTOR_WINDOW_POS.y));
 	ImGui::SetWindowFontScale(s2d::UIInfo::s_default_font_size);
-	ImGui::SetWindowPos(ImVec2(1530.0f, 0.0f));
-	ImGui::SetWindowSize(ImVec2(this->m_windowSizeWidth, 1080.0f));
+	ImGui::SetWindowSize(this->m_window_size);
+	ImGui::End();
+}
 
-	this->isHovered = ImGui::IsWindowHovered(ImGuiHoveredFlags_AllowWhenBlockedByActiveItem | ImGuiHoveredFlags_AllowWhenBlockedByPopup);
+void s2d::UIInspector::resizeWindow()
+{
+	bool pop_style = false;
+	ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 200);
+	ImGui::SetCursorPosY(ImGui::GetCursorPosY() - 10);
+	if (this->m_clicked_resize_button)
+	{
+		ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0, 0, 0, 1));
+		ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4(0, 0, 0, 1));
+		pop_style = true;
+	}
+	s2d::FontManager::displaySmybolAsButton(ICON_FA_ARROW_UP);
+	if (ImGui::IsItemHovered() && ImGui::IsMouseClicked(0))
+	{
+		this->m_clicked_resize_button = true;
+	}
+	if (this->m_clicked_resize_button && ImGui::IsMouseDown(0))
+	{
+		float movedy = 0;
+		if (s2d::UI::s_gui_cursor.position_changed)
+		{
+			s2d::Vector2 moved = s2d::UI::s_gui_cursor.lastPos - s2d::UI::s_gui_cursor.position;
+			movedy = moved.x;
+		}
+		if (this->m_window_size.x + movedy < 1257)
+		{
+			this->m_window_size.x += movedy;
+		}
+	}
+	else
+	{
+		this->m_clicked_resize_button = false;
+	}
+	if (pop_style)
+	{
+		ImGui::PopStyleColor(2);
+	}
 }
 
 void s2d::UIInspector::checkDupeName()
@@ -66,21 +106,6 @@ void s2d::UIInspector::checkDupeName()
 			this->m_ptr_repo->dupeNameCounter++;
 		}
 	}
-}
-
-void s2d::UIInspector::init()
-{
-	this->m_collider.init();
-	this->m_spriteInputWidth = 200.0f;
-	this->m_windowSizeWidth = 390.0f;
-
-	this->m_menuName = "menu";
-	s2d::GameObject::rects.push_back(m_rectangle);
-	s2d::GameObject::rects.push_back(this->m_boxCollider);
-
-	this->m_defaultBackgroundColor = s2d::Vector3(139, 165, 187);
-	this->state = s2d::InspectorState::None;
-	this->m_textureOverSprite.loadFromFile(PATH_TO_RESSOURCS"/Sprites/transparent.png");
 }
 
 #pragma region  defaultInspectorView
@@ -104,7 +129,7 @@ void s2d::UIInspector::backgroundSetting()
 
 	if (s2d::FontManager::displaySmybolAsButton(ICON_FA_RETWEET "##B"))
 	{
-		this->backgroundColor = this->m_defaultBackgroundColor;
+		this->background_color = DEFAULT_BACKGROUND_COLOR;
 	}
 	ImGui::SetCursorPosY(ImGui::GetCursorPosY() - 41 + 10);
     if (ImGui::TreeNode("Background"))
@@ -113,12 +138,12 @@ void s2d::UIInspector::backgroundSetting()
 
 		ImVec2 cursorPs = ImGui::GetCursorPos();
 
-	    ImVec4 clearColor = ImVec4(this->backgroundColor.x / 255, this->backgroundColor.y / 255, this->backgroundColor.z / 255, 1.0f);
+	    ImVec4 clearColor = ImVec4(this->background_color.x / 255, this->background_color.y / 255, this->background_color.z / 255, 1.0f);
 		ImGui::ColorEdit3("Background-Color", (float*)&clearColor);
 
-		this->backgroundColor.x = clearColor.x * 255;
-		this->backgroundColor.y = clearColor.y * 255;
-		this->backgroundColor.z = clearColor.z * 255;
+		this->background_color.x = clearColor.x * 255;
+		this->background_color.y = clearColor.y * 255;
+		this->background_color.z = clearColor.z * 255;
 		ImGui::Dummy(ImVec2(0, 12));
 		ImGui::TreePop();
 	}
@@ -215,7 +240,7 @@ void s2d::UIInspector::drawRectangleOverCurrentObject()
 	s2d::GameObject::rects[0].setOutlineThickness(3.5f);
 	s2d::GameObject::rects[0].setSize(sf::Vector2f(this->m_ptr_repo->sprite_in_inspector->transform.textureSize.x, this->m_ptr_repo->sprite_in_inspector->transform.textureSize.y));
 	s2d::GameObject::rects[0].setPosition(this->m_ptr_repo->sprite_in_inspector->getOrigininalPosition().x, this->m_ptr_repo->sprite_in_inspector->getOrigininalPosition().y);
-	s2d::GameObject::rects[0].setTexture(&this->m_textureOverSprite);
+	s2d::GameObject::rects[0].setTexture(&this->m_texture_over_sprite);
 }
 
 void s2d::UIInspector::transformComponent()
@@ -277,7 +302,7 @@ void s2d::UIInspector::spriteRendererComponent()
 	if (ImGui::TreeNode("Sprite Renderer"))
 	{
 		std::string input = s2d::UIInspector::getNamePathSplit(this->m_ptr_repo->sprite_in_inspector->path);
-		this->m_spriteName = this->m_ptr_repo->sprite_in_inspector->name;
+		this->m_sprite_name = this->m_ptr_repo->sprite_in_inspector->name;
 
 		float y = ImGui::GetCursorPos().y;
 		float x = ImGui::GetCursorPos().x;
@@ -286,7 +311,7 @@ void s2d::UIInspector::spriteRendererComponent()
 		ImGui::Text("Sprite");
 
 		ImGui::SetCursorPos(ImVec2(x += 100, y - 5));
-		ImGui::SetNextItemWidth(this->m_spriteInputWidth);
+		ImGui::SetNextItemWidth(this->m_sprite_input_width);
 		ImGui::InputText("##spriteRenderer", &input[0], CHAR_MAX);
 
 		if (ImGui::IsItemHovered() && ImGui::IsMouseReleased(0) && this->m_ptr_repo->asset_folder_data.drag_and_drop_path != " ")
@@ -413,10 +438,10 @@ void s2d::UIInspector::componentSelector()
 	{
 		for (int n = 0; n < IM_ARRAYSIZE(components); n++)
 		{
-			bool is_selected = (m_currentComponentSelected == components[n]);
+			bool is_selected = (m_current_component_selected == components[n]);
 			if (ImGui::Selectable(components[n], is_selected))
 			{
-				m_currentComponentSelected = components[n];
+				m_current_component_selected = components[n];
 			}
 			if (is_selected)
 			{
@@ -504,25 +529,25 @@ void s2d::UIInspector::prefabComponent()
 
 void s2d::UIInspector::setCompontents()
 {
-	if (this->m_currentComponentSelected == "BoxCollider")
+	if (this->m_current_component_selected == "BoxCollider")
 	{
 		this->m_ptr_repo->sprite_in_inspector->collider.exists = true;
-		this->m_currentComponentSelected = " ";
+		this->m_current_component_selected = " ";
 	}
-	if (this->m_currentComponentSelected == "PhysicsBody")
+	if (this->m_current_component_selected == "PhysicsBody")
 	{
 		this->m_ptr_repo->sprite_in_inspector->physicsBody.exists = true;
-		this->m_currentComponentSelected = " ";
+		this->m_current_component_selected = " ";
 	}
-	if (this->m_currentComponentSelected == "Animator")
+	if (this->m_current_component_selected == "Animator")
 	{
 		this->m_ptr_repo->sprite_in_inspector->animator.exists = true;
-		this->m_currentComponentSelected = " ";
+		this->m_current_component_selected = " ";
 	}
-	if (this->m_currentComponentSelected == "Prefab")
+	if (this->m_current_component_selected == "Prefab")
 	{
 		this->m_ptr_repo->sprite_in_inspector->prefab.exists = true;
-		this->m_currentComponentSelected = " ";
+		this->m_current_component_selected = " ";
 	}
 }
 
@@ -543,16 +568,7 @@ std::string s2d::UIInspector::getNamePathSplit(std::string path)
 
 void s2d::UIInspector::createUIInspector()
 {
-	//Pushing transperany
-	ImGui::PushStyleVar(ImGuiStyleVar_Alpha, 1.1f);
-
-	ImGui::Begin("Inspector", NULL, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoMove);
-
 	this->render();
-
-	ImGui::End();
-
-	ImGui::PopStyleVar();
 }
 
 

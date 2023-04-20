@@ -49,6 +49,8 @@ namespace s2d
 		bool m_interacted;
 		bool m_clicked_resize_button;
 
+		const float* m_ptr_inspector_size_x;
+
 		void render();
 		void getAllFilesInDir(const char* path, const char* name);
 		void setDragAndDrop(std::string path, std::string name);
@@ -82,6 +84,7 @@ namespace s2d
 
 		void setSpriteRepository(s2d::SpriteRepository& repo) { this->m_ptr_repo = &repo; }
 		const ImVec2* getSizePtr() { return &this->m_window_size; }
+		void setInspectorXPtr(const float* ptr) { this->m_ptr_inspector_size_x = ptr; }
 	};
 }
 

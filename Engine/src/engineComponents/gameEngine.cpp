@@ -8,7 +8,7 @@ s2d::GameEngine::GameEngine()
     this->m_close = false;
     this->ptr_renderWindow = new sf::RenderWindow(sf::VideoMode(1920, 1080), "SpriteEngine", sf::Style::Default);
     this->windowEvent.type = sf::Event::GainedFocus;
-    this->m_renderer = s2d::Renderer(this->ptr_renderWindow, &this->m_UIWindow.getInspector().backgroundColor, this->m_spriteRepository);
+    this->m_renderer = s2d::Renderer(this->ptr_renderWindow, &this->m_UIWindow.getInspector().background_color, this->m_spriteRepository);
 
     auto desktop = sf::VideoMode::getDesktopMode();
     this->ptr_renderWindow->setPosition(sf::Vector2i(desktop.width / 2 - this->ptr_renderWindow->getSize().x / 2, 0));
@@ -20,7 +20,7 @@ s2d::GameEngine::GameEngine()
     //Setting other classes
     s2d::Initializer::initSprites(this->m_spriteRepository);
     s2d::Initializer::initAnimations(this->m_spriteRepository);
-    s2d::Initializer::initBackground(this->m_UIWindow.getInspector().backgroundColor);
+    s2d::Initializer::initBackground(this->m_UIWindow.getInspector().background_color);
     s2d::Input::setEvent(&this->event);
     s2d::Initializer::initIds(this->m_spriteRepository.highestSpriteId);
     s2d::UI::setRenderWindow(this->ptr_renderWindow);
@@ -141,7 +141,7 @@ void s2d::GameEngine::saveDialoge()
             const ImVec2 CURSOR_POS = ImGui::GetCursorPos();
             if (ImGui::Button("Save"))
             {
-                s2d::flc::saveEverything(this->m_UIWindow.getInspector().backgroundColor, this->m_spriteRepository);
+                s2d::flc::saveEverything(this->m_UIWindow.getInspector().background_color, this->m_spriteRepository);
                 this->ptr_renderWindow->close();
                 return;
             }
