@@ -5,11 +5,22 @@
 
 #include <physicalComponents/sprite.h>
 #include <data/UIInfo.h>
+#include <UIToolButtons.h>
 
-#define WINDOW_POS ImVec2(0.0f, 0.0f)
+#define WINDOW_POS ImVec2(0.0f, WINDOW_SIZE_Y_TOOL_BUTTONS + 38)
 #define SPRITE_SELECTED_COLOR ImVec4(139.0f / 255.0f, 180.0f / 255.0f, 234.0f / 255.0f,1.0f)
 
 #define POPUP_NAME "CONTEXT_MENU"
+#define WINDOW_SIZE_HIERARCHY_Y 1080 - WINDOW_POS.y
+#define FOLDER_SPRITE_HIERARCHY_PADDING 50
+
+#define MENU_ITEM_PADDING 50
+#define TREE_NODE_PADDING 40
+
+#define ADD_WHEN_SPRITE_HAS_PARENT 30
+
+// x amount of s to select a child to parent
+#define TIME_TO_CAN_SELECT_CHILD 0.3f
 
 namespace s2d
 {
@@ -19,6 +30,18 @@ namespace s2d
 		s2d::SpriteRepository* m_ptr_repo;
 		bool m_waitOneFrame;
 		ImVec2 m_windowSize;
+		ImGuiTextFilter m_searchSpriteFilter;
+		uint8_t m_spriteBackgRoundRowCounter;
+
+		/// <summary>
+		/// Not a macro because it can get changed!!
+		/// </summary>
+		float m_windowSizeX;
+
+		const ImVec2* m_ptr_assetWindowSize;
+		bool m_foundHovering;
+		bool m_clickedOnResizeButton;
+		float m_childSelectTimer;
 
 		void displayContextPopup();
 		bool displaySprites();
@@ -34,10 +57,17 @@ namespace s2d
 		void setMenuitemHovered(bool& any_hovered, s2d::Sprite* sprite);
 
 		void addPrefab();
+		void renderCloseRectangle();
+		void renderHierarchyOptions();
+		void resizeWindow();
 
-		const ImVec2* m_ptr_assetWindowSize;
+		void drawbackgroundRectangle();
 
-		bool m_foundHovering;
+
+		/// <summary>
+		/// Checks for specfic things which get hovered 
+		/// </summary>
+		void setHovering(s2d::Sprite* sprite, bool& anyHovered);
 
 	public:		
 		bool isHovered;

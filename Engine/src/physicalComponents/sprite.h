@@ -95,6 +95,8 @@ namespace s2d
 		bool isParent() const { return this->ptr_childs.size() != 0; }
 
 		bool containsChild(const s2d::Sprite* child) const;
+
+		bool containsChild(const ImGuiTextFilter& name) const;
 	public:
 		void setParent(s2d::Sprite* sprite);
 

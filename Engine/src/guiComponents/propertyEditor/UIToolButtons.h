@@ -18,6 +18,8 @@
 #define TOOLS_SIZE 2
 #define FILE_AMOUNT 6
 
+#define WINDOW_SIZE_Y_TOOL_BUTTONS 15.0f
+
 namespace s2d
 {
 	class UIToolButtons
@@ -37,6 +39,8 @@ namespace s2d
 		void hotkeys();
 		void build();
 		void init();
+
+		void renderMainMenuBar();
 	public:
 		bool isHovered;
 

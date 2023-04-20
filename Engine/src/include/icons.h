@@ -80,7 +80,7 @@
 #define ICON_FA_ARROW_FROM_RIGHT "\xef\x8d\x84"	// U+f344
 #define ICON_FA_ARROW_FROM_TOP "\xef\x8d\x85"	// U+f345
 #define ICON_FA_ARROW_LEFT "\xef\x81\xa0"	// U+f060
-#define ICON_FA_ARROW_RIGHT "\xef\x81\xa1"	// U+f061
+#define ICON_FA_ARROW_RIGHT u8"\uf061"	// U+f061
 #define ICON_FA_ARROW_SQUARE_DOWN "\xef\x8c\xb9"	// U+f339
 #define ICON_FA_ARROW_SQUARE_LEFT "\xef\x8c\xba"	// U+f33a
 #define ICON_FA_ARROW_SQUARE_RIGHT "\xef\x8c\xbb"	// U+f33b

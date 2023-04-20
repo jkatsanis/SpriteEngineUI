@@ -34,8 +34,13 @@ void s2d::UIAssetFolder::createAssetLinkerWindow()
         return;
     }
     ImGui::PushStyleVar(ImGuiStyleVar_Alpha, 1.1f);
-    if (ImGui::Begin("Assets", NULL, ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoMove | 
-        ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse))
+    if (ImGui::Begin("Assets", NULL, 
+        ImGuiWindowFlags_NoCollapse 
+        | ImGuiWindowFlags_NoMove 
+        | ImGuiWindowFlags_NoResize
+        | ImGuiWindowFlags_NoTitleBar
+        | ImGuiWindowFlags_NoScrollbar 
+        | ImGuiWindowFlags_NoScrollWithMouse))
     {
         this->resizeWindow();
         this->addPrefab();
@@ -74,9 +79,9 @@ void s2d::UIAssetFolder::render()
 
 void s2d::UIAssetFolder::renderContentBrowser()
 {
-    ImGui::SetCursorPos(ImVec2(UIASSET_FOLDER_WIDTH + FOLDER_HIERACHY_PADDING * 1.5f, FOLDER_HIERACHY_PADDING));
+    ImGui::SetCursorPos(ImVec2(UIASSET_FOLDER_WIDTH + FOLDER_HIERARCHY_PADDING * 1.5f, FOLDER_HIERARCHY_PADDING));
     ImGui::PushStyleColor(ImGuiCol_ChildBg, ImVec4(FILE_DISPLAYER_COLOR / 255.0f, FILE_DISPLAYER_COLOR / 255.0f, FILE_DISPLAYER_COLOR / 255.0f, 255.0f));
-    ImGui::BeginChild("##file-displayer-container", ImVec2(this->m_windowSize.x - (FOLDER_HIERACHY_PADDING * 1.8f + UIASSET_FOLDER_WIDTH), this->m_windowSize.y), false, ImGuiWindowFlags_NoScrollbar);
+    ImGui::BeginChild("##file-displayer-container", ImVec2(this->m_windowSize.x - (FOLDER_HIERARCHY_PADDING * 1.8f + UIASSET_FOLDER_WIDTH), this->m_windowSize.y), false, ImGuiWindowFlags_NoScrollbar);
 
     this->goBackToBeforeFolder();
     ImGui::SetCursorPos(ImVec2(5, this->m_fileContentPadding));
@@ -111,6 +116,7 @@ void s2d::UIAssetFolder::resizeWindow()
     if (this->m_clickedOnResizeButton)
     {
         ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0, 0, 0, 1));
+        ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4(0, 0, 0, 1));
         popStyle = true;
     }
     s2d::FontManager::displaySmybolAsButton(ICON_FA_ARROW_UP);
@@ -134,7 +140,7 @@ void s2d::UIAssetFolder::resizeWindow()
     }
     if (popStyle)
     {
-        ImGui::PopStyleColor();
+        ImGui::PopStyleColor(2);
     }
 }
 
@@ -158,7 +164,7 @@ void s2d::UIAssetFolder::addPrefab()
 
 void s2d::UIAssetFolder::renderFolderHierarchy()
 {
-    ImGui::SetCursorPos(ImVec2(FOLDER_HIERACHY_PADDING, FOLDER_HIERACHY_PADDING));
+    ImGui::SetCursorPos(ImVec2(FOLDER_HIERARCHY_PADDING, FOLDER_HIERARCHY_PADDING));
     ImGui::BeginChild("##folder-hierarchy", ImVec2(UIASSET_FOLDER_WIDTH, this->m_windowSize.y), false);
     this->renderFolderHierarchyRecursiv(std::string(PATH_TO_USER_ASSET_FOLDER).c_str(), "Assets", this->m_isAssetFolderTreeNodeOpen);
     this->m_isAssetFolderTreeNodeOpen = false;
@@ -167,23 +173,8 @@ void s2d::UIAssetFolder::renderFolderHierarchy()
 
 void s2d::UIAssetFolder::renderCloseRectangle()
 {
-    ImGui::SetCursorPosX(FOLDER_HIERACHY_PADDING);
-    ImGui::SetCursorPosY(0);
-    ImGui::PushStyleColor(ImGuiCol_ChildBg, ImVec4(0.085f, 0.085f, 0.085f, 1.0f));
-    ImGui::BeginChild("##close-rectangle-assets", CLOSE_RECTANGLE_SIZE);
-    ImGui::SetCursorPos(ImVec2(ImGui::GetCursorPosX() + CLOSE_RECTANGLE_INNER_PADDING, ImGui::GetCursorPosY() + CLOSE_RECTANGLE_INNER_PADDING));
-
-    s2d::FontManager::displaySmybolAsText(ICON_FA_FILE_CODE);
-    ImGui::SetCursorPos(ImVec2(ImGui::GetCursorPosX() + 30
-        , ImGui::GetCursorPosY() - ImGui::CalcTextSize(ICON_FA_FILE_CODE).y - 1));
-    ImGui::Text("Assets");
-    ImGui::SetCursorPos(ImVec2(ImGui::GetCursorPosX() + ImGui::CalcTextSize("Assets").x + 60, ImGui::GetCursorPosY() - 30));
-    if (ImGui::Button("x"))
-    {
-        s2d::UIInfo::s_isAssetFolderActive = false;
-    }
-    ImGui::PopStyleColor();
-    ImGui::EndChild();
+    s2d::UIInfo::s_isAssetFolderActive = s2d::UI::renderCloseRectangle(
+        FOLDER_HIERARCHY_PADDING, ICON_FA_FILE_CODE, "##close-rectangle-assets", "Assets", 0);
 }
 
 void s2d::UIAssetFolder::renderFolderHierarchyRecursiv(const char* path, const char* name, bool openNextTreeNode)
@@ -287,7 +278,7 @@ void s2d::UIAssetFolder::renderFilesWithChildWindow(const std::string& name, con
     }
 
     // Setting current item which is hovered
-    if (m_toHoverItemName == "")
+    if (this->m_toHoverItemName == "")
     {
         this->m_isItemHovered = ImGui::IsItemHovered();
         if (this->m_isItemHovered)
@@ -387,11 +378,11 @@ void s2d::UIAssetFolder::getAllFilesInDir(const char* path, const char* name)
 void s2d::UIAssetFolder::goBackToBeforeFolder()
 {
     ImGui::SetCursorPos(ImVec2(ImGui::GetCursorPosX() + 300, ImGui::GetCursorPosY() + 10));
-    const std::vector<std::string> pathParts = std::splitString(this->currentPath, "\\");
+    const std::vector<std::string> pathParts = std::splitString(s2d::UI::getUserProjectPathSeperatetFromEnginePath(this->currentPath), "\\");
     std::vector<std::string> validParts;
     for (int i = 0; i < pathParts.size(); i++)
     {
-        if (std::isStringValid(pathParts[i]) && pathParts[i] != "Assets" && pathParts[i] != s2d::EngineData::s_nameOfUserProject)
+        if (std::isStringValid(pathParts[i]) && pathParts[i] != s2d::EngineData::s_nameOfUserProject)
         {
             validParts.push_back(pathParts[i]);
         }

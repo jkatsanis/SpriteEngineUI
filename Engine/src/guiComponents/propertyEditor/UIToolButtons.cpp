@@ -1,4 +1,4 @@
-#include "UIToolButtons.h"
+ #include "UIToolButtons.h"
 
 // Constructor
 
@@ -30,27 +30,13 @@ void s2d::UIToolButtons::init()
 void s2d::UIToolButtons::createToolsAndButtons()
 {
 	//Pushing transperany
-	ImGui::PushStyleVar(ImGuiStyleVar_Alpha, 1.1f);
 
-	ImGui::Begin(" ", NULL, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoMove);
 
-	ImGui::SetWindowFontScale(s2d::UIInfo::s_defaultFontSize);
-	ImGui::SetWindowPos(ImVec2(250, 0));
-	ImGui::SetWindowSize(ImVec2(1280, 100.0f));
+	// Button at the top to click and play game 
 
-	//Button at the top to click and play game 
-	this->askWithButtonForPlayGame();
-	this->toolSelector();
-	this->buildProjectIntoFolder();
-	this->hotkeys();
+	this->renderMainMenuBar();
 
-	this->isHovered = ImGui::IsWindowHovered(ImGuiHoveredFlags_AllowWhenBlockedByActiveItem);
-
-	ImGui::End();
-
-	ImGui::PopStyleVar();
 }
-
 void s2d::UIToolButtons::setBackgroundColorToSave(const s2d::Vector3& color)
 {
 	this->m_windowbBackgroundToSave = color;
@@ -58,9 +44,24 @@ void s2d::UIToolButtons::setBackgroundColorToSave(const s2d::Vector3& color)
 
 // Private functions
 
+void s2d::UIToolButtons::renderMainMenuBar()
+{
+	ImGui::PushStyleColor(ImGuiCol_WindowBg, ImVec4(0.1019f, .1019f, .1019f, 1.0f));
+	ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(0, WINDOW_SIZE_Y_TOOL_BUTTONS));
+	if (ImGui::BeginMainMenuBar())
+	{
+		this->buildProjectIntoFolder();
+		
+		ImGui::EndMainMenuBar();
+	}	
+	ImGui::PopStyleVar();
+	ImGui::PopStyleColor();
+}
+
+
 void s2d::UIToolButtons::buildProjectIntoFolder()
 {
-	ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 1100);
+	ImGui::SetCursorPosY(3);
 	if (ImGui::BeginMenu("File"))
 	{
 		if (ImGui::MenuItem("Save", "CTRL + S"))
@@ -73,7 +74,6 @@ void s2d::UIToolButtons::buildProjectIntoFolder()
 		}
 		ImGui::EndMenu();
 	}
-
 }
 
 void s2d::UIToolButtons::hotkeys()
@@ -95,8 +95,8 @@ void s2d::UIToolButtons::build()
 {
 	s2d::flc::saveEverything(this->m_windowbBackgroundToSave, *this->m_spriteRepository);
 	const std::string PATH = s2d::EngineData::s_pathToUserProject + "\\" + s2d::EngineData::s_nameOfUserProject;
-	std::filesystem::path TARGET_PATH = s2d::EngineData::s_pathToUserProject + "\\" + s2d::EngineData::s_nameOfUserProject;
-	std::filesystem::path FILES_IN_FOLDER[FILE_AMOUNT] =
+	const std::filesystem::path TARGET_PATH = s2d::EngineData::s_pathToUserProject + "\\" + s2d::EngineData::s_nameOfUserProject;
+	const std::filesystem::path FILES_IN_FOLDER[FILE_AMOUNT] =
 	{
 		PATH_TO_USER_DEBUG_FOLDER"Assets.exe",
 		PATH_TO_USER_DEBUG_FOLDER"sfml-audio-d-2.dll",
@@ -111,7 +111,7 @@ void s2d::UIToolButtons::build()
 
 	for (int i = 0; i < FILE_AMOUNT; i++)
 	{
-		auto fileTarget = TARGET_PATH / FILES_IN_FOLDER[i].filename();
+		const auto fileTarget = TARGET_PATH / FILES_IN_FOLDER[i].filename();
 
 		if (std::filesystem::is_regular_file(FILES_IN_FOLDER[i]))
 		{

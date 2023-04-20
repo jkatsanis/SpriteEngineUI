@@ -45,10 +45,10 @@ void s2d::UIWindow::renderStyle(ImGuiStyle* style)
 	style->Colors[ImGuiCol_CheckMark] = ImColor(255, 255, 255);
 
 	style->Colors[ImGuiCol_ChildBg] = ImColor(26, 26, 26);
+	style->Colors[ImGuiCol_MenuBarBg] = ImColor(26, 26, 26, 1);
 
 	style->FrameRounding = 4.0f;
 	style->GrabRounding = 4.0f;
-
 }
 
 //Public functions
@@ -62,7 +62,7 @@ void s2d::UIWindow::update()
 	s2d::UIWindow::renderStyle(&ImGui::GetStyle());
 	this->m_UIHierarchy.displayHierarchyWindow();
 	this->m_UIToolButtons.createToolsAndButtons();
-	this->m_UIInspector.createUIInspector();
+	//this->m_UIInspector.createUIInspector();
 	this->m_UIAnimation.createUIAnimationWindow();
 	this->m_UIAssetFolder.createAssetLinkerWindow();
 

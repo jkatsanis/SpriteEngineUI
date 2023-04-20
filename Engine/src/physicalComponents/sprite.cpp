@@ -118,6 +118,22 @@ bool s2d::Sprite::containsChild(const s2d::Sprite* child) const
 	return contains;
 }
 
+bool s2d::Sprite::containsChild(const ImGuiTextFilter& name) const
+{
+	bool contains = false;
+
+	for (int i = 0; i < this->ptr_childs.size(); i++)
+	{
+		const s2d::Sprite* spr = this->ptr_childs[i];
+		if (name.PassFilter(spr->name.c_str()))
+		{
+			return true;
+		}
+		contains = spr->containsChild(name);
+	}
+	return contains;
+}
+
 s2d::Vector2 s2d::Sprite::getOrigininalPosition() const
 {
 	float x = this->m_sprite.getPosition().x;

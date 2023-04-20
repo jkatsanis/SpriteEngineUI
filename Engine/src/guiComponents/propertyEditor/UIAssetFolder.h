@@ -14,12 +14,10 @@
 #include <manager/fileDialogs.h>
 
 #define CLOSE_RECTANGLE_PADDIND_X 50
-#define FOLDER_HIERACHY_PADDING 32
+#define FOLDER_HIERARCHY_PADDING 32
 #define UIASSET_FOLDER_WIDTH 200
 #define FILE_DISPLAYER_COLOR 30.0f
-#define CLOSE_RECTANGLE_SIZE ImVec2(150, FOLDER_HIERACHY_PADDING)
 
-#define CLOSE_RECTANGLE_INNER_PADDING 7
 #define MAX_COLUMNS 9
 #define PADDING_BETWEEN_ROWS 20
 #define PADDING_BETWEEN_COLUMS 130
@@ -27,9 +25,6 @@
 
 namespace s2d
 {		
-	// The amount of icons the Engine has
-	const int amountOfIcons = 3;
-
 	class UIAssetFolder
 	{
 	private:

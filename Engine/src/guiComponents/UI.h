@@ -2,6 +2,7 @@
 
 #include <physicalComponents/sprite.h>
 #include <engineComponents/event.h>
+#include <manager/fontManager.h>
 #include <spriteComponents/stransform.h>
 
 namespace s2d
@@ -44,6 +45,8 @@ namespace s2d
 		/// </summary>
 		/// <returns>True if hovered</returns>
 		static bool isHovered(const ImVec2& windowPos, const ImVec2& windowSize);
+
+		static bool renderCloseRectangle(float paddingLeft, const char* icon, const std::string& id, const std::string& content, float cursorPos);
 
 		static void update();
 	};

@@ -107,6 +107,33 @@ bool s2d::UI::isHovered(const ImVec2& windowPos, const ImVec2& windowSize)
         mousePos.y >= windowPos.y && mousePos.y <= windowPos.y + windowSize.y;
 }
 
+bool s2d::UI::renderCloseRectangle(float paddingLeft, const char* icon, const std::string& id, const std::string& content, float cursorPos)
+{
+    bool close = true;
+    const static float CLOSE_RECTANGLE_INNER_PADDING = 7;
+    const static ImVec2 SIZE = ImVec2(150, 32);
+
+    ImGui::SetCursorPosX(paddingLeft);
+    ImGui::SetCursorPosY(cursorPos);
+    ImGui::PushStyleColor(ImGuiCol_ChildBg, ImVec4(0.085f, 0.085f, 0.085f, 1.0f));
+    ImGui::BeginChild(id.c_str(), SIZE);
+    ImGui::SetCursorPos(ImVec2(ImGui::GetCursorPosX() + CLOSE_RECTANGLE_INNER_PADDING, ImGui::GetCursorPosY() + CLOSE_RECTANGLE_INNER_PADDING));
+
+    s2d::FontManager::displaySmybolAsText(icon);
+    ImGui::SetCursorPos(ImVec2(ImGui::GetCursorPosX() + 30
+        , ImGui::GetCursorPosY() - ImGui::CalcTextSize(icon).y - 1));
+    ImGui::Text(content.c_str());
+    ImGui::SetCursorPos(ImVec2(ImGui::GetWindowSize().x - 30 , 0));
+    if (ImGui::Button("x"))
+    {
+        // Returns false so we can do ourWindow = renderCloseRectangle() and when ourWindow is false it will stop rendering
+        close = false;
+    }
+    ImGui::PopStyleColor();
+    ImGui::EndChild();
+    return close;
+}
+
 void s2d::UI::update()
 {
     // Transform postion changer cursor

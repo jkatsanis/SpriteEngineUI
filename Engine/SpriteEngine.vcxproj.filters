@@ -291,9 +291,6 @@
     <ClCompile Include="src\guiComponents\propertyEditor\UIToolButtonsModels.h">
       <Filter>src\guiComponents\tools</Filter>
     </ClCompile>
-    <ClCompile Include="src\guiComponents\UI.cpp">
-      <Filter>src\guiComponents</Filter>
-    </ClCompile>
     <ClCompile Include="src\guiComponents\propertyEditor\UIAssetTools.cpp">
       <Filter>src\guiComponents\assets</Filter>
     </ClCompile>
@@ -309,6 +306,9 @@
     </ClCompile>
     <ClCompile Include="src\guiComponents\projectSelector\UIProjectSelectorProjectSection.cpp">
       <Filter>src\guiComponents\projectSelector\create/open</Filter>
+    </ClCompile>
+    <ClCompile Include="src\guiComponents\UI.cpp">
+      <Filter>src\guiComponents</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
