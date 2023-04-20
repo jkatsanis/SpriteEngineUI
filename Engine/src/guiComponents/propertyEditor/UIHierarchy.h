@@ -7,7 +7,6 @@
 #include <data/UIInfo.h>
 #include <UIToolButtons.h>
 
-#define WINDOW_POS ImVec2(0.0f, WINDOW_SIZE_Y_TOOL_BUTTONS + 38)
 #define SPRITE_SELECTED_COLOR ImVec4(139.0f / 255.0f, 180.0f / 255.0f, 234.0f / 255.0f,1.0f)
 
 #define POPUP_NAME "CONTEXT_MENU"
@@ -19,6 +18,10 @@
 
 #define ADD_WHEN_SPRITE_HAS_PARENT 30
 
+#define WINDOW_POS ImVec2(0.0f, WINDOW_SIZE_Y_TOOL_BUTTONS + 38)
+#define HIERARCHY_DEFAULT_WINDOW_SIZE ImVec2(300.0f, 1080.0f - 350.0f)
+
+
 // x amount of s to select a child to parent
 #define TIME_TO_CAN_SELECT_CHILD 0.3f
 
@@ -28,32 +31,27 @@ namespace s2d
 	{
 	private:
 		s2d::SpriteRepository* m_ptr_repo;
-		bool m_waitOneFrame;
-		ImVec2 m_windowSize;
-		ImGuiTextFilter m_searchSpriteFilter;
-		uint8_t m_spriteBackgRoundRowCounter;
+		bool m_wait_one_frame;
+		ImVec2 m_window_size;
+		ImGuiTextFilter m_search_sprite_filter;
+		uint8_t m_sprite_background_color;
 
-		/// <summary>
-		/// Not a macro because it can get changed!!
-		/// </summary>
-		float m_windowSizeX;
-
-		const ImVec2* m_ptr_assetWindowSize;
-		bool m_foundHovering;
-		bool m_clickedOnResizeButton;
-		float m_childSelectTimer;
+		const ImVec2* m_ptr_asset_window_size;
+		bool m_found_hovering;
+		bool m_clicked_on_resize_button;
+		float m_child_select_timer;
 
 		void displayContextPopup();
 		bool displaySprites();
-		void displaySprites(s2d::Sprite* parent, bool& anyHovered);
+		void displaySprites(s2d::Sprite* parent, bool& any_hovered);
 		void displayChildToParent();
-		void displaySpriteSeperated(s2d::Sprite* d, bool& anyHovered);
+		void displaySpriteSeperated(s2d::Sprite* d, bool& any_hovered);
 
 		void setSpriteAsChild();
 
 		void addSprite();
 		void deleteSprite();
-		void cleanRepoSpritesUp(bool isAnyHovered);
+		void cleanRepoSpritesUp(bool any_hovered);
 		void setMenuitemHovered(bool& any_hovered, s2d::Sprite* sprite);
 
 		void addPrefab();
@@ -63,20 +61,20 @@ namespace s2d
 
 		void drawbackgroundRectangle();
 
-
 		/// <summary>
 		/// Checks for specfic things which get hovered 
 		/// </summary>
-		void setHovering(s2d::Sprite* sprite, bool& anyHovered);
+		void setHovering(s2d::Sprite* sprite, bool& any_hovered);
 
+		void init();
 	public:		
-		bool isHovered;
+		bool is_hovered;
 
 		UIHierarchy();
 		UIHierarchy(s2d::SpriteRepository& repo);
 		void displayHierarchyWindow();
 
-		void setPtrToWindow(const ImVec2* ptr) { this->m_ptr_assetWindowSize = ptr; }
+		void setPtrToWindow(const ImVec2* ptr) { this->m_ptr_asset_window_size = ptr; }
 	};
 }
 

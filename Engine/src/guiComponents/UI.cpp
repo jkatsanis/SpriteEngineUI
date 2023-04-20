@@ -7,18 +7,18 @@ bool s2d::UI::isCursorClickedOnSprite(const s2d::Sprite* check)
         return false;
     }
     sf::Vector2i cursorPos = sf::Mouse::getPosition(*s2d::UI::s_ptr_Window);
-    s2d::UI::s_cursorWorldPos = s2d::UI::s_ptr_Window->mapPixelToCoords(cursorPos);
+    s2d::UI::s_cursor_world_pos = s2d::UI::s_ptr_Window->mapPixelToCoords(cursorPos);
 
     float getPosX = check->getOrigininalPosition().x;
     float getPosY = check->getOrigininalPosition().y;
 
-    float otherGetPosX = s2d::UI::s_cursorWorldPos.x;
-    float otherGetPosY = s2d::UI::s_cursorWorldPos.y;
+    float otherGetPosX = s2d::UI::s_cursor_world_pos.x;
+    float otherGetPosY = s2d::UI::s_cursor_world_pos.y;
 
     return (getPosX + check->transform.textureSize.x >= otherGetPosX
-        && getPosX <= otherGetPosX + s2d::UI::s_cursorHitbox
+        && getPosX <= otherGetPosX + s2d::UI::s_cursor_hit_box
         && getPosY + check->transform.textureSize.y >= otherGetPosY
-        && getPosY <= otherGetPosY + s2d::UI::s_cursorHitbox);
+        && getPosY <= otherGetPosY + s2d::UI::s_cursor_hit_box);
 
 }
 
@@ -32,8 +32,8 @@ s2d::Vector2 s2d::UI::getWorldCordinates()
 
 void s2d::UI::setCursorToWorldCoordinates(const s2d::Vector2& vec)
 {   
-    s2d::UI::s_gameCursor.position = s2d::Vector2(vec.x, vec.y);
-    s2d::UI::s_gameCursor.setLastPosition();
+    s2d::UI::s_game_cursor.position = s2d::Vector2(vec.x, vec.y);
+    s2d::UI::s_game_cursor.setLastPosition();
 }
 
 bool s2d::UI::isCursorClickedOnRectangle(const sf::RectangleShape& shape)
@@ -43,7 +43,7 @@ bool s2d::UI::isCursorClickedOnRectangle(const sf::RectangleShape& shape)
         return false;
     }
     sf::Vector2i cursorPos = sf::Mouse::getPosition(*s2d::UI::s_ptr_Window);
-    s2d::UI::s_cursorWorldPos = s2d::UI::s_ptr_Window->mapPixelToCoords(cursorPos);
+    s2d::UI::s_cursor_world_pos = s2d::UI::s_ptr_Window->mapPixelToCoords(cursorPos);
 
     float getPosX = shape.getPosition().x;
     float getPosY = shape.getPosition().y;
@@ -51,13 +51,13 @@ bool s2d::UI::isCursorClickedOnRectangle(const sf::RectangleShape& shape)
     float getTextureSizeX = shape.getSize().x;
     float getTextureSizeY = shape.getSize().y;
 
-    float otherGetPosX = s2d::UI::s_cursorWorldPos.x;
-    float otherGetPosY = s2d::UI::s_cursorWorldPos.y;
+    float otherGetPosX = s2d::UI::s_cursor_world_pos.x;
+    float otherGetPosY = s2d::UI::s_cursor_world_pos.y;
 
     bool collided = (getPosX + getTextureSizeX >= otherGetPosX
-        && getPosX <= otherGetPosX + s2d::UI::s_cursorHitbox
+        && getPosX <= otherGetPosX + s2d::UI::s_cursor_hit_box
         && getPosY + getTextureSizeY >= otherGetPosY
-        && getPosY <= otherGetPosY + s2d::UI::s_cursorHitbox);
+        && getPosY <= otherGetPosY + s2d::UI::s_cursor_hit_box);
 
     if(collided)
         s2d::UI::s_event->type = s2d::Event::None;
@@ -101,7 +101,7 @@ void s2d::UI::setWindowScreenMiddle(const s2d::Vector2& windowSize)
 
 bool s2d::UI::isHovered(const ImVec2& windowPos, const ImVec2& windowSize)
 {
-    ImVec2 mousePos = ImVec2(s2d::UI::s_guiCorsor.position.x, s2d::UI::s_guiCorsor.position.y);
+    ImVec2 mousePos = ImVec2(s2d::UI::s_gui_cursor.position.x, s2d::UI::s_gui_cursor.position.y);
 
     return mousePos.x >= windowPos.x && mousePos.x <= windowPos.x + windowSize.x &&
         mousePos.y >= windowPos.y && mousePos.y <= windowPos.y + windowSize.y;
@@ -134,20 +134,37 @@ bool s2d::UI::renderCloseRectangle(float paddingLeft, const char* icon, const st
     return close;
 }
 
+bool s2d::UI::handleCloseAndReloadWindow(bool open, bool& reload, bool& hovered, ImVec2& window_size, const ImVec2& original_size)
+{
+    bool must_return = false;
+    if (!open)
+    {
+        must_return = true;
+        hovered = false;
+    }
+    if (reload)
+    {
+        // Default window size
+        window_size = original_size;
+        reload = false;
+    }
+    return must_return;
+}
+
 void s2d::UI::update()
 {
     // Transform postion changer cursor
-    s2d::UI::s_gameCursor.position = s2d::UI::getWorldCordinates();
-    s2d::UI::setCursorToWorldCoordinates(s2d::UI::s_gameCursor.position);
+    s2d::UI::s_game_cursor.position = s2d::UI::getWorldCordinates();
+    s2d::UI::setCursorToWorldCoordinates(s2d::UI::s_game_cursor.position);
 
     // Imgui & resize cursor
-    s2d::UI::s_guiCorsor.position = s2d::Vector2(ImGui::GetMousePos().x, ImGui::GetMousePos().y);
-    s2d::UI::s_guiCorsor.setLastPosition();
+    s2d::UI::s_gui_cursor.position = s2d::Vector2(ImGui::GetMousePos().x, ImGui::GetMousePos().y);
+    s2d::UI::s_gui_cursor.setLastPosition();
 }
 
-short s2d::UI::s_cursorHitbox = 20;
+short s2d::UI::s_cursor_hit_box = 20;
 const sf::RenderWindow* s2d::UI::s_ptr_Window = nullptr;
-sf::Vector2f s2d::UI::s_cursorWorldPos = sf::Vector2f(0, 0);
-s2d::Transform s2d::UI::s_gameCursor = s2d::Transform();
-s2d::Transform s2d::UI::s_guiCorsor = s2d::Transform();
+sf::Vector2f s2d::UI::s_cursor_world_pos = sf::Vector2f(0, 0);
+s2d::Transform s2d::UI::s_game_cursor = s2d::Transform();
+s2d::Transform s2d::UI::s_gui_cursor = s2d::Transform();
 s2d::Event* s2d::UI::s_event = nullptr;

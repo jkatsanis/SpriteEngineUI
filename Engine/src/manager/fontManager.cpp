@@ -51,7 +51,7 @@ bool s2d::FontManager::displaySmybolAsButton(const char* symbol, float defaultFo
 	ImGui::PopFont();
 	ImGui::PushFont(s2d::FontManager::defaultFont);
 
-	ImGui::SetWindowFontScale(s2d::UIInfo::s_defaultFontSize);
+	ImGui::SetWindowFontScale(s2d::UIInfo::s_default_font_size);
 	return clicked;
 }
 

@@ -8,34 +8,37 @@ s2d::UIAssetFolder::UIAssetFolder()
 
 void s2d::UIAssetFolder::init()
 {
-    this->m_tools = s2d::UIAssetTools(&this->currentPath, &this->m_toHoverItemName);
+    this->m_tools = s2d::UIAssetTools(&this->m_current_path, &this->m_to_hover_item_name);
 
-    this->currentPath = s2d::EngineData::s_pathToUserProject + "\\assets";
-    this->currentName = "assets";
+    this->m_current_path = s2d::EngineData::s_pathToUserProject + "\\assets";
+    this->m_current_name = "assets";
 
-    this->isHovered = false;
+    this->is_hovered = false;
     this->m_interacted = false;
-    this->m_draggingItem = false;
-    this->m_hoveredOverItem = false;
-    this->m_fileContentPadding = 15;
+    this->m_dragging_item = false;
+    this->m_hovered_over_item = false;
+    this->m_file_content_padding = 15;
 
-    this->m_windowSize = ImVec2(1280 + 250, 400);
-    this->m_toHoverItemName = "";
-    this->m_isAssetFolderTreeNodeOpen = true;
+    this->m_window_size = ASSET_FOLDER_DEFAULT_WINDOW_SIZE;
+    this->m_to_hover_item_name = "";
+    this->m_is_asset_folder_tree_node_open = true;
 }
  
 //Public functions
 
 void s2d::UIAssetFolder::createAssetLinkerWindow()
 {
-    if (!s2d::UIInfo::s_isAssetFolderActive)
+    if (s2d::UI::handleCloseAndReloadWindow(
+        s2d::UIInfo::s_is_asset_folder_open.is_open, s2d::UIInfo::s_is_asset_folder_open.reload,
+        this->is_hovered,
+        this->m_window_size, ASSET_FOLDER_DEFAULT_WINDOW_SIZE))
     {
-        this->isHovered = false;
         return;
     }
+
     ImGui::PushStyleVar(ImGuiStyleVar_Alpha, 1.1f);
     if (ImGui::Begin("Assets", NULL, 
-        ImGuiWindowFlags_NoCollapse 
+          ImGuiWindowFlags_NoCollapse 
         | ImGuiWindowFlags_NoMove 
         | ImGuiWindowFlags_NoResize
         | ImGuiWindowFlags_NoTitleBar
@@ -44,7 +47,7 @@ void s2d::UIAssetFolder::createAssetLinkerWindow()
     {
         this->resizeWindow();
         this->addPrefab();
-        if (this->isHovered)
+        if (this->is_hovered)
         {
             this->m_tools.update();
         }
@@ -58,7 +61,7 @@ void s2d::UIAssetFolder::createAssetLinkerWindow()
         if (ImGui::Begin("##Drag-Path", NULL, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoTitleBar))
         {
             const ImVec2 window_pos = ImGui::GetMousePos();
-            ImGui::SetWindowFontScale(s2d::UIInfo::s_defaultFontSize);
+            ImGui::SetWindowFontScale(s2d::UIInfo::s_default_font_size);
             ImGui::Text(this->m_ptr_repo->assetFolderData.dragAndDropName.c_str());
             ImGui::SetWindowPos(ImVec2(window_pos.x - 15, window_pos.y - 15));
             ImGui::End();
@@ -74,71 +77,75 @@ void s2d::UIAssetFolder::render()
     this->renderCloseRectangle();
     this->renderContentBrowser();
 
-    this->isHovered = s2d::UI::isHovered(ImVec2(0, 1080 - this->m_windowSize.y), this->m_windowSize);
+    this->is_hovered = s2d::UI::isHovered(ImVec2(0, 1080 - this->m_window_size.y), this->m_window_size);
 }
 
 void s2d::UIAssetFolder::renderContentBrowser()
 {
     ImGui::SetCursorPos(ImVec2(UIASSET_FOLDER_WIDTH + FOLDER_HIERARCHY_PADDING * 1.5f, FOLDER_HIERARCHY_PADDING));
     ImGui::PushStyleColor(ImGuiCol_ChildBg, ImVec4(FILE_DISPLAYER_COLOR / 255.0f, FILE_DISPLAYER_COLOR / 255.0f, FILE_DISPLAYER_COLOR / 255.0f, 255.0f));
-    ImGui::BeginChild("##file-displayer-container", ImVec2(this->m_windowSize.x - (FOLDER_HIERARCHY_PADDING * 1.8f + UIASSET_FOLDER_WIDTH), this->m_windowSize.y), false, ImGuiWindowFlags_NoScrollbar);
+    ImGui::BeginChild("##file-displayer-container", ImVec2(this->m_window_size.x - (FOLDER_HIERARCHY_PADDING * 1.8f + UIASSET_FOLDER_WIDTH), this->m_window_size.y), false, ImGuiWindowFlags_NoScrollbar);
 
     this->goBackToBeforeFolder();
-    ImGui::SetCursorPos(ImVec2(5, this->m_fileContentPadding));
+    ImGui::SetCursorPos(ImVec2(5, this->m_file_content_padding));
     ImGui::PushStyleVar(ImGuiStyleVar_FrameRounding, 7.0f); // Set rounding to 5 pixels
     ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(5.0f, 3.0f)); // Add some padding for visual clarity
-    this->m_fileFilter.Draw("Search", 200);
+    this->m_file_filter.Draw("Search", 200);
     ImGui::Dummy(ImVec2(10, 10));
     ImGui::PopStyleVar(2);
 
     this->beginColumns();
-    this->getAllFilesInDir(this->currentPath.c_str(), this->currentName.c_str());
+    this->getAllFilesInDir(this->m_current_path.c_str(), this->m_current_name.c_str());
     ImGui::EndChild();
     ImGui::PopStyleColor();
 
-    ImGui::SetWindowPos(ImVec2(0, 1080 - this->m_windowSize.y));
-    ImGui::SetWindowFontScale(s2d::UIInfo::s_defaultFontSize);
-    ImGui::SetWindowSize(this->m_windowSize);
+    ImGui::SetWindowPos(ImVec2(0, 1080 - this->m_window_size.y));
+    ImGui::SetWindowFontScale(s2d::UIInfo::s_default_font_size);
+    ImGui::SetWindowSize(this->m_window_size);
 
 }
 
 void s2d::UIAssetFolder::setCurrentPath(const std::string& path, const std::string& name)
 {
-    this->currentName = name;
-    this->currentPath = path;
+    this->m_current_name = name;
+    this->m_current_path = path;
 }
 
 void s2d::UIAssetFolder::resizeWindow()
 {
-    bool popStyle = false;
+    bool pop_style = false;
     ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 200);
     ImGui::SetCursorPosY(ImGui::GetCursorPosY() - 10);
-    if (this->m_clickedOnResizeButton)
+    if (this->m_clicked_resize_button)
     {
         ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0, 0, 0, 1));
         ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4(0, 0, 0, 1));
-        popStyle = true;
+        pop_style = true;
     }
     s2d::FontManager::displaySmybolAsButton(ICON_FA_ARROW_UP);
     if(ImGui::IsItemHovered() && ImGui::IsMouseClicked(0))
     {
-        this->m_clickedOnResizeButton = true;
+        this->m_clicked_resize_button = true;
     }
-    if (this->m_clickedOnResizeButton && ImGui::IsMouseDown(0))
+    if (this->m_clicked_resize_button && ImGui::IsMouseDown(0))
     {
         float movedy = 0;
-        if (s2d::UI::s_guiCorsor.posiitonChanged)
+        if (s2d::UI::s_gui_cursor.posiitonChanged)
         {
-            s2d::Vector2 moved = s2d::UI::s_guiCorsor.lastPos - s2d::UI::s_guiCorsor.position;
+            s2d::Vector2 moved = s2d::UI::s_gui_cursor.lastPos - s2d::UI::s_gui_cursor.position;
             movedy = moved.y;
         }
-        this->m_windowSize.y += movedy;
+        if (this->m_window_size.y + movedy < 1031
+            && this->m_window_size.y + movedy > 108)
+        {
+            this->m_window_size.y += movedy;
+        }
     }
     else
     {
-        this->m_clickedOnResizeButton = false;
+        this->m_clicked_resize_button = false;
     }
-    if (popStyle)
+    if (pop_style)
     {
         ImGui::PopStyleColor(2);
     }
@@ -150,9 +157,9 @@ void s2d::UIAssetFolder::addPrefab()
     {
         return;
     }
-    if (this->m_ptr_repo->child_to_parent != nullptr && ImGui::IsMouseReleased(0) && this->isHovered)
+    if (this->m_ptr_repo->child_to_parent != nullptr && ImGui::IsMouseReleased(0) && this->is_hovered)
     {
-        const std::string pathToFile = this->currentPath + "\\" + this->m_ptr_repo->child_to_parent->name + EXTENSION_PREFAB_FILE;
+        const std::string pathToFile = this->m_current_path + "\\" + this->m_ptr_repo->child_to_parent->name + EXTENSION_PREFAB_FILE;
         
         const std::string pathToOldFile = this->m_ptr_repo->child_to_parent->prefab.enginePathToFile;
         this->m_ptr_repo->child_to_parent->prefab.updateProps(
@@ -165,15 +172,15 @@ void s2d::UIAssetFolder::addPrefab()
 void s2d::UIAssetFolder::renderFolderHierarchy()
 {
     ImGui::SetCursorPos(ImVec2(FOLDER_HIERARCHY_PADDING, FOLDER_HIERARCHY_PADDING));
-    ImGui::BeginChild("##folder-hierarchy", ImVec2(UIASSET_FOLDER_WIDTH, this->m_windowSize.y), false);
-    this->renderFolderHierarchyRecursiv(std::string(PATH_TO_USER_ASSET_FOLDER).c_str(), "Assets", this->m_isAssetFolderTreeNodeOpen);
-    this->m_isAssetFolderTreeNodeOpen = false;
+    ImGui::BeginChild("##folder-hierarchy", ImVec2(UIASSET_FOLDER_WIDTH, this->m_window_size.y), false);
+    this->renderFolderHierarchyRecursiv(std::string(PATH_TO_USER_ASSET_FOLDER).c_str(), "Assets", this->m_is_asset_folder_tree_node_open);
+    this->m_is_asset_folder_tree_node_open = false;
     ImGui::EndChild();
 }
 
 void s2d::UIAssetFolder::renderCloseRectangle()
 {
-    s2d::UIInfo::s_isAssetFolderActive = s2d::UI::renderCloseRectangle(
+    s2d::UIInfo::s_is_asset_folder_open.is_open = s2d::UI::renderCloseRectangle(
         FOLDER_HIERARCHY_PADDING, ICON_FA_FILE_CODE, "##close-rectangle-assets", "Assets", 0);
 }
 
@@ -238,13 +245,13 @@ void s2d::UIAssetFolder::renderFilesWithChildWindow(const std::string& name, con
 
     // The multiplyer for the color (hover effect)
     int adder = 1;
-    if (this->m_toHoverItemName == name)
+    if (this->m_to_hover_item_name == name)
     {
         if (!this->m_tools.isPopUpOpen())
         {
-            this->m_toHoverItemName = "";
+            this->m_to_hover_item_name = "";
         }
-        this->m_isItemHovered = false;
+        this->m_is_item_hovered = false;
         adder = 2;
     }
     const std::string fileChildWindow = "##" + std::string(entryPath);
@@ -278,11 +285,11 @@ void s2d::UIAssetFolder::renderFilesWithChildWindow(const std::string& name, con
     }
 
     // Setting current item which is hovered
-    if (this->m_toHoverItemName == "")
+    if (this->m_to_hover_item_name == "")
     {
-        this->m_isItemHovered = ImGui::IsItemHovered();
-        if (this->m_isItemHovered)
-            m_toHoverItemName = name;
+        this->m_is_item_hovered = ImGui::IsItemHovered();
+        if (this->m_is_item_hovered)
+            m_to_hover_item_name = name;
     }
     ImGui::PopStyleColor();
 
@@ -326,11 +333,11 @@ void s2d::UIAssetFolder::renderFilesWithChildWindow(const std::string& name, con
     {
         ImGui::SetCursorPosY(ImGui::GetCursorPosY() + PADDING_BETWEEN_ROWS);
     }
-    this->m_isItemHovered = false;
+    this->m_is_item_hovered = false;
 
     if (resetHoveredItem)
     {
-        this->m_toHoverItemName = "";
+        this->m_to_hover_item_name = "";
     }
 
     ImGui::NextColumn();
@@ -366,7 +373,7 @@ void s2d::UIAssetFolder::getAllFilesInDir(const char* path, const char* name)
         const uint32_t id = this->m_data.getId(icon);
         const bool isFolder = (icon == "folder");
 
-        if (this->m_fileFilter.PassFilter(name.c_str()))
+        if (this->m_file_filter.PassFilter(name.c_str()))
         {
             this->renderFilesWithChildWindow(name, newPath, std_name, isFolder, id, cnt);
         }
@@ -378,7 +385,7 @@ void s2d::UIAssetFolder::getAllFilesInDir(const char* path, const char* name)
 void s2d::UIAssetFolder::goBackToBeforeFolder()
 {
     ImGui::SetCursorPos(ImVec2(ImGui::GetCursorPosX() + 300, ImGui::GetCursorPosY() + 10));
-    const std::vector<std::string> pathParts = std::splitString(s2d::UI::getUserProjectPathSeperatetFromEnginePath(this->currentPath), "\\");
+    const std::vector<std::string> pathParts = std::splitString(s2d::UI::getUserProjectPathSeperatetFromEnginePath(this->m_current_path), "\\");
     std::vector<std::string> validParts;
     for (int i = 0; i < pathParts.size(); i++)
     {
@@ -392,19 +399,19 @@ void s2d::UIAssetFolder::goBackToBeforeFolder()
     {
         bool popStyle = false;
         // Set current path to the folder clicked
-        if (this->currentName == validParts[i])
+        if (this->m_current_name == validParts[i])
         {
             ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0, 0, 0, 1));
             popStyle = true;
         }
-        if (ImGui::Button(validParts[i].c_str()) && this->currentName != validParts[i])
+        if (ImGui::Button(validParts[i].c_str()) && this->m_current_name != validParts[i])
         {
-            this->currentPath = "";
-            this->currentName = validParts[i];
-            currentPath = s2d::EngineData::s_pathToUserProject;
+            this->m_current_path = "";
+            this->m_current_name = validParts[i];
+            m_current_path = s2d::EngineData::s_pathToUserProject;
             for (int j = 0; j <= i; j++)
             {
-                 currentPath += + "\\" + validParts[j];
+                 m_current_path += + "\\" + validParts[j];
             }
 
             break;
@@ -431,15 +438,15 @@ void s2d::UIAssetFolder::setDragAndDrop(std::string path, std::string name)
     }
     if (ImGui::IsItemHovered() && ImGui::IsMouseDown(0) && !this->m_interacted && this->m_ptr_repo->assetFolderData.dragAndDropPath == " ")
     {
-        this->m_draggingItem = true;
+        this->m_dragging_item = true;
         this->m_ptr_repo->assetFolderData.dragAndDropPath = path;
         this->m_ptr_repo->assetFolderData.dragAndDropName = name;
     }
     if (ImGui::IsMouseReleased(0))
     {
         this->m_interacted = true;
-        this->m_draggingItem = false;
-        this->m_hoveredOverItem = false;
+        this->m_dragging_item = false;
+        this->m_hovered_over_item = false;
         this->m_ptr_repo->assetFolderData.dragAndDropPath = " ";
         this->m_ptr_repo->assetFolderData.dragAndDropName = " ";
     }

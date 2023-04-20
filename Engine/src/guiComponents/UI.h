@@ -11,15 +11,15 @@ namespace s2d
 	{
 	private:
 		static const sf::RenderWindow* s_ptr_Window;
-		static sf::Vector2f s_cursorWorldPos;
-		static short s_cursorHitbox;
+		static sf::Vector2f s_cursor_world_pos;
+		static short s_cursor_hit_box;
 		static s2d::Event* s_event;
 
 	public:
 		UI() = delete;
 
-		static s2d::Transform s_gameCursor;
-		static s2d::Transform s_guiCorsor;
+		static s2d::Transform s_game_cursor;
+		static s2d::Transform s_gui_cursor;
 
 		static bool isCursorClickedOnSprite(const s2d::Sprite* check);
 		static s2d::Vector2 getWorldCordinates();
@@ -46,7 +46,10 @@ namespace s2d
 		/// <returns>True if hovered</returns>
 		static bool isHovered(const ImVec2& windowPos, const ImVec2& windowSize);
 
-		static bool renderCloseRectangle(float paddingLeft, const char* icon, const std::string& id, const std::string& content, float cursorPos);
+		static bool renderCloseRectangle(float padding_left, const char* icon, const std::string& id, 
+			const std::string& content, float cursor_pos);
+
+		static bool handleCloseAndReloadWindow(bool open, bool& reload, bool& hovered, ImVec2& window_size, const ImVec2& original_size);
 
 		static void update();
 	};

@@ -66,7 +66,7 @@ void s2d::UIWindow::update()
 	this->m_UIAnimation.createUIAnimationWindow();
 	this->m_UIAssetFolder.createAssetLinkerWindow();
 
-	if (this->m_UIHierarchy.isHovered || this->m_UIToolButtons.isHovered || this->m_UIInspector.isHovered || this->m_UIAssetFolder.isHovered || this->m_UIAnimation.isHovered)
+	if (this->m_UIHierarchy.is_hovered || this->m_UIToolButtons.is_hovered || this->m_UIInspector.isHovered || this->m_UIAssetFolder.is_hovered || this->m_UIAnimation.isHovered)
 	{
 		this->areAnyUIWindowsHovered = true;
 	}

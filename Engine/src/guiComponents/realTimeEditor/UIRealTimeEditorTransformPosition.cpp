@@ -65,9 +65,9 @@ void s2d::UIRealTimeEditorTransformPosition::moveComponent()
     float m = x - this->m_clickedSprite->transform.position.x;
     float my = y - this->m_clickedSprite->transform.position.y;
 
-    if (s2d::UI::s_gameCursor.posiitonChanged)
+    if (s2d::UI::s_game_cursor.posiitonChanged)
     {
-        s2d::Vector2 moved = s2d::UI::s_gameCursor.lastPos - s2d::UI::s_gameCursor.position;
+        s2d::Vector2 moved = s2d::UI::s_game_cursor.lastPos - s2d::UI::s_game_cursor.position;
         m += moved.x;
         my -= moved.y;
     }

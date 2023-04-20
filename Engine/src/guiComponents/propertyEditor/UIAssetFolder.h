@@ -22,31 +22,33 @@
 #define PADDING_BETWEEN_ROWS 20
 #define PADDING_BETWEEN_COLUMS 130
 #define ICONS_SIZE 70
+#define ASSET_FOLDER_DEFAULT_WINDOW_SIZE ImVec2(1280 + 250, 400)
 
 namespace s2d
 {		
 	class UIAssetFolder
 	{
 	private:
-		std::string m_toHoverItemName;
-		bool m_isItemHovered;
+		std::string m_to_hover_item_name;
+		bool m_is_item_hovered;
 
-		bool m_isAssetFolderTreeNodeOpen;
+		bool m_is_asset_folder_tree_node_open;
 
 		s2d::SpriteRepository* m_ptr_repo;
 		s2d::UIAssetTools m_tools;
 		s2d::UIIconData m_data;
-		std::string currentPath;
-		std::string currentName;
-		ImVec2 m_windowSize;
-		float m_fileContentPadding;
+		std::string m_current_path;
+		std::string m_current_name;
+		ImVec2 m_window_size;
+		float m_file_content_padding;
 
-		ImGuiTextFilter m_fileFilter;
+		ImGuiTextFilter m_file_filter;
 
-		bool m_hoveredOverItem;
-		bool m_draggingItem;
+		bool m_hovered_over_item;
+		bool m_dragging_item;
 		bool m_interacted;
-		bool m_clickedOnResizeButton;
+		bool m_clicked_resize_button;
+
 		void render();
 		void getAllFilesInDir(const char* path, const char* name);
 		void setDragAndDrop(std::string path, std::string name);
@@ -56,9 +58,10 @@ namespace s2d
 		void renderFolderHierarchy();
 		void renderCloseRectangle();
 
-		void renderFolderHierarchyRecursiv(const char* path, const char* name, bool openNextTreeNode);
+		void renderFolderHierarchyRecursiv(const char* path, const char* name, bool open_next_tree_node);
 
-		void renderFilesWithChildWindow(const std::string& name, const std::string& newPath, const std::string& entryPath, bool isFolder, uint32_t textureId, uint8_t columCnt);
+		void renderFilesWithChildWindow(const std::string& name, const std::string& new_path, const std::string& entry_path
+			, bool is_folder, uint32_t texture_id, uint8_t colum_cnt);
 
 		/// <summary>
 		/// Renders the selected path (NOT RECURSIV)
@@ -71,14 +74,14 @@ namespace s2d
 		void init();
 
 	public:
-		bool isHovered;
+		bool is_hovered;
 
 		UIAssetFolder();
 
 		void createAssetLinkerWindow();
 
 		void setSpriteRepository(s2d::SpriteRepository& repo) { this->m_ptr_repo = &repo; }
-		const ImVec2* getSizePtr() { return &this->m_windowSize; }
+		const ImVec2* getSizePtr() { return &this->m_window_size; }
 	};
 }
 

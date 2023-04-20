@@ -26,11 +26,11 @@ namespace s2d
 	{
 	private:
 		s2d::Tool m_tools[TOOLS_SIZE];
-		s2d::Vector3 m_windowbBackgroundToSave;
+		s2d::Vector3 m_window_background_to_save;
 		EditorTools m_editor_tools;
-		s2d::SpriteRepository* m_spriteRepository;
+		s2d::SpriteRepository* m_ptr_repo;
 
-		bool m_clickedOnBtn;
+		bool m_clicked_on_btn;
 
 		void askWithButtonForPlayGame();
 		void toolSelector();
@@ -39,13 +39,13 @@ namespace s2d
 		void hotkeys();
 		void build();
 		void init();
-
+		void renderWindowSelecter();
 		void renderMainMenuBar();
 	public:
-		bool isHovered;
+		bool is_hovered;
 
 		UIToolButtons();
-		UIToolButtons(s2d::SpriteRepository& spriteRepo);
+		UIToolButtons(s2d::SpriteRepository& sprite_repo);
 
 		void createToolsAndButtons();
 		void setBackgroundColorToSave(const s2d::Vector3& color);

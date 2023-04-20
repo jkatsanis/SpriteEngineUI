@@ -4,29 +4,26 @@
 
 s2d::UIHierarchy::UIHierarchy()
 {
-	this->m_childSelectTimer = 0.0f;
-	this->m_clickedOnResizeButton = false;
-	this->m_foundHovering = false;
-	this->isHovered = false;
-	this->m_ptr_repo = nullptr;
-	this->m_waitOneFrame = false;
-	this->m_ptr_assetWindowSize = nullptr;
-	this->m_windowSizeX = -1;
+	this->init();
 }
 
 s2d::UIHierarchy::UIHierarchy(s2d::SpriteRepository& repo)
 {
-	this->m_childSelectTimer = 0.0f;
-	this->m_clickedOnResizeButton = false;
-	this->m_foundHovering = false;
-	this->m_ptr_assetWindowSize = nullptr;
-	this->m_waitOneFrame = false;
-	this->isHovered = false;
-	this->m_ptr_repo = &repo;
-	this->m_ptr_repo->sprite_in_inspector = nullptr;
-	this->m_windowSize = ImVec2(250.0f, 1080.0f - 350.0f);
-	this->m_windowSizeX = 300;
-	this->m_spriteBackgRoundRowCounter = 1;
+	this->init();
+	this->m_ptr_repo = &repo;	
+}
+
+void s2d::UIHierarchy::init()
+{
+	this->m_ptr_repo = nullptr;
+	this->m_child_select_timer = 0.0f;
+	this->m_clicked_on_resize_button = false;
+	this->m_found_hovering = false;
+	this->m_ptr_asset_window_size = nullptr;
+	this->m_wait_one_frame = false;
+	this->is_hovered = false;
+	this->m_window_size = HIERARCHY_DEFAULT_WINDOW_SIZE;
+	this->m_sprite_background_color = 1;
 }
 
 //Public functions
@@ -35,9 +32,17 @@ void s2d::UIHierarchy::displayHierarchyWindow()
 {
 	// Set window size if asset folder does not render
 
-	this->m_windowSize = (s2d::UIInfo::s_isAssetFolderActive)
-		? ImVec2(this->m_windowSizeX, WINDOW_SIZE_HIERARCHY_Y- this->m_ptr_assetWindowSize->y)
-		: ImVec2(this->m_windowSizeX, WINDOW_SIZE_HIERARCHY_Y);
+	this->m_window_size = (s2d::UIInfo::s_is_asset_folder_open.is_open)
+		? ImVec2(this->m_window_size.x, WINDOW_SIZE_HIERARCHY_Y- this->m_ptr_asset_window_size->y)
+		: ImVec2(this->m_window_size.x, WINDOW_SIZE_HIERARCHY_Y);
+
+	if (s2d::UI::handleCloseAndReloadWindow(
+		s2d::UIInfo::s_is_hierarchy_open.is_open, s2d::UIInfo::s_is_hierarchy_open.reload,
+		this->is_hovered,
+		this->m_window_size, HIERARCHY_DEFAULT_WINDOW_SIZE))
+	{
+		return;
+	}
 
 	ImGui::Begin("##ui-hierarchy", NULL,
 		ImGuiWindowFlags_NoResize
@@ -47,13 +52,13 @@ void s2d::UIHierarchy::displayHierarchyWindow()
 		| ImGuiWindowFlags_NoScrollbar);
 
 	// Render Hierarchy
+	this->m_sprite_background_color = 1;
 
 	if (!ImGui::IsPopupOpen(POPUP_NAME))
 	{
-		this->m_foundHovering = false;
+		this->m_found_hovering = false;
 	}
 
-	this->m_spriteBackgRoundRowCounter = 1;
 	this->renderCloseRectangle();
 	this->renderHierarchyOptions();
 	ImGui::Dummy(ImVec2(0, 10));
@@ -66,17 +71,17 @@ void s2d::UIHierarchy::displayHierarchyWindow()
 
 	this->cleanRepoSpritesUp(anyHovered);
 
-	this->isHovered = s2d::UI::isHovered(WINDOW_POS, this->m_windowSize);
+	this->is_hovered = s2d::UI::isHovered(WINDOW_POS, this->m_window_size);
 
 	ImGui::SetWindowPos(WINDOW_POS);
-	ImGui::SetWindowSize(this->m_windowSize);
-	ImGui::SetWindowFontScale(s2d::UIInfo::s_defaultFontSize);
+	ImGui::SetWindowSize(this->m_window_size);
+	ImGui::SetWindowFontScale(s2d::UIInfo::s_default_font_size);
 	ImGui::End();
 }
 
 void s2d::UIHierarchy::displayContextPopup()
 {
-	if (ImGui::IsMouseReleased(1) && this->isHovered)
+	if (ImGui::IsMouseReleased(1) && this->is_hovered)
 	{
 		ImGui::OpenPopup(POPUP_NAME);
 	}
@@ -136,14 +141,14 @@ void s2d::UIHierarchy::cleanRepoSpritesUp(bool isAnyHovered)
 	{
 		this->m_ptr_repo->sprited_hovered_in_hierarchy = nullptr;
 	}
-	if (!ImGui::IsMouseDown(0) || this->m_waitOneFrame)
+	if (!ImGui::IsMouseDown(0) || this->m_wait_one_frame)
 	{
-		if (this->m_waitOneFrame)
+		if (this->m_wait_one_frame)
 		{
-			this->m_waitOneFrame = false;
+			this->m_wait_one_frame = false;
 			this->m_ptr_repo->child_to_parent = nullptr;
 		}
-		else this->m_waitOneFrame = true;
+		else this->m_wait_one_frame = true;
 	}
 }
 
@@ -151,24 +156,24 @@ void s2d::UIHierarchy::setHovering(s2d::Sprite* sprite, bool& anyHovered)
 {
 	if (ImGui::IsItemHovered(ImGuiHoveredFlags_AllowWhenOverlapped))
 	{
-		this->m_foundHovering = true;
+		this->m_found_hovering = true;
 		if (ImGui::IsMouseDown(0) && this->m_ptr_repo->child_to_parent == nullptr && this->m_ptr_repo->assetFolderData.dragAndDropPath == " ")
 		{
-			this->m_childSelectTimer += s2d::Time::deltaTime;
+			this->m_child_select_timer += s2d::Time::deltaTime;
 
-			if (this->m_childSelectTimer > TIME_TO_CAN_SELECT_CHILD)
+			if (this->m_child_select_timer > TIME_TO_CAN_SELECT_CHILD)
 			{
 				this->m_ptr_repo->child_to_parent = sprite;
 			}
 		}
 		else
 		{
-			this->m_childSelectTimer = 0.0f;
+			this->m_child_select_timer = 0.0f;
 		}
 		anyHovered = true;
 		this->m_ptr_repo->sprited_hovered_in_hierarchy = sprite;
 	}
-	else if (!this->m_foundHovering && !ImGui::IsPopupOpen(POPUP_NAME))
+	else if (!this->m_found_hovering && !ImGui::IsPopupOpen(POPUP_NAME))
 	{
 		this->m_ptr_repo->sprited_hovered_in_hierarchy = nullptr;
 	}
@@ -177,7 +182,7 @@ void s2d::UIHierarchy::setHovering(s2d::Sprite* sprite, bool& anyHovered)
 void s2d::UIHierarchy::setMenuitemHovered(bool& any_hovered, s2d::Sprite* sprite)
 {		
 	// Handle es child
-	if (this->m_searchSpriteFilter.PassFilter(sprite->name.c_str()))
+	if (this->m_search_sprite_filter.PassFilter(sprite->name.c_str()))
 	{
 		bool popStyle = false;
 		if (this->m_ptr_repo->sprite_in_inspector != nullptr
@@ -225,7 +230,7 @@ void s2d::UIHierarchy::addPrefab()
 
 void s2d::UIHierarchy::renderCloseRectangle()
 {
-	 s2d::UI::renderCloseRectangle(
+	s2d::UIInfo::s_is_hierarchy_open.is_open = s2d::UI::renderCloseRectangle(
 		 FOLDER_SPRITE_HIERARCHY_PADDING, ICON_FA_FILE_CODE, "##close-rectangle-hierarchy", "Hierarchy", 0);
 }
 
@@ -237,15 +242,16 @@ void s2d::UIHierarchy::renderHierarchyOptions()
 
 	ImGui::SetCursorPos(tempCursor);
 
-	ImGui::SetCursorPosY(ImGui::GetCursorPosY() - 10);
-	ImGui::SetCursorPosX(FOLDER_SPRITE_HIERARCHY_PADDING);
-	ImGui::BeginChild("##options-container", ImVec2(this->m_windowSize.x - FOLDER_SPRITE_HIERARCHY_PADDING * 2, 45));
+	ImGui::SetCursorPosY(ImGui::GetCursorPosY() - 5);
+	ImGui::SetCursorPosX(0);
+	ImGui::BeginChild("##options-container", ImVec2(this->m_window_size.x, 45));
 
-	ImGui::SetCursorPos(ImVec2(ImGui::GetCursorPosX() + 10, ImGui::GetCursorPosY() + 10));
+	ImGui::SetCursorPos(ImVec2(0, ImGui::GetCursorPosY() + 10));
 	ImGui::PushStyleVar(ImGuiStyleVar_FrameRounding, 7.0f); // Set rounding to 5 pixels
 	ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(5.0f, 3.0f)); // Add some padding for visual clarity
 	ImGui::SetNextItemWidth(150);
-	this->m_searchSpriteFilter.Draw("Search");
+	ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 50);
+	this->m_search_sprite_filter.Draw("Search");
 	ImGui::PopStyleVar(2);
 
 	ImGui::EndChild();	
@@ -253,34 +259,37 @@ void s2d::UIHierarchy::renderHierarchyOptions()
 
 void s2d::UIHierarchy::resizeWindow()
 {
-	bool popStyle = false;
-	if (this->m_clickedOnResizeButton)
+	bool pop_style = false;
+	if (this->m_clicked_on_resize_button)
 	{
 		ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0, 0, 0, 1));
 		ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4(0, 0, 0, 1));
-		popStyle = true;
+		pop_style = true;
 	}
-	ImGui::SetCursorPos(ImVec2(this->m_windowSize.x - 40, 0));
+	ImGui::SetCursorPos(ImVec2(this->m_window_size.x - 40, 0));
 	s2d::FontManager::displaySmybolAsButton(ICON_FA_ARROW_RIGHT);
 	if (ImGui::IsItemHovered() && ImGui::IsMouseClicked(0))
 	{
-		this->m_clickedOnResizeButton = true;
+		this->m_clicked_on_resize_button = true;
 	}
-	if (this->m_clickedOnResizeButton && ImGui::IsMouseDown(0))
+	if (this->m_clicked_on_resize_button && ImGui::IsMouseDown(0))
 	{
-		float movedy = 0;
-		if (s2d::UI::s_guiCorsor.posiitonChanged)
+		float moved_x = 0;
+		if (s2d::UI::s_gui_cursor.posiitonChanged)
 		{
-			s2d::Vector2 moved = s2d::UI::s_guiCorsor.lastPos - s2d::UI::s_guiCorsor.position;
-			movedy = moved.x;
+			s2d::Vector2 moved = s2d::UI::s_gui_cursor.lastPos - s2d::UI::s_gui_cursor.position;
+			moved_x = moved.x;
 		}
-		this->m_windowSizeX -= movedy;
+		if (this->m_window_size.x - moved_x > 245)
+		{
+			this->m_window_size.x -= moved_x;
+		}
 	}
 	else
 	{
-		this->m_clickedOnResizeButton = false;
+		this->m_clicked_on_resize_button = false;
 	}
-	if (popStyle)
+	if (pop_style)
 	{
 		ImGui::PopStyleColor(2);
 	}
@@ -288,12 +297,12 @@ void s2d::UIHierarchy::resizeWindow()
 
 void s2d::UIHierarchy::drawbackgroundRectangle()
 {
-	if (this->m_spriteBackgRoundRowCounter < 1)
+	if (this->m_sprite_background_color < 1)
 	{
-		this->m_spriteBackgRoundRowCounter++;
+		this->m_sprite_background_color++;
 		return;
 	}
-	this->m_spriteBackgRoundRowCounter = 0;
+	this->m_sprite_background_color = 0;
 
 	const ImVec2 cursorPos = ImGui::GetCursorPos();
 	ImGui::SetCursorPosX(0);
@@ -301,7 +310,7 @@ void s2d::UIHierarchy::drawbackgroundRectangle()
 	ImDrawList* draw_list = ImGui::GetWindowDrawList();
 	ImVec2 cursor_pos = ImGui::GetCursorPos();
 	ImVec2 node_size = ImVec2(100, 20); // change this to the desired size
-	draw_list->AddRectFilled(cursor_pos, ImVec2(cursor_pos.x + this->m_windowSizeX, cursor_pos.y - 20), IM_COL32(30, 30, 30, 255));
+	draw_list->AddRectFilled(cursor_pos, ImVec2(cursor_pos.x + this->m_window_size.x, cursor_pos.y - 20), IM_COL32(30, 30, 30, 255));
 
 
 	ImGui::SetCursorPos(cursorPos);
@@ -353,9 +362,9 @@ void s2d::UIHierarchy::displaySpriteSeperated(s2d::Sprite* parent, bool& anyHove
 		{
 			name += " (Prefab)";
 		}
-		if (this->m_searchSpriteFilter.PassFilter(name.c_str()) || parent->containsChild(this->m_searchSpriteFilter))
+		if (this->m_search_sprite_filter.PassFilter(name.c_str()) || parent->containsChild(this->m_search_sprite_filter))
 		{
-			if (parent->containsChild(this->m_searchSpriteFilter) && this->m_searchSpriteFilter.CountGrep != 0)
+			if (parent->containsChild(this->m_search_sprite_filter) && this->m_search_sprite_filter.CountGrep != 0)
 			{
 				ImGui::SetNextItemOpen(true);
 			}
@@ -380,7 +389,10 @@ void s2d::UIHierarchy::displaySpriteSeperated(s2d::Sprite* parent, bool& anyHove
 				}
 				ImGui::TreePop();
 			}
-			this->setHovering(parent, anyHovered);
+			if (this->m_ptr_repo->sprited_hovered_in_hierarchy == nullptr)
+			{
+				this->setHovering(parent, anyHovered);
+			}
 		}
 		if (popStyle)
 		{

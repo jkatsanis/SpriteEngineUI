@@ -20,24 +20,24 @@ namespace s2d
 	    /// <summary>
 	    /// Need to change value on delete
 	    /// </summary>
-	    std::string* m_ptr_hoveredIconName;
+	    std::string* m_ptr_hovered_icon_name;
 		char m_classFileName[CPP_FILE_NAME_SIZE];
 
 		void getFileName();
 		void createFileContent();
 
-		bool m_isPopUpOpen;
-		bool m_openFileInput;
-		float m_windoFontSize;
+		bool m_is_popup_open;
+		bool m_open_file_input;
+		float m_window_font_size;
 	public:
 		UIAssetTools();
-		UIAssetTools(const std::string* currentAssetPath, std::string* hoveredIconName);
+		UIAssetTools(const std::string* current_asset_path, std::string* hovered_icon_name);
 
 		void update();
-		void includeInUserProject(const std::string& fileName);
+		void includeInUserProject(const std::string& file_name);
 
 	public:
-		bool isPopUpOpen() const { return this->m_isPopUpOpen; }
+		bool isPopUpOpen() const { return this->m_is_popup_open; }
 	};
 }
 

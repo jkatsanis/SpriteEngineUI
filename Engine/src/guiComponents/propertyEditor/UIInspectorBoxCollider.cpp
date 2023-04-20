@@ -23,9 +23,9 @@ void s2d::UIInspectorBoxCollider::solid(float& x, float& y, s2d::Sprite* sprite)
 	ImGui::SetCursorPosX(x -= 60.4f);
 	ImGui::Text("Solid");
 	ImGui::SameLine();
-	ImGui::SetWindowFontScale(s2d::UIInfo::s_defaultFontSize);
+	ImGui::SetWindowFontScale(s2d::UIInfo::s_default_font_size);
 	ImGui::Checkbox("##Solid", &sprite->collider.isSolid);
-	ImGui::SetWindowFontScale(s2d::UIInfo::s_defaultFontSize);
+	ImGui::SetWindowFontScale(s2d::UIInfo::s_default_font_size);
 	ImGui::Dummy(ImVec2(0, 5));
 
 	y += 40;
@@ -34,29 +34,29 @@ void s2d::UIInspectorBoxCollider::solid(float& x, float& y, s2d::Sprite* sprite)
 void s2d::UIInspectorBoxCollider::width(float x, float y, s2d::Sprite* sprite)
 {
 	ImGui::SetCursorPosX(x -= 11);
-	ImGui::SetWindowFontScale(s2d::UIInfo::s_defaultFontSize + 0.1f);
+	ImGui::SetWindowFontScale(s2d::UIInfo::s_default_font_size + 0.1f);
 	if (ImGui::TreeNode("Width"))
 	{
 		ImGui::SetCursorPos(ImVec2(x += 30, y += 80));
 		ImGui::Text("L");
 
 		ImGui::SetCursorPos(ImVec2(x += 30, y));
-		ImGui::SetWindowFontScale(s2d::UIInfo::s_defaultFontSize - 0.5f);
+		ImGui::SetWindowFontScale(s2d::UIInfo::s_default_font_size - 0.5f);
 		ImGui::SliderFloat("##WidthL", &sprite->collider.boxColliderWidthLeftOrRight.x, -500, 500);
 		ImGui::SameLine();
 
 		ImGui::SetCursorPosY(ImGui::GetCursorPosY() - 7);
-		if (s2d::FontManager::displaySmybolAsButton(ICON_FA_RETWEET, s2d::UIInfo::s_defaultFontSize + 0.02f))
+		if (s2d::FontManager::displaySmybolAsButton(ICON_FA_RETWEET, s2d::UIInfo::s_default_font_size + 0.02f))
 		{
 			sprite->collider.boxColliderWidthLeftOrRight.x = 0;
 		}
-		ImGui::SetWindowFontScale(s2d::UIInfo::s_defaultFontSize);
+		ImGui::SetWindowFontScale(s2d::UIInfo::s_default_font_size);
 
 		ImGui::SetCursorPos(ImVec2(x -= 28.4f, y += 40));
 		ImGui::Text("R");
 
 		ImGui::SetCursorPos(ImVec2(x += 29, y));
-		ImGui::SetWindowFontScale(s2d::UIInfo::s_defaultFontSize - 0.5f);
+		ImGui::SetWindowFontScale(s2d::UIInfo::s_default_font_size - 0.5f);
 		ImGui::SliderFloat("##WidthR", &sprite->collider.boxColliderWidthLeftOrRight.y, -500, 500);
 		ImGui::SameLine();
 
@@ -64,14 +64,14 @@ void s2d::UIInspectorBoxCollider::width(float x, float y, s2d::Sprite* sprite)
 		// name and it acts like a different button, ImGui does not render '##'
 
 		ImGui::SetCursorPosY(ImGui::GetCursorPosY() - 7);
-		if (s2d::FontManager::displaySmybolAsButton(ICON_FA_RETWEET "##", s2d::UIInfo::s_defaultFontSize + 0.02f))
+		if (s2d::FontManager::displaySmybolAsButton(ICON_FA_RETWEET "##", s2d::UIInfo::s_default_font_size + 0.02f))
 		{
 			sprite->collider.boxColliderWidthLeftOrRight.y = 0;
 		}
-		ImGui::SetWindowFontScale(s2d::UIInfo::s_defaultFontSize);
+		ImGui::SetWindowFontScale(s2d::UIInfo::s_default_font_size);
 		ImGui::TreePop();
 	}
-	ImGui::SetWindowFontScale(s2d::UIInfo::s_defaultFontSize);
+	ImGui::SetWindowFontScale(s2d::UIInfo::s_default_font_size);
 }
 
 void s2d::UIInspectorBoxCollider::height(s2d::Sprite* sprite)
@@ -80,37 +80,37 @@ void s2d::UIInspectorBoxCollider::height(s2d::Sprite* sprite)
 	float y = ImGui::GetCursorPosY();
 	ImGui::SetCursorPosX(x -= 1.5f);
 
-	ImGui::SetWindowFontScale(s2d::UIInfo::s_defaultFontSize + 0.07f);
+	ImGui::SetWindowFontScale(s2d::UIInfo::s_default_font_size + 0.07f);
 	if (ImGui::TreeNodeEx("Height"))
 	{
 		ImGui::SetCursorPos(ImVec2(x += 33.5f, y += 35));
 		ImGui::Text("U");
 
 		ImGui::SetCursorPos(ImVec2(x += 30, y));
-		ImGui::SetWindowFontScale(s2d::UIInfo::s_defaultFontSize - 0.5f);
+		ImGui::SetWindowFontScale(s2d::UIInfo::s_default_font_size - 0.5f);
 		ImGui::SliderFloat("##up", &sprite->collider.boxColliderHeightUpOrDown.x, -500, 500);
 		ImGui::SameLine();
 		if (s2d::FontManager::displaySmybolAsButton(ICON_FA_RETWEET))
 		{
 			sprite->collider.boxColliderHeightUpOrDown.x = 0;
 		}
-		ImGui::SetWindowFontScale(s2d::UIInfo::s_defaultFontSize);
+		ImGui::SetWindowFontScale(s2d::UIInfo::s_default_font_size);
 
 		ImGui::SetCursorPos(ImVec2(x -= 28.4f, y += 40));
 		ImGui::Text("D");
 
 		ImGui::SetCursorPos(ImVec2(x += 28, y));
-		ImGui::SetWindowFontScale(s2d::UIInfo::s_defaultFontSize - 0.5f);
+		ImGui::SetWindowFontScale(s2d::UIInfo::s_default_font_size - 0.5f);
 		ImGui::SliderFloat("##down", &sprite->collider.boxColliderHeightUpOrDown.y, -500, 500);
 		ImGui::SameLine();
 		if (s2d::FontManager::displaySmybolAsButton(ICON_FA_RETWEET "##"))
 		{
 			sprite->collider.boxColliderHeightUpOrDown.y = 0;
 		}
-		ImGui::SetWindowFontScale(s2d::UIInfo::s_defaultFontSize);
+		ImGui::SetWindowFontScale(s2d::UIInfo::s_default_font_size);
 		ImGui::TreePop();
 	}
-	ImGui::SetWindowFontScale(s2d::UIInfo::s_defaultFontSize);
+	ImGui::SetWindowFontScale(s2d::UIInfo::s_default_font_size);
 }
 
 
