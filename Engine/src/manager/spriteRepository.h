@@ -11,7 +11,7 @@ namespace s2d
     struct AssetFolderData
     {
         std::string dragAndDropName;
-        std::string dragAndDropPath;
+        std::string drag_and_drop_path;
     };
     class Sprite;
     class SpriteRepository
@@ -35,7 +35,7 @@ namespace s2d
         uint32_t highestSpriteId;
         uint32_t dupeNameCounter;
 
-        AssetFolderData assetFolderData;
+        AssetFolderData asset_folder_data;
         bool* isFullScreened;
 
         SpriteRepository();

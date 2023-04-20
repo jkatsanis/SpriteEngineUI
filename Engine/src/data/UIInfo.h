@@ -7,6 +7,8 @@
 
 #define ICONS_AMOUNT 5
 
+#define DEFAULT_WINDOW_FLAGS ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoTitleBar
+
 namespace s2d
 {
 	struct OpenWindow

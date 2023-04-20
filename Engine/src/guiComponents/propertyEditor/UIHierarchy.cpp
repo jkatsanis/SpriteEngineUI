@@ -157,7 +157,7 @@ void s2d::UIHierarchy::setHovering(s2d::Sprite* sprite, bool& anyHovered)
 	if (ImGui::IsItemHovered(ImGuiHoveredFlags_AllowWhenOverlapped))
 	{
 		this->m_found_hovering = true;
-		if (ImGui::IsMouseDown(0) && this->m_ptr_repo->child_to_parent == nullptr && this->m_ptr_repo->assetFolderData.dragAndDropPath == " ")
+		if (ImGui::IsMouseDown(0) && this->m_ptr_repo->child_to_parent == nullptr && this->m_ptr_repo->asset_folder_data.drag_and_drop_path == " ")
 		{
 			this->m_child_select_timer += s2d::Time::deltaTime;
 
@@ -275,7 +275,7 @@ void s2d::UIHierarchy::resizeWindow()
 	if (this->m_clicked_on_resize_button && ImGui::IsMouseDown(0))
 	{
 		float moved_x = 0;
-		if (s2d::UI::s_gui_cursor.posiitonChanged)
+		if (s2d::UI::s_gui_cursor.position_changed)
 		{
 			s2d::Vector2 moved = s2d::UI::s_gui_cursor.lastPos - s2d::UI::s_gui_cursor.position;
 			moved_x = moved.x;

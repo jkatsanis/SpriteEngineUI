@@ -20,7 +20,7 @@ namespace s2d
 		s2d::Vector2 positionToParent;
 		s2d::Sprite* m_attachedSprite;
 
-		bool posiitonChanged;
+		bool position_changed;
 		bool keepOpenInHirachy;
 
 		Transform();

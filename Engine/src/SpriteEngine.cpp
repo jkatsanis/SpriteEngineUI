@@ -10,8 +10,6 @@ int main()
         selector.update();  
     }
 
-
-    // search where the error happens when u selet a invalid project
     if (s2d::EngineData::s_pathToUserProject == "")
     {
         // Closing the engine since the user doesnt want to open a project;
@@ -20,6 +18,11 @@ int main()
 
     s2d::GameEngine engine;
 
+    if (engine.ptr_renderWindow == nullptr)
+    {
+        std::cout << "Window was nullptr";
+        exit(-1);
+    }
     while (engine.ptr_renderWindow->isOpen())
     {    
         engine.update();

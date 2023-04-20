@@ -86,6 +86,7 @@ void s2d::UIWindow::init(s2d::SpriteRepository& repo)
 	this->m_UIAnimation.setSpriteRepository(repo);
 	this->m_UIToolButtons = s2d::UIToolButtons(repo);
 
+	// Setting up shared ptr for the other UI windows. 
 	this->m_UIHierarchy.setPtrToWindow(this->m_UIAssetFolder.getSizePtr());
 }
 

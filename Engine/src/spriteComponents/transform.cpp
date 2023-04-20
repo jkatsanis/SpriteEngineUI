@@ -8,7 +8,7 @@ s2d::Transform::Transform()
 	this->m_attachedSprite = nullptr;
 	this->keepOpenInHirachy = false;
 	this->position = s2d::Vector2(0.0f, 0.0f);
-	this->posiitonChanged = false;	
+	this->position_changed = false;	
 }
 
 s2d::Transform::Transform(s2d::Sprite* attachedSprite)
@@ -16,7 +16,7 @@ s2d::Transform::Transform(s2d::Sprite* attachedSprite)
 	this->m_scale = s2d::Vector2(0.0f, 0.0f);
 	this->keepOpenInHirachy = false;
 	this->position = s2d::Vector2(0.0f, 0.0f);
-	this->posiitonChanged = false;		
+	this->position_changed = false;		
 	this->m_attachedSprite = attachedSprite;
 }
 
@@ -26,11 +26,11 @@ void s2d::Transform::setLastPosition()
 	{
 		this->lastPos = this->nextPos;
 		this->nextPos = this->position;
-		this->posiitonChanged = true;
+		this->position_changed = true;
 	}
 	else
 	{
-		this->posiitonChanged = false;
+		this->position_changed = false;
 	}
 }
 

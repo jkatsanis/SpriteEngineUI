@@ -61,7 +61,7 @@ void s2d::UIRealTimeEditorNavigator::navigateRightClick()
 	{
 		sf::Vector2i mousePos = sf::Mouse::getPosition(*this->m_ptr_renderWindow);
 
-		if (this->m_cursor.posiitonChanged)
+		if (this->m_cursor.position_changed)
 		{
 			s2d::Vector2 moved = this->m_cursor.lastPos - this->m_cursor.position;
 

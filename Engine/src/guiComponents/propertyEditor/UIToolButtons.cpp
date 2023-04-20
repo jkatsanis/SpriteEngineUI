@@ -18,11 +18,92 @@ void s2d::UIToolButtons::init()
 	this->m_editor_tools = s2d::EditorTools::PositionTool;
 	this->is_hovered = false;
 
-	this->m_tools[0] = s2d::Tool(s2d::EditorTools::PositionTool, ICON_FA_ARROWS);
-	this->m_tools[1] = s2d::Tool(s2d::EditorTools::ScaleTool, ICON_FA_PLUS);
+	this->m_tools[0] = s2d::Tool(s2d::EditorTools::PositionTool, ICON_FA_ARROWS, "Position");
+	this->m_tools[1] = s2d::Tool(s2d::EditorTools::ScaleTool, ICON_FA_PLUS, "Scaling");
 
 	this->m_tools[0].background = true;
 	this->m_clicked_on_btn = true;
+}
+
+// Public functions
+
+void s2d::UIToolButtons::createToolsAndButtons()
+{
+	this->hotkeys();
+	this->renderMainMenuBar();
+
+	ImGui::Begin("##tools-buttons", NULL, DEFAULT_WINDOW_FLAGS | ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoBackground);
+
+	// render
+
+	ImGui::SetCursorPos(ImVec2(0, 0));
+	this->playGameButton();
+	this->toolSelector();
+
+	ImGui::SetWindowFontScale(s2d::UIInfo::s_default_font_size + 0.2f);
+	ImGui::SetWindowPos(ImVec2(1400, 56));
+	ImGui::SetWindowSize(ImVec2(120, 30));
+	ImGui::End();
+}
+void s2d::UIToolButtons::setBackgroundColorToSave(const s2d::Vector3& color)
+{
+	this->m_window_background_to_save = color;
+}
+
+// Private functions
+
+void s2d::UIToolButtons::renderMainMenuBar()
+{
+	ImGui::PushStyleColor(ImGuiCol_WindowBg, ImVec4(0.1019f, .1019f, .1019f, 1.0f));
+	ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(0, WINDOW_SIZE_Y_TOOL_BUTTONS));
+	if (ImGui::BeginMainMenuBar())
+	{
+		this->buildProjectIntoFolder();
+		this->renderWindowSelecter();
+		this->renderToolSelector();
+
+		ImGui::SetWindowFontScale(s2d::UIInfo::s_default_font_size);
+		ImGui::EndMainMenuBar();
+	}	
+	ImGui::PopStyleVar();
+	ImGui::PopStyleColor();
+}
+
+void s2d::UIToolButtons::renderToolSelector()
+{
+	ImGui::SetCursorPosY(3);
+	if (ImGui::BeginMenu("Tools"))
+	{
+		for (int i = 0; i < TOOLS_AMOUNT; i++)
+		{
+			if (ImGui::MenuItem(this->m_tools[i].tool_name.c_str()))
+			{
+				this->m_editor_tools = this->m_tools[i].tool;
+				this->m_ptr_repo->current_tool = this->m_editor_tools;
+				this->removeBackgroundFromButtons();
+				this->m_tools[i].background = true;
+			}
+		}
+		ImGui::EndMenu();
+	}
+}
+
+void s2d::UIToolButtons::buildProjectIntoFolder()
+{
+	ImGui::SetCursorPosY(3);
+	if (ImGui::BeginMenu("File"))
+	{
+		if (ImGui::MenuItem("Save", "CTRL + S"))
+		{
+			s2d::flc::saveEverything(this->m_window_background_to_save, *this->m_ptr_repo);
+		}	
+		if (ImGui::MenuItem("Build", "CTRL + B"))
+		{
+			this->build();
+		}
+
+		ImGui::EndMenu();
+	}
 }
 
 void s2d::UIToolButtons::renderWindowSelecter()
@@ -41,59 +122,6 @@ void s2d::UIToolButtons::renderWindowSelecter()
 		if (ImGui::MenuItem("Content Browser"))
 		{
 			s2d::UIInfo::s_is_asset_folder_open.setOpen();
-		}
-		ImGui::EndMenu();
-	}
-}
-
-// Public functions
-
-void s2d::UIToolButtons::createToolsAndButtons()
-{
-	//Pushing transperany
-
-
-	// Button at the top to click and play game 
-
-	this->renderMainMenuBar();
-
-}
-void s2d::UIToolButtons::setBackgroundColorToSave(const s2d::Vector3& color)
-{
-	this->m_window_background_to_save = color;
-}
-
-// Private functions
-
-void s2d::UIToolButtons::renderMainMenuBar()
-{
-	ImGui::PushStyleColor(ImGuiCol_WindowBg, ImVec4(0.1019f, .1019f, .1019f, 1.0f));
-	ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(0, WINDOW_SIZE_Y_TOOL_BUTTONS));
-	if (ImGui::BeginMainMenuBar())
-	{
-		this->buildProjectIntoFolder();
-		this->renderWindowSelecter();
-
-		ImGui::SetWindowFontScale(s2d::UIInfo::s_default_font_size);
-		ImGui::EndMainMenuBar();
-	}	
-	ImGui::PopStyleVar();
-	ImGui::PopStyleColor();
-}
-
-
-void s2d::UIToolButtons::buildProjectIntoFolder()
-{
-	ImGui::SetCursorPosY(3);
-	if (ImGui::BeginMenu("File"))
-	{
-		if (ImGui::MenuItem("Save", "CTRL + S"))
-		{
-			s2d::flc::saveEverything(this->m_window_background_to_save, *this->m_ptr_repo);
-		}	
-		if (ImGui::MenuItem("Build", "CTRL + B"))
-		{
-			this->build();
 		}
 		ImGui::EndMenu();
 	}
@@ -146,11 +174,8 @@ void s2d::UIToolButtons::build()
 	s2d::flc::copyDir(s2d::EngineData::s_pathToUserProject + "\\engine", PATH, "\\engine", { "\\src\\", ".cpp", ".h" } );
 }
 
-void s2d::UIToolButtons::askWithButtonForPlayGame()
+void s2d::UIToolButtons::playGameButton()
 {
-	ImGui::SetCursorPosX(500);
-	ImGui::SetCursorPos(ImVec2(960 - 320 - 10, ImGui::GetCursorPosY()));
-
 	if (s2d::FontManager::displaySmybolAsButton(ICON_FA_PLAY) || s2d::Input::onKeyRelease(s2d::KeyBoardCode::F5))
 	{
 		s2d::flc::saveEverything(this->m_window_background_to_save, *this->m_ptr_repo);
@@ -177,7 +202,8 @@ void s2d::UIToolButtons::askWithButtonForPlayGame()
 			std::cout << "FAILED SETTING DIR";	
 		}
 
-		std::string path = "x64\\Debug\\Assets.exe";
+		// if you get "the command has not been found msg" you have not built the project!
+		const std::string path = "x64\\Debug\\Assets.exe";
 
 		//Starting the game
 		system(path.c_str());
@@ -194,14 +220,14 @@ void s2d::UIToolButtons::askWithButtonForPlayGame()
 
 void s2d::UIToolButtons::toolSelector()
 {
-	ImGui::SetCursorPosY(ImGui::GetCursorPosY() - 35);
-
-	for (int i = 0; i < TOOLS_SIZE; i++)
+	ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 28);
+	for (int i = 0; i < TOOLS_AMOUNT; i++)
 	{
 		if (this->m_tools[i].background)
 		{
 			ImGui::PushStyleColor(ImGuiCol_Button, REAL_EDITOR_BUTTON_BG_COLOR);
 		}
+		ImGui::SetCursorPosY(0);
 		if (s2d::FontManager::displaySmybolAsButton(this->m_tools[i].icon.c_str()))
 		{
 			this->m_clicked_on_btn = true;
@@ -224,7 +250,7 @@ void s2d::UIToolButtons::toolSelector()
 
 void s2d::UIToolButtons::removeBackgroundFromButtons()
 {
-	for (int i = 0; i < TOOLS_SIZE; i++)
+	for (int i = 0; i < TOOLS_AMOUNT; i++)
 	{
 		this->m_tools[i].background = false;
 	}

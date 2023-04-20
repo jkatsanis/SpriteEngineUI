@@ -47,10 +47,10 @@ void s2d::UIAnimationKeyFrameAdder::inputData()
 	ImGui::SetCursorPos(ImVec2(ImGui::GetCursorPosX() + 107, ImGui::GetCursorPosY() - 30));
 	ImGui::InputText("##spriteAdder", this->m_keyFramePathDataHolder, CHAR_MAX);
 
-	if (ImGui::IsItemHovered() && ImGui::IsMouseReleased(0) && this->m_ptr_repo->assetFolderData.dragAndDropPath != " ")
+	if (ImGui::IsItemHovered() && ImGui::IsMouseReleased(0) && this->m_ptr_repo->asset_folder_data.drag_and_drop_path != " ")
 	{
-		this->keyFramePath = this->m_ptr_repo->assetFolderData.dragAndDropPath;
-		strcpy_s(this->m_keyFramePathDataHolder, s2d::UIInspector::getNamePathSplit(this->m_ptr_repo->assetFolderData.dragAndDropPath).c_str());
+		this->keyFramePath = this->m_ptr_repo->asset_folder_data.drag_and_drop_path;
+		strcpy_s(this->m_keyFramePathDataHolder, s2d::UIInspector::getNamePathSplit(this->m_ptr_repo->asset_folder_data.drag_and_drop_path).c_str());
 	}
 	else
 	{

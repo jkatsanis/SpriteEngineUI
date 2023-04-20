@@ -289,9 +289,9 @@ void s2d::UIInspector::spriteRendererComponent()
 		ImGui::SetNextItemWidth(this->m_spriteInputWidth);
 		ImGui::InputText("##spriteRenderer", &input[0], CHAR_MAX);
 
-		if (ImGui::IsItemHovered() && ImGui::IsMouseReleased(0) && this->m_ptr_repo->assetFolderData.dragAndDropPath != " ")
+		if (ImGui::IsItemHovered() && ImGui::IsMouseReleased(0) && this->m_ptr_repo->asset_folder_data.drag_and_drop_path != " ")
 		{
-			this->m_ptr_repo->sprite_in_inspector->setSpriteTexture(this->m_ptr_repo->assetFolderData.dragAndDropPath);
+			this->m_ptr_repo->sprite_in_inspector->setSpriteTexture(this->m_ptr_repo->asset_folder_data.drag_and_drop_path);
 		}
 
 		ImGui::Dummy(ImVec2(0, 3.8f));

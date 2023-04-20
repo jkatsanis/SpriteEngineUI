@@ -1,2 +1,4 @@
-﻿  UIHierarchy.cpp
+﻿  UIWindow.cpp
+  UIToolButtons.cpp
+  Generating Code...
   SpriteEngine.vcxproj -> C:\Dev\C++\SpriteEngineUI\Engine\x64\Debug\SpriteEngine.exe
