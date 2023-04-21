@@ -6,6 +6,7 @@
 #include <physicalComponents/sprite.h>
 #include <data/UIInfo.h>
 #include <UIToolButtons.h>
+#include <manager/guiRepository.h>
 
 #define SPRITE_SELECTED_COLOR ImVec4(139.0f / 255.0f, 180.0f / 255.0f, 234.0f / 255.0f,1.0f)
 
@@ -20,8 +21,6 @@
 
 #define WINDOW_POS ImVec2(0.0f, WINDOW_SIZE_Y_TOOL_BUTTONS + 38)
 #define HIERARCHY_DEFAULT_WINDOW_SIZE ImVec2(300.0f, 1080.0f - 350.0f)
-
-
 // x amount of s to select a child to parent
 #define TIME_TO_CAN_SELECT_CHILD 0.3f
 
@@ -30,15 +29,14 @@ namespace s2d
 	class UIHierarchy
 	{
 	private:
+		s2d::ResizeWindowData m_resize_window_data;
+		s2d::GUIRepository* m_ptr_gui_repo;
 		s2d::SpriteRepository* m_ptr_repo;
 		bool m_wait_one_frame;
 		ImVec2 m_window_size;
 		ImGuiTextFilter m_search_sprite_filter;
 		uint8_t m_sprite_background_color;
-
-		const ImVec2* m_ptr_asset_window_size;
 		bool m_found_hovering;
-		bool m_clicked_on_resize_button;
 		float m_child_select_timer;
 
 		void displayContextPopup();
@@ -74,7 +72,7 @@ namespace s2d
 		UIHierarchy(s2d::SpriteRepository& repo);
 		void displayHierarchyWindow();
 
-		void setPtrToWindow(const ImVec2* ptr) { this->m_ptr_asset_window_size = ptr; }
+		void setGUIRepo(s2d::GUIRepository* repo);
 	};
 }
 

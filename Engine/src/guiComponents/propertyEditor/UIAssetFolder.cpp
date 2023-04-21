@@ -28,7 +28,7 @@ void s2d::UIAssetFolder::init()
 
 void s2d::UIAssetFolder::createAssetLinkerWindow()
 {
-    float temp = ((*this->m_ptr_inspector_size_x) - 390);
+    float temp = ((this->m_ptr_gui_repo->ptr_inspector_window_size->x) - 390);
     this->m_window_size.x = ASSET_FOLDER_DEFAULT_WINDOW_SIZE.x - temp;
     if (s2d::UI::handleCloseAndReloadWindow(
         s2d::UIInfo::s_is_asset_folder_open.is_open, s2d::UIInfo::s_is_asset_folder_open.reload,
@@ -67,6 +67,12 @@ void s2d::UIAssetFolder::createAssetLinkerWindow()
             ImGui::End();
         }
     }
+}
+
+void s2d::UIAssetFolder::setGUIRepo(s2d::GUIRepository* repo)
+{
+    this->m_ptr_gui_repo = repo;
+    this->m_ptr_gui_repo->ptr_asset_window_size = &this->m_window_size;
 }
 
 //private functions
@@ -116,39 +122,36 @@ void s2d::UIAssetFolder::resizeWindow()
     bool pop_style = false;
     ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 200);
     ImGui::SetCursorPosY(ImGui::GetCursorPosY() - 10);
-    if (this->m_clicked_resize_button)
+    if (this->m_resize_window_data.clicked_on_resize_button)
     {
         ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0, 0, 0, 1));
         ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4(0, 0, 0, 1));
         pop_style = true;
     }
     s2d::FontManager::displaySmybolAsButton(ICON_FA_ARROW_UP);
-    if(ImGui::IsItemHovered() && ImGui::IsMouseClicked(0))
+    if (ImGui::IsItemHovered() && ImGui::IsMouseClicked(0))
     {
-        this->m_clicked_resize_button = true;
+        this->m_resize_window_data.additinal_add = 1080 - s2d::UI::s_gui_cursor.position.y - this->m_window_size.y;
+        this->m_resize_window_data.clicked_on_resize_button = true;
     }
-    if (this->m_clicked_resize_button && ImGui::IsMouseDown(0))
+    if (this->m_resize_window_data.clicked_on_resize_button && ImGui::IsMouseDown(0))
     {
-        float movedy = 0;
-        if (s2d::UI::s_gui_cursor.position_changed)
+        const float new_size = 1080 - s2d::UI::s_gui_cursor.position.y - this->m_resize_window_data.additinal_add;
+        if (new_size > 150
+            && new_size < 1031)
         {
-            s2d::Vector2 moved = s2d::UI::s_gui_cursor.lastPos - s2d::UI::s_gui_cursor.position;
-            movedy = moved.y;
-        }
-        if (this->m_window_size.y + movedy < 1031
-            && this->m_window_size.y + movedy > 108)
-        {
-            this->m_window_size.y += movedy;
+            this->m_window_size.y = new_size;
         }
     }
     else
     {
-        this->m_clicked_resize_button = false;
+        this->m_resize_window_data.clicked_on_resize_button = false;
     }
     if (pop_style)
     {
         ImGui::PopStyleColor(2);
     }
+
 }
 
 void s2d::UIAssetFolder::addPrefab()

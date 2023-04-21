@@ -11,6 +11,11 @@
 
 namespace s2d
 {
+	struct ResizeWindowData 
+	{
+		float additinal_add;
+		bool clicked_on_resize_button;
+	};
 	struct OpenWindow
 	{
 		bool reload;

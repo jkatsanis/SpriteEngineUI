@@ -34,14 +34,12 @@ void s2d::UIToolButtons::createToolsAndButtons()
 
 	ImGui::Begin("##tools-buttons", NULL, DEFAULT_WINDOW_FLAGS | ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoBackground);
 
-	// render
-
+	// Render
 	ImGui::SetCursorPos(ImVec2(0, 0));
 	this->playGameButton();
 	this->toolSelector();
-
 	ImGui::SetWindowFontScale(s2d::UIInfo::s_default_font_size + 0.2f);
-	ImGui::SetWindowPos(ImVec2(1400, 56));
+	ImGui::SetWindowPos(ImVec2(1920 - this->m_ptr_gui_repo->ptr_inspector_window_size->x - 120, 56));
 	ImGui::SetWindowSize(ImVec2(120, 30));
 	ImGui::End();
 }

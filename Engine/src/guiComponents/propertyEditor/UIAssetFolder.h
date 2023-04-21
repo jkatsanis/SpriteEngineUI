@@ -11,6 +11,7 @@
 #include <manager/saveSystem.h>
 #include <manager/fontManager.h>
 #include <icons.h>
+#include <manager/guiRepository.h>
 #include <manager/fileDialogs.h>
 
 #define CLOSE_RECTANGLE_PADDIND_X 50
@@ -29,11 +30,11 @@ namespace s2d
 	class UIAssetFolder
 	{
 	private:
+		s2d::ResizeWindowData m_resize_window_data;
 		std::string m_to_hover_item_name;
 		bool m_is_item_hovered;
-
 		bool m_is_asset_folder_tree_node_open;
-
+		s2d::GUIRepository* m_ptr_gui_repo;
 		s2d::SpriteRepository* m_ptr_repo;
 		s2d::UIAssetTools m_tools;
 		s2d::UIIconData m_data;
@@ -41,15 +42,10 @@ namespace s2d
 		std::string m_current_name;
 		ImVec2 m_window_size;
 		float m_file_content_padding;
-
 		ImGuiTextFilter m_file_filter;
-
 		bool m_hovered_over_item;
 		bool m_dragging_item;
 		bool m_interacted;
-		bool m_clicked_resize_button;
-
-		const float* m_ptr_inspector_size_x;
 
 		void render();
 		void getAllFilesInDir(const char* path, const char* name);
@@ -59,9 +55,7 @@ namespace s2d
 		void addPrefab();
 		void renderFolderHierarchy();
 		void renderCloseRectangle();
-
 		void renderFolderHierarchyRecursiv(const char* path, const char* name, bool open_next_tree_node);
-
 		void renderFilesWithChildWindow(const std::string& name, const std::string& new_path, const std::string& entry_path
 			, bool is_folder, uint32_t texture_id, uint8_t colum_cnt);
 
@@ -69,9 +63,7 @@ namespace s2d
 		/// Renders the selected path (NOT RECURSIV)
 		/// </summary>
 		void renderContentBrowser();
-
 		void setCurrentPath(const std::string& path, const std::string& name);
-
 		void resizeWindow();
 		void init();
 
@@ -81,10 +73,8 @@ namespace s2d
 		UIAssetFolder();
 
 		void createAssetLinkerWindow();
-
 		void setSpriteRepository(s2d::SpriteRepository& repo) { this->m_ptr_repo = &repo; }
-		const ImVec2* getSizePtr() { return &this->m_window_size; }
-		void setInspectorXPtr(const float* ptr) { this->m_ptr_inspector_size_x = ptr; }
+		void setGUIRepo(s2d::GUIRepository* repo);
 	};
 }
 

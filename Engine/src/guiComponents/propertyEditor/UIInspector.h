@@ -28,12 +28,15 @@ namespace s2d
 	class UIInspector
 	{
 	private:
-		s2d::SpriteRepository* m_ptr_repo;
+		s2d::ResizeWindowData m_resize_window_data;
+		s2d::GUIRepository* m_ptr_gui_repo;
+		s2d::SpriteRepository* m_ptr_sprite_repo;
 		std::string m_menu_name;
 		std::string m_sprite_name;
 		sf::RectangleShape m_rectangle;
 		sf::RectangleShape m_box_collider;
 		sf::Texture m_texture_over_sprite;
+		ImGuiTextFilter m_search_component_filter;
 		ImVec2 m_window_size;
 		float m_sprite_input_width;
 
@@ -42,11 +45,10 @@ namespace s2d
 		const char* m_current_component_selected;
 		char* m_input_name;
 		s2d::UIInspectorBoxCollider m_collider;
-		bool m_clicked_resize_button;
 
 		void render();
+		void renderOptions();
 		void resizeWindow();
-
 		void setupComponents();
 		void transformComponent();
 		void spriteRendererComponent();
@@ -54,18 +56,13 @@ namespace s2d
 		void physicsBodyComponent();
 		void animatorComponent();
 		void prefabComponent();
-
 		void componentSelector();
 		void setCompontents();
-
 		void drawRectangleOverCurrentObject();
-
 		void displayDefaultInspectorView();
 		void backgroundSetting();
 		void gameEngineViewSetting();
-
 		void checkDupeName();
-
 		void init();
 	public:
 		bool is_hovered;
@@ -78,9 +75,8 @@ namespace s2d
 
 		void createUIInspector();
 
-		void setSpriteRepository(s2d::SpriteRepository& repo) { this->m_ptr_repo = &repo; }
-
-		const float* getSizePtrX() const { return &this->m_window_size.x; }
+		void setSpriteRepository(s2d::SpriteRepository& repo) { this->m_ptr_sprite_repo = &repo; }
+		void setGUIRepo(s2d::GUIRepository* repo);
 
 	public:
 		static std::string getNamePathSplit(std::string path);

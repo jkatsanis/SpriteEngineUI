@@ -17,9 +17,7 @@ void s2d::UIHierarchy::init()
 {
 	this->m_ptr_repo = nullptr;
 	this->m_child_select_timer = 0.0f;
-	this->m_clicked_on_resize_button = false;
 	this->m_found_hovering = false;
-	this->m_ptr_asset_window_size = nullptr;
 	this->m_wait_one_frame = false;
 	this->is_hovered = false;
 	this->m_window_size = HIERARCHY_DEFAULT_WINDOW_SIZE;
@@ -33,7 +31,7 @@ void s2d::UIHierarchy::displayHierarchyWindow()
 	// Set window size if asset folder does not render
 
 	this->m_window_size = (s2d::UIInfo::s_is_asset_folder_open.is_open)
-		? ImVec2(this->m_window_size.x, WINDOW_SIZE_HIERARCHY_Y- this->m_ptr_asset_window_size->y)
+		? ImVec2(this->m_window_size.x, WINDOW_SIZE_HIERARCHY_Y - this->m_ptr_gui_repo->ptr_asset_window_size->y)
 		: ImVec2(this->m_window_size.x, WINDOW_SIZE_HIERARCHY_Y);
 
 	if (s2d::UI::handleCloseAndReloadWindow(
@@ -77,6 +75,12 @@ void s2d::UIHierarchy::displayHierarchyWindow()
 	ImGui::SetWindowSize(this->m_window_size);
 	ImGui::SetWindowFontScale(s2d::UIInfo::s_default_font_size);
 	ImGui::End();
+}
+
+void s2d::UIHierarchy::setGUIRepo(s2d::GUIRepository* repo)
+{
+	this->m_ptr_gui_repo = repo;
+	this->m_ptr_gui_repo->ptr_hierarchy_window_size = &this->m_window_size;
 }
 
 void s2d::UIHierarchy::displayContextPopup()
@@ -260,7 +264,7 @@ void s2d::UIHierarchy::renderHierarchyOptions()
 void s2d::UIHierarchy::resizeWindow()
 {
 	bool pop_style = false;
-	if (this->m_clicked_on_resize_button)
+	if (this->m_resize_window_data.clicked_on_resize_button)
 	{
 		ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0, 0, 0, 1));
 		ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4(0, 0, 0, 1));
@@ -270,24 +274,23 @@ void s2d::UIHierarchy::resizeWindow()
 	s2d::FontManager::displaySmybolAsButton(ICON_FA_ARROW_RIGHT);
 	if (ImGui::IsItemHovered() && ImGui::IsMouseClicked(0))
 	{
-		this->m_clicked_on_resize_button = true;
+		this->m_resize_window_data.additinal_add = (this->m_window_size.x - s2d::UI::s_gui_cursor.position.x - 30) * -1;;
+		this->m_resize_window_data.clicked_on_resize_button = true;
 	}
-	if (this->m_clicked_on_resize_button && ImGui::IsMouseDown(0))
+	if (this->m_resize_window_data.clicked_on_resize_button && ImGui::IsMouseDown(0))
 	{
-		float moved_x = 0;
-		if (s2d::UI::s_gui_cursor.position_changed)
+		const float new_size = s2d::UI::s_gui_cursor.position.x - this->m_resize_window_data.additinal_add + 30;
+		const float max_size_right = new_size + this->m_ptr_gui_repo->ptr_inspector_window_size->x;
+
+		if (new_size > 245
+			&& max_size_right < 1920)
 		{
-			s2d::Vector2 moved = s2d::UI::s_gui_cursor.lastPos - s2d::UI::s_gui_cursor.position;
-			moved_x = moved.x;
-		}
-		if (this->m_window_size.x - moved_x > 245)
-		{
-			this->m_window_size.x -= moved_x;
+			this->m_window_size.x = new_size;
 		}
 	}
 	else
 	{
-		this->m_clicked_on_resize_button = false;
+		this->m_resize_window_data.clicked_on_resize_button = false;
 	}
 	if (pop_style)
 	{

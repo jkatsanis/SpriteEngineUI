@@ -105,6 +105,7 @@ void s2d::FontManager::InitFonts(ImGuiIO& io)
 
 	static const ImWchar ranges[] =
 	{
+		0xf060, 0xf060, // Arrow left
 		0xf061, 0xf061, // Arrow right
 		0xf062, 0xf062, // Arrow up
 		0xf1c9, 0xf1c9, // File Codes

@@ -14,6 +14,7 @@
 #include <filesystem>
 #include <manager/saveSystem.h>
 #include <manager/spriteRepository.h>
+#include <manager/guiRepository.h>
 
 #define TOOLS_AMOUNT 2
 #define FILE_AMOUNT 6
@@ -28,6 +29,7 @@ namespace s2d
 		s2d::Tool m_tools[TOOLS_AMOUNT];
 		s2d::Vector3 m_window_background_to_save;
 		EditorTools m_editor_tools;
+		s2d::GUIRepository* m_ptr_gui_repo;
 		s2d::SpriteRepository* m_ptr_repo;
 
 		bool m_clicked_on_btn;
@@ -51,6 +53,7 @@ namespace s2d
 
 		void createToolsAndButtons();
 		void setBackgroundColorToSave(const s2d::Vector3& color);
+		void setGUIRepo(s2d::GUIRepository* repo) { this->m_ptr_gui_repo = repo; }
 	};
 }
 

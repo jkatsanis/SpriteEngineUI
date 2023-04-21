@@ -20,7 +20,7 @@ int main()
 
     if (engine.ptr_renderWindow == nullptr)
     {
-        std::cout << "Window was nullptr";
+        std::cout << "Window was nullptr" << std::endl;
         exit(-1);
     }
     while (engine.ptr_renderWindow->isOpen())

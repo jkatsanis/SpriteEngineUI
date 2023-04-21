@@ -14,7 +14,7 @@ s2d::GameEngine::GameEngine()
     this->ptr_renderWindow->setPosition(sf::Vector2i(desktop.width / 2 - this->ptr_renderWindow->getSize().x / 2, 0));
     this->m_isWindowFullScreen = false;
 
-    this->m_UIRealTimeEditor = s2d::UIRealTimeEditor(*ptr_renderWindow, &this->windowEvent, &this->m_UIWindow.areAnyUIWindowsHovered,
+    this->m_UIRealTimeEditor = s2d::UIRealTimeEditor(*ptr_renderWindow, &this->windowEvent, &this->m_UIWindow.ary_any_windows_hovered,
         &this->m_UIWindow.getInspector().state, &this->event, this->m_spriteRepository);
     
     //Setting other classes
