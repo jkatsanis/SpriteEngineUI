@@ -1,2 +1,10 @@
-﻿  UIToolButtons.cpp
+﻿  gameEngine.cpp
+  UI.cpp
+  UIWindow.cpp
+  UIAssetTools.cpp
+  UIHierarchy.cpp
+  UIInspector.cpp
+  UIToolButtonsModels.h
+  UIRealTimeEditorTransfsormScale.cpp
+  Generating Code...
   SpriteEngine.vcxproj -> C:\Dev\SpriteEngineUI\Engine\x64\Debug\SpriteEngine.exe

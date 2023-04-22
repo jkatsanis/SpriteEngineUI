@@ -51,6 +51,8 @@ namespace s2d
 
 		static bool handleCloseAndReloadWindow(bool open, bool& reload, bool& hovered, ImVec2& window_size, const ImVec2& original_size);
 
+		static void drawRectangleInGUIWIndow(const ImVec2& size, const ImVec2& top_left, const ImColor& color);
+
 		static void update();
 	};
 }

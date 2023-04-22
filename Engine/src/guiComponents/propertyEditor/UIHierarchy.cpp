@@ -310,12 +310,7 @@ void s2d::UIHierarchy::drawbackgroundRectangle()
 	const ImVec2 cursorPos = ImGui::GetCursorPos();
 	ImGui::SetCursorPosX(0);
 	ImGui::SetCursorPosY(ImGui::GetCursorPosY() + 73);
-	ImDrawList* draw_list = ImGui::GetWindowDrawList();
-	ImVec2 cursor_pos = ImGui::GetCursorPos();
-	ImVec2 node_size = ImVec2(100, 20); // change this to the desired size
-	draw_list->AddRectFilled(cursor_pos, ImVec2(cursor_pos.x + this->m_window_size.x, cursor_pos.y - 20), IM_COL32(30, 30, 30, 255));
-
-
+	s2d::UI::drawRectangleInGUIWIndow(ImVec2(this->m_window_size.x, 20), ImGui::GetCursorPos(), SPRITE_BACKGROUND_COLOR);
 	ImGui::SetCursorPos(cursorPos);
 }
 

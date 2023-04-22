@@ -151,6 +151,12 @@ bool s2d::UI::handleCloseAndReloadWindow(bool open, bool& reload, bool& hovered,
     return must_return;
 }
 
+void s2d::UI::drawRectangleInGUIWIndow(const ImVec2& size, const ImVec2& top_left, const ImColor& color)
+{
+    ImDrawList* draw_list = ImGui::GetWindowDrawList();
+    draw_list->AddRectFilled(top_left, ImVec2(top_left.x + size.x, top_left.y - size.y), color);
+}
+
 void s2d::UI::update()
 {
     // Transform postion changer cursor

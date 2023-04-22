@@ -125,6 +125,6 @@ void s2d::UIInspectorBoxCollider::drawBoxCollider(s2d::Sprite* sprite)
 	s2d::GameObject::rects[1].setPosition(sf::Vector2f(sprite->getOrigininalPosition().x + sprite->collider.boxColliderWidthLeftOrRight.x, sprite->getOrigininalPosition().y + sprite->collider.boxColliderHeightUpOrDown.x));
 
 	
-	s2d::GameObject::rects[1].setTexture(&m_texture);
+	s2d::GameObject::rects[1].setTexture(&this->m_texture);
 	
 }

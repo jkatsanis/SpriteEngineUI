@@ -18,6 +18,11 @@ void s2d::UIInspector::init()
 	this->m_window_size = INSPECTOR_DEFAULT_WINDOW_SIZE;
 	this->state = s2d::InspectorState::None;
 	this->m_texture_over_sprite.loadFromFile(PATH_TO_RESSOURCS"/Sprites/transparent.png");
+
+	this->m_components.push_back("BoxCollider");
+	this->m_components.push_back("PhysicsBody");
+	this->m_components.push_back("Animator");
+	this->m_components.push_back("Prefab");
 }
 
 //Private functions
@@ -40,9 +45,12 @@ void s2d::UIInspector::render()
 	// Left arrow
 	this->renderOptions();
 
-	if (this->m_ptr_sprite_repo->sprited_hovered_in_hierarchy != nullptr)
+	if (this->m_ptr_sprite_repo->sprite_in_inspector != nullptr)
 	{
 		// Handle a sprite
+
+		this->drawRectangleOverCurrentObject();
+		this->setupComponents();
 	}
 	else
 	{
@@ -229,29 +237,39 @@ void s2d::UIInspector::gameEngineViewSetting()
 
 void s2d::UIInspector::setupComponents()
 {
-	this->transformComponent();
-	this->spriteRendererComponent();
+	if (this->m_search_component_filter.PassFilter("Transform"))
+	{
+		this->transformComponent();
+	}
+	if (this->m_search_component_filter.PassFilter("Sprite Renderer"))
+	{
+		this->spriteRendererComponent();
+	}
 
 	//Collider
-	if (this->m_ptr_sprite_repo->sprite_in_inspector->collider.exists)
+	if (this->m_ptr_sprite_repo->sprite_in_inspector->collider.exists
+		&& this->m_search_component_filter.PassFilter(this->m_components[0]))
 	{
 		this->boxColliderComponent();
 	}
 
 	//PhysicsBody
-	if (this->m_ptr_sprite_repo->sprite_in_inspector->physicsBody.exists)
+	if (this->m_ptr_sprite_repo->sprite_in_inspector->physicsBody.exists
+		&& this->m_search_component_filter.PassFilter(this->m_components[1]))
 	{
 		this->physicsBodyComponent();
 	}
 
 	//Animator
-	if (this->m_ptr_sprite_repo->sprite_in_inspector->animator.exists)
+	if (this->m_ptr_sprite_repo->sprite_in_inspector->animator.exists
+		&& this->m_search_component_filter.PassFilter(this->m_components[0]))
 	{
 		this->animatorComponent();
 	}
 
 	// Prefab
-	if (this->m_ptr_sprite_repo->sprite_in_inspector->prefab.exists)
+	if (this->m_ptr_sprite_repo->sprite_in_inspector->prefab.exists
+		&& this->m_search_component_filter.PassFilter(this->m_components[0]))
 	{
 		this->prefabComponent();
 	}
@@ -451,23 +469,17 @@ void s2d::UIInspector::physicsBodyComponent()
 
 void s2d::UIInspector::componentSelector()
 {
-	ImGui::SetCursorPos(ImVec2(14, 766));
-	static const char* components[] =
-	{
-		"BoxCollider",
-		"PhysicsBody",
-		"Animator",
-		"Prefab"
-	};
+	ImGui::SetCursorPosY(ImGui::GetCursorPosY() + 20);
+	ImGui::SetCursorPosX(ImGui::GetCursorPosX() + ADD_COMPONENTS_MARGIN);
 
 	if (ImGui::BeginCombo("##Components", "Add Components"))
 	{
-		for (int n = 0; n < IM_ARRAYSIZE(components); n++)
+		for (int i = 0; i < this->m_components.size(); i++)
 		{
-			bool is_selected = (m_current_component_selected == components[n]);
-			if (ImGui::Selectable(components[n], is_selected))
+			bool is_selected = (this->m_current_component_selected == this->m_components[i]);
+			if (ImGui::Selectable(this->m_components[i], is_selected))
 			{
-				m_current_component_selected = components[n];
+				this->m_current_component_selected = this->m_components[i];
 			}
 			if (is_selected)
 			{
@@ -477,8 +489,6 @@ void s2d::UIInspector::componentSelector()
 		ImGui::EndCombo();
 	}
 	
-	ImGui::Dummy(ImVec2(0, 7));
-	ImGui::Separator();
 }
 
 void s2d::UIInspector::animatorComponent()

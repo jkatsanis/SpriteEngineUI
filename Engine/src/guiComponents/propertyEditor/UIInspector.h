@@ -17,6 +17,8 @@
 #define INSPECTOR_WINDOW_POS ImVec2(1530, 53)
 #define INSPECTOR_DEFAULT_WINDOW_SIZE ImVec2(390, 1000)
 
+#define ADD_COMPONENTS_MARGIN 60
+
 namespace s2d
 {
 	enum class InspectorState
@@ -39,6 +41,7 @@ namespace s2d
 		ImGuiTextFilter m_search_component_filter;
 		ImVec2 m_window_size;
 		float m_sprite_input_width;
+		std::vector<const char*> m_components;
 
 		//When the box collider component is open we want to display the rectangle as a box collider and not as a rectangle
 		float m_window_size_width;

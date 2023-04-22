@@ -19,6 +19,8 @@
 
 #define ADD_WHEN_SPRITE_HAS_PARENT 30
 
+#define SPRITE_BACKGROUND_COLOR ImColor(30, 30, 30, 255)
+
 #define WINDOW_POS ImVec2(0.0f, WINDOW_SIZE_Y_TOOL_BUTTONS + 38)
 #define HIERARCHY_DEFAULT_WINDOW_SIZE ImVec2(300.0f, 1080.0f - 350.0f)
 // x amount of s to select a child to parent
