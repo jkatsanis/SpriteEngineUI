@@ -49,6 +49,17 @@ void s2d::UIInspector::render()
 	{
 		// Handle a sprite
 
+		static char input_buffer[255];
+		strcpy_s(input_buffer, this->m_ptr_sprite_repo->sprite_in_inspector->name.c_str());
+
+		ImGui::SetNextItemWidth(150);
+		ImGui::InputText("##input-sprite-name", input_buffer, 255);
+
+		if (input_buffer[0] == '\0')
+		{
+			this->m_ptr_sprite_repo->sprite_in_inspector->name = std::string(input_buffer);
+		}
+
 		this->drawRectangleOverCurrentObject();
 		this->setupComponents();
 	}
@@ -308,7 +319,6 @@ void s2d::UIInspector::transformComponent()
 		ImGui::InputFloat(y_inputId.c_str(), &inputY, 0, 0, "%g");
 		ImGui::PopItemWidth();
 	};
-	ImGui::SetNextItemWidth(340);
 	if (ImGui::TreeNode("Transform"))
 	{
 		float x = ImGui::GetCursorPosX();
@@ -350,7 +360,7 @@ void s2d::UIInspector::spriteRendererComponent()
 		ImGui::SetNextItemWidth(this->m_sprite_input_width);
 		ImGui::InputText("##spriteRenderer", &input[0], CHAR_MAX);
 
-		if (ImGui::IsItemHovered() && ImGui::IsMouseReleased(0) && this->m_ptr_sprite_repo->asset_folder_data.drag_and_drop_path != " ")
+		if (ImGui::IsItemHovered(ImGuiHoveredFlags_AllowWhenOverlapped) && ImGui::IsMouseReleased(0) && this->m_ptr_sprite_repo->asset_folder_data.drag_and_drop_path != " ")
 		{
 			this->m_ptr_sprite_repo->sprite_in_inspector->setSpriteTexture(this->m_ptr_sprite_repo->asset_folder_data.drag_and_drop_path);
 		}

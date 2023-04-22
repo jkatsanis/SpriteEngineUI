@@ -219,19 +219,35 @@ void s2d::UIHierarchy::setMenuitemHovered(bool& any_hovered, s2d::Sprite* sprite
 		{
 			add_when_parent = 40;
 		}
+		float add_when_alone = 0;
+		if (sprite->parent == nullptr && !sprite->isParent())
+		{
+			add_when_alone = 15;
+		}
 
 		this->drawbackgroundRectangle();
 		// Set sprite in inspector
 
 		ImGui::SetCursorPosX(ImGui::GetCursorPosX() + add + MENU_ITEM_PADDING);
 		s2d::FontManager::displaySmybolAsText(ICON_FA_CUBE);
-		ImGui::SetCursorPos(ImVec2(ImGui::GetCursorPosX() + add_when_parent + 75 + add, ImGui::GetCursorPosY() - 21));
+		ImGui::SetCursorPos(ImVec2(ImGui::GetCursorPosX() + add_when_alone + add_when_parent + 75 + add, ImGui::GetCursorPosY() - 21));
 		ImGui::MenuItem(name.c_str());
 		this->setHovering(sprite, any_hovered);
 		if (ImGui::IsItemHovered(ImGuiHoveredFlags_AllowWhenOverlapped)
 			&& ImGui::IsMouseReleased(0))
 		{
 			this->m_ptr_repo->sprite_in_inspector = sprite;
+		}
+		if (ImGui::IsItemHovered(ImGuiHoveredFlags_AllowWhenOverlapped))
+		{
+			const ImVec2 temp = ImGui::GetCursorPos();
+
+			ImGui::SetCursorPosX(0);
+			ImGui::SetCursorPosY(ImGui::GetCursorPosY() + 50);
+			s2d::UI::drawRectangleInGUIWIndow(ImVec2(this->m_window_size.x, 20),
+				ImGui::GetCursorPos(), ImColor(50.0f, 50.0f, 50.0f, 0.3f));
+
+			ImGui::SetCursorPos(temp);
 		}
 
 		if (popStyle)
@@ -321,11 +337,11 @@ void s2d::UIHierarchy::drawbackgroundRectangle()
 	}
 	this->m_sprite_background_color = 0;
 
-	const ImVec2 cursorPos = ImGui::GetCursorPos();
+	const ImVec2 temp = ImGui::GetCursorPos();
 	ImGui::SetCursorPosX(0);
 	ImGui::SetCursorPosY(ImGui::GetCursorPosY() + 73);
 	s2d::UI::drawRectangleInGUIWIndow(ImVec2(this->m_window_size.x, 20), ImGui::GetCursorPos(), SPRITE_BACKGROUND_COLOR);
-	ImGui::SetCursorPos(cursorPos);
+	ImGui::SetCursorPos(temp);
 }
 
 bool s2d::UIHierarchy::displaySprites()
@@ -352,7 +368,7 @@ void s2d::UIHierarchy::displaySprites(s2d::Sprite* parent, bool& any_hovered)
 		this->displaySpriteSeperated(parent, any_hovered);
 		return;
 	}
-
+	ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 15);
 	// Set hovered sprite
 	this->setMenuitemHovered(any_hovered, parent);
 }
@@ -369,7 +385,6 @@ void s2d::UIHierarchy::displaySpriteSeperated(s2d::Sprite* parent, bool& any_hov
 		if (this->m_search_sprite_filter.PassFilter(name.c_str()) || parent->containsChild(this->m_search_sprite_filter))
 		{
 			ImGui::SetCursorPosX(ImGui::GetCursorPosX() + TREE_NODE_PADDING);
-			this->drawbackgroundRectangle();
 			name = "##" + name;
 			
 			this->setMenuitemHovered(any_hovered, parent);
