@@ -75,16 +75,7 @@ void s2d::UIInspector::renderOptions()
 
 	ImGui::SetCursorPosY(ImGui::GetCursorPosY() - 5);
 	ImGui::SetCursorPosX(0);
-	ImGui::BeginChild("##hierarchy-options-container", ImVec2(this->m_window_size.x, 45));
-
-	ImGui::SetCursorPos(ImVec2(0, ImGui::GetCursorPosY() + 10));
-	ImGui::PushStyleVar(ImGuiStyleVar_FrameRounding, 7.0f); // Set rounding to 5 pixels
-	ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(5.0f, 3.0f)); // Add some padding for visual clarity
-	ImGui::SetNextItemWidth(150);
-	ImGui::SetCursorPosX(ImGui::GetCursorPosX() + this->m_window_size.x - 300);
-	this->m_search_component_filter.Draw("Search");
-	ImGui::PopStyleVar(2);
-
+	ImGui::BeginChild("##hierarchy-options-container", ImVec2(this->m_window_size.x, 50));
 	ImGui::EndChild();
 }
 
@@ -237,6 +228,7 @@ void s2d::UIInspector::gameEngineViewSetting()
 
 void s2d::UIInspector::setupComponents()
 {
+	ImGui::Dummy(ImVec2(0, 15));
 	if (this->m_search_component_filter.PassFilter("Transform"))
 	{
 		this->transformComponent();
@@ -262,14 +254,14 @@ void s2d::UIInspector::setupComponents()
 
 	//Animator
 	if (this->m_ptr_sprite_repo->sprite_in_inspector->animator.exists
-		&& this->m_search_component_filter.PassFilter(this->m_components[0]))
+		&& this->m_search_component_filter.PassFilter(this->m_components[2]))
 	{
 		this->animatorComponent();
 	}
 
 	// Prefab
 	if (this->m_ptr_sprite_repo->sprite_in_inspector->prefab.exists
-		&& this->m_search_component_filter.PassFilter(this->m_components[0]))
+		&& this->m_search_component_filter.PassFilter(this->m_components[3]))
 	{
 		this->prefabComponent();
 	}
@@ -469,9 +461,17 @@ void s2d::UIInspector::physicsBodyComponent()
 
 void s2d::UIInspector::componentSelector()
 {
-	ImGui::SetCursorPosY(ImGui::GetCursorPosY() + 20);
-	ImGui::SetCursorPosX(ImGui::GetCursorPosX() + ADD_COMPONENTS_MARGIN);
+	const ImVec2 temp = ImGui::GetCursorPos();
+	ImGui::SetCursorPosY(42);
+	ImGui::SetCursorPosX(ImGui::GetWindowContentRegionMax().x - SEARCH_BAR_MARGIN);
+	ImGui::SetNextItemWidth(150);
+	this->m_search_component_filter.Draw("Search");
 
+	ImGui::SetCursorPos(temp);
+
+	ImGui::SetCursorPosY(ImGui::GetCursorPosY() + 20);
+	ImGui::SetCursorPosX(ImGui::GetWindowContentRegionMax().x - ADD_COMPONENTS_MARGIN);
+	ImGui::SetNextItemWidth(250);
 	if (ImGui::BeginCombo("##Components", "Add Components"))
 	{
 		for (int i = 0; i < this->m_components.size(); i++)
@@ -488,7 +488,6 @@ void s2d::UIInspector::componentSelector()
 		}
 		ImGui::EndCombo();
 	}
-	
 }
 
 void s2d::UIInspector::animatorComponent()

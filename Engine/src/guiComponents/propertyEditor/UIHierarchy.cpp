@@ -208,10 +208,18 @@ void s2d::UIHierarchy::setMenuitemHovered(bool& any_hovered, s2d::Sprite* sprite
 		{
 			add = ADD_WHEN_SPRITE_HAS_PARENT;
 		}
-		ImGui::SetCursorPosX(ImGui::GetCursorPosX() + MENU_ITEM_PADDING + add);
+		float add_when_parent = 0;
+		if (sprite->ptr_childs.size() != 0)
+		{
+			add_when_parent = 40;
+		}
 
 		this->drawbackgroundRectangle();
 		// Set sprite in inspector
+
+		ImGui::SetCursorPosX(ImGui::GetCursorPosX() + add + MENU_ITEM_PADDING);
+		s2d::FontManager::displaySmybolAsText(ICON_FA_CUBE);
+		ImGui::SetCursorPos(ImVec2(ImGui::GetCursorPosX() + add_when_parent + 75 + add, ImGui::GetCursorPosY() - 21));
 		ImGui::MenuItem(name.c_str());
 		this->setHovering(sprite, any_hovered);
 		if (ImGui::IsItemHovered(ImGuiHoveredFlags_AllowWhenOverlapped)
@@ -343,18 +351,10 @@ void s2d::UIHierarchy::displaySprites(s2d::Sprite* parent, bool& any_hovered)
 	this->setMenuitemHovered(any_hovered, parent);
 }
 
-void s2d::UIHierarchy::displaySpriteSeperated(s2d::Sprite* parent, bool& anyHovered)
+void s2d::UIHierarchy::displaySpriteSeperated(s2d::Sprite* parent, bool& any_hovered)
 {
-	bool popStyle = false;
 	if (parent->isParent())
 	{
-		if (this->m_ptr_repo->sprite_in_inspector != nullptr
-			&& this->m_ptr_repo->sprite_in_inspector->getId() == parent->getId())
-		{
-			// Set color in Hirarchy
-			popStyle = true;
-			ImGui::PushStyleColor(ImGuiCol_Text, SPRITE_SELECTED_COLOR);
-		}
 		std::string name = parent->name;
 		if (parent->prefab.exists)
 		{
@@ -368,40 +368,31 @@ void s2d::UIHierarchy::displaySpriteSeperated(s2d::Sprite* parent, bool& anyHove
 			}
 			ImGui::SetCursorPosX(ImGui::GetCursorPosX() + TREE_NODE_PADDING);
 			this->drawbackgroundRectangle();
+			name = "##" + name;
+			
+			this->setMenuitemHovered(any_hovered, parent);
+			ImGui::SetCursorPosY(ImGui::GetCursorPosY() - 22);
+			ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 50);
+			ImGui::SetNextItemWidth(90);
 			if (ImGui::TreeNode(name.c_str()))
 			{
-				if (popStyle)
-				{
-					popStyle = false;
-					ImGui::PopStyleColor();
-				}
-				if (ImGui::IsMouseClicked(0) && ImGui::IsItemHovered(ImGuiHoveredFlags_AllowWhenOverlapped))
-				{
-					this->m_ptr_repo->sprite_in_inspector = parent;
-				}
-				this->setHovering(parent, anyHovered);
 				for (size_t i = 0; i < parent->ptr_childs.size(); i++)
 				{
 					s2d::Sprite* child = parent->ptr_childs[i];
-					this->displaySpriteSeperated(child, anyHovered);
+					this->displaySpriteSeperated(child, any_hovered);
 				}
 				ImGui::TreePop();
 			}
 			if (this->m_ptr_repo->sprited_hovered_in_hierarchy == nullptr)
 			{
-				this->setHovering(parent, anyHovered);
+				this->setHovering(parent, any_hovered);
 			}
-		}
-		if (popStyle)
-		{
-			popStyle = false;
-			ImGui::PopStyleColor();
 		}
 		return;
 	}
 
 	// Set hovered sprite
-	this->setMenuitemHovered(anyHovered, parent);
+	this->setMenuitemHovered(any_hovered, parent);
 }
 
 void s2d::UIHierarchy::displayChildToParent()

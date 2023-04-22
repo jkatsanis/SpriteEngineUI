@@ -310,7 +310,9 @@
     <ClCompile Include="src\guiComponents\UI.cpp">
       <Filter>src\guiComponents</Filter>
     </ClCompile>
-    <ClCompile Include="src\manager\guiRepository.cpp" />
+    <ClCompile Include="src\manager\guiRepository.cpp">
+      <Filter>src\manager</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\include\imgui\imconfig.h">
@@ -799,7 +801,9 @@
     <ClInclude Include="src\manager\spriteRepository.h">
       <Filter>src\manager</Filter>
     </ClInclude>
-    <ClInclude Include="src\manager\guiRepository.h" />
+    <ClInclude Include="src\manager\guiRepository.h">
+      <Filter>src\manager</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="src\include\SFML\System\Vector3.inl">

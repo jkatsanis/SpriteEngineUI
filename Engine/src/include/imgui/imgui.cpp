@@ -1000,7 +1000,6 @@ static ImGuiWindow*     FindBlockingModal(ImGuiWindow* window);
 
 // Viewports
 static void             UpdateViewportsNewFrame();
-
 }
 
 //-----------------------------------------------------------------------------
@@ -1048,7 +1047,6 @@ static void*                GImAllocatorUserData = NULL;
 //-----------------------------------------------------------------------------
 // [SECTION] USER FACING STRUCTURES (ImGuiStyle, ImGuiIO)
 //-----------------------------------------------------------------------------
-
 ImGuiStyle::ImGuiStyle()
 {
     Alpha                   = 1.0f;             // Global alpha applies to everything in Dear ImGui.

@@ -120,6 +120,7 @@ static const ImU64          IM_U64_MAX = ULLONG_MAX; // (0xFFFFFFFFFFFFFFFFull);
 static const ImU64          IM_U64_MAX = (2ULL * 9223372036854775807LL + 1);
 #endif
 
+
 //-------------------------------------------------------------------------
 // [SECTION] Forward Declarations
 //-------------------------------------------------------------------------
@@ -5989,6 +5990,7 @@ bool ImGui::TreeNodeUpdateNextOpen(ImGuiID id, ImGuiTreeNodeFlags flags)
     return is_open;
 }
 
+
 bool ImGui::TreeNodeBehavior(ImGuiID id, ImGuiTreeNodeFlags flags, const char* label, const char* label_end)
 {
     ImGuiWindow* window = GetCurrentWindow();
@@ -6009,7 +6011,7 @@ bool ImGui::TreeNodeBehavior(ImGuiID id, ImGuiTreeNodeFlags flags, const char* l
     ImRect frame_bb;
     frame_bb.Min.x = (flags & ImGuiTreeNodeFlags_SpanFullWidth) ? window->WorkRect.Min.x : window->DC.CursorPos.x;
     frame_bb.Min.y = window->DC.CursorPos.y;
-    frame_bb.Max.x = window->WorkRect.Max.x;
+    frame_bb.Max.x = g.NextItemData.Width;
     frame_bb.Max.y = window->DC.CursorPos.y + frame_height;
     if (display_frame)
     {

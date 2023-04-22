@@ -500,7 +500,7 @@
 #define ICON_FA_CROWN "\xef\x94\xa1"	// U+f521
 #define ICON_FA_CRUTCH "\xef\x9f\xb7"	// U+f7f7
 #define ICON_FA_CRUTCHES "\xef\x9f\xb8"	// U+f7f8
-#define ICON_FA_CUBE "\xef\x86\xb2"	// U+f1b2
+#define ICON_FA_CUBE u8"\uf1b2"	// U+f1b2
 #define ICON_FA_CUBES "\xef\x86\xb3"	// U+f1b3
 #define ICON_FA_CURLING "\xef\x91\x8a"	// U+f44a
 #define ICON_FA_CUT "\xef\x83\x84"	// U+f0c4
