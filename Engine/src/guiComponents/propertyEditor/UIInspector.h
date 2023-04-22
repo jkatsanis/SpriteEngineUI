@@ -20,6 +20,8 @@
 #define ADD_COMPONENTS_MARGIN 300
 #define SEARCH_BAR_MARGIN 290
 
+#define COMPONENT_PADDING_LEFT 20
+
 namespace s2d
 {
 	enum class InspectorState

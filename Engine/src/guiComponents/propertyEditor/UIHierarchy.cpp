@@ -185,8 +185,14 @@ void s2d::UIHierarchy::setHovering(s2d::Sprite* sprite, bool& anyHovered)
 
 void s2d::UIHierarchy::setMenuitemHovered(bool& any_hovered, s2d::Sprite* sprite)
 {		
+	bool go_in = false;
 	// Handle es child
-	if (this->m_search_sprite_filter.PassFilter(sprite->name.c_str()))
+	if (sprite->isParent())
+	{
+		go_in = sprite->containsChild(this->m_search_sprite_filter) && this->m_search_sprite_filter.CountGrep != 0;
+	}
+	if (this->m_search_sprite_filter.PassFilter(sprite->name.c_str())
+		|| go_in)
 	{
 		bool popStyle = false;
 		if (this->m_ptr_repo->sprite_in_inspector != nullptr
@@ -204,7 +210,7 @@ void s2d::UIHierarchy::setMenuitemHovered(bool& any_hovered, s2d::Sprite* sprite
 		}
 
 		float add = 0;
-		if (sprite->parent != nullptr)
+		if (sprite->parent != nullptr && !sprite->isParent())
 		{
 			add = ADD_WHEN_SPRITE_HAS_PARENT;
 		}
@@ -362,10 +368,6 @@ void s2d::UIHierarchy::displaySpriteSeperated(s2d::Sprite* parent, bool& any_hov
 		}
 		if (this->m_search_sprite_filter.PassFilter(name.c_str()) || parent->containsChild(this->m_search_sprite_filter))
 		{
-			if (parent->containsChild(this->m_search_sprite_filter) && this->m_search_sprite_filter.CountGrep != 0)
-			{
-				ImGui::SetNextItemOpen(true);
-			}
 			ImGui::SetCursorPosX(ImGui::GetCursorPosX() + TREE_NODE_PADDING);
 			this->drawbackgroundRectangle();
 			name = "##" + name;
@@ -373,7 +375,11 @@ void s2d::UIHierarchy::displaySpriteSeperated(s2d::Sprite* parent, bool& any_hov
 			this->setMenuitemHovered(any_hovered, parent);
 			ImGui::SetCursorPosY(ImGui::GetCursorPosY() - 22);
 			ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 50);
-			ImGui::SetNextItemWidth(90);
+			ImGui::SetNextItemWidth(200);
+			if (parent->containsChild(this->m_search_sprite_filter) && this->m_search_sprite_filter.CountGrep != 0)
+			{
+				ImGui::SetNextItemOpen(true);
+			}
 			if (ImGui::TreeNode(name.c_str()))
 			{
 				for (size_t i = 0; i < parent->ptr_childs.size(); i++)

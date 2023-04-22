@@ -308,7 +308,7 @@ void s2d::UIInspector::transformComponent()
 		ImGui::InputFloat(y_inputId.c_str(), &inputY, 0, 0, "%g");
 		ImGui::PopItemWidth();
 	};
-
+	ImGui::SetNextItemWidth(340);
 	if (ImGui::TreeNode("Transform"))
 	{
 		float x = ImGui::GetCursorPosX();
