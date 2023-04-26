@@ -21,7 +21,7 @@ void s2d::UIHierarchy::init()
 	this->m_wait_one_frame = false;
 	this->is_hovered = false;
 	this->m_window_size = HIERARCHY_DEFAULT_WINDOW_SIZE;
-	this->m_sprite_background_color = 1;
+	this->m_sprite_background_color_cnt = 1;
 }
 
 //Public functions
@@ -50,7 +50,7 @@ void s2d::UIHierarchy::displayHierarchyWindow()
 		| ImGuiWindowFlags_NoScrollbar);
 
 	// Render Hierarchy
-	this->m_sprite_background_color = 1;
+	this->m_sprite_background_color_cnt = 1;
 
 	if (!ImGui::IsPopupOpen(POPUP_NAME))
 	{
@@ -226,19 +226,22 @@ void s2d::UIHierarchy::setMenuitemHovered(bool& any_hovered, s2d::Sprite* sprite
 		}
 
 		this->drawbackgroundRectangle();
-		// Set sprite in inspector
 
 		ImGui::SetCursorPosX(ImGui::GetCursorPosX() + add + MENU_ITEM_PADDING);
 		s2d::FontManager::displaySmybolAsText(ICON_FA_CUBE);
 		ImGui::SetCursorPos(ImVec2(ImGui::GetCursorPosX() + add_when_alone + add_when_parent + 75 + add, ImGui::GetCursorPosY() - 21));
+		ImGui::PushStyleColor(ImGuiCol_HeaderHovered, ImVec4(0.0f, 0.0f, 0.0f, 0.0f));
 		ImGui::MenuItem(name.c_str());
+		ImGui::PopStyleColor();
 		this->setHovering(sprite, any_hovered);
 		if (ImGui::IsItemHovered(ImGuiHoveredFlags_AllowWhenOverlapped)
 			&& ImGui::IsMouseReleased(0))
 		{
 			this->m_ptr_repo->sprite_in_inspector = sprite;
 		}
-		if (ImGui::IsItemHovered(ImGuiHoveredFlags_AllowWhenOverlapped))
+		if (ImGui::IsItemHovered(ImGuiHoveredFlags_AllowWhenOverlapped)
+			|| this->m_ptr_repo->sprited_hovered_in_hierarchy != nullptr 
+				&& this->m_ptr_repo->sprited_hovered_in_hierarchy->getId() == sprite->getId())
 		{
 			const ImVec2 temp = ImGui::GetCursorPos();
 
@@ -330,12 +333,12 @@ void s2d::UIHierarchy::resizeWindow()
 
 void s2d::UIHierarchy::drawbackgroundRectangle()
 {
-	if (this->m_sprite_background_color < 1)
+	if (this->m_sprite_background_color_cnt < 1)
 	{
-		this->m_sprite_background_color++;
+		this->m_sprite_background_color_cnt++;
 		return;
 	}
-	this->m_sprite_background_color = 0;
+	this->m_sprite_background_color_cnt = 0;
 
 	const ImVec2 temp = ImGui::GetCursorPos();
 	ImGui::SetCursorPosX(0);
@@ -390,11 +393,11 @@ void s2d::UIHierarchy::displaySpriteSeperated(s2d::Sprite* parent, bool& any_hov
 			this->setMenuitemHovered(any_hovered, parent);
 			ImGui::SetCursorPosY(ImGui::GetCursorPosY() - 22);
 			ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 50);
-			ImGui::SetNextItemWidth(200);
 			if (parent->containsChild(this->m_search_sprite_filter) && this->m_search_sprite_filter.CountGrep != 0)
 			{
 				ImGui::SetNextItemOpen(true);
 			}
+			ImGui::SetNextItemWidthForTree(35);
 			if (ImGui::TreeNode(name.c_str()))
 			{
 				for (size_t i = 0; i < parent->ptr_childs.size(); i++)

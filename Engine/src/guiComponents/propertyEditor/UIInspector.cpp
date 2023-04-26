@@ -23,6 +23,8 @@ void s2d::UIInspector::init()
 	this->m_components.push_back("PhysicsBody");
 	this->m_components.push_back("Animator");
 	this->m_components.push_back("Prefab");
+
+	this->cnt = 1;
 }
 
 //Private functions
@@ -45,20 +47,11 @@ void s2d::UIInspector::render()
 	// Left arrow
 	this->renderOptions();
 
+	this->cnt = 1;
+
 	if (this->m_ptr_sprite_repo->sprite_in_inspector != nullptr)
 	{
 		// Handle a sprite
-
-		static char input_buffer[255];
-		strcpy_s(input_buffer, this->m_ptr_sprite_repo->sprite_in_inspector->name.c_str());
-
-		ImGui::SetNextItemWidth(150);
-		ImGui::InputText("##input-sprite-name", input_buffer, 255);
-
-		if (input_buffer[0] == '\0')
-		{
-			this->m_ptr_sprite_repo->sprite_in_inspector->name = std::string(input_buffer);
-		}
 
 		this->drawRectangleOverCurrentObject();
 		this->setupComponents();
@@ -86,15 +79,17 @@ void s2d::UIInspector::renderOptions()
 
 	ImGui::SetCursorPosY(ImGui::GetCursorPosY() - 5);
 	ImGui::SetCursorPosX(0);
-	ImGui::BeginChild("##hierarchy-options-container", ImVec2(this->m_window_size.x, 50));
-	ImGui::EndChild();
+
+	s2d::UI::drawRectangleInGUIWIndow(
+		ImVec2(this->m_window_size.x + 50, 45), ImVec2(1900 - this->m_window_size.x, 130), ImColor(26, 26, 26, 255));
+	ImGui::SetCursorPosY(ImGui::GetCursorPosY() + 50);
 }
 
 void s2d::UIInspector::resizeWindow()
 {
 	bool pop_style = false;
 	ImGui::SetCursorPosX(10);
-	ImGui::SetCursorPosY(5);
+	ImGui::SetCursorPosY(4);
 	if (this->m_resize_window_data.clicked_on_resize_button)
 	{
 		ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0, 0, 0, 1));
@@ -290,6 +285,22 @@ void s2d::UIInspector::drawRectangleOverCurrentObject()
 	s2d::GameObject::rects[0].setTexture(&this->m_texture_over_sprite);
 }
 
+void s2d::UIInspector::drawBackgroundBehindComponent()
+{
+	if (this->cnt < 1)
+	{
+		this->cnt++;
+		return;
+	}
+	this->cnt = 0;
+
+	const ImVec2 temp = ImGui::GetCursorPos();
+	ImGui::SetCursorPosX(1920 - this->m_window_size.x);
+	ImGui::SetCursorPosY(ImGui::GetCursorPosY() + 73);
+	s2d::UI::drawRectangleInGUIWIndow(ImVec2(this->m_window_size.x, 20), ImGui::GetCursorPos(), COMPONENT_SELECTED_COLOR);
+	ImGui::SetCursorPos(temp);
+}
+
 void s2d::UIInspector::transformComponent()
 {
 	auto inputXY = [](const char* label, float& inputX, float& inputY, float x, float y)
@@ -319,6 +330,7 @@ void s2d::UIInspector::transformComponent()
 		ImGui::InputFloat(y_inputId.c_str(), &inputY, 0, 0, "%g");
 		ImGui::PopItemWidth();
 	};
+	this->drawBackgroundBehindComponent();
 	if (ImGui::TreeNode("Transform"))
 	{
 		float x = ImGui::GetCursorPosX();
@@ -472,11 +484,17 @@ void s2d::UIInspector::physicsBodyComponent()
 void s2d::UIInspector::componentSelector()
 {
 	const ImVec2 temp = ImGui::GetCursorPos();
-	ImGui::SetCursorPosY(42);
+	ImGui::SetCursorPosY(38.5f);
 	ImGui::SetCursorPosX(ImGui::GetWindowContentRegionMax().x - SEARCH_BAR_MARGIN);
 	ImGui::SetNextItemWidth(150);
-	this->m_search_component_filter.Draw("Search");
+	static char input_buffer[255];
+	strcpy_s(input_buffer, this->m_ptr_sprite_repo->sprite_in_inspector->name.c_str());
+	ImGui::InputText("##input-sprite-name", input_buffer, 255);
 
+	if (input_buffer[0] != '\0')
+	{
+		this->m_ptr_sprite_repo->sprite_in_inspector->name = std::string(input_buffer);
+	}
 	ImGui::SetCursorPos(temp);
 
 	ImGui::SetCursorPosY(ImGui::GetCursorPosY() + 20);

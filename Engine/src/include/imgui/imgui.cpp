@@ -8618,6 +8618,15 @@ void ImGui::Unindent(float indent_w)
     window->DC.CursorPos.x = window->Pos.x + window->DC.Indent.x + window->DC.ColumnsOffset.x;
 }
 
+void ImGui::SetNextItemWidthForTree(float item_width)
+{
+    ImGuiContext& g = *GImGui;
+    g.NextItemData.Flags |= ImGuiNextItemDataFlags_HasWidth;
+    g.NextItemData.Width = item_width;
+    g.DoWierdTreeThings = true;
+}
+
+
 // Affect large frame+labels widgets only.
 void ImGui::SetNextItemWidth(float item_width)
 {

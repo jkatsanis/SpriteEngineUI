@@ -6011,8 +6011,17 @@ bool ImGui::TreeNodeBehavior(ImGuiID id, ImGuiTreeNodeFlags flags, const char* l
     ImRect frame_bb;
     frame_bb.Min.x = (flags & ImGuiTreeNodeFlags_SpanFullWidth) ? window->WorkRect.Min.x : window->DC.CursorPos.x;
     frame_bb.Min.y = window->DC.CursorPos.y;
-    frame_bb.Max.x = window->WorkRect.Max.x - g.NextItemData.Width;
-    g.NextItemData.Width = 0;
+    if (g.DoWierdTreeThings)
+    {
+        const float width = g.NextItemData.Width;
+        frame_bb.Max.x = ImMin(frame_bb.Min.x + width, window->WorkRect.Max.x); 
+        g.NextItemData.Width = 0;
+        g.DoWierdTreeThings = false;
+    }
+    else
+    {
+        frame_bb.Max.x = window->WorkRect.Max.x;
+    }
     frame_bb.Max.y = window->DC.CursorPos.y + frame_height;
     if (display_frame)
     {

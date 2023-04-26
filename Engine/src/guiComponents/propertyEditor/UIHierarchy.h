@@ -37,7 +37,7 @@ namespace s2d
 		bool m_wait_one_frame;
 		ImVec2 m_window_size;
 		ImGuiTextFilter m_search_sprite_filter;
-		uint8_t m_sprite_background_color;
+		uint8_t m_sprite_background_color_cnt;
 		bool m_found_hovering;
 		float m_child_select_timer;
 

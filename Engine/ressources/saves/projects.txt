@@ -1,2 +1,2 @@
 name;absulutePathStr;date;relativePath
-Kayyyyyyyy;C:\Dev\C++\Kayyyyyyyy;2023/22/04 16:37:09;..\..\Kayyyyyyyy
+Liquor;C:\Dev\Liquor;2023/24/04 06:52:43;..\..\Liquor

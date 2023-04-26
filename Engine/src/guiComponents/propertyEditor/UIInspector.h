@@ -11,6 +11,7 @@
 #include <UIAssetFolder.h>
 #include <manager/fontManager.h>
 #include <manager/spriteRepository.h>
+#include <UIHierarchy.h>
 
 #define DEFAULT_BACKGROUND_COLOR s2d::Vector3(139, 165, 187)
 
@@ -21,6 +22,8 @@
 #define SEARCH_BAR_MARGIN 290
 
 #define COMPONENT_PADDING_LEFT 20
+
+#define COMPONENT_SELECTED_COLOR SPRITE_BACKGROUND_COLOR
 
 namespace s2d
 {
@@ -45,6 +48,7 @@ namespace s2d
 		ImVec2 m_window_size;
 		float m_sprite_input_width;
 		std::vector<const char*> m_components;
+		int cnt;
 
 		//When the box collider component is open we want to display the rectangle as a box collider and not as a rectangle
 		float m_window_size_width;
@@ -65,6 +69,7 @@ namespace s2d
 		void componentSelector();
 		void setCompontents();
 		void drawRectangleOverCurrentObject();
+		void drawBackgroundBehindComponent();
 		void displayDefaultInspectorView();
 		void backgroundSetting();
 		void gameEngineViewSetting();
