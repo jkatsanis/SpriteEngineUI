@@ -1,2 +1,5 @@
-﻿  UIInspector.cpp
+﻿  UIDataModels.h
+  UIAnimationKeyFrameAdder.cpp
+  UIToolButtonsModels.h
+  Generating Code...
   SpriteEngine.vcxproj -> C:\Dev\SpriteEngineUI\Engine\x64\Debug\SpriteEngine.exe

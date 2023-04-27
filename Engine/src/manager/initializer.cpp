@@ -27,7 +27,7 @@ void s2d::Initializer::initAnimations(s2d::SpriteRepository& repo)
 	}
 }
 
-void s2d::Initializer::initSprite(const std::string& line, s2d::Sprite* const sprite) 
+void s2d::Initializer::initSprite(const std::string& line, s2d::Sprite* sprite) 
 {
 	//Splitting line
 	std::string delimiter = ";";
@@ -44,11 +44,11 @@ void s2d::Initializer::initSprite(const std::string& line, s2d::Sprite* const sp
 	sprite->name = propertys[0];
 	sprite->transform.position.x = std::stof(propertys[2].c_str());
 	sprite->transform.position.y = std::stof(propertys[3].c_str());
-	sprite->sprite_renderer.path = s2d::EngineData::s_pathToUserProject + "\\" + propertys[6];
+	sprite->sprite_renderer.path = s2d::EngineData::s_path_to_user_project + "\\" + propertys[6];
 
 	//INFO: Setting box collider props 5 - 8 down lol
 
-	sprite->setSpriteTexture(s2d::EngineData::s_pathToUserProject + "\\" + propertys[6],
+	sprite->setSpriteTexture(s2d::EngineData::s_path_to_user_project + "\\" + propertys[6],
 		s2d::Vector2(s2d::Vector2(std::stof(propertys[4].c_str()), std::stof(propertys[5].c_str()))));
 
 	# pragma region Collider
@@ -217,7 +217,7 @@ void s2d::Initializer::initIds(uint32_t& highestId)
 
 void s2d::Initializer::initAnimation(const std::string& path, s2d::SpriteRepository& repo)
 {
-	std::string newPath = s2d::EngineData::s_pathToUserProject + "\\" + path;
+	std::string newPath = s2d::EngineData::s_path_to_user_project + "\\" + path;
 	std::fstream animationFileStream;
 
 	animationFileStream.open(newPath);
@@ -248,7 +248,7 @@ void s2d::Initializer::initAnimation(const std::string& path, s2d::SpriteReposit
 			}
 			std::vector<std::string> propertys = std::splitString(line, DELIMITER);
 
-			frames.push_back(s2d::KeyFrame(s2d::EngineData::s_pathToUserProject + "\\" + propertys[1], atoi(propertys[0].c_str())));
+			frames.push_back(s2d::KeyFrame(s2d::EngineData::s_path_to_user_project + "\\" + propertys[1], atoi(propertys[0].c_str())));
 		}
 
 	}

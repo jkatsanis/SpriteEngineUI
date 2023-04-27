@@ -10,8 +10,8 @@ s2d::Animator::Animator()
 
 s2d::Animator::Animator(Sprite* ptr_attachedSprite)
 {
-	this->ptr_attachedSprite = ptr_attachedSprite;
 	this->init();
+	this->ptr_attachedSprite = ptr_attachedSprite;
 }
 
 void s2d::Animator::init()
@@ -24,10 +24,10 @@ void s2d::Animator::init()
 
 // Public functions
 
-void s2d::Animator::createAnimation(const std::string& name, const std::string& fileLocation, const std::vector<s2d::KeyFrame>& textures)
+void s2d::Animator::createAnimation(const std::string& name, const std::string& file_loc, const std::vector<s2d::KeyFrame>& textures)
 {
 	EXIST_COMPONENT;
-	animations.insert({ name, Animation(ptr_attachedSprite, name, fileLocation, textures) });
+	animations.insert({ name, Animation(ptr_attachedSprite, name, file_loc, textures) });
 }
 
 void s2d::Animator::removeAnimation(const std::string& name)
@@ -65,7 +65,7 @@ void s2d::Animator::update()
 	EXIST_COMPONENT;
 	for (auto& anim : this->animations)
 	{
-		if (anim.second.isPlaying)
+		if (anim.second.is_playing)
 			anim.second.update();
 	}
 }

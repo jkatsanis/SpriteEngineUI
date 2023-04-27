@@ -19,7 +19,7 @@ namespace s2d
 		void closeWindowAndSafeKeyFrame();
 		void addKeyFrameToAnimation();
 
-		int m_keyframePos;
+		int m_key_frame_pos;
 		char m_keyFramePathDataHolder[100];	// 100 is the path array size (string can only be 100 chars long!)
 
 	public:

@@ -143,8 +143,8 @@ void s2d::UIToolButtons::hotkeys()
 void s2d::UIToolButtons::build()
 {
 	s2d::flc::saveEverything(this->m_window_background_to_save, *this->m_ptr_repo);
-	const std::string PATH = s2d::EngineData::s_pathToUserProject + "\\" + s2d::EngineData::s_nameOfUserProject;
-	const std::filesystem::path TARGET_PATH = s2d::EngineData::s_pathToUserProject + "\\" + s2d::EngineData::s_nameOfUserProject;
+	const std::string PATH = s2d::EngineData::s_path_to_user_project + "\\" + s2d::EngineData::s_nameOfUserProject;
+	const std::filesystem::path TARGET_PATH = s2d::EngineData::s_path_to_user_project + "\\" + s2d::EngineData::s_nameOfUserProject;
 	const std::filesystem::path FILES_IN_FOLDER[FILE_AMOUNT] =
 	{
 		PATH_TO_USER_DEBUG_FOLDER"Assets.exe",
@@ -168,8 +168,8 @@ void s2d::UIToolButtons::build()
 		}
 	}
 
-	s2d::flc::copyDir(s2d::EngineData::s_pathToUserProject + "\\assets", PATH, "\\assets", { "\\src\\", ".cpp", ".h" } );
-	s2d::flc::copyDir(s2d::EngineData::s_pathToUserProject + "\\engine", PATH, "\\engine", { "\\src\\", ".cpp", ".h" } );
+	s2d::flc::copyDir(s2d::EngineData::s_path_to_user_project + "\\assets", PATH, "\\assets", { "\\src\\", ".cpp", ".h" } );
+	s2d::flc::copyDir(s2d::EngineData::s_path_to_user_project + "\\engine", PATH, "\\engine", { "\\src\\", ".cpp", ".h" } );
 }
 
 void s2d::UIToolButtons::playGameButton()
@@ -187,13 +187,13 @@ void s2d::UIToolButtons::playGameButton()
 		// ! Setting the current directory to the of the project.( the relative dir)
 
 		// Calculate the length of the wide string, including the null terminator.
-		int wideStringLength = MultiByteToWideChar(CP_UTF8, 0, s2d::EngineData::s_pathToUserProject.c_str(), -1, NULL, 0);
+		int wideStringLength = MultiByteToWideChar(CP_UTF8, 0, s2d::EngineData::s_path_to_user_project.c_str(), -1, NULL, 0);
 
 		// Allocate a buffer for the wide string.
 		wchar_t* wideString = new wchar_t[wideStringLength];
 
 		// Convert the narrow string to a wide string.
-		MultiByteToWideChar(CP_UTF8, 0, s2d::EngineData::s_pathToUserProject.c_str(), -1, wideString, wideStringLength);
+		MultiByteToWideChar(CP_UTF8, 0, s2d::EngineData::s_path_to_user_project.c_str(), -1, wideString, wideStringLength);
 
 		if (!SetCurrentDirectory(wideString))
 		{

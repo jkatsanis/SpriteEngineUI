@@ -10,7 +10,7 @@ void s2d::UIAssetFolder::init()
 {
     this->m_tools = s2d::UIAssetTools(&this->m_current_path, &this->m_to_hover_item_name);
 
-    this->m_current_path = s2d::EngineData::s_pathToUserProject + "\\assets";
+    this->m_current_path = s2d::EngineData::s_path_to_user_project + "\\assets";
     this->m_current_name = "assets";
 
     this->is_hovered = false;
@@ -413,7 +413,7 @@ void s2d::UIAssetFolder::goBackToBeforeFolder()
         {
             this->m_current_path = "";
             this->m_current_name = validParts[i];
-            m_current_path = s2d::EngineData::s_pathToUserProject;
+            m_current_path = s2d::EngineData::s_path_to_user_project;
             for (int j = 0; j <= i; j++)
             {
                  m_current_path += + "\\" + validParts[j];

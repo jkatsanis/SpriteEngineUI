@@ -35,7 +35,7 @@ namespace s2d
 		s2d::Animation* m_anim;
 		s2d::KeyFrameSelected m_keyFrameSelected;
 	public:
-		bool isHovered;
+		bool is_hovered;
 		bool display;
 
 		void setAnim(s2d::Animation* anim);

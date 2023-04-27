@@ -5,6 +5,7 @@ bool s2d::UIInfo::s_render_asset_folder = true;
 s2d::OpenWindow s2d::UIInfo::s_is_asset_folder_open = s2d::OpenWindow();
 s2d::OpenWindow s2d::UIInfo::s_is_hierarchy_open = s2d::OpenWindow();
 s2d::OpenWindow s2d::UIInfo::s_is_inspector_open = s2d::OpenWindow();
+s2d::OpenWindow s2d::UIInfo::s_is_animation_open = s2d::OpenWindow(false);
 
 const std::string s2d::UIInfo::s_icons[ICONS_AMOUNT] =
 {

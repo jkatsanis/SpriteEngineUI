@@ -211,6 +211,7 @@
     <ClCompile Include="src\guiComponents\propertyEditor\UIToolButtonsModels.h" />
     <ClCompile Include="src\guiComponents\UI.cpp" />
     <ClCompile Include="src\guiComponents\propertyEditor\UIAssetTools.cpp" />
+    <ClCompile Include="src\data\UIDataModels.h" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\spriteComponents\spriteRenderer.h" />

@@ -46,7 +46,7 @@ std::string s2d::flc::getPropertyLineWithSeperator(const Sprite* const sprite)
 	std::string transformPosY = std::to_string(sprite->transform.position.y);
 	std::string scaleX = std::to_string(sprite->transform.getScale().x);
 	std::string scaleY = std::to_string(sprite->transform.getScale().y);
-	std::string spritePath = std::splitStringTillLastWord(sprite->sprite_renderer.path, s2d::EngineData::s_pathToUserProject);
+	std::string spritePath = std::splitStringTillLastWord(sprite->sprite_renderer.path, s2d::EngineData::s_path_to_user_project);
 
 	std::string boxColliderWidthLeftOrRightX = std::to_string(sprite->collider.box_collider_width.x);
 	std::string boxColliderWidthLeftOrRightY = std::to_string(sprite->collider.box_collider_width.y);
@@ -183,7 +183,7 @@ void s2d::flc::createKnownProjectDirFile()
 
 	std::strftime(buffer, sizeof(buffer), "%Y/%d/%m %X", &timeinfo);
 
-	const char* relative_path = s2d::EngineData::s_pathToUserProject.c_str();
+	const char* relative_path = s2d::EngineData::s_path_to_user_project.c_str();
 	char absolute_path[FILENAME_MAX];
 	if (!_fullpath(absolute_path, relative_path, FILENAME_MAX) != NULL) 
 	{
@@ -242,7 +242,7 @@ void s2d::flc::createAnimationSaveFile(const s2d::Sprite* ptr_sprite, const s2d:
 		content += std::to_string(frame.delay) + std::string(";") + s2d::UI::getUserProjectPathSeperatetFromEnginePath(frame.path) + "\n";
 	}
 
-	std::string pathAndName = s2d::EngineData::s_pathToUserProject + "\\" + animationToSave.getPathToFile();
+	std::string pathAndName = s2d::EngineData::s_path_to_user_project + "\\" + animationToSave.getPathToFile();
 	std::createFileWithContent(content, pathAndName);
 }
 
@@ -294,7 +294,7 @@ bool s2d::flc::checkIfProjectExistInFile(std::string& ref)
 	const int INDEX_AT_PATH = 1;
 
 	bool found = false;
-	std::string searchPath = s2d::EngineData::s_pathToUserProject;
+	std::string searchPath = s2d::EngineData::s_path_to_user_project;
 	std::fstream knownProjectFile;
 
 	char absulutPath[1024];

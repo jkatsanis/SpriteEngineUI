@@ -319,6 +319,9 @@
     <ClCompile Include="src\spriteComponents\spriteRenderer.cpp">
       <Filter>src\spriteComponents\spriteRenderer</Filter>
     </ClCompile>
+    <ClCompile Include="src\data\UIDataModels.h">
+      <Filter>src\data\UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\include\imgui\imconfig.h">

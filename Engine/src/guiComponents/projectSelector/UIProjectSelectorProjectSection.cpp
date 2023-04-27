@@ -110,7 +110,7 @@ void s2d::UIProjectSelectorProjectSection::renderProjectData()
 				// CHECK IF WE OPEN THE PROJECT
 				if (ImGui::MenuItem(fullData.c_str()))
 				{
-					s2d::EngineData::s_pathToUserProject = this->m_projects[i].relativePath;
+					s2d::EngineData::s_path_to_user_project = this->m_projects[i].relativePath;
 					s2d::EngineData::s_nameOfUserProject = this->m_projects[i].name;
 				}
 			}
@@ -244,10 +244,10 @@ void s2d::UIProjectSelectorProjectSection::tryToOpenProject()
 
 		// Updating the file when we open or CREATE a project
 		s2d::EngineData::s_nameOfUserProject = name;
-		s2d::EngineData::s_pathToUserProject = relative_path.string();
+		s2d::EngineData::s_path_to_user_project = relative_path.string();
 		s2d::flc::createKnownProjectDirFile();
 		s2d::EngineData::s_nameOfUserProject = "";
-		s2d::EngineData::s_pathToUserProject = "";
+		s2d::EngineData::s_path_to_user_project = "";
 	}
 	else if(this->m_openFileDialog.pathClicked != "")
 	{

@@ -10,7 +10,7 @@ int main()
         selector.update();  
     }
 
-    if (s2d::EngineData::s_pathToUserProject == "")
+    if (s2d::EngineData::s_path_to_user_project == "")
     {
         // Closing the engine since the user doesnt want to open a project;
         return -1;
@@ -21,7 +21,7 @@ int main()
     if (engine.ptr_renderWindow == nullptr)
     {
         std::cout << "Window was nullptr, please rebuild!!" << std::endl;
-        exit(-1);
+        return -1;
     }
     while (engine.ptr_renderWindow->isOpen())
     {    

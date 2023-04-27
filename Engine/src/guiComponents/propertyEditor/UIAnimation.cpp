@@ -4,7 +4,7 @@ s2d::UIAnimation::UIAnimation()
 {
 	this->m_UIAnimationEditor.resetAnim();
 	this->m_fileName = "";
-	const std::string pathToAssets = s2d::EngineData::s_pathToUserProject + "\\" + "assets\\";
+	const std::string pathToAssets = s2d::EngineData::s_path_to_user_project + "\\" + "assets\\";
 	this->m_createAnimtionPathFileDialoge = s2d::FileDialog(pathToAssets, ICON_FA_PLUS, "Create Animation", ImVec2(500, 250));
 	this->m_createAnimtionPathFileDialoge.setFirstNode("assets");
 }
@@ -13,16 +13,14 @@ s2d::UIAnimation::UIAnimation()
 
 void s2d::UIAnimation::createUIAnimationWindow()
 {
-	if (s2d::UIInfo::s_render_asset_folder || this->m_ptr_repo->sprite_in_inspector == nullptr)
+	if (!s2d::UIInfo::s_is_animation_open.is_open)
 	{
-		this->isHovered = false;
 		return;
-	}	
-
+	}
 	if (this->m_UIAnimationEditor.display)
 	{
 		this->m_UIAnimationEditor.displayEditor();
-		this->isHovered = this->m_UIAnimationEditor.isHovered;
+		this->isHovered = this->m_UIAnimationEditor.is_hovered;
 	}
 	else
 	{
@@ -94,6 +92,7 @@ void s2d::UIAnimation::getFileNameInput()
 			this->m_openInputWindow = false;
 			this->m_openFileDialog = false;
 			this->m_animationFile[0] = '\0';
+			s2d::UIInfo::s_is_animation_open.is_open = false;
 			this->m_createAnimtionPathFileDialoge.disableWindow();
 		}
 		ImGui::SetCursorPos(old);

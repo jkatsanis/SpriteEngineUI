@@ -103,7 +103,7 @@ s2d::UIProjectSelectorLocation s2d::UIProjectSelector::getUserInputForDataToRend
 
 void s2d::UIProjectSelector::update()
 {
-	if (s2d::EngineData::s_pathToUserProject != "")
+	if (s2d::EngineData::s_path_to_user_project != "")
 	{
 		this->m_ptr_toRenderWindow->close();
 	}

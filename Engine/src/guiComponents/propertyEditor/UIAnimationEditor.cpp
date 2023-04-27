@@ -10,7 +10,7 @@ s2d::UIAnimationEditor::UIAnimationEditor()
 	this->m_anim = nullptr;
 	this->display = false;
 	this->m_keyFrameSelected.keyFrameSelected = nullptr;
-	this->isHovered = false;
+	this->is_hovered = false;
 }
 
 //Private methods
@@ -41,8 +41,8 @@ void s2d::UIAnimationEditor::closeWindow()
 		this->resetAnim();
 	}
 
-	if (!this->isHovered)
-		this->isHovered = ImGui::IsWindowHovered();
+	if (!this->is_hovered)
+		this->is_hovered = ImGui::IsWindowHovered();
 
 	ImGui::End();
 }
@@ -61,7 +61,7 @@ void s2d::UIAnimationEditor::editorTimeLine()
 {
 	float y = ImGui::GetCursorPosY() + 10;
 
-	if (!this->m_anim->isPlaying)
+	if (!this->m_anim->is_playing)
 	{
 		if (s2d::FontManager::displaySmybolAsButton(ICON_FA_PLAY))
 		{
@@ -173,7 +173,7 @@ void s2d::UIAnimationEditor::addKeyFrame()
 		this->keyFrameAdder.isKeyFrameMenuOpen = true;
 		this->keyFrameAdder.setAnimation(this->m_anim);
 	}
-	this->isHovered = (this->keyFrameAdder.isHovered) 
+	this->is_hovered = (this->keyFrameAdder.isHovered) 
 		? true 
 		: ImGui::IsWindowHovered(ImGuiHoveredFlags_AllowWhenBlockedByActiveItem | ImGuiHoveredFlags_AllowWhenBlockedByPopup);
 	

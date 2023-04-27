@@ -147,7 +147,7 @@ void s2d::UIAssetTools::createFileContent()
 void s2d::UIAssetTools::includeInUserProject(const std::string& fileName)
 {
 	const static int s_posCppInclude = 150;
-	std::string vcxprojFilePath = s2d::EngineData::s_pathToUserProject + "\\" + "Assets.vcxproj";
+	std::string vcxprojFilePath = s2d::EngineData::s_path_to_user_project + "\\" + "Assets.vcxproj";
 	std::fstream vcProjectStream;
 
 	vcProjectStream.open(vcxprojFilePath);
