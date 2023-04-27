@@ -316,7 +316,9 @@
     <ClCompile Include="src\manager\guiRepository.cpp">
       <Filter>src\manager</Filter>
     </ClCompile>
-    <ClCompile Include="src\spriteComponents\spriteRenderer.cpp" />
+    <ClCompile Include="src\spriteComponents\spriteRenderer.cpp">
+      <Filter>src\spriteComponents\spriteRenderer</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\include\imgui\imconfig.h">
@@ -811,7 +813,9 @@
     <ClInclude Include="src\spriteComponents\component.h">
       <Filter>src\spriteComponents</Filter>
     </ClInclude>
-    <ClInclude Include="src\spriteComponents\spriteRenderer.h" />
+    <ClInclude Include="src\spriteComponents\spriteRenderer.h">
+      <Filter>src\spriteComponents\spriteRenderer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="src\include\SFML\System\Vector3.inl">

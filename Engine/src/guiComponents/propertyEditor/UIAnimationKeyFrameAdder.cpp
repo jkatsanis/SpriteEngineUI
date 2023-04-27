@@ -6,7 +6,7 @@ s2d::UIAnimationKeyFrameAdder::UIAnimationKeyFrameAdder()
 {
 	this->m_keyframePos = 0;
 	this->isHovered = false;
-	this->keyFramePath = s2d::SpriteData::defaultSpritePath;
+	this->keyFramePath = s2d::SpriteData::s_default_sprite_path;
 	this->isKeyFrameMenuOpen = false;
 }
 

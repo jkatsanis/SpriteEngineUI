@@ -9,6 +9,7 @@ s2d::PhsysicsBody::PhsysicsBody()
 
 void s2d::PhsysicsBody::init()
 {
+	this->base_component = false;
 	this->exist = false;
 	this->velocity = s2d::Vector2(0, 0);
 	this->gravity = 0.0f;

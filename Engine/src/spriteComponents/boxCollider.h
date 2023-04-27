@@ -12,14 +12,14 @@ namespace s2d
 	private:
 		void init() override;
 	public:
-		bool isSolid;
-		bool canCollide;
+		bool is_solid;
+		bool can_collide;
 
 		//Deleting the pointer in gameEngine.cpp!
 		s2d::Sprite* ptr_sprite;
 
-		Vector2 boxColliderWidthLeftOrRight;
-		Vector2 boxColliderHeightUpOrDown;
+		Vector2 box_collider_width;
+		Vector2 box_collider_height;
 
 		BoxCollider();
 

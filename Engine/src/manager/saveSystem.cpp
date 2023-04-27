@@ -48,14 +48,14 @@ std::string s2d::flc::getPropertyLineWithSeperator(const Sprite* const sprite)
 	std::string scaleY = std::to_string(sprite->transform.getScale().y);
 	std::string spritePath = std::splitStringTillLastWord(sprite->sprite_renderer.path, s2d::EngineData::s_pathToUserProject);
 
-	std::string boxColliderWidthLeftOrRightX = std::to_string(sprite->collider.boxColliderWidthLeftOrRight.x);
-	std::string boxColliderWidthLeftOrRightY = std::to_string(sprite->collider.boxColliderWidthLeftOrRight.y);
+	std::string boxColliderWidthLeftOrRightX = std::to_string(sprite->collider.box_collider_width.x);
+	std::string boxColliderWidthLeftOrRightY = std::to_string(sprite->collider.box_collider_width.y);
 
-	std::string boxColliderHeightUpOrDownX = std::to_string(sprite->collider.boxColliderHeightUpOrDown.x);
-	std::string boxColliderHeightUpOrDownY = std::to_string(sprite->collider.boxColliderHeightUpOrDown.y);
+	std::string boxColliderHeightUpOrDownX = std::to_string(sprite->collider.box_collider_height.x);
+	std::string boxColliderHeightUpOrDownY = std::to_string(sprite->collider.box_collider_height.y);
 
 	std::string colliderExists = std::boolToStr(sprite->collider.exist);
-	std::string isSolid = std::boolToStr(sprite->collider.isSolid);
+	std::string isSolid = std::boolToStr(sprite->collider.is_solid);
 	std::string sortingLayer = std::to_string(sprite->sprite_renderer.sorting_layer_index);
 	std::string gravity = std::to_string(sprite->physicsBody.gravity);
 	std::string mass = std::to_string(sprite->physicsBody.mass);

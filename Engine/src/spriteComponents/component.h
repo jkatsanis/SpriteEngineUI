@@ -6,6 +6,7 @@ namespace s2d
 	{
 	public:
 		bool exist;
+		bool base_component;
 
 		virtual void reset() = 0;
 	protected:

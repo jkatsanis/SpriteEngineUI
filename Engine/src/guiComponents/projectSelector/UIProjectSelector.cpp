@@ -149,7 +149,7 @@ void s2d::UIProjectSelector::update()
 	//s2d::UIWindow::renderStyle(&ImGui::GetStyle());
 	
 	ImGui::PushStyleColor(ImGuiCol_ButtonHovered, SELECTOR_BUTTON_HOVERED);
-	ImGui::PushFont(s2d::FontManager::defaultFont);
+	ImGui::PushFont(s2d::FontManager::s_default_font);
 	this->render();
     ImGui::PopFont();
 	ImGui::PopStyleColor();

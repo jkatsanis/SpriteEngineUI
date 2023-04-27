@@ -1,15 +1,27 @@
 #include "fontManager.h"
 #include <iostream>
 
+bool s2d::FontManager::displaySymbolInMenuItem(const char* symbol)
+{
+	ImGui::PopFont();
+	ImGui::PushFont(s2d::FontManager::s_symbol_font);
+	bool clicked = ImGui::MenuItem(symbol);
+
+	ImGui::PopFont();
+	ImGui::PushFont(s2d::FontManager::s_default_font);
+
+	return clicked;
+}
+
 void s2d::FontManager::displaySmybolAsText(const char* symbol)
 {
 	ImGui::PopFont();
-	ImGui::PushFont(s2d::FontManager::symbolFont);
+	ImGui::PushFont(s2d::FontManager::s_symbol_font);
 
 	ImGui::Text(symbol);
 
 	ImGui::PopFont();
-	ImGui::PushFont(s2d::FontManager::defaultFont);
+	ImGui::PushFont(s2d::FontManager::s_default_font);
 }
 
 bool s2d::FontManager::displaySmybolAsButton(const char* symbol, ImFont* font)
@@ -26,14 +38,14 @@ bool s2d::FontManager::displaySmybolAsButton(const char* symbol, ImFont* font)
 	}
 	else
 	{
-		ImGui::PushFont(s2d::FontManager::symbolFont);
+		ImGui::PushFont(s2d::FontManager::s_symbol_font);
 
 	    clicked = ImGui::Button(symbol);
 	}
 
 
 	ImGui::PopFont();
-	ImGui::PushFont(s2d::FontManager::defaultFont);
+	ImGui::PushFont(s2d::FontManager::s_default_font);
 
 	return clicked;
 }
@@ -44,12 +56,12 @@ bool s2d::FontManager::displaySmybolAsButton(const char* symbol, float defaultFo
 
 	bool clicked = false;
 	ImGui::PopFont();
-	ImGui::PushFont(s2d::FontManager::symbolFont);
+	ImGui::PushFont(s2d::FontManager::s_symbol_font);
 
 	clicked = ImGui::Button(symbol);
 
 	ImGui::PopFont();
-	ImGui::PushFont(s2d::FontManager::defaultFont);
+	ImGui::PushFont(s2d::FontManager::s_default_font);
 
 	ImGui::SetWindowFontScale(s2d::UIInfo::s_default_font_size);
 	return clicked;
@@ -75,7 +87,7 @@ bool s2d::FontManager::displaySymbolInTreeNode(const char* symbol, std::string n
 	return ImGui::TreeNodeEx(name.c_str(), ImGuiTreeNodeFlags_OpenOnArrow);
 }
 
-bool s2d::FontManager::displaySymbolInMenuItem(const char* symbol, std::string name)
+bool s2d::FontManager::displaySymbolInMenuItemWithText(const char* symbol, std::string name)
 {
 	const ImVec2 cursor = ImVec2(ImGui::GetCursorPos().x, ImGui::GetCursorPosY());
 	ImGui::SetCursorPos(ImVec2(cursor.x + 30, cursor.y));
@@ -105,6 +117,7 @@ void s2d::FontManager::InitFonts(ImGuiIO& io)
 
 	static const ImWchar ranges[] =
 	{
+		0xf013, 0xf013, // Zahnrad
 		0xf1b2, 0xf1b2, // Cube
 		0xf060, 0xf060, // Arrow left
 		0xf061, 0xf061, // Arrow right
@@ -128,15 +141,15 @@ void s2d::FontManager::InitFonts(ImGuiIO& io)
 	config.GlyphRanges = ranges;
 
 	//Add the fonts (remember to fill in the correct path of your font
-	s2d::FontManager::defaultFont = io.Fonts->AddFontFromFileTTF(PATH_TO_RESSOURCS"\\Fonts\\Arial.ttf", s2d::FontManager::fontSize);
-	s2d::FontManager::symbolFont = io.Fonts->AddFontFromFileTTF(PATH_TO_RESSOURCS"\\Fonts\\fontawesome-webfont.ttf", s2d::FontManager::fontSize - 4, &config);
+	s2d::FontManager::s_default_font = io.Fonts->AddFontFromFileTTF(PATH_TO_RESSOURCS"\\Fonts\\Arial.ttf", s2d::FontManager::fontSize);
+	s2d::FontManager::s_symbol_font = io.Fonts->AddFontFromFileTTF(PATH_TO_RESSOURCS"\\Fonts\\fontawesome-webfont.ttf", s2d::FontManager::fontSize - 4, &config);
 
 	//This function is important else the program will crash with an assertion
 	ImGui::SFML::UpdateFontTexture();
 }
 
 
-ImFont* s2d::FontManager::defaultFont = nullptr;
+ImFont* s2d::FontManager::s_default_font = nullptr;
 ImFont* s2d::FontManager::imGuiDefaultFont = nullptr;
-ImFont* s2d::FontManager::symbolFont = nullptr;
+ImFont* s2d::FontManager::s_symbol_font = nullptr;
 float s2d::FontManager::fontSize = 24.0f;

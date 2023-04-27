@@ -44,6 +44,7 @@ namespace s2d
 		sf::Texture m_texture_over_sprite;
 		ImGuiTextFilter m_search_component_filter;
 		ImVec2 m_window_size;
+		ImVec2 m_pop_up_cursor_pos;
 		float m_sprite_input_width;
 		std::vector<const char*> m_components;
 
@@ -66,13 +67,13 @@ namespace s2d
 		void componentSelector();
 		void setCompontents();
 		void drawRectangleOverCurrentObject();
-		void drawBackgroundBehindComponent();
+		void renderBackgroundBehindComponent();
 		void displayDefaultInspectorView();
 		void backgroundSetting();
 		void gameEngineViewSetting();
 		void checkDupeName();
 		void init();
-		void renderComponentOptions(s2d::Component& component);
+		void renderComponentOptions(s2d::Component& component, const std::string& name);
 
 	public:
 		bool is_hovered;

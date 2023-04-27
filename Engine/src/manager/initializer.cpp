@@ -52,13 +52,13 @@ void s2d::Initializer::initSprite(const std::string& line, s2d::Sprite* const sp
 		s2d::Vector2(s2d::Vector2(std::stof(propertys[4].c_str()), std::stof(propertys[5].c_str()))));
 
 	# pragma region Collider
-		sprite->collider.boxColliderWidthLeftOrRight.x = std::stof(propertys[7].c_str());
-		sprite->collider.boxColliderWidthLeftOrRight.y = std::stof(propertys[8].c_str());
+		sprite->collider.box_collider_width.x = std::stof(propertys[7].c_str());
+		sprite->collider.box_collider_width.y = std::stof(propertys[8].c_str());
 
-		sprite->collider.boxColliderHeightUpOrDown.x = std::stof(propertys[9].c_str());
-		sprite->collider.boxColliderHeightUpOrDown.y = std::stof(propertys[10].c_str());
+		sprite->collider.box_collider_height.x = std::stof(propertys[9].c_str());
+		sprite->collider.box_collider_height.y = std::stof(propertys[10].c_str());
 		sprite->collider.exist = propertys[11] == "True";
-		sprite->collider.isSolid = propertys[12] == "True";
+		sprite->collider.is_solid = propertys[12] == "True";
 
 	#pragma endregion
 	# pragma region Sorting Layer

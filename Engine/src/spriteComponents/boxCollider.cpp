@@ -15,9 +15,10 @@ s2d::BoxCollider::BoxCollider(s2d::Sprite* ptr_sprite)
 }
 void s2d::BoxCollider::init()
 {
+    this->base_component = false;
     this->ptr_sprite = nullptr;
-    this->canCollide = false;
-    this->isSolid = false;
+    this->can_collide = false;
+    this->is_solid = false;
 }
  
 // Public functions
@@ -25,8 +26,8 @@ void s2d::BoxCollider::init()
 void s2d::BoxCollider::reset() 
 {
     this->exist = false;
-    this->isSolid = false;
-    this->canCollide = false;
-    this->boxColliderHeightUpOrDown = Vector2(0, 0);
-    this->boxColliderWidthLeftOrRight = Vector2(0, 0);
+    this->is_solid = false;
+    this->can_collide = false;
+    this->box_collider_height = Vector2(0, 0);
+    this->box_collider_width = Vector2(0, 0);
 }

@@ -426,7 +426,7 @@
 #define ICON_FA_COFFEE_TOGO "\xef\x9b\x85"	// U+f6c5
 #define ICON_FA_COFFIN "\xef\x9b\x86"	// U+f6c6
 #define ICON_FA_COFFIN_CROSS "\xee\x81\x91"	// U+e051
-#define ICON_FA_COG "\xef\x80\x93"	// U+f013
+#define ICON_FA_COG u8"\uf013"	// U+f013
 #define ICON_FA_COGS "\xef\x82\x85"	// U+f085
 #define ICON_FA_COIN "\xef\xa1\x9c"	// U+f85c
 #define ICON_FA_COINS "\xef\x94\x9e"	// U+f51e

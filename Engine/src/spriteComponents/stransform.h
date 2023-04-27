@@ -1,16 +1,18 @@
-
 #pragma once
 
 #include <calculationComponents/vector2.h>
 #include <spriteComponents/childSystem.h>
+#include <spriteComponents/component.h>
 
 namespace s2d
 {
 	class Sprite;
-	class Transform 
+	class Transform : public s2d::Component
 	{
 	private:
 		s2d::Vector2 m_scale;
+
+		void init() override;
 
 	public:
 		s2d::Vector2 position;
@@ -18,14 +20,12 @@ namespace s2d
 		s2d::Vector2 nextPos;
 		s2d::Vector2 lastPos;
 		s2d::Vector2 positionToParent;
-		s2d::Sprite* m_attachedSprite;
+		s2d::Sprite* m_attached_sprite;
 
 		bool position_changed;
-		bool keepOpenInHirachy;
 
 		Transform();
 		Transform(s2d::Sprite* attachedSprite);
-
 
 		/// <summary>
 		/// This method sets the last position of the transform. Needs to be user called.
@@ -40,7 +40,6 @@ namespace s2d
 		/// This method takes in a world posX and calculates 
 		/// the scale needed to reach this world pos
 		/// </summary>
-		/// <param name="size"></param>
 		void calculateScaleXByWorldPosition(const float posX);
 		s2d::Vector2 getDefaultTextureSize() const;
 
@@ -51,8 +50,13 @@ namespace s2d
 		/// </summary>
 		/// <param name="setScaleForce">If you need to change the texture size even tho you have
 		/// then same scale u need to call this method.</param>
-		void setScale(const s2d::Vector2& scale, bool setScaleForce = false);
+		void setScale(const s2d::Vector2& scale, bool set_scale_force = false);
 		s2d::Vector2 const getScale() const { return this->m_scale; }
+
+		/// <summary>
+		/// Resets the transform
+		/// </summary>
+		void reset() override;
 
 	public:
 		//Used in poll events

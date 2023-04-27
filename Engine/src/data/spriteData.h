@@ -14,7 +14,7 @@ namespace s2d
 	public:
 		SpriteData() = delete;
 
-		static std::string defaultSpritePath;
+		static std::string s_default_sprite_path;
 	};
 }
 

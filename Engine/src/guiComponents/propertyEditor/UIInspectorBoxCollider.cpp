@@ -24,7 +24,7 @@ void s2d::UIInspectorBoxCollider::solid(float& x, float& y, s2d::Sprite* sprite)
 	ImGui::Text("Solid");
 	ImGui::SameLine();
 	ImGui::SetWindowFontScale(s2d::UIInfo::s_default_font_size);
-	ImGui::Checkbox("##Solid", &sprite->collider.isSolid);
+	ImGui::Checkbox("##Solid", &sprite->collider.is_solid);
 	ImGui::SetWindowFontScale(s2d::UIInfo::s_default_font_size);
 	ImGui::Dummy(ImVec2(0, 5));
 
@@ -42,13 +42,13 @@ void s2d::UIInspectorBoxCollider::width(float x, float y, s2d::Sprite* sprite)
 
 		ImGui::SetCursorPos(ImVec2(x += 30, y));
 		ImGui::SetWindowFontScale(s2d::UIInfo::s_default_font_size - 0.5f);
-		ImGui::SliderFloat("##WidthL", &sprite->collider.boxColliderWidthLeftOrRight.x, -500, 500);
+		ImGui::SliderFloat("##WidthL", &sprite->collider.box_collider_width.x, -500, 500);
 		ImGui::SameLine();
 
 		ImGui::SetCursorPosY(ImGui::GetCursorPosY() - 7);
 		if (s2d::FontManager::displaySmybolAsButton(ICON_FA_RETWEET, s2d::UIInfo::s_default_font_size + 0.02f))
 		{
-			sprite->collider.boxColliderWidthLeftOrRight.x = 0;
+			sprite->collider.box_collider_width.x = 0;
 		}
 		ImGui::SetWindowFontScale(s2d::UIInfo::s_default_font_size);
 
@@ -57,7 +57,7 @@ void s2d::UIInspectorBoxCollider::width(float x, float y, s2d::Sprite* sprite)
 
 		ImGui::SetCursorPos(ImVec2(x += 29, y));
 		ImGui::SetWindowFontScale(s2d::UIInfo::s_default_font_size - 0.5f);
-		ImGui::SliderFloat("##WidthR", &sprite->collider.boxColliderWidthLeftOrRight.y, -500, 500);
+		ImGui::SliderFloat("##WidthR", &sprite->collider.box_collider_width.y, -500, 500);
 		ImGui::SameLine();
 
 		// If we wouldn use the ## the name would still be just retweet. But now it has a different 
@@ -66,7 +66,7 @@ void s2d::UIInspectorBoxCollider::width(float x, float y, s2d::Sprite* sprite)
 		ImGui::SetCursorPosY(ImGui::GetCursorPosY() - 7);
 		if (s2d::FontManager::displaySmybolAsButton(ICON_FA_RETWEET "##", s2d::UIInfo::s_default_font_size + 0.02f))
 		{
-			sprite->collider.boxColliderWidthLeftOrRight.y = 0;
+			sprite->collider.box_collider_width.y = 0;
 		}
 		ImGui::SetWindowFontScale(s2d::UIInfo::s_default_font_size);
 		ImGui::TreePop();
@@ -88,11 +88,11 @@ void s2d::UIInspectorBoxCollider::height(s2d::Sprite* sprite)
 
 		ImGui::SetCursorPos(ImVec2(x += 30, y));
 		ImGui::SetWindowFontScale(s2d::UIInfo::s_default_font_size - 0.5f);
-		ImGui::SliderFloat("##up", &sprite->collider.boxColliderHeightUpOrDown.x, -500, 500);
+		ImGui::SliderFloat("##up", &sprite->collider.box_collider_height.x, -500, 500);
 		ImGui::SameLine();
 		if (s2d::FontManager::displaySmybolAsButton(ICON_FA_RETWEET))
 		{
-			sprite->collider.boxColliderHeightUpOrDown.x = 0;
+			sprite->collider.box_collider_height.x = 0;
 		}
 		ImGui::SetWindowFontScale(s2d::UIInfo::s_default_font_size);
 
@@ -101,11 +101,11 @@ void s2d::UIInspectorBoxCollider::height(s2d::Sprite* sprite)
 
 		ImGui::SetCursorPos(ImVec2(x += 28, y));
 		ImGui::SetWindowFontScale(s2d::UIInfo::s_default_font_size - 0.5f);
-		ImGui::SliderFloat("##down", &sprite->collider.boxColliderHeightUpOrDown.y, -500, 500);
+		ImGui::SliderFloat("##down", &sprite->collider.box_collider_height.y, -500, 500);
 		ImGui::SameLine();
 		if (s2d::FontManager::displaySmybolAsButton(ICON_FA_RETWEET "##"))
 		{
-			sprite->collider.boxColliderHeightUpOrDown.y = 0;
+			sprite->collider.box_collider_height.y = 0;
 		}
 		ImGui::SetWindowFontScale(s2d::UIInfo::s_default_font_size);
 		ImGui::TreePop();
@@ -116,13 +116,13 @@ void s2d::UIInspectorBoxCollider::height(s2d::Sprite* sprite)
 
 void s2d::UIInspectorBoxCollider::drawBoxCollider(s2d::Sprite* sprite)
 {
-	sf::Vector2f size = sf::Vector2f(sprite->transform.textureSize.x + (-sprite->collider.boxColliderWidthLeftOrRight.x + sprite->collider.boxColliderWidthLeftOrRight.y) ,
-		sprite->transform.textureSize.y + (-sprite->collider.boxColliderHeightUpOrDown.x + sprite->collider.boxColliderHeightUpOrDown.y));
+	sf::Vector2f size = sf::Vector2f(sprite->transform.textureSize.x + (-sprite->collider.box_collider_width.x + sprite->collider.box_collider_width.y) ,
+		sprite->transform.textureSize.y + (-sprite->collider.box_collider_height.x + sprite->collider.box_collider_height.y));
 
 	s2d::GameObject::rects[1].setSize(size);
 	s2d::GameObject::rects[1].setOutlineColor(sf::Color(124, 252, 0));
 	s2d::GameObject::rects[1].setOutlineThickness(3.5f);
-	s2d::GameObject::rects[1].setPosition(sf::Vector2f(sprite->getOrigininalPosition().x + sprite->collider.boxColliderWidthLeftOrRight.x, sprite->getOrigininalPosition().y + sprite->collider.boxColliderHeightUpOrDown.x));
+	s2d::GameObject::rects[1].setPosition(sf::Vector2f(sprite->getOrigininalPosition().x + sprite->collider.box_collider_width.x, sprite->getOrigininalPosition().y + sprite->collider.box_collider_height.x));
 
 	
 	s2d::GameObject::rects[1].setTexture(&this->m_texture);

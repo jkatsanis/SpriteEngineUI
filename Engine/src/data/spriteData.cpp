@@ -1,5 +1,5 @@
 #include "spriteData.h"
 
-std::string s2d::SpriteData::defaultSpritePath = PATH_TO_RESSOURCS"\\Sprites\\default.png";
+std::string s2d::SpriteData::s_default_sprite_path = PATH_TO_RESSOURCS"\\Sprites\\default.png";
 
 

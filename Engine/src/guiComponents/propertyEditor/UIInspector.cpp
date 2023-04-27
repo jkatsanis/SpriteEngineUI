@@ -67,12 +67,41 @@ void s2d::UIInspector::render()
 	ImGui::End();
 }
 
-void s2d::UIInspector::renderComponentOptions(s2d::Component& component)
+void s2d::UIInspector::renderComponentOptions(s2d::Component& component, const std::string& name)
 {
-	if (ImGui::Button("CLick"))
+	const std::string button_name = std::string(ICON_FA_COG) + "##" + name;
+	const ImVec2 temp_pos = ImGui::GetCursorPos();
+	ImGui::SetCursorPosY(ImGui::GetCursorPosY());
+	ImGui::SetCursorPosX(ImGui::GetCursorPosX() + ImGui::GetContentRegionAvail().x - 40);
+
+	ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(5, 2));
+	if (s2d::FontManager::displaySmybolAsButton(button_name.c_str()))
 	{
-		component.reset();
+		ImGui::OpenPopup(button_name.c_str());
+		this->m_pop_up_cursor_pos = ImVec2(s2d::UI::s_gui_cursor.position.x - 150, s2d::UI::s_gui_cursor.position.y + 20);
 	}
+	ImGui::SetNextWindowPos(this->m_pop_up_cursor_pos);
+	if (ImGui::BeginPopup(button_name.c_str()))
+	{
+		if (s2d::FontManager::displaySymbolInMenuItemWithText(ICON_FA_RETWEET, "Reset"))
+		{
+			component.reset();
+			component.exist = true;
+		}
+		if (!component.base_component)
+		{
+			if (s2d::FontManager::displaySymbolInMenuItemWithText(ICON_FA_TRASH, "Delete"))
+			{
+				std::cout << "Deleting";
+				component.reset();
+				component.exist = false;
+			}
+		}
+		ImGui::EndPopup();
+	}
+	
+	ImGui::PopStyleVar();
+	ImGui::SetCursorPos(temp_pos);
 }
 
 void s2d::UIInspector::drawRectangleOverCurrentObject()
@@ -152,7 +181,7 @@ void s2d::UIInspector::checkDupeName()
 	}
 }
 
-void s2d::UIInspector::drawBackgroundBehindComponent()
+void s2d::UIInspector::renderBackgroundBehindComponent()
 {
 	const ImVec2 temp = ImGui::GetCursorPos();
 	ImGui::SetCursorPosX(1920 - this->m_window_size.x);
@@ -330,8 +359,7 @@ void s2d::UIInspector::setupComponents()
 	}
 
 	//Collider
-	if (this->m_ptr_sprite_repo->sprite_in_inspector->collider.exist
-		&& this->m_search_component_filter.PassFilter(this->m_components[0]))
+	if (this->m_ptr_sprite_repo->sprite_in_inspector->collider.exist)
 	{
 		this->boxColliderComponent();
 		DUMMY_COMPONENT;
@@ -393,7 +421,8 @@ void s2d::UIInspector::transformComponent()
 		ImGui::InputFloat(y_inputId.c_str(), &inputY, 0, 0, "%g");
 		ImGui::PopItemWidth();
 	};
-	this->drawBackgroundBehindComponent();
+	this->renderBackgroundBehindComponent();
+	this->renderComponentOptions(this->m_ptr_sprite_repo->sprite_in_inspector->transform, "Transform");
 	if (ImGui::TreeNode("Transform"))
 	{
 		float x = ImGui::GetCursorPosX();
@@ -419,8 +448,8 @@ void s2d::UIInspector::transformComponent()
 
 void s2d::UIInspector::spriteRendererComponent()
 {
-	this->drawBackgroundBehindComponent();
-	//Setting Sprite Renderer Component
+	this->renderBackgroundBehindComponent();
+	this->renderComponentOptions(this->m_ptr_sprite_repo->sprite_in_inspector->sprite_renderer, "Sprite Renderer");
 	if (ImGui::TreeNode("Sprite Renderer"))
 	{
 		std::string input = s2d::UIInspector::getNamePathSplit(this->m_ptr_sprite_repo->sprite_in_inspector->sprite_renderer.path);
@@ -468,36 +497,28 @@ void s2d::UIInspector::boxColliderComponent()
 	float x = ImGui::GetCursorPosX();
 	float y = ImGui::GetCursorPosY();
 
-	ImGui::SetCursorPos(ImVec2(x += 320, y -= 4));
-	if (s2d::FontManager::displaySmybolAsButton(ICON_FA_TRASH))
+	this->renderBackgroundBehindComponent();
+	this->renderComponentOptions(this->m_ptr_sprite_repo->sprite_in_inspector->collider, "BoxCollider");
+	if (ImGui::TreeNode("BoxCollider"))
 	{
-		this->m_ptr_sprite_repo->sprite_in_inspector->collider.reset();
+		ImGui::Dummy(ImVec2(0, 4));
+		float x = ImGui::GetCursorPos().x;
+		float y = ImGui::GetCursorPos().y;
+
+		this->m_collider.edit(x, y);
+		this->m_collider.solid(x, y, this->m_ptr_sprite_repo->sprite_in_inspector);
+		this->m_collider.width(x, y, this->m_ptr_sprite_repo->sprite_in_inspector);
+		this->m_collider.height(this->m_ptr_sprite_repo->sprite_in_inspector);
+
+		ImGui::TreePop();
+
+		//Transparent since we open the boxcollider and we want to open the colider (rec)
+		s2d::GameObject::rects[0].setOutlineColor(sf::Color(0, 0, 255, 0));
+		//this->m_collider.drawBoxCollider(this->m_ptr_sprite_repo->sprite_in_inspector);
+
+		ImGui::Dummy(ImVec2(0, 9));
 	}
-	else
-	{
-		ImGui::SetCursorPos(ImVec2(x -= 320, y += 4));
-		this->drawBackgroundBehindComponent();
-		this->renderComponentOptions(this->m_ptr_sprite_repo->sprite_in_inspector->collider);
-		if (ImGui::TreeNode("BoxCollider"))
-		{
-			ImGui::Dummy(ImVec2(0, 4));
-			float x = ImGui::GetCursorPos().x;
-			float y = ImGui::GetCursorPos().y;
 
-			this->m_collider.edit(x, y);
-			this->m_collider.solid(x, y, this->m_ptr_sprite_repo->sprite_in_inspector);
-			this->m_collider.width(x, y, this->m_ptr_sprite_repo->sprite_in_inspector);
-			this->m_collider.height(this->m_ptr_sprite_repo->sprite_in_inspector);
-
-			ImGui::TreePop();
-
-			//Transparent since we open the boxcollider and we want to open the colider (rec)
-			s2d::GameObject::rects[0].setOutlineColor(sf::Color(0, 0, 255, 0));
-			this->m_collider.drawBoxCollider(this->m_ptr_sprite_repo->sprite_in_inspector);
-
-			ImGui::Dummy(ImVec2(0, 9));
-		}
-	}
 
 	//Setting props
 }
@@ -515,7 +536,8 @@ void s2d::UIInspector::physicsBodyComponent()
 	else
 	{
 		ImGui::SetCursorPos(ImVec2(x -= 320, y += 5));
-		this->drawBackgroundBehindComponent();
+		this->renderBackgroundBehindComponent();
+		this->renderComponentOptions(this->m_ptr_sprite_repo->sprite_in_inspector->physicsBody, "PhysicsBody");
 		if (ImGui::TreeNode("PhysicsBody"))
 		{
 			ImGui::Dummy(ImVec2(0, 5));
@@ -559,7 +581,8 @@ void s2d::UIInspector::animatorComponent()
 	else
 	{
 		ImGui::SetCursorPos(ImVec2(x -= 320, y += 4));
-		this->drawBackgroundBehindComponent();
+		this->renderBackgroundBehindComponent();
+		this->renderComponentOptions(this->m_ptr_sprite_repo->sprite_in_inspector->animator, "Animator");
 		if (ImGui::TreeNode("Animator"))
 		{
 			float y = ImGui::GetCursorPos().y;
@@ -596,7 +619,7 @@ void s2d::UIInspector::prefabComponent()
 	else
 	{
 		ImGui::SetCursorPos(ImVec2(x -= 320, y += 4));
-		this->drawBackgroundBehindComponent();
+		this->renderBackgroundBehindComponent();
 		if (ImGui::TreeNode("Prefab"))
 		{
 			ImGui::SetCursorPos(ImVec2(x += 45, y += 40));

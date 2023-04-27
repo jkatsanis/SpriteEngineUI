@@ -1,4 +1,5 @@
 #include "spriteRenderer.h"
+#include <data/spriteData.h>
 
 // Constructor / Destructor
 
@@ -9,6 +10,7 @@ s2d::SpriteRenderer::SpriteRenderer()
 
 void s2d::SpriteRenderer::init()
 {
+	this->base_component = true;
 	this->path = "";
 	this->exist = true;
 	this->sorting_layer_index = 0;

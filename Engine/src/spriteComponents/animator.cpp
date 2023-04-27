@@ -16,6 +16,7 @@ s2d::Animator::Animator(Sprite* ptr_attachedSprite)
 
 void s2d::Animator::init()
 {
+	this->base_component = false;
 	this->exist = false;
 	this->ptr_attachedSprite = nullptr;
 	this->animationPlaying.name = "<Unknown>";
@@ -73,7 +74,6 @@ void s2d::Animator::reset()
 {
 	this->animationPlaying.name = "<Unknown>";;
 	this->animationPlaying.isAAnimationPlaying = false;
-	this->exist = false;
 	this->animations.clear();
 }
 

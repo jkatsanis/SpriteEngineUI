@@ -113,7 +113,7 @@ void s2d::UIHierarchy::addSprite()
 		const size_t vectorPos = this->m_ptr_repo->amount() + 1;
 		const std::string name = "Sprite " + std::to_string(vectorPos) + " ID " + std::to_string(this->m_ptr_repo->highestSpriteId + 1);
 
-		s2d::Sprite* sprite = new s2d::Sprite(name, s2d::Vector2(0, 0), s2d::SpriteData::defaultSpritePath);
+		s2d::Sprite* sprite = new s2d::Sprite(name, s2d::Vector2(0, 0), s2d::SpriteData::s_default_sprite_path);
 
 		this->m_ptr_repo->add(sprite);
 	}

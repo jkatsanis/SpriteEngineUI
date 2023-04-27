@@ -174,7 +174,7 @@ void s2d::GameEngine::update()
     this->pollEvents();
 
     // UIWindow (Engine)
-    ImGui::PushFont(s2d::FontManager::defaultFont);
+    ImGui::PushFont(s2d::FontManager::s_default_font);
     this->m_UIWindow.update();
     this->m_UIRealTimeEditor.update();
     this->saveDialoge();
