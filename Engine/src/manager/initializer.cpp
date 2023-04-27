@@ -44,7 +44,7 @@ void s2d::Initializer::initSprite(const std::string& line, s2d::Sprite* const sp
 	sprite->name = propertys[0];
 	sprite->transform.position.x = std::stof(propertys[2].c_str());
 	sprite->transform.position.y = std::stof(propertys[3].c_str());
-	sprite->path = s2d::EngineData::s_pathToUserProject + "\\" + propertys[6];
+	sprite->sprite_renderer.path = s2d::EngineData::s_pathToUserProject + "\\" + propertys[6];
 
 	//INFO: Setting box collider props 5 - 8 down lol
 
@@ -57,19 +57,19 @@ void s2d::Initializer::initSprite(const std::string& line, s2d::Sprite* const sp
 
 		sprite->collider.boxColliderHeightUpOrDown.x = std::stof(propertys[9].c_str());
 		sprite->collider.boxColliderHeightUpOrDown.y = std::stof(propertys[10].c_str());
-		sprite->collider.exists = propertys[11] == "True";
+		sprite->collider.exist = propertys[11] == "True";
 		sprite->collider.isSolid = propertys[12] == "True";
 
 	#pragma endregion
 	# pragma region Sorting Layer
-		sprite->sortingLayerIndex = atoi(propertys[13].c_str());
+		sprite->sprite_renderer.sorting_layer_index = atoi(propertys[13].c_str());
 
 
 	#pragma endregion
 	# pragma region PhysicsBody
 		sprite->physicsBody.gravity = std::stof(propertys[14].c_str());
 		sprite->physicsBody.mass = std::stof(propertys[15].c_str());
-		sprite->physicsBody.exists = propertys[16] == "True";
+		sprite->physicsBody.exist = propertys[16] == "True";
 
 	#pragma endregion
 	# pragma region parentId, ID
@@ -90,7 +90,7 @@ void s2d::Initializer::initSprite(const std::string& line, s2d::Sprite* const sp
 		sprite->transform.positionToParent.x = std::stof(propertys[25]);
 		sprite->transform.positionToParent.y = std::stof(propertys[26]);
 
-		sprite->animator.exists = propertys[27] == "True";
+		sprite->animator.exist = propertys[27] == "True";
 	#pragma endregion
 
 	# pragma region Prefab

@@ -46,7 +46,7 @@ std::string s2d::flc::getPropertyLineWithSeperator(const Sprite* const sprite)
 	std::string transformPosY = std::to_string(sprite->transform.position.y);
 	std::string scaleX = std::to_string(sprite->transform.getScale().x);
 	std::string scaleY = std::to_string(sprite->transform.getScale().y);
-	std::string spritePath = std::splitStringTillLastWord(sprite->path, s2d::EngineData::s_pathToUserProject);
+	std::string spritePath = std::splitStringTillLastWord(sprite->sprite_renderer.path, s2d::EngineData::s_pathToUserProject);
 
 	std::string boxColliderWidthLeftOrRightX = std::to_string(sprite->collider.boxColliderWidthLeftOrRight.x);
 	std::string boxColliderWidthLeftOrRightY = std::to_string(sprite->collider.boxColliderWidthLeftOrRight.y);
@@ -54,12 +54,12 @@ std::string s2d::flc::getPropertyLineWithSeperator(const Sprite* const sprite)
 	std::string boxColliderHeightUpOrDownX = std::to_string(sprite->collider.boxColliderHeightUpOrDown.x);
 	std::string boxColliderHeightUpOrDownY = std::to_string(sprite->collider.boxColliderHeightUpOrDown.y);
 
-	std::string colliderExists = std::boolToStr(sprite->collider.exists);
+	std::string colliderExists = std::boolToStr(sprite->collider.exist);
 	std::string isSolid = std::boolToStr(sprite->collider.isSolid);
-	std::string sortingLayer = std::to_string(sprite->sortingLayerIndex);
+	std::string sortingLayer = std::to_string(sprite->sprite_renderer.sorting_layer_index);
 	std::string gravity = std::to_string(sprite->physicsBody.gravity);
 	std::string mass = std::to_string(sprite->physicsBody.mass);
-	std::string bodyExist = std::boolToStr(sprite->physicsBody.exists);
+	std::string bodyExist = std::boolToStr(sprite->physicsBody.exist);
 	std::string id = std::to_string(sprite->getId());
 	std::string parentId = std::to_string(sprite->getParentId());
 
@@ -72,7 +72,7 @@ std::string s2d::flc::getPropertyLineWithSeperator(const Sprite* const sprite)
 	std::string positionToParentX = std::to_string(sprite->transform.positionToParent.x);
 	std::string positionToParentY = std::to_string(sprite->transform.positionToParent.y);
 
-	std::string animatorExist = std::boolToStr(sprite->animator.exists);
+	std::string animatorExist = std::boolToStr(sprite->animator.exist);
 
 	std::string prefabExist = std::boolToStr(sprite->prefab.exists);
 	std::string loadInMemory = std::boolToStr(sprite->prefab.loadInMemory);
@@ -218,7 +218,7 @@ void s2d::flc::createAnimtionSaveFiles(const s2d::SpriteRepository& spriteReposi
 	{
 		const s2d::Sprite* const ptr_sprite = spriteRepository.readAt(i, true);
 
-		if (ptr_sprite->animator.exists)
+		if (ptr_sprite->animator.exist)
 		{
 			for (const auto& anim : ptr_sprite->animator.animations)
 			{

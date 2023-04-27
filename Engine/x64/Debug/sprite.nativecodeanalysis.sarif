@@ -1,0 +1,875 @@
+{
+  "version": "2.1.0",
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.5.json",
+  "runs": [
+    {
+      "results": [],
+      "tool": {
+        "driver": {
+          "name": "PREfast",
+          "fullName": "PREfast Code Analysis",
+          "version": "14.34.31937.0",
+          "informationUri": "https://aka.ms/cpp/ca"
+        }
+      },
+      "invocations": [
+        {
+          "executionSuccessful": true
+        }
+      ],
+      "artifacts": [
+        {
+          "location": {
+            "uri": "file:///c:/dev/spriteengineui/engine/src/physicalcomponents/sprite.cpp"
+          },
+          "roles": [
+            "analysisTarget"
+          ],
+          "hashes": {
+            "sha-256": "bb4c096b7da19981efa49fd94067793c98dc9c90977ba8720ce542b5720b5ead"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/dev/spriteengineui/engine/src/physicalcomponents/sprite.h"
+          },
+          "hashes": {
+            "sha-256": "c36efd37628130d4742a2e2a0e8e08d381b6d6e29a46c8adab19abd7f8a42565"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/dev/spriteengineui/engine/src/data/spritedata.h"
+          },
+          "hashes": {
+            "sha-256": "5e1355c99ee13e096579f27432c200cd5a14d4792c12e92f690fe9febf3318b5"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/dev/spriteengineui/engine/src/data/enginedata.h"
+          },
+          "hashes": {
+            "sha-256": "bfbd37ae67c1c51c97ae77318676c8cf3a40e3234bc71d714503e80cb66421e5"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/dev/spriteengineui/engine/src/manager/initializer.h"
+          },
+          "hashes": {
+            "sha-256": "e3538de5c4029668511b3ae3715817ae6e7ab197c3b937e3c61988482a7e1018"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/dev/spriteengineui/engine/src/spritecomponents/animator.h"
+          },
+          "hashes": {
+            "sha-256": "9cf2510d63e337f66ef0ca2d990df72608a7b42c4d05468e809b62942afcbfa9"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/dev/spriteengineui/engine/src/spritecomponents/animation.h"
+          },
+          "hashes": {
+            "sha-256": "5097d1886689dad54a3cd014c5ec5ee78052041dbebea1fe0341f37d0c074e3c"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/dev/spriteengineui/engine/src/include/sfml/graphics.hpp"
+          },
+          "hashes": {
+            "sha-256": "978fe22d7a4888de276163f4bc935221364429e025f9fe49d3ada0cf52dbbaa1"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/dev/spriteengineui/engine/src/include/sfml/window.hpp"
+          },
+          "hashes": {
+            "sha-256": "7e488b99f07a72cee4669acea03322b2f5352057f44fddf98366caa5dfa91427"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/dev/spriteengineui/engine/src/include/sfml/system.hpp"
+          },
+          "hashes": {
+            "sha-256": "655ed8a1bdaf3985fe504cbe4447ce55028a67e0230469e64f5af4a40133706b"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/dev/spriteengineui/engine/src/include/sfml/config.hpp"
+          },
+          "hashes": {
+            "sha-256": "1762f28e80a63df8f580e0a57a20dd09b7ac9389db3d8f35dc936ddb6328fccb"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/dev/spriteengineui/engine/src/include/sfml/system/clock.hpp"
+          },
+          "hashes": {
+            "sha-256": "1cd86caf7e6218638d2d7b290da41ead438ea438b654d57de5a7392ab61d4e62"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/dev/spriteengineui/engine/src/include/sfml/system/export.hpp"
+          },
+          "hashes": {
+            "sha-256": "cfc62057cb1105073f902c3c50a3811737ba4a6c5771c42a6f476fa430d8a6be"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/dev/spriteengineui/engine/src/include/sfml/system/time.hpp"
+          },
+          "hashes": {
+            "sha-256": "b280ed9b2c6c501780fa34136d4b4f2698448b6e016a1b6cf1fdd4a9c55758b3"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/dev/spriteengineui/engine/src/include/sfml/system/err.hpp"
+          },
+          "hashes": {
+            "sha-256": "5b416b921cd92c9af277948ae0e43b86edab01709af372764c9fcff721dd283f"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/dev/spriteengineui/engine/src/include/sfml/system/fileinputstream.hpp"
+          },
+          "hashes": {
+            "sha-256": "421bd74440c476e4dfec9780d9cc15a99ee0cca66215309d5e8bbda299640bc2"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/dev/spriteengineui/engine/src/include/sfml/system/inputstream.hpp"
+          },
+          "hashes": {
+            "sha-256": "12671c9bdcfceeea32d50d242a6258e1748aec731690b81d69a4e81d0ed4ef6b"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/dev/spriteengineui/engine/src/include/sfml/system/noncopyable.hpp"
+          },
+          "hashes": {
+            "sha-256": "3b696f1692f206bb18b3d4eadd8911990307fd82fb4336295f13a377ff0571d2"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/dev/spriteengineui/engine/src/include/sfml/system/lock.hpp"
+          },
+          "hashes": {
+            "sha-256": "8dda138fa2cfd8ff648df5a862e7e054ca872df4b9cc695c8796ffd79c47989e"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/dev/spriteengineui/engine/src/include/sfml/system/memoryinputstream.hpp"
+          },
+          "hashes": {
+            "sha-256": "2bb63edddbbe314bd1e6de5ef8ef75e9cd054b46d80c4612872d63439b75e1d1"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/dev/spriteengineui/engine/src/include/sfml/system/mutex.hpp"
+          },
+          "hashes": {
+            "sha-256": "5e1ebd8668441ddf123c9ed210617762ce1fedcc0cdbd482243797623f6caf59"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/dev/spriteengineui/engine/src/include/sfml/system/sleep.hpp"
+          },
+          "hashes": {
+            "sha-256": "ba33d302722478748999cde89adebe47151f5fdea50feabdd29260ebe1e34b71"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/dev/spriteengineui/engine/src/include/sfml/system/string.hpp"
+          },
+          "hashes": {
+            "sha-256": "cc5e77ef50b66dab1983fec48fcd717292ae85c111f1dae713cff319bed6ae3d"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/dev/spriteengineui/engine/src/include/sfml/system/utf.hpp"
+          },
+          "hashes": {
+            "sha-256": "a2888dcdb8e6f5c3134bf059cd19a38f1362734ab14c5585f627d44db2f4c150"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/dev/spriteengineui/engine/src/include/sfml/system/utf.inl"
+          },
+          "hashes": {
+            "sha-256": "beeaa05b903f9af7e5b42a96f66095ad05998b0870f047388d5b8856f16ba9b8"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/dev/spriteengineui/engine/src/include/sfml/system/string.inl"
+          },
+          "hashes": {
+            "sha-256": "a3e230c6ca24dc167b0aacd4ea457712bbb0f6f041421d0134660a8190cd0828"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/dev/spriteengineui/engine/src/include/sfml/system/thread.hpp"
+          },
+          "hashes": {
+            "sha-256": "fbe55400bc77b5681335f53ded50087d052eaa8936845802e61e76fbc65f5588"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/dev/spriteengineui/engine/src/include/sfml/system/thread.inl"
+          },
+          "hashes": {
+            "sha-256": "73c7a0cc1c09f20d4199c0b8a1a3ae4910f363f0303519ac6c969346a596eb83"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/dev/spriteengineui/engine/src/include/sfml/system/threadlocal.hpp"
+          },
+          "hashes": {
+            "sha-256": "098b126101f5a9e539510a040ebcba6f4a16682bfda136bc2d2944f900409997"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/dev/spriteengineui/engine/src/include/sfml/system/threadlocalptr.hpp"
+          },
+          "hashes": {
+            "sha-256": "dd79927962318f4ba1dc24fc3a9ed5719b48e33ac8fe2f465cfdc9b8b28490a8"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/dev/spriteengineui/engine/src/include/sfml/system/threadlocalptr.inl"
+          },
+          "hashes": {
+            "sha-256": "30a1c14f6586507497aec160ab3b7094be98d1a1ca14d4ba531aec993c652bee"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/dev/spriteengineui/engine/src/include/sfml/system/vector2.hpp"
+          },
+          "hashes": {
+            "sha-256": "57c62df7bec08a051a8378041b53dea5aec9d04e3324a4d9cf940ba8f6898274"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/dev/spriteengineui/engine/src/include/sfml/system/vector2.inl"
+          },
+          "hashes": {
+            "sha-256": "9bc6f3fae52e9b585b066e6699c10de896f128c97506a346a927f2dc3d0dda42"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/dev/spriteengineui/engine/src/include/sfml/system/vector3.hpp"
+          },
+          "hashes": {
+            "sha-256": "992441c064f9d21f719cce64d823ad0a3e3b79a09204898c1563fafa0b05af5e"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/dev/spriteengineui/engine/src/include/sfml/system/vector3.inl"
+          },
+          "hashes": {
+            "sha-256": "0e970cd75f8ecbd8b1f83029d3342a226b35451662c859f7b6e18e1d32fb86fa"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/dev/spriteengineui/engine/src/include/sfml/window/clipboard.hpp"
+          },
+          "hashes": {
+            "sha-256": "ab317104d636d1e66aedddfc474ff15d9dfe3e688cdb825870159831c721ba5f"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/dev/spriteengineui/engine/src/include/sfml/window/export.hpp"
+          },
+          "hashes": {
+            "sha-256": "6cd522d674c70f5492f66d94cea87bdac24f076da783637dea57a3a9beaf12d2"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/dev/spriteengineui/engine/src/include/sfml/window/context.hpp"
+          },
+          "hashes": {
+            "sha-256": "69151f666cdacc98c0322fe09d382ea80985da5f033b087e699320d6891cb040"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/dev/spriteengineui/engine/src/include/sfml/window/glresource.hpp"
+          },
+          "hashes": {
+            "sha-256": "b44d186acff49d7d498fe81fe5ecf203605e7fc064394b6eb813459a27d905e7"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/dev/spriteengineui/engine/src/include/sfml/window/contextsettings.hpp"
+          },
+          "hashes": {
+            "sha-256": "c1ae907cd177ebdbff0667029e1e2202e1caeb66c0e118606341d224b5a0e154"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/dev/spriteengineui/engine/src/include/sfml/window/cursor.hpp"
+          },
+          "hashes": {
+            "sha-256": "054e12c30d8570617433107688bfbda1607ec16e19a48d324c046b07d02915ec"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/dev/spriteengineui/engine/src/include/sfml/window/event.hpp"
+          },
+          "hashes": {
+            "sha-256": "28492d9252ab85b709351fff6a467f121cc837c58642fffcc676c16a37b61e6d"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/dev/spriteengineui/engine/src/include/sfml/window/joystick.hpp"
+          },
+          "hashes": {
+            "sha-256": "a61fb42edaeb44142540583547adafc90786ba494e1901047970efa5225e298a"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/dev/spriteengineui/engine/src/include/sfml/window/keyboard.hpp"
+          },
+          "hashes": {
+            "sha-256": "19cb6df669d30623c1ac31e9e2503ff3325884289b4273683a9c9159306a051e"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/dev/spriteengineui/engine/src/include/sfml/window/mouse.hpp"
+          },
+          "hashes": {
+            "sha-256": "1878c3483304277c2cc2bc8553907d74f7cecb32b0c51db5f58c11d94894b348"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/dev/spriteengineui/engine/src/include/sfml/window/sensor.hpp"
+          },
+          "hashes": {
+            "sha-256": "1de188a57c72413c30fd78d30abe6c35c5f0e9925d3f1c25663bfebf8d4834df"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/dev/spriteengineui/engine/src/include/sfml/window/touch.hpp"
+          },
+          "hashes": {
+            "sha-256": "f3e1cede4de3f146db348ce96e2eb450907de7196ff5c26c2d899b527e51d606"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/dev/spriteengineui/engine/src/include/sfml/window/videomode.hpp"
+          },
+          "hashes": {
+            "sha-256": "ee9e20b2615d7c24b88780adf63695c3c412820e43079df9a962a13da312e2a1"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/dev/spriteengineui/engine/src/include/sfml/window/window.hpp"
+          },
+          "hashes": {
+            "sha-256": "ed678d31ea745dc0008d962f3a63ae7f15fc78bbfc089e49081e8bf217b13f45"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/dev/spriteengineui/engine/src/include/sfml/window/windowhandle.hpp"
+          },
+          "hashes": {
+            "sha-256": "cbc8d5e009eead3ffb03f93441b4410f1fdf9f3fd533934a58afb57d68cf0cb0"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/dev/spriteengineui/engine/src/include/sfml/window/windowstyle.hpp"
+          },
+          "hashes": {
+            "sha-256": "0ad992204792b1a57b311c579fc4232f71dff78c1a85dd6504e987f98dc1a903"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/dev/spriteengineui/engine/src/include/sfml/graphics/blendmode.hpp"
+          },
+          "hashes": {
+            "sha-256": "20d9112ea7b3afce8f4d131dae014d78b94ddf75763827b0c089e147d42e7b4e"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/dev/spriteengineui/engine/src/include/sfml/graphics/export.hpp"
+          },
+          "hashes": {
+            "sha-256": "f64d92379e1f430c0bb46b232dd8cefbd88d7793a352dc4741f6a08dfbd409e2"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/dev/spriteengineui/engine/src/include/sfml/graphics/circleshape.hpp"
+          },
+          "hashes": {
+            "sha-256": "acde76ca9f3e0b187c737203f6dca8269deb9a489907467fd83ea944713bea95"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/dev/spriteengineui/engine/src/include/sfml/graphics/shape.hpp"
+          },
+          "hashes": {
+            "sha-256": "0cf902fddc5bb8779e5d6b537c4ed404114da011fc1fa6b2816c102b9a97117f"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/dev/spriteengineui/engine/src/include/sfml/graphics/drawable.hpp"
+          },
+          "hashes": {
+            "sha-256": "0491686a9f5cb0e3a85d649d3b81c7fae13ea2a269f8c03ab3d28f1d0744d90e"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/dev/spriteengineui/engine/src/include/sfml/graphics/renderstates.hpp"
+          },
+          "hashes": {
+            "sha-256": "53a166c7791d37b356f96ef0821d897a87770d3f275c9bf851b70216471e7ed8"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/dev/spriteengineui/engine/src/include/sfml/graphics/transform.hpp"
+          },
+          "hashes": {
+            "sha-256": "85bfdf518295e882f11e3d232295cfcf02a9064ed2858bfb5628c939fc69dd4f"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/dev/spriteengineui/engine/src/include/sfml/graphics/rect.hpp"
+          },
+          "hashes": {
+            "sha-256": "5f3b54ebf1ac31ef16b5e22eab087c637ad0581bbdf1adffc08d2044484909a6"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/dev/spriteengineui/engine/src/include/sfml/graphics/rect.inl"
+          },
+          "hashes": {
+            "sha-256": "560ab9f638a501679174a98e3d167e91114309aa3d5c62085ce37abd87f19721"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/dev/spriteengineui/engine/src/include/sfml/graphics/transformable.hpp"
+          },
+          "hashes": {
+            "sha-256": "6e09d0a3b83892be0760c4e42a167ebb304769d181f89b716cd42afbdb919cc8"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/dev/spriteengineui/engine/src/include/sfml/graphics/vertexarray.hpp"
+          },
+          "hashes": {
+            "sha-256": "3cd540f35c7ca6b8454a4ff3c68f0b4eb9068dd382505a71f5c1e95faa33fef9"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/dev/spriteengineui/engine/src/include/sfml/graphics/vertex.hpp"
+          },
+          "hashes": {
+            "sha-256": "4de54e63344d0f92bd81f6bcf581a096c0abe5cfa55caa296255ee7026a6cb12"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/dev/spriteengineui/engine/src/include/sfml/graphics/color.hpp"
+          },
+          "hashes": {
+            "sha-256": "8d7511317301c4829d86aa154027f4091c1cee845ac3d375e9fee865090ccacd"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/dev/spriteengineui/engine/src/include/sfml/graphics/primitivetype.hpp"
+          },
+          "hashes": {
+            "sha-256": "a89b62962d369cdd981e1749ccc69e12e96362aaf637d682351292b730e8c725"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/dev/spriteengineui/engine/src/include/sfml/graphics/convexshape.hpp"
+          },
+          "hashes": {
+            "sha-256": "150b9839a50b522a5a268d520433fe3df32a438bb96026e3a6cab4b59e965b4e"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/dev/spriteengineui/engine/src/include/sfml/graphics/font.hpp"
+          },
+          "hashes": {
+            "sha-256": "58feafa972c253081c6f96ec23b8ad9280c11047b68a6732142b841ce077db8c"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/dev/spriteengineui/engine/src/include/sfml/graphics/glyph.hpp"
+          },
+          "hashes": {
+            "sha-256": "a3ea69f767e0f510d084a96419c4a6ae71de3ec89120f766058fcd04118b48f1"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/dev/spriteengineui/engine/src/include/sfml/graphics/texture.hpp"
+          },
+          "hashes": {
+            "sha-256": "72fd8625411e561fec11f529032a8c3f58fef6b36b89e9e66021010a858827b4"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/dev/spriteengineui/engine/src/include/sfml/graphics/image.hpp"
+          },
+          "hashes": {
+            "sha-256": "845ce07d2ec6b5410e40bb367af5290bdb043f786c7c894c15d0c7a337205b44"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/dev/spriteengineui/engine/src/include/sfml/graphics/rectangleshape.hpp"
+          },
+          "hashes": {
+            "sha-256": "11c88ed13313b3e8e82117c76927c6db3107905517c0673bb993ba9c3aed7d49"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/dev/spriteengineui/engine/src/include/sfml/graphics/rendertarget.hpp"
+          },
+          "hashes": {
+            "sha-256": "fac7521b3fa2ad53348fe86c6dfdca5e69d7ab9376bf98d597dcb03164e1e8d1"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/dev/spriteengineui/engine/src/include/sfml/graphics/view.hpp"
+          },
+          "hashes": {
+            "sha-256": "1a29977decfb2138f4068b8936ddb1f1b54d663e5b73efb0e03cd219b1baf081"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/dev/spriteengineui/engine/src/include/sfml/graphics/rendertexture.hpp"
+          },
+          "hashes": {
+            "sha-256": "c7c34d57eaba9dea76dfca08ad123e6bf3053b910dd687a1215e22335836d661"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/dev/spriteengineui/engine/src/include/sfml/graphics/renderwindow.hpp"
+          },
+          "hashes": {
+            "sha-256": "0e6499d59f1679019d989da3bed08b365855a2157bb8c1ac1c72abd942f9b46b"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/dev/spriteengineui/engine/src/include/sfml/graphics/shader.hpp"
+          },
+          "hashes": {
+            "sha-256": "29f086870693fa08c1c283a76f9632801290e4c915970fa9f19a7f4624c571b5"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/dev/spriteengineui/engine/src/include/sfml/graphics/glsl.hpp"
+          },
+          "hashes": {
+            "sha-256": "58ed693ff5e50d70e1dd5ca2b8995beb586fdd4f230ce4ebbd0af58b18f647e5"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/dev/spriteengineui/engine/src/include/sfml/graphics/glsl.inl"
+          },
+          "hashes": {
+            "sha-256": "2679f746dfc707df67a09f4c7a5958faf35b1dd868ccfad89ff7b512ea7ae7d5"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/dev/spriteengineui/engine/src/include/sfml/graphics/sprite.hpp"
+          },
+          "hashes": {
+            "sha-256": "bcda08ffcba7846d53a6372dd67cda9019d1973819c107f18265384ee15a09a0"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/dev/spriteengineui/engine/src/include/sfml/graphics/text.hpp"
+          },
+          "hashes": {
+            "sha-256": "0aab91c1df5b4b4c1b4f8212263fa590ff5ebed5110e8ec9acf700ff89bd677f"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/dev/spriteengineui/engine/src/include/sfml/graphics/vertexbuffer.hpp"
+          },
+          "hashes": {
+            "sha-256": "d545b7a054cc827e34c4235784dad620663f7dd706cebfceac3739ddd013bbc8"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/dev/spriteengineui/engine/src/spritecomponents/keyframe.h"
+          },
+          "hashes": {
+            "sha-256": "e1c293061174b5705f78a1f68bad20926d01c87715da1bb8837775c7041585dd"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/dev/spriteengineui/engine/src/manager/spriterepository.h"
+          },
+          "hashes": {
+            "sha-256": "ec61960315a82513c3ed45952b350509a240352c20f4b4f068acc1b7838ee6bf"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/dev/spriteengineui/engine/src/calculationcomponents/vector2.h"
+          },
+          "hashes": {
+            "sha-256": "dfddd8e45a25a9070360a447f4259e924a0d3a8186b755cffcd26dab8517e0f6"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/dev/spriteengineui/engine/src/include/imgui/imgui.h"
+          },
+          "hashes": {
+            "sha-256": "48651a9fca8604ac73c44fbf4ad2f750bba36a759dc13e25759cabf333d80b9c"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/dev/spriteengineui/engine/src/include/imgui/imconfig.h"
+          },
+          "hashes": {
+            "sha-256": "391f932c24521d64d44f1e70cff09de039ffc559d89febb5cea5dc43e2bc4275"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/dev/spriteengineui/engine/src/include/imgui/imconfig-sfml.h"
+          },
+          "hashes": {
+            "sha-256": "369bc9d010fed9561f9d7415395074afaf2fac9743c94104f249c4b7abeb38e6"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/dev/spriteengineui/engine/src/include/imgui/imgui-sfml_export.h"
+          },
+          "hashes": {
+            "sha-256": "f9044e3d661c21c046b924ccbbc7ca3338e0d5a9ac18180774db9b9e1416c75d"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/dev/spriteengineui/engine/src/guicomponents/propertyeditor/uitoolbuttonsmodels.h"
+          },
+          "hashes": {
+            "sha-256": "a1c0629176368536f60295d06d36e3b1a4a6a2e6c4f2b1bbe91018539e63d8ca"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/dev/spriteengineui/engine/src/enginecomponents/stime.h"
+          },
+          "hashes": {
+            "sha-256": "ab24380eacab8d68bd0fa7dfd3da5a30ad30346f07a42bb5ddfde63e4d2d1337"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/dev/spriteengineui/engine/src/guicomponents/ui.h"
+          },
+          "hashes": {
+            "sha-256": "7aaa7ddcb27e8aa492360133547da9397bc483570c26b618699b1095fb6822c5"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/dev/spriteengineui/engine/src/enginecomponents/event.h"
+          },
+          "hashes": {
+            "sha-256": "9ee902b750f2ce8c6ea014e29b476387033b2795cc1c0b23ef6cf41952d0ac83"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/dev/spriteengineui/engine/src/enginecomponents/keyboard.h"
+          },
+          "hashes": {
+            "sha-256": "61dc9a80036a8cfa6cb8462465aaa9f73f2d000d1b906aa96b6b1bed26e501ae"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/dev/spriteengineui/engine/src/manager/fontmanager.h"
+          },
+          "hashes": {
+            "sha-256": "fbdbfcf4eaea761c4403e7bf6a1d0b72bd3c6146b66b81d73296635e0353d9e8"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/dev/spriteengineui/engine/src/data/uiinfo.h"
+          },
+          "hashes": {
+            "sha-256": "ec5e7a10861d00dd08da13e4ee96f68d9d652793eb2a63ef6199e2655756d349"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/dev/spriteengineui/engine/src/include/imgui/imgui-sfml.h"
+          },
+          "hashes": {
+            "sha-256": "bf11d4c8068d7dc1ee6f579bafc7be7be0637d2af2d82ef137355c0a685bc048"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/dev/spriteengineui/engine/src/spritecomponents/stransform.h"
+          },
+          "hashes": {
+            "sha-256": "3101efc95d4aea6c35e7decfea3b4b65eb34d45942fb539347147a973fffe322"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/dev/spriteengineui/engine/src/spritecomponents/childsystem.h"
+          },
+          "hashes": {
+            "sha-256": "e604f49e20a88a4d272524f36dadef1296fb033aa9e3553b6ebf3b188edcd8c7"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/dev/spriteengineui/engine/src/calculationcomponents/vector3.h"
+          },
+          "hashes": {
+            "sha-256": "724cec5098078cf7a3a6a785c38dda1e3a8ef475b41b261f5ccd10a2eaa12024"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/dev/spriteengineui/engine/src/include/stdextension.h"
+          },
+          "hashes": {
+            "sha-256": "4afc6beab221800401e54472578a9388d371d8672caad2cbbafd173c477f1c8c"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/dev/spriteengineui/engine/src/physicalcomponents/gameobject.h"
+          },
+          "hashes": {
+            "sha-256": "597ce435159e5518450d8970e82296e8000073450275e74d9baa40c19195f8cd"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/dev/spriteengineui/engine/src/physicalcomponents/line.h"
+          },
+          "hashes": {
+            "sha-256": "c6599a249c83558e24be0d0dbeef506df251ac901cab55e967173198cda35d49"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/dev/spriteengineui/engine/src/physicalcomponents/camera.h"
+          },
+          "hashes": {
+            "sha-256": "8e2f61cc1eaa0aba57a9ecba283f61e09fc5b4d46c2b25c5c010a9b86bea333e"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/dev/spriteengineui/engine/src/spritecomponents/boxcollider.h"
+          },
+          "hashes": {
+            "sha-256": "5c68c56b5aec97e56a499715c7e76ce5bc5a0b0d2019bb19c5a9a8c230e3ce81"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/dev/spriteengineui/engine/src/spritecomponents/physicsbody.h"
+          },
+          "hashes": {
+            "sha-256": "27d369d75d6540b9216de8075eec5c7f4e29bc235af5cb02d752401efdada998"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/dev/spriteengineui/engine/src/spritecomponents/prefab.h"
+          },
+          "hashes": {
+            "sha-256": "1d9a026c0050f696610e425ada36bf7155e3f211109c47148d6842055f6a76d7"
+          }
+        }
+      ]
+    }
+  ]
+}

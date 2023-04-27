@@ -194,7 +194,7 @@ void s2d::UIAssetFolder::renderFolderHierarchyRecursiv(const char* path, const c
     if (dir == NULL) {
         return;
     }
-    m_interacted = false;
+    this->m_interacted = false;
 
     if (!s2d::FileDialog::checkIfADirHasSubDirs(path))
     {

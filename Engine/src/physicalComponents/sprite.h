@@ -14,6 +14,7 @@
 #include <data/engineData.h>
 #include <spriteComponents/prefab.h>
 #include <manager/spriteRepository.h>
+#include <spriteComponents/spriteRenderer.h>
 
 #define INVALID_SPRITE_SYMBOLS 1
 
@@ -25,16 +26,15 @@ namespace s2d
 		sf::Sprite m_sprite;
 	    sf::Texture* m_texture;
 		uint32_t m_id;
-		int32_t m_parentId;
+		int32_t m_parent_id;
 
-		void initVariables(std::string& name, s2d::Vector2& spawnPos, std::string& path);
+		void initVariables(std::string& name, s2d::Vector2& spawn_pos, std::string& path);
 	public:	
 		// General info
 		std::string name;
-		std::string path;
-		int32_t sortingLayerIndex;
 
 		// Components
+		s2d::SpriteRenderer sprite_renderer;
 		s2d::BoxCollider collider;
 		s2d::PhsysicsBody physicsBody;
 		s2d::Transform transform;
@@ -49,7 +49,7 @@ namespace s2d
 		s2d::Sprite* parent;
 
 		Sprite();
-		Sprite(std::string name, s2d::Vector2 spawnPosition, std::string path);
+		Sprite(std::string name, s2d::Vector2 spawn_pos, std::string path);
 		~Sprite();
 
 		void validateProperties(uint32_t id, s2d::SpriteRepository& repo);
@@ -101,10 +101,10 @@ namespace s2d
 		void setParent(s2d::Sprite* sprite);
 
 		uint32_t getId() const { return this->m_id; }
-		int32_t getParentId() const { return this->m_parentId; }
+		int32_t getParentId() const { return this->m_parent_id; }
 
 		void setId(uint32_t id) { this->m_id = id; }
-		void setParentId(int32_t id) { this->m_parentId = id; }
+		void setParentId(int32_t id) { this->m_parent_id = id; }
 
 		sf::Sprite& getSprite() { return this->m_sprite; }	
 		sf::Texture& getTexture() { return *this->m_texture; }

@@ -151,6 +151,9 @@
     <Filter Include="src\data\engine">
       <UniqueIdentifier>{7a5a6dea-281f-4d88-aea8-91d046ba54c2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\spriteComponents\spriteRenderer">
+      <UniqueIdentifier>{06689324-67c3-4e41-b617-b15053c96032}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\include\imgui\imgui.cpp">
@@ -313,6 +316,7 @@
     <ClCompile Include="src\manager\guiRepository.cpp">
       <Filter>src\manager</Filter>
     </ClCompile>
+    <ClCompile Include="src\spriteComponents\spriteRenderer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\include\imgui\imconfig.h">
@@ -804,6 +808,10 @@
     <ClInclude Include="src\manager\guiRepository.h">
       <Filter>src\manager</Filter>
     </ClInclude>
+    <ClInclude Include="src\spriteComponents\component.h">
+      <Filter>src\spriteComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="src\spriteComponents\spriteRenderer.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="src\include\SFML\System\Vector3.inl">

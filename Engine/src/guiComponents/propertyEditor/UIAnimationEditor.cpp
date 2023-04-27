@@ -168,7 +168,7 @@ void s2d::UIAnimationEditor::addKeyFrame()
 	{
 		if (this->m_ptr_repo->sprite_in_inspector != nullptr)
 		{
-			this->keyFrameAdder.keyFramePath = this->m_ptr_repo->sprite_in_inspector->path;
+			this->keyFrameAdder.keyFramePath = this->m_ptr_repo->sprite_in_inspector->sprite_renderer.path;
 		}
 		this->keyFrameAdder.isKeyFrameMenuOpen = true;
 		this->keyFrameAdder.setAnimation(this->m_anim);

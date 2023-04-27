@@ -129,10 +129,10 @@ s2d::Sprite* s2d::UIRealTimeEditorTransformPosition::checkIfMouseClickedOnSprite
 
     for (s2d::Sprite* sp : spr)
     {
-        if (sp->sortingLayerIndex >= highest)
+        if (sp->sprite_renderer.sorting_layer_index >= highest)
         {
             name = sp->name;
-            highest = sp->sortingLayerIndex;
+            highest = sp->sprite_renderer.sorting_layer_index;
         }
     }
 

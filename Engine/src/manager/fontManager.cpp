@@ -72,7 +72,7 @@ bool s2d::FontManager::displaySymbolInTreeNode(const char* symbol, std::string n
 	name = whiteSpaces.c_str();
 	if(openNode)
 		ImGui::SetNextItemOpen(true);
-	return ImGui::TreeNode(name.c_str());
+	return ImGui::TreeNodeEx(name.c_str(), ImGuiTreeNodeFlags_OpenOnArrow);
 }
 
 bool s2d::FontManager::displaySymbolInMenuItem(const char* symbol, std::string name)

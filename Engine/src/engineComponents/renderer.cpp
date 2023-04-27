@@ -61,7 +61,7 @@ void s2d::Renderer::drawSprites()
         for (size_t j = 0; j < this->m_spriteRepository->amount(); j++)
         {
             s2d::Sprite* const sprite = this->m_spriteRepository->readAt(j);
-            if (sprite->sortingLayerIndex == i)
+            if (sprite->sprite_renderer.sorting_layer_index == i)
             {
                 sprite->transform.updateTransformPosition();
                 this->m_ptr_renderWindow->draw(sprite->getSprite());
@@ -91,7 +91,7 @@ void s2d::Renderer::updateSriteTextures()
     for (int i = 0; i < this->m_spriteRepository->amount(); i++)
     {
         s2d::Sprite* const sprite = this->m_spriteRepository->readAt(i);
-        sprite->setSpriteTexture(sprite->path);
+        sprite->setSpriteTexture(sprite->sprite_renderer.path);
     }
 }
 

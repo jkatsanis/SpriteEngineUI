@@ -3,11 +3,11 @@
 
 #include <engineComponents/input.h>
 
-// Constructor
+// Constructor / Destructor
 
 s2d::Animation::Animation(Sprite* ptr_appliedSprite, const std::string& name, const std::string fileLocation, const std::vector<s2d::KeyFrame>& frames)
 {
-	this->m_basePath = ptr_appliedSprite->path;
+	this->m_basePath = ptr_appliedSprite->sprite_renderer.path;
 	this->m_pathToFile = fileLocation;
 	this->timePassed = 2.0f;
 	this->currentFrame = -1;
@@ -28,19 +28,7 @@ s2d::Animation::Animation(Sprite* ptr_appliedSprite, const std::string& name, co
 	this->setVectorSizes();
 }
 
-//Private methods
-
-void s2d::Animation::setVectorSizes()
-{
-	this->m_textures = std::vector<sf::Texture>(this->m_keyFrames.size());
-
-	for (int i = 0; i < this->m_keyFrames.size(); i++)
-	{
-		this->m_textures[i].loadFromFile(this->m_keyFrames[i].path);
-	}
-}
-
-//Public methods
+// Public methods
 
 void s2d::Animation::deleteKeyFrame(const int pos)
 {
@@ -71,7 +59,7 @@ void s2d::Animation::play()
 {
 	this->currentFrame = 0;
 	this->isPlaying = true;
-	this->m_basePath = this->ptr_appliedSprite->path;
+	this->m_basePath = this->ptr_appliedSprite->sprite_renderer.path;
 }
 
 void s2d::Animation::update()
@@ -85,7 +73,7 @@ void s2d::Animation::update()
 	{
 		this->timePassed = 0;
 		this->ptr_appliedSprite->setSpriteTexture(this->m_textures[currentFrame], this->m_keyFrames[currentFrame].path);
-		this->currentFrame++;		
+		this->currentFrame++;
 		if (this->currentFrame == this->m_keyFrames.size())
 		{
 			this->currentFrame = 0;
@@ -133,17 +121,28 @@ void s2d::Animation::addKeyFrameAt(const int vecpos, const s2d::KeyFrame& frame)
 		return;
 	}
 
-	this->m_basePath = this->ptr_appliedSprite->path;
+	this->m_basePath = this->ptr_appliedSprite->sprite_renderer.path;
 	this->m_keyFrames.insert(this->m_keyFrames.begin() + vecpos, frame);
 	this->m_textures.insert(this->m_textures.begin() + vecpos, text);
 }
 
-void s2d::Animation::updateAllAnimations(s2d::SpriteRepository& toUpdate)
+void s2d::Animation::updateAllAnimations(s2d::SpriteRepository& repo)
 {
-	for (int i = 0; i < toUpdate.amount(); i++)
+	for (int i = 0; i < repo.amount(); i++)
 	{
-		s2d::Sprite* const sprite = toUpdate.readAt(i);
+		s2d::Sprite* const sprite = repo.readAt(i);
 		sprite->animator.update();
 	}
 }
 
+//Private methods
+
+void s2d::Animation::setVectorSizes()
+{
+	this->m_textures = std::vector<sf::Texture>(this->m_keyFrames.size());
+
+	for (int i = 0; i < this->m_keyFrames.size(); i++)
+	{
+		this->m_textures[i].loadFromFile(this->m_keyFrames[i].path);
+	}
+}

@@ -2,15 +2,16 @@
 
 #include <SFML/Graphics.hpp>
 #include <calculationComponents/vector2.h>
+#include <spriteComponents/component.h>
 
 namespace s2d
 {
 	class Sprite;
-	class BoxCollider
+	class BoxCollider : public s2d::Component
 	{
+	private:
+		void init() override;
 	public:
-		//Gets set when we create a box collider in the UI inspector
-		bool exists;
 		bool isSolid;
 		bool canCollide;
 
@@ -25,7 +26,7 @@ namespace s2d
 		//Giving it a pointer, so we dont have to update it consistently
 		BoxCollider(s2d::Sprite* ptr_sprite);
 	
-		void resetBoxCollider();
+		void reset() override;
 	};
 }
 

@@ -53,7 +53,7 @@ void s2d::Sprite::clearParentData()
 		this->parent->removeChild(this);
 		this->parent = nullptr;
 	}
-	this->m_parentId = 0;
+	this->m_parent_id = 0;
 }
 
 void s2d::Sprite::setSpriteTexture(const std::string& path)
@@ -70,7 +70,7 @@ void s2d::Sprite::setSpriteTexture(const sf::Texture& texture, const std::string
 	this->m_sprite.setTexture(texture, true);
 	this->transform.setScale(this->transform.getScale(), true);
 
-	this->path = path;
+	this->sprite_renderer.path = path;
 }
 
 void s2d::Sprite::setSpriteTexture(const std::string& path, const s2d::Vector2& scale)
@@ -80,7 +80,7 @@ void s2d::Sprite::setSpriteTexture(const std::string& path, const s2d::Vector2& 
 		std::cout << "LOG: [ERROR] File was not found!";
 	}
 	this->m_sprite.setTexture(*this->m_texture);
-	this->path = path;
+	this->sprite_renderer.path = path;
 	this->transform.setScale(scale, true);
 }
 
@@ -97,7 +97,7 @@ void s2d::Sprite::setParent(s2d::Sprite* parent)
 		this->parent->removeChild(this);
 		this->parent = nullptr;
 	}
-	this->m_parentId = parent->getId();
+	this->m_parent_id = parent->getId();
 	this->parent = parent;
 	parent->ptr_childs.push_back(this);
 }
@@ -177,16 +177,16 @@ void s2d::Sprite::initVariables(std::string& name, s2d::Vector2& spawnPos, std::
 
 	this->m_texture = new sf::Texture();
 	this->transform = s2d::Transform(this);
-	this->m_parentId = 0;
+	this->m_parent_id = 0;
 	this->parent = nullptr;
 	this->ptr_childs = std::vector<s2d::Sprite*>(0);
 
 	this->name = name;
-	this->path = path;
+	this->sprite_renderer.path = path;
 	this->transform.position = spawnPos;	
 	this->transform.lastPos = s2d::Vector2(0, 0);
 	this->transform.nextPos = this->transform.position;
-	this->sortingLayerIndex = 0;
+	this->sprite_renderer.sorting_layer_index = 0;
 	this->animator = s2d::Animator(this);
 
 	sf::Sprite sprite;

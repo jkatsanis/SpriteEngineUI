@@ -156,6 +156,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\spriteComponents\spriteRenderer.cpp" />
     <ClCompile Include="src\manager\guiRepository.cpp" />
     <ClCompile Include="src\manager\spriteRepository.cpp" />
     <ClCompile Include="src\spriteComponents\prefab.cpp" />
@@ -212,6 +213,8 @@
     <ClCompile Include="src\guiComponents\propertyEditor\UIAssetTools.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\spriteComponents\spriteRenderer.h" />
+    <ClInclude Include="src\spriteComponents\component.h" />
     <ClInclude Include="src\manager\guiRepository.h" />
     <ClInclude Include="src\manager\spriteRepository.h" />
     <ClInclude Include="src\spriteComponents\prefab.h" />

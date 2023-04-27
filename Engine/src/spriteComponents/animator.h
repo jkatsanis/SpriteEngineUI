@@ -7,6 +7,9 @@
 #include <spriteComponents/keyFrame.h>
 #include <manager/spriteRepository.h>
 #include <unordered_map>
+#include <spriteComponents/component.h>
+
+#define EXIST_COMPONENT if (!this->exist) return
 
 namespace s2d
 {
@@ -17,11 +20,12 @@ namespace s2d
 	};
 
 	class Sprite;
-	class Animator
+	class Animator : public s2d::Component
 	{
+	private:
+		void init() override;
 	public:
 		AnimationPlaying animationPlaying;
-		bool exists;
 		Sprite* ptr_attachedSprite;
 		std::unordered_map<std::string, Animation> animations;
 
@@ -36,7 +40,7 @@ namespace s2d
 
 		void update();
 
-		void resetComponent();
+		void reset() override;
 
 	public:
 

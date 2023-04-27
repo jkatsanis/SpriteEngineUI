@@ -23,8 +23,6 @@ void s2d::UIInspector::init()
 	this->m_components.push_back("PhysicsBody");
 	this->m_components.push_back("Animator");
 	this->m_components.push_back("Prefab");
-
-	this->cnt = 1;
 }
 
 //Private functions
@@ -47,8 +45,6 @@ void s2d::UIInspector::render()
 	// Left arrow
 	this->renderOptions();
 
-	this->cnt = 1;
-
 	if (this->m_ptr_sprite_repo->sprite_in_inspector != nullptr)
 	{
 		// Handle a sprite
@@ -69,6 +65,23 @@ void s2d::UIInspector::render()
 	ImGui::SetWindowFontScale(s2d::UIInfo::s_default_font_size);
 	ImGui::SetWindowSize(this->m_window_size);
 	ImGui::End();
+}
+
+void s2d::UIInspector::renderComponentOptions(s2d::Component& component)
+{
+	if (ImGui::Button("CLick"))
+	{
+		component.reset();
+	}
+}
+
+void s2d::UIInspector::drawRectangleOverCurrentObject()
+{
+	s2d::GameObject::rects[0].setOutlineColor(sf::Color(0, 0, 0));
+	s2d::GameObject::rects[0].setOutlineThickness(3.5f);
+	s2d::GameObject::rects[0].setSize(sf::Vector2f(this->m_ptr_sprite_repo->sprite_in_inspector->transform.textureSize.x, this->m_ptr_sprite_repo->sprite_in_inspector->transform.textureSize.y));
+	s2d::GameObject::rects[0].setPosition(this->m_ptr_sprite_repo->sprite_in_inspector->getOrigininalPosition().x, this->m_ptr_sprite_repo->sprite_in_inspector->getOrigininalPosition().y);
+	s2d::GameObject::rects[0].setTexture(&this->m_texture_over_sprite);
 }
 
 void s2d::UIInspector::renderOptions()
@@ -137,6 +150,15 @@ void s2d::UIInspector::checkDupeName()
 			this->m_ptr_sprite_repo->dupeNameCounter++;
 		}
 	}
+}
+
+void s2d::UIInspector::drawBackgroundBehindComponent()
+{
+	const ImVec2 temp = ImGui::GetCursorPos();
+	ImGui::SetCursorPosX(1920 - this->m_window_size.x);
+	ImGui::SetCursorPosY(ImGui::GetCursorPosY() + 76);
+	s2d::UI::drawRectangleInGUIWIndow(ImVec2(this->m_window_size.x, 27), ImGui::GetCursorPos(), COMPONENT_SELECTED_COLOR);
+	ImGui::SetCursorPos(temp);
 }
 
 #pragma region  defaultInspectorView
@@ -232,37 +254,103 @@ void s2d::UIInspector::gameEngineViewSetting()
 
 #pragma region Component displaayer
 
+void s2d::UIInspector::setCompontents()
+{
+	if (this->m_current_component_selected == "BoxCollider")
+	{
+		this->m_ptr_sprite_repo->sprite_in_inspector->collider.exist = true;
+		this->m_current_component_selected = " ";
+	}
+	if (this->m_current_component_selected == "PhysicsBody")
+	{
+		this->m_ptr_sprite_repo->sprite_in_inspector->physicsBody.exist = true;
+		this->m_current_component_selected = " ";
+	}
+	if (this->m_current_component_selected == "Animator")
+	{
+		this->m_ptr_sprite_repo->sprite_in_inspector->animator.exist = true;
+		this->m_current_component_selected = " ";
+	}
+	if (this->m_current_component_selected == "Prefab")
+	{
+		this->m_ptr_sprite_repo->sprite_in_inspector->prefab.exists = true;
+		this->m_current_component_selected = " ";
+	}
+}
+
+void s2d::UIInspector::componentSelector()
+{
+	const ImVec2 temp = ImGui::GetCursorPos();
+	ImGui::SetCursorPosY(38.5f);
+	ImGui::SetCursorPosX(ImGui::GetWindowContentRegionMax().x - SEARCH_BAR_MARGIN);
+	ImGui::SetNextItemWidth(150);
+	static char input_buffer[255];
+	strcpy_s(input_buffer, this->m_ptr_sprite_repo->sprite_in_inspector->name.c_str());
+	ImGui::InputText("##input-sprite-name", input_buffer, 255);
+
+	if (input_buffer[0] != '\0')
+	{
+		this->m_ptr_sprite_repo->sprite_in_inspector->name = std::string(input_buffer);
+	}
+	ImGui::SetCursorPos(temp);
+
+	ImGui::SetCursorPosY(ImGui::GetCursorPosY() + 20);
+	ImGui::SetCursorPosX(ImGui::GetWindowContentRegionMax().x - ADD_COMPONENTS_MARGIN);
+	ImGui::SetNextItemWidth(250);
+	if (ImGui::BeginCombo("##Components", "Add Components"))
+	{
+		for (int i = 0; i < this->m_components.size(); i++)
+		{
+			bool is_selected = (this->m_current_component_selected == this->m_components[i]);
+			if (ImGui::Selectable(this->m_components[i], is_selected))
+			{
+				this->m_current_component_selected = this->m_components[i];
+			}
+			if (is_selected)
+			{
+				ImGui::SetItemDefaultFocus();
+			}
+		}
+		ImGui::EndCombo();
+	}
+}
+
 void s2d::UIInspector::setupComponents()
 {
 	ImGui::Dummy(ImVec2(0, 15));
 	if (this->m_search_component_filter.PassFilter("Transform"))
 	{
 		this->transformComponent();
+		DUMMY_COMPONENT;
 	}
 	if (this->m_search_component_filter.PassFilter("Sprite Renderer"))
 	{
 		this->spriteRendererComponent();
+		DUMMY_COMPONENT;
 	}
 
 	//Collider
-	if (this->m_ptr_sprite_repo->sprite_in_inspector->collider.exists
+	if (this->m_ptr_sprite_repo->sprite_in_inspector->collider.exist
 		&& this->m_search_component_filter.PassFilter(this->m_components[0]))
 	{
 		this->boxColliderComponent();
+		DUMMY_COMPONENT;
 	}
 
 	//PhysicsBody
-	if (this->m_ptr_sprite_repo->sprite_in_inspector->physicsBody.exists
+	if (this->m_ptr_sprite_repo->sprite_in_inspector->physicsBody.exist
 		&& this->m_search_component_filter.PassFilter(this->m_components[1]))
 	{
 		this->physicsBodyComponent();
+		DUMMY_COMPONENT;
 	}
 
 	//Animator
-	if (this->m_ptr_sprite_repo->sprite_in_inspector->animator.exists
+	if (this->m_ptr_sprite_repo->sprite_in_inspector->animator.exist
 		&& this->m_search_component_filter.PassFilter(this->m_components[2]))
 	{
 		this->animatorComponent();
+		DUMMY_COMPONENT;
 	}
 
 	// Prefab
@@ -274,31 +362,6 @@ void s2d::UIInspector::setupComponents()
 
 	this->componentSelector();
 	this->setCompontents();
-}
-
-void s2d::UIInspector::drawRectangleOverCurrentObject()
-{
-	s2d::GameObject::rects[0].setOutlineColor(sf::Color(0, 0, 0));
-	s2d::GameObject::rects[0].setOutlineThickness(3.5f);
-	s2d::GameObject::rects[0].setSize(sf::Vector2f(this->m_ptr_sprite_repo->sprite_in_inspector->transform.textureSize.x, this->m_ptr_sprite_repo->sprite_in_inspector->transform.textureSize.y));
-	s2d::GameObject::rects[0].setPosition(this->m_ptr_sprite_repo->sprite_in_inspector->getOrigininalPosition().x, this->m_ptr_sprite_repo->sprite_in_inspector->getOrigininalPosition().y);
-	s2d::GameObject::rects[0].setTexture(&this->m_texture_over_sprite);
-}
-
-void s2d::UIInspector::drawBackgroundBehindComponent()
-{
-	if (this->cnt < 1)
-	{
-		this->cnt++;
-		return;
-	}
-	this->cnt = 0;
-
-	const ImVec2 temp = ImGui::GetCursorPos();
-	ImGui::SetCursorPosX(1920 - this->m_window_size.x);
-	ImGui::SetCursorPosY(ImGui::GetCursorPosY() + 73);
-	s2d::UI::drawRectangleInGUIWIndow(ImVec2(this->m_window_size.x, 20), ImGui::GetCursorPos(), COMPONENT_SELECTED_COLOR);
-	ImGui::SetCursorPos(temp);
 }
 
 void s2d::UIInspector::transformComponent()
@@ -344,7 +407,7 @@ void s2d::UIInspector::transformComponent()
 
 		s2d::Vector2 temp_scale = this->m_ptr_sprite_repo->sprite_in_inspector->transform.getScale();
 
-		ImGui::Dummy(ImVec2(0, 3));
+		ImGui::Dummy(ImVec2(0, 10));
 		inputXY("Scale", temp_scale.x, temp_scale.y, x, y);
 
 		this->m_ptr_sprite_repo->sprite_in_inspector->transform.setScale(temp_scale);
@@ -356,10 +419,11 @@ void s2d::UIInspector::transformComponent()
 
 void s2d::UIInspector::spriteRendererComponent()
 {
+	this->drawBackgroundBehindComponent();
 	//Setting Sprite Renderer Component
 	if (ImGui::TreeNode("Sprite Renderer"))
 	{
-		std::string input = s2d::UIInspector::getNamePathSplit(this->m_ptr_sprite_repo->sprite_in_inspector->path);
+		std::string input = s2d::UIInspector::getNamePathSplit(this->m_ptr_sprite_repo->sprite_in_inspector->sprite_renderer.path);
 		this->m_sprite_name = this->m_ptr_sprite_repo->sprite_in_inspector->name;
 
 		float y = ImGui::GetCursorPos().y;
@@ -384,7 +448,7 @@ void s2d::UIInspector::spriteRendererComponent()
 		ImGui::Text("Sorting Layer");
 		ImGui::SameLine();
 		ImGui::PushItemWidth(42.0f);
-		int32_t layerIndex = this->m_ptr_sprite_repo->sprite_in_inspector->sortingLayerIndex;
+		int32_t layerIndex = this->m_ptr_sprite_repo->sprite_in_inspector->sprite_renderer.sorting_layer_index;
 		ImGui::InputInt("##Sorting Layer", &layerIndex, 0, 0);
 		ImGui::PopItemWidth();
 
@@ -392,7 +456,7 @@ void s2d::UIInspector::spriteRendererComponent()
 		{
 			layerIndex = 0;
 		}
-		this->m_ptr_sprite_repo->sprite_in_inspector->sortingLayerIndex = layerIndex;
+		this->m_ptr_sprite_repo->sprite_in_inspector->sprite_renderer.sorting_layer_index = layerIndex;
 
 		ImGui::Dummy(ImVec2(0, 7));
 		ImGui::TreePop();
@@ -407,11 +471,13 @@ void s2d::UIInspector::boxColliderComponent()
 	ImGui::SetCursorPos(ImVec2(x += 320, y -= 4));
 	if (s2d::FontManager::displaySmybolAsButton(ICON_FA_TRASH))
 	{
-		this->m_ptr_sprite_repo->sprite_in_inspector->collider.resetBoxCollider();
+		this->m_ptr_sprite_repo->sprite_in_inspector->collider.reset();
 	}
 	else
 	{
 		ImGui::SetCursorPos(ImVec2(x -= 320, y += 4));
+		this->drawBackgroundBehindComponent();
+		this->renderComponentOptions(this->m_ptr_sprite_repo->sprite_in_inspector->collider);
 		if (ImGui::TreeNode("BoxCollider"))
 		{
 			ImGui::Dummy(ImVec2(0, 4));
@@ -444,12 +510,12 @@ void s2d::UIInspector::physicsBodyComponent()
 	ImGui::SetCursorPos(ImVec2(x += 320, y -= 5));
 	if (s2d::FontManager::displaySmybolAsButton(ICON_FA_TRASH "##Physicsbody"))
 	{
-		this->m_ptr_sprite_repo->sprite_in_inspector->physicsBody.resetPhysicsBody();
+		this->m_ptr_sprite_repo->sprite_in_inspector->physicsBody.reset();
 	}
 	else
 	{
 		ImGui::SetCursorPos(ImVec2(x -= 320, y += 5));
-
+		this->drawBackgroundBehindComponent();
 		if (ImGui::TreeNode("PhysicsBody"))
 		{
 			ImGui::Dummy(ImVec2(0, 5));
@@ -481,43 +547,6 @@ void s2d::UIInspector::physicsBodyComponent()
 	}
 }
 
-void s2d::UIInspector::componentSelector()
-{
-	const ImVec2 temp = ImGui::GetCursorPos();
-	ImGui::SetCursorPosY(38.5f);
-	ImGui::SetCursorPosX(ImGui::GetWindowContentRegionMax().x - SEARCH_BAR_MARGIN);
-	ImGui::SetNextItemWidth(150);
-	static char input_buffer[255];
-	strcpy_s(input_buffer, this->m_ptr_sprite_repo->sprite_in_inspector->name.c_str());
-	ImGui::InputText("##input-sprite-name", input_buffer, 255);
-
-	if (input_buffer[0] != '\0')
-	{
-		this->m_ptr_sprite_repo->sprite_in_inspector->name = std::string(input_buffer);
-	}
-	ImGui::SetCursorPos(temp);
-
-	ImGui::SetCursorPosY(ImGui::GetCursorPosY() + 20);
-	ImGui::SetCursorPosX(ImGui::GetWindowContentRegionMax().x - ADD_COMPONENTS_MARGIN);
-	ImGui::SetNextItemWidth(250);
-	if (ImGui::BeginCombo("##Components", "Add Components"))
-	{
-		for (int i = 0; i < this->m_components.size(); i++)
-		{
-			bool is_selected = (this->m_current_component_selected == this->m_components[i]);
-			if (ImGui::Selectable(this->m_components[i], is_selected))
-			{
-				this->m_current_component_selected = this->m_components[i];
-			}
-			if (is_selected)
-			{
-				ImGui::SetItemDefaultFocus();
-			}
-		}
-		ImGui::EndCombo();
-	}
-}
-
 void s2d::UIInspector::animatorComponent()
 {
 	float y = ImGui::GetCursorPos().y;
@@ -525,12 +554,12 @@ void s2d::UIInspector::animatorComponent()
 	ImGui::SetCursorPos(ImVec2(x += 320, y -= 4));
 	if (s2d::FontManager::displaySmybolAsButton(ICON_FA_TRASH "##animator"))
 	{
-		this->m_ptr_sprite_repo->sprite_in_inspector->animator.resetComponent();
+		this->m_ptr_sprite_repo->sprite_in_inspector->animator.reset();
 	}
 	else
 	{
 		ImGui::SetCursorPos(ImVec2(x -= 320, y += 4));
-
+		this->drawBackgroundBehindComponent();
 		if (ImGui::TreeNode("Animator"))
 		{
 			float y = ImGui::GetCursorPos().y;
@@ -567,7 +596,7 @@ void s2d::UIInspector::prefabComponent()
 	else
 	{
 		ImGui::SetCursorPos(ImVec2(x -= 320, y += 4));
-
+		this->drawBackgroundBehindComponent();
 		if (ImGui::TreeNode("Prefab"))
 		{
 			ImGui::SetCursorPos(ImVec2(x += 45, y += 40));
@@ -587,30 +616,6 @@ void s2d::UIInspector::prefabComponent()
 			ImGui::Checkbox("##LoadInMemory", &this->m_ptr_sprite_repo->sprite_in_inspector->prefab.loadInMemory);
 			ImGui::TreePop();
 		}
-	}
-}
-
-void s2d::UIInspector::setCompontents()
-{
-	if (this->m_current_component_selected == "BoxCollider")
-	{
-		this->m_ptr_sprite_repo->sprite_in_inspector->collider.exists = true;
-		this->m_current_component_selected = " ";
-	}
-	if (this->m_current_component_selected == "PhysicsBody")
-	{
-		this->m_ptr_sprite_repo->sprite_in_inspector->physicsBody.exists = true;
-		this->m_current_component_selected = " ";
-	}
-	if (this->m_current_component_selected == "Animator")
-	{
-		this->m_ptr_sprite_repo->sprite_in_inspector->animator.exists = true;
-		this->m_current_component_selected = " ";
-	}
-	if (this->m_current_component_selected == "Prefab")
-	{
-		this->m_ptr_sprite_repo->sprite_in_inspector->prefab.exists = true;
-		this->m_current_component_selected = " ";
 	}
 }
 
