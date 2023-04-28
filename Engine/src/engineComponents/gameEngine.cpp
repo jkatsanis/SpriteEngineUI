@@ -4,19 +4,20 @@
 
 s2d::GameEngine::GameEngine()
 {
-     this->m_UIWindow.init(this->m_spriteRepository);
+    this->m_UIWindow.init(this->m_spriteRepository);
     this->m_close = false;
     this->ptr_renderWindow = new sf::RenderWindow(sf::VideoMode(1920, 1080), "SpriteEngine", sf::Style::Default);
     this->windowEvent.type = sf::Event::GainedFocus;
-    this->m_renderer = s2d::Renderer(this->ptr_renderWindow, &this->m_UIWindow.getInspector().background_color, this->m_spriteRepository);
+    this->m_renderer = s2d::Renderer(this->ptr_renderWindow, &this->m_UIWindow.getInspector().background_color, this->m_spriteRepository, this->m_UIWindow.gui_repository);
 
     auto desktop = sf::VideoMode::getDesktopMode();
     this->ptr_renderWindow->setPosition(sf::Vector2i(desktop.width / 2 - this->ptr_renderWindow->getSize().x / 2, 0));
     this->m_isWindowFullScreen = false;
 
     this->m_UIRealTimeEditor = s2d::UIRealTimeEditor(*ptr_renderWindow, &this->windowEvent, &this->m_UIWindow.ary_any_windows_hovered,
-        &this->m_UIWindow.getInspector().state, &this->event, this->m_spriteRepository);
-    
+        &this->m_UIWindow.getInspector().state, &this->event, this->m_spriteRepository, this->m_UIWindow.gui_repository);
+    this->m_UIWindow.gui_repository.camera = s2d::Camera(this->ptr_renderWindow);
+
     //Setting other classes
     s2d::Initializer::initSprites(this->m_spriteRepository);
     s2d::Initializer::initAnimations(this->m_spriteRepository);
@@ -25,6 +26,7 @@ s2d::GameEngine::GameEngine()
     s2d::Initializer::initIds(this->m_spriteRepository.highestSpriteId);
     s2d::UI::setRenderWindow(this->ptr_renderWindow);
     s2d::UI::setS2DEvent(&this->event);
+    s2d::Initializer::initCamera(this->m_UIWindow.gui_repository);
     //End
 
     ImGui::SFML::Init(*this->ptr_renderWindow);
@@ -141,7 +143,7 @@ void s2d::GameEngine::saveDialoge()
             const ImVec2 CURSOR_POS = ImGui::GetCursorPos();
             if (ImGui::Button("Save"))
             {
-                s2d::flc::saveEverything(this->m_UIWindow.getInspector().background_color, this->m_spriteRepository);
+                s2d::flc::saveEverything(this->m_UIWindow.getInspector().background_color, this->m_spriteRepository, this->m_UIWindow.gui_repository);
                 this->ptr_renderWindow->close();
                 return;
             }

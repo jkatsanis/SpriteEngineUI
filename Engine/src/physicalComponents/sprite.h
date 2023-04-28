@@ -6,7 +6,6 @@
 #include <string>
 #include <data/spriteData.h>
 #include <stdExtension.h>
-#include <physicalComponents/gameObject.h>
 #include <spriteComponents/boxCollider.h>
 #include <SFML/Graphics.hpp>
 #include <spriteComponents/physicsBody.h>
@@ -15,6 +14,7 @@
 #include <spriteComponents/prefab.h>
 #include <manager/spriteRepository.h>
 #include <spriteComponents/spriteRenderer.h>
+#include <spriteComponents/stransform.h>
 
 #define INVALID_SPRITE_SYMBOLS 1
 

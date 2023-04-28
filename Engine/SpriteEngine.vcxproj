@@ -173,7 +173,6 @@
     <ClCompile Include="src\spriteComponents\physicsBody.cpp" />
     <ClCompile Include="src\physicalComponents\camera.cpp" />
     <ClCompile Include="src\spriteComponents\boxCollider.cpp" />
-    <ClCompile Include="src\physicalComponents\gameObject.cpp" />
     <ClCompile Include="src\physicalComponents\line.cpp" />
     <ClCompile Include="src\engineComponents\input.cpp" />
     <ClCompile Include="src\data\spriteData.cpp" />
@@ -236,7 +235,6 @@
     <ClInclude Include="src\spriteComponents\physicsBody.h" />
     <ClInclude Include="src\physicalComponents\camera.h" />
     <ClInclude Include="src\spriteComponents\boxCollider.h" />
-    <ClInclude Include="src\physicalComponents\gameObject.h" />
     <ClInclude Include="src\physicalComponents\line.h" />
     <ClInclude Include="src\engineComponents\input.h" />
     <ClInclude Include="src\data\spriteData.h" />

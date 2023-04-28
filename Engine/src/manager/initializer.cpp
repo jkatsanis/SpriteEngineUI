@@ -2,6 +2,37 @@
 
 // public static functions
 
+void s2d::Initializer::initCamera(s2d::GUIRepository& repo)
+{
+	std::fstream cameraFile;
+
+	//opening the file where all sprite data is
+	cameraFile.open(PATH_TO_CAMERA_FILE, std::ios::in);
+	if (cameraFile.is_open())
+	{
+		std::string line;
+		int cnt = 0;
+		while (std::getline(cameraFile, line))
+		{
+			cnt++;
+			//First line is the header so we dont need to check for it
+			if (cnt == 1)
+			{
+				continue;
+			}
+
+			//Splitting line
+			std::string delimiter = ";";
+			std::vector<std::string> propertys = std::splitString(line, delimiter);
+
+			//INITIIALIZING PROPS
+			repo.camera.transform.position.x = std::stof(propertys[0].c_str());
+			repo.camera.transform.position.y = std::stof(propertys[1].c_str());
+			repo.camera.cameraZoom = std::stof(propertys[2].c_str());
+		}
+		cameraFile.close();
+	}
+}
 void s2d::Initializer::initAnimations(s2d::SpriteRepository& repo)
 {
 	std::fstream knownAnimationFileStream;

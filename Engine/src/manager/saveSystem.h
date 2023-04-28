@@ -22,7 +22,7 @@ namespace s2d
 {
 	namespace flc
 	{
-		void saveEverything(const s2d::Vector3& bg, s2d::SpriteRepository& toSave);
+		void saveEverything(const s2d::Vector3& bg, s2d::SpriteRepository& toSave, s2d::GUIRepository& gui_repo);
 
 		void createSaveFile(const SpriteRepository& spriteRepo);
 		void createWindowBackgroundSaveFile(const s2d::Vector3 windowBackground);

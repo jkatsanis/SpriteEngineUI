@@ -198,9 +198,6 @@
     <ClCompile Include="src\physicalComponents\camera.cpp">
       <Filter>src\physicalComponents\camera</Filter>
     </ClCompile>
-    <ClCompile Include="src\physicalComponents\gameObject.cpp">
-      <Filter>src\physicalComponents\gameObject</Filter>
-    </ClCompile>
     <ClCompile Include="src\physicalComponents\sprite.cpp">
       <Filter>src\physicalComponents\sprite</Filter>
     </ClCompile>
@@ -677,9 +674,6 @@
     </ClInclude>
     <ClInclude Include="src\engineComponents\event.h">
       <Filter>src\engineComponents\event</Filter>
-    </ClInclude>
-    <ClInclude Include="src\physicalComponents\gameObject.h">
-      <Filter>src\physicalComponents\gameObject</Filter>
     </ClInclude>
     <ClInclude Include="src\engineComponents\gameEngine.h">
       <Filter>src\engineComponents\engjne</Filter>

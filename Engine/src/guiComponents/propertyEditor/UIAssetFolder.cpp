@@ -309,12 +309,12 @@ void s2d::UIAssetFolder::renderFilesWithChildWindow(const std::string& name, con
     if (textSizeX > 80)
     {
         // To big text size
-        for (int i = 0; i < withoutExt.size() / 2; i++)
+        for (size_t i = 0; i < withoutExt.size() / 2; i++)
         {
             newTextWraped += withoutExt[i];
         }
         newTextWraped += " -\n";
-        for (int i = withoutExt.size() / 2; i < withoutExt.size(); i++)
+        for (size_t i = withoutExt.size() / 2; i < withoutExt.size(); i++)
         {
             newTextWraped += withoutExt[i];
         }

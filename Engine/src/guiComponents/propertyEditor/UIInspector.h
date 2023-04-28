@@ -5,7 +5,6 @@
 #include <stdExtension.h>
 #include <SFML/Graphics.hpp>
 #include <calculationComponents/vector3.h>
-#include <physicalComponents/gameObject.h>
 #include <UIInspectorBoxCollider.h>
 #include <data/UIInfo.h>
 #include <UIAssetFolder.h>
@@ -34,14 +33,16 @@ namespace s2d
 	class UIInspector
 	{
 	private:
-		s2d::ResizeWindowData m_resize_window_data;
+		// gui repo (rectangles)
 		s2d::GUIRepository* m_ptr_gui_repo;
+		s2d::Rectangle* m_ptr_collider_rectangle;
+		s2d::Rectangle* m_ptr_sprite_over_rectangle;
+
+		s2d::ResizeWindowData m_resize_window_data;
 		s2d::SpriteRepository* m_ptr_sprite_repo;
 		std::string m_menu_name;
 		std::string m_sprite_name;
-		sf::RectangleShape m_rectangle;
-		sf::RectangleShape m_box_collider;
-		sf::Texture m_texture_over_sprite;
+;
 		ImGuiTextFilter m_search_component_filter;
 		ImVec2 m_window_size;
 		ImVec2 m_pop_up_cursor_pos;
@@ -72,7 +73,8 @@ namespace s2d
 		void backgroundSetting();
 		void gameEngineViewSetting();
 		void checkDupeName();
-		void init();
+		void preInit();
+		void afterInit();
 		void renderComponentOptions(s2d::Component& component, const std::string& name);
 
 	public:

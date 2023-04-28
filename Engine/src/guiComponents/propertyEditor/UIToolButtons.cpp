@@ -93,7 +93,7 @@ void s2d::UIToolButtons::buildProjectIntoFolder()
 	{
 		if (ImGui::MenuItem("Save", "CTRL + S"))
 		{
-			s2d::flc::saveEverything(this->m_window_background_to_save, *this->m_ptr_repo);
+			s2d::flc::saveEverything(this->m_window_background_to_save, *this->m_ptr_repo, *this->m_ptr_gui_repo);
 		}	
 		if (ImGui::MenuItem("Build", "CTRL + B"))
 		{
@@ -130,7 +130,7 @@ void s2d::UIToolButtons::hotkeys()
 	if (s2d::Input::onKeyHold(s2d::KeyBoardCode::LControl)
 		&& s2d::Input::onKeyPress(s2d::KeyBoardCode::S))
 	{
-		s2d::flc::saveEverything(this->m_window_background_to_save, *this->m_ptr_repo);
+		s2d::flc::saveEverything(this->m_window_background_to_save, *this->m_ptr_repo, *this->m_ptr_gui_repo);
 	}
 
 	if (s2d::Input::onKeyHold(s2d::KeyBoardCode::LControl)
@@ -142,7 +142,7 @@ void s2d::UIToolButtons::hotkeys()
 
 void s2d::UIToolButtons::build()
 {
-	s2d::flc::saveEverything(this->m_window_background_to_save, *this->m_ptr_repo);
+	s2d::flc::saveEverything(this->m_window_background_to_save, *this->m_ptr_repo, *this->m_ptr_gui_repo);
 	const std::string PATH = s2d::EngineData::s_path_to_user_project + "\\" + s2d::EngineData::s_nameOfUserProject;
 	const std::filesystem::path TARGET_PATH = s2d::EngineData::s_path_to_user_project + "\\" + s2d::EngineData::s_nameOfUserProject;
 	const std::filesystem::path FILES_IN_FOLDER[FILE_AMOUNT] =
@@ -176,7 +176,7 @@ void s2d::UIToolButtons::playGameButton()
 {
 	if (s2d::FontManager::displaySmybolAsButton(ICON_FA_PLAY) || s2d::Input::onKeyRelease(s2d::KeyBoardCode::F5))
 	{
-		s2d::flc::saveEverything(this->m_window_background_to_save, *this->m_ptr_repo);
+		s2d::flc::saveEverything(this->m_window_background_to_save, *this->m_ptr_repo, *this->m_ptr_gui_repo);
 
 		wchar_t engineDirectory[MAX_PATH];
 		if (!GetCurrentDirectory(MAX_PATH, engineDirectory))

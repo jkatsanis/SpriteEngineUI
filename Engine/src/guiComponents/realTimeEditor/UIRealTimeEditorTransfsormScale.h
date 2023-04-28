@@ -1,9 +1,7 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
-#include <physicalComponents/gameObject.h>
 #include <guiComponents/UI.h>
-
 #define SCALE_DOTTS 2
 #define DEFAULT_DOLL_SCALE 35
 
@@ -11,8 +9,7 @@ namespace s2d
 {
 	struct ScaleDott
 	{
-		sf::RectangleShape shape;
-		short vecpos;
+		s2d::Rectangle* ptr_scaling_rectangle;
 		bool clicked;
 	};
 	class UIRealTimeEditorTransfsormScale
@@ -21,6 +18,7 @@ namespace s2d
 		ScaleDott m_scaleDotts[SCALE_DOTTS];
 
 		s2d::SpriteRepository* m_ptr_repo;
+		s2d::GUIRepository* m_ptr_gui_repo;
 		s2d::Vector2 m_scale;
 		s2d::Vector2 m_currentCursorPos;
 		s2d::Event* m_event;
@@ -35,7 +33,7 @@ namespace s2d
 
 	public:
 		UIRealTimeEditorTransfsormScale();
-		UIRealTimeEditorTransfsormScale(s2d::Event* event, s2d::SpriteRepository& repo);
+		UIRealTimeEditorTransfsormScale(s2d::Event* event, s2d::SpriteRepository& repo, s2d::GUIRepository& gui_repo);
 
 		void renderDolls();
 		void unrenderDolls();

@@ -343,7 +343,8 @@ void s2d::UIHierarchy::drawbackgroundRectangle()
 	const ImVec2 temp = ImGui::GetCursorPos();
 	ImGui::SetCursorPosX(0);
 	ImGui::SetCursorPosY(ImGui::GetCursorPosY() + 73);
-	s2d::UI::drawRectangleInGUIWIndow(ImVec2(this->m_window_size.x, 20), ImGui::GetCursorPos(), SPRITE_BACKGROUND_COLOR);
+	s2d::UI::drawRectangleInGUIWIndow(
+		ImVec2(this->m_window_size.x, 20), ImGui::GetCursorPos(), SPRITE_BACKGROUND_COLOR);
 	ImGui::SetCursorPos(temp);
 }
 

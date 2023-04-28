@@ -1,10 +1,8 @@
 #include "UIInspectorBoxCollider.h"
 
-s2d::UIInspectorBoxCollider::UIInspectorBoxCollider() { }
-
-void s2d::UIInspectorBoxCollider::init()
-{
-	this->m_texture.loadFromFile(PATH_TO_RESSOURCS"/Sprites/transparent.png");
+s2d::UIInspectorBoxCollider::UIInspectorBoxCollider()
+{ 
+	this->m_edit_mode = false;
 }
 
 void s2d::UIInspectorBoxCollider::edit(float& x, float& y)
@@ -12,7 +10,10 @@ void s2d::UIInspectorBoxCollider::edit(float& x, float& y)
 	ImGui::SetCursorPosX(x += 10);
 	ImGui::Text("Edit");
 	ImGui::SetCursorPos(ImVec2(x += 53.5f, y -= 2.5f));
-	s2d::FontManager::displaySmybolAsButton(ICON_FA_EDIT);
+	if (s2d::FontManager::displaySmybolAsButton(ICON_FA_EDIT))
+	{
+		this->m_edit_mode = true;
+	}
 	x += 19;
 
 	x -= 12.5f;
@@ -113,18 +114,16 @@ void s2d::UIInspectorBoxCollider::height(s2d::Sprite* sprite)
 	ImGui::SetWindowFontScale(s2d::UIInfo::s_default_font_size);
 }
 
-
-void s2d::UIInspectorBoxCollider::drawBoxCollider(s2d::Sprite* sprite)
+void s2d::UIInspectorBoxCollider::drawBoxCollider(s2d::Sprite* sprite, s2d::Rectangle* ptr_rectangle)
 {
-	sf::Vector2f size = sf::Vector2f(sprite->transform.textureSize.x + (-sprite->collider.box_collider_width.x + sprite->collider.box_collider_width.y) ,
+	sf::Vector2f size = sf::Vector2f(sprite->transform.textureSize.x + (-sprite->collider.box_collider_width.x + sprite->collider.box_collider_width.y),
 		sprite->transform.textureSize.y + (-sprite->collider.box_collider_height.x + sprite->collider.box_collider_height.y));
 
-	s2d::GameObject::rects[1].setSize(size);
-	s2d::GameObject::rects[1].setOutlineColor(sf::Color(124, 252, 0));
-	s2d::GameObject::rects[1].setOutlineThickness(3.5f);
-	s2d::GameObject::rects[1].setPosition(sf::Vector2f(sprite->getOrigininalPosition().x + sprite->collider.box_collider_width.x, sprite->getOrigininalPosition().y + sprite->collider.box_collider_height.x));
+	sf::RectangleShape* ptr_shape = &ptr_rectangle->shape;
 
-	
-	s2d::GameObject::rects[1].setTexture(&this->m_texture);
-	
+	ptr_shape->setSize(size);
+	ptr_shape->setPosition(sf::Vector2f(sprite->getOrigininalPosition().x + sprite->collider.box_collider_width.x, sprite->getOrigininalPosition().y + sprite->collider.box_collider_height.x));
+
+	ptr_rectangle->render = true;
 }
+

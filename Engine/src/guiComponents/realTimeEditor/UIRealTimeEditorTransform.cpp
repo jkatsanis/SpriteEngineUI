@@ -10,9 +10,9 @@ s2d::UIRealTimeEditorTransform::UIRealTimeEditorTransform()
 }
 
 s2d::UIRealTimeEditorTransform::UIRealTimeEditorTransform(s2d::InspectorState* ptr_Inspectorstate,
-    bool* isAnyUIWindowHovered, s2d::Event* windowEvent, s2d::SpriteRepository& repo)
+    bool* isAnyUIWindowHovered, s2d::Event* windowEvent, s2d::SpriteRepository& repo, s2d::GUIRepository& gui_repo)
 {
-    this->m_scaleChanger = s2d::UIRealTimeEditorTransfsormScale(windowEvent, repo);
+    this->m_scaleChanger = s2d::UIRealTimeEditorTransfsormScale(windowEvent, repo, gui_repo);
     this->m_positionChanger = s2d::UIRealTimeEditorTransformPosition(ptr_Inspectorstate, isAnyUIWindowHovered, windowEvent, repo);
     this->m_spriteRepository = &repo;
 }

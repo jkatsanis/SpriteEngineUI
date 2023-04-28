@@ -18,7 +18,7 @@ namespace s2d
     {
     private:
         std::vector<s2d::Sprite*> m_sprites;
-        uint32_t m_highestLayerIndex;
+        int32_t m_highestLayerIndex;
 
         size_t getIndexAtName(const std::string& name) const;
         void addChildsToDelete(std::vector<s2d::Sprite*>& childs, s2d::Sprite* parent);

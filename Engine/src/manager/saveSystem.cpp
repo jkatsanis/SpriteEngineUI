@@ -1,7 +1,7 @@
 #include "saveSystem.h"
 #include <string>
 
-void s2d::flc::saveEverything(const s2d::Vector3& bg, s2d::SpriteRepository& toSave)
+void s2d::flc::saveEverything(const s2d::Vector3& bg, s2d::SpriteRepository& toSave, s2d::GUIRepository& gui_repo)
 {
 	//Stopping all animations so there wont be saved the current path of the sprite
 	s2d::Animator::stopAllAnimations(toSave);
@@ -9,7 +9,7 @@ void s2d::flc::saveEverything(const s2d::Vector3& bg, s2d::SpriteRepository& toS
 	//We need to save our data | Dont forget to save it also in "UIToolButtons"
 	s2d::flc::createSaveFile(toSave);
 	s2d::flc::createWindowBackgroundSaveFile(bg);
-	s2d::flc::createCameraSaveFile(*s2d::GameObject::ptr_camera_tRealTimeEditor);
+	s2d::flc::createCameraSaveFile(gui_repo.camera);
 	s2d::flc::createIndexSaveFile(toSave);
 	s2d::flc::createKnownAnimationFile(toSave);
 	s2d::flc::createAnimtionSaveFiles(toSave);

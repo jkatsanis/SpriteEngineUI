@@ -8,6 +8,7 @@
 #include <manager/spriteRepository.h>
 #include <string>
 #include <fstream>
+#include <manager/guiRepository.h>
 
 #define DELIMITER ";"
 
@@ -38,6 +39,7 @@ namespace s2d
 	public:
 		Initializer() = delete;
 
+		static void initCamera(s2d::GUIRepository& repo);
 		static void initAnimations(s2d::SpriteRepository& repo);
 		static void initSprite(const std::string& line, s2d::Sprite* sprite);
 		static void initSprites(s2d::SpriteRepository& spriteRepo);

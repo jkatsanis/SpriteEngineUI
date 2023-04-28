@@ -5,6 +5,8 @@
 
 s2d::BoxCollider::BoxCollider()
 {
+    this->can_collide = false;
+    this->is_solid = false;
     this->ptr_sprite = nullptr;
 }
 

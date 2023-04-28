@@ -5,28 +5,33 @@
 
 s2d::UIRealTimeEditorTransfsormScale::UIRealTimeEditorTransfsormScale()
 {
+	for (size_t i = 0; i < SCALE_DOTTS; i++)
+	{
+		this->m_scaleDotts[i] = s2d::ScaleDott();
+	}
+	this->m_ptr_gui_repo = nullptr;
+	this->m_ptr_repo = nullptr;
 	this->m_event = nullptr;
 }
 
-s2d::UIRealTimeEditorTransfsormScale::UIRealTimeEditorTransfsormScale(s2d::Event* event, s2d::SpriteRepository& repo)
+s2d::UIRealTimeEditorTransfsormScale::UIRealTimeEditorTransfsormScale(s2d::Event* event, s2d::SpriteRepository& repo, s2d::GUIRepository& gui_repo)
 {
+	this->m_ptr_gui_repo = &gui_repo;
 	this->m_ptr_repo = &repo;
-	sf::RectangleShape shape;
-	shape.setSize(sf::Vector2f(DEFAULT_DOLL_SCALE, DEFAULT_DOLL_SCALE));
-	shape.setFillColor(sf::Color(255, 255, 255));
+
+	const sf::Vector2f size = sf::Vector2f(DEFAULT_DOLL_SCALE, DEFAULT_DOLL_SCALE);
 
 	for (int i = 0; i < SCALE_DOTTS; i++)
 	{
-		this->m_scaleDotts[i].vecpos = (short)s2d::GameObject::rects.size();
-		this->m_scaleDotts[i].shape = shape;
+		const std::string name = "ScaleDott " + std::to_string(i);
+		this->m_ptr_gui_repo->add(sf::Vector2f(0, 0),
+			size, sf::Color(255, 255, 255), 2.0f, "nothing", name);
+		this->m_scaleDotts[i].ptr_scaling_rectangle = this->m_ptr_gui_repo->getByName(name);
 		this->m_scaleDotts[i].clicked = false;
-
-		s2d::GameObject::rects.push_back(this->m_scaleDotts->shape);
 	}
 
 	this->m_scale = s2d::Vector2(1, 1);
 	this->unrenderDolls();
-
 	this->m_event = event;
 }
 
@@ -56,7 +61,7 @@ void s2d::UIRealTimeEditorTransfsormScale::renderDolls()
 	this->m_scale = s2d::Vector2(1, 1);
 	for (int i = 0; i < SCALE_DOTTS; i++)
 	{
-		s2d::GameObject::rects[this->m_scaleDotts[i].vecpos].setScale(1, 1);
+		this->m_scaleDotts[i].ptr_scaling_rectangle->render = true;
 	}
 }
 
@@ -69,7 +74,7 @@ void s2d::UIRealTimeEditorTransfsormScale::unrenderDolls()
 	this->m_scale = s2d::Vector2(0, 0);
 	for (int i = 0; i < SCALE_DOTTS; i++)
 	{
-		s2d::GameObject::rects[this->m_scaleDotts[i].vecpos].setScale(0, 0);
+		this->m_scaleDotts[i].ptr_scaling_rectangle->render = false;
 	}
 }
 
@@ -89,15 +94,15 @@ void s2d::UIRealTimeEditorTransfsormScale::scaleChanger(s2d::Sprite* focusedSpri
 
 void s2d::UIRealTimeEditorTransfsormScale::xScaleChanger(s2d::Sprite* focusedSprite, ScaleDott& dott)
 {
-	if (s2d::UI::isCursorClickedOnRectangle(s2d::GameObject::rects[dott.vecpos]))
+	if (s2d::UI::isCursorClickedOnRectangle(dott.ptr_scaling_rectangle->shape))
 	{
 		dott.clicked = true;
 	}
 	if (dott.clicked && sf::Mouse::isButtonPressed(sf::Mouse::Left) && focusedSprite != nullptr)
 	{
-		sf::Vector2f pos = sf::Vector2f(s2d::UI::getWorldCordinates().x, s2d::GameObject::rects[dott.vecpos].getPosition().y);
+		sf::Vector2f pos = sf::Vector2f(s2d::UI::getWorldCordinates().x, dott.ptr_scaling_rectangle->shape.getPosition().y);
 
-		s2d::GameObject::rects[dott.vecpos].setPosition(pos);
+		dott.ptr_scaling_rectangle->shape.setPosition(pos);
 
 		pos.x -= 960;
 
@@ -109,15 +114,15 @@ void s2d::UIRealTimeEditorTransfsormScale::xScaleChanger(s2d::Sprite* focusedSpr
 
 void s2d::UIRealTimeEditorTransfsormScale::yScaleChanger(s2d::Sprite* focusedSprite, ScaleDott& dott)
 {
-	if (s2d::UI::isCursorClickedOnRectangle(s2d::GameObject::rects[dott.vecpos]))
+	if (s2d::UI::isCursorClickedOnRectangle(dott.ptr_scaling_rectangle->shape))
 	{
 		dott.clicked = true;
 	}
 	if (dott.clicked && sf::Mouse::isButtonPressed(sf::Mouse::Left) && focusedSprite != nullptr)
 	{
-		sf::Vector2f pos = sf::Vector2f(s2d::GameObject::rects[dott.vecpos].getPosition().x, s2d::UI::getWorldCordinates().y);
+		sf::Vector2f pos = sf::Vector2f(dott.ptr_scaling_rectangle->shape.getPosition().x, s2d::UI::getWorldCordinates().y);
 
-		s2d::GameObject::rects[dott.vecpos].setPosition(pos);
+		dott.ptr_scaling_rectangle->shape.setPosition(pos);
 
 		pos.y -= 540;
 
@@ -165,7 +170,7 @@ void s2d::UIRealTimeEditorTransfsormScale::setPos(const sf::Vector2f pos[])
 	{
 		if (!this->m_scaleDotts[i].clicked)
 		{
-			s2d::GameObject::rects[this->m_scaleDotts[i].vecpos].setPosition(pos[i]);
+			this->m_scaleDotts[i].ptr_scaling_rectangle->shape.setPosition(pos[i]);
 		}
 	}
 }

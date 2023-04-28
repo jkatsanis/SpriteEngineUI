@@ -20,11 +20,11 @@ namespace s2d
 		UIAssetFolder m_ui_asset_folder;
 		UIAnimation m_ui_animation;
 
-		GUIRepository m_gui_repository;
 		const SpriteRepository* m_ptr_repo;
 
 	public:
 		bool ary_any_windows_hovered;
+		GUIRepository gui_repository;
 
 		UIWindow();
 

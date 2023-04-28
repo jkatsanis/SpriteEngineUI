@@ -2,27 +2,36 @@
 
 s2d::UIInspector::UIInspector()
 {
-	this->init();
+	this->preInit();
 }
 
-void s2d::UIInspector::init()
+void s2d::UIInspector::preInit()
 {
-	this->m_collider.init();
 	this->m_sprite_input_width = 200.0f;
 	this->m_window_size_width = 390.0f;
 
 	this->m_menu_name = "menu";
-	s2d::GameObject::rects.push_back(m_rectangle);
-	s2d::GameObject::rects.push_back(this->m_box_collider);
 
 	this->m_window_size = INSPECTOR_DEFAULT_WINDOW_SIZE;
 	this->state = s2d::InspectorState::None;
-	this->m_texture_over_sprite.loadFromFile(PATH_TO_RESSOURCS"/Sprites/transparent.png");
 
 	this->m_components.push_back("BoxCollider");
 	this->m_components.push_back("PhysicsBody");
 	this->m_components.push_back("Animator");
 	this->m_components.push_back("Prefab");
+}
+
+void s2d::UIInspector::afterInit()
+{
+	const std::string path_to_texture_over_sprite = PATH_TO_RESSOURCS"/Sprites/transparent.png";
+	this->m_ptr_gui_repo->add(sf::Vector2f(0, 0), sf::Vector2f(0, 0), sf::Color(124, 252, 0), 3.5f,
+		path_to_texture_over_sprite, "collider-over-sprite");
+
+	this->m_ptr_gui_repo->add(sf::Vector2f(0, 0), sf::Vector2f(0, 0), sf::Color(0, 0, 0), 3.5f,
+		path_to_texture_over_sprite, "texture-over-sprite");
+
+	this->m_ptr_collider_rectangle = this->m_ptr_gui_repo->getByName("collider-over-sprite");
+	this->m_ptr_sprite_over_rectangle = this->m_ptr_gui_repo->getByName("texture-over-sprite");
 }
 
 //Private functions
@@ -45,6 +54,7 @@ void s2d::UIInspector::render()
 	// Left arrow
 	this->renderOptions();
 
+	//Setting it here transparent because if we go down and out box collider is actually getting used it will update to green automatic
 	if (this->m_ptr_sprite_repo->sprite_in_inspector != nullptr)
 	{
 		// Handle a sprite
@@ -106,11 +116,12 @@ void s2d::UIInspector::renderComponentOptions(s2d::Component& component, const s
 
 void s2d::UIInspector::drawRectangleOverCurrentObject()
 {
-	s2d::GameObject::rects[0].setOutlineColor(sf::Color(0, 0, 0));
-	s2d::GameObject::rects[0].setOutlineThickness(3.5f);
-	s2d::GameObject::rects[0].setSize(sf::Vector2f(this->m_ptr_sprite_repo->sprite_in_inspector->transform.textureSize.x, this->m_ptr_sprite_repo->sprite_in_inspector->transform.textureSize.y));
-	s2d::GameObject::rects[0].setPosition(this->m_ptr_sprite_repo->sprite_in_inspector->getOrigininalPosition().x, this->m_ptr_sprite_repo->sprite_in_inspector->getOrigininalPosition().y);
-	s2d::GameObject::rects[0].setTexture(&this->m_texture_over_sprite);
+	this->m_ptr_sprite_over_rectangle->render = true;
+
+	sf::RectangleShape* ptr_shape = &this->m_ptr_sprite_over_rectangle->shape;
+	
+	ptr_shape->setSize(sf::Vector2f(this->m_ptr_sprite_repo->sprite_in_inspector->transform.textureSize.x, this->m_ptr_sprite_repo->sprite_in_inspector->transform.textureSize.y));
+	ptr_shape->setPosition(this->m_ptr_sprite_repo->sprite_in_inspector->getOrigininalPosition().x, this->m_ptr_sprite_repo->sprite_in_inspector->getOrigininalPosition().y);
 }
 
 void s2d::UIInspector::renderOptions()
@@ -235,48 +246,48 @@ void s2d::UIInspector::gameEngineViewSetting()
 {
 	ImGui::SetCursorPos(ImVec2(ImGui::GetCursorPosX() + 300, ImGui::GetCursorPosY() - 10));
 
-	if (s2d::FontManager::displaySmybolAsButton(ICON_FA_RETWEET "##C"))
-	{
-		s2d::GameObject::ptr_camera_tRealTimeEditor->reset();
-	}
-	ImGui::SetCursorPosY(ImGui::GetCursorPosY() - 41 + 10);
-	if (ImGui::TreeNode("Camera"))
-	{
-		float x = ImGui::GetCursorPosX();
-		float y = ImGui::GetCursorPosY();
+	//if (s2d::FontManager::displaySmybolAsButton(ICON_FA_RETWEET "##C"))
+	//{
+	//	s2d::GameObject::ptr_camera_tRealTimeEditor->reset();
+	//}
+	//ImGui::SetCursorPosY(ImGui::GetCursorPosY() - 41 + 10);
+	//if (ImGui::TreeNode("Camera"))
+	//{
+	//	float x = ImGui::GetCursorPosX();
+	//	float y = ImGui::GetCursorPosY();
 
-		//X
-		ImGui::Dummy(ImVec2(0, 16));
-		ImGui::Text("X");
-		ImGui::SameLine();
-		ImGui::PushItemWidth(100);
-		ImGui::SetCursorPos(ImVec2(x += 40, y += 16));
-		ImGui::InputFloat("##X", &s2d::GameObject::ptr_camera_tRealTimeEditor->transform.position.x, 0, 0, "%g");
+	//	//X
+	//	ImGui::Dummy(ImVec2(0, 16));
+	//	ImGui::Text("X");
+	//	ImGui::SameLine();
+	//	ImGui::PushItemWidth(100);
+	//	ImGui::SetCursorPos(ImVec2(x += 40, y += 16));
+	//	ImGui::InputFloat("##X", &s2d::GameObject::ptr_camera_tRealTimeEditor->transform.position.x, 0, 0, "%g");
 
-		//Y
-		ImGui::SetCursorPos(ImVec2(x += 125, y += 2));
-		ImGui::Text("Y");
-		ImGui::SameLine();
-		ImGui::PushItemWidth(100);
-		ImGui::SetCursorPos(ImVec2(x += 40, y -= 2));
-		ImGui::InputFloat("##Y", &s2d::GameObject::ptr_camera_tRealTimeEditor->transform.position.y, 0, 0, "%g");
+	//	//Y
+	//	ImGui::SetCursorPos(ImVec2(x += 125, y += 2));
+	//	ImGui::Text("Y");
+	//	ImGui::SameLine();
+	//	ImGui::PushItemWidth(100);
+	//	ImGui::SetCursorPos(ImVec2(x += 40, y -= 2));
+	//	ImGui::InputFloat("##Y", &s2d::GameObject::ptr_camera_tRealTimeEditor->transform.position.y, 0, 0, "%g");
 
-		//Zoom
-		ImGui::Dummy(ImVec2(0, 10));
-		ImGui::SetWindowFontScale(s2d::UIInfo::s_default_font_size + 0.1f);
-		ImGui::Text("Zoom");
-		ImGui::SetWindowFontScale(s2d::UIInfo::s_default_font_size);
-		ImGui::SameLine();
-		ImGui::SetCursorPos(ImVec2(x -= 120, y += 54));
-		ImGui::SliderFloat("##Zoom", &s2d::GameObject::ptr_camera_tRealTimeEditor->cameraZoom, 0.1f, 4.0f, "%g");
+	//	//Zoom
+	//	ImGui::Dummy(ImVec2(0, 10));
+	//	ImGui::SetWindowFontScale(s2d::UIInfo::s_default_font_size + 0.1f);
+	//	ImGui::Text("Zoom");
+	//	ImGui::SetWindowFontScale(s2d::UIInfo::s_default_font_size);
+	//	ImGui::SameLine();
+	//	ImGui::SetCursorPos(ImVec2(x -= 120, y += 54));
+	//	ImGui::SliderFloat("##Zoom", &s2d::GameObject::ptr_camera_tRealTimeEditor->cameraZoom, 0.1f, 4.0f, "%g");
 
-		if (s2d::GameObject::ptr_camera_tRealTimeEditor->cameraZoom <= 0)
-		{
-			s2d::GameObject::ptr_camera_tRealTimeEditor->cameraZoom = 0.8f;
-		}
+	//	if (s2d::GameObject::ptr_camera_tRealTimeEditor->cameraZoom <= 0)
+	//	{
+	//		s2d::GameObject::ptr_camera_tRealTimeEditor->cameraZoom = 0.8f;
+	//	}
 
-		ImGui::TreePop();
-	}
+	//	ImGui::TreePop();
+	//}
 }
 
 #pragma endregion
@@ -458,7 +469,7 @@ void s2d::UIInspector::spriteRendererComponent()
 		float y = ImGui::GetCursorPos().y;
 		float x = ImGui::GetCursorPos().x;
 
-		ImGui::SetCursorPos(ImVec2(x += 15.0f, y += 10));
+		ImGui::SetCursorPos(ImVec2(x += 20.0f, y += 10));
 		ImGui::Text("Sprite");
 
 		ImGui::SetCursorPos(ImVec2(x += 100, y - 5));
@@ -473,7 +484,7 @@ void s2d::UIInspector::spriteRendererComponent()
 		ImGui::Dummy(ImVec2(0, 3.8f));
 
 		//Sorting Layer
-		ImGui::SetCursorPosX(x -= 97.7f);
+		ImGui::SetCursorPosX(x -= 100.0f);
 		ImGui::Text("Sorting Layer");
 		ImGui::SameLine();
 		ImGui::PushItemWidth(42.0f);
@@ -501,6 +512,7 @@ void s2d::UIInspector::boxColliderComponent()
 	this->renderComponentOptions(this->m_ptr_sprite_repo->sprite_in_inspector->collider, "BoxCollider");
 	if (ImGui::TreeNode("BoxCollider"))
 	{
+		this->m_ptr_collider_rectangle->render = true;
 		ImGui::Dummy(ImVec2(0, 4));
 		float x = ImGui::GetCursorPos().x;
 		float y = ImGui::GetCursorPos().y;
@@ -513,14 +525,14 @@ void s2d::UIInspector::boxColliderComponent()
 		ImGui::TreePop();
 
 		//Transparent since we open the boxcollider and we want to open the colider (rec)
-		s2d::GameObject::rects[0].setOutlineColor(sf::Color(0, 0, 255, 0));
-		this->m_collider.drawBoxCollider(this->m_ptr_sprite_repo->sprite_in_inspector);
+		this->m_collider.drawBoxCollider(this->m_ptr_sprite_repo->sprite_in_inspector, this->m_ptr_collider_rectangle);
 
 		ImGui::Dummy(ImVec2(0, 9));
 	}
-
-
-	//Setting props
+	else
+	{
+		this->m_ptr_collider_rectangle->render = false;
+	}
 }
 
 void s2d::UIInspector::physicsBodyComponent()
@@ -637,6 +649,8 @@ void s2d::UIInspector::setGUIRepo(s2d::GUIRepository* repo)
 {
 	this->m_ptr_gui_repo = repo;
 	this->m_ptr_gui_repo->ptr_inspector_window_size = &this->m_window_size;
+	this->preInit();
+	this->afterInit();
 }
 
 

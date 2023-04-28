@@ -11,17 +11,14 @@ namespace s2d
 	class UIInspectorBoxCollider
 	{
 	private:	
-		sf::Texture m_texture;
-
+		bool m_edit_mode;
 	public:
 		UIInspectorBoxCollider();
-
-		void init();
 
 		void edit(float& x, float& y);
 	    void solid(float& x, float& y, s2d::Sprite* sprite);
 		void width(float x, float y, s2d::Sprite* sprite);
 		void height(s2d::Sprite* sprite);
-		void drawBoxCollider(s2d::Sprite* sprite);
+		void drawBoxCollider(s2d::Sprite* sprite, s2d::Rectangle* ptr_rectangle);
 	};
 }
