@@ -813,6 +813,12 @@
     <ClInclude Include="src\spriteComponents\spriteRenderer.h">
       <Filter>src\spriteComponents\spriteRenderer</Filter>
     </ClInclude>
+    <ClInclude Include="src\data\fileDataMacros.h">
+      <Filter>src\guiComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="src\guiComponents\UIModels.h">
+      <Filter>src\guiComponents</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="src\include\SFML\System\Vector3.inl">

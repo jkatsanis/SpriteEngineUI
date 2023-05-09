@@ -1,5 +1,58 @@
 #include "UI.h"
 
+// Static init
+
+short s2d::UI::s_cursor_hit_box = 20;
+const sf::RenderWindow* s2d::UI::s_ptr_Window = nullptr;
+sf::Vector2f s2d::UI::s_cursor_world_pos = sf::Vector2f(0, 0);
+s2d::Transform s2d::UI::s_game_cursor = s2d::Transform();
+s2d::Transform s2d::UI::s_gui_cursor = s2d::Transform();
+s2d::Event* s2d::UI::s_event = nullptr;
+
+// Private functions
+
+float s2d::UI::scaleChanger(s2d::ScaleDott& dott, float default_size, float pos_o, bool x)
+{
+    if (s2d::UI::isCursorClickedOnRectangle(dott.ptr_scaling_rectangle->shape))
+    {
+        dott.clicked = true;
+    }
+    if (dott.clicked && sf::Mouse::isButtonPressed(sf::Mouse::Left))
+    {
+        sf::Vector2f pos = (x)
+            ? sf::Vector2f(s2d::UI::getWorldCordinates().x, dott.ptr_scaling_rectangle->shape.getPosition().y)
+            : sf::Vector2f(dott.ptr_scaling_rectangle->shape.getPosition().x, s2d::UI::getWorldCordinates().y);
+
+        dott.ptr_scaling_rectangle->shape.setPosition(pos);
+        float scale = INVALID_SCALE;
+        if (x)
+        {
+            pos.x -= 960;
+            scale = (pos.x - pos_o) / (default_size / 2);
+        }
+        else
+        {
+            pos.y -= 540;
+            scale = (pos.y + pos_o) / (default_size / 2);
+        }
+        return scale;
+    }
+    return INVALID_SCALE;
+}
+
+// Public functions
+
+void s2d::UI::update()
+{
+    // Transform postion changer cursor
+    s2d::UI::s_game_cursor.position = s2d::UI::getWorldCordinates();
+    s2d::UI::setCursorToWorldCoordinates(s2d::UI::s_game_cursor.position);
+
+    // Imgui & resize cursor
+    s2d::UI::s_gui_cursor.position = s2d::Vector2(ImGui::GetMousePos().x, ImGui::GetMousePos().y);
+    s2d::UI::s_gui_cursor.setLastPosition();
+}
+
 bool s2d::UI::isCursorClickedOnSprite(const s2d::Sprite* check)
 {
     if (!sf::Mouse::isButtonPressed(sf::Mouse::Left))
@@ -157,20 +210,12 @@ void s2d::UI::drawRectangleInGUIWIndow(const ImVec2& size, const ImVec2& top_lef
     draw_list->AddRectFilled(top_left, ImVec2(top_left.x + size.x, top_left.y - size.y), color);
 }
 
-void s2d::UI::update()
+float s2d::UI::xScaleChanger(s2d::ScaleDott& dott, float default_size, float pos_x)
 {
-    // Transform postion changer cursor
-    s2d::UI::s_game_cursor.position = s2d::UI::getWorldCordinates();
-    s2d::UI::setCursorToWorldCoordinates(s2d::UI::s_game_cursor.position);
-
-    // Imgui & resize cursor
-    s2d::UI::s_gui_cursor.position = s2d::Vector2(ImGui::GetMousePos().x, ImGui::GetMousePos().y);
-    s2d::UI::s_gui_cursor.setLastPosition();
+    return s2d::UI::scaleChanger(dott, default_size, pos_x, true);
 }
 
-short s2d::UI::s_cursor_hit_box = 20;
-const sf::RenderWindow* s2d::UI::s_ptr_Window = nullptr;
-sf::Vector2f s2d::UI::s_cursor_world_pos = sf::Vector2f(0, 0);
-s2d::Transform s2d::UI::s_game_cursor = s2d::Transform();
-s2d::Transform s2d::UI::s_gui_cursor = s2d::Transform();
-s2d::Event* s2d::UI::s_event = nullptr;
+float s2d::UI::yScaleChanger(s2d::ScaleDott& dott, float default_size, float pos_y)
+{
+    return s2d::UI::scaleChanger(dott, default_size, pos_y, false);
+}

@@ -1,5 +1,4 @@
-﻿  UIWindow.cpp
+﻿  UI.cpp
   UIRealTimeEditorTransfsormScale.cpp
-  boxCollider.cpp
   Generating Code...
   SpriteEngine.vcxproj -> C:\Dev\SpriteEngineUI\Engine\x64\Debug\SpriteEngine.exe

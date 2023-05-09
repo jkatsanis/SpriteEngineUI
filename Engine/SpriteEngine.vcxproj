@@ -213,6 +213,7 @@
     <ClCompile Include="src\data\UIDataModels.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\data\fileDataMacros.h" />
     <ClInclude Include="src\spriteComponents\spriteRenderer.h" />
     <ClInclude Include="src\spriteComponents\component.h" />
     <ClInclude Include="src\manager\guiRepository.h" />
@@ -377,6 +378,7 @@
     <ClInclude Include="src\guiComponents\realTimeEditor\UIRealTimeEditorTransfsormScale.h" />
     <ClInclude Include="src\guiComponents\UI.h" />
     <ClInclude Include="src\guiComponents\propertyEditor\UIAssetTools.h" />
+    <ClInclude Include="src\guiComponents\UIModels.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="src\include\SFML\Audio\SoundFileFactory.inl" />

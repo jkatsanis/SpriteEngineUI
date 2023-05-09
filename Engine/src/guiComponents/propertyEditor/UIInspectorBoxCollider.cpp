@@ -1,9 +1,56 @@
 #include "UIInspectorBoxCollider.h"
 
+// Constructor / Destructor
+
 s2d::UIInspectorBoxCollider::UIInspectorBoxCollider()
-{ 
+{	
+	for (size_t i = 0; i < SCALE_DOTTS; i++)
+	{
+		this->m_box_collider_scale_dotts[i] = s2d::ScaleDott();
+	}
+
 	this->m_edit_mode = false;
 }
+
+// Private functions
+
+void s2d::UIInspectorBoxCollider::renderScaleDotts(s2d::Sprite* sprite, s2d::Rectangle* ptr_box_collider_rec)
+{
+
+}
+
+void s2d::UIInspectorBoxCollider::getPos(const s2d::Sprite* focusedSprite, sf::Vector2f pos[])
+{
+	s2d::Vector2 originalPos = focusedSprite->getOrigininalPosition();
+	s2d::Vector2 textureSize = focusedSprite->transform.textureSize;
+
+	if (focusedSprite->transform.getScale().x < 0)
+	{
+		pos[0] = sf::Vector2f(originalPos.x, originalPos.y + textureSize.y / 2);
+	}
+	else
+	{
+		pos[0] = sf::Vector2f(originalPos.x + textureSize.x, originalPos.y + textureSize.y / 2);
+	}
+	if (focusedSprite->transform.getScale().y < 0)
+	{
+		textureSize.y = 0;
+	}
+	pos[1] = sf::Vector2f(originalPos.x + textureSize.x / 2 - DEFAULT_DOLL_SCALE / 2, originalPos.y + textureSize.y);
+}
+
+void s2d::UIInspectorBoxCollider::setPos(const sf::Vector2f pos[])
+{
+	for (int i = 0; i < SCALE_DOTTS; i++)
+	{
+		if (!this->m_box_collider_scale_dotts[i].clicked)
+		{
+			this->m_box_collider_scale_dotts[i].ptr_scaling_rectangle->shape.setPosition(pos[i]);
+		}
+	}
+}
+
+// Public functions
 
 void s2d::UIInspectorBoxCollider::edit(float& x, float& y)
 {
@@ -125,5 +172,21 @@ void s2d::UIInspectorBoxCollider::drawBoxCollider(s2d::Sprite* sprite, s2d::Rect
 	ptr_shape->setPosition(sf::Vector2f(sprite->getOrigininalPosition().x + sprite->collider.box_collider_width.x, sprite->getOrigininalPosition().y + sprite->collider.box_collider_height.x));
 
 	ptr_rectangle->render = true;
+
+	this->renderScaleDotts(sprite, ptr_rectangle);
+}
+
+void s2d::UIInspectorBoxCollider::initScaleDottsUI(s2d::GUIRepository& repo)
+{
+	const sf::Vector2f size = sf::Vector2f(DEFAULT_DOLL_SCALE, DEFAULT_DOLL_SCALE);
+
+	for (int i = 0; i < SCALE_DOTTS; i++)
+	{
+		const std::string name = "scale-dott-box-collider " + std::to_string(i);
+		repo.add(sf::Vector2f(0, 0),
+			size, sf::Color(255, 255, 255), 2.0f, PATH_TO_TRANSPARENT_PIC, name);
+		this->m_box_collider_scale_dotts[i].ptr_scaling_rectangle = repo.getByName(name);
+		this->m_box_collider_scale_dotts[i].clicked = false;
+	}
 }
 

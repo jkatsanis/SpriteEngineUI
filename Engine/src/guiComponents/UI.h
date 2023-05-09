@@ -4,6 +4,9 @@
 #include <engineComponents/event.h>
 #include <manager/fontManager.h>
 #include <spriteComponents/stransform.h>
+#include <guiComponents/UIModels.h>
+
+#define INVALID_SCALE 1.11f
 
 namespace s2d
 {
@@ -15,6 +18,7 @@ namespace s2d
 		static short s_cursor_hit_box;
 		static s2d::Event* s_event;
 
+		static float scaleChanger(s2d::ScaleDott& dott, float default_size, float pos_x, bool x);
 	public:
 		UI() = delete;
 
@@ -52,6 +56,9 @@ namespace s2d
 		static bool handleCloseAndReloadWindow(bool open, bool& reload, bool& hovered, ImVec2& window_size, const ImVec2& original_size);
 
 		static void drawRectangleInGUIWIndow(const ImVec2& size, const ImVec2& top_left, const ImColor& color);
+
+		static float xScaleChanger(s2d::ScaleDott& dott, float default_size, float pos_x);
+		static float yScaleChanger(s2d::ScaleDott& dott, float default_size, float pos_y);
 
 		static void update();
 	};

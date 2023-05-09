@@ -2,20 +2,17 @@
 
 #include <SFML/Graphics.hpp>
 #include <guiComponents/UI.h>
+#include <guiComponents/UIModels.h>
+
 #define SCALE_DOTTS 2
 #define DEFAULT_DOLL_SCALE 35
 
 namespace s2d
 {
-	struct ScaleDott
-	{
-		s2d::Rectangle* ptr_scaling_rectangle;
-		bool clicked;
-	};
 	class UIRealTimeEditorTransfsormScale
 	{
 	private:
-		ScaleDott m_scaleDotts[SCALE_DOTTS];
+		ScaleDott m_scale_dotts[SCALE_DOTTS];
 
 		s2d::SpriteRepository* m_ptr_repo;
 		s2d::GUIRepository* m_ptr_gui_repo;

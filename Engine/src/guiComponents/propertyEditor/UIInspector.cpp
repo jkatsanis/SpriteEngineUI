@@ -23,15 +23,16 @@ void s2d::UIInspector::preInit()
 
 void s2d::UIInspector::afterInit()
 {
-	const std::string path_to_texture_over_sprite = PATH_TO_RESSOURCS"/Sprites/transparent.png";
 	this->m_ptr_gui_repo->add(sf::Vector2f(0, 0), sf::Vector2f(0, 0), sf::Color(124, 252, 0), 3.5f,
-		path_to_texture_over_sprite, "collider-over-sprite");
+		PATH_TO_TRANSPARENT_PIC, "collider-over-sprite");
 
 	this->m_ptr_gui_repo->add(sf::Vector2f(0, 0), sf::Vector2f(0, 0), sf::Color(0, 0, 0), 3.5f,
-		path_to_texture_over_sprite, "texture-over-sprite");
+		PATH_TO_TRANSPARENT_PIC, "texture-over-sprite");
 
 	this->m_ptr_collider_rectangle = this->m_ptr_gui_repo->getByName("collider-over-sprite");
 	this->m_ptr_sprite_over_rectangle = this->m_ptr_gui_repo->getByName("texture-over-sprite");
+
+	this->m_collider.initScaleDottsUI(*this->m_ptr_gui_repo);
 }
 
 //Private functions
