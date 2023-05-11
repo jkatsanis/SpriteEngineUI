@@ -110,13 +110,14 @@ s2d::Sprite* s2d::SpriteRepository::getSpriteWithId(int id)
 
 void s2d::SpriteRepository::updateHighestLayerIndex()
 {
-    for (uint32_t i = 0; i < this->m_sprites.size(); i++)
+    for (size_t i = 0; i < this->m_sprites.size(); i++)
     {
         s2d::Sprite* const sprite = this->m_sprites[i];
         if (sprite->sprite_renderer.sorting_layer_index > m_highestLayerIndex)
             m_highestLayerIndex = sprite->sprite_renderer.sorting_layer_index;
     }
 }
+
 // Private functions
 
 size_t s2d::SpriteRepository::getIndexAtName(const std::string& name) const

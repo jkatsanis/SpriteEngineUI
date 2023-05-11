@@ -18,12 +18,12 @@ int main()
 
     s2d::GameEngine engine;
 
-    if (engine.ptr_renderWindow == nullptr)
+    if (engine.ptr_render_window == nullptr)
     {
         std::cout << "Window was nullptr, please rebuild!!" << std::endl;
         return -1;
     }
-    while (engine.ptr_renderWindow->isOpen())
+    while (engine.ptr_render_window->isOpen())
     {    
         engine.update();
     }

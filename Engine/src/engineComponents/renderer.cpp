@@ -48,6 +48,7 @@ void s2d::Renderer::drawSprites()
     //2s passed we can update out hightest layer index
     if (this->m_timePassedToUpdateLayerIndex > m_timeToUpdateLayerIndex)
     {
+        this->m_ptr_gui_repo->updateHighestLayerIndex();
         this->m_ptr_sprite_repo->updateHighestLayerIndex();
         this->m_timePassedToUpdateLayerIndex = 0;
     }

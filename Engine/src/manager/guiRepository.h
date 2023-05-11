@@ -7,6 +7,7 @@ namespace s2d
 {
 	struct Rectangle
 	{
+		uint32_t sorting_layer_index;
 		uint32_t id;
 		std::string name;
 		sf::RectangleShape shape;
@@ -15,6 +16,7 @@ namespace s2d
 
 		Rectangle(const std::string& path_to_texture)
 		{
+			this->sorting_layer_index = 0;
 			this->render = true;
 			this->id = 0;
 			this->texture.loadFromFile(path_to_texture);
@@ -24,6 +26,8 @@ namespace s2d
 	class GUIRepository
 	{
 	private:
+	    uint32_t m_highest_layer_idx;
+
 		std::vector <s2d::Rectangle*> m_rectangles;
 		uint32_t m_highest_rectangle_id;
 
@@ -41,11 +45,13 @@ namespace s2d
 		s2d::Rectangle* getByName(const std::string& name);
 		s2d::Rectangle* getByVecPos(uint32_t vec);
 
-		size_t getSize() const { return this->m_rectangles.size(); }
+		size_t amount() const { return this->m_rectangles.size(); }
 
 		void add(const sf::Vector2f& pos, const sf::Vector2f& size, 
 			const sf::Color& outline_color, float outline_thickness,
 			const std::string& path_to_texture, const std::string& name);
+
+		void updateHighestLayerIndex();
 	};
 }
 

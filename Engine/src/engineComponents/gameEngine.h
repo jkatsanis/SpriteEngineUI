@@ -35,7 +35,7 @@ namespace s2d
 	public:
 		s2d::Event event;
 		sf::Event windowEvent;
-		sf::RenderWindow* ptr_renderWindow;
+		sf::RenderWindow* ptr_render_window;
 
 		GameEngine();
 

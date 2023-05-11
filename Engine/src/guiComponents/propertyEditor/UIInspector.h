@@ -89,7 +89,7 @@ namespace s2d
 		void createUIInspector();
 
 		void setSpriteRepository(s2d::SpriteRepository& repo) { this->m_ptr_sprite_repo = &repo; }
-		void setGUIRepo(s2d::GUIRepository* repo);
+		void setGUIRepo(s2d::GUIRepository* repo, s2d::Event* evnt);
 
 	public:
 		static std::string getNamePathSplit(std::string path);

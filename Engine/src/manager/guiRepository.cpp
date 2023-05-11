@@ -9,6 +9,7 @@ s2d::GUIRepository::GUIRepository()
 	this->ptr_hierarchy_window_size = nullptr;
 	this->ptr_inspector_window_size = nullptr;
 	this->m_highest_rectangle_id = 0;
+	this->m_highest_layer_idx = 0;
 }
 
 // Public functions
@@ -29,13 +30,28 @@ void s2d::GUIRepository::add(const sf::Vector2f& pos,
 	this->m_highest_rectangle_id++;
 }
 
+void s2d::GUIRepository::updateHighestLayerIndex()
+{
+	for (size_t i = 0; i < this->m_rectangles.size(); i++)
+	{
+		s2d::Rectangle* const rec = this->m_rectangles[i];
+		if (rec->sorting_layer_index > this->m_highest_layer_idx)
+			this->m_highest_layer_idx = rec->sorting_layer_index;
+	}
+}
+
 void s2d::GUIRepository::render(sf::RenderWindow* ptr_render_window)
 {
-	for (int i = 0; i < this->m_rectangles.size(); i++)
+	for (size_t i = 0; i < this->m_highest_layer_idx + 1; i++)
 	{
-		if (this->m_rectangles[i]->render)
+		for (size_t j = 0; j < this->amount(); j++)
 		{
-			ptr_render_window->draw(this->m_rectangles[i]->shape);
+			s2d::Rectangle* rec = this->getByVecPos(j);
+			if (this->m_rectangles[j]->render
+				&& rec->sorting_layer_index == i)
+			{
+				ptr_render_window->draw(this->m_rectangles[j]->shape);
+			}
 		}
 	}
 }

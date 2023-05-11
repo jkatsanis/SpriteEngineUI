@@ -5,7 +5,7 @@
 #include <guiComponents/UIModels.h>
 
 #define SCALE_DOTTS 2
-#define DEFAULT_DOLL_SCALE 35
+#define DEFAULT_DOTT_SCALE 35
 
 namespace s2d
 {
@@ -21,8 +21,6 @@ namespace s2d
 		s2d::Event* m_event;
 
 		void scaleChanger(s2d::Sprite* focusedSprite);
-		void xScaleChanger(s2d::Sprite* focusedSprite, ScaleDott& dott);
-		void yScaleChanger(s2d::Sprite* focusedSprite, ScaleDott& dott);
 
 		void reset();
 		void setPos(const sf::Vector2f pos[]);

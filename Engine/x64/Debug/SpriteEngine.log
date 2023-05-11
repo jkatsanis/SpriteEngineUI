@@ -1,4 +1,65 @@
-﻿  UI.cpp
+﻿  spriteRenderer.cpp
+  guiRepository.cpp
+C:\Dev\SpriteEngineUI\Engine\src\manager\guiRepository.cpp(49,45): warning C4267: 'argument': conversion from 'size_t' to 'uint32_t', possible loss of data
+  spriteRepository.cpp
+  prefab.cpp
+  initializer.cpp
+  renderer.cpp
+  engineData.cpp
+  fileDialogs.cpp
+  UIProjectSelector.cpp
+  fontManager.cpp
+  event.cpp
+  childSystem.cpp
+  animation.cpp
+  animator.cpp
+  physicsBody.cpp
+  camera.cpp
+  boxCollider.cpp
+  line.cpp
+  input.cpp
+  spriteData.cpp
+  Generating Code...
+  Compiling...
+  fileData.cpp
+  saveSystem.cpp
+  sprite.cpp
+  gameEngine.cpp
+  imgui-SFML.cpp
+  imgui.cpp
+  imgui_draw.cpp
+  imgui_tables.cpp
+  imgui_widgets.cpp
+C:\Dev\SpriteEngineUI\Engine\src\include\imgui\imgui_widgets.cpp(3893,69): warning C4554: '&': check operator precedence for possible error; use parentheses to clarify precedence
+C:\Dev\SpriteEngineUI\Engine\src\include\imgui\imgui_widgets.cpp(3894,73): warning C4554: '&': check operator precedence for possible error; use parentheses to clarify precedence
+  SpriteEngine.cpp
+  vector2.cpp
+  time.cpp
+  UIWindow.cpp
+  UIHierarchy.cpp
+  UIToolButtons.cpp
+  UIInspector.cpp
+  UIAssetFolder.cpp
+C:\Dev\SpriteEngineUI\Engine\src\guiComponents\propertyEditor\UIAssetFolder.cpp(281,8): warning C4312: 'type cast': conversion from 'uint32_t' to 'ImTextureID' of greater size
+  transform.cpp
+  vector3.cpp
+  UIRealTimeEditor.cpp
+  Generating Code...
+  Compiling...
+  UIInspectorBoxCollider.cpp
+  UIAnimation.cpp
+  UIInfo.cpp
+  UIAnimationKeyFrameAdder.cpp
+  UIAnimationEditor.cpp
+  UIIconData.cpp
+  UIRealTimeEditorNavigator.cpp
+  UIRealTimeEditorTransform.cpp
+  UIProjectSelectorProjectSection.cpp
+  UIRealTimeEditorTransformPosition.cpp
   UIRealTimeEditorTransfsormScale.cpp
+  UIToolButtonsModels.h
+  UI.cpp
+  UIAssetTools.cpp
+  UIDataModels.h
   Generating Code...
   SpriteEngine.vcxproj -> C:\Dev\SpriteEngineUI\Engine\x64\Debug\SpriteEngine.exe

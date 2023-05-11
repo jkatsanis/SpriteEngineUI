@@ -19,7 +19,7 @@ s2d::UIRealTimeEditorTransfsormScale::UIRealTimeEditorTransfsormScale(s2d::Event
 	this->m_ptr_gui_repo = &gui_repo;
 	this->m_ptr_repo = &repo;
 
-	const sf::Vector2f size = sf::Vector2f(DEFAULT_DOLL_SCALE, DEFAULT_DOLL_SCALE);
+	const sf::Vector2f size = sf::Vector2f(DEFAULT_DOTT_SCALE, DEFAULT_DOTT_SCALE);
 
 	for (int i = 0; i < SCALE_DOTTS; i++)
 	{
@@ -123,7 +123,7 @@ void s2d::UIRealTimeEditorTransfsormScale::getPos(const s2d::Sprite* focusedSpri
 	{
 		textureSize.y = 0;
 	}
-	pos[1] = sf::Vector2f(originalPos.x + textureSize.x / 2 - DEFAULT_DOLL_SCALE / 2, originalPos.y + textureSize.y);
+	pos[1] = sf::Vector2f(originalPos.x + textureSize.x / 2 - DEFAULT_DOTT_SCALE / 2, originalPos.y + textureSize.y);
 }
 
 void s2d::UIRealTimeEditorTransfsormScale::setPos(const sf::Vector2f pos[])

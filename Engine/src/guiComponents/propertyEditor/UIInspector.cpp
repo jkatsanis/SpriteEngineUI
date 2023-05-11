@@ -646,8 +646,10 @@ void s2d::UIInspector::createUIInspector()
 	this->render();
 }
 
-void s2d::UIInspector::setGUIRepo(s2d::GUIRepository* repo)
+void s2d::UIInspector::setGUIRepo(s2d::GUIRepository* repo, s2d::Event* evnt)
 {
+	this->m_collider.setS2DEvent(evnt);
+	
 	this->m_ptr_gui_repo = repo;
 	this->m_ptr_gui_repo->ptr_inspector_window_size = &this->m_window_size;
 	this->preInit();
