@@ -28,27 +28,67 @@ void s2d::UIInspectorBoxCollider::reset()
 
 void s2d::UIInspectorBoxCollider::renderScaleDotts(s2d::Sprite* sprite, s2d::Rectangle* ptr_box_collider_rec)
 {
-	sf::Vector2f pos = sf::Vector2f(sprite->getOrigininalPosition().x + sprite->transform.getDefaultTextureSize().x + sprite->collider.box_collider_width.y 
-	, (sprite->getOrigininalPosition().y + sprite->transform.getDefaultTextureSize().y / 2) - DEFAULT_DOTT_SCALE / 2);
-	this->m_box_collider_scale_dotts[0].ptr_scaling_rectangle->shape.setPosition(pos);
+	const float scale_x = (sprite->transform.getScale().x < 0)
+		? sprite->transform.getScale().x * -1
+		: sprite->transform.getScale().x;
 
-	sf::Vector2f new_pos = sf::Vector2f(sprite->getOrigininalPosition().x + sprite->collider.box_collider_width.x - DEFAULT_DOTT_SCALE
-		, (sprite->getOrigininalPosition().y + sprite->transform.getDefaultTextureSize().y / 2) - DEFAULT_DOTT_SCALE / 2);
-	this->m_box_collider_scale_dotts[1].ptr_scaling_rectangle->shape.setPosition(new_pos);
+	const float scale_y = (sprite->transform.getScale().y < 0)
+		? sprite->transform.getScale().y * -1
+		: sprite->transform.getScale().y;
 
-	float new_scale = s2d::UI::xScaleChanger(this->m_box_collider_scale_dotts[0], sprite->transform.getDefaultTextureSize().x,
-		sprite->transform.position.x + sprite->collider.box_collider_width.y);
 
-	if (new_scale != INVALID_SCALE)
+	const float left = sprite->getOrigininalPosition().x;
+	const float right = sprite->getOrigininalPosition().x + sprite->transform.getDefaultTextureSize().x * scale_x;
+	const float middle_y = (sprite->getOrigininalPosition().y + (sprite->transform.getDefaultTextureSize().y * scale_y) / 2) ;
+	const float bottom = sprite->getOrigininalPosition().y + sprite->transform.getDefaultTextureSize().y * scale_y;
+	const float middle_x = sprite->getOrigininalPosition().x + (sprite->transform.getDefaultTextureSize().x * scale_x) / 2;
+	const float top = sprite->getOrigininalPosition().y;
+
+	const sf::Vector2f pos_width_y = sf::Vector2f(right + sprite->collider.box_collider_width.y, middle_y);
+	const sf::Vector2f pos_width_x = sf::Vector2f(left - DEFAULT_DOTT_SCALE + sprite->collider.box_collider_width.x, middle_y);
+		
+	const sf::Vector2f pos_height_x = sf::Vector2f(middle_x - DEFAULT_DOTT_SCALE, top + sprite->collider.box_collider_height.x - DEFAULT_DOTT_SCALE);
+	const sf::Vector2f pos_height_y = sf::Vector2f(middle_x - DEFAULT_DOTT_SCALE, top + sprite->collider.box_collider_height.y + sprite->transform.getDefaultTextureSize().y * scale_y);
+
+	this->m_box_collider_scale_dotts[0].ptr_scaling_rectangle->shape.setPosition(pos_width_y);
+	this->m_box_collider_scale_dotts[1].ptr_scaling_rectangle->shape.setPosition(pos_width_x);
+	this->m_box_collider_scale_dotts[2].ptr_scaling_rectangle->shape.setPosition(pos_height_x);
+	this->m_box_collider_scale_dotts[3].ptr_scaling_rectangle->shape.setPosition(pos_height_y);
+
+	const float new_scale_width_y = s2d::UI::xScaleChanger(this->m_box_collider_scale_dotts[0], sprite->transform.getDefaultTextureSize().x,0);
+	const float new_scale_width_x = s2d::UI::xScaleChanger(this->m_box_collider_scale_dotts[1], sprite->transform.getDefaultTextureSize().x, 0);
+
+	const float new_scale_height_x = s2d::UI::yScaleChanger(this->m_box_collider_scale_dotts[2], sprite->transform.getDefaultTextureSize().x, 0);
+	const float new_scale_height_y = s2d::UI::yScaleChanger(this->m_box_collider_scale_dotts[3], sprite->transform.getDefaultTextureSize().x, 0);
+
+	// Width
+	if (new_scale_width_y != INVALID_SCALE)
 	{
-		//std::cout << new_scale << std::endl;
-		float scale_dott_pos_x = this->m_box_collider_scale_dotts[0].ptr_scaling_rectangle->shape.getPosition().x;
-		float right = sprite->getOrigininalPosition().x + sprite->transform.getDefaultTextureSize().x;
-		float width = scale_dott_pos_x - right;
+		const float scale_dott_pos_x = this->m_box_collider_scale_dotts[0].ptr_scaling_rectangle->shape.getPosition().x; 
+		const float width = scale_dott_pos_x - right;
 		sprite->collider.box_collider_width.y = width;
 	}
+	if (new_scale_width_x != INVALID_SCALE)
+	{
+		const float scale_dott_pos_x = this->m_box_collider_scale_dotts[1].ptr_scaling_rectangle->shape.getPosition().x;
+		const float width = scale_dott_pos_x - left + DEFAULT_DOTT_SCALE;
 
-	std::cout << sprite->collider.box_collider_width.y << std::endl;
+		sprite->collider.box_collider_width.x = width;
+	}
+
+	// Height
+	if (new_scale_height_x != INVALID_SCALE) 
+	{
+		const float scale_dott_pos_y = this->m_box_collider_scale_dotts[2].ptr_scaling_rectangle->shape.getPosition().y;
+		const float width = scale_dott_pos_y - top + DEFAULT_DOTT_SCALE;
+		sprite->collider.box_collider_height.x = width;
+	}
+	if (new_scale_height_y != INVALID_SCALE)
+	{
+		const float scale_dott_pos_y = this->m_box_collider_scale_dotts[3].ptr_scaling_rectangle->shape.getPosition().y;
+		const float width = scale_dott_pos_y - bottom;
+		sprite->collider.box_collider_height.y = width;
+	}
 
 	this->reset();
 }

@@ -8,6 +8,7 @@
 #include <UIRealTimeEditorTransfsormScale.h> 
 
 #define SCALE_DOTTS_COLLIDER 4
+#define INVALID_AERA 1
 
 namespace s2d
 {
