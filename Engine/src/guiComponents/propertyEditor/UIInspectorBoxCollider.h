@@ -19,10 +19,10 @@ namespace s2d
 		bool m_edit_mode;
 		s2d::Event* m_ptr_event;
 
+		/// <summary>
+		///  Hardcoded to much shit
+		/// </summary>
 		void renderScaleDotts(s2d::Sprite* sprite, s2d::Rectangle* ptr_box_collider_rec);
-
-		void getPos(const s2d::Sprite* focusedSprite, sf::Vector2f pos[]);
-		void setPos(const sf::Vector2f pos[]);
 
 		void reset();
 	public:

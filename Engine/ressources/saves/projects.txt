@@ -1,4 +1,2 @@
 name;absulutePathStr;date;relativePath
-Liquor;C:\Dev\Liquor;2023/24/04 06:52:43;..\..\Liquor
-myProject;C:\Dev\myProject;2023/27/04 12:26:13;..\..\myProject
-space-shooter;C:\Dev\SpriteEngine-SpaceShooter\space-shooter;2023/09/05 12:06:29;..\..\SpriteEngine-SpaceShooter\space-shooter
+Gamin;C:\Dev\C++\Gamin;2023/12/05 18:53:52;..\..\Gamin

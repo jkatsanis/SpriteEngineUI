@@ -55,11 +55,60 @@ void s2d::UIInspectorBoxCollider::renderScaleDotts(s2d::Sprite* sprite, s2d::Rec
 	this->m_box_collider_scale_dotts[2].ptr_scaling_rectangle->shape.setPosition(pos_height_x);
 	this->m_box_collider_scale_dotts[3].ptr_scaling_rectangle->shape.setPosition(pos_height_y);
 
+	const sf::Vector2f temp_scale_dott_pos_zero = this->m_box_collider_scale_dotts[0].ptr_scaling_rectangle->shape.getPosition();
+	const sf::Vector2f temp_scale_dott_pos_one = this->m_box_collider_scale_dotts[1].ptr_scaling_rectangle->shape.getPosition();
+	const sf::Vector2f temp_scale_dott_pos_two = this->m_box_collider_scale_dotts[2].ptr_scaling_rectangle->shape.getPosition();
+	const sf::Vector2f temp_scale_dott_pos_three = this->m_box_collider_scale_dotts[3].ptr_scaling_rectangle->shape.getPosition();
+
 	const float new_scale_width_y = s2d::UI::xScaleChanger(this->m_box_collider_scale_dotts[0], sprite->transform.getDefaultTextureSize().x,0);
 	const float new_scale_width_x = s2d::UI::xScaleChanger(this->m_box_collider_scale_dotts[1], sprite->transform.getDefaultTextureSize().x, 0);
 
 	const float new_scale_height_x = s2d::UI::yScaleChanger(this->m_box_collider_scale_dotts[2], sprite->transform.getDefaultTextureSize().x, 0);
 	const float new_scale_height_y = s2d::UI::yScaleChanger(this->m_box_collider_scale_dotts[3], sprite->transform.getDefaultTextureSize().x, 0);
+
+
+	bool must_return = false;
+
+	// Resetting right rectangle
+	if (this->m_box_collider_scale_dotts[0].ptr_scaling_rectangle->shape.getPosition().x
+		< DEFAULT_DOTT_SCALE + INVALID_AERA + this->m_box_collider_scale_dotts[1].ptr_scaling_rectangle->shape.getPosition().x)
+	{
+		this->m_box_collider_scale_dotts[0].ptr_scaling_rectangle->shape.
+			setPosition(temp_scale_dott_pos_zero);
+		must_return = true;
+	}
+
+	// Resetting left rectangle
+	if (this->m_box_collider_scale_dotts[1].ptr_scaling_rectangle->shape.getPosition().x + DEFAULT_DOTT_SCALE
+		>  INVALID_AERA + this->m_box_collider_scale_dotts[0].ptr_scaling_rectangle->shape.getPosition().x)
+	{
+		this->m_box_collider_scale_dotts[1].ptr_scaling_rectangle->shape.
+			setPosition(temp_scale_dott_pos_one);
+		must_return = true;
+	}
+
+	// Resetting top rectangle
+	if (this->m_box_collider_scale_dotts[2].ptr_scaling_rectangle->shape.getPosition().y + DEFAULT_DOTT_SCALE
+	> INVALID_AERA + this->m_box_collider_scale_dotts[3].ptr_scaling_rectangle->shape.getPosition().y)
+	{
+		this->m_box_collider_scale_dotts[2].ptr_scaling_rectangle->shape.
+			setPosition(temp_scale_dott_pos_two);
+		must_return = true;
+	}
+
+	// Resetting bottom rectangle
+	if (this->m_box_collider_scale_dotts[3].ptr_scaling_rectangle->shape.getPosition().y
+	< INVALID_AERA + DEFAULT_DOTT_SCALE + this->m_box_collider_scale_dotts[2].ptr_scaling_rectangle->shape.getPosition().y)
+	{
+		this->m_box_collider_scale_dotts[3].ptr_scaling_rectangle->shape.
+			setPosition(temp_scale_dott_pos_three);
+		must_return = true;
+	}
+
+	if (must_return)
+	{
+		return;
+	}
 
 	// Width
 	if (new_scale_width_y != INVALID_SCALE)
