@@ -118,18 +118,18 @@ void s2d::UIRealTimeEditorNavigator::navigateArrows()
 {
 	if (s2d::Input::onKeyHold(s2d::KeyBoardCode::Right))
 	{
-		this->m_ptr_gui_repo->camera.transform.position.x += this->m_arrowSpeed * s2d::Time::deltaTime;
+		this->m_ptr_gui_repo->camera.transform.position.x += this->m_arrowSpeed * s2d::Time::s_delta_time;
 	}
 	if (s2d::Input::onKeyHold(s2d::KeyBoardCode::Left))
 	{
-		this->m_ptr_gui_repo->camera.transform.position.x -= this->m_arrowSpeed * s2d::Time::deltaTime;
+		this->m_ptr_gui_repo->camera.transform.position.x -= this->m_arrowSpeed * s2d::Time::s_delta_time;
 	}
 	if (s2d::Input::onKeyHold(s2d::KeyBoardCode::Up))
 	{
-		this->m_ptr_gui_repo->camera.transform.position.y -= this->m_arrowSpeed * s2d::Time::deltaTime;
+		this->m_ptr_gui_repo->camera.transform.position.y -= this->m_arrowSpeed * s2d::Time::s_delta_time;
 	}
 	if (s2d::Input::onKeyHold(s2d::KeyBoardCode::Down))
 	{
-		this->m_ptr_gui_repo->camera.transform.position.y += this->m_arrowSpeed * s2d::Time::deltaTime;
+		this->m_ptr_gui_repo->camera.transform.position.y += this->m_arrowSpeed * s2d::Time::s_delta_time;
 	}
 }

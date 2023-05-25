@@ -36,7 +36,7 @@ void s2d::UIProjectSelector::pollEvents()
 			this->m_ptr_toRenderWindow->close();
 		}
 	}
-	ImGui::SFML::Update(*this->m_ptr_toRenderWindow, s2d::Time::deltaClock.restart());
+	ImGui::SFML::Update(*this->m_ptr_toRenderWindow, s2d::Time::s_delta_clock.restart());
 }
 
 void s2d::UIProjectSelector::render()

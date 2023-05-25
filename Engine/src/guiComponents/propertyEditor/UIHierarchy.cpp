@@ -163,7 +163,7 @@ void s2d::UIHierarchy::setHovering(s2d::Sprite* sprite, bool& anyHovered)
 		this->m_found_hovering = true;
 		if (ImGui::IsMouseDown(0) && this->m_ptr_repo->child_to_parent == nullptr && this->m_ptr_repo->asset_folder_data.drag_and_drop_path == " ")
 		{
-			this->m_child_select_timer += s2d::Time::deltaTime;
+			this->m_child_select_timer += s2d::Time::s_delta_time;
 
 			if (this->m_child_select_timer > TIME_TO_CAN_SELECT_CHILD)
 			{

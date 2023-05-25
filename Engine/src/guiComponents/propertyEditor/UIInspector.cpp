@@ -32,6 +32,8 @@ void s2d::UIInspector::afterInit()
 	this->m_ptr_collider_rectangle = this->m_ptr_gui_repo->getByName("collider-over-sprite");
 	this->m_ptr_sprite_over_rectangle = this->m_ptr_gui_repo->getByName("texture-over-sprite");
 
+	this->m_ptr_collider_rectangle->sorting_layer_index = 1;
+	this->m_ptr_gui_repo->updateHighestLayerIndex();
 	this->m_collider.initScaleDottsUI(*this->m_ptr_gui_repo);
 }
 
@@ -65,6 +67,7 @@ void s2d::UIInspector::render()
 	}
 	else
 	{
+		this->m_ptr_collider_rectangle->render = false;
 		// Handle it if no sprite is selected
 	}
 
@@ -527,7 +530,6 @@ void s2d::UIInspector::boxColliderComponent()
 
 		//Transparent since we open the boxcollider and we want to open the colider (rec)
 		this->m_collider.drawBoxCollider(this->m_ptr_sprite_repo->sprite_in_inspector, this->m_ptr_collider_rectangle);
-
 		ImGui::Dummy(ImVec2(0, 9));
 	}
 	else

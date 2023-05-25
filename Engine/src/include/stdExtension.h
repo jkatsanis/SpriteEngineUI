@@ -191,5 +191,26 @@ namespace std
 		}
 		vec.erase(vec.begin() + pos);
 	}
+
+
+	static void getFileNameWithExtensionInFolder(const std::filesystem::path& path, const std::string& extension, std::vector<std::string>& to)
+	{
+		for (const std::filesystem::directory_entry& entry : std::filesystem::directory_iterator(path))
+		{
+			if (std::filesystem::is_directory(entry))
+			{
+				getFileNameWithExtensionInFolder(entry.path(), extension, to);
+			}
+			else
+			{
+				std::string file_extension = "." + getFileExtension(entry.path().filename().string());
+				if (file_extension == extension)
+				{
+					to.push_back(entry.path().string());
+				}
+			}
+		}
+	}
+
 }
 

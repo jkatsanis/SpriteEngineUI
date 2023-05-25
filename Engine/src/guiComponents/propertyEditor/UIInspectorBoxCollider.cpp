@@ -8,7 +8,7 @@ s2d::UIInspectorBoxCollider::UIInspectorBoxCollider()
 	{
 		this->m_box_collider_scale_dotts[i] = s2d::ScaleDott();
 	}
-
+	this->m_ptr_event = nullptr;
 	this->m_edit_mode = false;
 }
 
@@ -142,7 +142,6 @@ void s2d::UIInspectorBoxCollider::renderScaleDotts(s2d::Sprite* sprite, s2d::Rec
 	this->reset();
 }
 
-
 // Public functions
 
 void s2d::UIInspectorBoxCollider::edit(float& x, float& y)
@@ -152,7 +151,7 @@ void s2d::UIInspectorBoxCollider::edit(float& x, float& y)
 	ImGui::SetCursorPos(ImVec2(x += 53.5f, y -= 2.5f));
 	if (s2d::FontManager::displaySmybolAsButton(ICON_FA_EDIT))
 	{
-		this->m_edit_mode = true;
+		this->m_edit_mode = !this->m_edit_mode;
 	}
 	x += 19;
 
@@ -256,7 +255,7 @@ void s2d::UIInspectorBoxCollider::height(s2d::Sprite* sprite)
 
 void s2d::UIInspectorBoxCollider::drawBoxCollider(s2d::Sprite* sprite, s2d::Rectangle* ptr_rectangle)
 {
-	sf::Vector2f size = sf::Vector2f(sprite->transform.textureSize.x + (-sprite->collider.box_collider_width.x + sprite->collider.box_collider_width.y),
+	const sf::Vector2f size = sf::Vector2f(sprite->transform.textureSize.x + (-sprite->collider.box_collider_width.x + sprite->collider.box_collider_width.y),
 		sprite->transform.textureSize.y + (-sprite->collider.box_collider_height.x + sprite->collider.box_collider_height.y));
 
 	sf::RectangleShape* ptr_shape = &ptr_rectangle->shape;
@@ -265,9 +264,16 @@ void s2d::UIInspectorBoxCollider::drawBoxCollider(s2d::Sprite* sprite, s2d::Rect
 	ptr_shape->setPosition(sf::Vector2f(sprite->getOrigininalPosition().x + sprite->collider.box_collider_width.x, sprite->getOrigininalPosition().y + sprite->collider.box_collider_height.x));
 
 	ptr_rectangle->render = true;
-	ptr_rectangle->sorting_layer_index = 1;
 
-	this->renderScaleDotts(sprite, ptr_rectangle);
+	if (this->m_edit_mode)
+	{
+		this->renderDotts();
+		this->renderScaleDotts(sprite, ptr_rectangle);
+	}
+	else
+	{
+		this->unrenderDotts();
+	}
 }
 
 void s2d::UIInspectorBoxCollider::initScaleDottsUI(s2d::GUIRepository& repo)
@@ -281,6 +287,25 @@ void s2d::UIInspectorBoxCollider::initScaleDottsUI(s2d::GUIRepository& repo)
 			size, sf::Color(255, 255, 255), 2.0f, PATH_TO_TRANSPARENT_PIC, name);
 		this->m_box_collider_scale_dotts[i].ptr_scaling_rectangle = repo.getByName(name);
 		this->m_box_collider_scale_dotts[i].clicked = false;
+	}
+
+	this->unrenderDotts();
+}
+
+void s2d::UIInspectorBoxCollider::renderDotts()
+{
+	for (int i = 0; i < SCALE_DOTTS_COLLIDER; i++)
+	{
+		this->m_box_collider_scale_dotts[i].ptr_scaling_rectangle->render = true;
+	}
+}
+
+void s2d::UIInspectorBoxCollider::unrenderDotts()
+{
+	for (int i = 0; i < SCALE_DOTTS_COLLIDER; i++)
+	{
+		this->m_box_collider_scale_dotts[i].clicked = false;
+		this->m_box_collider_scale_dotts[i].ptr_scaling_rectangle->render = false;
 	}
 }
 

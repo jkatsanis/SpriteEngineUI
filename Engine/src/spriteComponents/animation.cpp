@@ -69,7 +69,7 @@ void s2d::Animation::play()
 
 void s2d::Animation::update()
 {
-	this->time_passed += Time::deltaTime;
+	this->time_passed += Time::s_delta_time;
 	if (this->m_keyframes.size() == 0)
 	{
 		return;

@@ -22,7 +22,7 @@ namespace s2d
 		UIWindow m_UIWindow;
 		UIRealTimeEditor m_UIRealTimeEditor;
 		Renderer m_renderer;
-		SpriteRepository m_spriteRepository;
+		SpriteRepository m_sprite_repository;
 
 		bool m_isWindowFullScreen;
 		bool m_close;

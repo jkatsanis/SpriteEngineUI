@@ -42,8 +42,8 @@ void s2d::Renderer::draw()
 
 void s2d::Renderer::drawSprites()
 {
-    this->m_timePassedToUpdateLayerIndex += s2d::Time::deltaTime;
-    this->m_timePassedTillNextSpriteTextureUpdate += s2d::Time::deltaTime;
+    this->m_timePassedToUpdateLayerIndex += s2d::Time::s_delta_time;
+    this->m_timePassedTillNextSpriteTextureUpdate += s2d::Time::s_delta_time;
 
     //2s passed we can update out hightest layer index
     if (this->m_timePassedToUpdateLayerIndex > m_timeToUpdateLayerIndex)

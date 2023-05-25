@@ -43,7 +43,7 @@ namespace s2d
 		void render(sf::RenderWindow* ptr_render_window);
 
 		s2d::Rectangle* getByName(const std::string& name);
-		s2d::Rectangle* getByVecPos(uint32_t vec);
+		s2d::Rectangle* getByVecPos(size_t vec);
 
 		size_t amount() const { return this->m_rectangles.size(); }
 

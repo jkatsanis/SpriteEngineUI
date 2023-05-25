@@ -205,6 +205,7 @@ void s2d::UIToolButtons::playGameButton()
 
 		//Starting the game
 		system(path.c_str());
+		std::cout << "LOG [WARNING] If the game doesnt start make sure that you have built the program into a .exe in the Assets project!!!" << std::endl;
 
 		//Reseting the dir
 		if (!SetCurrentDirectory(engineDirectory))

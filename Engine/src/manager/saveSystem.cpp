@@ -24,7 +24,7 @@ void s2d::flc::createSaveFile(const s2d::SpriteRepository& spriteRepo)
 
 	if (spriteFile.is_open()) 
 	{
-		spriteFile << "name;vecpos;transformPosX;transformPosY;ScaleX;ScaleY;filepath;boxColliderWidthLeftOrRightX;boxColliderWidthLeftOrRighY;boxColliderHeightUpOrDownX;boxColliderHeightUpOrDownY;boxColliderExists;solid;sortingLayer;gravity;mass;physicsBodyExists;id;parentId;nextPosX;nextPosY;lastPosX;lastPosY;listPos;highestChild;positionToParentX;positionToParentY;animatorExists;prefabExist;loadInMemory;pathToPrefab;savePrefab" << "\n";
+		spriteFile << "name;vecpos;transformPosX;transformPosY;ScaleX;ScaleY;filepath;boxColliderWidthLeftOrRightX;boxColliderWidthLeftOrRighY;boxColliderHeightUpOrDownX;boxColliderHeightUpOrDownY;boxColliderExists;solid;sortingLayer;gravity;mass;physicsBodyExists;id;parentId;nextPosX;nextPosY;lastPosX;lastPosY;listPos;highestChild;positionToParentX;positionToParentY;animatorExists;prefabExist;loadInMemory;pathToPrefab" << "\n";
 		for (int i = 0; i < spriteRepo.amount(); i++)
 		{
 			const s2d::Sprite* const sprite = spriteRepo.readAt(i, true);
@@ -494,5 +494,20 @@ std::string s2d::flc::copyDir(const std::string& inputDir, const std::string& ou
 
 	system(remove_exclusion_file.c_str());
 	return outputdir + std::string(name.c_str());
+}
+
+void s2d::flc::cleanUp(s2d::SpriteRepository& repo)
+{
+	std::vector<std::string> valid_prefab_names;
+	std::getFileNameWithExtensionInFolder(s2d::EngineData::s_path_to_user_project, EXTENSION_PREFAB_FILE, valid_prefab_names);
+
+	for (int i = 0; i < valid_prefab_names.size(); i++)
+	{
+		std::cout << "hi";
+	}
+
+	for (size_t i = 0; i < repo.amount(); i++)
+	{
+	}
 }
 

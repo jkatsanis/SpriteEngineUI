@@ -68,9 +68,9 @@ s2d::Rectangle* s2d::GUIRepository::getByName(const std::string& name)
 	return nullptr;
 }
 
-s2d::Rectangle* s2d::GUIRepository::getByVecPos(uint32_t vec)
+s2d::Rectangle* s2d::GUIRepository::getByVecPos(size_t vec)
 {
-	for (int i = 0; i < this->m_rectangles.size(); i++)
+	for (size_t i = 0; i < this->m_rectangles.size(); i++)
 	{
 		if (i == vec)
 		{

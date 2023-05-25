@@ -429,9 +429,6 @@
     <ClInclude Include="src\include\SFML\System\String.hpp">
       <Filter>src\Include/headers\__include\sfml</Filter>
     </ClInclude>
-    <ClInclude Include="src\include\stdExtension.h">
-      <Filter>src\Include/headers\__include\sfml</Filter>
-    </ClInclude>
     <ClInclude Include="src\include\SFML\Graphics\Sprite.hpp">
       <Filter>src\Include/headers\__include\sfml</Filter>
     </ClInclude>
@@ -818,6 +815,9 @@
     </ClInclude>
     <ClInclude Include="src\guiComponents\UIModels.h">
       <Filter>src\guiComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\stdExtension.h">
+      <Filter>src\Include/headers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

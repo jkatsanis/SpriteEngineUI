@@ -4,26 +4,26 @@
 
 s2d::GameEngine::GameEngine()
 {
-    this->m_UIWindow.init(this->m_spriteRepository, &this->event);
+    this->m_UIWindow.init(this->m_sprite_repository, &this->event);
     this->m_close = false;
     this->ptr_render_window = new sf::RenderWindow(sf::VideoMode(1920, 1080), "SpriteEngine", sf::Style::Default);
     this->windowEvent.type = sf::Event::GainedFocus;
-    this->m_renderer = s2d::Renderer(this->ptr_render_window, &this->m_UIWindow.getInspector().background_color, this->m_spriteRepository, this->m_UIWindow.gui_repository);
+    this->m_renderer = s2d::Renderer(this->ptr_render_window, &this->m_UIWindow.getInspector().background_color, this->m_sprite_repository, this->m_UIWindow.gui_repository);
 
     auto desktop = sf::VideoMode::getDesktopMode();
     this->ptr_render_window->setPosition(sf::Vector2i(desktop.width / 2 - this->ptr_render_window->getSize().x / 2, 0));
     this->m_isWindowFullScreen = false;
 
     this->m_UIRealTimeEditor = s2d::UIRealTimeEditor(*ptr_render_window, &this->windowEvent, &this->m_UIWindow.ary_any_windows_hovered,
-        &this->m_UIWindow.getInspector().state, &this->event, this->m_spriteRepository, this->m_UIWindow.gui_repository);
+        &this->m_UIWindow.getInspector().state, &this->event, this->m_sprite_repository, this->m_UIWindow.gui_repository);
     this->m_UIWindow.gui_repository.camera = s2d::Camera(this->ptr_render_window);
 
     //Setting other classes
-    s2d::Initializer::initSprites(this->m_spriteRepository);
-    s2d::Initializer::initAnimations(this->m_spriteRepository);
+    s2d::Initializer::initSprites(this->m_sprite_repository);
+    s2d::Initializer::initAnimations(this->m_sprite_repository);
     s2d::Initializer::initBackground(this->m_UIWindow.getInspector().background_color);
     s2d::Input::setEvent(&this->event);
-    s2d::Initializer::initIds(this->m_spriteRepository.highestSpriteId);
+    s2d::Initializer::initIds(this->m_sprite_repository.highestSpriteId);
     s2d::UI::setRenderWindow(this->ptr_render_window);
     s2d::UI::setS2DEvent(&this->event);
     s2d::Initializer::initCamera(this->m_UIWindow.gui_repository);
@@ -33,7 +33,7 @@ s2d::GameEngine::GameEngine()
 
     this->ptr_render_window->setKeyRepeatEnabled(false);
 
-    this->m_spriteRepository.isFullScreened = &this->m_isWindowFullScreen;
+    this->m_sprite_repository.isFullScreened = &this->m_isWindowFullScreen;
 }
 
 s2d::GameEngine::~GameEngine()
@@ -47,9 +47,9 @@ s2d::GameEngine::~GameEngine()
 
 void s2d::GameEngine::pollEngineEvents()
 {
-    for (int i = 0; i < this->m_spriteRepository.amount(); i++)
+    for (int i = 0; i < this->m_sprite_repository.amount(); i++)
     {
-        s2d::Sprite* const sprite = this->m_spriteRepository.readAt(i);
+        s2d::Sprite* const sprite = this->m_sprite_repository.readAt(i);
         if (sprite->transform.position != sprite->transform.nextPos)
         {
             //Fire on pos event
@@ -104,7 +104,7 @@ void s2d::GameEngine::pollEvents()
             event.key = static_cast<s2d::KeyBoardCode>(static_cast<sf::Keyboard::Key>(this->windowEvent.key.code));
         }
     }
-    ImGui::SFML::Update(*ptr_render_window, Time::deltaClock.restart());
+    ImGui::SFML::Update(*ptr_render_window, Time::s_delta_clock.restart());
 }
 
 void s2d::GameEngine::updateWindowStyle()
@@ -143,13 +143,15 @@ void s2d::GameEngine::saveDialoge()
             const ImVec2 CURSOR_POS = ImGui::GetCursorPos();
             if (ImGui::Button("Save"))
             {
-                s2d::flc::saveEverything(this->m_UIWindow.getInspector().background_color, this->m_spriteRepository, this->m_UIWindow.gui_repository);
+                s2d::flc::cleanUp(this->m_sprite_repository);
+                s2d::flc::saveEverything(this->m_UIWindow.getInspector().background_color, this->m_sprite_repository, this->m_UIWindow.gui_repository);
                 this->ptr_render_window->close();
                 return;
             }
             ImGui::SameLine();
             if (ImGui::Button("Exit"))
             {
+                s2d::flc::cleanUp(this->m_sprite_repository);
                 this->ptr_render_window->close();
                 return;
             }
@@ -182,7 +184,7 @@ void s2d::GameEngine::update()
     this->saveDialoge();
     ImGui::PopFont();
 
-    s2d::Animation::updateAllAnimations(this->m_spriteRepository);
+    s2d::Animation::updateAllAnimations(this->m_sprite_repository);
 
     // Engine event
     this->pollEngineEvents();

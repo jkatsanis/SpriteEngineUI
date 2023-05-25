@@ -65,6 +65,8 @@ namespace s2d
 		/// </summary>
 		std::string copyDir(const std::string& inputDir, const std::string& outputdir, const std::string& name, const std::vector<std::string>& exclude);
 
+		void cleanUp(s2d::SpriteRepository& repo);
+
 		std::string getPropertyLineWithSeperator(const Sprite* const sprite);
 	}
 }
