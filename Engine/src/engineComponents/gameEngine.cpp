@@ -22,11 +22,12 @@ s2d::GameEngine::GameEngine()
     s2d::Initializer::initSprites(this->m_sprite_repository);
     s2d::Initializer::initAnimations(this->m_sprite_repository);
     s2d::Initializer::initBackground(this->m_UIWindow.getInspector().background_color);
-    s2d::Input::setEvent(&this->event);
     s2d::Initializer::initIds(this->m_sprite_repository.highestSpriteId);
+    s2d::Initializer::initCamera(this->m_UIWindow.gui_repository);
+
+    s2d::Input::setEvent(&this->event);
     s2d::UI::setRenderWindow(this->ptr_render_window);
     s2d::UI::setS2DEvent(&this->event);
-    s2d::Initializer::initCamera(this->m_UIWindow.gui_repository);
     //End
 
     ImGui::SFML::Init(*this->ptr_render_window);
@@ -143,16 +144,13 @@ void s2d::GameEngine::saveDialoge()
             const ImVec2 CURSOR_POS = ImGui::GetCursorPos();
             if (ImGui::Button("Save"))
             {
-                s2d::flc::cleanUp(this->m_sprite_repository);
-                s2d::flc::saveEverything(this->m_UIWindow.getInspector().background_color, this->m_sprite_repository, this->m_UIWindow.gui_repository);
-                this->ptr_render_window->close();
+                onEngineClose(true);
                 return;
             }
             ImGui::SameLine();
             if (ImGui::Button("Exit"))
             {
-                s2d::flc::cleanUp(this->m_sprite_repository);
-                this->ptr_render_window->close();
+                onEngineClose(false);
                 return;
             }
             ImGui::SetCursorPos(ImVec2(CURSOR_POS.x + SAVE_MENU_SIZE.x - 50, CURSOR_POS.y));
@@ -165,6 +163,16 @@ void s2d::GameEngine::saveDialoge()
             ImGui::End();
         }
     }
+}
+
+void s2d::GameEngine::onEngineClose(bool save)
+{
+    s2d::flc::cleanUp(this->m_sprite_repository);
+    if (save)
+    {
+        s2d::flc::saveEverything(this->m_UIWindow.getInspector().background_color, this->m_sprite_repository, this->m_UIWindow.gui_repository);
+    } 
+    this->ptr_render_window->close();
 }
 
 //public functions

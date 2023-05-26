@@ -501,13 +501,19 @@ void s2d::flc::cleanUp(s2d::SpriteRepository& repo)
 	std::vector<std::string> valid_prefab_names;
 	std::getFileNameWithExtensionInFolder(s2d::EngineData::s_path_to_user_project, EXTENSION_PREFAB_FILE, valid_prefab_names);
 
-	for (int i = 0; i < valid_prefab_names.size(); i++)
+	for (size_t i = 0; i < valid_prefab_names.size(); i++)
 	{
-		std::cout << "hi";
+		valid_prefab_names[i] = std::getFileOnPath(valid_prefab_names[i]);
 	}
 
 	for (size_t i = 0; i < repo.amount(); i++)
 	{
+		const std::string engine_name = std::getFileOnPath(repo.readAt(i)->prefab.enginePathToFile);
+
+		if (!std::isEqualWithAny(engine_name, valid_prefab_names))
+		{
+			repo.readAt(i)->prefab.resetPrefab();
+		}
 	}
 }
 

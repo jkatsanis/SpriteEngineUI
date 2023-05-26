@@ -7,7 +7,7 @@ int main()
 
     while (selector.isOpen())
     {
-        selector.update();  
+        selector.update();
     }
 
     if (s2d::EngineData::s_path_to_user_project == "")
@@ -24,10 +24,9 @@ int main()
         return -1;
     }
     while (engine.ptr_render_window->isOpen())
-    {    
+    {
         engine.update();
     }
 
     return 0;
 }
-

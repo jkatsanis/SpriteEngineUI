@@ -114,7 +114,7 @@ void s2d::Animation::addKeyFrameAt(const int vecpos, const s2d::KeyFrame& frame)
 {
 	if (this->is_playing)
 	{
-		std::cout << "LOG: [Warning] Cant add keyframes while playing animation! " << frame.path << std::endl;
+		std::cout << "LOG: [WARNINING] Cant add keyframes while playing animation! " << frame.path << std::endl;
 		return;
 	}
 

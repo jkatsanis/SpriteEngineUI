@@ -31,6 +31,7 @@ namespace s2d
 		void pollEvents();
 		void updateWindowStyle();
 		void saveDialoge();
+		void onEngineClose(bool save);
 
 	public:
 		s2d::Event event;

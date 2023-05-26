@@ -155,6 +155,15 @@ void s2d::UIAnimation::addAnimationsToAnimator()
 {
 	if (this->m_openInputWindow && ImGui::IsKeyReleased(ImGuiKey_Enter))
 	{
+		for (std::pair<std::string, s2d::Animation> anim : this->m_ptr_repo->sprite_in_inspector->animator.animations)
+		{
+			// Found a aniamtion with this name, which already exists
+			if (anim.first == this->m_animationFile)
+			{
+				std::cout << "LOG [ERROR] Cant create anoter file with the same name!";
+				return;
+			}
+		}
 		if (this->m_animationFile[0] != '\0')
 		{
 			const std::string& path = 
@@ -163,6 +172,9 @@ void s2d::UIAnimation::addAnimationsToAnimator()
 				+ EXTENSION_ANIMATION_FILE;
 			this->m_ptr_repo->sprite_in_inspector->animator.createAnimation(this->m_animationFile, path, { });
 		}
+		s2d::flc::createAnimationSaveFile
+		(this->m_ptr_repo->sprite_in_inspector, this->m_ptr_repo->sprite_in_inspector->animator.animations[this->m_animationFile]);
+
 		this->m_createAnimtionPathFileDialoge.disableWindow();
 		this->m_openFileDialog = false;
 		this->m_animationFile[0] = '\0';

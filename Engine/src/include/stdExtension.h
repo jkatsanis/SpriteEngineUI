@@ -212,5 +212,16 @@ namespace std
 		}
 	}
 
+	static bool isEqualWithAny(const std::string& str, const std::vector<std::string>& arr)
+	{
+		for (size_t i = 0; i < arr.size(); i++)
+		{
+			if (str == arr[i])
+			{
+				return true;
+			}
+		}
+		return false;
+	}
 }
 
