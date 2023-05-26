@@ -43,7 +43,7 @@ namespace std
 	};
 
 	/// <summary>
-	/// Not that the path shoudl look like this:
+	/// Note that the path shoudl look like this:
 	/// Path/MyPath/assets/myFile.extension
 	/// </summary>
 	static void createFileWithContent(const std::string& content, const std::string& pathAndName)

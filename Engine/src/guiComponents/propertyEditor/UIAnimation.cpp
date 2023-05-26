@@ -173,7 +173,7 @@ void s2d::UIAnimation::addAnimationsToAnimator()
 			this->m_ptr_repo->sprite_in_inspector->animator.createAnimation(this->m_animationFile, path, { });
 		}
 		s2d::flc::createAnimationSaveFile
-		(this->m_ptr_repo->sprite_in_inspector, this->m_ptr_repo->sprite_in_inspector->animator.animations[this->m_animationFile]);
+			(this->m_ptr_repo->sprite_in_inspector, this->m_ptr_repo->sprite_in_inspector->animator.animations[this->m_animationFile]);
 
 		this->m_createAnimtionPathFileDialoge.disableWindow();
 		this->m_openFileDialog = false;

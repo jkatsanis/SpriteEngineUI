@@ -24,7 +24,7 @@ s2d::GameEngine::GameEngine()
     s2d::Initializer::initBackground(this->m_UIWindow.getInspector().background_color);
     s2d::Initializer::initIds(this->m_sprite_repository.highestSpriteId);
     s2d::Initializer::initCamera(this->m_UIWindow.gui_repository);
-
+   
     s2d::Input::setEvent(&this->event);
     s2d::UI::setRenderWindow(this->ptr_render_window);
     s2d::UI::setS2DEvent(&this->event);
@@ -35,6 +35,8 @@ s2d::GameEngine::GameEngine()
     this->ptr_render_window->setKeyRepeatEnabled(false);
 
     this->m_sprite_repository.isFullScreened = &this->m_isWindowFullScreen;
+
+    s2d::flc::cleanUp(this->m_sprite_repository);
 }
 
 s2d::GameEngine::~GameEngine()
@@ -182,7 +184,7 @@ void s2d::GameEngine::update()
     // Fullscreen / Not Fullscreen
     this->updateWindowStyle();
 
-    // Renderere / window events
+    // Renderer / window events
     this->pollEvents();
 
     // UIWindow (Engine)
