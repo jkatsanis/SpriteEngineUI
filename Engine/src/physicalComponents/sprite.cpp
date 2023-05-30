@@ -99,6 +99,11 @@ void s2d::Sprite::setParent(s2d::Sprite* parent)
 	}
 	this->m_parent_id = parent->getId();
 	this->parent = parent;
+
+	s2d::Sprite* child = this;
+	s2d::Vector2 distance = s2d::Vector2(parent->transform.position - child->transform.position);
+	child->transform.position_to_parent = distance;
+
 	parent->ptr_childs.push_back(this);
 }
 

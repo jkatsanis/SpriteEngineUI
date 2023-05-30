@@ -19,7 +19,7 @@ namespace s2d
 		s2d::Vector2 textureSize;
 		s2d::Vector2 nextPos;
 		s2d::Vector2 lastPos;
-		s2d::Vector2 positionToParent;
+		s2d::Vector2 position_to_parent;
 		s2d::Sprite* m_attached_sprite;
 
 		bool position_changed;

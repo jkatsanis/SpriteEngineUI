@@ -118,8 +118,8 @@ void s2d::Initializer::initSprite(const std::string& line, s2d::Sprite* sprite)
 	#pragma endregion
 
 	# pragma region Position to parent x, and y
-		sprite->transform.positionToParent.x = std::stof(propertys[25]);
-		sprite->transform.positionToParent.y = std::stof(propertys[26]);
+		sprite->transform.position_to_parent.x = std::stof(propertys[25]);
+		sprite->transform.position_to_parent.y = std::stof(propertys[26]);
 
 		sprite->animator.exist = propertys[27] == "True";
 	#pragma endregion

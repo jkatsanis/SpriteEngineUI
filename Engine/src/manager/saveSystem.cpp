@@ -69,8 +69,8 @@ std::string s2d::flc::getPropertyLineWithSeperator(const Sprite* const sprite)
 	std::string lastPosX = std::to_string(sprite->transform.lastPos.x);
 	std::string lastPosY = std::to_string(sprite->transform.lastPos.y);
 
-	std::string positionToParentX = std::to_string(sprite->transform.positionToParent.x);
-	std::string positionToParentY = std::to_string(sprite->transform.positionToParent.y);
+	std::string positionToParentX = std::to_string(sprite->transform.position_to_parent.x);
+	std::string positionToParentY = std::to_string(sprite->transform.position_to_parent.y);
 
 	std::string animatorExist = std::boolToStr(sprite->animator.exist);
 
