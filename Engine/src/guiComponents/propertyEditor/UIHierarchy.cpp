@@ -1,4 +1,4 @@
-#include "UIHierarchy.h"
+	#include "UIHierarchy.h"
 
 //Constructor
 
@@ -64,6 +64,7 @@ void s2d::UIHierarchy::displayHierarchyWindow()
 	this->displayContextPopup();
 	this->displayChildToParent();
 	this->setSpriteAsChild();
+	this->addPrefab();
 
 	// Cleaning up
 
@@ -262,7 +263,13 @@ void s2d::UIHierarchy::setMenuitemHovered(bool& any_hovered, s2d::Sprite* sprite
 
 void s2d::UIHierarchy::addPrefab()
 {
-//	if(this->m_ptr_repo.)
+	if (this->m_ptr_repo->asset_folder_data.darg_and_drop_name != " "
+		&& "." + std::getFileExtension(this->m_ptr_repo->asset_folder_data.darg_and_drop_name) == EXTENSION_PREFAB_FILE
+		&& ImGui::IsMouseReleased(0) && this->is_hovered)
+	{
+	
+		this->m_ptr_repo->instanitatePrefab(this->m_ptr_repo->asset_folder_data.drag_and_drop_path);
+	}
 }
 
 void s2d::UIHierarchy::renderCloseRectangle()

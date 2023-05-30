@@ -5,12 +5,13 @@
 #include <iostream>
 #include <calculationComponents/vector2.h>
 #include <UIToolButtonsModels.h>
+#include <string>
 
 namespace s2d
 {
     struct AssetFolderData
     {
-        std::string dragAndDropName;
+        std::string darg_and_drop_name;
         std::string drag_and_drop_path;
     };
     class Sprite;
@@ -49,6 +50,7 @@ namespace s2d
         void add(s2d::Sprite* ref);
         s2d::Sprite* getSpriteWithName(const std::string& name);
         s2d::Sprite* getSpriteWithId(int id);
+        void instanitatePrefab(const std::string& path_to);
 
         void updateHighestLayerIndex();
 

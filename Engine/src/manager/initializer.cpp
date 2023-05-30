@@ -243,7 +243,6 @@ void s2d::Initializer::initIds(uint32_t& highestId)
 	highestId = index;
 }
 
-
 // private static functions
 
 void s2d::Initializer::initAnimation(const std::string& path, s2d::SpriteRepository& repo)

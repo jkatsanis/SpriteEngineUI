@@ -118,6 +118,19 @@ void s2d::UIInspector::renderComponentOptions(s2d::Component& component, const s
 	ImGui::SetCursorPos(temp_pos);
 }
 
+void s2d::UIInspector::editDupeName()
+{
+	for (size_t i = 0; i < this->m_ptr_sprite_repo->amount(); i++)
+	{
+		s2d::Sprite* const spr = this->m_ptr_sprite_repo->readAt(i);
+		for (size_t j = 0; j < this->m_ptr_sprite_repo->amount(); j++)
+		{
+			s2d::Sprite* const spr_j = this->m_ptr_sprite_repo->readAt(j);
+
+		}
+	}
+}
+
 void s2d::UIInspector::drawRectangleOverCurrentObject()
 {
 	this->m_ptr_sprite_over_rectangle->render = true;
@@ -182,19 +195,6 @@ void s2d::UIInspector::resizeWindow()
 	}
 }
 
-void s2d::UIInspector::checkDupeName()
-{
-	for (int i = 0; i < this->m_ptr_sprite_repo->amount(); i++)
-	{
-		s2d::Sprite* const sprite = this->m_ptr_sprite_repo->readAt(i);
-		if (this->m_ptr_sprite_repo->sprite_in_inspector->name == sprite->name 
-			&& this->m_ptr_sprite_repo->sprite_in_inspector->getId() != sprite->getId())
-		{
-			this->m_ptr_sprite_repo->sprite_in_inspector->name = "<no dupe (" + std::to_string(this->m_ptr_sprite_repo->dupeNameCounter) += ")>";
-			this->m_ptr_sprite_repo->dupeNameCounter++;
-		}
-	}
-}
 
 void s2d::UIInspector::renderBackgroundBehindComponent()
 {

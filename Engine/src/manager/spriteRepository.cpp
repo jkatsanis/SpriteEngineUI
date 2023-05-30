@@ -5,7 +5,7 @@
 
 s2d::SpriteRepository::SpriteRepository()
 {
-    this->asset_folder_data.dragAndDropName = " ";
+    this->asset_folder_data.darg_and_drop_name = " ";
     this->asset_folder_data.drag_and_drop_path = " ";
     this->current_tool = s2d::EditorTools::PositionTool;
     this->sprited_hovered_in_hierarchy = nullptr;
@@ -106,6 +106,35 @@ s2d::Sprite* s2d::SpriteRepository::getSpriteWithId(int id)
         }
     }
     return nullptr;
+}
+
+void s2d::SpriteRepository::instanitatePrefab(const std::string& path_to)
+{
+    std::fstream stream = std::fstream(path_to);
+
+    if (stream.is_open())
+    {
+        s2d::Sprite* spr = new s2d::Sprite();
+
+        std::string line = "";
+        uint8_t cnt = 0;
+        while (getline(stream, line))
+        {
+            cnt++;
+            //First line is the header so we dont need to check for it
+            if (cnt == 1)
+            {
+                continue;
+            }       
+            s2d::Initializer::initSprite(line, spr);
+        }
+        spr->parent = nullptr;
+        spr->setParentId(-1);
+        this->add(spr);
+
+    }
+
+
 }
 
 void s2d::SpriteRepository::updateHighestLayerIndex()

@@ -146,16 +146,7 @@ void s2d::Sprite::validateProperties(uint32_t id, s2d::SpriteRepository& repo)
 {
 	this->m_id = id;
 	const char CHAR_INVALID_SYMBOLS[INVALID_SPRITE_SYMBOLS] = { ';' };
-	// VALIDATE NAME
-	for (int i = 0; i < repo.amount(); i++)
-	{
-		s2d::Sprite* const sprite = repo.readAt(i);
-		if (this->name == sprite->name)
-		{
-			name = name + " (dupe) " + std::to_string(i);
-			std::cout << "LOG [ERROR] Cant have duped name renamed sprite!";
-		}
-	}
+
 	std::string original_name = name;
 
 	for (int i = 0; i < INVALID_SPRITE_SYMBOLS; i++)

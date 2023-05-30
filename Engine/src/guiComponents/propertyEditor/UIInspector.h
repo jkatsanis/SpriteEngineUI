@@ -72,10 +72,10 @@ namespace s2d
 		void displayDefaultInspectorView();
 		void backgroundSetting();
 		void gameEngineViewSetting();
-		void checkDupeName();
 		void preInit();
 		void afterInit();
 		void renderComponentOptions(s2d::Component& component, const std::string& name);
+		void editDupeName();
 
 	public:
 		bool is_hovered;

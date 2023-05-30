@@ -62,7 +62,7 @@ void s2d::UIAssetFolder::createAssetLinkerWindow()
         {
             const ImVec2 window_pos = ImGui::GetMousePos();
             ImGui::SetWindowFontScale(s2d::UIInfo::s_default_font_size);
-            ImGui::Text(this->m_ptr_repo->asset_folder_data.dragAndDropName.c_str());
+            ImGui::Text(this->m_ptr_repo->asset_folder_data.darg_and_drop_name.c_str());
             ImGui::SetWindowPos(ImVec2(window_pos.x - 15, window_pos.y - 15));
             ImGui::End();
         }
@@ -445,7 +445,7 @@ void s2d::UIAssetFolder::setDragAndDrop(std::string path, std::string name)
     {
         this->m_dragging_item = true;
         this->m_ptr_repo->asset_folder_data.drag_and_drop_path = path;
-        this->m_ptr_repo->asset_folder_data.dragAndDropName = name;
+        this->m_ptr_repo->asset_folder_data.darg_and_drop_name = name;
     }
     if (ImGui::IsMouseReleased(0))
     {
@@ -453,7 +453,7 @@ void s2d::UIAssetFolder::setDragAndDrop(std::string path, std::string name)
         this->m_dragging_item = false;
         this->m_hovered_over_item = false;
         this->m_ptr_repo->asset_folder_data.drag_and_drop_path = " ";
-        this->m_ptr_repo->asset_folder_data.dragAndDropName = " ";
+        this->m_ptr_repo->asset_folder_data.darg_and_drop_name = " ";
     }
 }
 

@@ -1,2 +1,2 @@
 name;absulutePathStr;date;relativePath
-Demoni;C:\Dev\Demoni;2023/16/05 09:14:42;..\..\Demoni
+gamer;C:\Dev\C++\gamer;2023/27/05 14:26:51;..\..\gamer

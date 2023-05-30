@@ -1,5 +1,6 @@
-﻿  gameEngine.cpp
-  UIAnimation.cpp
-  animation.cpp
+﻿  UIDataModels.h
+  UIInspector.cpp
+  UIToolButtonsModels.h
+  UIRealTimeEditorTransformPosition.cpp
   Generating Code...
-  SpriteEngine.vcxproj -> C:\Dev\SpriteEngineUI\Engine\x64\Debug\SpriteEngine.exe
+  SpriteEngine.vcxproj -> C:\Dev\C++\SpriteEngineUI\Engine\x64\Debug\SpriteEngine.exe
