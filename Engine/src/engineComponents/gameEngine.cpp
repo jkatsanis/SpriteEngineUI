@@ -4,40 +4,44 @@
 
 s2d::GameEngine::GameEngine()
 {
+    this->m_UIWindow.init(this->m_sprite_repository, &this->event);
     this->m_close = false;
-    this->ptr_renderWindow = new sf::RenderWindow(sf::VideoMode(1920, 1080), "SpriteEngine", sf::Style::Default);
+    this->ptr_render_window = new sf::RenderWindow(sf::VideoMode(1920, 1080), "SpriteEngine", sf::Style::Default);
     this->windowEvent.type = sf::Event::GainedFocus;
-    this->m_renderer = s2d::Renderer(this->ptr_renderWindow, &this->m_UIWindow.getInspector().backgroundColor);
+    this->m_renderer = s2d::Renderer(this->ptr_render_window, &this->m_UIWindow.getInspector().background_color, this->m_sprite_repository, this->m_UIWindow.gui_repository);
 
     auto desktop = sf::VideoMode::getDesktopMode();
-    this->ptr_renderWindow->setPosition(sf::Vector2i(desktop.width / 2 - this->ptr_renderWindow->getSize().x / 2, 0));
+    this->ptr_render_window->setPosition(sf::Vector2i(desktop.width / 2 - this->ptr_render_window->getSize().x / 2, 0));
     this->m_isWindowFullScreen = false;
 
-    this->m_UIRealTimeEditor = s2d::UIRealTimeEditor(*ptr_renderWindow, &this->windowEvent, &this->m_UIWindow.isAnyUIWindowHovered, 
-        &this->m_UIWindow.getInspector().state, &this->event, &this->m_UIWindow.getTools().editorTools);
+    this->m_UIRealTimeEditor = s2d::UIRealTimeEditor(*ptr_render_window, &this->windowEvent, &this->m_UIWindow.ary_any_windows_hovered,
+        &this->m_UIWindow.getInspector().state, &this->event, this->m_sprite_repository, this->m_UIWindow.gui_repository);
+    this->m_UIWindow.gui_repository.camera = s2d::Camera(this->ptr_render_window);
 
     //Setting other classes
-    s2d::Initializer::initSprites();
-    s2d::Initializer::initAnimations();
+    s2d::Initializer::initSprites(this->m_sprite_repository);
+    s2d::Initializer::initAnimations(this->m_sprite_repository);
+    s2d::Initializer::initBackground(this->m_UIWindow.getInspector().background_color);
+    s2d::Initializer::initIds(this->m_sprite_repository.highestSpriteId);
+    s2d::Initializer::initCamera(this->m_UIWindow.gui_repository);
+   
     s2d::Input::setEvent(&this->event);
-    s2d::SpriteData::highestSpriteID = s2d::SpriteData::getHighestIndex();
-    s2d::UI::setRenderWindow(this->ptr_renderWindow);
+    s2d::UI::setRenderWindow(this->ptr_render_window);
     s2d::UI::setS2DEvent(&this->event);
     //End
 
-    ImGui::SFML::Init(*this->ptr_renderWindow);
+    ImGui::SFML::Init(*this->ptr_render_window);
 
-    this->ptr_renderWindow->setKeyRepeatEnabled(false);
+    this->ptr_render_window->setKeyRepeatEnabled(false);
+
+    this->m_sprite_repository.isFullScreened = &this->m_isWindowFullScreen;
+
+    s2d::flc::cleanUp(this->m_sprite_repository);
 }
 
 s2d::GameEngine::~GameEngine()
 {
-    for (s2d::Sprite* sprite : s2d::Sprite::s_sprites)
-    {
-        delete sprite;
-    }
-
-    delete this->ptr_renderWindow;
+    delete this->ptr_render_window;
 
     ImGui::SFML::Shutdown();
 }
@@ -46,12 +50,13 @@ s2d::GameEngine::~GameEngine()
 
 void s2d::GameEngine::pollEngineEvents()
 {
-    for (s2d::Sprite* ptr_sprite : s2d::Sprite::s_sprites)
+    for (int i = 0; i < this->m_sprite_repository.amount(); i++)
     {
-        if (ptr_sprite->transform.position != ptr_sprite->transform.nextPos)
+        s2d::Sprite* const sprite = this->m_sprite_repository.readAt(i);
+        if (sprite->transform.position != sprite->transform.nextPos)
         {
             //Fire on pos event
-            Transform::onPositionChange(ptr_sprite);
+            Transform::onPositionChange(sprite);
         }
     }
 }
@@ -59,7 +64,7 @@ void s2d::GameEngine::pollEngineEvents()
 void s2d::GameEngine::pollEvents()
 {
     bool eventChanged = false;
-    while (this->ptr_renderWindow->pollEvent(this->windowEvent))
+    while (this->ptr_render_window->pollEvent(this->windowEvent))
     {
         ImGui::SFML::ProcessEvent(this->windowEvent);
         if (this->windowEvent.type == sf::Event::Closed)
@@ -79,7 +84,7 @@ void s2d::GameEngine::pollEvents()
                 event.type = s2d::Event::KeyPressed;
             }
             else if (this->windowEvent.type == sf::Event::MouseButtonPressed)
-            {      
+            {
                 if (this->windowEvent.mouseButton.button == sf::Mouse::Left)
                 {
                     event.type = s2d::Event::MousePressedLeft;
@@ -102,7 +107,7 @@ void s2d::GameEngine::pollEvents()
             event.key = static_cast<s2d::KeyBoardCode>(static_cast<sf::Keyboard::Key>(this->windowEvent.key.code));
         }
     }
-    ImGui::SFML::Update(*ptr_renderWindow, Time::deltaClock.restart());
+    ImGui::SFML::Update(*ptr_render_window, Time::s_delta_clock.restart());
 }
 
 void s2d::GameEngine::updateWindowStyle()
@@ -112,7 +117,7 @@ void s2d::GameEngine::updateWindowStyle()
         if (s2d::Input::onKeyRelease(s2d::KeyBoardCode::F11))
         {
             this->m_isWindowFullScreen = true;
-            this->ptr_renderWindow->create(sf::VideoMode(1920, 1080), "SpriteEngine", sf::Style::Fullscreen);
+            this->ptr_render_window->create(sf::VideoMode(1920, 1080), "SpriteEngine", sf::Style::Fullscreen);
         }
     }
     else if (m_isWindowFullScreen)
@@ -120,12 +125,12 @@ void s2d::GameEngine::updateWindowStyle()
         if (s2d::Input::onKeyRelease(s2d::KeyBoardCode::F11))
         {
             this->m_isWindowFullScreen = false;
-            this->ptr_renderWindow->create(sf::VideoMode(1920, 1080), "SpriteEngine", sf::Style::Default);
+            this->ptr_render_window->create(sf::VideoMode(1920, 1080), "SpriteEngine", sf::Style::Default);
         }
     }
     if (Input::onKeyHold(s2d::KeyBoardCode::LControl) && Input::onKeyRelease(s2d::KeyBoardCode::F4))
     {
-        this->ptr_renderWindow->close();
+        this->ptr_render_window->close();
     }
 }
 
@@ -135,19 +140,20 @@ void s2d::GameEngine::saveDialoge()
 
     if (this->m_close)
     {
-        if (ImGui::Begin("Close", NULL, 
+        if (ImGui::Begin("Close", NULL,
             ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoTitleBar))
-        {     
+        {
             const ImVec2 CURSOR_POS = ImGui::GetCursorPos();
             if (ImGui::Button("Save"))
             {
-                s2d::flc::saveEverything(this->m_UIWindow.getInspector().backgroundColor);
-                this->ptr_renderWindow->close();
+                onEngineClose(true);
+                return;
             }
             ImGui::SameLine();
             if (ImGui::Button("Exit"))
             {
-                this->ptr_renderWindow->close();
+                onEngineClose(false);
+                return;
             }
             ImGui::SetCursorPos(ImVec2(CURSOR_POS.x + SAVE_MENU_SIZE.x - 50, CURSOR_POS.y));
             if (ImGui::Button("x"))
@@ -161,31 +167,40 @@ void s2d::GameEngine::saveDialoge()
     }
 }
 
+void s2d::GameEngine::onEngineClose(bool save)
+{
+    s2d::flc::cleanUp(this->m_sprite_repository);
+    if (save)
+    {
+        s2d::flc::saveEverything(this->m_UIWindow.getInspector().background_color, this->m_sprite_repository, this->m_UIWindow.gui_repository);
+    } 
+    this->ptr_render_window->close();
+}
+
 //public functions
 
 void s2d::GameEngine::update()
 {
-    //Fullscreen / Not Fullscreen
+    // Fullscreen / Not Fullscreen
     this->updateWindowStyle();
 
-    //Renderere / window events
+    // Renderer / window events
     this->pollEvents();
 
-    //UIWindow (Engine)
-    ImGui::PushFont(s2d::FontManager::defaultFont);
+    // UIWindow (Engine)
+    ImGui::PushFont(s2d::FontManager::s_default_font);
     this->m_UIWindow.update();
     this->m_UIRealTimeEditor.update();
     this->saveDialoge();
     ImGui::PopFont();
 
-    s2d::Animation::updateAllAnimations();
+    s2d::Animation::updateAllAnimations(this->m_sprite_repository);
 
-    //Engine event
+    // Engine event
     this->pollEngineEvents();
 
     this->m_renderer.render();
 
-    //Other classes
+    // Other classes
     s2d::Time::update();
-
 }

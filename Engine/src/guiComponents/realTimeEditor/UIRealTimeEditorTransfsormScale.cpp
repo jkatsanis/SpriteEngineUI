@@ -5,27 +5,33 @@
 
 s2d::UIRealTimeEditorTransfsormScale::UIRealTimeEditorTransfsormScale()
 {
+	for (size_t i = 0; i < SCALE_DOTTS; i++)
+	{
+		this->m_scale_dotts[i] = s2d::ScaleDott();
+	}
+	this->m_ptr_gui_repo = nullptr;
+	this->m_ptr_repo = nullptr;
 	this->m_event = nullptr;
 }
 
-s2d::UIRealTimeEditorTransfsormScale::UIRealTimeEditorTransfsormScale(s2d::Event* event)
+s2d::UIRealTimeEditorTransfsormScale::UIRealTimeEditorTransfsormScale(s2d::Event* event, s2d::SpriteRepository& repo, s2d::GUIRepository& gui_repo)
 {
-	sf::RectangleShape shape;
-	shape.setSize(sf::Vector2f(DEFAULT_DOLL_SCALE, DEFAULT_DOLL_SCALE));
-	shape.setFillColor(sf::Color(255, 255, 255));
+	this->m_ptr_gui_repo = &gui_repo;
+	this->m_ptr_repo = &repo;
+
+	const sf::Vector2f size = sf::Vector2f(DEFAULT_DOTT_SCALE, DEFAULT_DOTT_SCALE);
 
 	for (int i = 0; i < SCALE_DOTTS; i++)
 	{
-		this->m_scaleDotts[i].vecpos = (short)s2d::GameObject::rects.size();
-		this->m_scaleDotts[i].shape = shape;
-		this->m_scaleDotts[i].clicked = false;
-
-		s2d::GameObject::rects.push_back(this->m_scaleDotts->shape);
+		const std::string name = "scale-dott-scale " + std::to_string(i);
+		this->m_ptr_gui_repo->add(sf::Vector2f(0, 0),
+			size, sf::Color(255, 255, 255), 2.0f, PATH_TO_TRANSPARENT_PIC, name);
+		this->m_scale_dotts[i].ptr_scaling_rectangle = this->m_ptr_gui_repo->getByName(name);
+		this->m_scale_dotts[i].clicked = false;
 	}
 
 	this->m_scale = s2d::Vector2(1, 1);
 	this->unrenderDolls();
-
 	this->m_event = event;
 }
 
@@ -33,7 +39,7 @@ s2d::UIRealTimeEditorTransfsormScale::UIRealTimeEditorTransfsormScale(s2d::Event
 
 void s2d::UIRealTimeEditorTransfsormScale::update()
 {
-	s2d::Sprite* focusedSprite = s2d::UIHirachy::s_selectedSprite;
+	s2d::Sprite* focusedSprite = this->m_ptr_repo->sprite_in_inspector;
 	if (focusedSprite != nullptr)
 	{
 		sf::Vector2f pos[SCALE_DOTTS];
@@ -55,7 +61,7 @@ void s2d::UIRealTimeEditorTransfsormScale::renderDolls()
 	this->m_scale = s2d::Vector2(1, 1);
 	for (int i = 0; i < SCALE_DOTTS; i++)
 	{
-		s2d::GameObject::rects[this->m_scaleDotts[i].vecpos].setScale(1, 1);
+		this->m_scale_dotts[i].ptr_scaling_rectangle->render = true;
 	}
 }
 
@@ -68,7 +74,7 @@ void s2d::UIRealTimeEditorTransfsormScale::unrenderDolls()
 	this->m_scale = s2d::Vector2(0, 0);
 	for (int i = 0; i < SCALE_DOTTS; i++)
 	{
-		s2d::GameObject::rects[this->m_scaleDotts[i].vecpos].setScale(0, 0);
+		this->m_scale_dotts[i].ptr_scaling_rectangle->render = false;
 	}
 }
 
@@ -76,55 +82,17 @@ void s2d::UIRealTimeEditorTransfsormScale::unrenderDolls()
 
 void s2d::UIRealTimeEditorTransfsormScale::scaleChanger(s2d::Sprite* focusedSprite)
 {
-	int i = 0;
-	while (i < SCALE_DOTTS)
-	{
-		this->xScaleChanger(focusedSprite, this->m_scaleDotts[i]);
-		i++;
-		this->yScaleChanger(focusedSprite, this->m_scaleDotts[i]);
-		i++;
-	}
+	float scale_x = s2d::UI::xScaleChanger(this->m_scale_dotts[0], focusedSprite->transform.getDefaultTextureSize().x,
+		focusedSprite->transform.position.x);
+	if (scale_x != INVALID_SCALE)
+		focusedSprite->transform.setScale(s2d::Vector2(scale_x, focusedSprite->transform.getScale().y));
+
+	float scale_y = s2d::UI::yScaleChanger(this->m_scale_dotts[1], focusedSprite->transform.getDefaultTextureSize().y,
+		focusedSprite->transform.position.y);
+	if (scale_y != INVALID_SCALE)
+		focusedSprite->transform.setScale(s2d::Vector2(focusedSprite->transform.getScale().x, scale_y));
 }
 
-void s2d::UIRealTimeEditorTransfsormScale::xScaleChanger(s2d::Sprite* focusedSprite, ScaleDott& dott)
-{
-	if (s2d::UI::isCursorClickedOnRectangle(s2d::GameObject::rects[dott.vecpos]))
-	{
-		dott.clicked = true;
-	}
-	if (dott.clicked && sf::Mouse::isButtonPressed(sf::Mouse::Left) && focusedSprite != nullptr)
-	{
-		sf::Vector2f pos = sf::Vector2f(s2d::UI::getWorldCordinates().x, s2d::GameObject::rects[dott.vecpos].getPosition().y);
-
-		s2d::GameObject::rects[dott.vecpos].setPosition(pos);
-
-		pos.x -= 960;
-
-		float scale = (pos.x - focusedSprite->transform.position.x) / (focusedSprite->transform.getDefaultTextureSize().x / 2);
-
-		focusedSprite->transform.setScale(s2d::Vector2(scale, focusedSprite->transform.getScale().y));
-	}
-}
-
-void s2d::UIRealTimeEditorTransfsormScale::yScaleChanger(s2d::Sprite* focusedSprite, ScaleDott& dott)
-{
-	if (s2d::UI::isCursorClickedOnRectangle(s2d::GameObject::rects[dott.vecpos]))
-	{
-		dott.clicked = true;
-	}
-	if (dott.clicked && sf::Mouse::isButtonPressed(sf::Mouse::Left) && focusedSprite != nullptr)
-	{
-		sf::Vector2f pos = sf::Vector2f(s2d::GameObject::rects[dott.vecpos].getPosition().x, s2d::UI::getWorldCordinates().y);
-
-		s2d::GameObject::rects[dott.vecpos].setPosition(pos);
-
-		pos.y -= 540;
-
-		float scale = (pos.y + focusedSprite->transform.position.y) / (focusedSprite->transform.getDefaultTextureSize().y / 2);
-
-		focusedSprite->transform.setScale(s2d::Vector2(focusedSprite->transform.getScale().x, scale));
-	}
-}
 
 void s2d::UIRealTimeEditorTransfsormScale::reset()
 {
@@ -133,7 +101,7 @@ void s2d::UIRealTimeEditorTransfsormScale::reset()
 		this->m_event->type = s2d::Event::None;
 		for (int i = 0; i < SCALE_DOTTS; i++)
 		{
-			this->m_scaleDotts[i].clicked = false;
+			this->m_scale_dotts[i].clicked = false;
 		}
 	}
 }
@@ -155,16 +123,16 @@ void s2d::UIRealTimeEditorTransfsormScale::getPos(const s2d::Sprite* focusedSpri
 	{
 		textureSize.y = 0;
 	}
-	pos[1] = sf::Vector2f(originalPos.x + textureSize.x / 2 - DEFAULT_DOLL_SCALE / 2, originalPos.y + textureSize.y);
+	pos[1] = sf::Vector2f(originalPos.x + textureSize.x / 2 - DEFAULT_DOTT_SCALE / 2, originalPos.y + textureSize.y);
 }
 
 void s2d::UIRealTimeEditorTransfsormScale::setPos(const sf::Vector2f pos[])
 {
 	for (int i = 0; i < SCALE_DOTTS; i++)
 	{
-		if (!this->m_scaleDotts[i].clicked)
+		if (!this->m_scale_dotts[i].clicked)
 		{
-			s2d::GameObject::rects[this->m_scaleDotts[i].vecpos].setPosition(pos[i]);
+			this->m_scale_dotts[i].ptr_scaling_rectangle->shape.setPosition(pos[i]);
 		}
 	}
 }

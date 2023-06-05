@@ -3,23 +3,38 @@
 #include <physicalComponents/sprite.h>
 #include <ImGui.h>
 #include <icons.h>
-#include <UIHirachy.h>
 #include <UIAssetFolder.h>
+#include <manager/fontManager.h>
+#include <UIRealTimeEditorTransfsormScale.h> 
+
+#define SCALE_DOTTS_COLLIDER 4
+#define INVALID_AERA 1
 
 namespace s2d
 {
 	class UIInspectorBoxCollider
 	{
 	private:	
-		sf::Texture m_texture;
+		s2d::ScaleDott m_box_collider_scale_dotts[SCALE_DOTTS_COLLIDER];
+		bool m_edit_mode;
+		s2d::Event* m_ptr_event;
 
+		/// <summary>
+		///  Hardcoded to much shit
+		/// </summary>
+		void renderScaleDotts(s2d::Sprite* sprite, s2d::Rectangle* ptr_box_collider_rec);
+		void renderDotts();
+		void unrenderDotts();
+		void reset();
 	public:
 		UIInspectorBoxCollider();
 
 		void edit(float& x, float& y);
-	    void solid(float& x, float& y, s2d::Sprite* sprite);
+		void solid(float& x, float& y, s2d::Sprite* sprite);
 		void width(float x, float y, s2d::Sprite* sprite);
 		void height(s2d::Sprite* sprite);
-		void drawBoxCollider(s2d::Sprite* sprite);
+		void drawBoxCollider(s2d::Sprite* sprite, s2d::Rectangle* ptr_rectangle);
+		void initScaleDottsUI(s2d::GUIRepository& repo);
+		void setS2DEvent(s2d::Event* evnt) { this->m_ptr_event = evnt; }
 	};
 }

@@ -9,7 +9,7 @@ namespace s2d
 	public:
 		EngineData() = delete;
 
-		static std::string s_pathToUserProject;
+		static std::string s_path_to_user_project;
 		static std::string s_nameOfUserProject;
 	};
 }

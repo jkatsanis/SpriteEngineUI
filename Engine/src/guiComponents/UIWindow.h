@@ -1,34 +1,37 @@
 #pragma once
 
-#include <UIHirachy.h>
+#include <UIHierarchy.h>
 #include <UIToolButtons.h>
 #include <UIInspector.h>
 #include <UIAssetFolder.h>
 #include <UIAnimation.h>
 #include <vector>
+#include <manager/spriteRepository.h>
+#include <manager/guiRepository.h>
 
 namespace s2d
 {
 	class UIWindow
 	{
 	private:
-		UIHirachy m_UIHirachy;
-		UIToolButtons m_UIToolButtons;
-		UIInspector m_UIInspector;
-		UIAssetFolder m_UIAssetFolder;
-		UIAnimation m_UIAnimation;
+		UIHierarchy m_ui_hierarchy;
+		UIToolButtons m_ui_tool_button;
+		UIInspector m_ui_inspector;
+		UIAssetFolder m_ui_asset_folder;
+		UIAnimation m_ui_animation;
 
-		Vector3 getWindowBackgroundColorFromFile();
+		const SpriteRepository* m_ptr_repo;
 
 	public:
-		bool isAnyUIWindowHovered;
+		bool ary_any_windows_hovered;
+		GUIRepository gui_repository;
 
 		UIWindow();
 
 	    void update();
+		void init(s2d::SpriteRepository& repo, s2d::Event* evnt);
 
-		UIInspector& getInspector() { return this->m_UIInspector; }
-		UIToolButtons& getTools() { return this->m_UIToolButtons; }
+		UIInspector& getInspector() { return this->m_ui_inspector; }
 
 	public:
 		static void renderStyle(ImGuiStyle* style);

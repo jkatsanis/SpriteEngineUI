@@ -32,8 +32,6 @@ namespace s2d
 		std::string m_firstNodeText;
 		ImVec2 m_windowSize;
 
-		bool checkIfADirHasSubDirs(const std::string& dir);
-
 		/// <summary>
 		/// Opens a file and displays the folder recursivly with <ImGui::TreeNodes>, needs to be called by <displayNoded>
 		/// </summary>
@@ -84,7 +82,7 @@ namespace s2d
 
 	public:
 		static std::string getEmptyStringBetween(const std::string& content, const std::string& name, float padding);
-
+		static bool checkIfADirHasSubDirs(const std::string& dir);
 	};
 }
 

@@ -4,7 +4,7 @@ s2d::UIAnimation::UIAnimation()
 {
 	this->m_UIAnimationEditor.resetAnim();
 	this->m_fileName = "";
-	const std::string pathToAssets = s2d::EngineData::s_pathToUserProject + "\\" + "assets\\";
+	const std::string pathToAssets = s2d::EngineData::s_path_to_user_project + "\\" + "assets\\";
 	this->m_createAnimtionPathFileDialoge = s2d::FileDialog(pathToAssets, ICON_FA_PLUS, "Create Animation", ImVec2(500, 250));
 	this->m_createAnimtionPathFileDialoge.setFirstNode("assets");
 }
@@ -13,16 +13,14 @@ s2d::UIAnimation::UIAnimation()
 
 void s2d::UIAnimation::createUIAnimationWindow()
 {
-	if (s2d::UIInfo::srenderAssetFolder || s2d::UIHirachy::s_selectedSprite == nullptr)
+	if (!s2d::UIInfo::s_is_animation_open.is_open)
 	{
-		this->isHovered = false;
 		return;
-	}	
-
+	}
 	if (this->m_UIAnimationEditor.display)
 	{
 		this->m_UIAnimationEditor.displayEditor();
-		this->isHovered = this->m_UIAnimationEditor.isHovered;
+		this->isHovered = this->m_UIAnimationEditor.is_hovered;
 	}
 	else
 	{
@@ -42,13 +40,18 @@ void s2d::UIAnimation::createUIAnimationWindow()
 	}
 }
 
+void s2d::UIAnimation::setSpriteRepository(s2d::SpriteRepository& repo)
+{
+	this->m_ptr_repo = &repo;
+	this->m_UIAnimationEditor.setSpriteRepository(repo);
+}
 
 //Private functions
 
 void s2d::UIAnimation::getFileNameInput()
 {
 	//Open popup
-	if (s2d::FontManager::displaySmybolAsButton(ICON_FA_PLUS, s2d::UIInfo::sdefaultFontSize - 0.2f))
+	if (s2d::FontManager::displaySmybolAsButton(ICON_FA_PLUS, s2d::UIInfo::s_default_font_size - 0.2f))
 	{
 		this->m_openFileDialog = true;
 		this->m_createAnimtionPathFileDialoge.enableWindow();
@@ -57,10 +60,10 @@ void s2d::UIAnimation::getFileNameInput()
 
 	ImGui::SameLine();
 	ImGui::SetCursorPosY(ImGui::GetCursorPosY() - 2);
-	ImGui::SetWindowFontScale(s2d::UIInfo::sdefaultFontSize - 0.2f);
+	ImGui::SetWindowFontScale(s2d::UIInfo::s_default_font_size - 0.2f);
 	ImGui::Text("Add animations");
 	ImGui::Separator();
-	ImGui::SetWindowFontScale(s2d::UIInfo::sdefaultFontSize);
+	ImGui::SetWindowFontScale(s2d::UIInfo::s_default_font_size);
 
 	if (this->m_openFileDialog)
 	{
@@ -89,6 +92,7 @@ void s2d::UIAnimation::getFileNameInput()
 			this->m_openInputWindow = false;
 			this->m_openFileDialog = false;
 			this->m_animationFile[0] = '\0';
+			s2d::UIInfo::s_is_animation_open.is_open = false;
 			this->m_createAnimtionPathFileDialoge.disableWindow();
 		}
 		ImGui::SetCursorPos(old);
@@ -109,7 +113,7 @@ void s2d::UIAnimation::getFileNameInput()
 
 void s2d::UIAnimation::displayAnimations()
 {
-	for (auto& anim : s2d::UIHirachy::s_selectedSprite->animator.animations)
+	for (auto& anim : this->m_ptr_repo->sprite_in_inspector->animator.animations)
 	{
 		ImGui::Text(anim.second.name.c_str());
 		ImGui::SetCursorPos(ImVec2(455, ImGui::GetCursorPosY() - 32.5f));
@@ -141,7 +145,7 @@ void s2d::UIAnimation::displayTopOfEditor()
 	//Close button
 	if (ImGui::Button("x"))
 	{
-		s2d::UIInfo::srenderAssetFolder = true;
+		s2d::UIInfo::s_render_asset_folder = true;
 	}
 
 	ImGui::Separator();
@@ -151,14 +155,26 @@ void s2d::UIAnimation::addAnimationsToAnimator()
 {
 	if (this->m_openInputWindow && ImGui::IsKeyReleased(ImGuiKey_Enter))
 	{
+		for (std::pair<std::string, s2d::Animation> anim : this->m_ptr_repo->sprite_in_inspector->animator.animations)
+		{
+			// Found a aniamtion with this name, which already exists
+			if (anim.first == this->m_animationFile)
+			{
+				std::cout << "LOG [ERROR] Cant create anoter file with the same name!";
+				return;
+			}
+		}
 		if (this->m_animationFile[0] != '\0')
 		{
 			const std::string& path = 
 				s2d::UI::getUserProjectPathSeperatetFromEnginePath(this->m_createAnimtionPathFileDialoge.pathClicked)
 				+ this->m_animationFile
 				+ EXTENSION_ANIMATION_FILE;
-			s2d::UIHirachy::s_selectedSprite->animator.createAnimation(this->m_animationFile, path, { });
+			this->m_ptr_repo->sprite_in_inspector->animator.createAnimation(this->m_animationFile, path, { });
 		}
+		s2d::flc::createAnimationSaveFile
+			(this->m_ptr_repo->sprite_in_inspector, this->m_ptr_repo->sprite_in_inspector->animator.animations[this->m_animationFile]);
+
 		this->m_createAnimtionPathFileDialoge.disableWindow();
 		this->m_openFileDialog = false;
 		this->m_animationFile[0] = '\0';

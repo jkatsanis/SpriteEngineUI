@@ -120,6 +120,7 @@ static const ImU64          IM_U64_MAX = ULLONG_MAX; // (0xFFFFFFFFFFFFFFFFull);
 static const ImU64          IM_U64_MAX = (2ULL * 9223372036854775807LL + 1);
 #endif
 
+
 //-------------------------------------------------------------------------
 // [SECTION] Forward Declarations
 //-------------------------------------------------------------------------
@@ -3889,8 +3890,8 @@ static bool InputTextFilterCharacter(unsigned int* p_char, ImGuiInputTextFlags f
     if (c < 0x20)
     {
         bool pass = false;
-        pass |= (c == '\n' && (flags & ImGuiInputTextFlags_Multiline)); // Note that an Enter KEY will emit \r and be ignored (we poll for KEY in InputText() code)
-        pass |= (c == '\t' && (flags & ImGuiInputTextFlags_AllowTabInput));
+        pass |= (c == '\n' & (flags & ImGuiInputTextFlags_Multiline)); // Note that an Enter KEY will emit \r and be ignored (we poll for KEY in InputText() code)
+        pass |= (c == '\t' & (flags & ImGuiInputTextFlags_AllowTabInput));
         if (!pass)
             return false;
         apply_named_filters = false; // Override named filters below so newline and tabs can still be inserted.
@@ -5989,6 +5990,7 @@ bool ImGui::TreeNodeUpdateNextOpen(ImGuiID id, ImGuiTreeNodeFlags flags)
     return is_open;
 }
 
+
 bool ImGui::TreeNodeBehavior(ImGuiID id, ImGuiTreeNodeFlags flags, const char* label, const char* label_end)
 {
     ImGuiWindow* window = GetCurrentWindow();
@@ -6009,7 +6011,17 @@ bool ImGui::TreeNodeBehavior(ImGuiID id, ImGuiTreeNodeFlags flags, const char* l
     ImRect frame_bb;
     frame_bb.Min.x = (flags & ImGuiTreeNodeFlags_SpanFullWidth) ? window->WorkRect.Min.x : window->DC.CursorPos.x;
     frame_bb.Min.y = window->DC.CursorPos.y;
-    frame_bb.Max.x = window->WorkRect.Max.x;
+    if (g.DoWierdTreeThings)
+    {
+        const float width = g.NextItemData.Width;
+        frame_bb.Max.x = ImMin(frame_bb.Min.x + width, window->WorkRect.Max.x); 
+        g.NextItemData.Width = 0;
+        g.DoWierdTreeThings = false;
+    }
+    else
+    {
+        frame_bb.Max.x = window->WorkRect.Max.x;
+    }
     frame_bb.Max.y = window->DC.CursorPos.y + frame_height;
     if (display_frame)
     {

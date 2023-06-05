@@ -4,6 +4,7 @@
 #include <calculationComponents/vector2.h>
 #include <ImGui.h>
 #include <guiComponents/UI.h>
+#include <data/UIInfo.h>
 #include <string>
 
 #define CPP_FILE_NAME_SIZE 80
@@ -15,23 +16,28 @@ namespace s2d
 	{
 	private:	
 		const std::string* m_ptr_currentAssetPath;
-		const std::string* m_ptr_deleteFilePath;
+
+	    /// <summary>
+	    /// Need to change value on delete
+	    /// </summary>
+	    std::string* m_ptr_hovered_icon_name;
 		char m_classFileName[CPP_FILE_NAME_SIZE];
 
 		void getFileName();
 		void createFileContent();
 
-		bool m_isPopUpHoverd;
-		bool m_openFileInput;
+		bool m_is_popup_open;
+		bool m_open_file_input;
+		float m_window_font_size;
 	public:
 		UIAssetTools();
-		UIAssetTools(const std::string* currentAssetPath, const std::string* deleteItem);
+		UIAssetTools(const std::string* current_asset_path, std::string* hovered_icon_name);
 
-		void update(bool& hovered);
-		void includeInUserProject(const std::string& fileName);
+		void update();
+		void includeInUserProject(const std::string& file_name);
 
 	public:
-		bool isPopUpHovered() const { return this->m_isPopUpHoverd; }
+		bool isPopUpOpen() const { return this->m_is_popup_open; }
 	};
 }
 
