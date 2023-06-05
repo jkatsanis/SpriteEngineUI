@@ -1586,7 +1586,6 @@ struct ImGuiContextHook
 
 struct ImGuiContext
 {
-    bool                    DoWierdTreeThings;
     bool                    Initialized;
     bool                    FontAtlasOwnedByContext;            // IO.Fonts-> is owned by the ImGuiContext and will be destructed along with it.
     ImGuiIO                 IO;

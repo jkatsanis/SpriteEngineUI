@@ -10,6 +10,11 @@ s2d::GameEngine::GameEngine()
 
 s2d::GameEngine::~GameEngine()
 {
+	for (s2d::Sprite* sprite : s2d::Sprite::s_sprites)
+	{
+		delete sprite;
+	}
+
 	delete this->ptr_renderWindow;
 }
 
@@ -21,13 +26,13 @@ bool s2d::GameEngine::isGameRunning()
 
 void s2d::GameEngine::pollEngineEvents()
 {
-	for (int i = 0; i < this->m_sprite_repository.amount(); i++)
+	for (s2d::Sprite* ptr_sprite : s2d::Sprite::s_sprites)
 	{
-		s2d::Sprite* const sprite = this->m_sprite_repository.readAt(i);
-		if (sprite->transform.position != sprite->transform.nextPos)
+		if (ptr_sprite->transform.position != ptr_sprite->transform.nextPos)
 		{
+			//Fire on pos event
 #ifdef CHILDSYSTEM
-			Transform::onPositionChange(sprite);
+			Transform::onPositionChange(ptr_sprite);
 #endif
 		}
 	}
@@ -76,7 +81,7 @@ void s2d::GameEngine::updateUserScriptsAndGUI()
 #endif
 
 	//User update!
-	m_game.update();
+	game.update();
 
 #ifdef GUI 
 	ImGui::SetWindowSize(ImVec2(1920, 1080));
@@ -126,17 +131,17 @@ void s2d::GameEngine::update()
 	if (s2d::Time::timePassed > 2.5f)
 	{
 #ifdef COLLISION
-		s2d::BoxCollider::checkCollisions(this->m_sprite_repository);
+		s2d::BoxCollider::checkCollisions();
 #endif
 		this->updateWindowStyle();
 		this->updateUserScriptsAndGUI();
 
 #ifdef ANIMATION
-		s2d::Animation::updateAllAnimations(this->m_sprite_repository);
+		s2d::Animation::updateAllAnimations();
 #endif
 
 #ifdef PHYSICS
-		s2d::Physics::update(this->m_sprite_repository);
+		s2d::Physics::update();
 #endif
 
 #ifdef CAMERA
@@ -153,11 +158,13 @@ void s2d::GameEngine::update()
 void s2d::GameEngine::start()
 {	
 	//Engine 
-	s2d::Initializer::initIds(this->m_sprite_repository.highestSpriteId);
-	s2d::Initializer::initSprites(this->m_sprite_repository);
-	s2d::Initializer::initAnimations(this->m_sprite_repository);
+	s2d::Initializer::initSprites();
+	s2d::Initializer::initAnimations();
 	s2d::Input::setEvent(&this->event);
 	s2d::FileData::setWindowBackground();
+
+	//User start!
+	game.start();
 
 	//Engine 
 	this->windowEvent.type = sf::Event::GainedFocus;
@@ -170,11 +177,5 @@ void s2d::GameEngine::start()
 	ImGui::SFML::Init(*this->ptr_renderWindow);
 
 	this->m_renderer = s2d::Renderer(this->ptr_renderWindow);
-	this->m_renderer.setSpriteRepository(this->m_sprite_repository);
-
-	this->m_game.config.ptr_sprites = &this->m_sprite_repository;
-	
-	// user code
-	this->m_game.start();
 }
 

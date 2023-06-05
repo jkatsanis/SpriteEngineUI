@@ -4,7 +4,6 @@
 #include <calculationComponents/vector2.h>
 #include <spriteComponents/boxColliderPositionData.h>
 #include <iostream>
-#include <manager/spriteRepository.h>
 
 namespace s2d
 {
@@ -12,13 +11,13 @@ namespace s2d
 	class BoxCollider
 	{
 	private:
-		static bool checkIAndJPCollisions(int i, int j, s2d::SpriteRepository& repo);
-
-	private:
 		int m_start = -5;
 		int m_end = 5;
 
 		void checkPositions(const BoxCollider& other, const int jIndex);
+
+	private:
+		static bool checkIAndJPCollisions(int i, int j);
 
 	public:
 		int collisionCnt;
@@ -49,7 +48,7 @@ namespace s2d
 		}
 
 	public:
-		static void checkCollisions(s2d::SpriteRepository& spriteRepo);
+		static void checkCollisions();
 	};
 }
 

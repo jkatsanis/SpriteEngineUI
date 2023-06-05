@@ -156,10 +156,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\spriteComponents\spriteRenderer.cpp" />
-    <ClCompile Include="src\manager\guiRepository.cpp" />
-    <ClCompile Include="src\manager\spriteRepository.cpp" />
-    <ClCompile Include="src\spriteComponents\prefab.cpp" />
     <ClCompile Include="src\manager\initializer.cpp" />
     <ClCompile Include="src\engineComponents\renderer.cpp" />
     <ClCompile Include="src\data\engineData.cpp" />
@@ -173,6 +169,7 @@
     <ClCompile Include="src\spriteComponents\physicsBody.cpp" />
     <ClCompile Include="src\physicalComponents\camera.cpp" />
     <ClCompile Include="src\spriteComponents\boxCollider.cpp" />
+    <ClCompile Include="src\physicalComponents\gameObject.cpp" />
     <ClCompile Include="src\physicalComponents\line.cpp" />
     <ClCompile Include="src\engineComponents\input.cpp" />
     <ClCompile Include="src\data\spriteData.cpp" />
@@ -189,7 +186,7 @@
     <ClCompile Include="src\calculationComponents\vector2.cpp" />
     <ClCompile Include="src\engineComponents\time.cpp" />
     <ClCompile Include="src\guiComponents\UIWindow.cpp" />
-    <ClCompile Include="src\guiComponents\propertyEditor\UIHierarchy.cpp" />
+    <ClCompile Include="src\guiComponents\propertyEditor\UIHirachy.cpp" />
     <ClCompile Include="src\guiComponents\propertyEditor\UIToolButtons.cpp" />
     <ClCompile Include="src\guiComponents\propertyEditor\UIInspector.cpp" />
     <ClCompile Include="src\guiComponents\propertyEditor\UIAssetFolder.cpp" />
@@ -204,21 +201,16 @@
     <ClCompile Include="src\data\UIIconData.cpp" />
     <ClCompile Include="src\guiComponents\realTimeEditor\UIRealTimeEditorNavigator.cpp" />
     <ClCompile Include="src\guiComponents\realTimeEditor\UIRealTimeEditorTransform.cpp" />
+    <ClCompile Include="src\guiComponents\propertyEditor\UIHirachyMenuDisplayer.cpp" />
+    <ClCompile Include="src\guiComponents\propertyEditor\UIHirachySpriteDisplay.cpp" />
     <ClCompile Include="src\guiComponents\projectSelector\UIProjectSelectorProjectSection.cpp" />
     <ClCompile Include="src\guiComponents\realTimeEditor\UIRealTimeEditorTransformPosition.cpp" />
     <ClCompile Include="src\guiComponents\realTimeEditor\UIRealTimeEditorTransfsormScale.cpp" />
     <ClCompile Include="src\guiComponents\propertyEditor\UIToolButtonsModels.h" />
     <ClCompile Include="src\guiComponents\UI.cpp" />
     <ClCompile Include="src\guiComponents\propertyEditor\UIAssetTools.cpp" />
-    <ClCompile Include="src\data\UIDataModels.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\data\fileDataMacros.h" />
-    <ClInclude Include="src\spriteComponents\spriteRenderer.h" />
-    <ClInclude Include="src\spriteComponents\component.h" />
-    <ClInclude Include="src\manager\guiRepository.h" />
-    <ClInclude Include="src\manager\spriteRepository.h" />
-    <ClInclude Include="src\spriteComponents\prefab.h" />
     <ClInclude Include="src\manager\initializer.h" />
     <ClInclude Include="src\spriteComponents\keyFrame.h" />
     <ClInclude Include="src\guiComponents\colors.h" />
@@ -236,6 +228,7 @@
     <ClInclude Include="src\spriteComponents\physicsBody.h" />
     <ClInclude Include="src\physicalComponents\camera.h" />
     <ClInclude Include="src\spriteComponents\boxCollider.h" />
+    <ClInclude Include="src\physicalComponents\gameObject.h" />
     <ClInclude Include="src\physicalComponents\line.h" />
     <ClInclude Include="src\engineComponents\input.h" />
     <ClInclude Include="src\data\spriteData.h" />
@@ -358,7 +351,7 @@
     <ClInclude Include="src\calculationComponents\vector2.h" />
     <ClInclude Include="src\engineComponents\stime.h" />
     <ClInclude Include="src\guiComponents\UIWindow.h" />
-    <ClInclude Include="src\guiComponents\propertyEditor\UIHierarchy.h" />
+    <ClInclude Include="src\guiComponents\propertyEditor\UIHirachy.h" />
     <ClInclude Include="src\guiComponents\propertyEditor\UIToolButtons.h" />
     <ClInclude Include="src\guiComponents\propertyEditor\UIInspector.h" />
     <ClInclude Include="src\guiComponents\propertyEditor\UIAssetFolder.h" />
@@ -373,12 +366,20 @@
     <ClInclude Include="src\data\UIIconData.h" />
     <ClInclude Include="src\guiComponents\realTimeEditor\UIRealTimeEditorNavigator.h" />
     <ClInclude Include="src\guiComponents\realTimeEditor\UIRealTimeEditorTransform.h" />
+    <ClInclude Include="src\guiComponents\propertyEditor\UIHirachyMenuDisplayer.h" />
+    <ClInclude Include="src\guiComponents\propertyEditor\UIHirachySpriteDisplay.h" />
     <ClInclude Include="src\guiComponents\projectSelector\UIProjectSelectorProjectSection.h" />
     <ClInclude Include="src\guiComponents\realTimeEditor\UIRealTimeEditorTransformPosition.h" />
     <ClInclude Include="src\guiComponents\realTimeEditor\UIRealTimeEditorTransfsormScale.h" />
     <ClInclude Include="src\guiComponents\UI.h" />
     <ClInclude Include="src\guiComponents\propertyEditor\UIAssetTools.h" />
-    <ClInclude Include="src\guiComponents\UIModels.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="addingNewSpriteProp.txt" />
+    <Text Include="saves\textFiles\addToAssets.txt" />
+    <Text Include="saves\textFiles\plan.txt" />
+    <Text Include="saves\textFiles\imguibasics.txt" />
+    <Text Include="saves\textFiles\wichtigecppsachen.txt" />
   </ItemGroup>
   <ItemGroup>
     <None Include="src\include\SFML\Audio\SoundFileFactory.inl" />

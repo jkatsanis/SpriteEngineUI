@@ -1,35 +1,26 @@
 #include "boxCollider.h"
 #include <physicalComponents/sprite.h>
 
-// Constructor / Destructor
-
 s2d::BoxCollider::BoxCollider()
+	: isSolid(false), canCollide(false), exists(false)
 {
-    this->can_collide = false;
-    this->is_solid = false;
     this->ptr_sprite = nullptr;
 }
 
 s2d::BoxCollider::BoxCollider(s2d::Sprite* ptr_sprite)
+	: exists(false)
 {
-    this->init();
     this->ptr_sprite = ptr_sprite;
-}
-void s2d::BoxCollider::init()
-{
-    this->base_component = false;
-    this->ptr_sprite = nullptr;
-    this->can_collide = false;
-    this->is_solid = false;
+    this->canCollide = false;
+    this->isSolid = false;
 }
  
-// Public functions
 
-void s2d::BoxCollider::reset() 
+void s2d::BoxCollider::resetBoxCollider()
 {
-    this->exist = false;
-    this->is_solid = false;
-    this->can_collide = false;
-    this->box_collider_height = Vector2(0, 0);
-    this->box_collider_width = Vector2(0, 0);
+    this->exists = false;
+    this->isSolid = false;
+    this->canCollide = false;
+    this->boxColliderHeightUpOrDown = Vector2(0, 0);
+    this->boxColliderWidthLeftOrRight = Vector2(0, 0);
 }

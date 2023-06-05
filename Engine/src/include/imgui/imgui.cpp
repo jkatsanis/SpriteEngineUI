@@ -1000,6 +1000,7 @@ static ImGuiWindow*     FindBlockingModal(ImGuiWindow* window);
 
 // Viewports
 static void             UpdateViewportsNewFrame();
+
 }
 
 //-----------------------------------------------------------------------------
@@ -1047,6 +1048,7 @@ static void*                GImAllocatorUserData = NULL;
 //-----------------------------------------------------------------------------
 // [SECTION] USER FACING STRUCTURES (ImGuiStyle, ImGuiIO)
 //-----------------------------------------------------------------------------
+
 ImGuiStyle::ImGuiStyle()
 {
     Alpha                   = 1.0f;             // Global alpha applies to everything in Dear ImGui.
@@ -8617,15 +8619,6 @@ void ImGui::Unindent(float indent_w)
     window->DC.Indent.x -= (indent_w != 0.0f) ? indent_w : g.Style.IndentSpacing;
     window->DC.CursorPos.x = window->Pos.x + window->DC.Indent.x + window->DC.ColumnsOffset.x;
 }
-
-void ImGui::SetNextItemWidthForTree(float item_width)
-{
-    ImGuiContext& g = *GImGui;
-    g.NextItemData.Flags |= ImGuiNextItemDataFlags_HasWidth;
-    g.NextItemData.Width = item_width;
-    g.DoWierdTreeThings = true;
-}
-
 
 // Affect large frame+labels widgets only.
 void ImGui::SetNextItemWidth(float item_width)

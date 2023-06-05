@@ -6,7 +6,6 @@
 #include <imgui.h>
 #include <physicalComponents/sprite.h>
 #include <data/FileData.h>
-#include <manager/spriteRepository.h>
 
 //#define UPDATE_SPRITE_TEXTURES_CONSISTENT 
 
@@ -16,9 +15,9 @@ namespace s2d
 	{
 	private:
 		float m_timePassedToUpdateLayerIndex;
-		s2d::SpriteRepository* m_ptr_repo;
-		uint8_t  m_timeToUpdateLayerIndex;
-		uint8_t m_timeToUpdateSpriteTexture;
+
+		unsigned short  m_timeToUpdateLayerIndex;
+		unsigned short m_timeToUpdateSpriteTexture;
 
 		sf::RenderWindow* m_ptr_renderWindow;
 
@@ -33,13 +32,12 @@ namespace s2d
 
 		void render();
 
-		void setSpriteRepository(s2d::SpriteRepository& repo) { this->m_ptr_repo = &repo; }
 	public:
 
 		/// <summary>
 		/// UPDATES ALL sprite textures from the files (very inefficent)
 		/// </summary>
-		static void updateAllSpriteTextures(s2d::SpriteRepository& repo);
+		static void updateAllSpriteTextures();
 	};
 }
 

@@ -1,22 +1,22 @@
 #include "saveSystem.h"
 #include <string>
 
-void s2d::flc::saveEverything(const s2d::Vector3& bg, s2d::SpriteRepository& toSave, s2d::GUIRepository& gui_repo)
+void s2d::flc::saveEverything(const s2d::Vector3& bg)
 {
 	//Stopping all animations so there wont be saved the current path of the sprite
-	s2d::Animator::stopAllAnimations(toSave);
+	s2d::Animator::stopAllAnimations();
 
 	//We need to save our data | Dont forget to save it also in "UIToolButtons"
-	s2d::flc::createSaveFile(toSave);
+	s2d::flc::createSaveFile(s2d::Sprite::s_sprites);
 	s2d::flc::createWindowBackgroundSaveFile(bg);
-	s2d::flc::createCameraSaveFile(gui_repo.camera);
-	s2d::flc::createIndexSaveFile(toSave);
-	s2d::flc::createKnownAnimationFile(toSave);
-	s2d::flc::createAnimtionSaveFiles(toSave);
+	s2d::flc::createCameraSaveFile(*s2d::GameObject::ptr_camera_tRealTimeEditor);
+	s2d::flc::createIndexSaveFile();
+	s2d::flc::createKnownAnimationFile();
+	s2d::flc::createAnimtionSaveFiles();
 	// Known projects file gets created in project selector
 }
 
-void s2d::flc::createSaveFile(const s2d::SpriteRepository& spriteRepo)
+void s2d::flc::createSaveFile(std::vector<s2d::Sprite*>& sprites)
 {
 	std::fstream spriteFile;
 
@@ -24,12 +24,10 @@ void s2d::flc::createSaveFile(const s2d::SpriteRepository& spriteRepo)
 
 	if (spriteFile.is_open()) 
 	{
-		spriteFile << "name;vecpos;transformPosX;transformPosY;ScaleX;ScaleY;filepath;boxColliderWidthLeftOrRightX;boxColliderWidthLeftOrRighY;boxColliderHeightUpOrDownX;boxColliderHeightUpOrDownY;boxColliderExists;solid;sortingLayer;gravity;mass;physicsBodyExists;id;parentId;nextPosX;nextPosY;lastPosX;lastPosY;listPos;highestChild;positionToParentX;positionToParentY;animatorExists;prefabExist;loadInMemory;pathToPrefab" << "\n";
-		for (int i = 0; i < spriteRepo.amount(); i++)
+		spriteFile << "name;vecpos;transformPosX;transformPosY;ScaleX;ScaleY;filepath;boxColliderWidthLeftOrRightX;boxColliderWidthLeftOrRighY;boxColliderHeightUpOrDownX;boxColliderHeightUpOrDownY;boxColliderExists;solid;sortingLayer;gravity;mass;physicsBodyExists;id;parentId;nextPosX;nextPosY;lastPosX;lastPosY;listPos;highestChild;positionToParentX;positionToParentY;animatorExists" << "\n";
+		for (Sprite* spr : sprites)
 		{
-			const s2d::Sprite* const sprite = spriteRepo.readAt(i, true);
-
-			std::string line = getPropertyLineWithSeperator(sprite);
+			std::string line = getPropertyLineWithSeperator(spr);
 
 			spriteFile << line << "\n";
 		}
@@ -39,27 +37,33 @@ void s2d::flc::createSaveFile(const s2d::SpriteRepository& spriteRepo)
 
 }
 
-std::string s2d::flc::getPropertyLineWithSeperator(const Sprite* const sprite)
+std::string s2d::flc::getPropertyLineWithSeperator(Sprite* sprite)
 {
+	auto boolToStr = [](const bool& b)
+	{
+		return b ? "True" : "False";
+	};
+
 	std::string line;
+	std::string vecpos = std::to_string(sprite->getVectorPosition());
 	std::string transformPosX = std::to_string(sprite->transform.position.x);
 	std::string transformPosY = std::to_string(sprite->transform.position.y);
 	std::string scaleX = std::to_string(sprite->transform.getScale().x);
 	std::string scaleY = std::to_string(sprite->transform.getScale().y);
-	std::string spritePath = std::splitStringTillLastWord(sprite->sprite_renderer.path, s2d::EngineData::s_path_to_user_project);
+	std::string spritePath = std::splitStringTillLastWord(sprite->path, s2d::EngineData::s_pathToUserProject);
 
-	std::string boxColliderWidthLeftOrRightX = std::to_string(sprite->collider.box_collider_width.x);
-	std::string boxColliderWidthLeftOrRightY = std::to_string(sprite->collider.box_collider_width.y);
+	std::string boxColliderWidthLeftOrRightX = std::to_string(sprite->collider.boxColliderWidthLeftOrRight.x);
+	std::string boxColliderWidthLeftOrRightY = std::to_string(sprite->collider.boxColliderWidthLeftOrRight.y);
 
-	std::string boxColliderHeightUpOrDownX = std::to_string(sprite->collider.box_collider_height.x);
-	std::string boxColliderHeightUpOrDownY = std::to_string(sprite->collider.box_collider_height.y);
+	std::string boxColliderHeightUpOrDownX = std::to_string(sprite->collider.boxColliderHeightUpOrDown.x);
+	std::string boxColliderHeightUpOrDownY = std::to_string(sprite->collider.boxColliderHeightUpOrDown.y);
 
-	std::string colliderExists = std::boolToStr(sprite->collider.exist);
-	std::string isSolid = std::boolToStr(sprite->collider.is_solid);
-	std::string sortingLayer = std::to_string(sprite->sprite_renderer.sorting_layer_index);
+	std::string colliderExists = boolToStr(sprite->collider.exists);
+	std::string isSolid = boolToStr(sprite->collider.isSolid);
+	std::string sortingLayer = std::to_string(sprite->sortingLayerIndex);
 	std::string gravity = std::to_string(sprite->physicsBody.gravity);
 	std::string mass = std::to_string(sprite->physicsBody.mass);
-	std::string bodyExist = std::boolToStr(sprite->physicsBody.exist);
+	std::string bodyExist = boolToStr(sprite->physicsBody.exists);
 	std::string id = std::to_string(sprite->getId());
 	std::string parentId = std::to_string(sprite->getParentId());
 
@@ -69,17 +73,16 @@ std::string s2d::flc::getPropertyLineWithSeperator(const Sprite* const sprite)
 	std::string lastPosX = std::to_string(sprite->transform.lastPos.x);
 	std::string lastPosY = std::to_string(sprite->transform.lastPos.y);
 
-	std::string positionToParentX = std::to_string(sprite->transform.position_to_parent.x);
-	std::string positionToParentY = std::to_string(sprite->transform.position_to_parent.y);
+	std::string listPos = std::to_string(sprite->getChildListPosition());
+	std::string childCount = std::to_string(sprite->getChildCount());
 
-	std::string animatorExist = std::boolToStr(sprite->animator.exist);
+	std::string positionToParentX = std::to_string(sprite->transform.positionToParent.x);
+	std::string positionToParentY = std::to_string(sprite->transform.positionToParent.y);
 
-	std::string prefabExist = std::boolToStr(sprite->prefab.exists);
-	std::string loadInMemory = std::boolToStr(sprite->prefab.loadInMemory);
-	std::string pathToPrefab = sprite->prefab.enginePathToFile;
+	std::string animatorExist = boolToStr(sprite->animator.exists);
 
 	//Name, vec, transform path
-	line = sprite->name + ";" + "0" + ";" + transformPosX + ";" + transformPosY + ";" + scaleX + ";" + scaleY + ";" + spritePath;
+	line = sprite->name + ";" + vecpos + ";" + transformPosX + ";" + transformPosY + ";" + scaleX + ";" + scaleY + ";" + spritePath;
 
 	//BoxCollider
 	line += ";" + boxColliderWidthLeftOrRightX + ";" + boxColliderWidthLeftOrRightY + ";" + boxColliderHeightUpOrDownX + ";" + boxColliderHeightUpOrDownY + ";" + colliderExists + ";" + isSolid;
@@ -97,7 +100,7 @@ std::string s2d::flc::getPropertyLineWithSeperator(const Sprite* const sprite)
 	line += ";" + nextPosX + ";" + nextPosY + ";" + lastPosX + ";" + lastPosY;
 
 	//list pos ( childing)
-	line += ";" + std::string("listpos") + ";" + "childCount";
+	line += ";" + listPos + ";" + childCount;
 
 	//Pos to parent (x, y)
 	line += ";" + positionToParentX + ";" + positionToParentY;
@@ -105,11 +108,7 @@ std::string s2d::flc::getPropertyLineWithSeperator(const Sprite* const sprite)
 	//ANIMATIONS
 
 	line += ";" + animatorExist;
-
-	// Prefab
-
-	line += ";" + prefabExist + ";" + loadInMemory + ";" + pathToPrefab ;
- 	
+	
 	return line;
 }
 
@@ -150,9 +149,9 @@ void s2d::flc::createCameraSaveFile(const s2d::Camera& camera)
 	}
 }
 
-void s2d::flc::createIndexSaveFile(s2d::SpriteRepository& repo)
+void s2d::flc::createIndexSaveFile()
 {
-	int index = repo.highestSpriteId;
+	int index = s2d::SpriteData::highestSpriteID;
 	std::fstream indexFile;
 
 	indexFile.open(PATH_TO_INDEX_FILE, std::ios::out);
@@ -183,7 +182,7 @@ void s2d::flc::createKnownProjectDirFile()
 
 	std::strftime(buffer, sizeof(buffer), "%Y/%d/%m %X", &timeinfo);
 
-	const char* relative_path = s2d::EngineData::s_path_to_user_project.c_str();
+	const char* relative_path = s2d::EngineData::s_pathToUserProject.c_str();
 	char absolute_path[FILENAME_MAX];
 	if (!_fullpath(absolute_path, relative_path, FILENAME_MAX) != NULL) 
 	{
@@ -211,14 +210,13 @@ void s2d::flc::createKnownProjectDirFile()
 
 }
 
-void s2d::flc::createAnimtionSaveFiles(const s2d::SpriteRepository& spriteRepository)
+void s2d::flc::createAnimtionSaveFiles()
 {
 	std::fstream animationFiles;
-	for (int i = 0; i < spriteRepository.amount(); i++)
+	for (int i = 0; i < s2d::Sprite::s_sprites.size(); i++)
 	{
-		const s2d::Sprite* const ptr_sprite = spriteRepository.readAt(i, true);
-
-		if (ptr_sprite->animator.exist)
+		const s2d::Sprite* ptr_sprite = s2d::Sprite::s_sprites[i];
+		if (ptr_sprite->animator.exists)
 		{
 			for (const auto& anim : ptr_sprite->animator.animations)
 			{
@@ -242,34 +240,16 @@ void s2d::flc::createAnimationSaveFile(const s2d::Sprite* ptr_sprite, const s2d:
 		content += std::to_string(frame.delay) + std::string(";") + s2d::UI::getUserProjectPathSeperatetFromEnginePath(frame.path) + "\n";
 	}
 
-	std::string pathAndName = s2d::EngineData::s_path_to_user_project + "\\" + animationToSave.getPathToFile();
+	std::string pathAndName = s2d::EngineData::s_pathToUserProject + "\\" + animationToSave.getPathToFile();
 	std::createFileWithContent(content, pathAndName);
 }
 
-void s2d::flc::createOrUpdatePrefabFile(const s2d::Sprite* content, const std::string& pathToFile, const std::string& oldFilePath)
-{
-	//Getting filelocation as: \\assets
-	std::string fileContent = "";
-
-	fileContent += "name;vecpos;transformPosX;transformPosY;ScaleX;ScaleY;filepath;boxColliderWidthLeftOrRightX;boxColliderWidthLeftOrRighY;boxColliderHeightUpOrDownX;boxColliderHeightUpOrDownY;boxColliderExists;solid;sortingLayer;gravity;mass;physicsBodyExists;id;parentId;nextPosX;nextPosY;lastPosX;lastPosY;listPos;highestChild;positionToParentX;positionToParentY;animatorExists;prefabExist;loadInMemory;pathToPrefab\n";
-
-	fileContent += getPropertyLineWithSeperator(content) + "\n";
-
-	if (pathToFile != oldFilePath && oldFilePath != "")
-	{
-		std::removeFile(oldFilePath);
-	}
-	std::createFileWithContent(fileContent, pathToFile);
-}
-
-void s2d::flc::createKnownAnimationFile(const s2d::SpriteRepository& spriteRepository)
+void s2d::flc::createKnownAnimationFile()
 {
 	std::string content = "PathToAnimation\n";
 
-	for (int i = 0; i < spriteRepository.amount(); i++)
+	for (const s2d::Sprite* sprite : s2d::Sprite::s_sprites)
 	{
-		const s2d::Sprite* const sprite = spriteRepository.readAt(i, true);
-
 		for (const auto& animation : sprite->animator.animations)
 		{
 			/// NO SEPERATION SINCE IT GETS ON "CREATE ANIMATION" SEPERATED
@@ -294,7 +274,7 @@ bool s2d::flc::checkIfProjectExistInFile(std::string& ref)
 	const int INDEX_AT_PATH = 1;
 
 	bool found = false;
-	std::string searchPath = s2d::EngineData::s_path_to_user_project;
+	std::string searchPath = s2d::EngineData::s_pathToUserProject;
 	std::fstream knownProjectFile;
 
 	char absulutPath[1024];
@@ -458,14 +438,6 @@ void s2d::flc::removeDir(const std::string& path)
 
 std::string s2d::flc::copyDir(const std::string& inputDir, const std::string& outputdir, const std::string& name, const std::vector<std::string>& exclude)
 {
-	struct stat sb;
-
-	if (stat(inputDir.c_str(), &sb) == 0 && !(sb.st_mode & S_IFDIR)
-		|| stat(outputdir.c_str(), &sb) == 0 && !(sb.st_mode & S_IFDIR))
-	{
-		std::cout << "LOG [ERROR] Cant copy folder because input or output dir is invalid";
-		return "-1";
-	}
 	std::fstream fs;
 
 	fs.open("exclude_file.txt", std::fstream::out);
@@ -494,26 +466,5 @@ std::string s2d::flc::copyDir(const std::string& inputDir, const std::string& ou
 
 	system(remove_exclusion_file.c_str());
 	return outputdir + std::string(name.c_str());
-}
-
-void s2d::flc::cleanUp(s2d::SpriteRepository& repo)
-{
-	std::vector<std::string> valid_prefab_names;
-	std::getFileNameWithExtensionInFolder(s2d::EngineData::s_path_to_user_project, EXTENSION_PREFAB_FILE, valid_prefab_names);
-
-	for (size_t i = 0; i < valid_prefab_names.size(); i++)
-	{
-		valid_prefab_names[i] = std::getFileOnPath(valid_prefab_names[i]);
-	}
-
-	for (size_t i = 0; i < repo.amount(); i++)
-	{
-		const std::string engine_name = std::getFileOnPath(repo.readAt(i)->prefab.enginePathToFile);
-
-		if (!std::isEqualWithAny(engine_name, valid_prefab_names))
-		{
-			repo.readAt(i)->prefab.resetPrefab();
-		}
-	}
 }
 

@@ -14,7 +14,11 @@ namespace s2d
 	public:
 		SpriteData() = delete;
 
-		static std::string s_default_sprite_path;
+		static int getHighestIndex();
+
+		static std::string defaultSpritePath;
+		static int highestSpriteID;
+		static int dupeNameCounter;
 	};
 }
 

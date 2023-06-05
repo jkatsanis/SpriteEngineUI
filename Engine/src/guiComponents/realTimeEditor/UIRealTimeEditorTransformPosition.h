@@ -14,7 +14,6 @@ namespace s2d
 		s2d::Event* m_windowEvent;
 		bool m_realeasedCursorOnSprite;
 		bool* m_isAnyUIWindowHovered;
-		s2d::SpriteRepository* m_spriteRepository;
 
 		// Data of sprite we clicked
 		s2d::Sprite* m_clickedSprite;
@@ -22,13 +21,13 @@ namespace s2d
 
 		void moveComponent();
 
-		bool checkClick(s2d::Sprite* const sprite);
+		bool checkClick(s2d::Sprite& sprite);
 		s2d::Sprite* checkIfMouseClickedOnSprite();
+
 	public:
 
 		UIRealTimeEditorTransformPosition();
-		UIRealTimeEditorTransformPosition(s2d::InspectorState* ptr_Inspectorstate, 
-			bool* hovered, s2d::Event* windowEvent, s2d::SpriteRepository& repo);
+		UIRealTimeEditorTransformPosition(s2d::InspectorState* ptr_Inspectorstate, bool* hovered, s2d::Event* windowEvent);
 
 		void update();
 	};

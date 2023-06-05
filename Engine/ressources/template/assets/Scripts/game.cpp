@@ -2,30 +2,20 @@
 
 void Game::start()
 {
-	this->m_ptr_ship = this->config.ptr_sprites->getSpriteWithName("ship");
+	this->m_ptr_ship = s2d::Sprite::getSpriteByName("ship");
 }
 
 void Game::update()
 {
-	if (s2d::Input::onKeyHold(s2d::KeyBoardCode::A))
+	if (s2d::Input::onKeyPress(s2d::KeyBoardCode::A))
 	{
-		this->m_ptr_ship->transform.position.x -= 800 * s2d::Time::deltaTime;
+		this->m_ptr_ship->animator.play("Doe");
 	}
 
-	if (s2d::Input::onKeyHold(s2d::KeyBoardCode::D))
+	if (s2d::Input::onKeyPress(s2d::KeyBoardCode::B))
 	{
-		this->m_ptr_ship->transform.position.x += 800 * s2d::Time::deltaTime;
-	}
-	if (s2d::Input::onKeyHold(s2d::KeyBoardCode::S))
-	{
-		this->m_ptr_ship->transform.position.y -= 800 * s2d::Time::deltaTime;
-	}
-	if (s2d::Input::onKeyHold(s2d::KeyBoardCode::W))
-	{
-		this->m_ptr_ship->transform.position.y += 800 * s2d::Time::deltaTime;
-	}
-	if (s2d::Input::onKeyHold(s2d::KeyBoardCode::G))
-	{
-		this->m_ptr_ship->animator.play("Im");
+
+		this->m_ptr_ship->animator.stop("Doe");
+
 	}
 }

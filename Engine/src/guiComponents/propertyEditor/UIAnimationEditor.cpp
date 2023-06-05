@@ -10,7 +10,7 @@ s2d::UIAnimationEditor::UIAnimationEditor()
 	this->m_anim = nullptr;
 	this->display = false;
 	this->m_keyFrameSelected.keyFrameSelected = nullptr;
-	this->is_hovered = false;
+	this->isHovered = false;
 }
 
 //Private methods
@@ -41,8 +41,8 @@ void s2d::UIAnimationEditor::closeWindow()
 		this->resetAnim();
 	}
 
-	if (!this->is_hovered)
-		this->is_hovered = ImGui::IsWindowHovered();
+	if (!this->isHovered)
+		this->isHovered = ImGui::IsWindowHovered();
 
 	ImGui::End();
 }
@@ -61,7 +61,7 @@ void s2d::UIAnimationEditor::editorTimeLine()
 {
 	float y = ImGui::GetCursorPosY() + 10;
 
-	if (!this->m_anim->is_playing)
+	if (!this->m_anim->isPlaying)
 	{
 		if (s2d::FontManager::displaySmybolAsButton(ICON_FA_PLAY))
 		{
@@ -82,7 +82,7 @@ void s2d::UIAnimationEditor::editorTimeLine()
 	{
 		ImGui::Text(std::to_string(i).c_str());
 
-		ImGui::SetCursorPos(ImVec2(100.0f + ((int)i + 1.0f) * CURSOR_SPACE, y));
+		ImGui::SetCursorPos(ImVec2(100.0f + ((int)i + 1.0f) * this->m_CURSOR_SPACE, y));
 	}
 
 
@@ -155,7 +155,7 @@ void s2d::UIAnimationEditor::renderKeyFrames()
 		}
 		currentMs++;
 
-		ImGui::SetCursorPos(ImVec2(100.0f + ((int)i + 1.0f) * CURSOR_SPACE, y));
+		ImGui::SetCursorPos(ImVec2(100.0f + ((int)i + 1.0f) * this->m_CURSOR_SPACE, y));
 	}
 	ImGui::NewLine();
 	ImGui::Dummy(ImVec2(0, 20));
@@ -166,14 +166,14 @@ void s2d::UIAnimationEditor::addKeyFrame()
 	ImGui::SetCursorPos(ImVec2(ImGui::GetCursorPosX() + 2 + ImGui::GetScrollX(), ImGui::GetCursorPosY()));
 	if (ImGui::Button("Add KeyFrame"))
 	{
-		if (this->m_ptr_repo->sprite_in_inspector != nullptr)
+		if (s2d::UIHirachy::s_selectedSprite != nullptr)
 		{
-			this->keyFrameAdder.keyFramePath = this->m_ptr_repo->sprite_in_inspector->sprite_renderer.path;
+			this->keyFrameAdder.m_keyFramePath = s2d::UIHirachy::s_selectedSprite->path;
 		}
 		this->keyFrameAdder.isKeyFrameMenuOpen = true;
 		this->keyFrameAdder.setAnimation(this->m_anim);
 	}
-	this->is_hovered = (this->keyFrameAdder.isHovered) 
+	this->isHovered = (this->keyFrameAdder.isHovered) 
 		? true 
 		: ImGui::IsWindowHovered(ImGuiHoveredFlags_AllowWhenBlockedByActiveItem | ImGuiHoveredFlags_AllowWhenBlockedByPopup);
 	
@@ -192,10 +192,4 @@ void s2d::UIAnimationEditor::displayEditor()
 	{
 		this->keyFrameAdder.update();
 	}
-}
-
-void s2d::UIAnimationEditor::setSpriteRepository(s2d::SpriteRepository& repo)
-{
-	this->m_ptr_repo = &repo;
-	this->keyFrameAdder.setSpriteRepository(repo);
 }

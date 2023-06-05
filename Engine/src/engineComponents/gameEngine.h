@@ -12,7 +12,6 @@
 #include <engineComponents/renderer.h>
 #include <guiComponents/UI.h>
 #include <manager/initializer.h>
-#include <manager/spriteRepository.h>
 
 namespace s2d
 {
@@ -22,7 +21,6 @@ namespace s2d
 		UIWindow m_UIWindow;
 		UIRealTimeEditor m_UIRealTimeEditor;
 		Renderer m_renderer;
-		SpriteRepository m_sprite_repository;
 
 		bool m_isWindowFullScreen;
 		bool m_close;
@@ -31,12 +29,11 @@ namespace s2d
 		void pollEvents();
 		void updateWindowStyle();
 		void saveDialoge();
-		void onEngineClose(bool save);
 
 	public:
 		s2d::Event event;
 		sf::Event windowEvent;
-		sf::RenderWindow* ptr_render_window;
+		sf::RenderWindow* ptr_renderWindow;
 
 		GameEngine();
 

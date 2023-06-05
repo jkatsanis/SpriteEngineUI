@@ -1,5 +1,3 @@
-#pragma once
-
 #include <iostream>
 
 namespace s2d
@@ -14,11 +12,9 @@ namespace s2d
 		EditorTools tool;
 		bool background;
 		std::string icon;
-		std::string tool_name;
 
-		Tool(const EditorTools tool, const std::string& icon, const std::string& name)
+		Tool(const EditorTools tool, std::string icon)
 		{
-			this->tool_name = name;
 			this->background = false;
 			this->tool = tool;
 			this->icon = icon;
@@ -26,7 +22,6 @@ namespace s2d
 
 		Tool()
 		{
-			this->tool_name = "";
 			this->background = false;
 			this->tool = s2d::EditorTools::PositionTool;
 			this->icon = "";

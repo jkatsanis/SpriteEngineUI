@@ -1,44 +1,37 @@
 #include "Animator.h"
 #include <physicalComponents/sprite.h>
 
-// Constructor / Destructor
-
+#define EXIST if (!this->exists) return
+	
 s2d::Animator::Animator()
 {
-	this->init();
+	this->exists = false;
+	this->ptr_attachedSprite = nullptr;
 }
 
 s2d::Animator::Animator(Sprite* ptr_attachedSprite)
 {
-	this->init();
+	this->exists = false;
 	this->ptr_attachedSprite = ptr_attachedSprite;
-}
-
-void s2d::Animator::init()
-{
-	this->base_component = false;
-	this->exist = false;
-	this->ptr_attachedSprite = nullptr;
+	this->animationPlaying.isAAnimationPlaying = false;
 	this->animationPlaying.name = "<Unknown>";
 }
 
-// Public functions
-
-void s2d::Animator::createAnimation(const std::string& name, const std::string& file_loc, const std::vector<s2d::KeyFrame>& textures)
+void s2d::Animator::createAnimation(const std::string& name, const std::string& fileLocation, const std::vector<s2d::KeyFrame>& textures)
 {
-	EXIST_COMPONENT;
-	animations.insert({ name, Animation(ptr_attachedSprite, name, file_loc, textures) });
+	EXIST;
+	animations.insert( { name, Animation(ptr_attachedSprite, name, fileLocation, textures) });
 }
 
 void s2d::Animator::removeAnimation(const std::string& name)
 {
-	EXIST_COMPONENT;
+	EXIST;
 	animations.erase(name);
 }
 
 void s2d::Animator::play(const std::string& name)
 {
-	EXIST_COMPONENT;
+	EXIST;
 	auto it = this->animations.find(name);
 	if (it != this->animations.end())
 	{
@@ -50,7 +43,7 @@ void s2d::Animator::play(const std::string& name)
 
 void s2d::Animator::stop(const std::string& name)
 {
-	EXIST_COMPONENT;
+	EXIST;
 	auto it = this->animations.find(name);
 	if (it != this->animations.end())
 	{
@@ -62,28 +55,28 @@ void s2d::Animator::stop(const std::string& name)
 
 void s2d::Animator::update()
 {
-	EXIST_COMPONENT;
+	EXIST;	
 	for (auto& anim : this->animations)
 	{
-		if (anim.second.is_playing)
+		if (anim.second.isPlaying)
 			anim.second.update();
 	}
 }
 
-void s2d::Animator::reset()
+void s2d::Animator::resetComponent()
 {
 	this->animationPlaying.name = "<Unknown>";;
 	this->animationPlaying.isAAnimationPlaying = false;
+	this->exists = false;
 	this->animations.clear();
 }
 
 //Static functions
 
-void s2d::Animator::stopAllAnimations(s2d::SpriteRepository& toUpdate)
+void s2d::Animator::stopAllAnimations()
 {
-	for (int i = 0; i < toUpdate.amount(); i++)
+	for (int i = 0; i < s2d::Sprite::s_sprites.size(); i++)
 	{
-		s2d::Sprite* const sprite = toUpdate.readAt(i);
-		sprite->animator.stop(sprite->animator.animationPlaying.name);
+		s2d::Sprite::s_sprites[i]->animator.stop(s2d::Sprite::s_sprites[i]->animator.animationPlaying.name);
 	}
 }

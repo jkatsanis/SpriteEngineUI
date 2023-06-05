@@ -96,6 +96,33 @@ void s2d::FileDialog::displayNodes()
 
 // private methods
 
+bool s2d::FileDialog::checkIfADirHasSubDirs(const std::string& dirPath)
+{
+    bool value = false;
+    DIR* dir = opendir(dirPath.c_str());
+    if (dir == NULL)
+        return false;
+
+    // Read each entry in the directory
+    dirent* entry;
+    int cnt = 0;
+    while ((entry = readdir(dir)) != NULL)
+    {
+        if (entry->d_type == DT_DIR)
+        {
+            if (strcmp(entry->d_name, ".") == 0 || strcmp(entry->d_name, "..") == 0) 
+            {
+                continue;
+            }
+            value = true;
+        }
+    }
+
+    closedir(dir);
+
+    return value;
+}
+
 void s2d::FileDialog::openFile(const char* dir_path)
 {
     DIR* dir = opendir(dir_path);
@@ -179,31 +206,3 @@ std::string s2d::FileDialog::getEmptyStringBetween(const std::string& content, c
     }
     return empty;
 }
-
-bool s2d::FileDialog::checkIfADirHasSubDirs(const std::string& dirPath)
-{
-    bool value = false;
-    DIR* dir = opendir(dirPath.c_str());
-    if (dir == NULL)
-        return false;
-
-    // Read each entry in the directory
-    dirent* entry;
-    int cnt = 0;
-    while ((entry = readdir(dir)) != NULL)
-    {
-        if (entry->d_type == DT_DIR)
-        {
-            if (strcmp(entry->d_name, ".") == 0 || strcmp(entry->d_name, "..") == 0)
-            {
-                continue;
-            }
-            value = true;
-        }
-    }
-
-    closedir(dir);
-
-    return value;
-}
-

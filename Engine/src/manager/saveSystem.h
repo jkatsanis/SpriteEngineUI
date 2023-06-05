@@ -16,26 +16,23 @@
 #include <dirent.h>
 #include <guiComponents/UI.h>
 #include <manager/initializer.h>
-#include <sys/stat.h>
 
 namespace s2d
 {
 	namespace flc
 	{
-		void saveEverything(const s2d::Vector3& bg, s2d::SpriteRepository& toSave, s2d::GUIRepository& gui_repo);
+		void saveEverything(const s2d::Vector3& bg);
 
-		void createSaveFile(const SpriteRepository& spriteRepo);
+		void createSaveFile(std::vector<s2d::Sprite*>& sprite);
 		void createWindowBackgroundSaveFile(const s2d::Vector3 windowBackground);
 		void createCameraSaveFile(const s2d::Camera& camera);
-		void createIndexSaveFile(s2d::SpriteRepository& repo);
+		void createIndexSaveFile();
 		void createKnownProjectDirFile();
-		void createAnimtionSaveFiles(const s2d::SpriteRepository& spriteRepository);
-		void createKnownAnimationFile(const s2d::SpriteRepository& spriteRepository);
+		void createAnimtionSaveFiles();
+		void createKnownAnimationFile();
 		bool isProjectPathValid(const std::string& path);
 		bool checkIfProjectExistInFile(std::string& ref);
 		void createAnimationSaveFile(const s2d::Sprite* ptr_sprite, const s2d::Animation& animationToSave);
-
-		void createOrUpdatePrefabFile(const s2d::Sprite* content, const std::string& pathToFile, const std::string& pathToOldFile);
 
 		/// <summary>
 		/// Checks if the absulute path exists in the 'knownProject' file
@@ -59,15 +56,14 @@ namespace s2d
 		std::string copyDir(const std::string& inputDir, const std::string& outputdir, const std::string& name);
 		void removeDir(const std::string& path);
 
+
 		/// <summary>
 		/// For folders = "\\folder\\
 		/// For files = ".cpp"
 		/// </summary>
 		std::string copyDir(const std::string& inputDir, const std::string& outputdir, const std::string& name, const std::vector<std::string>& exclude);
 
-		void cleanUp(s2d::SpriteRepository& repo);
-
-		std::string getPropertyLineWithSeperator(const Sprite* const sprite);
+		std::string getPropertyLineWithSeperator(Sprite* sprite);
 	}
 }
 

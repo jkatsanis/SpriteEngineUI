@@ -13,47 +13,35 @@
 #include <UIToolButtonsModels.h>
 #include <filesystem>
 #include <manager/saveSystem.h>
-#include <manager/spriteRepository.h>
-#include <manager/guiRepository.h>
 
-#define TOOLS_AMOUNT 2
+#define TOOLS_SIZE 2
 #define FILE_AMOUNT 6
-
-#define WINDOW_SIZE_Y_TOOL_BUTTONS 15.0f
 
 namespace s2d
 {
 	class UIToolButtons
 	{
 	private:
-		s2d::Tool m_tools[TOOLS_AMOUNT];
-		s2d::Vector3 m_window_background_to_save;
-		EditorTools m_editor_tools;
-		s2d::GUIRepository* m_ptr_gui_repo;
-		s2d::SpriteRepository* m_ptr_repo;
+		s2d::Tool m_tools[TOOLS_SIZE];
+		s2d::Vector3 m_windowbBackgroundToSave;
 
-		bool m_clicked_on_btn;
+		bool m_clickedOnBtn;
 
-		void playGameButton();
+		void askWithButtonForPlayGame();
 		void toolSelector();
 		void removeBackgroundFromButtons();
 		void buildProjectIntoFolder();
 		void hotkeys();
 		void build();
-		void init();
-		void renderWindowSelecter();
-		void renderMainMenuBar();
-		void renderToolSelector();
 
 	public:
-		bool is_hovered;
+		bool isHovered;
+		EditorTools editorTools;
 
 		UIToolButtons();
-		UIToolButtons(s2d::SpriteRepository& sprite_repo);
 
 		void createToolsAndButtons();
 		void setBackgroundColorToSave(const s2d::Vector3& color);
-		void setGUIRepo(s2d::GUIRepository* repo) { this->m_ptr_gui_repo = repo; }
 	};
 }
 

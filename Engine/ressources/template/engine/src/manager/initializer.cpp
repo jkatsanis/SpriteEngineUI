@@ -2,7 +2,7 @@
 
 // public static functions
 
-void s2d::Initializer::initAnimations(s2d::SpriteRepository& repo)
+void s2d::Initializer::initAnimations()
 {
 	//std::vector<s2d::AN
 	std::fstream knownAnimationFileStream;
@@ -10,14 +10,14 @@ void s2d::Initializer::initAnimations(s2d::SpriteRepository& repo)
 	knownAnimationFileStream.open(PATH_TO_KNOWN_ANIMATIONS);
 
 	if (knownAnimationFileStream.is_open())
-	{ 
+	{
 		std::string line;
 		int cnt = 0;
 		while (std::getline(knownAnimationFileStream, line))
 		{
 			cnt++;
 			if (cnt == 1) continue;
-			s2d::Initializer::initAnimation(line, repo);
+			s2d::Initializer::initAnimation(line);
 		}
 
 		knownAnimationFileStream.close();
@@ -25,7 +25,7 @@ void s2d::Initializer::initAnimations(s2d::SpriteRepository& repo)
 	else std::cout << "LOG: [ERROR] could not open animation(s) file!";
 }
 
-void s2d::Initializer::initSprites(s2d::SpriteRepository& spriteRepo)
+void s2d::Initializer::initSprites()
 {
 	//! INFO ! ALWAYS SCALE THINGS UP BY 1.5F!
 	std::fstream spriteFile;
@@ -59,6 +59,7 @@ void s2d::Initializer::initSprites(s2d::SpriteRepository& spriteRepo)
 			sprite->transform = s2d::Transform(sprite);
 
 			sprite->name = propertys[0];
+			sprite->setVectorPosition(atoi(propertys[1].c_str()));
 			sprite->transform.position.x = std::stof(propertys[2].c_str());
 			sprite->transform.position.y = std::stof(propertys[3].c_str());
 
@@ -95,6 +96,10 @@ void s2d::Initializer::initSprites(s2d::SpriteRepository& spriteRepo)
 			sprite->transform.lastPos.x = std::stof(propertys[21]);
 			sprite->transform.lastPos.y = std::stof(propertys[22]);
 
+			//list pos
+			sprite->setChildListPos(atoi(propertys[23].c_str()));
+			sprite->setChildCount(atoi(propertys[24].c_str()));
+
 			//Position to parent x, and y
 			sprite->transform.positionToParent.x = std::stof(propertys[25]);
 			sprite->transform.positionToParent.y = std::stof(propertys[26]);
@@ -109,58 +114,31 @@ void s2d::Initializer::initSprites(s2d::SpriteRepository& spriteRepo)
 			sprite->transform.positionToParent.y *= s2d::GameObject::ssizeMultipliyer;
 
 			//Pushing the sprite
-			spriteRepo.add(sprite);
+			s2d::Sprite::s_sprites.push_back(sprite);
 		}
 	}
 
 	spriteFile.close();
 
 	//setting childs of sprites
-	for (int i = 0; i < spriteRepo.amount(); i++)
+	for (s2d::Sprite* sprite : s2d::Sprite::s_sprites)
 	{
-		s2d::Sprite* const sprite = spriteRepo.readAt(i);
 		if (sprite->getParentId() > 0)
 		{
-			s2d::Sprite* parent = spriteRepo.getSpriteWithId(sprite->getParentId());
+			s2d::Sprite* parent = s2d::Sprite::getSpriteById(sprite->getParentId());
 			if (parent != nullptr)
 			{
 				sprite->parent = parent;
-				parent->ptr_childs.push_back(sprite);
+				parent->childs.push_back(sprite);
 			}
 		}
 	}
 
-}
-
-void s2d::Initializer::initIds(uint32_t& highestId)
-{
-	std::fstream indexFile;
-	int index = 0;
-
-	//opening the file where all sprite data is
-	indexFile.open("engine\\saves\\index.txt", std::ios::in);
-	if (indexFile.is_open())
-	{
-		std::string line;
-		int cnt = 0;
-		while (std::getline(indexFile, line))
-		{
-			cnt++;
-			//First line is the header so we dont need to check for it
-			if (cnt == 1)
-			{
-				continue;
-			}
-
-			index = atoi(line.c_str());
-		}
-	}
-	highestId = index;
 }
 
 // private static functions
 
-void s2d::Initializer::initAnimation(const std::string& path, s2d::SpriteRepository& spriteRepo)
+void s2d::Initializer::initAnimation(const std::string& path)
 {
 	std::fstream animationFileStream;
 
@@ -187,7 +165,7 @@ void s2d::Initializer::initAnimation(const std::string& path, s2d::SpriteReposit
 			{
 				// read only the ID of the sprite to apply the animtion
 				int idx = std::stoi(line);
-				ptr_sprite = spriteRepo.getSpriteWithId(idx);
+				ptr_sprite = s2d::Sprite::getSpriteById(idx);
 				continue;
 			}
 			std::vector<std::string> propertys = std::splitString(line, DELIMITER);
@@ -198,8 +176,7 @@ void s2d::Initializer::initAnimation(const std::string& path, s2d::SpriteReposit
 
 	}
 	else std::cout << "LOG: [ERROR] could not open animation data file!";
-	if (ptr_sprite != nullptr)
-	{
-		ptr_sprite->animator.createAnimation(animationName, path, frames);
-	}
+
+	if(ptr_sprite != nullptr)
+		ptr_sprite->animator.createAnimation(animationName, frames);
 }

@@ -36,7 +36,7 @@ void s2d::UIProjectSelector::pollEvents()
 			this->m_ptr_toRenderWindow->close();
 		}
 	}
-	ImGui::SFML::Update(*this->m_ptr_toRenderWindow, s2d::Time::s_delta_clock.restart());
+	ImGui::SFML::Update(*this->m_ptr_toRenderWindow, s2d::Time::deltaClock.restart());
 }
 
 void s2d::UIProjectSelector::render()
@@ -63,7 +63,7 @@ void s2d::UIProjectSelector::renderProjectDataOrDocs()
 			this->docsData();
 
 		ImGui::SetWindowPos(ImVec2(192, 0));
-		ImGui::SetWindowFontScale(1);
+		ImGui::SetWindowFontScale(s2d::UIInfo::sdefaultFontSize);
 		ImGui::SetWindowSize(ImVec2(960 - 192, 540));
 		ImGui::End();
 	}
@@ -103,53 +103,17 @@ s2d::UIProjectSelectorLocation s2d::UIProjectSelector::getUserInputForDataToRend
 
 void s2d::UIProjectSelector::update()
 {
-	if (s2d::EngineData::s_path_to_user_project != "")
+	if (s2d::EngineData::s_pathToUserProject != "")
 	{
 		this->m_ptr_toRenderWindow->close();
 	}
 
 	this->pollEvents();
 
-	ImGuiStyle* style = &ImGui::GetStyle();
-	ImVec4 shadow_color = ImVec4(0.0f, 0.0f, 0.0f, 0.5f);
-
-	//Setting it centered
-	style->WindowTitleAlign = ImVec2(0.5f, 0.5f);
-	style->FramePadding = ImVec2(8, 6);
-
-	style->Colors[ImGuiCol_TitleBg] = ImColor(49, 49, 76);
-	style->Colors[ImGuiCol_TitleBgActive] = ImColor(49, 49, 76);
-	style->Colors[ImGuiCol_TitleBgCollapsed] = ImColor(217, 101, 53, 255);
-
-	//the sprite selected
-	style->Colors[ImGuiCol_Header] = ImColor(0, 0, 0, 0);
-	style->Colors[ImGuiCol_HeaderHovered] = ImColor(100, 90, 100, 100);
-	style->Colors[ImGuiCol_HeaderActive] = ImColor(0, 0, 0, 0);
-
-	style->Colors[ImGuiCol_Button] = ImColor(0, 0, 0, 0);
-	style->Colors[ImGuiCol_ButtonActive] = ImColor(15, 15, 25);
-	style->Colors[ImGuiCol_ButtonHovered] = ImColor(100, 90, 100, 100);
-
-	//The background of (input) 
-	style->Colors[ImGuiCol_FrameBg] = shadow_color;
-	style->Colors[ImGuiCol_FrameBgActive] = ImColor(45, 45, 45);
-	style->Colors[ImGuiCol_FrameBgHovered] = ImColor(50, 50, 50);
-
-	style->Colors[ImGuiCol_WindowBg] = ImColor(22, 22, 32, 255);
-
-	style->Colors[ImGuiCol_TextSelectedBg] = ImColor(30, 30, 30);
-
-	style->Colors[ImGuiCol_SliderGrab] = ImColor(30, 30, 30);
-	style->Colors[ImGuiCol_SliderGrabActive] = ImColor(25, 25, 25);
-
-	style->Colors[ImGuiCol_CheckMark] = ImColor(255, 255, 255);
-
-	style->FrameRounding = 4.0f;
-	style->GrabRounding = 4.0f;
-	//s2d::UIWindow::renderStyle(&ImGui::GetStyle());
+	s2d::UIWindow::renderStyle(&ImGui::GetStyle());
 	
 	ImGui::PushStyleColor(ImGuiCol_ButtonHovered, SELECTOR_BUTTON_HOVERED);
-	ImGui::PushFont(s2d::FontManager::s_default_font);
+	ImGui::PushFont(s2d::FontManager::defaultFont);
 	this->render();
     ImGui::PopFont();
 	ImGui::PopStyleColor();

@@ -1,0 +1,27 @@
+Mit den kann man so ein art parent erstellen und kann dann wenn man das collaped ganz viele sachen machen
+ImGui::CollapisingHeader(string name)  
+
+Man zieht da eine line ka
+ImGui::Separator();
+
+Damit kann man so ne hirachy machen (man kann mehr ín ein ´machen)
+ImGui::TreeNode(name);
+
+Damit kann man die Transform ändern
+ImGui::SliderFloat(" ", &f1, 0.0f, 1.0f, "Transform =  %.3f");
+
+Checkt ob man z.b über eine Tree node hovert / Heder etc.
+ImGui::IsItemHovered()
+
+Wenn man % und dann sowas benutzt wird der text vergraut im background (string)
+
+Checkt ob die mouse das window hovert
+ImGui::IsWindowHovered();
+
+https://www.unknowncheats.me/forum/general-programming-and-reversing/269953-imgui-theme-color.html
+
+PushItemWidth(); / Pop
+
+MENUS ARE HEADERS LOL 
+
+

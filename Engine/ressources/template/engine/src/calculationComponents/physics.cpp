@@ -2,12 +2,11 @@
 
 //Public static functions
 
-void s2d::Physics::update(s2d::SpriteRepository& repo)
+void s2d::Physics::update()
 {
-	for (int i = 0; i < repo.amount(); i++)
+	for (s2d::Sprite* const ptr_activeSprite : s2d::Sprite::s_sprites)
 	{
-		s2d::Sprite* const sprite = repo.readAt(i);
-		sprite->physicsBody.fixedUpdate();
+		ptr_activeSprite->physicsBody.fixedUpdate();
 	}	
 }
 
