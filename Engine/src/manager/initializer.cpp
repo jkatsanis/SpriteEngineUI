@@ -57,10 +57,7 @@ void s2d::Initializer::initPrefab(const std::string& path, s2d::SpriteRepository
 		}
 
 		s2d::SpriteRepository::setValidIds(spr, highest);
-
-
 	}
-
 }
 
 void s2d::Initializer::initCamera(s2d::GUIRepository& repo)
@@ -189,6 +186,9 @@ void s2d::Initializer::initSprite(const std::string& line, s2d::Sprite* sprite)
 		sprite->prefab.exists = propertys[28] == "True";
 		sprite->prefab.loadInMemory = propertys[29] == "True";
 		sprite->prefab.enginePathToFile = propertys[30];
+		sprite->prefab.userPathToFile = s2d::UI::getUserProjectPathSeperatetFromEnginePath(sprite->prefab.enginePathToFile);
+		sprite->prefab.pathToOldFile = sprite->prefab.enginePathToFile;
+		sprite->prefab.fileName = std::getFileOnPath(sprite->prefab.enginePathToFile);
 	#pragma endregion
 }
 

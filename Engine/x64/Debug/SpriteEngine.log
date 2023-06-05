@@ -1,16 +1,1 @@
-﻿  SpriteEngine.cpp
-  UIDataModels.h
-  gameEngine.cpp
-  renderer.cpp
-  UIWindow.cpp
-  UIProjectSelector.cpp
-  UIAnimation.cpp
-  UIAnimationEditor.cpp
-  UIAnimationKeyFrameAdder.cpp
-  UIInspector.cpp
-  UIToolButtonsModels.h
-  UIRealTimeEditor.cpp
-  UIRealTimeEditorTransform.cpp
-  UIRealTimeEditorTransformPosition.cpp
-  Generating Code...
-  SpriteEngine.vcxproj -> C:\Dev\SpritEngineNewest\Engine\x64\Debug\SpriteEngine.exe
+﻿  SpriteEngine.vcxproj -> C:\Dev\SpritEngineNewest\Engine\x64\Debug\SpriteEngine.exe

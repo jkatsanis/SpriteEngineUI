@@ -1,2 +1,2 @@
 name;absulutePathStr;date;relativePath
-SoUnnötig;C:\Dev\SoUnnötig;2023/05/06 10:09:57;..\..\SoUnnötig
+SoAmogus;C:\Dev\SoAmogus;2023/05/06 10:58:54;..\..\SoAmogus
