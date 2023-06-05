@@ -8,16 +8,14 @@ namespace s2d
 {
 	class UIIconData
 	{
+	private:
+		std::vector<sf::Texture> m_textures;
+		std::vector<uint32_t> m_ids;
+
 	public:
-		sf::Texture textureFolder;
-		ImTextureID textureIDFodler;
-
-		sf::Texture textureFile;
-		ImTextureID textureIDFile;
-
 		// Init all textures and get the paths from UIInfo
 		UIIconData();
 
-		ImTextureID getId(std::string fileExtension);
+		uint32_t getId(std::string fileExtension);
 	};
 }

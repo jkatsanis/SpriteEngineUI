@@ -1,8 +1,18 @@
 #include "UIInfo.h"
 
-float s2d::UIInfo::sdefaultFontSize = 1.0f;
-bool s2d::UIInfo::srenderAssetFolder = true;
+float s2d::UIInfo::s_default_font_size = 0.8f;
+bool s2d::UIInfo::s_render_asset_folder = true;
+s2d::OpenWindow s2d::UIInfo::s_is_asset_folder_open = s2d::OpenWindow();
+s2d::OpenWindow s2d::UIInfo::s_is_hierarchy_open = s2d::OpenWindow();
+s2d::OpenWindow s2d::UIInfo::s_is_inspector_open = s2d::OpenWindow();
+s2d::OpenWindow s2d::UIInfo::s_is_animation_open = s2d::OpenWindow(false);
 
-std::string s2d::UIInfo::sfolderIcon = PATH_TO_RESSOURCS"\\Icons\\assetFolder.png";
-std::string s2d::UIInfo::sdefaultIcon = PATH_TO_RESSOURCS"\\Icons\\defaultIcon.png";
+const std::string s2d::UIInfo::s_icons[ICONS_AMOUNT] =
+{
+	PATH_TO_RESSOURCS"\\Icons\\defaultIcon.png",
+	PATH_TO_RESSOURCS"\\Icons\\assetFolder.png",
+	PATH_TO_RESSOURCS"\\Icons\\prefabIcon.png",
+	PATH_TO_RESSOURCS"\\Icons\\codeIcon.png",
+	PATH_TO_RESSOURCS"\\Icons\\pngIcon.png"
+};
 

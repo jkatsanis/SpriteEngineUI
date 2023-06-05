@@ -79,8 +79,8 @@
 #define ICON_FA_ARROW_FROM_LEFT "\xef\x8d\x83"	// U+f343
 #define ICON_FA_ARROW_FROM_RIGHT "\xef\x8d\x84"	// U+f344
 #define ICON_FA_ARROW_FROM_TOP "\xef\x8d\x85"	// U+f345
-#define ICON_FA_ARROW_LEFT "\xef\x81\xa0"	// U+f060
-#define ICON_FA_ARROW_RIGHT "\xef\x81\xa1"	// U+f061
+#define ICON_FA_ARROW_LEFT u8"\uf060"	// U+f060
+#define ICON_FA_ARROW_RIGHT u8"\uf061"	// U+f061
 #define ICON_FA_ARROW_SQUARE_DOWN "\xef\x8c\xb9"	// U+f339
 #define ICON_FA_ARROW_SQUARE_LEFT "\xef\x8c\xba"	// U+f33a
 #define ICON_FA_ARROW_SQUARE_RIGHT "\xef\x8c\xbb"	// U+f33b
@@ -89,7 +89,7 @@
 #define ICON_FA_ARROW_TO_LEFT "\xef\x8c\xbe"	// U+f33e
 #define ICON_FA_ARROW_TO_RIGHT "\xef\x8d\x80"	// U+f340
 #define ICON_FA_ARROW_TO_TOP "\xef\x8d\x81"	// U+f341
-#define ICON_FA_ARROW_UP "\xef\x81\xa2"	// U+f062
+#define ICON_FA_ARROW_UP u8"\uf062"	// U+f062
 #define ICON_FA_ARROWS u8"\uf047"	// U+f047
 #define ICON_FA_ARROWS_ALT "\xef\x82\xb2"	// U+f0b2
 #define ICON_FA_ARROWS_ALT_H "\xef\x8c\xb7"	// U+f337
@@ -241,7 +241,7 @@
 #define ICON_FA_BRING_FRONT "\xef\xa1\x97"	// U+f857
 #define ICON_FA_BROADCAST_TOWER "\xef\x94\x99"	// U+f519
 #define ICON_FA_BROOM "\xef\x94\x9a"	// U+f51a
-#define ICON_FA_BROWSER "\xef\x8d\xbe"	// U+f37e
+#define ICON_FA_BROWSER u8"\uf37e"	// U+f37e
 #define ICON_FA_BRUSH "\xef\x95\x9d"	// U+f55d
 #define ICON_FA_BUG "\xef\x86\x88"	// U+f188
 #define ICON_FA_BUILDING "\xef\x86\xad"	// U+f1ad
@@ -426,7 +426,7 @@
 #define ICON_FA_COFFEE_TOGO "\xef\x9b\x85"	// U+f6c5
 #define ICON_FA_COFFIN "\xef\x9b\x86"	// U+f6c6
 #define ICON_FA_COFFIN_CROSS "\xee\x81\x91"	// U+e051
-#define ICON_FA_COG "\xef\x80\x93"	// U+f013
+#define ICON_FA_COG u8"\uf013"	// U+f013
 #define ICON_FA_COGS "\xef\x82\x85"	// U+f085
 #define ICON_FA_COIN "\xef\xa1\x9c"	// U+f85c
 #define ICON_FA_COINS "\xef\x94\x9e"	// U+f51e
@@ -500,7 +500,7 @@
 #define ICON_FA_CROWN "\xef\x94\xa1"	// U+f521
 #define ICON_FA_CRUTCH "\xef\x9f\xb7"	// U+f7f7
 #define ICON_FA_CRUTCHES "\xef\x9f\xb8"	// U+f7f8
-#define ICON_FA_CUBE "\xef\x86\xb2"	// U+f1b2
+#define ICON_FA_CUBE u8"\uf1b2"	// U+f1b2
 #define ICON_FA_CUBES "\xef\x86\xb3"	// U+f1b3
 #define ICON_FA_CURLING "\xef\x91\x8a"	// U+f44a
 #define ICON_FA_CUT "\xef\x83\x84"	// U+f0c4
@@ -637,7 +637,7 @@
 #define ICON_FA_FILE_CHART_LINE "\xef\x99\x99"	// U+f659
 #define ICON_FA_FILE_CHART_PIE "\xef\x99\x9a"	// U+f65a
 #define ICON_FA_FILE_CHECK "\xef\x8c\x96"	// U+f316
-#define ICON_FA_FILE_CODE "\xef\x87\x89"	// U+f1c9
+#define ICON_FA_FILE_CODE u8"\uf1c9"	// U+f1c9
 #define ICON_FA_FILE_CONTRACT "\xef\x95\xac"	// U+f56c
 #define ICON_FA_FILE_CSV "\xef\x9b\x9d"	// U+f6dd
 #define ICON_FA_FILE_DOWNLOAD "\xef\x95\xad"	// U+f56d
@@ -698,7 +698,7 @@
 #define ICON_FA_FLUTE "\xef\xa2\xb9"	// U+f8b9
 #define ICON_FA_FLUX_CAPACITOR "\xef\xa2\xba"	// U+f8ba
 #define ICON_FA_FOG "\xef\x9d\x8e"	// U+f74e
-#define ICON_FA_FOLDER "\xef\x81\xbb"	// U+f07b
+#define ICON_FA_FOLDER u8"\uf07b"	// U+f07b u8"
 #define ICON_FA_FOLDER_DOWNLOAD "\xee\x81\x93"	// U+e053
 #define ICON_FA_FOLDER_MINUS "\xef\x99\x9d"	// U+f65d
 #define ICON_FA_FOLDER_OPEN "\xef\x81\xbc"	// U+f07c

@@ -3,22 +3,68 @@
 #include <iostream>
 #include <vector>
 #include <fstream>
- 
+#include <filesystem>
+
 namespace std
 {
+	static std::string getFileOnPath(const std::string& path)
+	{
+		std::string fileName = "";
+		for (int i = (int)path.size() - 1; i >= 0; i--)
+		{
+			if (path[(size_t)i] == '\\')
+			{
+				break;
+			}
+			fileName.push_back(path[i]);
+		}
+		reverse(fileName.begin(), fileName.end());
+
+		return fileName;
+	}
+
+	static std::string removeExtension(const std::string& file)
+	{
+		std::string newFileName = "";
+		for (int i = 0; i < file.size(); i++)
+		{
+			if (file[i] == '.')
+			{
+				break;
+			}
+			newFileName.push_back(file[i]);
+		}
+		return newFileName;
+	}
+
+	static std::string boolToStr(bool b)
+	{
+		return b ? "True" : "False";
+	};
+
 	/// <summary>
-	/// Not that the path shoudl look like this:
+	/// Note that the path shoudl look like this:
 	/// Path/MyPath/assets/myFile.extension
 	/// </summary>
 	static void createFileWithContent(const std::string& content, const std::string& pathAndName)
 	{
 		std::ofstream file;
 
-		file.open(pathAndName);
+		file.open(pathAndName, std::ios::out | std::ios::binary);
 
 		file << content;
 
 		file.close();
+	}
+
+	static void removeFile(const std::string& path)
+	{
+		if (!std::filesystem::exists(path))
+		{
+			std::cout << "LOG [ERROR] There is no file!";
+			return;
+		}
+		std::filesystem::remove(path);
 	}
 
 	static bool isTherAnotherFilter(const std::string& word, const std::string& filter, int idx)
@@ -144,6 +190,38 @@ namespace std
 			return;
 		}
 		vec.erase(vec.begin() + pos);
+	}
+
+
+	static void getFileNameWithExtensionInFolder(const std::filesystem::path& path, const std::string& extension, std::vector<std::string>& to)
+	{
+		for (const std::filesystem::directory_entry& entry : std::filesystem::directory_iterator(path))
+		{
+			if (std::filesystem::is_directory(entry))
+			{
+				getFileNameWithExtensionInFolder(entry.path(), extension, to);
+			}
+			else
+			{
+				std::string file_extension = "." + getFileExtension(entry.path().filename().string());
+				if (file_extension == extension)
+				{
+					to.push_back(entry.path().string());
+				}
+			}
+		}
+	}
+
+	static bool isEqualWithAny(const std::string& str, const std::vector<std::string>& arr)
+	{
+		for (size_t i = 0; i < arr.size(); i++)
+		{
+			if (str == arr[i])
+			{
+				return true;
+			}
+		}
+		return false;
 	}
 }
 

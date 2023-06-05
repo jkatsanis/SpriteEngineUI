@@ -4,64 +4,88 @@
 
 s2d::UIAssetTools::UIAssetTools()
 {
-	this->m_isPopUpHoverd = false;
-	this->m_ptr_deleteFilePath = nullptr;
+	this->m_is_popup_open = false;
+
+	this->m_ptr_hovered_icon_name = nullptr;
 	this->m_ptr_currentAssetPath = nullptr;
 	this->m_classFileName[0] = '\0';
-	this->m_openFileInput = false;
+	this->m_open_file_input = false;
 }
 
-s2d::UIAssetTools::UIAssetTools(const std::string* currentAssetPath, const std::string* deleteItem)
+s2d::UIAssetTools::UIAssetTools(const std::string* currentAssetPath, std::string* hoveredIconName)
 {
-	this->m_isPopUpHoverd = false;
+	this->m_is_popup_open = false;
 	this->m_classFileName[0] = '\0';
-	this->m_openFileInput = false;
+	this->m_open_file_input = false;
 	this->m_ptr_currentAssetPath = currentAssetPath;
-	this->m_ptr_deleteFilePath = deleteItem;
+	this->m_ptr_hovered_icon_name = hoveredIconName;
+	this->m_window_font_size = 1;
 }
 
 // Public functions
 
-void s2d::UIAssetTools::update(bool& hovered)
+void s2d::UIAssetTools::update()
 {
 	this->getFileName();
 
-	if (this->m_classFileName[0] != '\0' && !this->m_openFileInput)
+	if (this->m_classFileName[0] != '\0' && !this->m_open_file_input)
 	{
 		this->createFileContent();
 		this->m_classFileName[0] = '\0';
 	}
+	ImGui::SetWindowFontScale(this->m_window_font_size);
 
-	if (ImGui::IsMouseReleased(1) && hovered)
+	if (ImGui::IsMouseReleased(1))
 	{
 		ImGui::OpenPopup(INPUT_POPUP_NAME);
 	}
 
 	if (ImGui::IsPopupOpen(INPUT_POPUP_NAME))
 	{
-		hovered = true;
+		this->m_is_popup_open = true;
 		ImGui::BeginPopup(INPUT_POPUP_NAME);
 		if (ImGui::BeginMenu("Create"))
 		{
 			if (ImGui::MenuItem("C++ Script"))
 			{
 				//  Create a scirpt, link it into the user project
-				this->m_openFileInput = true;
+				this->m_open_file_input = true;
 			}
 			ImGui::EndMenu();
 		}
+		ImGui::SetCursorPosX(ImGui::GetCursorPosX() - 7);
 		if (ImGui::Button("Delete"))
 		{
-			std::cout << *this->m_ptr_deleteFilePath << std::endl;
+			const std::string d = *this->m_ptr_currentAssetPath;
+		    std::string m = *this->m_ptr_hovered_icon_name;
+			
+			if (m != "")
+			{
+				std::string file_name = "";
+
+				for (int i = 2; i < m.size(); i++)
+				{
+					file_name.push_back(m[i]);
+				}
+
+				const std::string delete_path = d + "\\" + file_name;
+				std::filesystem::remove_all(delete_path);
+
+				*this->m_ptr_hovered_icon_name = "";
+			}
 		}
 		ImGui::EndPopup();
 	}
-	this->m_isPopUpHoverd = ImGui::IsItemHovered();
+	else
+	{
+		this->m_is_popup_open = false;
+	}
+	ImGui::SetWindowFontScale(s2d::UIInfo::s_default_font_size);
 }
 
 void s2d::UIAssetTools::getFileName()
 {
-	if (!this->m_openFileInput)
+	if (!this->m_open_file_input)
 	{
 		return;
 	}
@@ -72,7 +96,7 @@ void s2d::UIAssetTools::getFileName()
 		ImGui::InputTextWithHint("##file_input", "<name>", this->m_classFileName, CHAR_MAX);
 		if (ImGui::Button("Create"))
 		{
-			this->m_openFileInput = false;
+			this->m_open_file_input = false;
 		}
 
 		UI::setWindowScreenMiddle(s2d::Vector2(300, 100));
@@ -123,7 +147,7 @@ void s2d::UIAssetTools::createFileContent()
 void s2d::UIAssetTools::includeInUserProject(const std::string& fileName)
 {
 	const static int s_posCppInclude = 150;
-	std::string vcxprojFilePath = s2d::EngineData::s_pathToUserProject + "\\" + "Assets.vcxproj";
+	std::string vcxprojFilePath = s2d::EngineData::s_path_to_user_project + "\\" + "Assets.vcxproj";
 	std::fstream vcProjectStream;
 
 	vcProjectStream.open(vcxprojFilePath);

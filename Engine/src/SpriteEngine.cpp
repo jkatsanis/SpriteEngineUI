@@ -7,11 +7,10 @@ int main()
 
     while (selector.isOpen())
     {
-        selector.update();  
+        selector.update();
     }
 
-    // search where the error happens when u selet a invalid project
-    if (s2d::EngineData::s_pathToUserProject == "")
+    if (s2d::EngineData::s_path_to_user_project == "")
     {
         // Closing the engine since the user doesnt want to open a project;
         return -1;
@@ -19,11 +18,15 @@ int main()
 
     s2d::GameEngine engine;
 
-    while (engine.ptr_renderWindow->isOpen())
-    {    
+    if (engine.ptr_render_window == nullptr)
+    {
+        std::cout << "Window was nullptr, please rebuild!!" << std::endl;
+        return -1;
+    }
+    while (engine.ptr_render_window->isOpen())
+    {
         engine.update();
     }
 
     return 0;
 }
-

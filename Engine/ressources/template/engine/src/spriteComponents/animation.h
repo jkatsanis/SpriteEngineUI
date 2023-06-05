@@ -4,6 +4,7 @@
 #include <iostream>
 #include "Time.h"
 #include <spriteComponents/keyFrame.h>
+#include <manager/spriteRepository.h>
 
 namespace s2d
 {
@@ -13,6 +14,7 @@ namespace s2d
 	private:
 		std::vector<sf::Texture> m_textures;
 		std::vector<s2d::KeyFrame> m_keyFrames;
+		std::string m_pathToFile;
 
 		/// <summary>
 		/// Gets set in the play function and gets resettet in the s
@@ -31,7 +33,7 @@ namespace s2d
 
 		Sprite* ptr_appliedSprite;
 
-		Animation(Sprite* ptr_appliedSprite, const std::string& nam, const std::vector<s2d::KeyFrame>& frames);
+		Animation(Sprite* ptr_appliedSprite, const std::string& name, const std::string fileLocation, const std::vector<s2d::KeyFrame>& frames);
 
 		void deleteKeyFrame(const int pos);
 		void play();
@@ -41,8 +43,10 @@ namespace s2d
 		const std::vector<s2d::KeyFrame>& getKeyFrames() const { return this->m_keyFrames; }
 		std::vector<s2d::KeyFrame>& getKeyFrames() { return this->m_keyFrames; }
 
-		s2d::KeyFrame& getKeyFrameAtMs(const int ms);
+		s2d::KeyFrame& getKeyFrameAtMs(const float ms);
 		int getFrameSize() { return int(this->m_keyFrames.size()); }
+
+		const std::string& getPathToFile() const { return this->m_pathToFile; }
 
 		/// <summary>
 		/// THIS METHOD DOES NOT SET THE KEYFRAME POSITION!!!
@@ -52,7 +56,7 @@ namespace s2d
 		void addKeyFrameAt(const int vecpos, const s2d::KeyFrame& frame);
 
 	public:
-		static void updateAllAnimations();
+		static void updateAllAnimations(s2d::SpriteRepository& toUpdate);
 	};
 }
 

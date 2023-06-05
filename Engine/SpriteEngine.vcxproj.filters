@@ -4,9 +4,6 @@
     <Filter Include="src">
       <UniqueIdentifier>{bf904c68-cf6a-4d6a-9444-10627122b7ef}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Txt">
-      <UniqueIdentifier>{bf63b532-77b8-448e-8aeb-ca2a01197922}</UniqueIdentifier>
-    </Filter>
     <Filter Include="src\calculationComponents">
       <UniqueIdentifier>{c5da6a4c-8986-454c-9eac-00ff2473f51d}</UniqueIdentifier>
     </Filter>
@@ -154,6 +151,9 @@
     <Filter Include="src\data\engine">
       <UniqueIdentifier>{7a5a6dea-281f-4d88-aea8-91d046ba54c2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\spriteComponents\spriteRenderer">
+      <UniqueIdentifier>{06689324-67c3-4e41-b617-b15053c96032}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\include\imgui\imgui.cpp">
@@ -183,13 +183,7 @@
     <ClCompile Include="src\guiComponents\propertyEditor\UIAssetFolder.cpp">
       <Filter>src\guiComponents\assets</Filter>
     </ClCompile>
-    <ClCompile Include="src\guiComponents\propertyEditor\UIHirachy.cpp">
-      <Filter>src\guiComponents\hirachy</Filter>
-    </ClCompile>
-    <ClCompile Include="src\guiComponents\propertyEditor\UIHirachySpriteDisplay.cpp">
-      <Filter>src\guiComponents\hirachy</Filter>
-    </ClCompile>
-    <ClCompile Include="src\guiComponents\propertyEditor\UIHirachyMenuDisplayer.cpp">
+    <ClCompile Include="src\guiComponents\propertyEditor\UIHierarchy.cpp">
       <Filter>src\guiComponents\hirachy</Filter>
     </ClCompile>
     <ClCompile Include="src\manager\saveSystem.cpp">
@@ -203,9 +197,6 @@
     </ClCompile>
     <ClCompile Include="src\physicalComponents\camera.cpp">
       <Filter>src\physicalComponents\camera</Filter>
-    </ClCompile>
-    <ClCompile Include="src\physicalComponents\gameObject.cpp">
-      <Filter>src\physicalComponents\gameObject</Filter>
     </ClCompile>
     <ClCompile Include="src\physicalComponents\sprite.cpp">
       <Filter>src\physicalComponents\sprite</Filter>
@@ -270,15 +261,11 @@
     <ClCompile Include="src\guiComponents\UIWindow.cpp">
       <Filter>src\guiComponents\window</Filter>
     </ClCompile>
-    <ClCompile Include="src\SpriteEngine.cpp" />
     <ClCompile Include="src\manager\fileDialogs.cpp">
       <Filter>src\manager\fileDialgo</Filter>
     </ClCompile>
     <ClCompile Include="src\guiComponents\projectSelector\UIProjectSelector.cpp">
       <Filter>src\guiComponents\projectSelector\selector</Filter>
-    </ClCompile>
-    <ClCompile Include="src\guiComponents\projectSelector\UIProjectSelectorProjectSection.cpp">
-      <Filter>src\guiComponents\projectSelector\create/open</Filter>
     </ClCompile>
     <ClCompile Include="src\data\engineData.cpp">
       <Filter>src\data\engine</Filter>
@@ -304,14 +291,33 @@
     <ClCompile Include="src\guiComponents\propertyEditor\UIToolButtonsModels.h">
       <Filter>src\guiComponents\tools</Filter>
     </ClCompile>
-    <ClCompile Include="src\guiComponents\UI.cpp">
-      <Filter>src\guiComponents</Filter>
-    </ClCompile>
     <ClCompile Include="src\guiComponents\propertyEditor\UIAssetTools.cpp">
       <Filter>src\guiComponents\assets</Filter>
     </ClCompile>
     <ClCompile Include="src\manager\initializer.cpp">
       <Filter>src\manager\initializer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\spriteComponents\prefab.cpp">
+      <Filter>src\physicalComponents\sprite</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SpriteEngine.cpp" />
+    <ClCompile Include="src\manager\spriteRepository.cpp">
+      <Filter>src\manager</Filter>
+    </ClCompile>
+    <ClCompile Include="src\guiComponents\projectSelector\UIProjectSelectorProjectSection.cpp">
+      <Filter>src\guiComponents\projectSelector\create/open</Filter>
+    </ClCompile>
+    <ClCompile Include="src\guiComponents\UI.cpp">
+      <Filter>src\guiComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="src\manager\guiRepository.cpp">
+      <Filter>src\manager</Filter>
+    </ClCompile>
+    <ClCompile Include="src\spriteComponents\spriteRenderer.cpp">
+      <Filter>src\spriteComponents\spriteRenderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\data\UIDataModels.h">
+      <Filter>src\data\UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -421,9 +427,6 @@
       <Filter>src\Include/headers\__include\sfml</Filter>
     </ClInclude>
     <ClInclude Include="src\include\SFML\System\String.hpp">
-      <Filter>src\Include/headers\__include\sfml</Filter>
-    </ClInclude>
-    <ClInclude Include="src\include\stdExtension.h">
       <Filter>src\Include/headers\__include\sfml</Filter>
     </ClInclude>
     <ClInclude Include="src\include\SFML\Graphics\Sprite.hpp">
@@ -657,15 +660,6 @@
     <ClInclude Include="src\guiComponents\propertyEditor\UIAssetFolder.h">
       <Filter>src\guiComponents\assets</Filter>
     </ClInclude>
-    <ClInclude Include="src\guiComponents\propertyEditor\UIHirachy.h">
-      <Filter>src\guiComponents\hirachy</Filter>
-    </ClInclude>
-    <ClInclude Include="src\guiComponents\propertyEditor\UIHirachyMenuDisplayer.h">
-      <Filter>src\guiComponents\hirachy</Filter>
-    </ClInclude>
-    <ClInclude Include="src\guiComponents\propertyEditor\UIHirachySpriteDisplay.h">
-      <Filter>src\guiComponents\hirachy</Filter>
-    </ClInclude>
     <ClInclude Include="src\guiComponents\propertyEditor\UIInspectorBoxCollider.h">
       <Filter>src\guiComponents\inspector</Filter>
     </ClInclude>
@@ -677,9 +671,6 @@
     </ClInclude>
     <ClInclude Include="src\engineComponents\event.h">
       <Filter>src\engineComponents\event</Filter>
-    </ClInclude>
-    <ClInclude Include="src\physicalComponents\gameObject.h">
-      <Filter>src\physicalComponents\gameObject</Filter>
     </ClInclude>
     <ClInclude Include="src\engineComponents\gameEngine.h">
       <Filter>src\engineComponents\engjne</Filter>
@@ -795,29 +786,39 @@
     <ClInclude Include="src\guiComponents\propertyEditor\UIAssetTools.h">
       <Filter>src\guiComponents\assets</Filter>
     </ClInclude>
-    <ClInclude Include="src\manager\saveSystem.h">
-      <Filter>src\manager\font</Filter>
-    </ClInclude>
     <ClInclude Include="src\manager\initializer.h">
       <Filter>src\manager\initializer</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="saves\textFiles\imguibasics.txt">
-      <Filter>Txt</Filter>
-    </Text>
-    <Text Include="saves\textFiles\plan.txt">
-      <Filter>Txt</Filter>
-    </Text>
-    <Text Include="saves\textFiles\wichtigecppsachen.txt">
-      <Filter>Txt</Filter>
-    </Text>
-    <Text Include="addingNewSpriteProp.txt">
-      <Filter>Txt</Filter>
-    </Text>
-    <Text Include="saves\textFiles\addToAssets.txt">
-      <Filter>Txt</Filter>
-    </Text>
+    <ClInclude Include="src\spriteComponents\prefab.h">
+      <Filter>src\physicalComponents\sprite</Filter>
+    </ClInclude>
+    <ClInclude Include="src\manager\saveSystem.h">
+      <Filter>src\manager\files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\guiComponents\propertyEditor\UIHierarchy.h">
+      <Filter>src\guiComponents\hirachy</Filter>
+    </ClInclude>
+    <ClInclude Include="src\manager\spriteRepository.h">
+      <Filter>src\manager</Filter>
+    </ClInclude>
+    <ClInclude Include="src\manager\guiRepository.h">
+      <Filter>src\manager</Filter>
+    </ClInclude>
+    <ClInclude Include="src\spriteComponents\component.h">
+      <Filter>src\spriteComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="src\spriteComponents\spriteRenderer.h">
+      <Filter>src\spriteComponents\spriteRenderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\data\fileDataMacros.h">
+      <Filter>src\guiComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="src\guiComponents\UIModels.h">
+      <Filter>src\guiComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\stdExtension.h">
+      <Filter>src\Include/headers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="src\include\SFML\System\Vector3.inl">
