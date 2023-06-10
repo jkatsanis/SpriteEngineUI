@@ -14,7 +14,7 @@ s2d::GameEngine::GameEngine()
     this->ptr_render_window->setPosition(sf::Vector2i(desktop.width / 2 - this->ptr_render_window->getSize().x / 2, 0));
     this->m_isWindowFullScreen = false;
 
-    this->m_UIRealTimeEditor = s2d::UIRealTimeEditor(*ptr_render_window, &this->windowEvent, &this->m_UIWindow.ary_any_windows_hovered,
+    this->m_ui_real_time_editor = s2d::UIRealTimeEditor(*ptr_render_window, &this->windowEvent, &this->m_UIWindow.ary_any_windows_hovered,
         &this->m_UIWindow.getInspector().state, &this->event, this->m_sprite_repository, this->m_UIWindow.gui_repository);
     this->m_UIWindow.gui_repository.camera = s2d::Camera(this->ptr_render_window);
 
@@ -190,7 +190,7 @@ void s2d::GameEngine::update()
     // UIWindow (Engine)
     ImGui::PushFont(s2d::FontManager::s_default_font);
     this->m_UIWindow.update();
-    this->m_UIRealTimeEditor.update();
+    this->m_ui_real_time_editor.update();
     this->saveDialoge();
     ImGui::PopFont();
 

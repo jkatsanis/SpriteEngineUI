@@ -11,7 +11,8 @@ s2d::Sprite::Sprite()
 
 s2d::Sprite::Sprite(std::string name, s2d::Vector2 spawnPosition, std::string path)
 {
-	initVariables(name, spawnPosition, path);
+	this->initVariables(name, spawnPosition, path);
+	this->postDefaultInitialization();
 }
 
 s2d::Sprite::~Sprite()
@@ -69,8 +70,9 @@ void s2d::Sprite::setSpriteTexture(const sf::Texture& texture, const std::string
 {
 	this->m_sprite.setTexture(texture, true);
 	this->transform.setScale(this->transform.getScale(), true);
-
 	this->sprite_renderer.path = path;
+
+	this->transform.updateOrigin();
 }
 
 void s2d::Sprite::setSpriteTexture(const std::string& path, const s2d::Vector2& scale)
@@ -82,6 +84,13 @@ void s2d::Sprite::setSpriteTexture(const std::string& path, const s2d::Vector2& 
 	this->m_sprite.setTexture(*this->m_texture);
 	this->sprite_renderer.path = path;
 	this->transform.setScale(scale, true);
+
+	this->transform.updateOrigin();
+}
+
+void s2d::Sprite::postDefaultInitialization()
+{
+	this->transform.updateOrigin();
 }
 
 void s2d::Sprite::setParent(s2d::Sprite* parent)
@@ -141,8 +150,8 @@ bool s2d::Sprite::containsChild(const ImGuiTextFilter& name) const
 
 s2d::Vector2 s2d::Sprite::getOrigininalPosition() const
 {
-	float x = this->m_sprite.getPosition().x;
-	float y = this->m_sprite.getPosition().y;
+	float x = this->m_sprite.getPosition().x - this->transform.textureSize.x / 2;
+	float y = this->m_sprite.getPosition().y - this->transform.textureSize.y / 2;
 
 	return s2d::Vector2(x, y);
 }
@@ -197,6 +206,7 @@ void s2d::Sprite::initVariables(std::string& name, s2d::Vector2& spawnPos, std::
 	}
 
 	sprite.setTexture(*this->m_texture);
+	this->transform.setTextureSize(s2d::Vector2((float)this->m_texture->getSize().x, (float)this->m_texture->getSize().y));
 
 	//Finally setting the sprite
 	this->m_sprite = sprite;

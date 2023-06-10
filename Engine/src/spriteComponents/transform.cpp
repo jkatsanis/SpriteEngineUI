@@ -19,6 +19,7 @@ void s2d::Transform::init()
 	this->base_component = true;
 	this->position_changed = false;
 	this->m_attached_sprite = nullptr;
+	this->m_rotation = 0;
 }
 
 // Private functions
@@ -40,8 +41,8 @@ void s2d::Transform::setLastPosition()
 void s2d::Transform::updateTransformPosition()
 {
 	//Setting it centered 
-	float x = 960 + this->position.x - this->textureSize.x / 2;
-	float y = 540 - this->position.y - this->textureSize.y / 2;
+	float x = 960 + this->position.x;
+	float y = 540 - this->position.y;
 	this->m_attached_sprite->getSprite().setPosition(sf::Vector2f(x, y));
 
 	this->setLastPosition();
@@ -86,6 +87,18 @@ s2d::Vector2 s2d::Transform::getDefaultTextureSize() const
 	return s2d::Vector2(this->textureSize.x / scale.x, this->textureSize.y / scale.y);
 }
 
+void s2d::Transform::updateOrigin()
+{
+	sf::Sprite& spr = this->m_attached_sprite->getSprite();
+	spr.setOrigin(sf::Vector2f(this->textureSize.x / 2, this->textureSize.y / 2));
+}
+
+void s2d::Transform::setRotation(uint32_t angle)
+{
+	this->m_rotation = angle % 360;
+	this->m_attached_sprite->getSprite().setRotation(this->m_rotation);
+}
+
 // Public functions
 
 void s2d::Transform::setScale(const s2d::Vector2& scale, bool b)
@@ -99,25 +112,7 @@ void s2d::Transform::setScale(const s2d::Vector2& scale, bool b)
 	sf::IntRect textureRect = this->m_attached_sprite->getSprite().getTextureRect();
 
 	this->m_scale = scale;
-	this->m_attached_sprite->getSprite().setOrigin(100, 71);
 	this->m_attached_sprite->getSprite().setScale(scale.x, scale.y);
-
-	if (scale.x < 0 && scale.y < 0)
-	{
-		this->m_attached_sprite->getSprite().setOrigin((float)textureRect.width, (float)textureRect.height);
-	}
-	else if (scale.x < 0)
-	{
-		this->m_attached_sprite->getSprite().setOrigin((float)textureRect.width, 0);
-	}
-	else if (scale.y < 0)
-	{
-		this->m_attached_sprite->getSprite().setOrigin(0, (float)textureRect.height);
-	}
-	else
-	{
-		this->m_attached_sprite->getSprite().setOrigin(0, 0);
-	}
 }
 
 void s2d::Transform::reset()

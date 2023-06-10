@@ -20,7 +20,7 @@ namespace s2d
 	{
 	private:
 		UIWindow m_UIWindow;
-		UIRealTimeEditor m_UIRealTimeEditor;
+		UIRealTimeEditor m_ui_real_time_editor;
 		Renderer m_renderer;
 		SpriteRepository m_sprite_repository;
 
@@ -44,7 +44,10 @@ namespace s2d
 		~GameEngine();
 
 		void update();
-
+	
+		s2d::SpriteRepository& getRepo() {
+			return this->m_sprite_repository;
+		}
 	};
 }
 

@@ -11,6 +11,7 @@ namespace s2d
 	{
 	private:
 		s2d::Vector2 m_scale;
+		uint32_t m_rotation;
 
 		void init() override;
 
@@ -44,6 +45,13 @@ namespace s2d
 		s2d::Vector2 getDefaultTextureSize() const;
 
 	public:
+		
+		/// <summary>
+		/// Updates the origin using the texturesize
+		/// </summary>
+		void updateOrigin();
+
+		void setRotation(uint32_t angle);
 
 		/// <summary>
 		/// Set's the scale, sets it even if the parameter passed is the same as the getScale();
@@ -57,6 +65,8 @@ namespace s2d
 		/// Resets the transform
 		/// </summary>
 		void reset() override;
+
+		uint32_t getRotation() const { return this->m_rotation; }
 
 	public:
 		//Used in poll events

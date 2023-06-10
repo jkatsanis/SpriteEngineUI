@@ -465,8 +465,24 @@ void s2d::UIInspector::transformComponent()
 		inputXY("Scale", temp_scale.x, temp_scale.y, x, y);
 
 		this->m_ptr_sprite_repo->sprite_in_inspector->transform.setScale(temp_scale);
+		y += 45;
 
+		int rotation = this->m_ptr_sprite_repo->sprite_in_inspector->transform.getRotation();
+		ImGui::SetCursorPos(ImVec2(x, y + 10));
+		ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 15);
+		ImGui::Text("Rotation");
+		ImGui::SetCursorPos(ImVec2(x + 90, y + 13));
+		ImGui::Text("X");
+		ImGui::PushItemWidth(80);
+		ImGui::SetCursorPos(ImVec2(x + 120, y + 8));
+		std::string x_inputId = std::string("##x") + std::string("Rotation");
+		ImGui::InputInt(x_inputId.c_str(), &rotation, 0, 0);
+		ImGui::PopItemWidth();
+		ImGui::Dummy(ImVec2(0, 10));
 		ImGui::SetCursorPos(ImVec2(x, y + 50));
+
+		this->m_ptr_sprite_repo->sprite_in_inspector->transform.setRotation(rotation);
+
 		ImGui::TreePop();
 	}
 }

@@ -23,6 +23,7 @@ int main()
         std::cout << "Window was nullptr, please rebuild!!" << std::endl;
         return -1;
     }
+
     while (engine.ptr_render_window->isOpen())
     {
         engine.update();

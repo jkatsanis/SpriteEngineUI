@@ -140,52 +140,54 @@ void s2d::Initializer::initSprite(const std::string& line, s2d::Sprite* sprite)
 	sprite->setSpriteTexture(s2d::EngineData::s_path_to_user_project + "\\" + propertys[6],
 		s2d::Vector2(s2d::Vector2(std::stof(propertys[4].c_str()), std::stof(propertys[5].c_str()))));
 
-	# pragma region Collider
-		sprite->collider.box_collider_width.x = std::stof(propertys[7].c_str());
-		sprite->collider.box_collider_width.y = std::stof(propertys[8].c_str());
+	sprite->transform.setRotation(atoi(propertys[7].c_str()));
 
-		sprite->collider.box_collider_height.x = std::stof(propertys[9].c_str());
-		sprite->collider.box_collider_height.y = std::stof(propertys[10].c_str());
-		sprite->collider.exist = propertys[11] == "True";
-		sprite->collider.is_solid = propertys[12] == "True";
+	# pragma region Collider
+		sprite->collider.box_collider_width.x = std::stof(propertys[8].c_str());
+		sprite->collider.box_collider_width.y = std::stof(propertys[9].c_str());
+
+		sprite->collider.box_collider_height.x = std::stof(propertys[10].c_str());
+		sprite->collider.box_collider_height.y = std::stof(propertys[11].c_str());
+		sprite->collider.exist = propertys[12] == "True";
+		sprite->collider.is_solid = propertys[13] == "True";
 
 	#pragma endregion
 	# pragma region Sorting Layer
-		sprite->sprite_renderer.sorting_layer_index = atoi(propertys[13].c_str());
+		sprite->sprite_renderer.sorting_layer_index = atoi(propertys[14].c_str());
 
 
 	#pragma endregion
 	# pragma region PhysicsBody
-		sprite->physicsBody.gravity = std::stof(propertys[14].c_str());
-		sprite->physicsBody.mass = std::stof(propertys[15].c_str());
-		sprite->physicsBody.exist = propertys[16] == "True";
+		sprite->physicsBody.gravity = std::stof(propertys[15].c_str());
+		sprite->physicsBody.mass = std::stof(propertys[16].c_str());
+		sprite->physicsBody.exist = propertys[17] == "True";
 
 	#pragma endregion
 	# pragma region parentId, ID
-		sprite->setId(atoi(propertys[17].c_str()));
-		sprite->setParentId(atoi(propertys[18].c_str()));
+		sprite->setId(atoi(propertys[18].c_str()));
+		sprite->setParentId(atoi(propertys[19].c_str()));
 
 	#pragma endregion
 	# pragma region Last pos, next pos
-		sprite->transform.nextPos.x = std::stof(propertys[19]);
-		sprite->transform.nextPos.y = std::stof(propertys[20]);
+		sprite->transform.nextPos.x = std::stof(propertys[20]);
+		sprite->transform.nextPos.y = std::stof(propertys[21]);
 
-		sprite->transform.lastPos.x = std::stof(propertys[21]);
-		sprite->transform.lastPos.y = std::stof(propertys[22]);
+		sprite->transform.lastPos.x = std::stof(propertys[22]);
+		sprite->transform.lastPos.y = std::stof(propertys[23]);
 
 	#pragma endregion
 
 	# pragma region Position to parent x, and y
-		sprite->transform.position_to_parent.x = std::stof(propertys[25]);
-		sprite->transform.position_to_parent.y = std::stof(propertys[26]);
+		sprite->transform.position_to_parent.x = std::stof(propertys[26]);
+		sprite->transform.position_to_parent.y = std::stof(propertys[27]);
 
-		sprite->animator.exist = propertys[27] == "True";
+		sprite->animator.exist = propertys[28] == "True";
 	#pragma endregion
 
 	# pragma region Prefab
-		sprite->prefab.exists = propertys[28] == "True";
-		sprite->prefab.loadInMemory = propertys[29] == "True";
-		sprite->prefab.enginePathToFile = propertys[30];
+		sprite->prefab.exists = propertys[29] == "True";
+		sprite->prefab.loadInMemory = propertys[30] == "True";
+		sprite->prefab.enginePathToFile = propertys[31];
 		sprite->prefab.userPathToFile = s2d::UI::getUserProjectPathSeperatetFromEnginePath(sprite->prefab.enginePathToFile);
 		sprite->prefab.pathToOldFile = sprite->prefab.enginePathToFile;
 		sprite->prefab.fileName = std::getFileOnPath(sprite->prefab.enginePathToFile);
@@ -216,6 +218,8 @@ void s2d::Initializer::initSprites(s2d::SpriteRepository& spriteRepo)
 			s2d::Sprite* sprite = new Sprite();
 
 			s2d::Initializer::initSprite(line, sprite);
+
+			sprite->postDefaultInitialization();
 
 			//Pushing the sprite
 			spriteRepo.add(sprite);

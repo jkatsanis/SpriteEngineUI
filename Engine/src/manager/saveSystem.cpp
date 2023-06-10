@@ -24,7 +24,7 @@ void s2d::flc::createSaveFile(const s2d::SpriteRepository& spriteRepo)
 
 	if (spriteFile.is_open()) 
 	{
-		spriteFile << "name;vecpos;transformPosX;transformPosY;ScaleX;ScaleY;filepath;boxColliderWidthLeftOrRightX;boxColliderWidthLeftOrRighY;boxColliderHeightUpOrDownX;boxColliderHeightUpOrDownY;boxColliderExists;solid;sortingLayer;gravity;mass;physicsBodyExists;id;parentId;nextPosX;nextPosY;lastPosX;lastPosY;listPos;highestChild;positionToParentX;positionToParentY;animatorExists;prefabExist;loadInMemory;pathToPrefab" << "\n";
+		spriteFile << "name;vecpos;transformPosX;transformPosY;ScaleX;ScaleY;rotation;filepath;boxColliderWidthLeftOrRightX;boxColliderWidthLeftOrRighY;boxColliderHeightUpOrDownX;boxColliderHeightUpOrDownY;boxColliderExists;solid;sortingLayer;gravity;mass;physicsBodyExists;id;parentId;nextPosX;nextPosY;lastPosX;lastPosY;listPos;highestChild;positionToParentX;positionToParentY;animatorExists;prefabExist;loadInMemory;pathToPrefab" << "\n";
 		for (int i = 0; i < spriteRepo.amount(); i++)
 		{
 			const s2d::Sprite* const sprite = spriteRepo.readAt(i, true);
@@ -42,44 +42,45 @@ void s2d::flc::createSaveFile(const s2d::SpriteRepository& spriteRepo)
 std::string s2d::flc::getPropertyLineWithSeperator(const Sprite* const sprite)
 {
 	std::string line;
-	std::string transformPosX = std::to_string(sprite->transform.position.x);
-	std::string transformPosY = std::to_string(sprite->transform.position.y);
-	std::string scaleX = std::to_string(sprite->transform.getScale().x);
-	std::string scaleY = std::to_string(sprite->transform.getScale().y);
-	std::string spritePath = std::splitStringTillLastWord(sprite->sprite_renderer.path, s2d::EngineData::s_path_to_user_project);
+	const std::string transformPosX = std::to_string(sprite->transform.position.x);
+	const std::string transformPosY = std::to_string(sprite->transform.position.y);
+	const std::string scaleX = std::to_string(sprite->transform.getScale().x);
+	const std::string scaleY = std::to_string(sprite->transform.getScale().y);
+	const std::string spritePath = std::splitStringTillLastWord(sprite->sprite_renderer.path, s2d::EngineData::s_path_to_user_project);
 
-	std::string boxColliderWidthLeftOrRightX = std::to_string(sprite->collider.box_collider_width.x);
-	std::string boxColliderWidthLeftOrRightY = std::to_string(sprite->collider.box_collider_width.y);
+	const std::string boxColliderWidthLeftOrRightX = std::to_string(sprite->collider.box_collider_width.x);
+	const std::string boxColliderWidthLeftOrRightY = std::to_string(sprite->collider.box_collider_width.y);
 
-	std::string boxColliderHeightUpOrDownX = std::to_string(sprite->collider.box_collider_height.x);
-	std::string boxColliderHeightUpOrDownY = std::to_string(sprite->collider.box_collider_height.y);
+	const std::string boxColliderHeightUpOrDownX = std::to_string(sprite->collider.box_collider_height.x);
+	const std::string boxColliderHeightUpOrDownY = std::to_string(sprite->collider.box_collider_height.y);
 
-	std::string colliderExists = std::boolToStr(sprite->collider.exist);
-	std::string isSolid = std::boolToStr(sprite->collider.is_solid);
-	std::string sortingLayer = std::to_string(sprite->sprite_renderer.sorting_layer_index);
-	std::string gravity = std::to_string(sprite->physicsBody.gravity);
-	std::string mass = std::to_string(sprite->physicsBody.mass);
-	std::string bodyExist = std::boolToStr(sprite->physicsBody.exist);
-	std::string id = std::to_string(sprite->getId());
-	std::string parentId = std::to_string(sprite->getParentId());
+	const std::string colliderExists = std::boolToStr(sprite->collider.exist);
+	const std::string isSolid = std::boolToStr(sprite->collider.is_solid);
+	const std::string sortingLayer = std::to_string(sprite->sprite_renderer.sorting_layer_index);
+	const std::string gravity = std::to_string(sprite->physicsBody.gravity);
+	const std::string mass = std::to_string(sprite->physicsBody.mass);
+	const std::string bodyExist = std::boolToStr(sprite->physicsBody.exist);
+	const std::string id = std::to_string(sprite->getId());
+	const std::string parentId = std::to_string(sprite->getParentId());
 
-	std::string nextPosX = std::to_string(sprite->transform.nextPos.x);
-	std::string nextPosY = std::to_string(sprite->transform.nextPos.y);
+	const std::string nextPosX = std::to_string(sprite->transform.nextPos.x);
+	const std::string nextPosY = std::to_string(sprite->transform.nextPos.y);
 
-	std::string lastPosX = std::to_string(sprite->transform.lastPos.x);
-	std::string lastPosY = std::to_string(sprite->transform.lastPos.y);
+	const std::string lastPosX = std::to_string(sprite->transform.lastPos.x);
+	const std::string lastPosY = std::to_string(sprite->transform.lastPos.y);
 
-	std::string positionToParentX = std::to_string(sprite->transform.position_to_parent.x);
-	std::string positionToParentY = std::to_string(sprite->transform.position_to_parent.y);
+	const std::string positionToParentX = std::to_string(sprite->transform.position_to_parent.x);
+	const std::string positionToParentY = std::to_string(sprite->transform.position_to_parent.y);
 
-	std::string animatorExist = std::boolToStr(sprite->animator.exist);
+	const std::string animatorExist = std::boolToStr(sprite->animator.exist);
 
-	std::string prefabExist = std::boolToStr(sprite->prefab.exists);
-	std::string loadInMemory = std::boolToStr(sprite->prefab.loadInMemory);
-	std::string pathToPrefab = sprite->prefab.enginePathToFile;
+	const std::string prefabExist = std::boolToStr(sprite->prefab.exists);
+	const std::string loadInMemory = std::boolToStr(sprite->prefab.loadInMemory);
+	const std::string pathToPrefab = sprite->prefab.enginePathToFile;
+	const std::string rotation = std::to_string(sprite->transform.getRotation());
 
-	//Name, vec, transform path
-	line = sprite->name + ";" + "0" + ";" + transformPosX + ";" + transformPosY + ";" + scaleX + ";" + scaleY + ";" + spritePath;
+	//Name, vec, transform path, rotation
+	line = sprite->name + ";" + "0" + ";" + transformPosX + ";" + transformPosY + ";" + scaleX + ";" + scaleY + ";" + spritePath + ";" + rotation;
 
 	//BoxCollider
 	line += ";" + boxColliderWidthLeftOrRightX + ";" + boxColliderWidthLeftOrRightY + ";" + boxColliderHeightUpOrDownX + ";" + boxColliderHeightUpOrDownY + ";" + colliderExists + ";" + isSolid;

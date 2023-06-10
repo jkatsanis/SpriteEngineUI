@@ -98,6 +98,12 @@ namespace s2d
 
 		bool containsChild(const ImGuiTextFilter& name) const;
 	public:
+		/// <summary>
+		/// Needs to be called after default constructor call and when a 3rd party method
+		/// initialized other fields
+		/// </summary>
+		void postDefaultInitialization();
+
 		void setParent(s2d::Sprite* sprite);
 
 		uint32_t getId() const { return this->m_id; }
