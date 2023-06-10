@@ -55,6 +55,7 @@ void s2d::Initializer::initSprites(s2d::SpriteRepository& spriteRepo)
 
 			//INITIIALIZING PROPS
 
+			sprite->collider = s2d::BoxCollider(sprite);
 			sprite->animator = s2d::Animator(sprite);
 			sprite->transform = s2d::Transform(sprite);
 
@@ -64,49 +65,51 @@ void s2d::Initializer::initSprites(s2d::SpriteRepository& spriteRepo)
 
 			sprite->setSpriteTexture(propertys[6], s2d::Vector2(s2d::Vector2(std::stof(propertys[4].c_str()), std::stof(propertys[5].c_str()) )));
 
-			//Setting BoxCollider
-			sprite->collider = BoxCollider(sprite);
+			sprite->transform.setRotation(atoi(propertys[7].c_str()));
 
-			sprite->collider.boxColliderWidthLeftOrRight.x = std::stof(propertys[7].c_str()) * s2d::GameObject::ssizeMultipliyer;
-			sprite->collider.boxColliderWidthLeftOrRight.y = std::stof(propertys[8].c_str()) * s2d::GameObject::ssizeMultipliyer;
+# pragma region Collider
+			sprite->collider.box_collider_width.x = std::stof(propertys[8].c_str());
+			sprite->collider.box_collider_width.y = std::stof(propertys[9].c_str());
 
-			sprite->collider.boxColliderHeightUpOrDown.x = std::stof(propertys[9].c_str()) * s2d::GameObject::ssizeMultipliyer;
-			sprite->collider.boxColliderHeightUpOrDown.y = std::stof(propertys[10].c_str()) * s2d::GameObject::ssizeMultipliyer;
-			sprite->collider.exists = propertys[11] == "True";
-			sprite->collider.isSolid = propertys[12] == "True";
+			sprite->collider.box_collider_height.x = std::stof(propertys[10].c_str());
+			sprite->collider.box_collider_height.y = std::stof(propertys[11].c_str());
+			sprite->collider.exist = propertys[12] == "True";
+			sprite->collider.is_solid = propertys[13] == "True";
 
-			//Sorting Layer
-			sprite->sortingLayerIndex = atoi(propertys[13].c_str());
+#pragma endregion
+# pragma region Sorting Layer
+			sprite->sprite_renderer.sorting_layer_index = atoi(propertys[14].c_str());
 
-			//PhysicsBody
-			sprite->physicsBody.gravity = std::stof(propertys[14].c_str());
-			sprite->physicsBody.mass = std::stof(propertys[15].c_str());
-			sprite->physicsBody.exists = propertys[16] == "True";
-			sprite->physicsBody.ptr_attachedSprite = sprite;
 
-			//parentId, ID
-			sprite->setId(atoi(propertys[17].c_str()));
-			sprite->setParentId(atoi(propertys[18].c_str()));
+#pragma endregion
+# pragma region PhysicsBody
+			sprite->physicsBody.gravity = std::stof(propertys[15].c_str());
+			sprite->physicsBody.mass = std::stof(propertys[16].c_str());
+			sprite->physicsBody.exists = propertys[17] == "True";
 
-			//Last pos, next pos
-			sprite->transform.nextPos.x = std::stof(propertys[19]);
-			sprite->transform.nextPos.y = std::stof(propertys[20]);
+#pragma endregion
+# pragma region parentId, ID
+			sprite->setId(atoi(propertys[18].c_str()));
+			sprite->setParentId(atoi(propertys[19].c_str()));
 
-			sprite->transform.lastPos.x = std::stof(propertys[21]);
-			sprite->transform.lastPos.y = std::stof(propertys[22]);
+#pragma endregion
+# pragma region Last pos, next pos
+			sprite->transform.next_pos.x = std::stof(propertys[20]);
+			sprite->transform.next_pos.y = std::stof(propertys[21]);
 
-			//Position to parent x, and y
-			sprite->transform.positionToParent.x = std::stof(propertys[25]);
-			sprite->transform.positionToParent.y = std::stof(propertys[26]);
+			sprite->transform.last_pos.x = std::stof(propertys[22]);
+			sprite->transform.last_pos.y = std::stof(propertys[23]);
 
-			sprite->animator.exists = propertys[27] == "True";
+#pragma endregion
 
-			sprite->transform.position *= s2d::GameObject::ssizeMultipliyer;
-			sprite->transform.lastPos *= s2d::GameObject::ssizeMultipliyer;
-			sprite->transform.nextPos *= s2d::GameObject::ssizeMultipliyer;
+# pragma region Position to parent x, and y
+			sprite->transform.position_to_parent.x = std::stof(propertys[26]);
+			sprite->transform.position_to_parent.y = std::stof(propertys[27]);
 
-			sprite->transform.positionToParent.x *= s2d::GameObject::ssizeMultipliyer;
-			sprite->transform.positionToParent.y *= s2d::GameObject::ssizeMultipliyer;
+			sprite->animator.exists = propertys[28] == "True";
+#pragma endregion
+
+			sprite->postInit();
 
 			//Pushing the sprite
 			spriteRepo.add(sprite);

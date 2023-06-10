@@ -53,7 +53,7 @@ void s2d::GameEngine::pollEngineEvents()
     for (int i = 0; i < this->m_sprite_repository.amount(); i++)
     {
         s2d::Sprite* const sprite = this->m_sprite_repository.readAt(i);
-        if (sprite->transform.position != sprite->transform.nextPos)
+        if (sprite->transform.position != sprite->transform.next_pos)
         {
             //Fire on pos event
             Transform::onPositionChange(sprite);

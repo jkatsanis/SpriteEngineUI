@@ -28,4 +28,6 @@ void Game::update()
 	{
 		this->m_ptr_ship->animator.play("Im");
 	}
+
+	s2d::GameObject::camera.transform.position = this->m_ptr_ship->transform.position;
 }

@@ -85,6 +85,9 @@
     <Filter Include="engine src\spriteComponents\animation">
       <UniqueIdentifier>{fc7382e0-528a-47f0-9e95-c81f0cecb9ef}</UniqueIdentifier>
     </Filter>
+    <Filter Include="engine src\spriteComponents\spriteRenderer">
+      <UniqueIdentifier>{ff4e8eba-d177-472c-aa7e-9ab6c65918c0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="engine\src\spriteComponents\boxCollider.cpp">
@@ -179,6 +182,9 @@
     </ClCompile>
     <ClCompile Include="engine\src\manager\spriteRepository.cpp">
       <Filter>engine src\manager</Filter>
+    </ClCompile>
+    <ClCompile Include="engine\src\spriteComponents\spriteRenderer.cpp">
+      <Filter>engine src\spriteComponents\spriteRenderer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -593,6 +599,12 @@
     </ClInclude>
     <ClInclude Include="engine\src\data\engineConfig.h">
       <Filter>engine src\data</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\src\spriteComponents\component.h">
+      <Filter>engine src\spriteComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\src\spriteComponents\spriteRenderer.h">
+      <Filter>engine src\spriteComponents\spriteRenderer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

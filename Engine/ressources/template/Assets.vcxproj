@@ -182,9 +182,11 @@
     <ClCompile Include="engine\src\manager\initializer.cpp" />
     <ClCompile Include="assets\Scripts\game.cpp" />
     <ClCompile Include="engine\src\manager\spriteRepository.cpp" />
+    <ClCompile Include="engine\src\spriteComponents\spriteRenderer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="assets\Scripts\features.h" />
+    <ClInclude Include="engine\src\spriteComponents\component.h" />
     <ClInclude Include="engine\src\data\engineConfig.h" />
     <ClInclude Include="engine\src\spriteComponents\animation.h" />
     <ClInclude Include="engine\src\spriteComponents\animator.h" />
@@ -223,6 +225,7 @@
     <ClInclude Include="assets\Scripts\game.h" />
     <ClInclude Include="engine\src\spriteComponents\keyFrame.h" />
     <ClInclude Include="engine\src\manager\spriteRepository.h" />
+    <ClInclude Include="engine\src\spriteComponents\spriteRenderer.h" />
     <ClInclude Include="src\libraries\include\SFML\Audio.hpp" />
     <ClInclude Include="src\libraries\include\SFML\Audio\AlResource.hpp" />
     <ClInclude Include="src\libraries\include\SFML\Audio\Export.hpp" />

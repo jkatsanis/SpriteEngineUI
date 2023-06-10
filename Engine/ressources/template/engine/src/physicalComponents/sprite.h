@@ -11,6 +11,7 @@
 #include <stdExtension.h>
 #include <spriteComponents/animator.h>
 #include <manager/spriteRepository.h>
+#include <spriteComponents/spriteRenderer.h>
 
 #define INVALID_SPRITE_SYMBOLS 1
 
@@ -22,16 +23,15 @@ namespace s2d
 		int m_parentId;
 		sf::Sprite m_sprite;
 		sf::Texture* m_texture;
-		std::string m_path;
 		int m_id;
 
 		void initVariables(std::string name, s2d::Vector2 spawnPos, std::string path);
 	public:
 		// General info
 		std::string name;
-		int sortingLayerIndex;
 
 		// Components
+		s2d::SpriteRenderer sprite_renderer;
 		s2d::BoxCollider collider;
 		s2d::PhsysicsBody physicsBody;
 		s2d::Transform transform;
@@ -50,7 +50,7 @@ namespace s2d
 		/////////////////////////////////////
 
 		void validateProperties(int id, s2d::SpriteRepository& repo);
-
+		void postInit();
 		void setParentId(const int id) { this->m_parentId = id; }
 		void setId(const int id) { this->m_id = id; }
 		sf::Sprite& getSprite() { return this->m_sprite; }
@@ -104,11 +104,6 @@ namespace s2d
 		s2d::Sprite* getNode(); 
 
 		/// <summary>
-		/// Updates the sprite texture of only 1 sprite (reads the path from the file)
-		/// </summary>
-		void updateSpriteTexture();
-
-		/// <summary>
 		/// Get's the id of the current sprite
 		/// </summary>
 		/// <returns></returns>
@@ -117,7 +112,7 @@ namespace s2d
 		/// <summary>
 		/// Gets the path to the texture file
 		/// </summary>
-		const std::string& getPathOfTextureFile() const { return this->m_path; }
+		const std::string& getPathOfTextureFile() const { return this->sprite_renderer.path; }
 	};
 }
 

@@ -16,24 +16,24 @@ namespace s2d
 		/// The path from the user project to the file for example
 		/// assets\\file
 		/// </summary>
-		std::string enginePathToFile;
+		std::string engine_path_to_file;
 
 		/// <summary>
 		/// Path from the user to the file
 		/// Example: assets\\prefabs\\hello.prfb
 		/// </summary>
-		std::string userPathToFile;
+		std::string user_path_to_file;
 
 		/// <summary>
 		/// The file name of the active file. This may not be the actual prefab
 		/// sprite name because it didnt get upated yet
 		/// </summary>
-		std::string pathToOldFile;
+		std::string path_to_old_file;
 
-		std::string fileName;
+		std::string file_name;
 
 		bool exists;
-		bool loadInMemory;
+		bool load_in_memory;
 
 		Prefab();
 		Prefab(s2d::Sprite* m_attached);

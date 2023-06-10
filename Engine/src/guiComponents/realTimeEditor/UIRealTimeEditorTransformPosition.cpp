@@ -67,7 +67,7 @@ void s2d::UIRealTimeEditorTransformPosition::moveComponent()
 
     if (s2d::UI::s_game_cursor.position_changed)
     {
-        s2d::Vector2 moved = s2d::UI::s_game_cursor.lastPos - s2d::UI::s_game_cursor.position;
+        s2d::Vector2 moved = s2d::UI::s_game_cursor.last_pos - s2d::UI::s_game_cursor.position;
         m += moved.x;
         my -= moved.y;
     }

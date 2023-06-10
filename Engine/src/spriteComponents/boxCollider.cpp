@@ -15,12 +15,14 @@ s2d::BoxCollider::BoxCollider(s2d::Sprite* ptr_sprite)
     this->init();
     this->ptr_sprite = ptr_sprite;
 }
+
 void s2d::BoxCollider::init()
 {
     this->base_component = false;
     this->ptr_sprite = nullptr;
     this->can_collide = false;
     this->is_solid = false;
+    this->exist = false;
 }
  
 // Public functions

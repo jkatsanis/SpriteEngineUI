@@ -26,10 +26,10 @@ void s2d::Transform::init()
 
 void s2d::Transform::setLastPosition()
 {
-	if (this->nextPos != this->position)
+	if (this->next_pos != this->position)
 	{
-		this->lastPos = this->nextPos;
-		this->nextPos = this->position;
+		this->last_pos = this->next_pos;
+		this->next_pos = this->position;
 		this->position_changed = true;
 	}
 	else
@@ -37,6 +37,9 @@ void s2d::Transform::setLastPosition()
 		this->position_changed = false;
 	}
 }
+
+// Public functions
+
 
 void s2d::Transform::updateTransformPosition()
 {
@@ -62,12 +65,13 @@ void s2d::Transform::setTextureSize(const s2d::Vector2& scale)
 	}
 
 	sf::IntRect textureRect = this->m_attached_sprite->getSprite().getTextureRect();
-	this->textureSize = s2d::Vector2(textureRect.width * multiply.x, textureRect.height * multiply.y);
+	this->texture_size = s2d::Vector2(textureRect.width * multiply.x, textureRect.height * multiply.y);
+	this->setOrigin();
 }
 
 void s2d::Transform::calculateScaleXByWorldPosition(const float posX)
 {
-	float scaleX = posX / this->textureSize.x;
+	float scaleX = posX / this->texture_size.x;
 
 	this->setScale(s2d::Vector2(scaleX, this->m_scale.y));
 }
@@ -84,13 +88,7 @@ s2d::Vector2 s2d::Transform::getDefaultTextureSize() const
 	{
 		scale.y = scale.y * -1;
 	}
-	return s2d::Vector2(this->textureSize.x / scale.x, this->textureSize.y / scale.y);
-}
-
-void s2d::Transform::updateOrigin()
-{
-	sf::Sprite& spr = this->m_attached_sprite->getSprite();
-	spr.setOrigin(sf::Vector2f(this->textureSize.x / 2, this->textureSize.y / 2));
+	return s2d::Vector2(this->texture_size.x / scale.x, this->texture_size.y / scale.y);
 }
 
 void s2d::Transform::setRotation(uint32_t angle)
@@ -99,10 +97,15 @@ void s2d::Transform::setRotation(uint32_t angle)
 	this->m_attached_sprite->getSprite().setRotation(this->m_rotation);
 }
 
-// Public functions
+void s2d::Transform::setOrigin()
+{
+	sf::Sprite& spr = this->m_attached_sprite->getSprite();
+	spr.setOrigin(sf::Vector2f(this->getDefaultTextureSize().x / 2, this->getDefaultTextureSize().y / 2));
+}
 
 void s2d::Transform::setScale(const s2d::Vector2& scale, bool b)
 {
+	sf::Vector2f orgn = this->m_attached_sprite->getSprite().getOrigin();
 	if (this->m_scale == scale && !b)
 	{
 		return;
@@ -117,7 +120,7 @@ void s2d::Transform::setScale(const s2d::Vector2& scale, bool b)
 
 void s2d::Transform::reset()
 {
-	this->lastPos = s2d::Vector2(0, 0);
+	this->last_pos = s2d::Vector2(0, 0);
 	this->position = s2d::Vector2(0, 0);
 	this->setScale(s2d::Vector2(1, 1));
 }

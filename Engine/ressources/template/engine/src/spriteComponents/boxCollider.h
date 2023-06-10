@@ -21,17 +21,17 @@ namespace s2d
 		void checkPositions(const BoxCollider& other, const int jIndex);
 
 	public:
-		int collisionCnt;
-		bool isSolid;
-		bool canCollide;
-		bool exists;
+		int collision_cnt;
+		bool is_solid;
+		bool can_collide;
+		bool exist;
 
-		s2d::BoxColliderPositionData positionData;
+		s2d::BoxColliderPositionData position_data;
 		s2d::Sprite* sprite;
 		s2d::Sprite* collidingSprite;
 
-		Vector2 boxColliderWidthLeftOrRight;
-		Vector2 boxColliderHeightUpOrDown;
+		Vector2 box_collider_width;
+		Vector2 box_collider_height;
 
 		BoxCollider();
 
@@ -45,7 +45,7 @@ namespace s2d
 		// MAY BE WRONG
 		bool isInCollision() const
 		{
-			return this->positionData.isEqual(s2d::BoxColliderPositionData::Collision); 
+			return this->position_data.isEqual(s2d::BoxColliderPositionData::Collision); 
 		}
 
 	public:

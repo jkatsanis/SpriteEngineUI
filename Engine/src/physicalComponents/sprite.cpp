@@ -66,31 +66,28 @@ void s2d::Sprite::setSpriteTexture(const std::string& path)
 	this->setSpriteTexture(*this->m_texture, path);
 }
 
-void s2d::Sprite::setSpriteTexture(const sf::Texture& texture, const std::string& path)
-{
-	this->m_sprite.setTexture(texture, true);
-	this->transform.setScale(this->transform.getScale(), true);
-	this->sprite_renderer.path = path;
-
-	this->transform.updateOrigin();
-}
-
 void s2d::Sprite::setSpriteTexture(const std::string& path, const s2d::Vector2& scale)
 {
 	if (!this->m_texture->loadFromFile(path))
 	{
 		std::cout << "LOG: [ERROR] File was not found!";
 	}
-	this->m_sprite.setTexture(*this->m_texture);
-	this->sprite_renderer.path = path;
+	this->setSpriteTexture(*this->m_texture, path);
 	this->transform.setScale(scale, true);
+}
 
-	this->transform.updateOrigin();
+void s2d::Sprite::setSpriteTexture(const sf::Texture& texture, const std::string& path)
+{
+	this->m_sprite.setTexture(texture, true);
+	this->transform.setScale(this->transform.getScale(), true);
+	this->sprite_renderer.path = path;
+
+	this->transform.setOrigin();
 }
 
 void s2d::Sprite::postDefaultInitialization()
 {
-	this->transform.updateOrigin();
+	this->transform.setOrigin();
 }
 
 void s2d::Sprite::setParent(s2d::Sprite* parent)
@@ -150,8 +147,8 @@ bool s2d::Sprite::containsChild(const ImGuiTextFilter& name) const
 
 s2d::Vector2 s2d::Sprite::getOrigininalPosition() const
 {
-	float x = this->m_sprite.getPosition().x - this->transform.textureSize.x / 2;
-	float y = this->m_sprite.getPosition().y - this->transform.textureSize.y / 2;
+	float x = this->m_sprite.getPosition().x - this->transform.texture_size.x / 2;
+	float y = this->m_sprite.getPosition().y - this->transform.texture_size.y / 2;
 
 	return s2d::Vector2(x, y);
 }
@@ -193,8 +190,8 @@ void s2d::Sprite::initVariables(std::string& name, s2d::Vector2& spawnPos, std::
 	this->name = name;
 	this->sprite_renderer.path = path;
 	this->transform.position = spawnPos;	
-	this->transform.lastPos = s2d::Vector2(0, 0);
-	this->transform.nextPos = this->transform.position;
+	this->transform.last_pos = s2d::Vector2(0, 0);
+	this->transform.next_pos = this->transform.position;
 	this->sprite_renderer.sorting_layer_index = 0;
 	this->animator = s2d::Animator(this);
 

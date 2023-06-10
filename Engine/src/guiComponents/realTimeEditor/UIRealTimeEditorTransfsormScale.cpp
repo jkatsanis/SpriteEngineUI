@@ -109,7 +109,7 @@ void s2d::UIRealTimeEditorTransfsormScale::reset()
 void s2d::UIRealTimeEditorTransfsormScale::getPos(const s2d::Sprite* focusedSprite, sf::Vector2f pos[])
 {
 	s2d::Vector2 originalPos = focusedSprite->getOrigininalPosition();
-	s2d::Vector2 textureSize = focusedSprite->transform.textureSize;
+	s2d::Vector2 textureSize = focusedSprite->transform.texture_size;
 
 	if (focusedSprite->transform.getScale().x < 0)
 	{

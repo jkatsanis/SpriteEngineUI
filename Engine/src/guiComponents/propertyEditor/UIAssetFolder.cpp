@@ -164,7 +164,7 @@ void s2d::UIAssetFolder::addPrefab()
     {
         const std::string pathToFile = this->m_current_path + "\\" + this->m_ptr_repo->child_to_parent->name + EXTENSION_PREFAB_FILE;
         
-        const std::string pathToOldFile = this->m_ptr_repo->child_to_parent->prefab.enginePathToFile;
+        const std::string pathToOldFile = this->m_ptr_repo->child_to_parent->prefab.engine_path_to_file;
         this->m_ptr_repo->child_to_parent->prefab.updateProps(
             pathToFile, s2d::UI::getUserProjectPathSeperatetFromEnginePath(pathToFile), pathToFile, this->m_ptr_repo->child_to_parent->name + EXTENSION_PREFAB_FILE
         );

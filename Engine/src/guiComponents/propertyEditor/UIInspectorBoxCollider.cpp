@@ -255,8 +255,8 @@ void s2d::UIInspectorBoxCollider::height(s2d::Sprite* sprite)
 
 void s2d::UIInspectorBoxCollider::drawBoxCollider(s2d::Sprite* sprite, s2d::Rectangle* ptr_rectangle)
 {
-	const sf::Vector2f size = sf::Vector2f(sprite->transform.textureSize.x + (-sprite->collider.box_collider_width.x + sprite->collider.box_collider_width.y),
-		sprite->transform.textureSize.y + (-sprite->collider.box_collider_height.x + sprite->collider.box_collider_height.y));
+	const sf::Vector2f size = sf::Vector2f(sprite->transform.texture_size.x + (-sprite->collider.box_collider_width.x + sprite->collider.box_collider_width.y),
+		sprite->transform.texture_size.y + (-sprite->collider.box_collider_height.x + sprite->collider.box_collider_height.y));
 
 	sf::RectangleShape* ptr_shape = &ptr_rectangle->shape;
 

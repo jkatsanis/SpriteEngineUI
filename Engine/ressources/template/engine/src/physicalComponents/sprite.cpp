@@ -35,36 +35,33 @@ void s2d::Sprite::setSpriteTexture(const std::string& path)
 	this->setSpriteTexture(*this->m_texture, path);
 }
 
-void s2d::Sprite::setSpriteTexture(const sf::Texture& texture, const std::string& path)
-{
-	this->m_sprite.setTexture(texture, true);
-	this->transform.setScale(this->transform.getScale(), true);
-	this->m_path = path;
-}
-
 void s2d::Sprite::setSpriteTexture(const std::string& path, const s2d::Vector2& scale)
 {
 	if (!this->m_texture->loadFromFile(path))
 	{
 		std::cout << "LOG: [ERROR] File was not found!";
 	}
-	this->m_sprite.setTexture(*this->m_texture);
-	this->m_path = path;
+	this->setSpriteTexture(*this->m_texture, path);
 	this->transform.setScale(scale, true);
+}
+
+void s2d::Sprite::setSpriteTexture(const sf::Texture& texture, const std::string& path)
+{
+	this->m_sprite.setTexture(texture, true);
+	this->transform.setScale(this->transform.getScale(), true);
+	this->sprite_renderer.path = path;
+
+	this->transform.setOrigin();
 }
 
 s2d::Vector2 s2d::Sprite::getOrigininalPosition()
 {
-	float x = this->m_sprite.getPosition().x;
-	float y = this->m_sprite.getPosition().y;
+	float x = this->m_sprite.getPosition().x - this->transform.texture_size.x / 2;
+	float y = this->m_sprite.getPosition().y - this->transform.texture_size.y / 2;
 
 	return s2d::Vector2(x, y);
 }
 
-void s2d::Sprite::updateSpriteTexture()
-{
-	this->setSpriteTexture(this->m_path);
-}
 
 void s2d::Sprite::validateProperties(int id, s2d::SpriteRepository& repo)
 {
@@ -91,6 +88,15 @@ void s2d::Sprite::validateProperties(int id, s2d::SpriteRepository& repo)
 	}
 }
 
+void s2d::Sprite::postInit()
+{
+	this->transform.setOrigin();
+}
+
+void s2d::Sprite::renderInstant()
+{
+	// TODO: 
+}
 
 //Private functions
 
@@ -106,11 +112,11 @@ void s2d::Sprite::initVariables(std::string name, s2d::Vector2 spawnPos, std::st
 	this->ptr_childs = std::vector<s2d::Sprite*>(0);
 
 	this->name = name;
-	this->m_path = path;
+	this->sprite_renderer.path = path;
 	this->transform.position = spawnPos;
-	this->transform.lastPos = s2d::Vector2(0, 0);
-	this->transform.nextPos = this->transform.position;
-	this->sortingLayerIndex = 0;
+	this->transform.last_pos = s2d::Vector2(0, 0);
+	this->transform.next_pos = this->transform.position;
+	this->sprite_renderer.sorting_layer_index = 0;
 
 	sf::Sprite sprite;
 

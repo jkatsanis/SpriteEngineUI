@@ -63,11 +63,11 @@ std::string s2d::flc::getPropertyLineWithSeperator(const Sprite* const sprite)
 	const std::string id = std::to_string(sprite->getId());
 	const std::string parentId = std::to_string(sprite->getParentId());
 
-	const std::string nextPosX = std::to_string(sprite->transform.nextPos.x);
-	const std::string nextPosY = std::to_string(sprite->transform.nextPos.y);
+	const std::string nextPosX = std::to_string(sprite->transform.next_pos.x);
+	const std::string nextPosY = std::to_string(sprite->transform.next_pos.y);
 
-	const std::string lastPosX = std::to_string(sprite->transform.lastPos.x);
-	const std::string lastPosY = std::to_string(sprite->transform.lastPos.y);
+	const std::string lastPosX = std::to_string(sprite->transform.last_pos.x);
+	const std::string lastPosY = std::to_string(sprite->transform.last_pos.y);
 
 	const std::string positionToParentX = std::to_string(sprite->transform.position_to_parent.x);
 	const std::string positionToParentY = std::to_string(sprite->transform.position_to_parent.y);
@@ -75,8 +75,8 @@ std::string s2d::flc::getPropertyLineWithSeperator(const Sprite* const sprite)
 	const std::string animatorExist = std::boolToStr(sprite->animator.exist);
 
 	const std::string prefabExist = std::boolToStr(sprite->prefab.exists);
-	const std::string loadInMemory = std::boolToStr(sprite->prefab.loadInMemory);
-	const std::string pathToPrefab = sprite->prefab.enginePathToFile;
+	const std::string loadInMemory = std::boolToStr(sprite->prefab.load_in_memory);
+	const std::string pathToPrefab = sprite->prefab.engine_path_to_file;
 	const std::string rotation = std::to_string(sprite->transform.getRotation());
 
 	//Name, vec, transform path, rotation
@@ -519,7 +519,7 @@ void s2d::flc::cleanUp(s2d::SpriteRepository& repo)
 
 	for (size_t i = 0; i < repo.amount(); i++)
 	{
-		const std::string engine_name = std::getFileOnPath(repo.readAt(i)->prefab.enginePathToFile);
+		const std::string engine_name = std::getFileOnPath(repo.readAt(i)->prefab.engine_path_to_file);
 
 		if (!std::isEqualWithAny(engine_name, valid_prefab_names))
 		{

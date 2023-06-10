@@ -17,9 +17,9 @@ namespace s2d
 
 	public:
 		s2d::Vector2 position;
-		s2d::Vector2 textureSize;
-		s2d::Vector2 nextPos;
-		s2d::Vector2 lastPos;
+		s2d::Vector2 texture_size;
+		s2d::Vector2 next_pos;
+		s2d::Vector2 last_pos;
 		s2d::Vector2 position_to_parent;
 		s2d::Sprite* m_attached_sprite;
 
@@ -44,13 +44,15 @@ namespace s2d
 		void calculateScaleXByWorldPosition(const float posX);
 		s2d::Vector2 getDefaultTextureSize() const;
 
-	public:
-		
 		/// <summary>
-		/// Updates the origin using the texturesize
+		/// Updates the origin using the ´default size
 		/// </summary>
-		void updateOrigin();
+		void setOrigin();
+	public:
 
+		/// <summary>
+		/// Sets the rotation
+		/// </summary>
 		void setRotation(uint32_t angle);
 
 		/// <summary>

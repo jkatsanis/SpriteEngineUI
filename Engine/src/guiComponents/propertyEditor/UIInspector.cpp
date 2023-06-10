@@ -14,11 +14,6 @@ void s2d::UIInspector::preInit()
 
 	this->m_window_size = INSPECTOR_DEFAULT_WINDOW_SIZE;
 	this->state = s2d::InspectorState::None;
-
-	this->m_components.push_back("BoxCollider");
-	this->m_components.push_back("PhysicsBody");
-	this->m_components.push_back("Animator");
-	this->m_components.push_back("Prefab");
 }
 
 void s2d::UIInspector::afterInit()
@@ -35,6 +30,11 @@ void s2d::UIInspector::afterInit()
 	this->m_ptr_collider_rectangle->sorting_layer_index = 1;
 	this->m_ptr_gui_repo->updateHighestLayerIndex();
 	this->m_collider.initScaleDottsUI(*this->m_ptr_gui_repo);
+
+	this->m_components.push_back("BoxCollider");
+	this->m_components.push_back("PhysicsBody");
+	this->m_components.push_back("Animator");
+	this->m_components.push_back("Prefab");
 }
 
 //Private functions
@@ -147,7 +147,7 @@ void s2d::UIInspector::drawRectangleOverCurrentObject()
 
 	sf::RectangleShape* ptr_shape = &this->m_ptr_sprite_over_rectangle->shape;
 	
-	ptr_shape->setSize(sf::Vector2f(this->m_ptr_sprite_repo->sprite_in_inspector->transform.textureSize.x, this->m_ptr_sprite_repo->sprite_in_inspector->transform.textureSize.y));
+	ptr_shape->setSize(sf::Vector2f(this->m_ptr_sprite_repo->sprite_in_inspector->transform.texture_size.x, this->m_ptr_sprite_repo->sprite_in_inspector->transform.texture_size.y));
 	ptr_shape->setPosition(this->m_ptr_sprite_repo->sprite_in_inspector->getOrigininalPosition().x, this->m_ptr_sprite_repo->sprite_in_inspector->getOrigininalPosition().y);
 }
 
@@ -186,7 +186,7 @@ void s2d::UIInspector::resizeWindow()
 		float movedy = 0;
 		if (s2d::UI::s_gui_cursor.position_changed)
 		{
-			s2d::Vector2 moved = s2d::UI::s_gui_cursor.lastPos - s2d::UI::s_gui_cursor.position;
+			s2d::Vector2 moved = s2d::UI::s_gui_cursor.last_pos - s2d::UI::s_gui_cursor.position;
 			movedy = moved.x;
 		}
 		if (this->m_window_size.x + movedy > 350
@@ -636,7 +636,7 @@ void s2d::UIInspector::prefabComponent()
 	if (ImGui::TreeNode("Prefab"))
 	{
 		ImGui::SetCursorPos(ImVec2(x += 45, y += 40));
-		const std::string fileLocation = "File location: " + this->m_ptr_sprite_repo->sprite_in_inspector->prefab.userPathToFile;
+		const std::string fileLocation = "File location: " + this->m_ptr_sprite_repo->sprite_in_inspector->prefab.user_path_to_file;
 		ImGui::Text(fileLocation.c_str());
 
 		ImGui::SetCursorPos(ImVec2(x, y + 40));
@@ -649,7 +649,7 @@ void s2d::UIInspector::prefabComponent()
 		ImGui::SetCursorPos(ImVec2(x, y + 80));
 		ImGui::Text("Load in memory ");
 		ImGui::SetCursorPos(ImVec2(x + 170, y + 75));
-		ImGui::Checkbox("##LoadInMemory", &this->m_ptr_sprite_repo->sprite_in_inspector->prefab.loadInMemory);
+		ImGui::Checkbox("##LoadInMemory", &this->m_ptr_sprite_repo->sprite_in_inspector->prefab.load_in_memory);
 		ImGui::TreePop();
 	}	
 }

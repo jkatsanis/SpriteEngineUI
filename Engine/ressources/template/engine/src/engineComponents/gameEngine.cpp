@@ -4,19 +4,19 @@ s2d::GameEngine::GameEngine()
 {
 	this->m_timePassed = 2.0f;
 	this->windowEvent.type = sf::Event::GainedFocus;
-	this->ptr_renderWindow = nullptr;
+	this->ptr_render_window = nullptr;
 	this->m_isWindowFullScreen = false;
 }
 
 s2d::GameEngine::~GameEngine()
 {
-	delete this->ptr_renderWindow;
+	delete this->ptr_render_window;
 }
 
 
 bool s2d::GameEngine::isGameRunning()
 {
-	return this->ptr_renderWindow->isOpen();
+	return this->ptr_render_window->isOpen();
 }
 
 void s2d::GameEngine::pollEngineEvents()
@@ -24,11 +24,15 @@ void s2d::GameEngine::pollEngineEvents()
 	for (int i = 0; i < this->m_sprite_repository.amount(); i++)
 	{
 		s2d::Sprite* const sprite = this->m_sprite_repository.readAt(i);
-		if (sprite->transform.position != sprite->transform.nextPos)
+		if (sprite->transform.position != sprite->transform.next_pos)
 		{
 #ifdef CHILDSYSTEM
 			Transform::onPositionChange(sprite);
 #endif
+		}
+		if (sprite->collider.isInCollision())
+		{
+			std::cout << sprite->name << std::endl;
 		}
 	}
 }
@@ -37,13 +41,13 @@ void s2d::GameEngine::pollEvents()
 {
 	bool eventChanged = false;
 
-	while (this->ptr_renderWindow->pollEvent(this->windowEvent))
+	while (this->ptr_render_window->pollEvent(this->windowEvent))
 	{
 		ImGui::SFML::ProcessEvent(this->windowEvent);
 
 		if (this->windowEvent.type == sf::Event::Closed)
 		{
-			this->ptr_renderWindow->close();
+			this->ptr_render_window->close();
 		}
 		if (!eventChanged)
 		{
@@ -65,7 +69,7 @@ void s2d::GameEngine::pollEvents()
 			event.key = static_cast<s2d::KeyBoardCode>(static_cast<sf::Keyboard::Key>(this->windowEvent.key.code));
 		}
 	}
-	ImGui::SFML::Update(*ptr_renderWindow, Time::deltaClock.restart());
+	ImGui::SFML::Update(*ptr_render_window, Time::deltaClock.restart());
 }
 
 void s2d::GameEngine::updateUserScriptsAndGUI()
@@ -93,7 +97,7 @@ void s2d::GameEngine::updateWindowStyle()
 		if (s2d::Input::onKeyRelease(s2d::KeyBoardCode::F11))
 		{
 			this->m_isWindowFullScreen = true;
-			this->ptr_renderWindow->create(sf::VideoMode(1920, 1080), "SpriteEngine", sf::Style::Fullscreen);
+			this->ptr_render_window->create(sf::VideoMode(1920, 1080), "SpriteEngine", sf::Style::Fullscreen);
 		}
 	}
 	else if (m_isWindowFullScreen)
@@ -101,12 +105,12 @@ void s2d::GameEngine::updateWindowStyle()
 		if (s2d::Input::onKeyRelease(s2d::KeyBoardCode::F11))
 		{
 			this->m_isWindowFullScreen = false;
-			this->ptr_renderWindow->create(sf::VideoMode(1920, 1080), "SpriteEngine", sf::Style::Default);
+			this->ptr_render_window->create(sf::VideoMode(1920, 1080), "SpriteEngine", sf::Style::Default);
 		}
 	}
 	if (Input::onKeyHold(s2d::KeyBoardCode::LControl) && Input::onKeyRelease(s2d::KeyBoardCode::F4))
 	{
-		this->ptr_renderWindow->close();
+		this->ptr_render_window->close();
 	}
 }
 
@@ -161,15 +165,15 @@ void s2d::GameEngine::start()
 
 	//Engine 
 	this->windowEvent.type = sf::Event::GainedFocus;
-	this->ptr_renderWindow = new sf::RenderWindow(sf::VideoMode(1920, 1080), s2d::GameData::name, sf::Style::Default);
+	this->ptr_render_window = new sf::RenderWindow(sf::VideoMode(1920, 1080), s2d::GameData::name, sf::Style::Default);
 
-	s2d::GameObject::camera = s2d::Camera(this->ptr_renderWindow);
+	s2d::GameObject::camera = s2d::Camera(this->ptr_render_window);
 
-	this->ptr_renderWindow->setKeyRepeatEnabled(false);
+	this->ptr_render_window->setKeyRepeatEnabled(false);
 
-	ImGui::SFML::Init(*this->ptr_renderWindow);
+	ImGui::SFML::Init(*this->ptr_render_window);
 
-	this->m_renderer = s2d::Renderer(this->ptr_renderWindow);
+	this->m_renderer = s2d::Renderer(this->ptr_render_window);
 	this->m_renderer.setSpriteRepository(this->m_sprite_repository);
 
 	this->m_game.config.ptr_sprites = &this->m_sprite_repository;

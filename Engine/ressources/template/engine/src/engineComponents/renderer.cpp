@@ -46,7 +46,7 @@ void s2d::Renderer::drawSprites()
         for (int j = 0; j < this->m_ptr_repo->amount(); j++)
         {
             s2d::Sprite* const sprite = this->m_ptr_repo->readAt(j);
-            if (sprite->sortingLayerIndex == i)
+            if (sprite->sprite_renderer.sorting_layer_index == i)
             {
                 sprite->transform.updateTransformPosition();
                 this->m_ptr_renderWindow->draw(sprite->getSprite());

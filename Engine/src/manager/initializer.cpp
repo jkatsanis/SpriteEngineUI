@@ -169,11 +169,11 @@ void s2d::Initializer::initSprite(const std::string& line, s2d::Sprite* sprite)
 
 	#pragma endregion
 	# pragma region Last pos, next pos
-		sprite->transform.nextPos.x = std::stof(propertys[20]);
-		sprite->transform.nextPos.y = std::stof(propertys[21]);
+		sprite->transform.next_pos.x = std::stof(propertys[20]);
+		sprite->transform.next_pos.y = std::stof(propertys[21]);
 
-		sprite->transform.lastPos.x = std::stof(propertys[22]);
-		sprite->transform.lastPos.y = std::stof(propertys[23]);
+		sprite->transform.last_pos.x = std::stof(propertys[22]);
+		sprite->transform.last_pos.y = std::stof(propertys[23]);
 
 	#pragma endregion
 
@@ -186,11 +186,11 @@ void s2d::Initializer::initSprite(const std::string& line, s2d::Sprite* sprite)
 
 	# pragma region Prefab
 		sprite->prefab.exists = propertys[29] == "True";
-		sprite->prefab.loadInMemory = propertys[30] == "True";
-		sprite->prefab.enginePathToFile = propertys[31];
-		sprite->prefab.userPathToFile = s2d::UI::getUserProjectPathSeperatetFromEnginePath(sprite->prefab.enginePathToFile);
-		sprite->prefab.pathToOldFile = sprite->prefab.enginePathToFile;
-		sprite->prefab.fileName = std::getFileOnPath(sprite->prefab.enginePathToFile);
+		sprite->prefab.load_in_memory = propertys[30] == "True";
+		sprite->prefab.engine_path_to_file = propertys[31];
+		sprite->prefab.user_path_to_file = s2d::UI::getUserProjectPathSeperatetFromEnginePath(sprite->prefab.engine_path_to_file);
+		sprite->prefab.path_to_old_file = sprite->prefab.engine_path_to_file;
+		sprite->prefab.file_name = std::getFileOnPath(sprite->prefab.engine_path_to_file);
 	#pragma endregion
 }
 

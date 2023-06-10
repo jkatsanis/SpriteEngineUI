@@ -68,9 +68,9 @@ bool s2d::UI::isCursorClickedOnSprite(const s2d::Sprite* check)
     float otherGetPosX = s2d::UI::s_cursor_world_pos.x;
     float otherGetPosY = s2d::UI::s_cursor_world_pos.y;
 
-    return (getPosX + check->transform.textureSize.x >= otherGetPosX
+    return (getPosX + check->transform.texture_size.x >= otherGetPosX
         && getPosX <= otherGetPosX + s2d::UI::s_cursor_hit_box
-        && getPosY + check->transform.textureSize.y >= otherGetPosY
+        && getPosY + check->transform.texture_size.y >= otherGetPosY
         && getPosY <= otherGetPosY + s2d::UI::s_cursor_hit_box);
 
 }

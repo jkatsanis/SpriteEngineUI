@@ -11,6 +11,7 @@ namespace s2d
 	{
 	private:
 		s2d::Vector2 m_scale;
+		uint32_t m_rotation;
 
 		/// <summary>
 		/// Sets the texture size
@@ -22,18 +23,21 @@ namespace s2d
 		void pushSpriteFromCollider(s2d::BoxColliderPositionData::Position p, bool smaller, float& tXY, float& lXY, float& nXY);
 	public:
 		s2d::Vector2 position;
-		s2d::Vector2 textureSize;
-		s2d::Vector2 nextPos;
-		s2d::Vector2 lastPos;
-		s2d::Vector2 positionToParent;
-		s2d::Sprite* m_attachedSprite;
+		s2d::Vector2 texture_size;
+		s2d::Vector2 next_pos;
+		s2d::Vector2 last_pos;
+		s2d::Vector2 position_to_parent;
+		s2d::Sprite* m_attached_sprite;
 
-		bool posiitonChanged;
-		bool keepOpenInHirachy;
+		bool position_changed;
 
 		Transform();
 		Transform(s2d::Sprite* attachedSprite);
 
+		/// <summary>
+		/// Sets the rotation
+		/// </summary>
+		void setRotation(uint32_t angle);
 
 		/// <summary>
 		/// This method sets the last position of the transform. Needs to be user called.
@@ -47,11 +51,20 @@ namespace s2d
 		void updateTransformPosition();
 
 		/// <summary>
+		/// Updates the origin using the ´default size
+		/// </summary>
+		void setOrigin();
+
+		/// <summary>
 		/// Sets the new scale
 		/// </summary>
 		/// <param name="setScaleForce">Sets the scale even if its the same, not remommended</param>
 		void setScale(const s2d::Vector2& scale, bool setScaleForce = false);
 		s2d::Vector2 const getScale() { return this->m_scale; }
+
+		uint32_t getRotation() const { return this->m_rotation; }
+
+		s2d::Vector2 getDefaultTextureSize() const;
 
 	public:
 		//Used in poll events

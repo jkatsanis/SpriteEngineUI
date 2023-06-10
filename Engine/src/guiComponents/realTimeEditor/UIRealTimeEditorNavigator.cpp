@@ -55,7 +55,7 @@ void s2d::UIRealTimeEditorNavigator::navigateRightClick()
 
 		if (this->m_cursor.position_changed)
 		{
-			s2d::Vector2 moved = this->m_cursor.lastPos - this->m_cursor.position;
+			s2d::Vector2 moved = this->m_cursor.last_pos - this->m_cursor.position;
 
 			this->m_ptr_gui_repo->camera.transform.position += moved;
 		}
