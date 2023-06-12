@@ -30,10 +30,6 @@ void s2d::GameEngine::pollEngineEvents()
 			Transform::onPositionChange(sprite);
 #endif
 		}
-		if (sprite->collider.isInCollision())
-		{
-			std::cout << sprite->name << std::endl;
-		}
 	}
 }
 

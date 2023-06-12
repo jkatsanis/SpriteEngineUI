@@ -26,7 +26,11 @@ void Game::update()
 	}
 	if (s2d::Input::onKeyHold(s2d::KeyBoardCode::G))
 	{
-		this->m_ptr_ship->animator.play("Im");
+		this->m_ptr_ship->transform.setRotation(this->m_ptr_ship->transform.getRotation() + 10);
+	}
+	if (s2d::Input::onKeyHold(s2d::KeyBoardCode::H))
+	{
+		this->m_ptr_ship->transform.setRotation(0);
 	}
 
 	s2d::GameObject::camera.transform.position = this->m_ptr_ship->transform.position;
