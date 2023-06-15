@@ -15,7 +15,7 @@ namespace s2d
 		s2d::UIRealTimeEditorTransformPosition m_positionChanger;
 		s2d::UIRealTimeEditorTransfsormScale m_scaleChanger;
 
-		const s2d::SpriteRepository* m_spriteRepository;
+		const s2d::SpriteRepository* m_sprite_repository;
 
 	public:
 		UIRealTimeEditorTransform();

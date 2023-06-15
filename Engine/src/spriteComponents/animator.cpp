@@ -33,6 +33,11 @@ void s2d::Animator::createAnimation(const std::string& name, const std::string& 
 void s2d::Animator::removeAnimation(const std::string& name)
 {
 	EXIST_COMPONENT;
+	auto it = this->animations.find(name);
+	if (it != this->animations.end())
+	{
+		std::removeFile(it->second.getEnginePathToFile());
+	}
 	animations.erase(name);
 }
 
@@ -75,6 +80,15 @@ void s2d::Animator::reset()
 	this->animationPlaying.name = "<Unknown>";;
 	this->animationPlaying.isAAnimationPlaying = false;
 	this->animations.clear();
+}
+
+void s2d::Animator::flagAllAnimationsToNotDelete()
+{
+	for (auto& pair : this->animations)
+	{
+	    auto& value = pair.second;
+		value.setFlagToNotDeleteAfterExit();
+	}
 }
 
 //Static functions

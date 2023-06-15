@@ -169,6 +169,14 @@ void s2d::GameEngine::saveDialoge()
 
 void s2d::GameEngine::onEngineClose(bool save)
 {
+    if (save)
+    {
+        for (size_t i = 0; i < this->m_sprite_repository.amount(); i++)
+        {
+            s2d::Sprite* spr = this->m_sprite_repository.readAt(i);
+            spr->animator.flagAllAnimationsToNotDelete();
+        }
+    }
     s2d::flc::cleanUp(this->m_sprite_repository);
     if (save)
     {

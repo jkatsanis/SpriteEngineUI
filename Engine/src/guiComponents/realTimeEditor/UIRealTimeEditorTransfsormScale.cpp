@@ -30,7 +30,6 @@ s2d::UIRealTimeEditorTransfsormScale::UIRealTimeEditorTransfsormScale(s2d::Event
 		this->m_scale_dotts[i].clicked = false;
 	}
 
-	this->m_scale = s2d::Vector2(1, 1);
 	this->unrenderDolls();
 	this->m_event = event;
 }
@@ -54,11 +53,6 @@ void s2d::UIRealTimeEditorTransfsormScale::update()
 
 void s2d::UIRealTimeEditorTransfsormScale::renderDolls()
 {
-	if (this->m_scale == s2d::Vector2(1, 1))
-	{
-		return;
-	}
-	this->m_scale = s2d::Vector2(1, 1);
 	for (int i = 0; i < SCALE_DOTTS; i++)
 	{
 		this->m_scale_dotts[i].ptr_scaling_rectangle->render = true;
@@ -67,11 +61,6 @@ void s2d::UIRealTimeEditorTransfsormScale::renderDolls()
 
 void s2d::UIRealTimeEditorTransfsormScale::unrenderDolls()
 {
-	if (this->m_scale == s2d::Vector2(0, 0))
-	{
-		return;
-	}
-	this->m_scale = s2d::Vector2(0, 0);
 	for (int i = 0; i < SCALE_DOTTS; i++)
 	{
 		this->m_scale_dotts[i].ptr_scaling_rectangle->render = false;

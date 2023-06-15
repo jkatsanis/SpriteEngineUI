@@ -53,6 +53,7 @@ void s2d::Initializer::initPrefab(const std::string& path, s2d::SpriteRepository
 
 		for (size_t i = 0; i < mini_repo.size(); i++)
 		{
+			mini_repo[i]->sprite_renderer.sorting_layer_index = 1;
 			repo.add(mini_repo[i]);
 		}
 
@@ -192,6 +193,8 @@ void s2d::Initializer::initSprite(const std::string& line, s2d::Sprite* sprite)
 		sprite->prefab.path_to_old_file = sprite->prefab.engine_path_to_file;
 		sprite->prefab.file_name = std::getFileOnPath(sprite->prefab.engine_path_to_file);
 	#pragma endregion
+
+		sprite->postDefaultInitialization();
 }
 
 void s2d::Initializer::initSprites(s2d::SpriteRepository& spriteRepo)
@@ -352,6 +355,9 @@ void s2d::Initializer::initAnimation(const std::string& path, s2d::SpriteReposit
 	if (ptr_sprite != nullptr)
 	{
 		ptr_sprite->animator.createAnimation(animationName, path, frames);
+
+		s2d::Animation& anim = ptr_sprite->animator.animations[animationName];
+		anim.setFlagToNotDeleteAfterExit();
 	}
 }
 

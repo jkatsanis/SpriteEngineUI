@@ -19,7 +19,6 @@ namespace s2d
 
 	public:
 		static float s_default_font_size;
-		static bool s_render_asset_folder;
 
 		static OpenWindow s_is_animation_open;
 		static OpenWindow s_is_asset_folder_open;

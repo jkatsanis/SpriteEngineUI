@@ -7,11 +7,16 @@
 
 s2d::Animation::Animation()
 {
+	this->current_frame = 0;
+	this->is_playing = false;
+	this->m_saved_already = false;
 	this->ptr_applied_sprite = nullptr;
+	this->time_passed = 0.0f;
 }
 
 s2d::Animation::Animation(Sprite* ptr_appliedSprite, const std::string& name, const std::string fileLocation, const std::vector<s2d::KeyFrame>& frames)
 {
+	this->m_saved_already = false;
 	this->m_base_path = ptr_appliedSprite->sprite_renderer.path;
 	this->m_path_to_file = fileLocation;
 	this->time_passed = 2.0f;
@@ -108,6 +113,11 @@ s2d::KeyFrame& s2d::Animation::getKeyFrameAtMs(const float ms)
 	}
 
 	return this->m_keyframes[0];
+}
+
+const std::string s2d::Animation::getEnginePathToFile() const
+{
+	return s2d::EngineData::s_path_to_user_project + "\\" +this->m_path_to_file;
 }
 
 void s2d::Animation::addKeyFrameAt(const int vecpos, const s2d::KeyFrame& frame)

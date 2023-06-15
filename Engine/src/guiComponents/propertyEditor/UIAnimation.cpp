@@ -7,6 +7,7 @@ s2d::UIAnimation::UIAnimation()
 	const std::string pathToAssets = s2d::EngineData::s_path_to_user_project + "\\" + "assets\\";
 	this->m_createAnimtionPathFileDialoge = s2d::FileDialog(pathToAssets, ICON_FA_PLUS, "Create Animation", ImVec2(500, 250));
 	this->m_createAnimtionPathFileDialoge.setFirstNode("assets");
+	this->m_background_counter = START_CNT_BG;
 }
 
 //Public functions
@@ -15,15 +16,17 @@ void s2d::UIAnimation::createUIAnimationWindow()
 {
 	if (!s2d::UIInfo::s_is_animation_open.is_open)
 	{
+		this->is_hovered = false;
 		return;
 	}
 	if (this->m_UIAnimationEditor.display)
 	{
 		this->m_UIAnimationEditor.displayEditor();
-		this->isHovered = this->m_UIAnimationEditor.is_hovered;
+		this->is_hovered = this->m_UIAnimationEditor.is_hovered;
 	}
 	else
 	{
+		this->m_background_counter = START_CNT_BG;
 		ImGui::Begin("##Animations", NULL, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse);
 
 		this->displayTopOfEditor();
@@ -31,11 +34,10 @@ void s2d::UIAnimation::createUIAnimationWindow()
 		this->displayAnimations();
 		this->addAnimationsToAnimator();
 
-		ImGui::SetWindowSize(ImVec2(500, 500));
+		ImGui::SetWindowSize(WINDOW_SIZE_ANIMATION_CREATE);
 
-		if(!this->isHovered)
-			this->isHovered = ImGui::IsWindowHovered(ImGuiHoveredFlags_AllowWhenBlockedByActiveItem | ImGuiHoveredFlags_AllowWhenBlockedByPopup);
-
+		if (!this->is_hovered)
+			this->is_hovered = s2d::UI::isHovered(ImGui::GetWindowPos(), ImGui::GetWindowSize());
 		ImGui::End();
 	}
 }
@@ -100,37 +102,37 @@ void s2d::UIAnimation::getFileNameInput()
 		ImGui::InputTextWithHint("##addFile", "<name>", this->m_animationFile, CHAR_MAX);
 		if (ImGui::IsItemHovered() || ImGui::IsItemFocused())
 		{
-			this->isHovered = true;
+			this->is_hovered = true;
 		}
 		const std::string path = s2d::UI::getUserProjectPathSeperatetFromEnginePath(this->m_createAnimtionPathFileDialoge.pathClicked);
 		std::string createAnimtionAt = "Create animation file at: " + path;
 		ImGui::Text(createAnimtionAt.c_str());
 		ImGui::Text("Press Enter when u are done giving it a name");
-		ImGui::SetWindowSize(ImVec2(500, 120));
+		ImGui::SetWindowSize(ImVec2(WINDOW_SIZE_ANIMATION_CREATE.x, 120));
 		ImGui::End();
 	}
 }
 
 void s2d::UIAnimation::displayAnimations()
 {
+	ImGui::Dummy(ImVec2(0, 7)); 
 	for (auto& anim : this->m_ptr_repo->sprite_in_inspector->animator.animations)
 	{
-		ImGui::Text(anim.second.name.c_str());
-		ImGui::SetCursorPos(ImVec2(455, ImGui::GetCursorPosY() - 32.5f));
+		this->drawBackgroundBehinAnimation();
+		if (ImGui::Selectable(anim.second.name.c_str(), false, ImGuiSelectableFlags_DontClosePopups,
+			ImVec2(ImGui::CalcTextSize(anim.second.name.c_str()).x, 0)))
+		{
+			this->enterAnimation(anim.second);
+		}
+
 		std::string s = "#" + anim.second.name;
-		std::string button = ICON_FA_EDIT "##" + anim.second.name;
 		std::string deleteButton = ICON_FA_TRASH "##" + anim.second.name;
 
-		if (s2d::FontManager::displaySmybolAsButton(button.c_str()))
-		{
-			// setting animation for the UIAnimationEditor
-			this->m_UIAnimationEditor.setAnim(&anim.second);
-			this->m_UIAnimationEditor.displayEditor();
-		}
 		if (s2d::FontManager::displaySmybolAsButton(deleteButton.c_str(),
-			ImVec2(ImGui::GetCursorPosX() + 410, ImGui::GetCursorPosY() - 37)))
+			ImVec2(WINDOW_SIZE_ANIMATION_CREATE.x - 50, ImGui::GetCursorPosY() - 30)))
 		{
-			
+			this->m_ptr_repo->sprite_in_inspector->animator.removeAnimation(anim.second.name);
+			break;
 		}
 	}
 	
@@ -145,10 +147,32 @@ void s2d::UIAnimation::displayTopOfEditor()
 	//Close button
 	if (ImGui::Button("x"))
 	{
-		s2d::UIInfo::s_render_asset_folder = true;
+		s2d::UIInfo::s_is_animation_open.is_open = false;
 	}
 
 	ImGui::Separator();
+}
+
+void s2d::UIAnimation::enterAnimation(s2d::Animation& animation)
+{
+	this->m_UIAnimationEditor.setAnim(&animation);
+	this->m_UIAnimationEditor.displayEditor();
+}
+
+void s2d::UIAnimation::drawBackgroundBehinAnimation()
+{
+	if (this->m_background_counter < 1)
+	{
+		this->m_background_counter++;
+		return;
+	}
+	this->m_background_counter = 0;
+
+	const ImVec2 temp = ImGui::GetCursorPos();
+	ImGui::SetCursorPosX(ImGui::GetWindowPos().x);
+	ImGui::SetCursorPosY(ImGui::GetWindowPos().y + ImGui::GetCursorPosY() + 23);
+	s2d::UI::drawRectangleInGUIWIndow(ImVec2(WINDOW_SIZE_ANIMATION_CREATE.x, 24), ImGui::GetCursorPos(), COMPONENT_SELECTED_COLOR);
+	ImGui::SetCursorPos(temp);
 }
 
 void s2d::UIAnimation::addAnimationsToAnimator()

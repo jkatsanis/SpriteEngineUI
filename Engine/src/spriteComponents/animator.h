@@ -42,6 +42,8 @@ namespace s2d
 
 		void reset() override;
 
+		void flagAllAnimationsToNotDelete();
+
 	public:
 
 		static void stopAllAnimations(s2d::SpriteRepository& toUpdate);

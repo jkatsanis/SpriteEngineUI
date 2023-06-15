@@ -1,7 +1,6 @@
 #include "UIInfo.h"
 
 float s2d::UIInfo::s_default_font_size = 0.8f;
-bool s2d::UIInfo::s_render_asset_folder = true;
 s2d::OpenWindow s2d::UIInfo::s_is_asset_folder_open = s2d::OpenWindow();
 s2d::OpenWindow s2d::UIInfo::s_is_hierarchy_open = s2d::OpenWindow();
 s2d::OpenWindow s2d::UIInfo::s_is_inspector_open = s2d::OpenWindow();

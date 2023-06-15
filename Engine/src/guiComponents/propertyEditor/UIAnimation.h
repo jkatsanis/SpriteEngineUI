@@ -10,6 +10,9 @@
 #include <manager/fileDialogs.h>
 #include <engineComponents/input.h>
 
+#define WINDOW_SIZE_ANIMATION_CREATE ImVec2(500, 500)
+#define START_CNT_BG 1
+
 namespace s2d
 {
 	class UIAnimation
@@ -21,6 +24,7 @@ namespace s2d
 		std::string m_fileName;
 		s2d::FileDialog m_createAnimtionPathFileDialoge;
 
+		uint8_t m_background_counter;
 		bool m_openFileDialog;
 		bool m_openInputWindow;
 		char m_animationFile[150];
@@ -29,9 +33,11 @@ namespace s2d
 		void displayAnimations();
 		void addAnimationsToAnimator();
 		void displayTopOfEditor();
+		void enterAnimation(s2d::Animation& animation);
+		void drawBackgroundBehinAnimation();
 
 	public:
-		bool isHovered;
+		bool is_hovered;
 
 		UIAnimation();
 

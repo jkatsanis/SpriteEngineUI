@@ -258,7 +258,6 @@ void s2d::UIInspector::backgroundSetting()
 
 void s2d::UIInspector::gameEngineViewSetting()
 {
-
 	this->renderBackgroundBehindComponent();
 	if (ImGui::TreeNode("Camera"))
 	{

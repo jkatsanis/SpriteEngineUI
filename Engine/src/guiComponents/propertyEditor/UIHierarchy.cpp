@@ -420,6 +420,7 @@ void s2d::UIHierarchy::displaySpriteSeperated(s2d::Sprite* parent, bool& any_hov
 			bool pop_style = false;
 			this->setSelectedBackgroundColor(parent, pop_style);
 			ImGui::PushStyleColor(ImGuiCol_HeaderHovered, ImVec4(0, 0, 0, 0));
+			this->drawbackgroundRectangle();
 			if (ImGui::TreeNodeEx(name.c_str(), ImGuiTreeNodeFlags_OpenOnArrow))
 			{
 				// Poppping background

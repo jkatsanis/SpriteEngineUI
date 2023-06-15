@@ -67,7 +67,7 @@ void s2d::UIWindow::update()
 	this->m_ui_animation.createUIAnimationWindow();
 	this->m_ui_asset_folder.createAssetLinkerWindow();
 
-	if (this->m_ui_hierarchy.is_hovered || this->m_ui_tool_button.is_hovered || this->m_ui_inspector.is_hovered || this->m_ui_asset_folder.is_hovered || this->m_ui_animation.isHovered)
+	if (this->m_ui_hierarchy.is_hovered || this->m_ui_tool_button.is_hovered || this->m_ui_inspector.is_hovered || this->m_ui_asset_folder.is_hovered || this->m_ui_animation.is_hovered)
 	{
 		this->ary_any_windows_hovered = true;
 	}

@@ -526,5 +526,18 @@ void s2d::flc::cleanUp(s2d::SpriteRepository& repo)
 			repo.readAt(i)->prefab.resetPrefab();
 		}
 	}
+
+	for (size_t i = 0; i < repo.amount(); i++)
+	{
+	    s2d::Sprite* spr = repo.readAt(i);
+		for (const auto& pair : spr->animator.animations)
+		{
+			const auto& value = pair.second; 
+			if (value.removeOnClose())
+			{
+				std::removeFile	(value.getEnginePathToFile());
+			}
+		}
+	}
 }
 
