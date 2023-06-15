@@ -143,7 +143,7 @@ void s2d::flc::createCameraSaveFile(const s2d::Camera& camera)
 	{
 		backgroundFile << "TransformPoxX;TransformPosY;Zoom" << "\n";
 
-		std::string line = std::to_string(camera.transform.position.x) + ";" + std::to_string(camera.transform.position.y) + ";" + std::to_string(camera.cameraZoom);
+		std::string line = std::to_string(camera.transform.position.x) + ";" + std::to_string(camera.transform.position.y) + ";" + std::to_string(camera.camera_zoom);
 
 		backgroundFile << line << "\n";
 

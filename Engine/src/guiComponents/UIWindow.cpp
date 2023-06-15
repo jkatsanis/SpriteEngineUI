@@ -57,7 +57,7 @@ void s2d::UIWindow::renderStyle(ImGuiStyle* style)
 void s2d::UIWindow::update()
 {
 	//When we press play we need to save our data again, lol
-	this->m_ui_tool_button.setBackgroundColorToSave(this->m_ui_inspector.background_color);
+	this->m_ui_tool_button.setBackgroundColorToSave(this->gui_repository.background_color);
 
 	s2d::UI::update();
 	s2d::UIWindow::renderStyle(&ImGui::GetStyle());

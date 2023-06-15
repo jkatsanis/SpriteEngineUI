@@ -17,7 +17,7 @@ namespace s2d
 	public:
 		s2d::Transform transform;
 		sf::View cameraView;
-		float cameraZoom;
+		float camera_zoom;
 
 		Camera();
 		Camera(sf::RenderWindow* ptr);

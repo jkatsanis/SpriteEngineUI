@@ -70,16 +70,16 @@ void s2d::UIRealTimeEditorNavigator::navigateScrollWheel()
 
 		if (this->m_ptr_event_engine->mouseWheel.x < 0)
 		{
-			if (this->m_ptr_gui_repo->camera.cameraZoom + this->m_scrollSpeed < 4)
+			if (this->m_ptr_gui_repo->camera.camera_zoom + this->m_scrollSpeed < 4)
 			{
-				this->m_ptr_gui_repo->camera.cameraZoom += this->m_scrollSpeed;
+				this->m_ptr_gui_repo->camera.camera_zoom += this->m_scrollSpeed;
 			}
 		}
 		else
 		{
-			if (this->m_ptr_gui_repo->camera.cameraZoom - this->m_scrollSpeed > 0.04)
+			if (this->m_ptr_gui_repo->camera.camera_zoom - this->m_scrollSpeed > 0.04)
 			{
-				this->m_ptr_gui_repo->camera.cameraZoom -= this->m_scrollSpeed;
+				this->m_ptr_gui_repo->camera.camera_zoom -= this->m_scrollSpeed;
 			}
 		}
 	}

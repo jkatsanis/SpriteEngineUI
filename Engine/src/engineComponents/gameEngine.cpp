@@ -4,26 +4,26 @@
 
 s2d::GameEngine::GameEngine()
 {
-    this->m_UIWindow.init(this->m_sprite_repository, &this->event);
+    this->m_ui_window.init(this->m_sprite_repository, &this->event);
     this->m_close = false;
     this->ptr_render_window = new sf::RenderWindow(sf::VideoMode(1920, 1080), "SpriteEngine", sf::Style::Default);
     this->windowEvent.type = sf::Event::GainedFocus;
-    this->m_renderer = s2d::Renderer(this->ptr_render_window, &this->m_UIWindow.getInspector().background_color, this->m_sprite_repository, this->m_UIWindow.gui_repository);
+    this->m_renderer = s2d::Renderer(this->ptr_render_window, this->m_sprite_repository, this->m_ui_window.gui_repository);
 
     auto desktop = sf::VideoMode::getDesktopMode();
     this->ptr_render_window->setPosition(sf::Vector2i(desktop.width / 2 - this->ptr_render_window->getSize().x / 2, 0));
     this->m_isWindowFullScreen = false;
 
-    this->m_ui_real_time_editor = s2d::UIRealTimeEditor(*ptr_render_window, &this->windowEvent, &this->m_UIWindow.ary_any_windows_hovered,
-        &this->m_UIWindow.getInspector().state, &this->event, this->m_sprite_repository, this->m_UIWindow.gui_repository);
-    this->m_UIWindow.gui_repository.camera = s2d::Camera(this->ptr_render_window);
+    this->m_ui_real_time_editor = s2d::UIRealTimeEditor(*ptr_render_window, &this->windowEvent, &this->m_ui_window.ary_any_windows_hovered,
+        &this->m_ui_window.getInspector().state, &this->event, this->m_sprite_repository, this->m_ui_window.gui_repository);
+    this->m_ui_window.gui_repository.camera = s2d::Camera(this->ptr_render_window);
 
     //Setting other classes
     s2d::Initializer::initSprites(this->m_sprite_repository);
     s2d::Initializer::initAnimations(this->m_sprite_repository);
-    s2d::Initializer::initBackground(this->m_UIWindow.getInspector().background_color);
+    s2d::Initializer::initBackground(this->m_ui_window.gui_repository.background_color);
     s2d::Initializer::initIds(this->m_sprite_repository.highestSpriteId);
-    s2d::Initializer::initCamera(this->m_UIWindow.gui_repository);
+    s2d::Initializer::initCamera(this->m_ui_window.gui_repository);
    
     s2d::Input::setEvent(&this->event);
     s2d::UI::setRenderWindow(this->ptr_render_window);
@@ -172,7 +172,7 @@ void s2d::GameEngine::onEngineClose(bool save)
     s2d::flc::cleanUp(this->m_sprite_repository);
     if (save)
     {
-        s2d::flc::saveEverything(this->m_UIWindow.getInspector().background_color, this->m_sprite_repository, this->m_UIWindow.gui_repository);
+        s2d::flc::saveEverything(this->m_ui_window.gui_repository.background_color, this->m_sprite_repository, this->m_ui_window.gui_repository);
     } 
     this->ptr_render_window->close();
 }
@@ -189,7 +189,7 @@ void s2d::GameEngine::update()
 
     // UIWindow (Engine)
     ImGui::PushFont(s2d::FontManager::s_default_font);
-    this->m_UIWindow.update();
+    this->m_ui_window.update();
     this->m_ui_real_time_editor.update();
     this->saveDialoge();
     ImGui::PopFont();

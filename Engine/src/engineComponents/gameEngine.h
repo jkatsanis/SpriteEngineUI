@@ -19,7 +19,7 @@ namespace s2d
 	class GameEngine
 	{
 	private:
-		UIWindow m_UIWindow;
+		UIWindow m_ui_window;
 		UIRealTimeEditor m_ui_real_time_editor;
 		Renderer m_renderer;
 		SpriteRepository m_sprite_repository;

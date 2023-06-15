@@ -86,7 +86,7 @@ void s2d::Initializer::initCamera(s2d::GUIRepository& repo)
 			//INITIIALIZING PROPS
 			repo.camera.transform.position.x = std::stof(propertys[0].c_str());
 			repo.camera.transform.position.y = std::stof(propertys[1].c_str());
-			repo.camera.cameraZoom = std::stof(propertys[2].c_str());
+			repo.camera.camera_zoom = std::stof(propertys[2].c_str());
 		}
 		cameraFile.close();
 	}

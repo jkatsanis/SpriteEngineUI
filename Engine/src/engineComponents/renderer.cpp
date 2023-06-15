@@ -4,22 +4,22 @@
 
 s2d::Renderer::Renderer()
 {
+    this->m_ptr_gui_repo = nullptr;
+    this->m_ptr_sprite_repo = nullptr;
     this->m_timeToUpdateLayerIndex = 2;
     this->m_timeToUpdateSpriteTexture = 1;
 
     this->m_timePassedTillNextSpriteTextureUpdate = this->m_timeToUpdateSpriteTexture;
     this->m_timePassedToUpdateLayerIndex = this->m_timeToUpdateLayerIndex;
     this->m_timePassedToUpdateLayerIndex = 0;
-    this->m_ptr_background_color = nullptr;
     this->m_ptr_render_window = nullptr;
 }
 
-s2d::Renderer::Renderer(sf::RenderWindow* renderWindow, const s2d::Vector3* bg, s2d::SpriteRepository& spritRepo, s2d::GUIRepository& repo)
+s2d::Renderer::Renderer(sf::RenderWindow* renderWindow, s2d::SpriteRepository& spritRepo, s2d::GUIRepository& repo)
 {
     this->m_ptr_sprite_repo = &spritRepo;
     this->m_timePassedToUpdateLayerIndex = 0;
     this->m_ptr_render_window = renderWindow;
-    this->m_ptr_background_color = bg;
 
     this->m_timeToUpdateLayerIndex = 2;
     this->m_timeToUpdateSpriteTexture = 1;
@@ -99,9 +99,9 @@ void s2d::Renderer::updateSriteTextures()
 
 void s2d::Renderer::render()
 {
-    sf::Color backgroundColor = sf::Color(sf::Uint8(this->m_ptr_background_color->x),
-                            sf::Uint8(this->m_ptr_background_color->y),
-                            sf::Uint8(this->m_ptr_background_color->z));
+    sf::Color backgroundColor = sf::Color(sf::Uint8(this->m_ptr_gui_repo->background_color.x),
+                            sf::Uint8(this->m_ptr_gui_repo->background_color.y),
+                            sf::Uint8(this->m_ptr_gui_repo->background_color.z));
 
     this->m_ptr_render_window->clear(backgroundColor);
     this->draw();

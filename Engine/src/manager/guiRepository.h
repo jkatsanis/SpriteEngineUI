@@ -2,6 +2,7 @@
 
 #include <ImGui.h>
 #include <physicalComponents/camera.h>
+#include <calculationComponents/vector3.h>
 
 namespace s2d
 {
@@ -36,6 +37,7 @@ namespace s2d
 		const ImVec2* ptr_inspector_window_size;
 		const ImVec2* ptr_hierarchy_window_size;
 
+		s2d::Vector3 background_color;
 		s2d::Camera camera;
 
 		GUIRepository();

@@ -83,9 +83,6 @@ namespace s2d
 		bool is_hovered;
 		s2d::InspectorState state;
 
-		// Get the value from UIWindow.cpp
-		s2d::Vector3 background_color;
-
 		UIInspector();
 
 		void createUIInspector();
