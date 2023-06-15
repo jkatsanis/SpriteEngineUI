@@ -93,6 +93,7 @@ void s2d::UIToolButtons::buildProjectIntoFolder()
 	{
 		if (ImGui::MenuItem("Save", "CTRL + S"))
 		{
+			s2d::flc::cleanUp(*this->m_ptr_repo, true);
 			s2d::flc::saveEverything(this->m_window_background_to_save, *this->m_ptr_repo, *this->m_ptr_gui_repo);
 		}	
 		if (ImGui::MenuItem("Build", "CTRL + B"))
@@ -130,6 +131,8 @@ void s2d::UIToolButtons::hotkeys()
 	if (s2d::Input::onKeyHold(s2d::KeyBoardCode::LControl)
 		&& s2d::Input::onKeyPress(s2d::KeyBoardCode::S))
 	{
+
+		s2d::flc::cleanUp(*this->m_ptr_repo, true);
 		s2d::flc::saveEverything(this->m_window_background_to_save, *this->m_ptr_repo, *this->m_ptr_gui_repo);
 	}
 

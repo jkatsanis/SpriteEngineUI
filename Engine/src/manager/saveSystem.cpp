@@ -269,6 +269,14 @@ void s2d::flc::createOrUpdatePrefabFile(const s2d::Sprite* content, const std::s
 	{
 		fileContent += getPropertyLineWithSeperator(childs[i]) + "\n";
 	}
+	if (content->animator.exist)
+	{
+		for (auto& animation : content->animator.animations)
+		{
+			const auto& value = animation.second;
+			fileContent += value.getPathToFile();
+		}
+	}
 
 	std::createFileWithContent(fileContent, pathToFile);
 }
@@ -507,8 +515,9 @@ std::string s2d::flc::copyDir(const std::string& inputDir, const std::string& ou
 	return outputdir + std::string(name.c_str());
 }
 
-void s2d::flc::cleanUp(s2d::SpriteRepository& repo)
+void s2d::flc::cleanUp(s2d::SpriteRepository& repo, bool save_sprites)
 {
+	// Deleting the prefab file if the sprite has no prfb file. It compares it's name with the prefab names
 	std::vector<std::string> valid_prefab_names;
 	std::getFileNameWithExtensionInFolder(s2d::EngineData::s_path_to_user_project, EXTENSION_PREFAB_FILE, valid_prefab_names);
 
@@ -527,15 +536,26 @@ void s2d::flc::cleanUp(s2d::SpriteRepository& repo)
 		}
 	}
 
+	// Cleaning up animations
+	if (save_sprites)
+	{
+		for (size_t i = 0; i < repo.amount(); i++)
+		{
+			s2d::Sprite* const spr = repo.readAt(i);
+			spr->animator.flagAllAnimationsToNotDelete();
+		}
+	}
+
+	// Removing the animations if they didnt got flagged
 	for (size_t i = 0; i < repo.amount(); i++)
 	{
-	    s2d::Sprite* spr = repo.readAt(i);
+		s2d::Sprite* spr = repo.readAt(i);
 		for (const auto& pair : spr->animator.animations)
 		{
-			const auto& value = pair.second; 
+			const auto& value = pair.second;
 			if (value.removeOnClose())
 			{
-				std::removeFile	(value.getEnginePathToFile());
+				std::removeFile(value.getEnginePathToFile());
 			}
 		}
 	}

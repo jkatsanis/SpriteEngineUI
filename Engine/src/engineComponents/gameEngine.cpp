@@ -36,7 +36,7 @@ s2d::GameEngine::GameEngine()
 
     this->m_sprite_repository.isFullScreened = &this->m_isWindowFullScreen;
 
-    s2d::flc::cleanUp(this->m_sprite_repository);
+    s2d::flc::cleanUp(this->m_sprite_repository, false);
 }
 
 s2d::GameEngine::~GameEngine()
@@ -169,15 +169,7 @@ void s2d::GameEngine::saveDialoge()
 
 void s2d::GameEngine::onEngineClose(bool save)
 {
-    if (save)
-    {
-        for (size_t i = 0; i < this->m_sprite_repository.amount(); i++)
-        {
-            s2d::Sprite* spr = this->m_sprite_repository.readAt(i);
-            spr->animator.flagAllAnimationsToNotDelete();
-        }
-    }
-    s2d::flc::cleanUp(this->m_sprite_repository);
+    s2d::flc::cleanUp(this->m_sprite_repository, save);
     if (save)
     {
         s2d::flc::saveEverything(this->m_ui_window.gui_repository.background_color, this->m_sprite_repository, this->m_ui_window.gui_repository);

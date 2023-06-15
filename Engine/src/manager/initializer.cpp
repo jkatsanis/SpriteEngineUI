@@ -10,6 +10,7 @@ void s2d::Initializer::initPrefab(const std::string& path, s2d::SpriteRepository
 	{
 		s2d::Sprite* spr = new s2d::Sprite();
 		std::vector<s2d::Sprite*> mini_repo;
+		std::vector<std::string> paths_to_animations;
 		std::string line = "";
 		uint8_t cnt = 0;
 		while (getline(stream, line))
@@ -24,11 +25,17 @@ void s2d::Initializer::initPrefab(const std::string& path, s2d::SpriteRepository
 			{
 				s2d::Initializer::initSprite(line, spr);
 			}
-			if (cnt > 2)
+
+			// 'a' stands for the starts with assets 
+			if (cnt > 2 && line[0] != 'a')
 			{
 				s2d::Sprite* child = new Sprite();
 				s2d::Initializer::initSprite(line, child);
 				mini_repo.push_back(child);
+			}
+			if (cnt > 2 && line[0] == 'a')
+			{
+				paths_to_animations.push_back(line);
 			}
 		}
 		spr->parent = nullptr;
@@ -58,6 +65,11 @@ void s2d::Initializer::initPrefab(const std::string& path, s2d::SpriteRepository
 		}
 
 		s2d::SpriteRepository::setValidIds(spr, highest);
+
+		for (size_t i = 0; i < paths_to_animations.size(); i++)
+		{
+			s2d::Initializer::initAnimation(paths_to_animations[i], repo, spr->getId());
+		}
 	}
 }
 
@@ -106,7 +118,7 @@ void s2d::Initializer::initAnimations(s2d::SpriteRepository& repo)
 		{
 			cnt++;
 			if (cnt == 1) continue;
-			s2d::Initializer::initAnimation(line, repo);
+			s2d::Initializer::initAnimation(line, repo, -1);
 		}
 
 		knownAnimationFileStream.close();
@@ -222,8 +234,6 @@ void s2d::Initializer::initSprites(s2d::SpriteRepository& spriteRepo)
 
 			s2d::Initializer::initSprite(line, sprite);
 
-			sprite->postDefaultInitialization();
-
 			//Pushing the sprite
 			spriteRepo.add(sprite);
 
@@ -313,8 +323,10 @@ void s2d::Initializer::initIds(uint32_t& highestId)
 
 // private static functions
 
-void s2d::Initializer::initAnimation(const std::string& path, s2d::SpriteRepository& repo)
+void s2d::Initializer::initAnimation(const std::string& path, s2d::SpriteRepository& repo, uint32_t idx)
 {
+	bool load_idx = (idx != -1);
+
 	std::string newPath = s2d::EngineData::s_path_to_user_project + "\\" + path;
 	std::fstream animationFileStream;
 
@@ -339,8 +351,11 @@ void s2d::Initializer::initAnimation(const std::string& path, s2d::SpriteReposit
 			}
 			if (cnt == 2)
 			{
-				// read only the ID of the sprite to apply the animtion
-				int idx = std::stoi(line);
+				uint32_t to_load = idx;
+				if (!load_idx)
+				{
+					to_load = std::stoi(line);
+				}
 				ptr_sprite = repo.getSpriteWithId(idx);
 				continue;
 			}
