@@ -94,7 +94,7 @@ s2d::Vector2 s2d::Transform::getDefaultTextureSize() const
 void s2d::Transform::setRotation(uint32_t angle)
 {
 	this->m_rotation = angle % 360;
-	this->m_attached_sprite->getSprite().setRotation(this->m_rotation);
+	this->m_attached_sprite->getSprite().setRotation((float)this->m_rotation);
 }
 
 void s2d::Transform::setOrigin()

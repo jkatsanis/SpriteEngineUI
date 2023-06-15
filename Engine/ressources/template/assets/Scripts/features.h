@@ -1,3 +1,5 @@
+// ! REBUILD THE WHOLE GAME IF YOU REMOVE A FEATURE ! \\ 
+
 #define CHILDSYSTEM
 #define PHYSICS
 #define GUI

@@ -39,6 +39,7 @@ namespace s2d
 		ImGuiTextFilter m_search_sprite_filter;
 		uint8_t m_sprite_background_color_cnt;
 		bool m_found_hovering;
+		bool m_found_selected;
 		float m_child_select_timer;
 
 		void displayContextPopup();
@@ -60,6 +61,13 @@ namespace s2d
 		void resizeWindow();
 
 		void drawbackgroundRectangle();
+		void setSpriteOnClick(s2d::Sprite* sprite);
+		void drawUIRactangleWhenHovered(s2d::Sprite* sprite);
+
+		/// <summary>
+		/// Dont forget to call PopStyleColor();
+		/// </summary>
+		void setSelectedBackgroundColor(s2d::Sprite* sprite, bool& pop_style);
 
 		/// <summary>
 		/// Checks for specfic things which get hovered 
