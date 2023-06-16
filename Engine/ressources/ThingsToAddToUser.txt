@@ -2,5 +2,5 @@ Post init yes
 Rotation yes 
 Change naming started 
 Animation no
-PRefabs load in memory
+PRefabs load in memory no
 SPriteRenderer yes

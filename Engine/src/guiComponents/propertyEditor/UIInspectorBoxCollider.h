@@ -29,6 +29,7 @@ namespace s2d
 	public:
 		UIInspectorBoxCollider();
 
+		void leaveEditMode();
 		void edit(float& x, float& y);
 		void solid(float& x, float& y, s2d::Sprite* sprite);
 		void width(float x, float y, s2d::Sprite* sprite);

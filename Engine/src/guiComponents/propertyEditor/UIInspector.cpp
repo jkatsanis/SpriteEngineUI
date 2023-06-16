@@ -383,6 +383,11 @@ void s2d::UIInspector::setupComponents()
 		this->boxColliderComponent();
 		DUMMY_COMPONENT;
 	}
+	else
+	{
+		this->m_collider.leaveEditMode();
+		this->m_ptr_collider_rectangle->render = false;
+	}
 
 	//PhysicsBody
 	if (this->m_ptr_sprite_repo->sprite_in_inspector->physicsBody.exist
@@ -552,6 +557,7 @@ void s2d::UIInspector::boxColliderComponent()
 	}
 	else
 	{
+		this->m_collider.leaveEditMode();
 		this->m_ptr_collider_rectangle->render = false;
 	}
 }
@@ -672,7 +678,6 @@ void s2d::UIInspector::setGUIRepo(s2d::GUIRepository* repo, s2d::Event* evnt)
 	
 	this->m_ptr_gui_repo = repo;
 	this->m_ptr_gui_repo->ptr_inspector_window_size = &this->m_window_size;
-	this->preInit();
 	this->afterInit();
 }
 

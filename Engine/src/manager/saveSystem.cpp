@@ -141,9 +141,12 @@ void s2d::flc::createCameraSaveFile(const s2d::Camera& camera)
 
 	if (backgroundFile.is_open())
 	{
-		backgroundFile << "TransformPoxX;TransformPosY;Zoom" << "\n";
+		backgroundFile << "TransformPoxX;TransformPosY;Zoom;Speed" << "\n";
 
-		std::string line = std::to_string(camera.transform.position.x) + ";" + std::to_string(camera.transform.position.y) + ";" + std::to_string(camera.camera_zoom);
+		std::string line = std::to_string(camera.transform.position.x) + ";" +
+			std::to_string(camera.transform.position.y) + ";" +
+			std::to_string(camera.camera_zoom) + 
+			std::to_string(camera.camera_speed);
 
 		backgroundFile << line << "\n";
 
@@ -274,7 +277,7 @@ void s2d::flc::createOrUpdatePrefabFile(const s2d::Sprite* content, const std::s
 		for (auto& animation : content->animator.animations)
 		{
 			const auto& value = animation.second;
-			fileContent += value.getPathToFile();
+			fileContent += value.getPathToFile() + "\n";
 		}
 	}
 

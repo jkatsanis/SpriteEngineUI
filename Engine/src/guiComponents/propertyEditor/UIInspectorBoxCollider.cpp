@@ -144,6 +144,12 @@ void s2d::UIInspectorBoxCollider::renderScaleDotts(s2d::Sprite* sprite, s2d::Rec
 
 // Public functions
 
+void s2d::UIInspectorBoxCollider::leaveEditMode()
+{
+	this->unrenderDotts();
+	this->m_edit_mode = false;
+}
+
 void s2d::UIInspectorBoxCollider::edit(float& x, float& y)
 {
 	ImGui::SetCursorPosX(x += 10);

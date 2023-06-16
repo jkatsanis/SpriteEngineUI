@@ -42,6 +42,7 @@ void s2d::UIRealTimeEditorNavigator::update()
 	this->navigateRightClick();
 	this->navigateArrows();
 	this->navigateScrollWheel();
+	this->navigateKeys();
 
 }
 
@@ -129,6 +130,26 @@ void s2d::UIRealTimeEditorNavigator::navigateArrows()
 		this->m_ptr_gui_repo->camera.transform.position.y -= this->m_arrowSpeed * s2d::Time::s_delta_time;
 	}
 	if (s2d::Input::onKeyHold(s2d::KeyBoardCode::Down))
+	{
+		this->m_ptr_gui_repo->camera.transform.position.y += this->m_arrowSpeed * s2d::Time::s_delta_time;
+	}
+}
+
+void s2d::UIRealTimeEditorNavigator::navigateKeys()
+{
+	if (s2d::Input::onKeyHold(s2d::KeyBoardCode::D))
+	{
+		this->m_ptr_gui_repo->camera.transform.position.x += this->m_arrowSpeed * s2d::Time::s_delta_time;
+	}
+	if (s2d::Input::onKeyHold(s2d::KeyBoardCode::A))
+	{
+		this->m_ptr_gui_repo->camera.transform.position.x -= this->m_arrowSpeed * s2d::Time::s_delta_time;
+	}
+	if (s2d::Input::onKeyHold(s2d::KeyBoardCode::W))
+	{
+		this->m_ptr_gui_repo->camera.transform.position.y -= this->m_arrowSpeed * s2d::Time::s_delta_time;
+	}
+	if (s2d::Input::onKeyHold(s2d::KeyBoardCode::S))
 	{
 		this->m_ptr_gui_repo->camera.transform.position.y += this->m_arrowSpeed * s2d::Time::s_delta_time;
 	}

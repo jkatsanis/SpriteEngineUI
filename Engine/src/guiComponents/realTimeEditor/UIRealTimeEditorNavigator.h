@@ -28,6 +28,7 @@ namespace s2d
 		void navigateRightClick();
 		void navigateScrollWheel();
 		void navigateArrows();
+		void navigateKeys();
 
 		void calculateScrollWheelSpeed();
 
