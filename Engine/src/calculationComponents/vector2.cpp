@@ -12,6 +12,12 @@ s2d::Vector2::Vector2(float x, float y)
 	this->y = y;
 }
 
+s2d::Vector2::Vector2(const ImVec2& vec)
+{
+	this->x = vec.x;
+	this->y = vec.y;
+}
+
 bool s2d::Vector2::operator==(const Vector2& rhs)
 {
 	return(rhs.x == this->x

@@ -1,3 +1,2 @@
 name;absulutePathStr;date;relativePath
-MeinGigaGame;C:\Dev\MeinGigaGame;2023/13/06 09:09:53;..\..\MeinGigaGame
-Demoni;C:\Dev\Demoni;2023/16/06 13:12:57;..\..\Demoni
+Worst;C:\Dev\C++\Worst;2023/16/06 17:13:08;..\..\Worst

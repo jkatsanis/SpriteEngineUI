@@ -6,21 +6,19 @@
 s2d::UIRealTimeEditorNavigator::UIRealTimeEditorNavigator()
 {
 	this->m_ptr_gui_repo = nullptr;
-	this->m_isAnyUIWindowHovered = nullptr;
+	this->m_is_any_ui_window_hovered = nullptr;
 	this->m_ptr_event_engine = nullptr;
 	this->m_ptr_renderWindow = nullptr;
-	this->m_arrowSpeed = 0.0f;
-	this->m_scrollSpeed = 0.0f;
+	this->m_scroll_speed = 0.0f;
 }
 
 s2d::UIRealTimeEditorNavigator::UIRealTimeEditorNavigator(sf::RenderWindow& window, sf::Event* event, bool* isAnyUIWindowHovered, s2d::GUIRepository& repo)
 {
 	this->m_ptr_gui_repo = &repo;
 	this->m_ptr_renderWindow = &window;
-	this->m_isAnyUIWindowHovered = isAnyUIWindowHovered;
+	this->m_is_any_ui_window_hovered = isAnyUIWindowHovered;
 	this->m_ptr_event_engine = event;
-	this->m_arrowSpeed = 400;
-	this->m_scrollSpeed = 0.15f;
+	this->m_scroll_speed = 0.15f;
 	
 	const std::string path_to_texture = PATH_TO_RESSOURCS"/Sprites/transparent.png";
 
@@ -37,7 +35,7 @@ void s2d::UIRealTimeEditorNavigator::update()
 	//Camera update (updating every frame)
 	this->m_ptr_gui_repo->camera.update();
 
-	if (*this->m_isAnyUIWindowHovered) return;
+	if (*this->m_is_any_ui_window_hovered) return;
 
 	this->navigateRightClick();
 	this->navigateArrows();
@@ -71,16 +69,16 @@ void s2d::UIRealTimeEditorNavigator::navigateScrollWheel()
 
 		if (this->m_ptr_event_engine->mouseWheel.x < 0)
 		{
-			if (this->m_ptr_gui_repo->camera.camera_zoom + this->m_scrollSpeed < 4)
+			if (this->m_ptr_gui_repo->camera.camera_zoom + this->m_scroll_speed < 4)
 			{
-				this->m_ptr_gui_repo->camera.camera_zoom += this->m_scrollSpeed;
+				this->m_ptr_gui_repo->camera.camera_zoom += this->m_scroll_speed;
 			}
 		}
 		else
 		{
-			if (this->m_ptr_gui_repo->camera.camera_zoom - this->m_scrollSpeed > 0.04)
+			if (this->m_ptr_gui_repo->camera.camera_zoom - this->m_scroll_speed > 0.04)
 			{
-				this->m_ptr_gui_repo->camera.camera_zoom -= this->m_scrollSpeed;
+				this->m_ptr_gui_repo->camera.camera_zoom -= this->m_scroll_speed;
 			}
 		}
 	}
@@ -88,23 +86,23 @@ void s2d::UIRealTimeEditorNavigator::navigateScrollWheel()
 
 void s2d::UIRealTimeEditorNavigator::calculateScrollWheelSpeed()
 {
-	sf::Vector2f size = this->m_ptr_gui_repo->camera.cameraView.getSize();
+	sf::Vector2f size = this->m_ptr_gui_repo->camera.camera_view.getSize();
 
 	if (size.x > 1500)
 	{
-		this->m_scrollSpeed = 0.006f;
+		this->m_scroll_speed = 0.006f;
 	}
 	else if (size.x > 1000)
 	{
-		this->m_scrollSpeed = 0.005f;
+		this->m_scroll_speed = 0.005f;
 	}
 	else if (size.x > 750)
 	{
-		this->m_scrollSpeed = 0.004f;
+		this->m_scroll_speed = 0.004f;
 	}
 	else
 	{
-		this->m_scrollSpeed = 0.0008f;
+		this->m_scroll_speed = 0.0008f;
 	}
 }
 
@@ -117,40 +115,43 @@ void s2d::UIRealTimeEditorNavigator::setChangedPosition()
 
 void s2d::UIRealTimeEditorNavigator::navigateArrows()
 {
+	const float camera_speed = this->m_ptr_gui_repo->camera.camera_speed;
 	if (s2d::Input::onKeyHold(s2d::KeyBoardCode::Right))
 	{
-		this->m_ptr_gui_repo->camera.transform.position.x += this->m_arrowSpeed * s2d::Time::s_delta_time;
+		this->m_ptr_gui_repo->camera.transform.position.x += camera_speed * s2d::Time::s_delta_time;
 	}
 	if (s2d::Input::onKeyHold(s2d::KeyBoardCode::Left))
 	{
-		this->m_ptr_gui_repo->camera.transform.position.x -= this->m_arrowSpeed * s2d::Time::s_delta_time;
+		this->m_ptr_gui_repo->camera.transform.position.x -= camera_speed * s2d::Time::s_delta_time;
 	}
 	if (s2d::Input::onKeyHold(s2d::KeyBoardCode::Up))
 	{
-		this->m_ptr_gui_repo->camera.transform.position.y -= this->m_arrowSpeed * s2d::Time::s_delta_time;
+		this->m_ptr_gui_repo->camera.transform.position.y -= camera_speed * s2d::Time::s_delta_time;
 	}
 	if (s2d::Input::onKeyHold(s2d::KeyBoardCode::Down))
 	{
-		this->m_ptr_gui_repo->camera.transform.position.y += this->m_arrowSpeed * s2d::Time::s_delta_time;
+		this->m_ptr_gui_repo->camera.transform.position.y += camera_speed * s2d::Time::s_delta_time;
 	}
 }
 
 void s2d::UIRealTimeEditorNavigator::navigateKeys()
 {
+	const float camera_speed = this->m_ptr_gui_repo->camera.camera_speed;
+
 	if (s2d::Input::onKeyHold(s2d::KeyBoardCode::D))
 	{
-		this->m_ptr_gui_repo->camera.transform.position.x += this->m_arrowSpeed * s2d::Time::s_delta_time;
+		this->m_ptr_gui_repo->camera.transform.position.x += camera_speed * s2d::Time::s_delta_time;
 	}
 	if (s2d::Input::onKeyHold(s2d::KeyBoardCode::A))
 	{
-		this->m_ptr_gui_repo->camera.transform.position.x -= this->m_arrowSpeed * s2d::Time::s_delta_time;
+		this->m_ptr_gui_repo->camera.transform.position.x -= camera_speed * s2d::Time::s_delta_time;
 	}
 	if (s2d::Input::onKeyHold(s2d::KeyBoardCode::W))
 	{
-		this->m_ptr_gui_repo->camera.transform.position.y -= this->m_arrowSpeed * s2d::Time::s_delta_time;
+		this->m_ptr_gui_repo->camera.transform.position.y -= camera_speed * s2d::Time::s_delta_time;
 	}
 	if (s2d::Input::onKeyHold(s2d::KeyBoardCode::S))
 	{
-		this->m_ptr_gui_repo->camera.transform.position.y += this->m_arrowSpeed * s2d::Time::s_delta_time;
+		this->m_ptr_gui_repo->camera.transform.position.y += camera_speed * s2d::Time::s_delta_time;
 	}
 }

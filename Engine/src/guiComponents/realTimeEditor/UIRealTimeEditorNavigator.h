@@ -18,10 +18,9 @@ namespace s2d
 		s2d::GUIRepository* m_ptr_gui_repo;
 		s2d::Transform m_cursor;
 
-		float m_arrowSpeed;
-		float m_scrollSpeed;
+		float m_scroll_speed;
 
-		bool* m_isAnyUIWindowHovered;
+		bool* m_is_any_ui_window_hovered;
 		sf::Event* m_ptr_event_engine;
 		sf::RenderWindow* m_ptr_renderWindow;
 

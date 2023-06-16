@@ -7,6 +7,7 @@ s2d::Camera::Camera()
 	this->ptr_renderWindow_to_engine = nullptr;
 	this->transform.position = Vector2(0, 0);
 	this->camera_zoom = 0.8f;
+	this->camera_speed = 2000.0f;
 }
 
 s2d::Camera::Camera(sf::RenderWindow* ptr)

@@ -145,7 +145,7 @@ void s2d::flc::createCameraSaveFile(const s2d::Camera& camera)
 
 		std::string line = std::to_string(camera.transform.position.x) + ";" +
 			std::to_string(camera.transform.position.y) + ";" +
-			std::to_string(camera.camera_zoom) + 
+			std::to_string(camera.camera_zoom) + ";" + 
 			std::to_string(camera.camera_speed);
 
 		backgroundFile << line << "\n";

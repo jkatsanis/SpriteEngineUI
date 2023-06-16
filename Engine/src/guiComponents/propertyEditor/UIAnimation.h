@@ -23,6 +23,7 @@ namespace s2d
 		UIAnimationEditor m_UIAnimationEditor;
 		std::string m_fileName;
 		s2d::FileDialog m_createAnimtionPathFileDialoge;
+		ImGuiTextFilter m_search_filter_animation;
 
 		uint8_t m_background_counter;
 		bool m_openFileDialog;
@@ -32,9 +33,9 @@ namespace s2d
 		void getFileNameInput();
 		void displayAnimations();
 		void addAnimationsToAnimator();
-		void displayTopOfEditor();
 		void enterAnimation(s2d::Animation& animation);
 		void drawBackgroundBehinAnimation();
+		void renderAnimationUIOptions();
 
 	public:
 		bool is_hovered;

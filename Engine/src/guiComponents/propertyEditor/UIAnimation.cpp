@@ -27,9 +27,17 @@ void s2d::UIAnimation::createUIAnimationWindow()
 	else
 	{
 		this->m_background_counter = START_CNT_BG;
-		ImGui::Begin("##Animations", NULL, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse);
+		ImGui::Begin("##Animations", NULL, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoScrollbar);
 
-		this->displayTopOfEditor();
+		s2d::UIInfo::s_is_animation_open.is_open = s2d::UI::renderCloseRectangle(
+			FOLDER_SPRITE_HIERARCHY_PADDING, ICON_FA_FILE_CODE, "##close-rectangle-animation", "Animation", 0);
+		this->renderAnimationUIOptions();
+
+		if (s2d::UIInfo::s_is_animation_open.reload)
+		{
+			s2d::UIInfo::s_is_animation_open.reload = false;
+			s2d::UI::setWindowScreenMiddle(WINDOW_SIZE_ANIMATION_CREATE);
+		}
 		this->getFileNameInput();
 		this->displayAnimations();
 		this->addAnimationsToAnimator();
@@ -48,11 +56,11 @@ void s2d::UIAnimation::setSpriteRepository(s2d::SpriteRepository& repo)
 	this->m_UIAnimationEditor.setSpriteRepository(repo);
 }
 
-//Private functions
+// Private functions
 
 void s2d::UIAnimation::getFileNameInput()
 {
-	//Open popup
+	// Open popup
 	if (s2d::FontManager::displaySmybolAsButton(ICON_FA_PLUS, s2d::UIInfo::s_default_font_size - 0.2f))
 	{
 		this->m_openFileDialog = true;
@@ -61,11 +69,8 @@ void s2d::UIAnimation::getFileNameInput()
 	}
 
 	ImGui::SameLine();
-	ImGui::SetCursorPosY(ImGui::GetCursorPosY() - 2);
-	ImGui::SetWindowFontScale(s2d::UIInfo::s_default_font_size - 0.2f);
-	ImGui::Text("Add animations");
-	ImGui::Separator();
-	ImGui::SetWindowFontScale(s2d::UIInfo::s_default_font_size);
+	ImGui::SetCursorPosY(ImGui::GetCursorPosY() - 3);
+	ImGui::Text("Add animation");
 
 	if (this->m_openFileDialog)
 	{
@@ -82,10 +87,11 @@ void s2d::UIAnimation::getFileNameInput()
 		return;
 	}
 
+	ImGui::SetNextWindowFocus();
 	if(ImGui::Begin("##CreateAnimtion", NULL, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse))
 	{
 		ImVec2 old = ImGui::GetCursorPos();
-		ImVec2 closeCursorPos = ImVec2(ImGui::GetCursorPosX() + 250, ImGui::GetCursorPosY() - 5);
+		ImVec2 closeCursorPos = ImVec2(WINDOW_SIZE_ANIMATION_CREATE.x- 50, ImGui::GetCursorPosY() - 5);
 		ImGui::SetCursorPos(closeCursorPos);
 
 		// Clicked at the "x", stop displaying the file dialoge
@@ -94,7 +100,6 @@ void s2d::UIAnimation::getFileNameInput()
 			this->m_openInputWindow = false;
 			this->m_openFileDialog = false;
 			this->m_animationFile[0] = '\0';
-			s2d::UIInfo::s_is_animation_open.is_open = false;
 			this->m_createAnimtionPathFileDialoge.disableWindow();
 		}
 		ImGui::SetCursorPos(old);
@@ -138,21 +143,6 @@ void s2d::UIAnimation::displayAnimations()
 	
 }
 
-void s2d::UIAnimation::displayTopOfEditor()
-{
-	ImGui::Text("Animations");
-	ImGui::SameLine();
-	ImGui::SetCursorPos(ImVec2(ImGui::GetCursorPosX() + 345 , ImGui::GetCursorPosY() - 10));
-
-	//Close button
-	if (ImGui::Button("x"))
-	{
-		s2d::UIInfo::s_is_animation_open.is_open = false;
-	}
-
-	ImGui::Separator();
-}
-
 void s2d::UIAnimation::enterAnimation(s2d::Animation& animation)
 {
 	this->m_UIAnimationEditor.setAnim(&animation);
@@ -173,6 +163,23 @@ void s2d::UIAnimation::drawBackgroundBehinAnimation()
 	ImGui::SetCursorPosY(ImGui::GetWindowPos().y + ImGui::GetCursorPosY() + 23);
 	s2d::UI::drawRectangleInGUIWIndow(ImVec2(WINDOW_SIZE_ANIMATION_CREATE.x, 24), ImGui::GetCursorPos(), COMPONENT_SELECTED_COLOR);
 	ImGui::SetCursorPos(temp);
+}
+
+void s2d::UIAnimation::renderAnimationUIOptions()
+{
+	ImGui::SetCursorPosY(ImGui::GetCursorPosY() - 5);
+	ImGui::SetCursorPosX(0);
+	ImGui::BeginChild("##animations-options-container", ImVec2(WINDOW_SIZE_ANIMATION_CREATE.x, 45));
+
+	ImGui::SetCursorPos(ImVec2(0, ImGui::GetCursorPosY() + 10));
+	ImGui::PushStyleVar(ImGuiStyleVar_FrameRounding, 7.0f); // Set rounding to 5 pixels
+	ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(5.0f, 3.0f)); // Add some padding for visual clarity
+	ImGui::SetNextItemWidth(150);
+	ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 50);
+	this->m_search_filter_animation.Draw("Search");
+	ImGui::PopStyleVar(2);
+
+	ImGui::EndChild();
 }
 
 void s2d::UIAnimation::addAnimationsToAnimator()
