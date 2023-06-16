@@ -6,7 +6,7 @@
 #include <engineComponents/stime.h>
 #include <spriteComponents/keyFrame.h>
 #include <manager/spriteRepository.h>
-#include <unordered_map>
+#include <map>
 #include <spriteComponents/component.h>
 
 #define EXIST_COMPONENT if (!this->exist) return
@@ -27,7 +27,7 @@ namespace s2d
 	public:
 		AnimationPlaying animationPlaying;
 		Sprite* ptr_attachedSprite;
-		std::unordered_map<std::string, Animation> animations;
+		std::map<std::string, Animation> animations;
 
 		Animator();
 		Animator(Sprite* ptr_attachedSprite);

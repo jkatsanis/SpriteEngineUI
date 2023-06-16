@@ -120,9 +120,15 @@ void s2d::UIAnimation::getFileNameInput()
 
 void s2d::UIAnimation::displayAnimations()
 {
-	ImGui::Dummy(ImVec2(0, 7)); 
+	ImGui::Dummy(ImVec2(0, 5)); 
 	for (auto& anim : this->m_ptr_repo->sprite_in_inspector->animator.animations)
 	{
+		const std::string& key = anim.first;
+
+		if (!this->m_search_filter_animation.PassFilter(key.c_str()))
+		{
+			continue;
+		}
 		this->drawBackgroundBehinAnimation();
 		if (ImGui::Selectable(anim.second.name.c_str(), false, ImGuiSelectableFlags_DontClosePopups,
 			ImVec2(ImGui::CalcTextSize(anim.second.name.c_str()).x, 0)))

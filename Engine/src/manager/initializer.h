@@ -16,7 +16,7 @@ namespace s2d
 	class Initializer
 	{
 	private:
-		static void initAnimation(const std::string& path, s2d::SpriteRepository& repo, uint32_t idx);
+		static void initAnimation(const std::string& path, s2d::SpriteRepository& repo, int32_t idx);
 	public:
 		Initializer() = delete;
 

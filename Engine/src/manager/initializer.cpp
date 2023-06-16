@@ -324,7 +324,7 @@ void s2d::Initializer::initIds(uint32_t& highestId)
 
 // private static functions
 
-void s2d::Initializer::initAnimation(const std::string& path, s2d::SpriteRepository& repo, uint32_t idx)
+void s2d::Initializer::initAnimation(const std::string& path, s2d::SpriteRepository& repo, int32_t idx)
 {
 	bool load_idx = (idx != -1);
 
@@ -357,7 +357,7 @@ void s2d::Initializer::initAnimation(const std::string& path, s2d::SpriteReposit
 				{
 					to_load = std::stoi(line);
 				}
-				ptr_sprite = repo.getSpriteWithId(idx);
+				ptr_sprite = repo.getSpriteWithId(to_load);
 				continue;
 			}
 			std::vector<std::string> propertys = std::splitString(line, DELIMITER);
