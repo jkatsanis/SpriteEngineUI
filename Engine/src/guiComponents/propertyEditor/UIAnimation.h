@@ -42,6 +42,7 @@ namespace s2d
 
 		UIAnimation();
 
+		void setEvent(sf::Event* event);
 		void createUIAnimationWindow();
 		void setSpriteRepository(s2d::SpriteRepository& repo);
 	};

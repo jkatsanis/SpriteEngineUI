@@ -53,7 +53,7 @@ void s2d::UIInspector::render()
 	ImGui::Begin("##sprite-inspector", NULL, DEFAULT_WINDOW_FLAGS);
 
 	// Close rectangle
-	s2d::UI::renderCloseRectangle(this->m_window_size.x - 300, ICON_FA_EDIT, "##inspector", "Inspector", 0);
+	s2d::UIInfo::s_is_inspector_open.is_open = s2d::UI::renderCloseRectangle(this->m_window_size.x - 300, ICON_FA_EDIT, "##inspector", "Inspector", 0);
 
 	// Left arrow
 	this->renderOptions();

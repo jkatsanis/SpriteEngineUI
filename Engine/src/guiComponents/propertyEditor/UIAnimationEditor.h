@@ -8,8 +8,6 @@
 #include <UIAnimationKeyFrameAdder.h>
 #include <guiComponents/colors.h>
 
-#define CURSOR_SPACE 50
-
 namespace s2d
 {
 	struct KeyFrameSelected
@@ -21,16 +19,28 @@ namespace s2d
 	class UIAnimationEditor
 	{
 	private:
+		const float MIN_CURSOR_SPACE = 2.0f;
+		const float MAX_CURSOR_SPACE = 10;
+		const float SMALL_INCREMENT = 0.5f;
+		const float LARGE_INCREMENT = 2;
+
+		sf::Event* m_ptr_event_engine;
+		float m_cursor_space;
 		int m_keyFramesToEdit;
 		s2d::SpriteRepository* m_ptr_repo;
 		s2d::UIAnimationKeyFrameAdder keyFrameAdder;
-
+		 
+		void renderTimeLineRealTimePoint();
+		void zoomEditorTimeLine();
 		void renderKeyFrames();
 		void addKeyFrame();
 		void beginWindow();
 		void closeWindow();
 		void editorTimeLine();
 		void displayKeyFrameInfo();
+		bool renderTextBasedOnScroll(size_t i);
+
+		bool displayTimeFrameBasedOnCursorSpace(size_t i_pos);
 
 		s2d::Animation* m_anim;
 		s2d::KeyFrameSelected m_keyFrameSelected;
@@ -39,6 +49,7 @@ namespace s2d
 		bool display;
 
 		void setAnim(s2d::Animation* anim);
+		void setEvent(sf::Event* event) { this->m_ptr_event_engine = event; }
 		void resetAnim();
 
 		UIAnimationEditor();

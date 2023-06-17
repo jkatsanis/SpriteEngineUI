@@ -29,6 +29,8 @@ namespace s2d
 		std::string name;
 		int current_frame;
 		float time_passed;
+		float total_time_passed;
+		float total_frame_passed;
 
 		bool is_playing;
 
@@ -51,6 +53,10 @@ namespace s2d
 		const std::string& getPathToFile() const { return this->m_path_to_file; }
 
 	    const std::string getEnginePathToFile() const;
+
+		float getAnimationTime() const;
+
+		float getTimeTillFrame(size_t frame);
 
 		/// <summary>
 		/// THIS METHOD DOES NOT SET THE KEYFRAME POSITION!!!

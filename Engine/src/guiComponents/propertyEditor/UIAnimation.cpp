@@ -12,6 +12,11 @@ s2d::UIAnimation::UIAnimation()
 
 //Public functions
 
+void s2d::UIAnimation::setEvent(sf::Event* event)
+{
+	this->m_UIAnimationEditor.setEvent(event);
+}
+
 void s2d::UIAnimation::createUIAnimationWindow()
 {
 	if (!s2d::UIInfo::s_is_animation_open.is_open)

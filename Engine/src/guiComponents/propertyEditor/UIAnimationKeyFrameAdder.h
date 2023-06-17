@@ -23,9 +23,9 @@ namespace s2d
 		char m_keyFramePathDataHolder[100];	// 100 is the path array size (string can only be 100 chars long!)
 
 	public:
-		bool isKeyFrameMenuOpen;
-		bool isHovered;
-		std::string keyFramePath;
+		bool is_key_frame_menu_open;
+		bool is_hovered;
+		std::string key_frame_path;
 
 		UIAnimationKeyFrameAdder();
 

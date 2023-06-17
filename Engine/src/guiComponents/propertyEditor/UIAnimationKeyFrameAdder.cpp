@@ -5,9 +5,9 @@
 s2d::UIAnimationKeyFrameAdder::UIAnimationKeyFrameAdder()
 {
 	this->m_key_frame_pos = 0;
-	this->isHovered = false;
-	this->keyFramePath = s2d::SpriteData::s_default_sprite_path;
-	this->isKeyFrameMenuOpen = false;
+	this->is_hovered = false;
+	this->key_frame_path = s2d::SpriteData::s_default_sprite_path;
+	this->is_key_frame_menu_open = false;
 }
 
 
@@ -25,7 +25,7 @@ void s2d::UIAnimationKeyFrameAdder::beginWindow()
 	//Close button -> it will destroy it (no new keyframe is added) 
 	if (ImGui::Button("x"))
 	{
-		this->isKeyFrameMenuOpen = false;
+		this->is_key_frame_menu_open = false;
 	}
 	ImGui::Spacing();
 	ImGui::Separator();
@@ -49,18 +49,18 @@ void s2d::UIAnimationKeyFrameAdder::inputData()
 
 	if (ImGui::IsItemHovered(ImGuiHoveredFlags_AllowWhenOverlapped) && ImGui::IsMouseReleased(0) && this->m_ptr_repo->asset_folder_data.drag_and_drop_path != " ")
 	{
-		this->keyFramePath = this->m_ptr_repo->asset_folder_data.drag_and_drop_path;
+		this->key_frame_path = this->m_ptr_repo->asset_folder_data.drag_and_drop_path;
 		strcpy_s(this->m_keyFramePathDataHolder, s2d::UIInspector::getNamePathSplit(this->m_ptr_repo->asset_folder_data.drag_and_drop_path).c_str());
 	}
 	else
 	{
-		strcpy_s(this->m_keyFramePathDataHolder, s2d::UIInspector::getNamePathSplit(this->keyFramePath.c_str()).c_str());
+		strcpy_s(this->m_keyFramePathDataHolder, s2d::UIInspector::getNamePathSplit(this->key_frame_path.c_str()).c_str());
 	}
 }
 
 void s2d::UIAnimationKeyFrameAdder::closeWindowAndSafeKeyFrame()
 {
-	this->isHovered = ImGui::IsWindowHovered(ImGuiHoveredFlags_AllowWhenBlockedByActiveItem | ImGuiHoveredFlags_AllowWhenBlockedByPopup);
+	this->is_hovered = ImGui::IsWindowHovered(ImGuiHoveredFlags_AllowWhenBlockedByActiveItem | ImGuiHoveredFlags_AllowWhenBlockedByPopup);
 
 	ImGui::SetCursorPosX(ImGui::GetCursorPosX() - 8);
 	if (ImGui::Button("Done"))
@@ -79,7 +79,7 @@ void s2d::UIAnimationKeyFrameAdder::addKeyFrameToAnimation()
 		std::cout << "LOG: [ERROR] Tried to add a keyframe at a invalid position!";
 		return;
 	}
-	if (std::getFileExtension(this->keyFramePath) != "png")
+	if (std::getFileExtension(this->key_frame_path) != "png")
 	{
 		std::cout << "LOG: [ERROR] Tried to add a invalid file type!";
 		return;
@@ -106,7 +106,7 @@ void s2d::UIAnimationKeyFrameAdder::addKeyFrameToAnimation()
 	if (this->m_key_frame_pos == 0 && ref.size() == 0
 		|| this->m_key_frame_pos == 0 && ref.size() != 0 && ref[0].position != 0)
 	{
-		s2d::KeyFrame add = s2d::KeyFrame(this->keyFramePath, 0);
+		s2d::KeyFrame add = s2d::KeyFrame(this->key_frame_path, 0);
 		add.position = this->m_key_frame_pos;
 
 		this->m_animation->addKeyFrameAt(0, add);
@@ -148,7 +148,7 @@ void s2d::UIAnimationKeyFrameAdder::addKeyFrameToAnimation()
 		ref[vecpos].delay = (this->m_key_frame_pos - delay) * -1;
 	}
 
-	s2d::KeyFrame add = s2d::KeyFrame(this->keyFramePath, fndelay);
+	s2d::KeyFrame add = s2d::KeyFrame(this->key_frame_path, fndelay);
 	add.position = this->m_key_frame_pos;
 
 	this->m_animation->addKeyFrameAt(vecpos, add);
@@ -176,8 +176,8 @@ void s2d::UIAnimationKeyFrameAdder::setAnimation(s2d::Animation* anim)
 void s2d::UIAnimationKeyFrameAdder::reset()
 {
 	this->m_key_frame_pos = -1;
-	this->keyFramePath = "";
+	this->key_frame_path = "";
 	this->m_animation = nullptr;
-	this->isKeyFrameMenuOpen = false;
-	this->isHovered = false;
+	this->is_key_frame_menu_open = false;
+	this->is_hovered = false;
 }

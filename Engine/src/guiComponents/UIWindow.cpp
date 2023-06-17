@@ -77,7 +77,7 @@ void s2d::UIWindow::update()
 	}
 }
 
-void s2d::UIWindow::init(s2d::SpriteRepository& repo, s2d::Event* evnt)
+void s2d::UIWindow::init(s2d::SpriteRepository& repo, s2d::Event* evnt, sf::Event* sf_event)
 {
 	this->m_ptr_repo = &repo;
 	this->ary_any_windows_hovered = false;
@@ -92,5 +92,7 @@ void s2d::UIWindow::init(s2d::SpriteRepository& repo, s2d::Event* evnt)
 	this->m_ui_hierarchy.setGUIRepo(&this->gui_repository);
 	this->m_ui_asset_folder.setGUIRepo(&this->gui_repository);
 	this->m_ui_tool_button.setGUIRepo(&this->gui_repository);
+
+	this->m_ui_animation.setEvent(sf_event);
 }
 

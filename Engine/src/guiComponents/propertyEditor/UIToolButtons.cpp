@@ -117,6 +117,7 @@ void s2d::UIToolButtons::renderWindowSelecter()
 		}
 		if (ImGui::MenuItem("Inspector"))
 		{
+			s2d::UIInfo::s_is_inspector_open.setOpen();
 		}
 		if (ImGui::MenuItem("Content Browser"))
 		{

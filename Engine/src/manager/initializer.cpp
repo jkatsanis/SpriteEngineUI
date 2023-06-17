@@ -289,7 +289,6 @@ void s2d::Initializer::initBackground(s2d::Vector3& vec)
 			vec.z = std::stof(propertys[2].c_str());
 		}
 		backgroundFile.close();
-
 	}
 }
 

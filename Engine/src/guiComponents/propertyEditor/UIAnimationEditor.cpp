@@ -5,12 +5,13 @@
 s2d::UIAnimationEditor::UIAnimationEditor()
 {
 	// 100 by default, will increase with the animation size
-	this->m_keyFramesToEdit = 100;
+	this->m_keyFramesToEdit = 10000;
 	this->keyFrameAdder = s2d::UIAnimationKeyFrameAdder();
 	this->m_anim = nullptr;
 	this->display = false;
 	this->m_keyFrameSelected.keyFrameSelected = nullptr;
 	this->is_hovered = false;
+	this->m_cursor_space = 30;
 }
 
 //Private methods
@@ -80,14 +81,45 @@ void s2d::UIAnimationEditor::editorTimeLine()
 
 	for (int i = 0; i <= this->m_keyFramesToEdit; i++)
 	{
-		ImGui::Text(std::to_string(i).c_str());
-
-		ImGui::SetCursorPos(ImVec2(100.0f + ((int)i + 1.0f) * CURSOR_SPACE, y));
+		if (this->displayTimeFrameBasedOnCursorSpace(i) && this->renderTextBasedOnScroll(i))
+		{
+			ImGui::Text(std::to_string(i).c_str());
+		}
+		ImGui::SetCursorPos(ImVec2(100.0f + ((int)i + 1.0f) * this->m_cursor_space, y));
 	}
-
 
 	this->renderKeyFrames();
 	this->displayKeyFrameInfo();
+}
+
+bool s2d::UIAnimationEditor::displayTimeFrameBasedOnCursorSpace(size_t i_pos)
+{
+	if (this->m_cursor_space >= 25)
+	{
+		return true;
+	}
+
+	if (i_pos % 5 == 0 && this->m_cursor_space <= 24 && this->m_cursor_space > MAX_CURSOR_SPACE)
+	{
+		return true;
+	}
+	if (i_pos % 10 == 0 && this->m_cursor_space <= MAX_CURSOR_SPACE && this->m_cursor_space > MAX_CURSOR_SPACE - SMALL_INCREMENT)
+	{
+		return true;
+	}
+	if (i_pos % 20 == 0 && this->m_cursor_space <= MAX_CURSOR_SPACE - SMALL_INCREMENT && this->m_cursor_space > MIN_CURSOR_SPACE)
+	{
+		return true;
+	}
+	if (i_pos % 50 == 0 && this->m_cursor_space <= MIN_CURSOR_SPACE && this->m_cursor_space > MIN_CURSOR_SPACE - SMALL_INCREMENT)
+	{
+		return true;
+	}
+	if (i_pos % 100 == 0 && this->m_cursor_space <= MIN_CURSOR_SPACE - SMALL_INCREMENT)
+	{
+		return true;
+	}
+	return false;
 }
 
 void s2d::UIAnimationEditor::displayKeyFrameInfo()
@@ -110,6 +142,94 @@ void s2d::UIAnimationEditor::displayKeyFrameInfo()
 	}
 }
 
+bool s2d::UIAnimationEditor::renderTextBasedOnScroll(size_t i)
+{
+	float minus = 50;
+	if (this->m_cursor_space > 20)
+	{
+		minus = 50;
+	}
+	else if (this->m_cursor_space > 10)
+	{
+		minus = 100;
+	}
+	else if(this->m_cursor_space > 5)
+	{
+		minus = 1000;
+	}
+	else
+	{
+		minus = 2000;
+	}
+
+	const float max = ImGui::GetScrollMaxX();
+    float scroll = ImGui::GetScrollX();
+	float divisor = max / this->m_keyFramesToEdit;
+
+	scroll /= divisor;
+
+	return i > scroll - minus && i < scroll + minus;
+}
+
+void s2d::UIAnimationEditor::renderTimeLineRealTimePoint()
+{
+	const ImVec2 cursor_pos = ImGui::GetCursorPos();
+	ImGui::SetCursorPosX(100);
+	const float y = ImGui::GetCursorPosY() + 5;
+	bool b = false;
+	std::cout << this->m_anim->total_time_passed << std::endl;
+	for (float i = 0; i < this->m_anim->total_time_passed * 100; i += 0.5f)
+	{	
+		ImGui::SetCursorPos(ImVec2(100 + ((int)i + 1.0f) * this->m_cursor_space, y));
+	}
+	ImGui::Text("|");
+
+	ImGui::SetCursorPos(cursor_pos);
+}
+
+void s2d::UIAnimationEditor::zoomEditorTimeLine()
+{
+	if (this->m_ptr_event_engine->type == sf::Event::MouseWheelScrolled)
+	{
+		this->m_ptr_event_engine->type = sf::Event::GainedFocus;
+
+		if (this->m_ptr_event_engine->mouseWheel.x < 0)
+		{
+			if (this->m_cursor_space == 0.5f)
+			{
+				return;
+			}
+			if (this->m_cursor_space <= MIN_CURSOR_SPACE)
+			{
+				this->m_cursor_space -= SMALL_INCREMENT;
+			}
+			else if (this->m_cursor_space <= MAX_CURSOR_SPACE)
+			{
+				this->m_cursor_space -= LARGE_INCREMENT;
+			}
+			else
+			{
+				this->m_cursor_space -= MAX_CURSOR_SPACE;
+			}
+		}
+		else
+		{
+			if (this->m_cursor_space < MIN_CURSOR_SPACE)
+			{
+				this->m_cursor_space += SMALL_INCREMENT;
+			}
+			else if (this->m_cursor_space < MAX_CURSOR_SPACE)
+			{
+				this->m_cursor_space += LARGE_INCREMENT;
+			}
+			else
+			{
+				this->m_cursor_space += MAX_CURSOR_SPACE;
+			}
+		}
+	}
+}
+
 void s2d::UIAnimationEditor::renderKeyFrames()
 {
 	const static float s_sizeTo0Frame = 100;
@@ -124,7 +244,7 @@ void s2d::UIAnimationEditor::renderKeyFrames()
 	ImGui::NewLine();
 	ImGui::SetCursorPos(ImVec2(s_sizeTo0Frame , y));
 
-	for (int i = 0; i < this->m_keyFramesToEdit; i++)
+	for (int i = 0; i <= this->m_anim->getAnimationTime(); i++)
 	{
 		if (cnt == frames.size())
 		{
@@ -155,7 +275,7 @@ void s2d::UIAnimationEditor::renderKeyFrames()
 		}
 		currentMs++;
 
-		ImGui::SetCursorPos(ImVec2(100.0f + ((int)i + 1.0f) * CURSOR_SPACE, y));
+		ImGui::SetCursorPos(ImVec2(100.0f + ((int)i + 1.0f) * this->m_cursor_space, y));
 	}
 	ImGui::NewLine();
 	ImGui::Dummy(ImVec2(0, 20));
@@ -168,12 +288,12 @@ void s2d::UIAnimationEditor::addKeyFrame()
 	{
 		if (this->m_ptr_repo->sprite_in_inspector != nullptr)
 		{
-			this->keyFrameAdder.keyFramePath = this->m_ptr_repo->sprite_in_inspector->sprite_renderer.path;
+			this->keyFrameAdder.key_frame_path = this->m_ptr_repo->sprite_in_inspector->sprite_renderer.path;
 		}
-		this->keyFrameAdder.isKeyFrameMenuOpen = true;
+		this->keyFrameAdder.is_key_frame_menu_open = true;
 		this->keyFrameAdder.setAnimation(this->m_anim);
 	}
-	this->is_hovered = (this->keyFrameAdder.isHovered) 
+	this->is_hovered = (this->keyFrameAdder.is_hovered) 
 		? true 
 		: ImGui::IsWindowHovered(ImGuiHoveredFlags_AllowWhenBlockedByActiveItem | ImGuiHoveredFlags_AllowWhenBlockedByPopup);
 	
@@ -183,12 +303,14 @@ void s2d::UIAnimationEditor::addKeyFrame()
 
 void s2d::UIAnimationEditor::displayEditor()
 {
+	this->zoomEditorTimeLine();
 	this->beginWindow();
+	this->renderTimeLineRealTimePoint();
 	this->editorTimeLine();
 	this->addKeyFrame();
 	this->closeWindow(); 
 
-	if (this->keyFrameAdder.isKeyFrameMenuOpen)
+	if (this->keyFrameAdder.is_key_frame_menu_open)
 	{
 		this->keyFrameAdder.update();
 	}

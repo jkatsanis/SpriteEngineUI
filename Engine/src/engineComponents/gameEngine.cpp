@@ -4,7 +4,7 @@
 
 s2d::GameEngine::GameEngine()
 {
-    this->m_ui_window.init(this->m_sprite_repository, &this->event);
+    this->m_ui_window.init(this->m_sprite_repository, &this->event, &this->windowEvent);
     this->m_close = false;
     this->ptr_render_window = new sf::RenderWindow(sf::VideoMode(1920, 1080), "SpriteEngine", sf::Style::Default);
     this->windowEvent.type = sf::Event::GainedFocus;
@@ -33,7 +33,6 @@ s2d::GameEngine::GameEngine()
     ImGui::SFML::Init(*this->ptr_render_window);
 
     this->ptr_render_window->setKeyRepeatEnabled(false);
-
     this->m_sprite_repository.isFullScreened = &this->m_isWindowFullScreen;
 
     s2d::flc::cleanUp(this->m_sprite_repository, false);
