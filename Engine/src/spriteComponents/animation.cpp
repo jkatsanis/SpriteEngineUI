@@ -45,14 +45,14 @@ s2d::Animation::Animation(Sprite* ptr_appliedSprite, const std::string& name, co
 
 void s2d::Animation::deleteKeyFrame(const int pos)
 {
-	int delay = 0;
+	float delay = 0;
 	for (int i = 0; i < this->m_keyframes.size(); i++)
 	{
 		delay += this->m_keyframes[i].delay;
 
 		if (delay == pos)
 		{
-			int delayAdd = this->m_keyframes[i].delay;
+			float delayAdd = this->m_keyframes[i].delay;
 
 			std::removeAt(this->m_keyframes, i);
 			std::removeAt(this->m_textures, i);
@@ -70,11 +70,12 @@ void s2d::Animation::deleteKeyFrame(const int pos)
 
 void s2d::Animation::play()
 {
+	this->m_base_path = this->ptr_applied_sprite->sprite_renderer.path;
+	this->time_passed = 0.0f;
 	this->total_frame_passed = 0;
 	this->total_time_passed = 0.0f;
 	this->current_frame = 0;
 	this->is_playing = true;
-	this->m_base_path = this->ptr_applied_sprite->sprite_renderer.path;
 }
 
 void s2d::Animation::update()
@@ -85,29 +86,29 @@ void s2d::Animation::update()
 	{
 		return;
 	}
-	if (this->time_passed >= this->m_keyframes[current_frame].delay / 100)
+	const float condition = this->m_keyframes[current_frame].delay / 100;
+	if (this->time_passed >= condition)
 	{
 		this->total_frame_passed++;
 		this->time_passed = 0;
 		this->ptr_applied_sprite->setSpriteTexture(this->m_textures[current_frame], this->m_keyframes[current_frame].path);
 		this->current_frame++;
 		if (this->current_frame == this->m_keyframes.size())
-		{
-			this->total_frame_passed = 0;
-			this->total_time_passed = 0;
-			this->current_frame = 0;
+		{		
+			this->stop();	
+			this->play();	
 		}
 	}
 }
 
 void s2d::Animation::stop()
 {
+	this->time_passed = 0.0f;
 	this->total_frame_passed = 0;
 	this->total_time_passed = 0.0f;
 	this->current_frame = -1;
 	this->ptr_applied_sprite->setSpriteTexture(this->m_base_path);
 	this->is_playing = false;
-	this->m_base_path = "";
 }
 
 s2d::KeyFrame& s2d::Animation::getKeyFrameAtMs(const float ms)

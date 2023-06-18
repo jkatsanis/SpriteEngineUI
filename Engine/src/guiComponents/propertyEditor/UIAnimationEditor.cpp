@@ -66,14 +66,14 @@ void s2d::UIAnimationEditor::editorTimeLine()
 	{
 		if (s2d::FontManager::displaySmybolAsButton(ICON_FA_PLAY))
 		{
-			this->m_anim->play();
+			this->m_anim->ptr_applied_sprite->animator.play(this->m_anim->name);
 		}
 	}
 	else
 	{
 		if (s2d::FontManager::displaySmybolAsButton(ICON_FA_SQUARE))
 		{
-			this->m_anim->stop();
+			this->m_anim->ptr_applied_sprite->animator.stop(this->m_anim->name);
 		}
 	}
 
@@ -177,7 +177,6 @@ void s2d::UIAnimationEditor::renderTimeLineRealTimePoint()
 	ImGui::SetCursorPosX(100);
 	const float y = ImGui::GetCursorPosY() + 5;
 	bool b = false;
-	std::cout << this->m_anim->total_time_passed << std::endl;
 	for (float i = 0; i < this->m_anim->total_time_passed * 100; i += 0.5f)
 	{	
 		ImGui::SetCursorPos(ImVec2(100 + ((int)i + 1.0f) * this->m_cursor_space, y));

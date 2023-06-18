@@ -361,7 +361,7 @@ void s2d::Initializer::initAnimation(const std::string& path, s2d::SpriteReposit
 			}
 			std::vector<std::string> propertys = std::splitString(line, DELIMITER);
 
-			frames.push_back(s2d::KeyFrame(s2d::EngineData::s_path_to_user_project + "\\" + propertys[1], atoi(propertys[0].c_str())));
+			frames.push_back(s2d::KeyFrame(s2d::EngineData::s_path_to_user_project + "\\" + propertys[1], std::stof(propertys[0].c_str())));
 		}
 
 	}

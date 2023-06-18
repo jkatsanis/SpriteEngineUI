@@ -85,7 +85,7 @@ void s2d::UIAnimationKeyFrameAdder::addKeyFrameToAnimation()
 		return;
 	}
 	
-	int delay = 0;
+	float delay = 0;
 	s2d::KeyFrame* changeAfter = nullptr;
 	std::vector<s2d::KeyFrame>& ref = this->m_animation->getKeyFrames();
 	int size = (int)ref.size();
@@ -94,7 +94,7 @@ void s2d::UIAnimationKeyFrameAdder::addKeyFrameToAnimation()
 
 	for (int i = 0; i < size; i++)
 	{
-		if (delay < m_key_frame_pos)
+		if (delay < this->m_key_frame_pos)
 		{
 			delay += ref[i].delay;
 			vecpos++;
@@ -126,15 +126,15 @@ void s2d::UIAnimationKeyFrameAdder::addKeyFrameToAnimation()
 		vecpos++;
 	}
 	
-	int fndelay = 0;
+	float fndelay = 0;
 	if (vecpos > 0 && this->m_key_frame_pos < delay)
 	{		
 		int before = vecpos - 1;
-		fndelay = this->m_key_frame_pos - ref[before].position;
+		fndelay = (float)this->m_key_frame_pos - ref[before].position;
 
 		if (vecpos == 1)
 		{
-			fndelay = this->m_key_frame_pos;
+			fndelay = (float)this->m_key_frame_pos;
 		}
 	}
 	else
@@ -144,7 +144,7 @@ void s2d::UIAnimationKeyFrameAdder::addKeyFrameToAnimation()
 
 	if (!invalid)
 	{
-		int rmDelay = ref[vecpos].delay - this->m_key_frame_pos;
+		float rmDelay = ref[vecpos].delay - this->m_key_frame_pos;
 		ref[vecpos].delay = (this->m_key_frame_pos - delay) * -1;
 	}
 
@@ -155,7 +155,7 @@ void s2d::UIAnimationKeyFrameAdder::addKeyFrameToAnimation()
 
 	if (ref[0].delay < 0)
 	{
-		ref[0].delay = ref[0].position;
+		ref[0].delay = (float)ref[0].position;
 	}
 }
 

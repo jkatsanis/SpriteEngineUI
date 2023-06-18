@@ -23,9 +23,10 @@ namespace s2d
 	class Animator : public s2d::Component
 	{
 	private:
+		AnimationPlaying m_animation_playing;
+
 		void init() override;
 	public:
-		AnimationPlaying animationPlaying;
 		Sprite* ptr_attachedSprite;
 		std::map<std::string, Animation> animations;
 

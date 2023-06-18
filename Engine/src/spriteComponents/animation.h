@@ -31,6 +31,7 @@ namespace s2d
 		float time_passed;
 		float total_time_passed;
 		float total_frame_passed;
+		bool loop;
 
 		bool is_playing;
 
