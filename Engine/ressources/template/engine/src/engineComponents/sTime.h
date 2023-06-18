@@ -14,7 +14,7 @@ namespace s2d
 	public:
 		static float fps;
 
-		static float deltaTime;
+		static float s_delta_time;
 		static sf::Clock deltaClock;
 		static float timePassed;
 

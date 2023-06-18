@@ -4,11 +4,11 @@ void s2d::Time::update()
 {
 	sf::Time dt = deltaClock.restart();
 
-	Time::deltaTime = dt.asSeconds();	
+	Time::s_delta_time = dt.asSeconds();	
 
 
 	if (m_secondCounter <= 1) {
-		m_secondCounter += deltaTime;
+		m_secondCounter += s_delta_time;
 		m_tempFps++;
 	}
 	else 
@@ -17,11 +17,11 @@ void s2d::Time::update()
 		m_secondCounter = 0;
 		m_tempFps = 0;
 	}
-	timePassed += deltaTime;
+	timePassed += s_delta_time;
 	//std::cout << fps << std::endl;
 }
 
-float s2d::Time::deltaTime = 0;
+float s2d::Time::s_delta_time = 0;
 sf::Clock s2d::Time::deltaClock;
 
 float s2d::Time::m_secondCounter = 0;

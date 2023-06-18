@@ -105,17 +105,16 @@ void s2d::Transform::setOrigin()
 
 void s2d::Transform::setScale(const s2d::Vector2& scale, bool b)
 {
-	sf::Vector2f orgn = this->m_attached_sprite->getSprite().getOrigin();
 	if (this->m_scale == scale && !b)
 	{
 		return;
 	}
 
 	this->setTextureSize(scale);
-	sf::IntRect textureRect = this->m_attached_sprite->getSprite().getTextureRect();
 
 	this->m_scale = scale;
 	this->m_attached_sprite->getSprite().setScale(scale.x, scale.y);
+	this->setOrigin();
 }
 
 void s2d::Transform::reset()

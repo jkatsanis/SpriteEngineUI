@@ -32,7 +32,7 @@ void s2d::Renderer::draw()
 
 void s2d::Renderer::drawSprites()
 {
-    this->m_timePassedToUpdateLayerIndex += s2d::Time::deltaTime;
+    this->m_timePassedToUpdateLayerIndex += s2d::Time::s_delta_time;
 
     //2s passed we can update out hightest layer index
     if (this->m_timePassedToUpdateLayerIndex > m_timeToUpdateLayerIndex)
@@ -41,9 +41,9 @@ void s2d::Renderer::drawSprites()
         this->m_timePassedToUpdateLayerIndex = 0;
     }
 
-    for (int i = 0; i < this->m_ptr_repo->getHighestLayerIndex() + 1; i++)
+    for (size_t i = 0; i < this->m_ptr_repo->getHighestLayerIndex() + 1; i++)
     {
-        for (int j = 0; j < this->m_ptr_repo->amount(); j++)
+        for (size_t j = 0; j < this->m_ptr_repo->amount(); j++)
         {
             s2d::Sprite* const sprite = this->m_ptr_repo->readAt(j);
             if (sprite->sprite_renderer.sorting_layer_index == i)

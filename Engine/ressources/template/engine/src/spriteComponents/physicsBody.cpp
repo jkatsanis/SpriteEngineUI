@@ -31,7 +31,7 @@ void s2d::PhsysicsBody::fixedUpdate()
 
 	//ALl Physic calcutions will happen here! -> calle from s2d::physics::update();
 
-    this->ptr_attachedSprite->transform.position += this->velocity * s2d::Time::deltaTime;
+    this->ptr_attachedSprite->transform.position += this->velocity * s2d::Time::s_delta_time;
 
     if (this->exists)
     {
@@ -41,7 +41,7 @@ void s2d::PhsysicsBody::fixedUpdate()
         }
         else
         {
-            this->velocity.y -= this->gravity * s2d::Time::deltaTime;
+            this->velocity.y -= this->gravity * s2d::Time::s_delta_time;
         }
     }
 }

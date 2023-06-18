@@ -118,10 +118,10 @@ void s2d::BoxCollider::checkCollisions(s2d::SpriteRepository& repo)
     {
         for (size_t j = i + 1; j < repo.amount(); j++)
         {
-            if (checkIAndJPCollisions(i, j, repo))
+            if (checkIAndJPCollisions((int)i, (int)j, repo))
             {
-                s2d::Sprite* iS = repo.readAt((size_t)i);
-                s2d::Sprite* jS = repo.readAt((size_t)j);
+                s2d::Sprite* iS = repo.readAt(i);
+                s2d::Sprite* jS = repo.readAt(j);
 
                 iS->collider.collidingSprite = jS;
                 jS->collider.collidingSprite = iS;

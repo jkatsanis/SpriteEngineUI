@@ -115,6 +115,14 @@ void s2d::SpriteRepository::updateHighestLayerIndex()
     }
 }
 
+void s2d::SpriteRepository::reloadTextures()
+{
+    for (size_t i = 0; i < this->m_sprites.size(); i++)
+    {
+        this->m_sprites[i]->setSpriteTexture(this->m_sprites[i]->sprite_renderer.path);
+    }
+}
+
 // Private functions
 
 size_t s2d::SpriteRepository::getIndexAtName(const std::string& name) const

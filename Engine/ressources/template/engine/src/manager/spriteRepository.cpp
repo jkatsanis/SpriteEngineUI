@@ -109,10 +109,10 @@ void s2d::SpriteRepository::renderSpriteInstant()
 
 void s2d::SpriteRepository::updateHighestLayerIndex()
 {
-    for (int i = 0; i < this->m_sprites.size(); i++)
+    for (size_t i = 0; i < this->m_sprites.size(); i++)
     {
         s2d::Sprite* const sprite = this->m_sprites[i];
-        if (sprite->sprite_renderer.sorting_layer_index > m_highestLayerIndex)
+        if ((uint32_t)sprite->sprite_renderer.sorting_layer_index > m_highestLayerIndex)
             m_highestLayerIndex = sprite->sprite_renderer.sorting_layer_index;
     }
 }

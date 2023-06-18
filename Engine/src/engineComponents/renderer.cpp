@@ -7,9 +7,7 @@ s2d::Renderer::Renderer()
     this->m_ptr_gui_repo = nullptr;
     this->m_ptr_sprite_repo = nullptr;
     this->m_timeToUpdateLayerIndex = 2;
-    this->m_timeToUpdateSpriteTexture = 1;
 
-    this->m_timePassedTillNextSpriteTextureUpdate = this->m_timeToUpdateSpriteTexture;
     this->m_timePassedToUpdateLayerIndex = this->m_timeToUpdateLayerIndex;
     this->m_timePassedToUpdateLayerIndex = 0;
     this->m_ptr_render_window = nullptr;
@@ -22,9 +20,7 @@ s2d::Renderer::Renderer(sf::RenderWindow* renderWindow, s2d::SpriteRepository& s
     this->m_ptr_render_window = renderWindow;
 
     this->m_timeToUpdateLayerIndex = 2;
-    this->m_timeToUpdateSpriteTexture = 1;
 
-    this->m_timePassedTillNextSpriteTextureUpdate = this->m_timeToUpdateSpriteTexture;
     this->m_timePassedToUpdateLayerIndex = this->m_timeToUpdateLayerIndex;
 
     this->m_ptr_gui_repo = &repo;
@@ -43,22 +39,13 @@ void s2d::Renderer::draw()
 void s2d::Renderer::drawSprites()
 {
     this->m_timePassedToUpdateLayerIndex += s2d::Time::s_delta_time;
-    this->m_timePassedTillNextSpriteTextureUpdate += s2d::Time::s_delta_time;
 
     //2s passed we can update out hightest layer index
-    if (this->m_timePassedToUpdateLayerIndex > m_timeToUpdateLayerIndex)
+    if (this->m_timePassedToUpdateLayerIndex > this->m_timeToUpdateLayerIndex)
     {
         this->m_ptr_gui_repo->updateHighestLayerIndex();
-        this->m_ptr_sprite_repo->updateHighestLayerIndex();
         this->m_timePassedToUpdateLayerIndex = 0;
     }
-#ifdef LOAD_TEXTURE_FROM_FILES
-    if (this->m_timePassedTillNextSpriteTextureUpdate > this->m_timeToUpdateSpriteTexture)
-    {
-        this->m_timePassedTillNextSpriteTextureUpdate = 0;
-        this->updateSriteTextures();
-    }
-#endif
     for (size_t i = 0; i < this->m_ptr_sprite_repo->getHighestLayerIndex() + 1; i++)
     {
         for (size_t j = 0; j < this->m_ptr_sprite_repo->amount(); j++)
@@ -84,15 +71,6 @@ void s2d::Renderer::drawLines()
 void s2d::Renderer::drawRectangles()
 {
     this->m_ptr_gui_repo->render(this->m_ptr_render_window);
-}
-
-void s2d::Renderer::updateSriteTextures()
-{
-    for (int i = 0; i < this->m_ptr_sprite_repo->amount(); i++)
-    {
-        s2d::Sprite* const sprite = this->m_ptr_sprite_repo->readAt(i);
-        sprite->setSpriteTexture(sprite->sprite_renderer.path);
-    }
 }
 
 // Public functions

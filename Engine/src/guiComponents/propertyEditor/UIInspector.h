@@ -78,6 +78,8 @@ namespace s2d
 		void afterInit();
 		void renderComponentOptions(s2d::Component& component, const std::string& name);
 		void editDupeName();
+		void generalSettings();
+
 
 	public:
 		bool is_hovered;

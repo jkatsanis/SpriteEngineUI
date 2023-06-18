@@ -58,7 +58,7 @@ void s2d::Animator::update()
 	EXIST;
 	for (auto& anim : this->animations)
 	{
-		if (anim.second.isPlaying)
+		if (anim.second.is_playing)
 			anim.second.update();
 	}
 }

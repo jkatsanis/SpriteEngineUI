@@ -142,6 +142,21 @@ void s2d::UIInspector::editDupeName()
 	}
 }
 
+void s2d::UIInspector::generalSettings()
+{
+	this->renderBackgroundBehindComponent();
+	if (ImGui::TreeNode("General"))
+	{
+		ImGui::Dummy(ImVec2(0, 16));
+
+		if (ImGui::Button("Reaload Textures"))
+		{
+			this->m_ptr_sprite_repo->reloadTextures();
+		}
+		ImGui::TreePop();
+	}
+}
+
 void s2d::UIInspector::drawRectangleOverCurrentObject()
 {
 	this->m_ptr_sprite_over_rectangle->render = true;
@@ -206,7 +221,6 @@ void s2d::UIInspector::resizeWindow()
 	}
 }
 
-
 void s2d::UIInspector::renderBackgroundBehindComponent()
 {
 	const ImVec2 temp = ImGui::GetCursorPos();
@@ -216,14 +230,15 @@ void s2d::UIInspector::renderBackgroundBehindComponent()
 	ImGui::SetCursorPos(temp);
 }
 
-#pragma region  defaultInspectorView
-
 void s2d::UIInspector::displayDefaultInspectorView()
 {
 	ImGui::Dummy(ImVec2(0, 15));
 	this->backgroundSetting();
 	DUMMY_COMPONENT;
 	this->gameEngineViewSetting();
+	DUMMY_COMPONENT;
+	this->generalSettings();
+
 
 	const ImVec2 temp = ImGui::GetCursorPos();
 	ImGui::SetCursorPosY(43.0f);
@@ -232,8 +247,6 @@ void s2d::UIInspector::displayDefaultInspectorView()
 	ImGui::Text("Game Window");
 
 	ImGui::SetCursorPos(temp);
-
-
 }
 
 void s2d::UIInspector::backgroundSetting()
@@ -246,7 +259,7 @@ void s2d::UIInspector::backgroundSetting()
 		ImVec2 cursorPs = ImGui::GetCursorPos();
 
 		ImVec4 clearColor = ImVec4(this->m_ptr_gui_repo->background_color.x / 255, this->m_ptr_gui_repo->background_color.y / 255, this->m_ptr_gui_repo->background_color.z / 255, 1.0f);
-		ImGui::ColorEdit3("Background-Color", (float*)&clearColor);
+		ImGui::ColorEdit3("##Background-Color", (float*)&clearColor);
 
 		this->m_ptr_gui_repo->background_color.x = clearColor.x * 255;
 		this->m_ptr_gui_repo->background_color.y = clearColor.y * 255;
@@ -303,8 +316,6 @@ void s2d::UIInspector::gameEngineViewSetting()
 		ImGui::TreePop();
 	}
 }
-
-#pragma endregion
 
 #pragma region Component displaayer
 

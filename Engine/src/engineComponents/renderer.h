@@ -8,18 +8,14 @@
 #include <manager/spriteRepository.h>
 #include <manager/guiRepository.h>
 
-// #define LOAD_TEXTURE_FROM_FILES
-
 namespace s2d
 {
 	class Renderer
 	{
 	private:
 	    float m_timePassedToUpdateLayerIndex;
-	    float m_timePassedTillNextSpriteTextureUpdate;
 
-		unsigned short  m_timeToUpdateLayerIndex;
-		unsigned short m_timeToUpdateSpriteTexture;
+		uint16_t m_timeToUpdateLayerIndex;
 
 		sf::RenderWindow* m_ptr_render_window;
 		s2d::SpriteRepository* m_ptr_sprite_repo;
@@ -30,7 +26,6 @@ namespace s2d
 		void drawLines();
 		void drawRectangles();
 		void drawSprites();
-		void updateSriteTextures();
 
 	public:
 		Renderer();

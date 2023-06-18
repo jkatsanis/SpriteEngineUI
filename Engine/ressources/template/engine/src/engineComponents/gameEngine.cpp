@@ -117,7 +117,7 @@ void s2d::GameEngine::update()
 	//Engine update
 	s2d::Time::update();
 
-	this->m_timePassed += s2d::Time::deltaTime;
+	this->m_timePassed += s2d::Time::s_delta_time;
 
 	//Renderer / Events
 	this->pollEvents();

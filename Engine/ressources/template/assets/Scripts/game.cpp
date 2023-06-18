@@ -9,20 +9,20 @@ void Game::update()
 {
 	if (s2d::Input::onKeyHold(s2d::KeyBoardCode::A))
 	{
-		this->m_ptr_ship->transform.position.x -= 800 * s2d::Time::deltaTime;
+		this->m_ptr_ship->transform.position.x -= 800 * s2d::Time::s_delta_time;
 	}
 
 	if (s2d::Input::onKeyHold(s2d::KeyBoardCode::D))
 	{
-		this->m_ptr_ship->transform.position.x += 800 * s2d::Time::deltaTime;
+		this->m_ptr_ship->transform.position.x += 800 * s2d::Time::s_delta_time;
 	}
 	if (s2d::Input::onKeyHold(s2d::KeyBoardCode::S))
 	{
-		this->m_ptr_ship->transform.position.y -= 800 * s2d::Time::deltaTime;
+		this->m_ptr_ship->transform.position.y -= 800 * s2d::Time::s_delta_time;
 	}
 	if (s2d::Input::onKeyHold(s2d::KeyBoardCode::W))
 	{
-		this->m_ptr_ship->transform.position.y += 800 * s2d::Time::deltaTime;
+		this->m_ptr_ship->transform.position.y += 800 * s2d::Time::s_delta_time;
 	}
 	if (s2d::Input::onKeyHold(s2d::KeyBoardCode::G))
 	{
@@ -32,6 +32,9 @@ void Game::update()
 	{
 		this->m_ptr_ship->transform.setRotation(0);
 	}
-
+	if (s2d::Input::onKeyPress(s2d::KeyBoardCode::O))
+	{
+		this->m_ptr_ship->animator.play("Hello");
+	}
 	s2d::GameObject::camera.transform.position = this->m_ptr_ship->transform.position;
 }
