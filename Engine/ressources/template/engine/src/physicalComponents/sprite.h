@@ -45,6 +45,7 @@ namespace s2d
 
 		Sprite();
 		Sprite(std::string name, s2d::Vector2 spawnPosition, std::string path);
+		Sprite(s2d::Sprite& rhs);
 		~Sprite();
 
 		//////////////////////////////////////
@@ -102,12 +103,6 @@ namespace s2d
 		/// </summary>
 		/// <returns>The position as a vector</returns>
 		s2d::Vector2 getOrigininalPosition();
-
-		/// <summary>
-		/// Renders the sprite instant to the screen when you create a 
-		/// 'new' sprite, do not use this functions if you don't have a reason to 
-		/// </summary>
-		void renderInstant();
 
 		/// <summary>
 		/// Gets the absulute parent

@@ -18,7 +18,7 @@ s2d::PhsysicsBody::PhsysicsBody(s2d::Sprite* ptr_attachedSprite)
 void s2d::PhsysicsBody::init()
 {
     this->ptr_attachedSprite = nullptr;
-    this->exist = false;
+    this->reset();
 }
 
 
@@ -29,6 +29,7 @@ void s2d::PhsysicsBody::reset()
 	this->exist = false;
 	this->mass = 0.0f;
 	this->velocity = s2d::Vector2(0.0f, 0.0f);
+    this->mass = 0.0f;
 	this->gravity = 0.0f;
 }
 

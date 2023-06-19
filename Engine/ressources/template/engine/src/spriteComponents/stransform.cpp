@@ -8,6 +8,7 @@ s2d::Transform::Transform()
 	this->m_attached_sprite = nullptr;
 	this->position = s2d::Vector2(0.0f, 0.0f);
 	this->position_changed = false;
+	this->m_rotation = 0;
 }
 
 s2d::Transform::Transform(s2d::Sprite* attachedSprite)
@@ -16,6 +17,7 @@ s2d::Transform::Transform(s2d::Sprite* attachedSprite)
 	this->position = s2d::Vector2(0.0f, 0.0f);
 	this->position_changed = false;
 	this->m_attached_sprite = attachedSprite;
+	this->m_rotation = 0;
 }
 
 // Public functions

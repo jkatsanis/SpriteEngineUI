@@ -34,9 +34,7 @@ void Game::update()
 	}
 	if (s2d::Input::onKeyPress(s2d::KeyBoardCode::O))
 	{
-		s2d::Sprite* prefab = s2d::PrefabRepositor::getPrefabByName("gigaPrfb");
-		prefab->transform.position.x = s2d::Time::s_delta_time;
+		s2d::Sprite* prefab = s2d::PrefabRepositor::getPrefabByName("ship");
 		this->config.ptr_sprites->add(prefab);
 	}
-	s2d::GameObject::camera.transform.position = this->m_ptr_ship->transform.position;
 }

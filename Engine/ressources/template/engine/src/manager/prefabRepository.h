@@ -11,6 +11,7 @@ namespace s2d
 	private:
 		static std::vector<s2d::Sprite*> s_prefabs;
 
+
 	public:		
 		/// <summary>
 		/// Gets the prefab

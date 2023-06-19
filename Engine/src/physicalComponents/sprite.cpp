@@ -197,16 +197,13 @@ void s2d::Sprite::initVariables(std::string& name, s2d::Vector2& spawnPos, std::
 
 	sf::Sprite sprite;
 
-	if (!this->m_texture->loadFromFile(path))
-	{
-		std::cout << "LOG [ERROR] Couldnt load texture from file!";
-	}
+	this->setSpriteTexture(path);
 
 	sprite.setTexture(*this->m_texture);
-	this->transform.setTextureSize(s2d::Vector2((float)this->m_texture->getSize().x, (float)this->m_texture->getSize().y));
 
 	//Finally setting the sprite
 	this->m_sprite = sprite;
+
 	this->collider = s2d::BoxCollider(this);
 	this->physicsBody = s2d::PhsysicsBody();
 	this->prefab = s2d::Prefab(this);

@@ -12,7 +12,12 @@ s2d::Sprite::Sprite()
 s2d::Sprite::Sprite(std::string name, s2d::Vector2 spawnPosition, std::string path)
 	: name(name)
 {
-	initVariables(name, spawnPosition, path);
+	this->initVariables(name, spawnPosition, path);
+}
+
+s2d::Sprite::Sprite(s2d::Sprite& rhs)
+{
+	this->initVariables(rhs.name, rhs.transform.position, rhs.sprite_renderer.path);
 }
 
 s2d::Sprite::~Sprite()
@@ -115,11 +120,6 @@ void s2d::Sprite::removeChild(const s2d::Sprite* child)
 	}
 }
 
-void s2d::Sprite::renderInstant()
-{
-	// TODO: 
-}
-
 //Private functions
 
 void s2d::Sprite::initVariables(std::string name, s2d::Vector2 spawnPos, std::string path)
@@ -132,24 +132,19 @@ void s2d::Sprite::initVariables(std::string name, s2d::Vector2 spawnPos, std::st
 	this->m_id = -1;
 	this->parent = nullptr;
 	this->ptr_childs = std::vector<s2d::Sprite*>(0);
-
 	this->name = name;
 	this->sprite_renderer.path = path;
 	this->transform.position = spawnPos;
 	this->transform.last_pos = s2d::Vector2(0, 0);
 	this->transform.next_pos = this->transform.position;
+
 	this->sprite_renderer.sorting_layer_index = 0;
 
 	sf::Sprite sprite;
 
-	if (!this->m_texture->loadFromFile(path))
-	{
-		std::cout << "LOG [ERROR] Could not load texture from path";
-	}
+	this->setSpriteTexture(path);
 
-	sprite.setTexture(*this->m_texture);
-
-	this->transform.setScale(this->transform.getScale());
+	sprite.setTexture(*this->m_texture);	
 
 	//Finally setting the sprite
 	this->m_sprite = sprite;
@@ -158,6 +153,8 @@ void s2d::Sprite::initVariables(std::string name, s2d::Vector2 spawnPos, std::st
 	this->collider = s2d::BoxCollider(this);
 	this->physicsBody = s2d::PhsysicsBody(this);
 	this->prefab = s2d::Prefab(this);
+
+	this->postInit();
 }
 
 //Static functions

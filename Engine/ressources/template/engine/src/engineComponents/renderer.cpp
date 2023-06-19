@@ -4,6 +4,7 @@
 
 s2d::Renderer::Renderer()
 {
+    this->m_ptr_repo = nullptr;
     this->m_timeToUpdateSpriteTexture = 0;
     this->m_timeToUpdateLayerIndex = 0;
     this->m_timePassedToUpdateLayerIndex = 0;
@@ -12,6 +13,8 @@ s2d::Renderer::Renderer()
 
 s2d::Renderer::Renderer(sf::RenderWindow* renderWindow)
 {
+    this->m_ptr_repo = nullptr;
+    this->m_last_repo_size = 0;
     this->m_timePassedToUpdateLayerIndex = 0;
     this->m_ptr_renderWindow = renderWindow;
 
@@ -35,11 +38,13 @@ void s2d::Renderer::drawSprites()
     this->m_timePassedToUpdateLayerIndex += s2d::Time::s_delta_time;
 
     //2s passed we can update out hightest layer index
-    if (this->m_timePassedToUpdateLayerIndex > m_timeToUpdateLayerIndex)
+    if (this->m_timePassedToUpdateLayerIndex > m_timeToUpdateLayerIndex
+        || this->m_last_repo_size != this->m_ptr_repo->amount())
     {
         this->m_ptr_repo->updateHighestLayerIndex();
         this->m_timePassedToUpdateLayerIndex = 0;
     }
+    this->m_last_repo_size = this->m_ptr_repo->amount();
 
     for (size_t i = 0; i < this->m_ptr_repo->getHighestLayerIndex() + 1; i++)
     {
