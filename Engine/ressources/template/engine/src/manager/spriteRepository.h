@@ -4,15 +4,21 @@
 #include <memory>
 #include <iostream>
 #include <calculationComponents/vector2.h>
+#include <string>
 
 namespace s2d
 {
+    struct AssetFolderData
+    {
+        std::string darg_and_drop_name;
+        std::string drag_and_drop_path;
+    };
     class Sprite;
     class SpriteRepository
     {
     private:
         std::vector<s2d::Sprite*> m_sprites;
-        uint32_t m_highestLayerIndex;
+        int32_t m_highestLayerIndex;
 
         size_t getIndexAtName(const std::string& name) const;
         void addChildsToDelete(std::vector<s2d::Sprite*>& childs, s2d::Sprite* parent);
@@ -26,6 +32,9 @@ namespace s2d
 
         uint32_t highestSpriteId;
 
+        AssetFolderData asset_folder_data;
+        bool* isFullScreened;
+
         SpriteRepository();
         ~SpriteRepository();
 
@@ -38,8 +47,12 @@ namespace s2d
         s2d::Sprite* getSpriteWithName(const std::string& name);
         s2d::Sprite* getSpriteWithId(int id);
 
-        void renderSpriteInstant();
         void updateHighestLayerIndex();
+        void reloadTextures();
+
+        static void getAllChilds(std::vector<const s2d::Sprite*>& childs, const s2d::Sprite* parent);
+        static s2d::Sprite* getWithId(std::vector<s2d::Sprite*>& collection, uint32_t id);
+        static void setValidIds(s2d::Sprite* parent, uint32_t highest);
 
         uint32_t getHighestLayerIndex() const { return this->m_highestLayerIndex; }
     };

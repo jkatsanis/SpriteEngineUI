@@ -2,6 +2,12 @@
 
 // public static functions
 
+void s2d::Initializer::loadPrefabsInMemory()
+{
+	std::vector<std::string> valid_prefab_names;
+	std::getFilePathWithExtensionInFolder("assets", EXTENSION_PREFAB_FILE, valid_prefab_names);
+}
+
 void s2d::Initializer::initAnimations(s2d::SpriteRepository& repo)
 {
 	//std::vector<s2d::AN
@@ -17,7 +23,7 @@ void s2d::Initializer::initAnimations(s2d::SpriteRepository& repo)
 		{
 			cnt++;
 			if (cnt == 1) continue;
-			s2d::Initializer::initAnimation(line, repo);
+			s2d::Initializer::initAnimation(line, repo, -1);
 		}
 
 		knownAnimationFileStream.close();
@@ -46,69 +52,12 @@ void s2d::Initializer::initSprites(s2d::SpriteRepository& spriteRepo)
 				continue;
 			}
 
-			//Splitting line
-			std::string delimiter = ";";
-			std::vector<std::string> propertys = std::splitString(line, delimiter);
-
 			//Creating empty sprite, then pushing it back
 			Sprite* sprite = new Sprite();
 
 			//INITIIALIZING PROPS
-
-			sprite->collider = s2d::BoxCollider(sprite);
-			sprite->animator = s2d::Animator(sprite);
-			sprite->transform = s2d::Transform(sprite);
-
-			sprite->name = propertys[0];
-			sprite->transform.position.x = std::stof(propertys[2].c_str());
-			sprite->transform.position.y = std::stof(propertys[3].c_str());
-
-			sprite->setSpriteTexture(propertys[6], s2d::Vector2(s2d::Vector2(std::stof(propertys[4].c_str()), std::stof(propertys[5].c_str()) )));
-
-			sprite->transform.setRotation(atoi(propertys[7].c_str()));
-
-# pragma region Collider
-			sprite->collider.box_collider_width.x = std::stof(propertys[8].c_str());
-			sprite->collider.box_collider_width.y = std::stof(propertys[9].c_str());
-
-			sprite->collider.box_collider_height.x = std::stof(propertys[10].c_str());
-			sprite->collider.box_collider_height.y = std::stof(propertys[11].c_str());
-			sprite->collider.exist = propertys[12] == "True";
-			sprite->collider.is_solid = propertys[13] == "True";
-
-#pragma endregion
-# pragma region Sorting Layer
-			sprite->sprite_renderer.sorting_layer_index = atoi(propertys[14].c_str());
-
-
-#pragma endregion
-# pragma region PhysicsBody
-			sprite->physicsBody.gravity = std::stof(propertys[15].c_str());
-			sprite->physicsBody.mass = std::stof(propertys[16].c_str());
-			sprite->physicsBody.exists = propertys[17] == "True";
-
-#pragma endregion
-# pragma region parentId, ID
-			sprite->setId(atoi(propertys[18].c_str()));
-			sprite->setParentId(atoi(propertys[19].c_str()));
-
-#pragma endregion
-# pragma region Last pos, next pos
-			sprite->transform.next_pos.x = std::stof(propertys[20]);
-			sprite->transform.next_pos.y = std::stof(propertys[21]);
-
-			sprite->transform.last_pos.x = std::stof(propertys[22]);
-			sprite->transform.last_pos.y = std::stof(propertys[23]);
-
-#pragma endregion
-
-# pragma region Position to parent x, and y
-			sprite->transform.position_to_parent.x = std::stof(propertys[26]);
-			sprite->transform.position_to_parent.y = std::stof(propertys[27]);
-
-			sprite->animator.exists = propertys[28] == "True";
-#pragma endregion
-
+			s2d::Initializer::initSprite(line, sprite);
+		
 			sprite->postInit();
 
 			//Pushing the sprite
@@ -163,8 +112,81 @@ void s2d::Initializer::initIds(uint32_t& highestId)
 
 // private static functions
 
-void s2d::Initializer::initAnimation(const std::string& path, s2d::SpriteRepository& spriteRepo)
+void s2d::Initializer::initPrefab(const std::string& path, s2d::SpriteRepository& repo)
 {
+	std::fstream stream = std::fstream(path);
+
+	if (stream.is_open())
+	{
+		s2d::Sprite* spr = new s2d::Sprite();
+		std::vector<s2d::Sprite*> mini_repo;
+		std::vector<std::string> paths_to_animations;
+		std::string line = "";
+		uint8_t cnt = 0;
+		while (getline(stream, line))
+		{
+			cnt++;
+			//First line is the header so we dont need to check for it
+			if (cnt == 1)
+			{
+				continue;
+			}
+			if (cnt == 2)
+			{
+				s2d::Initializer::initSprite(line, spr);
+			}
+
+			// 'a' stands for the starts with assets 
+			if (cnt > 2 && line[0] != 'a')
+			{
+				s2d::Sprite* child = new Sprite();
+				s2d::Initializer::initSprite(line, child);
+				mini_repo.push_back(child);
+			}
+			if (cnt > 2 && line[0] == 'a')
+			{
+				paths_to_animations.push_back(line);
+			}
+		}
+		spr->parent = nullptr;
+		spr->setParentId(-1);
+		mini_repo.push_back(spr);
+
+		for (int i = 0; i < mini_repo.size(); i++)
+		{
+			s2d::Sprite* const sprite = mini_repo[i];
+			if (sprite->getParentId() > 0)
+			{
+				s2d::Sprite* parent = s2d::SpriteRepository::getWithId(mini_repo, sprite->getParentId());
+				if (parent != nullptr)
+				{
+					sprite->parent = parent;
+					parent->ptr_childs.push_back(sprite);
+				}
+			}
+		}
+
+		uint32_t highest = repo.highestSpriteId;
+
+		for (size_t i = 0; i < mini_repo.size(); i++)
+		{
+			mini_repo[i]->sprite_renderer.sorting_layer_index = 0;
+			repo.add(mini_repo[i]);
+		}
+
+		s2d::SpriteRepository::setValidIds(spr, highest);
+
+		for (size_t i = 0; i < paths_to_animations.size(); i++)
+		{
+			s2d::Initializer::initAnimation(paths_to_animations[i], repo, spr->getId());
+		}
+	}
+}
+
+void s2d::Initializer::initAnimation(const std::string& path, s2d::SpriteRepository& repo,int32_t idx)
+{
+	bool load_idx = (idx != -1);
+
 	std::fstream animationFileStream;
 
 	animationFileStream.open(path);
@@ -188,9 +210,12 @@ void s2d::Initializer::initAnimation(const std::string& path, s2d::SpriteReposit
 			}
 			if (cnt == 2)
 			{
-				// read only the ID of the sprite to apply the animtion
-				int idx = std::stoi(line);
-				ptr_sprite = spriteRepo.getSpriteWithId(idx);
+				uint32_t to_load = idx;
+				if (!load_idx)
+				{
+					to_load = std::stoi(line);
+				}
+				ptr_sprite = repo.getSpriteWithId(to_load);
 				continue;
 			}
 			std::vector<std::string> propertys = std::splitString(line, DELIMITER);
@@ -205,4 +230,65 @@ void s2d::Initializer::initAnimation(const std::string& path, s2d::SpriteReposit
 	{
 		ptr_sprite->animator.createAnimation(animationName, path, frames);
 	}
+}
+
+void s2d::Initializer::initSprite(const std::string& line, s2d::Sprite* sprite)
+{
+	//Splitting line
+	std::string delimiter = ";";
+	std::vector<std::string> propertys = std::splitString(line, delimiter);
+
+	sprite->collider = s2d::BoxCollider(sprite);
+	sprite->animator = s2d::Animator(sprite);
+	sprite->transform = s2d::Transform(sprite);
+
+	sprite->name = propertys[0];
+	sprite->transform.position.x = std::stof(propertys[2].c_str());
+	sprite->transform.position.y = std::stof(propertys[3].c_str());
+
+	sprite->setSpriteTexture(propertys[6], s2d::Vector2(s2d::Vector2(std::stof(propertys[4].c_str()), std::stof(propertys[5].c_str()))));
+
+	sprite->transform.setRotation(atoi(propertys[7].c_str()));
+
+# pragma region Collider
+	sprite->collider.box_collider_width.x = std::stof(propertys[8].c_str());
+	sprite->collider.box_collider_width.y = std::stof(propertys[9].c_str());
+
+	sprite->collider.box_collider_height.x = std::stof(propertys[10].c_str());
+	sprite->collider.box_collider_height.y = std::stof(propertys[11].c_str());
+	sprite->collider.exist = propertys[12] == "True";
+	sprite->collider.is_solid = propertys[13] == "True";
+
+#pragma endregion
+# pragma region Sorting Layer
+	sprite->sprite_renderer.sorting_layer_index = atoi(propertys[14].c_str());
+
+
+#pragma endregion
+# pragma region PhysicsBody
+	sprite->physicsBody.gravity = std::stof(propertys[15].c_str());
+	sprite->physicsBody.mass = std::stof(propertys[16].c_str());
+	sprite->physicsBody.exists = propertys[17] == "True";
+
+#pragma endregion
+# pragma region parentId, ID
+	sprite->setId(atoi(propertys[18].c_str()));
+	sprite->setParentId(atoi(propertys[19].c_str()));
+
+#pragma endregion
+# pragma region Last pos, next pos
+	sprite->transform.next_pos.x = std::stof(propertys[20]);
+	sprite->transform.next_pos.y = std::stof(propertys[21]);
+
+	sprite->transform.last_pos.x = std::stof(propertys[22]);
+	sprite->transform.last_pos.y = std::stof(propertys[23]);
+
+#pragma endregion
+
+# pragma region Position to parent x, and y
+	sprite->transform.position_to_parent.x = std::stof(propertys[26]);
+	sprite->transform.position_to_parent.y = std::stof(propertys[27]);
+
+	sprite->animator.exists = propertys[28] == "True";
+#pragma endregion
 }

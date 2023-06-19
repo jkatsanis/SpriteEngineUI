@@ -141,8 +141,8 @@ void s2d::UIAnimation::displayAnimations()
 			this->enterAnimation(anim.second);
 		}
 
-		std::string s = "#" + anim.second.name;
-		std::string deleteButton = ICON_FA_TRASH "##" + anim.second.name;
+		const std::string s = "#" + anim.second.name;
+		const std::string deleteButton = ICON_FA_TRASH "##" + anim.second.name;
 
 		if (s2d::FontManager::displaySmybolAsButton(deleteButton.c_str(),
 			ImVec2(WINDOW_SIZE_ANIMATION_CREATE.x - 50, ImGui::GetCursorPosY() - 30)))

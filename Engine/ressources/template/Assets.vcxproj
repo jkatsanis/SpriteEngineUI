@@ -89,6 +89,7 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)engine\src\;$(SolutionDir)engine\src\include\;$(SolutionDir)assets\Scripts\;$(SolutionDir)engine\src\include\imgui</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -106,6 +107,7 @@
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)engine\src\;$(SolutionDir)engine\src\include\;$(SolutionDir)assets\Scripts\;$(SolutionDir)engine\src\include\imgui</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -123,6 +125,7 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)engine\src\;$(SolutionDir)engine\src\include\;$(SolutionDir)assets\Scripts\;$(SolutionDir)engine\src\include\imgui</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -140,6 +143,7 @@
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)engine\src\;$(SolutionDir)engine\src\include\;$(SolutionDir)assets\Scripts\;$(SolutionDir)engine\src\include\imgui</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -186,6 +190,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="assets\Scripts\features.h" />
+    <ClInclude Include="engine\src\include\stdExtension.h" />
     <ClInclude Include="engine\src\spriteComponents\component.h" />
     <ClInclude Include="engine\src\data\engineConfig.h" />
     <ClInclude Include="engine\src\spriteComponents\animation.h" />
@@ -226,6 +231,7 @@
     <ClInclude Include="engine\src\spriteComponents\keyFrame.h" />
     <ClInclude Include="engine\src\manager\spriteRepository.h" />
     <ClInclude Include="engine\src\spriteComponents\spriteRenderer.h" />
+    <ClInclude Include="engine\src\data\fileDataMacros.h" />
     <ClInclude Include="src\libraries\include\SFML\Audio.hpp" />
     <ClInclude Include="src\libraries\include\SFML\Audio\AlResource.hpp" />
     <ClInclude Include="src\libraries\include\SFML\Audio\Export.hpp" />

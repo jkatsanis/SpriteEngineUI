@@ -50,6 +50,10 @@ void s2d::UIAssetFolder::createAssetLinkerWindow()
             this->addPrefab();
             this->m_tools.update();
         }
+        else
+        {
+            this->m_to_hover_item_name = "";
+        }
         this->resizeWindow();
         this->render();
         ImGui::End();
@@ -234,7 +238,7 @@ void s2d::UIAssetFolder::renderFolderHierarchyRecursiv(const char* path, const c
             if (folder)
             {
                 const char* ch = newPath.c_str();
-                renderFolderHierarchyRecursiv(ch, str, false);
+                this->renderFolderHierarchyRecursiv(ch, str, false);
             }
         }
         ImGui::TreePop();

@@ -5,10 +5,14 @@
 
 s2d::SpriteRepository::SpriteRepository()
 {
+    this->asset_folder_data.darg_and_drop_name = " ";
+    this->asset_folder_data.drag_and_drop_path = " ";
     this->sprited_hovered_in_hierarchy = nullptr;
     this->sprite_in_inspector = nullptr;
     this->child_to_parent = nullptr;
     this->right_clicked_sprite = nullptr;
+    this->highestSpriteId = 0;
+    this->m_highestLayerIndex = 0;
 }
 
 s2d::SpriteRepository::~SpriteRepository()
@@ -91,20 +95,7 @@ s2d::Sprite* s2d::SpriteRepository::getSpriteWithName(const std::string& name)
 
 s2d::Sprite* s2d::SpriteRepository::getSpriteWithId(int id)
 {
-    for (int i = 0; i < this->m_sprites.size(); i++)
-    {
-        s2d::Sprite* const sprite = this->m_sprites[i];
-        if (sprite->getId() == id)
-        {
-            return sprite;
-        }
-    }
-    return nullptr;
-}
-
-void s2d::SpriteRepository::renderSpriteInstant()
-{
-    this->updateHighestLayerIndex();
+    return s2d::SpriteRepository::getWithId(this->m_sprites, id);
 }
 
 void s2d::SpriteRepository::updateHighestLayerIndex()
@@ -112,8 +103,16 @@ void s2d::SpriteRepository::updateHighestLayerIndex()
     for (size_t i = 0; i < this->m_sprites.size(); i++)
     {
         s2d::Sprite* const sprite = this->m_sprites[i];
-        if ((uint32_t)sprite->sprite_renderer.sorting_layer_index > m_highestLayerIndex)
+        if (sprite->sprite_renderer.sorting_layer_index > m_highestLayerIndex)
             m_highestLayerIndex = sprite->sprite_renderer.sorting_layer_index;
+    }
+}
+
+void s2d::SpriteRepository::reloadTextures()
+{
+    for (size_t i = 0; i < this->m_sprites.size(); i++)
+    {
+        this->m_sprites[i]->setSpriteTexture(this->m_sprites[i]->sprite_renderer.path);
     }
 }
 
@@ -151,5 +150,39 @@ void s2d::SpriteRepository::eraseWithId(uint8_t id)
             this->m_sprites.erase(this->m_sprites.begin() + i);
             return;
         }
+    }
+}
+
+// Static functions
+
+void s2d::SpriteRepository::getAllChilds(std::vector<const s2d::Sprite*>& childs, const s2d::Sprite* parent)
+{
+    for (size_t i = 0; i < parent->ptr_childs.size(); i++)
+    {
+        childs.push_back(parent->ptr_childs[i]);
+        getAllChilds(childs, parent->ptr_childs[i]);
+    }
+}
+
+s2d::Sprite* s2d::SpriteRepository::getWithId(std::vector<s2d::Sprite*>& collection, uint32_t id)
+{
+    for (uint32_t i = 0; i < collection.size(); i++)
+    {
+        s2d::Sprite* const sprite = collection[i];
+        if (sprite->getId() == id)
+        {
+            return sprite;
+        }
+    }
+    return nullptr;
+}
+
+void s2d::SpriteRepository::setValidIds(s2d::Sprite* parent, uint32_t highest)
+{
+    parent->setId(highest);
+    for (size_t i = 0; i < parent->ptr_childs.size(); i++)
+    {
+        parent->ptr_childs[i]->setParentId(highest);
+        setValidIds(parent->ptr_childs[i], highest + 1);
     }
 }

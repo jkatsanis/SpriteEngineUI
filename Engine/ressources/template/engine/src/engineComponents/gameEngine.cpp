@@ -156,6 +156,7 @@ void s2d::GameEngine::start()
 	s2d::Initializer::initIds(this->m_sprite_repository.highestSpriteId);
 	s2d::Initializer::initSprites(this->m_sprite_repository);
 	s2d::Initializer::initAnimations(this->m_sprite_repository);
+	s2d::Initializer::loadPrefabsInMemory();
 	s2d::Input::setEvent(&this->event);
 	s2d::FileData::setWindowBackground();
 

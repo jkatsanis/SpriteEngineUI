@@ -813,11 +813,11 @@
     <ClInclude Include="src\data\fileDataMacros.h">
       <Filter>src\guiComponents</Filter>
     </ClInclude>
-    <ClInclude Include="src\include\stdExtension.h">
-      <Filter>src\Include/headers</Filter>
-    </ClInclude>
     <ClInclude Include="src\guiComponents\UIModels.h">
       <Filter>src\Include/headers</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\stdExtension.h">
+      <Filter>src\Include/headers\__include</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -56,11 +56,11 @@ void s2d::Initializer::initPrefab(const std::string& path, s2d::SpriteRepository
 			}
 		}
 
-		uint32_t highest = repo.highestSpriteId + 1;
+		uint32_t highest = repo.highestSpriteId;
 
 		for (size_t i = 0; i < mini_repo.size(); i++)
 		{
-			mini_repo[i]->sprite_renderer.sorting_layer_index = 1;
+			mini_repo[i]->sprite_renderer.sorting_layer_index = 0;
 			repo.add(mini_repo[i]);
 		}
 

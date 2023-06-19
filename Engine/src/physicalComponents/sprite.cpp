@@ -182,10 +182,10 @@ void s2d::Sprite::initVariables(std::string& name, s2d::Vector2& spawnPos, std::
 
 	this->m_texture = new sf::Texture();
 	this->transform = s2d::Transform(this);
-	this->m_parent_id = 0;
 	this->parent = nullptr;
 	this->ptr_childs = std::vector<s2d::Sprite*>(0);
 	this->m_id = -1;
+	this->m_parent_id = -1;
 
 	this->name = name;
 	this->sprite_renderer.path = path;
