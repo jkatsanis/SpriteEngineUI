@@ -80,8 +80,7 @@ void s2d::Initializer::initSprites(s2d::SpriteRepository& spriteRepo)
 			s2d::Sprite* parent = spriteRepo.getSpriteWithId(sprite->getParentId());
 			if (parent != nullptr)
 			{
-				sprite->parent = parent;
-				parent->ptr_childs.push_back(sprite);
+				sprite->setParent(parent);
 			}
 		}
 	}
@@ -164,8 +163,7 @@ void s2d::Initializer::initPrefab(const std::string& path)
 				s2d::Sprite* parent = s2d::SpriteRepository::getWithId(mini_repo, sprite->getParentId());
 				if (parent != nullptr)
 				{
-					sprite->parent = parent;
-					parent->ptr_childs.push_back(sprite);
+					sprite->setParent(parent);
 				}
 			}
 		}

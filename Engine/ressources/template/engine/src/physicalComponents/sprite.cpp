@@ -114,6 +114,29 @@ void s2d::Sprite::clearParentData()
 	this->m_parent_id = 0;
 }
 
+void s2d::Sprite::setParent(s2d::Sprite* parent)
+{
+	if (parent == nullptr)
+	{
+		return;
+	}
+
+	// Clean up (Before) parent
+	if (this->parent != nullptr)
+	{
+		this->parent->removeChild(this);
+		this->parent = nullptr;
+	}
+	this->m_parent_id = parent->getId();
+	this->parent = parent;
+
+	s2d::Sprite* child = this;
+	s2d::Vector2 distance = s2d::Vector2(parent->transform.position - child->transform.position);
+	child->transform.position_to_parent = distance;
+
+	parent->ptr_childs.push_back(this);
+}
+
 void s2d::Sprite::removeChild(const s2d::Sprite* child)
 {
 	if (child == nullptr)

@@ -66,6 +66,8 @@ namespace s2d
 		//// USER FUNCTIONS 
 		/////////////////////////////////////
 
+		void setParent(s2d::Sprite* parent);
+
 		/// <summary>
 		/// Removes the child from the childs list
 		/// </summary>

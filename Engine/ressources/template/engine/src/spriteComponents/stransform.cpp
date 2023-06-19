@@ -22,6 +22,7 @@ s2d::Transform::Transform(s2d::Sprite* attachedSprite, s2d::Transform& transform
 	this->m_rotation = transform.m_rotation;
 	this->m_scale = transform.m_scale;
 	this->texture_size = transform.texture_size;
+	this->position_to_parent = transform.position_to_parent;
 }
 
 void s2d::Transform::init()

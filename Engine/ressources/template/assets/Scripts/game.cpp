@@ -44,6 +44,6 @@ void Game::update()
 	}
 
 	s2d::GameObject::camera.transform.position = this->m_ptr_ship->transform.position;
-	s2d::GameObject::camera.cameraZoom = 3;
+	s2d::GameObject::camera.cameraZoom = 2;
 
 }
