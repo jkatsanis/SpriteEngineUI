@@ -12,6 +12,7 @@
 #include <spriteComponents/animator.h>
 #include <manager/spriteRepository.h>
 #include <spriteComponents/spriteRenderer.h>
+#include <spriteComponents/prefab.h>
 
 #define INVALID_SPRITE_SYMBOLS 1
 
@@ -20,7 +21,7 @@ namespace s2d
 	class Sprite
 	{
 	private:
-		int m_parentId;
+		int m_parent_id;
 		sf::Sprite m_sprite;
 		sf::Texture* m_texture;
 		int m_id;
@@ -36,6 +37,7 @@ namespace s2d
 		s2d::PhsysicsBody physicsBody;
 		s2d::Transform transform;
 		s2d::Animator animator;
+		s2d::Prefab prefab;
 
 		//Parent / child infos
 		std::vector<s2d::Sprite*> ptr_childs;
@@ -51,19 +53,28 @@ namespace s2d
 
 		void validateProperties(int id, s2d::SpriteRepository& repo);
 		void postInit();
-		void setParentId(const int id) { this->m_parentId = id; }
+		void setParentId(const int id) { this->m_parent_id = id; }
 		void setId(const int id) { this->m_id = id; }
 		sf::Sprite& getSprite() { return this->m_sprite; }
 		sf::Texture& getTexture() { return *this->m_texture; }
+
+		void clearParentData();
+		void clearAllChilds() { this->ptr_childs.clear(); }
 
 		//////////////////////////////////////
 		//// USER FUNCTIONS 
 		/////////////////////////////////////
 
 		/// <summary>
+		/// Removes the child from the childs list
+		/// </summary>
+		/// <param name="child">Child</param>
+		void removeChild(const s2d::Sprite* child);
+
+		/// <summary>
 		/// Gets the id of the parent
 		/// </summary>
-		int getParentId() const { return this->m_parentId; }
+		int getParentId() const { return this->m_parent_id; }
 
 		/// <summary>
 		/// Sets the new texture of the sprite

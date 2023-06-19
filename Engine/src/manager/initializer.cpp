@@ -199,7 +199,7 @@ void s2d::Initializer::initSprite(const std::string& line, s2d::Sprite* sprite)
 	#pragma endregion
 
 	# pragma region Prefab
-		sprite->prefab.exists = propertys[29] == "True";
+		sprite->prefab.exist = propertys[29] == "True";
 		sprite->prefab.load_in_memory = propertys[30] == "True";
 		sprite->prefab.engine_path_to_file = propertys[31];
 		sprite->prefab.user_path_to_file = s2d::UI::getUserProjectPathSeperatetFromEnginePath(sprite->prefab.engine_path_to_file);

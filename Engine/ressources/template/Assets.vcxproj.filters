@@ -91,6 +91,9 @@
     <Filter Include="engine src\_header\_include\imgui">
       <UniqueIdentifier>{a310bcee-c8a2-444b-96c7-431a9d514a99}</UniqueIdentifier>
     </Filter>
+    <Filter Include="engine src\spriteComponents\prefab">
+      <UniqueIdentifier>{71b7b4eb-79ba-4b79-b4bd-09a481db91f1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="engine\src\spriteComponents\boxCollider.cpp">
@@ -188,6 +191,12 @@
     </ClCompile>
     <ClCompile Include="engine\src\spriteComponents\spriteRenderer.cpp">
       <Filter>engine src\spriteComponents\spriteRenderer</Filter>
+    </ClCompile>
+    <ClCompile Include="engine\src\spriteComponents\prefab.cpp">
+      <Filter>engine src\spriteComponents\prefab</Filter>
+    </ClCompile>
+    <ClCompile Include="engine\src\manager\prefabRepository.cpp">
+      <Filter>engine src\manager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -614,6 +623,12 @@
     </ClInclude>
     <ClInclude Include="engine\src\include\stdExtension.h">
       <Filter>engine src\_header</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\src\spriteComponents\prefab.h">
+      <Filter>engine src\spriteComponents\prefab</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\src\manager\prefabRepository.h">
+      <Filter>engine src\manager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -1,3 +1,2 @@
 name;absulutePathStr;date;relativePath
-OgaBoga;C:\Dev\OgaBoga;2023/19/06 06:24:23;..\..\OgaBoga
-template;C:\Dev\SpriteEngineUI\Engine\ressources\template;2023/19/06 07:05:52;ressources\template
+template;C:\Dev\C++\SpriteEngineUI\Engine\ressources\template;2023/19/06 14:01:07;ressources\template

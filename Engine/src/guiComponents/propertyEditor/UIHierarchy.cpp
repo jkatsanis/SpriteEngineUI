@@ -202,7 +202,7 @@ void s2d::UIHierarchy::setMenuitemHovered(bool& any_hovered, s2d::Sprite* sprite
 		this->setSelectedBackgroundColor(sprite, pop_style);
 
 		std::string name = sprite->name;
-		if (sprite->prefab.exists)
+		if (sprite->prefab.exist)
 		{
 			name += " (Prefab)";
 		}
@@ -404,7 +404,7 @@ void s2d::UIHierarchy::displaySpriteSeperated(s2d::Sprite* parent, bool& any_hov
 	if (parent->isParent())
 	{
 		std::string name = parent->name;
-		if (parent->prefab.exists)
+		if (parent->prefab.exist)
 		{
 			name += " (Prefab)";
 		}

@@ -1,5 +1,4 @@
 Hello
-35
-0.000000;assets\asteroid - Kopie.png
-50.000000;assets\asteroid.png
-50.000000;assets\asteroid.png
+36
+100.000000;assets\asteroid.png
+100.000000;assets\asteroid - Kopie.png

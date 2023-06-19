@@ -1,15 +1,17 @@
 #pragma once
 
+#include <spriteComponents/component.h>
+
 #include <iostream>
 
 namespace s2d
 {
 	class Sprite;
-	class Prefab 
+	class Prefab : public s2d::Component
 	{
 	private:
 		s2d::Sprite* m_ptr_attachedSprite;
-		void init();
+		void init() override;
 	public:
 
 		/// <summary>
@@ -32,7 +34,6 @@ namespace s2d
 
 		std::string file_name;
 
-		bool exists;
 		bool load_in_memory;
 
 		Prefab();
@@ -41,7 +42,7 @@ namespace s2d
 		/// <summary>
 		/// Resets the data and deletes the FILE!
 		/// </summary>
-		void resetPrefab();
+		void reset() override;
 
 		/// <summary>
 		/// Always needs to getupdated when changes are made in the editor or booleans are getting changed

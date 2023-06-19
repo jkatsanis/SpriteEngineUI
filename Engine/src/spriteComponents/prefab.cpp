@@ -18,17 +18,17 @@ s2d::Prefab::Prefab(s2d::Sprite* m_attached)
 void s2d::Prefab::init()
 {
 	this->m_ptr_attachedSprite = nullptr;
-	this->exists = false;
+	this->exist = false;
 	this->load_in_memory = false;
 }
 
 // Public functions
 
-void s2d::Prefab::resetPrefab()
+void s2d::Prefab::reset()
 {
 	//TODO: delete file 
 
-	this->exists = false;
+	this->exist = false;
 	this->engine_path_to_file = "";
 	this->file_name = "";
 	this->load_in_memory = false;
@@ -51,14 +51,14 @@ void s2d::Prefab::updateFile()
 	newPath += this->m_ptr_attachedSprite->name + EXTENSION_PREFAB_FILE;
 
 	this->engine_path_to_file = newPath;
-	this->exists = true;
+	this->exist = true;
 	s2d::flc::createOrUpdatePrefabFile(this->m_ptr_attachedSprite, newPath, this->path_to_old_file);
 	this->updateProps(newPath, s2d::UI::getUserProjectPathSeperatetFromEnginePath(newPath), newPath, this->m_ptr_attachedSprite->name + EXTENSION_PREFAB_FILE);
 }
 
 void s2d::Prefab::updateProps(const std::string& enginePath, const std::string& userPath, const std::string& pathToOldFile, const std::string fileName)
 {
-	this->exists = true;
+	this->exist = true;
 	this->user_path_to_file = userPath;
 	this->engine_path_to_file = enginePath;
 	this->file_name = fileName;

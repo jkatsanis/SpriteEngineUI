@@ -4,6 +4,8 @@
 #include <spriteComponents/animator.h>
 #include <physicalComponents/sprite.h>
 #include <data/fileDataMacros.h>
+#include <manager/prefabRepository.h>
+
 #include <string>
 #include <fstream>
 
@@ -12,8 +14,10 @@ namespace s2d
 	class Initializer
 	{
 	private:
-		static void initPrefab(const std::string& path, s2d::SpriteRepository& repo);
-		static void initAnimation(const std::string& path, s2d::SpriteRepository& repo, int32_t idx);
+		static void initPrefab(const std::string& path);
+		static void initAnimation(const std::string& path, s2d::SpriteRepository& repo);
+		static void initAnimation(const std::string& path, s2d::Sprite* spr);
+
 	public:
 		Initializer() = delete;
 		static void initAnimations(SpriteRepository& repo);

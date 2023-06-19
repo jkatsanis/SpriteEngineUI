@@ -3,23 +3,30 @@
 
 //Constructor
 
+
 s2d::PhsysicsBody::PhsysicsBody()
-	: exists(false), gravity(0.0f), mass(0.0f)
 {
-	this->velocity = s2d::Vector2(0, 0);
+    this->init();
 }
 
 s2d::PhsysicsBody::PhsysicsBody(s2d::Sprite* ptr_attachedSprite)
-    : ptr_attachedSprite(ptr_attachedSprite), exists(false), gravity(0.0f), mass(0.0f)
 {
-
+    this->init();
+    this->ptr_attachedSprite = ptr_attachedSprite;
 }
+
+void s2d::PhsysicsBody::init()
+{
+    this->ptr_attachedSprite = nullptr;
+    this->exist = false;
+}
+
 
 //Public functions
 
-void s2d::PhsysicsBody::resetPhysicsBody()
+void s2d::PhsysicsBody::reset()
 {
-	this->exists = false;
+	this->exist = false;
 	this->mass = 0.0f;
 	this->velocity = s2d::Vector2(0.0f, 0.0f);
 	this->gravity = 0.0f;
@@ -27,13 +34,13 @@ void s2d::PhsysicsBody::resetPhysicsBody()
 
 void s2d::PhsysicsBody::fixedUpdate()
 {
-    if (!this->exists || this->ptr_attachedSprite == nullptr || this->gravity == 0) return;
+    if (!this->exist || this->ptr_attachedSprite == nullptr || this->gravity == 0) return;
 
 	//ALl Physic calcutions will happen here! -> calle from s2d::physics::update();
 
     this->ptr_attachedSprite->transform.position += this->velocity * s2d::Time::s_delta_time;
 
-    if (this->exists)
+    if (this->exist)
     {
         if (this->ptr_attachedSprite->collider.isInCollision() && this->ptr_attachedSprite->collider.position_data.isEqual(s2d::BoxColliderPositionData::Down))
         {

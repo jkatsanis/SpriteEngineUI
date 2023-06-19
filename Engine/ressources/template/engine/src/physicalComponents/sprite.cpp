@@ -17,7 +17,11 @@ s2d::Sprite::Sprite(std::string name, s2d::Vector2 spawnPosition, std::string pa
 
 s2d::Sprite::~Sprite()
 {
+	this->clearAllChilds();
+	this->clearParentData();
+
 	delete this->m_texture;
+	this->m_texture = nullptr;
 }
 
 //Public functions
@@ -65,25 +69,17 @@ s2d::Vector2 s2d::Sprite::getOrigininalPosition()
 
 void s2d::Sprite::validateProperties(int id, s2d::SpriteRepository& repo)
 {
-	const char CHAR_INVALID_SYMBOLS[INVALID_SPRITE_SYMBOLS] = { ';' };
-	// VALIDATE NAME
+	if (this->m_id == -1)
+	{
+		this->m_id = id;
+	}
+
 	for (int i = 0; i < repo.amount(); i++)
 	{
 		s2d::Sprite* const sprite = repo.readAt(i);
 		if (this->name == sprite->name)
 		{
-			name = name + " (dupe) " + std::to_string(i);
-			std::cout << "LOG [ERROR] Cant have duped name renamed sprite!";
-		}
-	}
-	std::string original_name = name;
-
-	for (int i = 0; i < INVALID_SPRITE_SYMBOLS; i++)
-	{
-		name.erase(std::remove(name.begin(), name.end(), ':'), name.end());
-		if (name != original_name)
-		{
-			std::cout << "LOG [ERROR] Cant have invalid symbol!";
+			name = name + " (D) " + std::to_string(i);
 		}
 	}
 }
@@ -91,6 +87,32 @@ void s2d::Sprite::validateProperties(int id, s2d::SpriteRepository& repo)
 void s2d::Sprite::postInit()
 {
 	this->transform.setOrigin();
+}
+
+void s2d::Sprite::clearParentData()
+{
+	if (this->parent != nullptr)
+	{
+		this->parent->removeChild(this);
+		this->parent = nullptr;
+	}
+	this->m_parent_id = 0;
+}
+
+void s2d::Sprite::removeChild(const s2d::Sprite* child)
+{
+	if (child == nullptr)
+	{
+		return;
+	}
+	for (size_t i = 0; i < this->ptr_childs.size(); i++)
+	{
+		if (child->getId() == this->ptr_childs[i]->getId())
+		{
+			this->ptr_childs.erase(this->ptr_childs.begin() + i);
+			return;
+		}
+	}
 }
 
 void s2d::Sprite::renderInstant()
@@ -106,8 +128,8 @@ void s2d::Sprite::initVariables(std::string name, s2d::Vector2 spawnPos, std::st
 
 	this->m_texture = new sf::Texture();
 	this->transform = s2d::Transform(this);
-	this->m_parentId = -1;
-
+	this->m_parent_id = -1;
+	this->m_id = -1;
 	this->parent = nullptr;
 	this->ptr_childs = std::vector<s2d::Sprite*>(0);
 
@@ -134,7 +156,8 @@ void s2d::Sprite::initVariables(std::string name, s2d::Vector2 spawnPos, std::st
 
 	this->animator = s2d::Animator(this);
 	this->collider = s2d::BoxCollider(this);
-	this->physicsBody = s2d::PhsysicsBody();
+	this->physicsBody = s2d::PhsysicsBody(this);
+	this->prefab = s2d::Prefab(this);
 }
 
 //Static functions

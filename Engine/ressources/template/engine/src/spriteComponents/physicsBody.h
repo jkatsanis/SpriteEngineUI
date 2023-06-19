@@ -2,17 +2,19 @@
 
 #include <calculationComponents/vector2.h>
 #include <engineComponents/sTime.h>
+#include <spriteComponents/component.h>
 
 namespace s2d
 {
 	class Sprite;
-	class PhsysicsBody
+	class PhsysicsBody : public s2d::Component
 	{
-	public:
+	private:
+		void init() override;
 
+	public:
 		float mass;
 		float gravity;
-		bool exists;
 		s2d::Vector2 velocity;
 
 		s2d::Sprite* ptr_attachedSprite;
@@ -20,7 +22,7 @@ namespace s2d
 		PhsysicsBody();
 		PhsysicsBody(s2d::Sprite* ptr_attachedSprite);
 
-		void resetPhysicsBody();
+		void reset() override;
 
 		void fixedUpdate();
 	};

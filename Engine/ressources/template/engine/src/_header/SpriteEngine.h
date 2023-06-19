@@ -5,4 +5,6 @@
 #include <engineComponents/base.h>
 #include <engineComponents/input.h>
 #include <data/engineConfig.h>
+#include <manager/prefabRepository.h>
+
 #include <imgui.h>

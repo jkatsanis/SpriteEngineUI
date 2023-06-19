@@ -338,7 +338,7 @@ void s2d::UIInspector::setCompontents()
 	}
 	if (this->m_current_component_selected == "Prefab")
 	{
-		this->m_ptr_sprite_repo->sprite_in_inspector->prefab.exists = true;
+		this->m_ptr_sprite_repo->sprite_in_inspector->prefab.exist = true;
 		this->m_current_component_selected = " ";
 	}
 }
@@ -423,7 +423,7 @@ void s2d::UIInspector::setupComponents()
 	}
 
 	// Prefab
-	if (this->m_ptr_sprite_repo->sprite_in_inspector->prefab.exists
+	if (this->m_ptr_sprite_repo->sprite_in_inspector->prefab.exist
 		&& this->m_search_component_filter.PassFilter(this->m_components[3]))
 	{
 		this->prefabComponent();

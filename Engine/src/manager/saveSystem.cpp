@@ -74,7 +74,7 @@ std::string s2d::flc::getPropertyLineWithSeperator(const Sprite* const sprite)
 
 	const std::string animatorExist = std::boolToStr(sprite->animator.exist);
 
-	const std::string prefabExist = std::boolToStr(sprite->prefab.exists);
+	const std::string prefabExist = std::boolToStr(sprite->prefab.exist);
 	const std::string loadInMemory = std::boolToStr(sprite->prefab.load_in_memory);
 	const std::string pathToPrefab = sprite->prefab.engine_path_to_file;
 	const std::string rotation = std::to_string(sprite->transform.getRotation());
@@ -535,7 +535,7 @@ void s2d::flc::cleanUp(s2d::SpriteRepository& repo, bool save_sprites)
 
 		if (!std::isEqualWithAny(engine_name, valid_prefab_names))
 		{
-			repo.readAt(i)->prefab.resetPrefab();
+			repo.readAt(i)->prefab.reset();
 		}
 	}
 

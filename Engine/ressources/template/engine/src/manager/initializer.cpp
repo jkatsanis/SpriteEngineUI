@@ -4,13 +4,17 @@
 
 void s2d::Initializer::loadPrefabsInMemory()
 {
-	std::vector<std::string> valid_prefab_names;
-	std::getFilePathWithExtensionInFolder("assets", EXTENSION_PREFAB_FILE, valid_prefab_names);
+	std::vector<std::string> prefab_paths;
+	std::getFilePathWithExtensionInFolder("assets", EXTENSION_PREFAB_FILE, prefab_paths);
+
+	for (size_t i = 0; i < prefab_paths.size(); i++)
+	{
+		s2d::Initializer::initPrefab(prefab_paths[i]);
+	}
 }
 
 void s2d::Initializer::initAnimations(s2d::SpriteRepository& repo)
 {
-	//std::vector<s2d::AN
 	std::fstream knownAnimationFileStream;
 
 	knownAnimationFileStream.open(PATH_TO_KNOWN_ANIMATIONS);
@@ -23,7 +27,7 @@ void s2d::Initializer::initAnimations(s2d::SpriteRepository& repo)
 		{
 			cnt++;
 			if (cnt == 1) continue;
-			s2d::Initializer::initAnimation(line, repo, -1);
+			s2d::Initializer::initAnimation(line, repo);
 		}
 
 		knownAnimationFileStream.close();
@@ -112,7 +116,7 @@ void s2d::Initializer::initIds(uint32_t& highestId)
 
 // private static functions
 
-void s2d::Initializer::initPrefab(const std::string& path, s2d::SpriteRepository& repo)
+void s2d::Initializer::initPrefab(const std::string& path)
 {
 	std::fstream stream = std::fstream(path);
 
@@ -166,32 +170,66 @@ void s2d::Initializer::initPrefab(const std::string& path, s2d::SpriteRepository
 			}
 		}
 
-		uint32_t highest = repo.highestSpriteId;
-
-		for (size_t i = 0; i < mini_repo.size(); i++)
-		{
-			mini_repo[i]->sprite_renderer.sorting_layer_index = 0;
-			repo.add(mini_repo[i]);
-		}
-
-		s2d::SpriteRepository::setValidIds(spr, highest);
-
 		for (size_t i = 0; i < paths_to_animations.size(); i++)
 		{
-			s2d::Initializer::initAnimation(paths_to_animations[i], repo, spr->getId());
+			s2d::SpriteRepository repo;
+
+			s2d::Initializer::initAnimation(paths_to_animations[i], spr);
 		}
+
+		spr->setId(-1);
+
+		if (spr->prefab.load_in_memory)
+		{
+			s2d::PrefabRepositor::addPrefab(spr);
+		}
+		else
+		{
+			delete spr;
+			spr = nullptr;
+		}	
 	}
 }
 
-void s2d::Initializer::initAnimation(const std::string& path, s2d::SpriteRepository& repo,int32_t idx)
+void s2d::Initializer::initAnimation(const std::string& path, s2d::SpriteRepository& repo)
 {
-	bool load_idx = (idx != -1);
+	std::fstream animationFileStream;
+	animationFileStream.open(path);
+	s2d::Sprite* ptr_sprite = nullptr;
 
+	if (animationFileStream.is_open())
+	{
+		std::string line;
+		int cnt = 0;
+		while (std::getline(animationFileStream, line))
+		{
+			cnt++;
+			if (cnt == 1)
+			{
+				continue;
+			}
+			if (cnt == 2)
+			{
+				uint32_t idx = std::stoi(line);
+				ptr_sprite = repo.getSpriteWithId(idx);
+				break;
+			}
+		}
+		animationFileStream.close();
+	}
+	if (ptr_sprite != nullptr)
+	{
+		s2d::Initializer::initAnimation(path, ptr_sprite);
+	}
+}
+
+void s2d::Initializer::initAnimation(const std::string& path, s2d::Sprite* spr)
+{
 	std::fstream animationFileStream;
 
 	animationFileStream.open(path);
 
-	s2d::Sprite* ptr_sprite = nullptr;
+	s2d::Sprite* ptr_sprite = spr;
 	std::string animationName = "";
 
 	std::vector<s2d::KeyFrame> frames = std::vector<s2d::KeyFrame>(0);
@@ -208,22 +246,17 @@ void s2d::Initializer::initAnimation(const std::string& path, s2d::SpriteReposit
 				animationName = line;
 				continue;
 			}
-			if (cnt == 2)
+			if(cnt == 2)
 			{
-				uint32_t to_load = idx;
-				if (!load_idx)
-				{
-					to_load = std::stoi(line);
-				}
-				ptr_sprite = repo.getSpriteWithId(to_load);
 				continue;
 			}
+
 			std::vector<std::string> propertys = std::splitString(line, DELIMITER);
 
-			if(propertys[1] != "")
+			if (propertys[1] != "")
 				frames.push_back(s2d::KeyFrame(propertys[1], std::stof(propertys[0].c_str())));
 		}
-
+		animationFileStream.close();
 	}
 	else std::cout << "LOG: [ERROR] could not open animation data file!";
 	if (ptr_sprite != nullptr)
@@ -241,6 +274,8 @@ void s2d::Initializer::initSprite(const std::string& line, s2d::Sprite* sprite)
 	sprite->collider = s2d::BoxCollider(sprite);
 	sprite->animator = s2d::Animator(sprite);
 	sprite->transform = s2d::Transform(sprite);
+	sprite->physicsBody = s2d::PhsysicsBody(sprite);
+	sprite->prefab = s2d::Prefab(sprite);
 
 	sprite->name = propertys[0];
 	sprite->transform.position.x = std::stof(propertys[2].c_str());
@@ -268,7 +303,7 @@ void s2d::Initializer::initSprite(const std::string& line, s2d::Sprite* sprite)
 # pragma region PhysicsBody
 	sprite->physicsBody.gravity = std::stof(propertys[15].c_str());
 	sprite->physicsBody.mass = std::stof(propertys[16].c_str());
-	sprite->physicsBody.exists = propertys[17] == "True";
+	sprite->physicsBody.exist = propertys[17] == "True";
 
 #pragma endregion
 # pragma region parentId, ID
@@ -290,5 +325,10 @@ void s2d::Initializer::initSprite(const std::string& line, s2d::Sprite* sprite)
 	sprite->transform.position_to_parent.y = std::stof(propertys[27]);
 
 	sprite->animator.exists = propertys[28] == "True";
+#pragma endregion
+
+# pragma region Prefab
+	sprite->prefab.exist = propertys[29] == "True";
+	sprite->prefab.load_in_memory = propertys[30] == "True";
 #pragma endregion
 }
