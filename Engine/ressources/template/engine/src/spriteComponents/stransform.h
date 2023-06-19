@@ -3,11 +3,12 @@
 #include <calculationComponents/vector2.h>
 #include <spriteComponents/childSystem.h>
 #include <spriteComponents/boxCollider.h>
+#include <spriteComponents/component.h>
 
 namespace s2d
 {
 	class Sprite;
-	class Transform
+	class Transform : private s2d::Component
 	{
 	private:
 		s2d::Vector2 m_scale;
@@ -18,7 +19,7 @@ namespace s2d
 		/// </summary>
 		/// <param name="scale">The scale for the new textureSize</param>
 		void setTextureSize(const s2d::Vector2& scale);
-
+		void init() override;
 		void pushSetup();
 		void pushSpriteFromCollider(s2d::BoxColliderPositionData::Position p, bool smaller, float& tXY, float& lXY, float& nXY);
 	public:
@@ -33,6 +34,7 @@ namespace s2d
 
 		Transform();
 		Transform(s2d::Sprite* attachedSprite);
+		Transform(s2d::Sprite* attachedSprite, s2d::Transform& transform);
 
 		/// <summary>
 		/// Sets the rotation
@@ -65,6 +67,8 @@ namespace s2d
 		uint32_t getRotation() const { return this->m_rotation; }
 
 		s2d::Vector2 getDefaultTextureSize() const;
+
+		void reset() override;
 
 	public:
 		//Used in poll events

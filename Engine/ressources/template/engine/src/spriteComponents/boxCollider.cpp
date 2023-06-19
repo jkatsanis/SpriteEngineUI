@@ -24,6 +24,7 @@ s2d::BoxCollider::BoxCollider(s2d::Sprite* sprite, s2d::BoxCollider& rhs)
     this->box_collider_height = rhs.box_collider_height;
     this->box_collider_width = rhs.box_collider_width;
     this->exist = rhs.exist;
+    this->is_solid = rhs.is_solid;
 }
 
 

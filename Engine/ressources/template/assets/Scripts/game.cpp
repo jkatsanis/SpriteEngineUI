@@ -42,4 +42,8 @@ void Game::update()
 		this->m_ptr_ship2 = s2d::PrefabRepositor::getPrefabByName("Hello");
 		this->config.ptr_sprites->add(this->m_ptr_ship2);
 	}
+
+	s2d::GameObject::camera.transform.position = this->m_ptr_ship->transform.position;
+	s2d::GameObject::camera.cameraZoom = 3;
+
 }

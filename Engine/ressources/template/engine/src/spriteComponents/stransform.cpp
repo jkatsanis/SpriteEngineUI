@@ -5,22 +5,43 @@
 
 s2d::Transform::Transform()
 {
-	this->m_attached_sprite = nullptr;
-	this->position = s2d::Vector2(0.0f, 0.0f);
-	this->position_changed = false;
-	this->m_rotation = 0;
+	this->init();
 }
 
 s2d::Transform::Transform(s2d::Sprite* attachedSprite)
 {
+	this->init();
+	this->m_attached_sprite = attachedSprite;
+}
+
+s2d::Transform::Transform(s2d::Sprite* attachedSprite, s2d::Transform& transform)
+{
+	this->init();
+	this->m_attached_sprite = attachedSprite;
+	this->position = transform.position;
+	this->m_rotation = transform.m_rotation;
+	this->m_scale = transform.m_scale;
+	this->texture_size = transform.texture_size;
+}
+
+void s2d::Transform::init()
+{
+	this->exist = true;
+	this->reset();
+}
+
+
+// Public functions
+
+void s2d::Transform::reset()
+{
+	this->exist = true;
 	this->m_scale = s2d::Vector2(1.0f, 1.0f);
 	this->position = s2d::Vector2(0.0f, 0.0f);
 	this->position_changed = false;
-	this->m_attached_sprite = attachedSprite;
+	this->m_attached_sprite = nullptr;
 	this->m_rotation = 0;
 }
-
-// Public functions
 
 s2d::Vector2 s2d::Transform::getDefaultTextureSize() const
 {

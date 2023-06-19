@@ -19,7 +19,8 @@ s2d::Sprite::Sprite(s2d::Sprite& rhs)
 {
 	this->initVariables(rhs.name, rhs.transform.position, rhs.sprite_renderer.path);
 
-	this->collider = s2d::BoxCollider(rhs.collider);
+	this->collider = s2d::BoxCollider(this, rhs.collider);
+	this->transform = s2d::Transform(this, rhs.transform);
 
 	// Initing the childs
 	for (size_t i = 0; i < rhs.ptr_childs.size(); i++) 
