@@ -13,6 +13,7 @@ s2d::SpriteRepository::SpriteRepository()
     this->right_clicked_sprite = nullptr;
     this->highestSpriteId = 0;
     this->m_highestLayerIndex = 0;
+    this->main_content_iniitialied = false;
 }
 
 s2d::SpriteRepository::~SpriteRepository()
@@ -72,11 +73,21 @@ void s2d::SpriteRepository::deleteWithName(const std::string& name)
 
 void s2d::SpriteRepository::add(s2d::Sprite* ptr)
 {
+    if (ptr == nullptr)
+    {
+        std::cout << "LOG [ERROR] Can't add a nullptr to the repo!";
+        return;
+    }
     // Validate properties
     // Set id
     this->highestSpriteId++;
     ptr->validateProperties(this->highestSpriteId, *this);
     this->m_sprites.push_back(ptr);
+
+    if (this->main_content_iniitialied)
+    {
+        s2d::SpriteRepository::addChildsFromParent(ptr, this->highestSpriteId);
+    }
 }
 
 s2d::Sprite* s2d::SpriteRepository::getSpriteWithName(const std::string& name)
@@ -177,12 +188,13 @@ s2d::Sprite* s2d::SpriteRepository::getWithId(std::vector<s2d::Sprite*>& collect
     return nullptr;
 }
 
-void s2d::SpriteRepository::setValidIds(s2d::Sprite* parent, uint32_t highest)
+void s2d::SpriteRepository::addChildsFromParent(s2d::Sprite* parent, uint32_t highest)
 {
     parent->setId(highest);
     for (size_t i = 0; i < parent->ptr_childs.size(); i++)
     {
+        this->m_sprites.push_back(parent->ptr_childs[i]);
         parent->ptr_childs[i]->setParentId(highest);
-        setValidIds(parent->ptr_childs[i], highest + 1);
+        addChildsFromParent(parent->ptr_childs[i], highest + 1);
     }
 }

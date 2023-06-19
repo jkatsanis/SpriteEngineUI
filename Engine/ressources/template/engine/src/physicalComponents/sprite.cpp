@@ -18,6 +18,15 @@ s2d::Sprite::Sprite(std::string name, s2d::Vector2 spawnPosition, std::string pa
 s2d::Sprite::Sprite(s2d::Sprite& rhs)
 {
 	this->initVariables(rhs.name, rhs.transform.position, rhs.sprite_renderer.path);
+
+	this->collider = s2d::BoxCollider(rhs.collider);
+
+	// Initing the childs
+	for (size_t i = 0; i < rhs.ptr_childs.size(); i++) 
+	{
+		s2d::Sprite* copy_child = new s2d::Sprite(*rhs.ptr_childs[i]);
+		this->ptr_childs.push_back(copy_child);
+	}
 }
 
 s2d::Sprite::~Sprite()

@@ -174,7 +174,8 @@ void s2d::GameEngine::start()
 	this->m_renderer.setSpriteRepository(this->m_sprite_repository);
 
 	this->m_game.config.ptr_sprites = &this->m_sprite_repository;
-	
+	this->m_sprite_repository.main_content_iniitialied = true;
+
 	// user code
 	this->m_game.start();
 }

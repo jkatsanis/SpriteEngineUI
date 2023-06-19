@@ -55,21 +55,19 @@ void s2d::Initializer::initPrefab(const std::string& path, s2d::SpriteRepository
 				}
 			}
 		}
+		for (size_t i = 0; i < paths_to_animations.size(); i++)
+		{
+			s2d::Initializer::initAnimation(paths_to_animations[i], repo, spr->getId());
+		}
 
 		uint32_t highest = repo.highestSpriteId;
 
 		for (size_t i = 0; i < mini_repo.size(); i++)
 		{
-			mini_repo[i]->sprite_renderer.sorting_layer_index = 0;
 			repo.add(mini_repo[i]);
 		}
 
 		s2d::SpriteRepository::setValidIds(spr, highest);
-
-		for (size_t i = 0; i < paths_to_animations.size(); i++)
-		{
-			s2d::Initializer::initAnimation(paths_to_animations[i], repo, spr->getId());
-		}
 	}
 }
 
@@ -253,8 +251,7 @@ void s2d::Initializer::initSprites(s2d::SpriteRepository& spriteRepo)
 			s2d::Sprite* parent = spriteRepo.getSpriteWithId(sprite->getParentId());
 			if (parent != nullptr)
 			{
-				sprite->parent = parent;
-				parent->ptr_childs.push_back(sprite);
+				sprite->setParent(parent);
 			}
 		}
 	}

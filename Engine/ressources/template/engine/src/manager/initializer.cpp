@@ -178,7 +178,7 @@ void s2d::Initializer::initPrefab(const std::string& path)
 		}
 
 		spr->setId(-1);
-
+		// TODO: VALID CHILD IDS
 		if (spr->prefab.load_in_memory)
 		{
 			s2d::PrefabRepositor::addPrefab(spr);

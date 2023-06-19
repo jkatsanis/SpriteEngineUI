@@ -57,7 +57,7 @@ namespace s2d
 
         static void getAllChilds(std::vector<const s2d::Sprite*>& childs, const s2d::Sprite* parent);
         static s2d::Sprite* getWithId(std::vector<s2d::Sprite*>& collection, uint32_t id);
-        static void setValidIds(s2d::Sprite* parent, uint32_t highest); 
+        static void setValidIds(s2d::Sprite* parent, uint32_t highest_id);
 
         uint32_t getHighestLayerIndex() const { return this->m_highestLayerIndex; }
     };

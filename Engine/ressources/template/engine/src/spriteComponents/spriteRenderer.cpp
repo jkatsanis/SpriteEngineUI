@@ -4,7 +4,7 @@
 
 s2d::SpriteRenderer::SpriteRenderer()
 {
-	this->init();
+ 	this->init();
 }
 
 void s2d::SpriteRenderer::init()

@@ -23,6 +23,7 @@ namespace s2d
         size_t getIndexAtName(const std::string& name) const;
         void addChildsToDelete(std::vector<s2d::Sprite*>& childs, s2d::Sprite* parent);
         void eraseWithId(uint8_t id);
+        void addChildsFromParent(s2d::Sprite* parent, uint32_t highest);
 
     public:
         s2d::Sprite* child_to_parent;
@@ -34,6 +35,7 @@ namespace s2d
 
         AssetFolderData asset_folder_data;
         bool* isFullScreened;
+        bool main_content_iniitialied;
 
         SpriteRepository();
         ~SpriteRepository();
@@ -52,7 +54,6 @@ namespace s2d
 
         static void getAllChilds(std::vector<const s2d::Sprite*>& childs, const s2d::Sprite* parent);
         static s2d::Sprite* getWithId(std::vector<s2d::Sprite*>& collection, uint32_t id);
-        static void setValidIds(s2d::Sprite* parent, uint32_t highest);
 
         uint32_t getHighestLayerIndex() const { return this->m_highestLayerIndex; }
     };

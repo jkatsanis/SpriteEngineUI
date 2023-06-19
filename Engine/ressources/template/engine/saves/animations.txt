@@ -1,2 +1,1 @@
 PathToAnimation
-assets\Scripts\Hello.txt
