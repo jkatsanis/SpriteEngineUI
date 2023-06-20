@@ -7,39 +7,58 @@
 
 s2d::Animation::Animation()
 {
-	this->total_time_passed = 0.0f;
-	this->total_frame_passed = 0.0f;
-	this->current_frame = 0;
-	this->is_playing = false;
-	this->m_saved_already = false;
-	this->ptr_applied_sprite = nullptr;
-	this->time_passed = 0.0f;
+	this->init();
 }
 
 s2d::Animation::Animation(Sprite* ptr_appliedSprite, const std::string& name, const std::string fileLocation, const std::vector<s2d::KeyFrame>& frames)
 {
-	this->total_frame_passed = 0.0f;
-	this->m_saved_already = false;
-	this->m_base_path = ptr_appliedSprite->sprite_renderer.path;
-	this->m_path_to_file = fileLocation;
-	this->time_passed = 2.0f;
-	this->current_frame = -1;
+	this->init();
+
 	this->name = name;
 	this->ptr_applied_sprite = ptr_appliedSprite;
-	this->is_playing = false;
-	this->total_time_passed = 0.0f;
-	this->m_keyframes.resize(frames.size());
+	this->m_base_path = ptr_appliedSprite->sprite_renderer.path;
+	this->m_path_to_file = fileLocation;
 
-	int currentPos = 0;
+	uint32_t currentPos = 0;
+	this->m_keyframes.resize(frames.size());
 	for (int i = 0; i < frames.size(); i++)
 	{
 		this->m_keyframes[i].path = frames[i].path;
 		this->m_keyframes[i].delay = frames[i].delay;
-		currentPos += (int)this->m_keyframes[i].delay;
+		currentPos += (uint32_t)this->m_keyframes[i].delay;
 		this->m_keyframes[i].position = currentPos;
 	}
 	this->setVectorSizes();
 }
+
+s2d::Animation::Animation(s2d::Sprite* ptr_applied_sprite, const s2d::Animation& animation)
+{
+	this->ptr_applied_sprite = ptr_applied_sprite;
+	this->name = animation.name;
+	this->m_base_path = this->ptr_applied_sprite->sprite_renderer.path;
+	this->m_path_to_file = animation.getPathToFile();
+
+	const std::vector<s2d::KeyFrame>& keyframes = animation.getKeyFrames();
+	for (size_t i = 0; i < keyframes.size(); i++)
+	{
+		s2d::KeyFrame copy = s2d::KeyFrame(keyframes[i]);
+		this->m_keyframes.push_back(copy);
+	}
+
+	this->setVectorSizes();
+}
+
+
+void s2d::Animation::init()
+{
+	this->total_frame_passed = 0.0f;
+	this->time_passed = 2.0f;
+	this->current_frame = -1;
+	this->is_playing = false;
+	this->total_time_passed = 0.0f;
+	this->loop = true;
+}
+
 
 // Public methods
 

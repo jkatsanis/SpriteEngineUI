@@ -22,6 +22,12 @@ s2d::Animator::Animator(s2d::Sprite* ptr_attached_sprite, s2d::Animator& animato
 	this->exist = animator.exist;
 	this->ptr_attached_sprite = ptr_attached_sprite;
 
+	for (const auto& animation : animator.animations)
+	{
+		// Copy animation
+		s2d::Animation anim = s2d::Animation(this->ptr_attached_sprite, animation.second);
+		animations.insert({ anim.name, anim });
+	}
 }
 
 void s2d::Animator::init()

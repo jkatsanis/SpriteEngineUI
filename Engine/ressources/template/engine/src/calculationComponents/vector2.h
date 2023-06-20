@@ -11,7 +11,7 @@ namespace s2d
 
 		Vector2();
 		Vector2(float x, float y);
-		
+		Vector2(const s2d::Vector2& rhs);
 
 		bool operator==(const Vector2& rhs);
 		bool operator!=(const Vector2& rhs);

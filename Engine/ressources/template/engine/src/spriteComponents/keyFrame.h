@@ -17,6 +17,13 @@ namespace s2d
 			this->path = path;
 			this->delay = delay;
 		}
+
+		KeyFrame(const s2d::KeyFrame& frame)
+		{
+			this->position = -1;
+			this->path = frame.path;
+			this->delay = frame.delay;
+		}
 	};
 }
 

@@ -5,8 +5,7 @@
 class Game : public s2d::Base
 {
 private:
-	s2d::Sprite* m_ptr_ship;
-	s2d::Sprite* m_ptr_ship2;
+	s2d::Sprite* m_ptr_sprite;
 public:
 	s2d::EngineConfig config;
 
