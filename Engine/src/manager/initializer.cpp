@@ -9,7 +9,7 @@ void s2d::Initializer::initPrefab(const std::string& path, s2d::SpriteRepository
 	if (stream.is_open())
 	{
 		s2d::Sprite* spr = new s2d::Sprite();
-		std::vector<s2d::Sprite*> mini_repo;
+		std::vector<s2d::Sprite*> child_repo;
 		std::vector<std::string> paths_to_animations;
 		std::string line = "";
 		uint8_t cnt = 0;
@@ -31,7 +31,7 @@ void s2d::Initializer::initPrefab(const std::string& path, s2d::SpriteRepository
 			{
 				s2d::Sprite* child = new Sprite();
 				s2d::Initializer::initSprite(line, child);
-				mini_repo.push_back(child);
+				child_repo.push_back(child);
 			}
 			if (cnt > 2 && line[0] == 'a')
 			{
@@ -40,14 +40,15 @@ void s2d::Initializer::initPrefab(const std::string& path, s2d::SpriteRepository
 		}
 		spr->parent = nullptr;
 		spr->setParentId(-1);
-		mini_repo.push_back(spr);
-	
-		for (int i = 0; i < mini_repo.size(); i++)
+		child_repo.push_back(spr);
+
+		// Parent algorithm to set childs
+		for (int i = 0; i < child_repo.size(); i++)
 		{
-			s2d::Sprite* const sprite = mini_repo[i];
+			s2d::Sprite* const sprite = child_repo[i];
 			if (sprite->getParentId() > 0)
 			{
-				s2d::Sprite* parent = s2d::SpriteRepository::getWithId(mini_repo, sprite->getParentId());
+				s2d::Sprite* parent = s2d::SpriteRepository::getWithId(child_repo, sprite->getParentId());
 				if (parent != nullptr)
 				{
 					sprite->parent = parent;
@@ -55,19 +56,22 @@ void s2d::Initializer::initPrefab(const std::string& path, s2d::SpriteRepository
 				}
 			}
 		}
+		uint32_t highest = repo.highestSpriteId;
+
+		// Adading the child + PARENT to the repo
+		for (size_t i = 0; i < child_repo.size(); i++)
+		{
+			repo.add(child_repo[i]);
+		}
+
+		// Setting id's for the child
+		s2d::SpriteRepository::setValidIds(spr, highest);
+
+		// Initializing the animations
 		for (size_t i = 0; i < paths_to_animations.size(); i++)
 		{
 			s2d::Initializer::initAnimation(paths_to_animations[i], repo, spr->getId());
 		}
-
-		uint32_t highest = repo.highestSpriteId;
-
-		for (size_t i = 0; i < mini_repo.size(); i++)
-		{
-			repo.add(mini_repo[i]);
-		}
-
-		s2d::SpriteRepository::setValidIds(spr, highest);
 	}
 }
 
@@ -103,6 +107,7 @@ void s2d::Initializer::initCamera(s2d::GUIRepository& repo)
 		cameraFile.close();
 	}
 }
+
 void s2d::Initializer::initAnimations(s2d::SpriteRepository& repo)
 {
 	std::fstream knownAnimationFileStream;

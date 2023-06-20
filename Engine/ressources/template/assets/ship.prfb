@@ -1,0 +1,4 @@
+name;vecpos;transformPosX;transformPosY;ScaleX;ScaleY;filepath;boxColliderWidthLeftOrRightX;boxColliderWidthLeftOrRighY;boxColliderHeightUpOrDownX;boxColliderHeightUpOrDownY;boxColliderExists;solid;sortingLayer;gravity;mass;physicsBodyExists;id;parentId;nextPosX;nextPosY;lastPosX;lastPosY;listPos;highestChild;positionToParentX;positionToParentY;animatorExists;prefabExist;loadInMemory;pathToPrefab
+ship;0;98.999573;426.000122;1.000000;1.000000;assets\asteroid.png;0;0.000000;0.000000;0.000000;0.000000;True;True;0;0.000000;0.000000;False;80;-1;98.999573;426.000122;97.299622;426.000122;listpos;childCount;0.000000;0.000000;True;True;True;ressources\template\assets\ship.prfb
+Sprite 3 ID 80;0;633.800415;17.699951;1.000000;1.000000;assets\asteroid - Kopie.png;0;0.000000;0.000000;0.000000;0.000000;True;True;0;0.000000;0.000000;False;81;80;633.800415;17.699951;631.500488;17.699951;listpos;childCount;-534.800842;408.300171;False;False;False;
+assets\Scripts\Sandmna.txt

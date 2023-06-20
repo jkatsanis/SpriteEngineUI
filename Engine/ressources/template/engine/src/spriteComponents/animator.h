@@ -1,11 +1,14 @@
+
 #pragma once
 
-#include <iostream>	
-#include <vector>
 #include <spriteComponents/animation.h>
 #include <engineComponents/stime.h>
 #include <spriteComponents/keyFrame.h>
 #include <manager/spriteRepository.h>
+#include <spriteComponents/component.h>
+
+#include <iostream>	
+#include <vector>
 #include <unordered_map>
 
 namespace s2d
@@ -17,16 +20,18 @@ namespace s2d
 	};
 
 	class Sprite;
-	class Animator
+	class Animator : public s2d::Component
 	{
+	private:
+		void init() override;
 	public:
 		AnimationPlaying animationPlaying;
-		bool exists;
-		Sprite* ptr_attachedSprite;
+		Sprite* ptr_attached_sprite;
 		std::unordered_map<std::string, Animation> animations;
 
 		Animator();
-		Animator(Sprite* ptr_attachedSprite);
+		Animator(s2d::Sprite* ptr_attached_sprite);
+		Animator(s2d::Sprite* ptr_attached_sprite, s2d::Animator& animator);
 
 		void createAnimation(const std::string& name, const std::string& fileLocation, const std::vector<s2d::KeyFrame>& frame);
 		void removeAnimation(const std::string& name);
@@ -36,11 +41,10 @@ namespace s2d
 
 		void update();
 
-		void resetComponent();
+		void reset() override;
 
 	public:
 
 		static void stopAllAnimations(s2d::SpriteRepository& toUpdate);
 	};
 }
-

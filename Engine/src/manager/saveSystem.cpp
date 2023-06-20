@@ -252,6 +252,15 @@ void s2d::flc::createAnimationSaveFile(const s2d::Sprite* ptr_sprite, const s2d:
 
 void s2d::flc::createOrUpdatePrefabFile(const s2d::Sprite* content, const std::string& pathToFile, const std::string& oldFilePath)
 {
+	// Saving the animation
+	if (content->animator.exist)
+	{
+		for (auto& animation : content->animator.animations)
+		{
+			s2d::flc::createAnimationSaveFile(content, animation.second);
+		}
+	}
+
 	//Getting filelocation as: \\assets
 	std::string fileContent = "";
 

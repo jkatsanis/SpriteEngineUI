@@ -322,7 +322,7 @@ void s2d::Initializer::initSprite(const std::string& line, s2d::Sprite* sprite)
 	sprite->transform.position_to_parent.x = std::stof(propertys[26]);
 	sprite->transform.position_to_parent.y = std::stof(propertys[27]);
 
-	sprite->animator.exists = propertys[28] == "True";
+	sprite->animator.exist = propertys[28] == "True";
 #pragma endregion
 
 # pragma region Prefab

@@ -21,6 +21,7 @@ s2d::Sprite::Sprite(s2d::Sprite& rhs)
 
 	this->collider = s2d::BoxCollider(this, rhs.collider);
 	this->transform = s2d::Transform(this, rhs.transform);
+	this->animator = s2d::Animator(this, rhs.animator);
 
 	// Initing the childs
 	for (size_t i = 0; i < rhs.ptr_childs.size(); i++) 

@@ -1,26 +1,43 @@
 #include "Animator.h"
 #include <physicalComponents/sprite.h>
 
-#define EXIST if (!this->exists) return
+#define EXIST if (!this->exist) return
+
+// Constructor / Destructor
 
 s2d::Animator::Animator()
 {
-	this->exists = false;
-	this->ptr_attachedSprite = nullptr;
+	this->init();
 }
 
-s2d::Animator::Animator(Sprite* ptr_attachedSprite)
+s2d::Animator::Animator(Sprite* ptr_attached_sprite)
 {
-	this->exists = false;
-	this->ptr_attachedSprite = ptr_attachedSprite;
+	this->init();
+	this->ptr_attached_sprite = ptr_attached_sprite;
+}
+
+s2d::Animator::Animator(s2d::Sprite* ptr_attached_sprite, s2d::Animator& animator)
+{
+	this->init();
+	this->exist = animator.exist;
+	this->ptr_attached_sprite = ptr_attached_sprite;
+
+}
+
+void s2d::Animator::init()
+{
+	this->exist = false;
+	this->ptr_attached_sprite = nullptr;
 	this->animationPlaying.isAAnimationPlaying = false;
 	this->animationPlaying.name = "<Unknown>";
 }
 
+// Public functions
+
 void s2d::Animator::createAnimation(const std::string& name, const std::string& fileLocation, const std::vector<s2d::KeyFrame>& textures)
 {
 	EXIST;
-	animations.insert({ name, Animation(ptr_attachedSprite, name, fileLocation, textures) });
+	animations.insert({ name, Animation(ptr_attached_sprite, name, fileLocation, textures) });
 }
 
 void s2d::Animator::removeAnimation(const std::string& name)
@@ -63,11 +80,11 @@ void s2d::Animator::update()
 	}
 }
 
-void s2d::Animator::resetComponent()
+void s2d::Animator::reset()
 {
 	this->animationPlaying.name = "<Unknown>";;
 	this->animationPlaying.isAAnimationPlaying = false;
-	this->exists = false;
+	this->exist = false;
 	this->animations.clear();
 }
 
