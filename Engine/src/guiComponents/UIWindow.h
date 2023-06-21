@@ -29,7 +29,7 @@ namespace s2d
 		UIWindow();
 
 	    void update();
-		void init(s2d::SpriteRepository& repo, s2d::Event* evnt, sf::Event* sf_evnt);
+		void init(s2d::SpriteRepository& repo, s2d::Event* evnt, sf::Event* sf_evnt, std::vector<std::string>& scenes);
 
 		UIInspector& getInspector() { return this->m_ui_inspector; }
 

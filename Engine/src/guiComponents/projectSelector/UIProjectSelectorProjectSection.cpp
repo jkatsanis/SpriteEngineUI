@@ -42,7 +42,7 @@ void s2d::UIProjectSelectorProjectSection::update()
 
 void s2d::UIProjectSelectorProjectSection::createProject()
 {
-	std::string tryToOpenPath = s2d::flc::copyDir(PATH_TO_RESSOURCS"\\template", this->m_createFileDialoge.pathClicked, this->m_createProjectName);
+	std::string tryToOpenPath = s2d::flc::copyDir(PATH_TO_RESSOURCES"\\template", this->m_createFileDialoge.pathClicked, this->m_createProjectName);
 
 	// Setting the project we just selected to be displayed in the selector list
 	this->m_openFileDialog.pathClicked = tryToOpenPath + "\\";
@@ -111,7 +111,7 @@ void s2d::UIProjectSelectorProjectSection::renderProjectData()
 				if (ImGui::MenuItem(fullData.c_str()))
 				{
 					s2d::EngineData::s_path_to_user_project = this->m_projects[i].relativePath;
-					s2d::EngineData::s_nameOfUserProject = this->m_projects[i].name;
+					s2d::EngineData::s_name_of_user_project = this->m_projects[i].name;
 				}
 			}
 		}
@@ -243,10 +243,10 @@ void s2d::UIProjectSelectorProjectSection::tryToOpenProject()
 		this->m_currentFileDialoge = s2d::CurrentFileDialog::None;
 
 		// Updating the file when we open or CREATE a project
-		s2d::EngineData::s_nameOfUserProject = name;
+		s2d::EngineData::s_name_of_user_project = name;
 		s2d::EngineData::s_path_to_user_project = relative_path.string();
 		s2d::flc::createKnownProjectDirFile();
-		s2d::EngineData::s_nameOfUserProject = "";
+		s2d::EngineData::s_name_of_user_project = "";
 		s2d::EngineData::s_path_to_user_project = "";
 	}
 	else if(this->m_openFileDialog.pathClicked != "")

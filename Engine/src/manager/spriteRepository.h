@@ -52,6 +52,7 @@ namespace s2d
         s2d::Sprite* getSpriteWithId(int id);
         void instanitatePrefab(const std::string& path_to);
 
+        void cleanUp();
         void updateHighestLayerIndex();
         void reloadTextures();
 

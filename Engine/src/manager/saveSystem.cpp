@@ -1,12 +1,13 @@
 #include "saveSystem.h"
 #include <string>
 
-void s2d::flc::saveEverything(const s2d::Vector3& bg, s2d::SpriteRepository& toSave, s2d::GUIRepository& gui_repo)
+void s2d::flc::saveEverything(const s2d::Vector3& bg, s2d::SpriteRepository& toSave, s2d::GUIRepository& gui_repo, std::vector<std::string>& scenes)
 {
 	//Stopping all animations so there wont be saved the current path of the sprite
 	s2d::Animator::stopAllAnimations(toSave);
 
 	//We need to save our data | Dont forget to save it also in "UIToolButtons"
+	s2d::flc::createSceneSaveFile(scenes);
 	s2d::flc::createSaveFile(toSave);
 	s2d::flc::createWindowBackgroundSaveFile(bg);
 	s2d::flc::createCameraSaveFile(gui_repo.camera);
@@ -19,7 +20,7 @@ void s2d::flc::saveEverything(const s2d::Vector3& bg, s2d::SpriteRepository& toS
 void s2d::flc::createSaveFile(const s2d::SpriteRepository& spriteRepo)
 {
 	std::fstream spriteFile;
-
+	std::string s = PATH_TO_SPRITE_FILE;
 	spriteFile.open(PATH_TO_SPRITE_FILE, std::ios::out);
 
 	if (spriteFile.is_open()) 
@@ -195,7 +196,7 @@ void s2d::flc::createKnownProjectDirFile()
 	}
 
 	std::string date(buffer);
-	std::string name = s2d::EngineData::s_nameOfUserProject;
+	std::string name = s2d::EngineData::s_name_of_user_project;
 	std::string absulutePathStr = absolute_path;
 
 	std::string path = name + ";" + absulutePathStr + ";" + date + ";" + relative_path;
@@ -241,6 +242,7 @@ void s2d::flc::createAnimationSaveFile(const s2d::Sprite* ptr_sprite, const s2d:
 
 	const std::vector<s2d::KeyFrame>& frames = animationToSave.getKeyFrames();
 
+
 	for (const s2d::KeyFrame& frame : frames)
 	{
 		content += std::to_string(frame.delay) + std::string(";") + s2d::UI::getUserProjectPathSeperatetFromEnginePath(frame.path) + "\n";
@@ -250,17 +252,20 @@ void s2d::flc::createAnimationSaveFile(const s2d::Sprite* ptr_sprite, const s2d:
 	std::createFileWithContent(content, pathAndName);
 }
 
+void s2d::flc::createSceneSaveFile(const std::vector<std::string>& scene_names)
+{
+	std::string content = "Scenes\n";
+
+	for (size_t i = 0; i < scene_names.size(); i++)
+	{
+		content += scene_names[i] + "\n";
+	}
+	const std::string path = PATH_TO_SCENE_FILE;
+	std::createFileWithContent(content, path);
+}
+
 void s2d::flc::createOrUpdatePrefabFile(const s2d::Sprite* content, const std::string& pathToFile, const std::string& oldFilePath)
 {
-	// Saving the animation
-	if (content->animator.exist)
-	{
-		for (auto& animation : content->animator.animations)
-		{
-			s2d::flc::createAnimationSaveFile(content, animation.second);
-		}
-	}
-
 	//Getting filelocation as: \\assets
 	std::string fileContent = "";
 

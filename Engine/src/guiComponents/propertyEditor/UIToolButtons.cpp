@@ -7,14 +7,17 @@ s2d::UIToolButtons::UIToolButtons()
 	this->init();
 }
 
-s2d::UIToolButtons::UIToolButtons(s2d::SpriteRepository& spriteRepo)
+s2d::UIToolButtons::UIToolButtons(s2d::SpriteRepository& spriteRepo, std::vector<std::string>& scene_names)
 {
 	this->init();
 	this->m_ptr_repo = &spriteRepo;
+	this->m_ptr_scene_names = &scene_names;
 }
 
 void s2d::UIToolButtons::init()
 {
+	this->m_new_scene_name[0] = '\0';
+	this->m_add_scene_mode = false;
 	this->m_editor_tools = s2d::EditorTools::PositionTool;
 	this->is_hovered = false;
 
@@ -59,6 +62,7 @@ void s2d::UIToolButtons::renderMainMenuBar()
 		this->buildProjectIntoFolder();
 		this->renderWindowSelecter();
 		this->renderToolSelector();
+		this->renderSceneSelector();
 
 		ImGui::SetWindowFontScale(s2d::UIInfo::s_default_font_size);
 		ImGui::EndMainMenuBar();
@@ -86,6 +90,61 @@ void s2d::UIToolButtons::renderToolSelector()
 	}
 }
 
+void s2d::UIToolButtons::renderSceneSelector()
+{
+	ImGui::SetCursorPosY(3);
+	if (ImGui::BeginMenu("Scenes"))
+	{
+		for (size_t i = 0; i < this->m_ptr_scene_names->size(); i++)
+		{
+			const std::string name = this->m_ptr_scene_names->at(i);
+			if (ImGui::MenuItem(name.c_str()))
+			{
+				s2d::EngineData::s_scene = name;
+			}
+		}
+		ImGui::Separator();
+		if (ImGui::MenuItem("Add scene"))
+		{
+			this->m_add_scene_mode = true;
+		}
+
+		ImGui::EndMenu();
+	}
+	if (!this->m_add_scene_mode)
+	{
+		return;
+	}
+
+	if (ImGui::Begin("##creat-scene", NULL, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse))
+	{
+		ImGui::SetNextItemWidth(200);
+		ImGui::InputTextWithHint("##add-scene", "<name>", this->m_new_scene_name, CHAR_MAX);
+
+		ImGui::SetWindowSize(ImVec2(200, 70));
+		ImGui::End();
+	}
+	if (ImGui::IsKeyReleased(ImGuiKey_Escape))
+	{
+		this->m_add_scene_mode = false;
+		this->m_new_scene_name[0] = '\0';
+	}
+
+	if (this->m_add_scene_mode && ImGui::IsKeyReleased(ImGuiKey_Enter))
+	{
+		this->m_add_scene_mode = false;
+		const std::string scene_name = std::string(this->m_new_scene_name);
+		if (!std::isEqualWithAny(scene_name, *this->m_ptr_scene_names))
+		{
+			// ADDING THE SCENE
+			const std::string input_dir = PATH_TO_TEMPLATE_FOLDER "\\engine\\saves\\empty";
+			//s2d::flc::copyDir()
+			this->m_ptr_scene_names->push_back(scene_name);
+		}
+		this->m_new_scene_name[0] = '\0';
+	}
+}
+
 void s2d::UIToolButtons::buildProjectIntoFolder()
 {
 	ImGui::SetCursorPosY(3);
@@ -94,7 +153,7 @@ void s2d::UIToolButtons::buildProjectIntoFolder()
 		if (ImGui::MenuItem("Save", "CTRL + S"))
 		{
 			s2d::flc::cleanUp(*this->m_ptr_repo, true);
-			s2d::flc::saveEverything(this->m_window_background_to_save, *this->m_ptr_repo, *this->m_ptr_gui_repo);
+			s2d::flc::saveEverything(this->m_window_background_to_save, *this->m_ptr_repo, *this->m_ptr_gui_repo, *this->m_ptr_scene_names);
 		}	
 		if (ImGui::MenuItem("Build", "CTRL + B"))
 		{
@@ -134,7 +193,7 @@ void s2d::UIToolButtons::hotkeys()
 	{
 
 		s2d::flc::cleanUp(*this->m_ptr_repo, true);
-		s2d::flc::saveEverything(this->m_window_background_to_save, *this->m_ptr_repo, *this->m_ptr_gui_repo);
+		s2d::flc::saveEverything(this->m_window_background_to_save, *this->m_ptr_repo, *this->m_ptr_gui_repo, *this->m_ptr_scene_names);
 	}
 
 	if (s2d::Input::onKeyHold(s2d::KeyBoardCode::LControl)
@@ -146,9 +205,9 @@ void s2d::UIToolButtons::hotkeys()
 
 void s2d::UIToolButtons::build()
 {
-	s2d::flc::saveEverything(this->m_window_background_to_save, *this->m_ptr_repo, *this->m_ptr_gui_repo);
-	const std::string PATH = s2d::EngineData::s_path_to_user_project + "\\" + s2d::EngineData::s_nameOfUserProject;
-	const std::filesystem::path TARGET_PATH = s2d::EngineData::s_path_to_user_project + "\\" + s2d::EngineData::s_nameOfUserProject;
+	s2d::flc::saveEverything(this->m_window_background_to_save, *this->m_ptr_repo, *this->m_ptr_gui_repo, *this->m_ptr_scene_names);
+	const std::string PATH = s2d::EngineData::s_path_to_user_project + "\\" + s2d::EngineData::s_name_of_user_project;
+	const std::filesystem::path TARGET_PATH = s2d::EngineData::s_path_to_user_project + "\\" + s2d::EngineData::s_name_of_user_project;
 	const std::filesystem::path FILES_IN_FOLDER[FILE_AMOUNT] =
 	{
 		PATH_TO_USER_DEBUG_FOLDER"Assets.exe",
@@ -180,7 +239,7 @@ void s2d::UIToolButtons::playGameButton()
 {
 	if (s2d::FontManager::displaySmybolAsButton(ICON_FA_PLAY) || s2d::Input::onKeyRelease(s2d::KeyBoardCode::F5))
 	{
-		s2d::flc::saveEverything(this->m_window_background_to_save, *this->m_ptr_repo, *this->m_ptr_gui_repo);
+		s2d::flc::saveEverything(this->m_window_background_to_save, *this->m_ptr_repo, *this->m_ptr_gui_repo, *this->m_ptr_scene_names);
 
 		wchar_t engineDirectory[MAX_PATH];
 		if (!GetCurrentDirectory(MAX_PATH, engineDirectory))

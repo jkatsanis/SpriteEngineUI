@@ -398,7 +398,7 @@ void s2d::UIAssetFolder::goBackToBeforeFolder()
     std::vector<std::string> validParts;
     for (int i = 0; i < pathParts.size(); i++)
     {
-        if (std::isStringValid(pathParts[i]) && pathParts[i] != s2d::EngineData::s_nameOfUserProject)
+        if (std::isStringValid(pathParts[i]) && pathParts[i] != s2d::EngineData::s_name_of_user_project)
         {
             validParts.push_back(pathParts[i]);
         }

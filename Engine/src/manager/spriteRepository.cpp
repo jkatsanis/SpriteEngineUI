@@ -105,6 +105,14 @@ void s2d::SpriteRepository::instanitatePrefab(const std::string& path_to)
     s2d::Initializer::initPrefab(path_to, *this);
 }
 
+void s2d::SpriteRepository::cleanUp()
+{
+    for (size_t i = 0; i < this->m_sprites.size(); i++)
+    {
+        this->deleteAt(i);
+    }
+}
+
 void s2d::SpriteRepository::updateHighestLayerIndex()
 {
     for (size_t i = 0; i < this->m_sprites.size(); i++)

@@ -2,6 +2,32 @@
 
 // public static functions
 
+void s2d::Initializer::initScenes(std::vector<std::string>& scenes)
+{
+	std::fstream scene_file;
+
+	scene_file.open(PATH_TO_SCENE_FILE, std::ios::in);
+	if (scene_file.is_open())
+	{
+		std::string line;
+		int cnt = 0;
+		while (std::getline(scene_file, line))
+		{
+			cnt++;
+			if (cnt == 1)
+			{
+				continue;
+			}
+			scenes.push_back(line);
+		}
+
+		scene_file.close();
+	}
+
+	s2d::EngineData::s_scene = scenes[0];
+}
+
+
 void s2d::Initializer::initPrefab(const std::string& path, s2d::SpriteRepository& repo)
 {
 	std::fstream stream = std::fstream(path);
@@ -107,7 +133,6 @@ void s2d::Initializer::initCamera(s2d::GUIRepository& repo)
 		cameraFile.close();
 	}
 }
-
 void s2d::Initializer::initAnimations(s2d::SpriteRepository& repo)
 {
 	std::fstream knownAnimationFileStream;
@@ -217,8 +242,7 @@ void s2d::Initializer::initSprites(s2d::SpriteRepository& spriteRepo)
 {
 	std::fstream spriteFile;
 
-	//opening the file where all sprite data is
-
+	// opening the file where all sprite data is
 	spriteFile.open(PATH_TO_SPRITE_FILE, std::ios::in);
 	if (spriteFile.is_open())
 	{
