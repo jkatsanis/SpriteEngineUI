@@ -138,8 +138,11 @@ void s2d::UIToolButtons::renderSceneSelector()
 		{
 			// ADDING THE SCENE
 			const std::string input_dir = PATH_TO_TEMPLATE_FOLDER "\\engine\\saves\\empty";
-			//s2d::flc::copyDir()
+			const std::string output_dir = s2d::EngineData::s_path_to_user_project + "\\engine\\saves\\";
+			s2d::flc::copyDir(input_dir, output_dir, scene_name);
 			this->m_ptr_scene_names->push_back(scene_name);
+
+			s2d::flc::createSceneSaveFile(*this->m_ptr_scene_names);
 		}
 		this->m_new_scene_name[0] = '\0';
 	}
@@ -191,7 +194,6 @@ void s2d::UIToolButtons::hotkeys()
 	if (s2d::Input::onKeyHold(s2d::KeyBoardCode::LControl)
 		&& s2d::Input::onKeyPress(s2d::KeyBoardCode::S))
 	{
-
 		s2d::flc::cleanUp(*this->m_ptr_repo, true);
 		s2d::flc::saveEverything(this->m_window_background_to_save, *this->m_ptr_repo, *this->m_ptr_gui_repo, *this->m_ptr_scene_names);
 	}

@@ -18,7 +18,11 @@ void s2d::Initializer::initScenes(std::vector<std::string>& scenes)
 			{
 				continue;
 			}
-			scenes.push_back(line);
+			const std::string path =  PATH_TO_USER_SAVES_FOLDER + "\\" + line;
+			if (std::filesystem::exists(path))
+			{
+				scenes.push_back(line);
+			}
 		}
 
 		scene_file.close();
@@ -26,7 +30,6 @@ void s2d::Initializer::initScenes(std::vector<std::string>& scenes)
 
 	s2d::EngineData::s_scene = scenes[0];
 }
-
 
 void s2d::Initializer::initPrefab(const std::string& path, s2d::SpriteRepository& repo)
 {

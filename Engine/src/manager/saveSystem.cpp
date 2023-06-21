@@ -475,11 +475,11 @@ void s2d::flc::removeInvalidPathsFromFile()
 
 std::string s2d::flc::copyDir(const std::string& inputDir, const std::string& outputdir, const std::string& name)
 {
-	std::string mkdir = "mkdir " + outputdir + std::string(name.c_str());
+	std::string mkdir = "mkdir \"" + outputdir + std::string(name.c_str()) + "\"";
 
 	system(mkdir.c_str());
 
-	std::string copy = "xcopy " + inputDir + " " + outputdir + std::string(name.c_str()) + " /E";
+	std::string copy = "xcopy \"" + inputDir + "\" \"" + outputdir + "\\" + std::string(name.c_str()) + "\" /E";
 
 	system(copy.c_str());
 
