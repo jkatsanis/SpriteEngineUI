@@ -15,6 +15,7 @@
 #include <manager/saveSystem.h>
 #include <manager/spriteRepository.h>
 #include <manager/guiRepository.h>
+#include <UIHierarchy.h>
 
 #define TOOLS_AMOUNT 2
 #define FILE_AMOUNT 6

@@ -98,7 +98,17 @@ void s2d::UIToolButtons::renderSceneSelector()
 		for (size_t i = 0; i < this->m_ptr_scene_names->size(); i++)
 		{
 			const std::string name = this->m_ptr_scene_names->at(i);
-			ImGui::Text(name.c_str());
+			if (name == s2d::EngineData::s_scene)
+			{
+				ImGui::PushStyleColor(ImGuiCol_Text, SPRITE_SELECTED_COLOR);
+				ImGui::Text(name.c_str());
+				ImGui::PopStyleColor();
+			}			
+			else
+			{
+				ImGui::Text(name.c_str());
+			}
+
 			ImVec2 cursor = ImVec2(ImGui::GetCursorPosX() + 115, ImGui::GetCursorPosY() - 30);
 			std::string identy = "##" + name;
 			if (s2d::FontManager::displaySymbolAsButtonWithWidthAndCursorPos(ICON_FA_TRASH, cursor, ImVec2(30, 30), identy))
@@ -122,6 +132,14 @@ void s2d::UIToolButtons::renderSceneSelector()
 
 		ImGui::EndMenu();
 	}
+	const std::string scene_text = "Currently editing: " + s2d::EngineData::s_scene;
+
+	ImGui::SetCursorPosX(1880 - ImGui::CalcTextSize(scene_text.c_str()).x);
+
+	ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(0.5f, 0.5f, 0.5f, 1.0f));
+	ImGui::Text(scene_text.c_str());
+	ImGui::PopStyleColor();
+
 	if (!this->m_add_scene_mode)
 	{
 		return;
