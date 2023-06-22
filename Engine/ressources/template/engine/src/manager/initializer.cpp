@@ -13,11 +13,80 @@ void s2d::Initializer::loadPrefabsInMemory()
 	}
 }
 
+void s2d::Initializer::initBackground(s2d::Vector3& vec)
+{
+	std::fstream backgroundFile;
+
+	//opening the file where all sprite data is
+	backgroundFile.open(PATH_TO_BACKGROUND, std::ios::in);
+	if (backgroundFile.is_open())
+	{
+		std::string line;
+		int cnt = 0;
+		while (std::getline(backgroundFile, line))
+		{
+			cnt++;
+			//First line is the header so we dont need to check for it
+			if (cnt == 1)
+			{
+				continue;
+			}
+
+			//Splitting line
+			std::string delimiter = ";";
+			std::vector<std::string> propertys = std::splitString(line, delimiter);
+
+			//INITIIALIZING PROPS
+			vec.x = std::stof(propertys[0].c_str());
+			vec.y = std::stof(propertys[1].c_str());
+			vec.z = std::stof(propertys[2].c_str());
+		}
+		backgroundFile.close();
+	}
+}
+
+void s2d::Initializer::initScenes(std::vector<std::string>& scenes)
+{
+	std::fstream scene_file;
+
+	scene_file.open(PATH_TO_SCENES_FILE, std::ios::in);
+	if (scene_file.is_open())
+	{
+		std::string line;
+		int cnt = 0;
+		while (std::getline(scene_file, line))
+		{
+			cnt++;
+			if (cnt == 1)
+			{
+				continue;
+			}
+			const std::string path = PATH_TO_SAVES_FOLDER + std::string("\\") + line;
+			if (std::filesystem::exists(path))
+			{
+				scenes.push_back(line);
+			}
+		}
+
+		scene_file.close();
+	}
+
+	if (scenes.size() > 0)
+	{
+		s2d::GameData::s_scene = scenes[0];
+	}
+	else
+	{
+		s2d::GameData::s_scene = USER_FIRST_SCENE_NAME;
+		scenes.push_back(USER_FIRST_SCENE_NAME);
+	}
+}
+
 void s2d::Initializer::initAnimations(s2d::SpriteRepository& repo)
 {
 	std::fstream knownAnimationFileStream;
 
-	knownAnimationFileStream.open(PATH_TO_KNOWN_ANIMATIONS);
+	knownAnimationFileStream.open(PATH_TO_ANIMATION);
 
 	if (knownAnimationFileStream.is_open())
 	{ 
@@ -39,8 +108,7 @@ void s2d::Initializer::initSprites(s2d::SpriteRepository& spriteRepo)
 {
 	//! INFO ! ALWAYS SCALE THINGS UP BY 1.5F!
 	std::fstream spriteFile;
-
-
+	std::string path = PATH_TO_SPRITES;
 	//opening the file where all sprite data is
 	spriteFile.open(PATH_TO_SPRITES, std::ios::in);
 	if (spriteFile.is_open())
@@ -93,7 +161,7 @@ void s2d::Initializer::initIds(uint32_t& highestId)
 	int index = 0;
 
 	//opening the file where all sprite data is
-	indexFile.open("engine\\saves\\index.txt", std::ios::in);
+	indexFile.open(PATH_TO_INDEX, std::ios::in);
 	if (indexFile.is_open())
 	{
 		std::string line;

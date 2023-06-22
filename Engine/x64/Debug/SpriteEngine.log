@@ -1,3 +1,4 @@
-﻿  UIToolButtons.cpp
-C:\Dev\SpriteEngineUI\Engine\src\guiComponents\propertyEditor\UIToolButtons.cpp(179,46): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+﻿  gameEngine.cpp
+  spriteRepository.cpp
+  Generating Code...
   SpriteEngine.vcxproj -> C:\Dev\SpriteEngineUI\Engine\x64\Debug\SpriteEngine.exe

@@ -24,6 +24,7 @@ namespace s2d
 		Renderer m_renderer;
 		SpriteRepository m_sprite_repository;
 		std::string m_current_scene;
+		std::vector<std::string> m_scene_names;
 
 		bool m_is_window_full_screen;
 		bool m_close;
@@ -35,14 +36,13 @@ namespace s2d
 		void onEngineClose(bool save);
 		void clearEngineUpBeforeSceneLoad();
 		void initOtherClasses();
+		void loadScene(const std::string& scene_name);
 
 	public:
-		void loadScene(const std::string& scene_name);
 
 		s2d::Event event;
 		sf::Event windowEvent;
 		sf::RenderWindow* ptr_render_window;
-		std::vector<std::string> m_scene_names;
 
 		GameEngine();
 
@@ -50,7 +50,7 @@ namespace s2d
 		~GameEngine();
 
 		void update();
-	
+
 		s2d::SpriteRepository& getRepo() {
 			return this->m_sprite_repository;
 		}

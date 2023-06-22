@@ -5,7 +5,6 @@
 #include <imgui-SFML.h>
 #include <imgui.h>
 #include <physicalComponents/sprite.h>
-#include <data/FileData.h>
 #include <manager/spriteRepository.h>
 
 //#define UPDATE_SPRITE_TEXTURES_CONSISTENT 
@@ -28,6 +27,8 @@ namespace s2d
 		void drawSprites();
 
 	public:
+		s2d::Vector3 background_color;
+
 		Renderer();
 		Renderer(sf::RenderWindow* renderWindow);
 

@@ -40,8 +40,6 @@ s2d::GameEngine::~GameEngine()
 {
     delete this->ptr_render_window;
 
-    this->m_sprite_repository.cleanUp();
-
     ImGui::SFML::Shutdown();
 }
 

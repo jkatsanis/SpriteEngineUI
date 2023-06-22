@@ -19,11 +19,7 @@ s2d::SpriteRepository::SpriteRepository()
 
 s2d::SpriteRepository::~SpriteRepository()
 {
-    for (size_t i = 0; i < this->m_sprites.size(); i++)
-    {
-        delete this->m_sprites[i];
-        this->m_sprites[i] = nullptr;
-    }
+    this->cleanUp();
 }
 
 // Public functions
@@ -111,6 +107,9 @@ void s2d::SpriteRepository::cleanUp()
     {
         this->deleteAt(i);
     }
+    this->child_to_parent = nullptr;
+    this->sprite_in_inspector = nullptr;
+    this->right_clicked_sprite = nullptr;
 }
 
 void s2d::SpriteRepository::updateHighestLayerIndex()

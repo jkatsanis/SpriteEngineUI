@@ -18,11 +18,7 @@ s2d::SpriteRepository::SpriteRepository()
 
 s2d::SpriteRepository::~SpriteRepository()
 {
-    for (size_t i = 0; i < this->m_sprites.size(); i++)
-    {
-        delete this->m_sprites[i];
-        this->m_sprites[i] = nullptr;
-    }
+    this->cleanUp();
 }
 
 // Public functions
@@ -124,6 +120,14 @@ void s2d::SpriteRepository::reloadTextures()
     for (size_t i = 0; i < this->m_sprites.size(); i++)
     {
         this->m_sprites[i]->setSpriteTexture(this->m_sprites[i]->sprite_renderer.path);
+    }
+}
+
+void s2d::SpriteRepository::cleanUp()
+{
+    for (size_t i = 0; i < this->m_sprites.size(); i++)
+    {
+        this->deleteAt(i);
     }
 }
 
