@@ -218,7 +218,6 @@ void s2d::flc::createKnownProjectDirFile()
 
 void s2d::flc::createAnimtionSaveFiles(const s2d::SpriteRepository& spriteRepository)
 {
-	std::fstream animationFiles;
 	for (int i = 0; i < spriteRepository.amount(); i++)
 	{
 		const s2d::Sprite* const ptr_sprite = spriteRepository.readAt(i, true);
@@ -241,7 +240,6 @@ void s2d::flc::createAnimationSaveFile(const s2d::Sprite* ptr_sprite, const s2d:
 		std::to_string(ptr_sprite->getId()) + "\n";
 
 	const std::vector<s2d::KeyFrame>& frames = animationToSave.getKeyFrames();
-
 
 	for (const s2d::KeyFrame& frame : frames)
 	{

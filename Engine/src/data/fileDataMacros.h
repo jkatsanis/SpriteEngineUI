@@ -31,10 +31,9 @@
 #define PATH_TO_USER_DEBUG_FOLDER s2d::EngineData::s_path_to_user_project + "\\x64\\Debug\\" 
 #define PATH_TO_USER_SAVES_FOLDER s2d::EngineData::s_path_to_user_project + "\\engine\\saves"
 #define PATH_TO_SCENE_FILE s2d::EngineData::s_path_to_user_project + "\\engine\\saves\\scenes" + EXTENSION_SCENE_SAVE_FILE
-#define PATH_TO_ANIMATION_FILE s2d::EngineData::s_path_to_user_project + "\\engine\\saves\\" + s2d::EngineData::s_scene + "\\animation.txt"
 #define PATH_TO_SPRITE_FILE s2d::EngineData::s_path_to_user_project + "\\engine\\saves\\" + s2d::EngineData::s_scene + "\\sprites.txt"
 #define PATH_TO_BACKGROUND_FILE s2d::EngineData::s_path_to_user_project + "\\engine\\saves\\" + s2d::EngineData::s_scene + "\\background.txt"
 #define PATH_TO_CAMERA_FILE s2d::EngineData::s_path_to_user_project + "\\engine\\saves\\" + s2d::EngineData::s_scene + "\\camera.txt"
 #define PATH_TO_INDEX_FILE s2d::EngineData::s_path_to_user_project + "\\engine\\saves\\" + s2d::EngineData::s_scene + "\\index.txt"
-#define PATH_TO_KNOWN_ANIMATIONS s2d::EngineData::s_path_to_user_project + "\\engine\\saves\\" + s2d::EngineData::s_scene + "\\ animations.txt"
+#define PATH_TO_KNOWN_ANIMATIONS s2d::EngineData::s_path_to_user_project + "\\engine\\saves\\" + s2d::EngineData::s_scene + "\\animations.txt"
 /////////////////////

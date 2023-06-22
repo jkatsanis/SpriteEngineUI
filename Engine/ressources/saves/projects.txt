@@ -1,2 +1,3 @@
 name;absulutePathStr;date;relativePath
 template;C:\Dev\SpriteEngineUI\Engine\ressources\template;2023/22/06 11:21:42;ressources\template
+Radioo;C:\Dev\Radioo;2023/22/06 11:54:04;..\..\Radioo

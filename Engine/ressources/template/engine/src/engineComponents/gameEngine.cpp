@@ -190,7 +190,7 @@ void s2d::GameEngine::start()
 
 	//Engine 
 	s2d::Initializer::initScenes(this->m_scene_names);;
-	this->initOtherClasses();
+	this->loadScene(s2d::GameData::s_scene);
 	s2d::Initializer::loadPrefabsInMemory();
 	s2d::Input::setEvent(&this->event);
 

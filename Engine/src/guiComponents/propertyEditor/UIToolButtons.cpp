@@ -176,7 +176,7 @@ void s2d::UIToolButtons::removeScene(const std::string& scene)
 	}
 	if (idx != -1)
 	{
-		std::removeAt(*this->m_ptr_scene_names, idx);
+		std::removeAt(*this->m_ptr_scene_names, (int)idx);
 		const std::string path = PATH_TO_USER_SAVES_FOLDER + "\\" + scene;
 		std::filesystem::remove_all(path);
 	}

@@ -110,6 +110,12 @@ void s2d::SpriteRepository::cleanUp()
     this->child_to_parent = nullptr;
     this->sprite_in_inspector = nullptr;
     this->right_clicked_sprite = nullptr;
+
+    if (this->m_sprites.size() > 0)
+    {
+        delete this->m_sprites[0];
+    }
+    this->m_sprites.clear();
 }
 
 void s2d::SpriteRepository::updateHighestLayerIndex()
