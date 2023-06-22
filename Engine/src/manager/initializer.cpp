@@ -28,7 +28,15 @@ void s2d::Initializer::initScenes(std::vector<std::string>& scenes)
 		scene_file.close();
 	}
 
-	s2d::EngineData::s_scene = scenes[0];
+	if (scenes.size() > 0)
+	{
+		s2d::EngineData::s_scene = scenes[0];
+	}
+	else
+	{
+		s2d::EngineData::s_scene = USER_FIRST_SCENE_NAME;
+		scenes.push_back(USER_FIRST_SCENE_NAME);
+	}
 }
 
 void s2d::Initializer::initPrefab(const std::string& path, s2d::SpriteRepository& repo)

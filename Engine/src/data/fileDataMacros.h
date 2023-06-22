@@ -1,9 +1,13 @@
-#define DELIMITER ";"
 
+/////////////////////
+// ENGINE (NAMES) 
+#define DELIMITER ";"
 #define EXTENSION_PREFAB_FILE ".prfb"
 #define EXTENSION_SAVE_FILE ".txt"
 #define EXTENSION_SCENE_SAVE_FILE ".scn"
 #define EXTENSION_ANIMATION_FILE ".txt"
+///////////////////// 
+
 
 /////////////////////
 // ENGINE 
@@ -15,7 +19,14 @@
 
 
 /////////////////////
+// USER (NAMES)
+#define USER_FIRST_SCENE_NAME "scene 1"
+/////////////////////
+
+
+/////////////////////
 // USER
+#define PATH_TO_USER_FIRST_SCENE PATH_TO_TEMPLATE_FOLDER"\\engine\\saves\\" USER_FIRST_SCENE_NAME
 #define PATH_TO_USER_ASSET_FOLDER s2d::EngineData::s_path_to_user_project + "\\assets"
 #define PATH_TO_USER_DEBUG_FOLDER s2d::EngineData::s_path_to_user_project + "\\x64\\Debug\\" 
 #define PATH_TO_USER_SAVES_FOLDER s2d::EngineData::s_path_to_user_project + "\\engine\\saves"

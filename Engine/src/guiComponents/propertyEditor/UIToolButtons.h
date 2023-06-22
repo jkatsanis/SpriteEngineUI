@@ -49,6 +49,7 @@ namespace s2d
 		void renderMainMenuBar();
 		void renderToolSelector();
 		void renderSceneSelector();
+		void removeScene(const std::string& scene);
 
 	public:
 		bool is_hovered;

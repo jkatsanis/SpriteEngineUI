@@ -1,6 +1,25 @@
 #include "fontManager.h"
 #include <iostream>
 
+bool s2d::FontManager::displaySymbolAsButtonWithWidthAndCursorPos(const char* symbol, const ImVec2& cursor, const ImVec2& width, const std::string& identy)
+{
+	ImGui::SetCursorPos(cursor);
+	bool clicked = false;
+	ImGui::PopFont();
+	ImGui::PushFont(s2d::FontManager::s_symbol_font);
+
+	const std::string identy_button = identy + "-button";
+
+	clicked = ImGui::Button(identy_button.c_str(), width);
+
+	ImGui::SetCursorPos(ImVec2(cursor.x + 7, ImGui::GetCursorPosY() - 25));
+	ImGui::Text(symbol);
+
+	ImGui::PopFont();
+	ImGui::PushFont(s2d::FontManager::s_default_font);
+	return clicked;
+}
+
 bool s2d::FontManager::displaySymbolInMenuItem(const char* symbol)
 {
 	ImGui::PopFont();

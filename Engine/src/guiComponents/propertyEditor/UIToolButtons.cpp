@@ -98,10 +98,21 @@ void s2d::UIToolButtons::renderSceneSelector()
 		for (size_t i = 0; i < this->m_ptr_scene_names->size(); i++)
 		{
 			const std::string name = this->m_ptr_scene_names->at(i);
-			if (ImGui::MenuItem(name.c_str()))
+			ImGui::Text(name.c_str());
+			ImVec2 cursor = ImVec2(ImGui::GetCursorPosX() + 115, ImGui::GetCursorPosY() - 30);
+			std::string identy = "##" + name;
+			if (s2d::FontManager::displaySymbolAsButtonWithWidthAndCursorPos(ICON_FA_TRASH, cursor, ImVec2(30, 30), identy))
+			{
+				this->removeScene(name);
+			}
+			cursor.x += 27;
+			cursor.y += 1.5f;
+			identy += "symbol";
+			if (s2d::FontManager::displaySymbolAsButtonWithWidthAndCursorPos(ICON_FA_EDIT, cursor, ImVec2(30, 30), identy))
 			{
 				s2d::EngineData::s_scene = name;
 			}
+			ImGui::Dummy(ImVec2(0, 5));
 		}
 		ImGui::Separator();
 		if (ImGui::MenuItem("Add scene"))
@@ -136,8 +147,8 @@ void s2d::UIToolButtons::renderSceneSelector()
 		const std::string scene_name = std::string(this->m_new_scene_name);
 		if (!std::isEqualWithAny(scene_name, *this->m_ptr_scene_names))
 		{
-			// ADDING THE SCENE
-			const std::string input_dir = PATH_TO_TEMPLATE_FOLDER "\\engine\\saves\\empty";
+			// ADDING THE SCENE			
+			const std::string input_dir = PATH_TO_USER_FIRST_SCENE;
 			const std::string output_dir = s2d::EngineData::s_path_to_user_project + "\\engine\\saves\\";
 			s2d::flc::copyDir(input_dir, output_dir, scene_name);
 			this->m_ptr_scene_names->push_back(scene_name);
@@ -145,6 +156,34 @@ void s2d::UIToolButtons::renderSceneSelector()
 			s2d::flc::createSceneSaveFile(*this->m_ptr_scene_names);
 		}
 		this->m_new_scene_name[0] = '\0';
+	}
+}
+
+void s2d::UIToolButtons::removeScene(const std::string& scene)
+{
+	if (this->m_ptr_scene_names->size() <= 1)
+	{
+		return;
+	}
+	size_t idx = -1;
+	for (size_t i = 0; i < this->m_ptr_scene_names->size(); i++)
+	{
+		if (this->m_ptr_scene_names->at(i) == scene)
+		{
+			idx = i;
+			break;
+		}
+	}
+	if (idx != -1)
+	{
+		std::removeAt(*this->m_ptr_scene_names, idx);
+		const std::string path = PATH_TO_USER_SAVES_FOLDER + "\\" + scene;
+		std::filesystem::remove_all(path);
+	}
+
+	if (s2d::EngineData::s_scene == scene)
+	{
+		s2d::EngineData::s_scene = this->m_ptr_scene_names->at(0);
 	}
 }
 

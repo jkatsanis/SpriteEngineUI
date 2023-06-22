@@ -17,6 +17,7 @@ namespace s2d
 		static ImFont* s_symbol_font;
 		static float fontSize;
 
+		static bool displaySymbolAsButtonWithWidthAndCursorPos(const char* symbol, const ImVec2& cursor, const ImVec2& width, const std::string& identy);
 		static bool displaySymbolInMenuItem(const char* symbol);
 		static void displaySmybolAsText(const char* symbol);
 		static bool displaySmybolAsButton(const char* symbol, ImFont* font = nullptr);
