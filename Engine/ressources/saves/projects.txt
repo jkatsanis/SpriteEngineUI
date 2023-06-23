@@ -1,2 +1,2 @@
 name;absulutePathStr;date;relativePath
-Amogus;C:\Dev\C++\Amogus;2023/22/06 19:52:00;..\..\Amogus
+Mosef;C:\Dev\Mosef;2023/23/06 05:58:30;..\..\Mosef

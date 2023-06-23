@@ -146,6 +146,7 @@ void s2d::GameEngine::saveDialoge()
 
     if (this->m_close)
     {
+        ImGui::SetNextWindowFocus();
         if (ImGui::Begin("Close", NULL,
             ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoTitleBar))
         {

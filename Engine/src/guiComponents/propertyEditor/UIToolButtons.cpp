@@ -14,8 +14,14 @@ s2d::UIToolButtons::UIToolButtons(s2d::SpriteRepository& spriteRepo, std::vector
 	this->m_ptr_scene_names = &scene_names;
 }
 
+s2d::UIToolButtons::~UIToolButtons()
+{
+	this->m_new_scene_name[0] = '\0';
+}
+
 void s2d::UIToolButtons::init()
 {
+	this->m_switch_scene_name = "";
 	this->m_new_scene_name[0] = '\0';
 	this->m_add_scene_mode = false;
 	this->m_editor_tools = s2d::EditorTools::PositionTool;
@@ -46,6 +52,7 @@ void s2d::UIToolButtons::createToolsAndButtons()
 	ImGui::SetWindowSize(ImVec2(120, 30));
 	ImGui::End();
 }
+
 void s2d::UIToolButtons::setBackgroundColorToSave(const s2d::Vector3& color)
 {
 	this->m_window_background_to_save = color;
@@ -108,7 +115,6 @@ void s2d::UIToolButtons::renderSceneSelector()
 			{
 				ImGui::Text(name.c_str());
 			}
-
 			ImVec2 cursor = ImVec2(ImGui::GetCursorPosX() + 115, ImGui::GetCursorPosY() - 30);
 			std::string identy = "##" + name;
 			if (s2d::FontManager::displaySymbolAsButtonWithWidthAndCursorPos(ICON_FA_TRASH, cursor, ImVec2(30, 30), identy))
@@ -120,7 +126,7 @@ void s2d::UIToolButtons::renderSceneSelector()
 			identy += "symbol";
 			if (s2d::FontManager::displaySymbolAsButtonWithWidthAndCursorPos(ICON_FA_EDIT, cursor, ImVec2(30, 30), identy))
 			{
-				s2d::EngineData::s_scene = name;
+				this->m_switch_scene_name = name;
 			}
 			ImGui::Dummy(ImVec2(0, 5));
 		}
@@ -133,13 +139,45 @@ void s2d::UIToolButtons::renderSceneSelector()
 		ImGui::EndMenu();
 	}
 	const std::string scene_text = "Currently editing: " + s2d::EngineData::s_scene;
-
 	ImGui::SetCursorPosX(1880 - ImGui::CalcTextSize(scene_text.c_str()).x);
-
 	ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(0.5f, 0.5f, 0.5f, 1.0f));
 	ImGui::Text(scene_text.c_str());
 	ImGui::PopStyleColor();
 
+	this->switchScene(this->m_switch_scene_name);
+	this->renderSceneAddPopup();
+}
+
+void s2d::UIToolButtons::removeScene(const std::string& scene)
+{
+	if (this->m_ptr_scene_names->size() <= 1)
+	{
+		return;
+	}
+	size_t idx = -1;
+	for (size_t i = 0; i < this->m_ptr_scene_names->size(); i++)
+	{
+		if (this->m_ptr_scene_names->at(i) == scene)
+		{
+			idx = i;
+			break;
+		}
+	}
+	if (idx != -1)
+	{
+		std::removeAt(*this->m_ptr_scene_names, (int)idx);
+		const std::string path = PATH_TO_USER_SAVES_FOLDER + "\\" + scene;
+		std::filesystem::remove_all(path);
+	}
+
+	if (s2d::EngineData::s_scene == scene)
+	{
+		s2d::EngineData::s_scene = this->m_ptr_scene_names->at(0);
+	}
+}
+
+void s2d::UIToolButtons::renderSceneAddPopup()
+{
 	if (!this->m_add_scene_mode)
 	{
 		return;
@@ -177,31 +215,41 @@ void s2d::UIToolButtons::renderSceneSelector()
 	}
 }
 
-void s2d::UIToolButtons::removeScene(const std::string& scene)
+void s2d::UIToolButtons::switchScene(const std::string& scene)
 {
-	if (this->m_ptr_scene_names->size() <= 1)
+	if (this->m_switch_scene_name == "")
 	{
 		return;
 	}
-	size_t idx = -1;
-	for (size_t i = 0; i < this->m_ptr_scene_names->size(); i++)
+	ImGui::SetNextWindowFocus();
+	if (ImGui::Begin("close-scene-popup", NULL,
+		ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse 
+		| ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoTitleBar 
+		| ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse))
 	{
-		if (this->m_ptr_scene_names->at(i) == scene)
+		ImGui::SetCursorPosY(ImGui::GetCursorPosY() - 7.5f);
+		const ImVec2 CURSOR_POS = ImGui::GetCursorPos();
+		if (ImGui::Button("Save"))
 		{
-			idx = i;
-			break;
+			s2d::flc::cleanUp(*this->m_ptr_repo, true);
+			s2d::flc::saveEverything(this->m_window_background_to_save, *this->m_ptr_repo, *this->m_ptr_gui_repo, *this->m_ptr_scene_names);			
+			s2d::EngineData::s_scene = scene;
+			this->m_switch_scene_name = "";
 		}
-	}
-	if (idx != -1)
-	{
-		std::removeAt(*this->m_ptr_scene_names, (int)idx);
-		const std::string path = PATH_TO_USER_SAVES_FOLDER + "\\" + scene;
-		std::filesystem::remove_all(path);
-	}
+		ImGui::SameLine();
+		if (ImGui::Button("Don't save"))
+		{
+			s2d::EngineData::s_scene = scene;
+			this->m_switch_scene_name = "";
+		}
+		if (ImGui::IsKeyReleased(ImGuiKey_Escape))
+		{
+			this->m_switch_scene_name = "";
+		}
 
-	if (s2d::EngineData::s_scene == scene)
-	{
-		s2d::EngineData::s_scene = this->m_ptr_scene_names->at(0);
+		s2d::UI::setWindowScreenMiddle(ImVec2(200, 50));
+		ImGui::SetWindowSize(ImVec2(200, 50)),
+		ImGui::End();
 	}
 }
 
