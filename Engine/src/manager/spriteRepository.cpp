@@ -133,6 +133,10 @@ void s2d::SpriteRepository::reloadTextures()
     for (size_t i = 0; i < this->m_sprites.size(); i++)
     {
         this->m_sprites[i]->setSpriteTexture(this->m_sprites[i]->sprite_renderer.path);
+        for (auto& animation : this->m_sprites[i]->animator.animations)
+        {
+            animation.second.realoadTextures();
+        }
     }
 }
 

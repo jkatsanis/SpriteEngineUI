@@ -23,8 +23,6 @@ namespace s2d
 		/// </summary>
 		std::string m_base_path;
 
-		void setVectorSizes();
-
 	public:
 		std::string name;
 		int current_frame;
@@ -40,6 +38,7 @@ namespace s2d
 		Animation();
 		Animation(Sprite* ptr_applied_sprite, const std::string& name, const std::string file_location, const std::vector<s2d::KeyFrame>& frames);
 
+		void realoadTextures();
 		void deleteKeyFrame(const int pos);
 		void play();
 		void update();

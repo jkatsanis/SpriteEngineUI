@@ -151,7 +151,6 @@ void s2d::UIAnimation::displayAnimations()
 			break;
 		}
 	}
-	
 }
 
 void s2d::UIAnimation::enterAnimation(s2d::Animation& animation)
