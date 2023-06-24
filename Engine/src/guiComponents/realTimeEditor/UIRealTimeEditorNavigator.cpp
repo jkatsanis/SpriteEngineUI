@@ -20,7 +20,7 @@ s2d::UIRealTimeEditorNavigator::UIRealTimeEditorNavigator(sf::RenderWindow& wind
 	this->m_ptr_event_engine = event;
 	this->m_scroll_speed = 0.15f;
 	
-	const std::string path_to_texture = PATH_TO_RESSOURCS"/Sprites/transparent.png";
+	const std::string path_to_texture = PATH_TO_RESSOURCES"/Sprites/transparent.png";
 
 	this->m_ptr_gui_repo->add(sf::Vector2f(0, 0), sf::Vector2f(1920, 1080),
 		sf::Color(255, 255, 255), 4.0f, path_to_texture, "white-box");

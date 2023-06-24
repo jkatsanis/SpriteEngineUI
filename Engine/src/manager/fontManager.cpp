@@ -1,6 +1,25 @@
 #include "fontManager.h"
 #include <iostream>
 
+bool s2d::FontManager::displaySymbolAsButtonWithWidthAndCursorPos(const char* symbol, const ImVec2& cursor, const ImVec2& width, const std::string& identy)
+{
+	ImGui::SetCursorPos(cursor);
+	bool clicked = false;
+	ImGui::PopFont();
+	ImGui::PushFont(s2d::FontManager::s_symbol_font);
+
+	const std::string identy_button = identy + "-button";
+
+	clicked = ImGui::Button(identy_button.c_str(), width);
+
+	ImGui::SetCursorPos(ImVec2(cursor.x + 7, ImGui::GetCursorPosY() - 25));
+	ImGui::Text(symbol);
+
+	ImGui::PopFont();
+	ImGui::PushFont(s2d::FontManager::s_default_font);
+	return clicked;
+}
+
 bool s2d::FontManager::displaySymbolInMenuItem(const char* symbol)
 {
 	ImGui::PopFont();
@@ -141,8 +160,8 @@ void s2d::FontManager::InitFonts(ImGuiIO& io)
 	config.GlyphRanges = ranges;
 
 	//Add the fonts (remember to fill in the correct path of your font
-	s2d::FontManager::s_default_font = io.Fonts->AddFontFromFileTTF(PATH_TO_RESSOURCS"\\Fonts\\Arial.ttf", s2d::FontManager::fontSize);
-	s2d::FontManager::s_symbol_font = io.Fonts->AddFontFromFileTTF(PATH_TO_RESSOURCS"\\Fonts\\fontawesome-webfont.ttf", s2d::FontManager::fontSize - 4, &config);
+	s2d::FontManager::s_default_font = io.Fonts->AddFontFromFileTTF(PATH_TO_RESSOURCES"\\Fonts\\Arial.ttf", s2d::FontManager::fontSize);
+	s2d::FontManager::s_symbol_font = io.Fonts->AddFontFromFileTTF(PATH_TO_RESSOURCES"\\Fonts\\fontawesome-webfont.ttf", s2d::FontManager::fontSize - 4, &config);
 
 	//This function is important else the program will crash with an assertion
 	ImGui::SFML::UpdateFontTexture();

@@ -4,7 +4,6 @@
 #include <vector>
 #include <engineComponents/input.h>
 #include <engineComponents/sTime.h>
-#include <data/FileData.h>
 #include <calculationComponents/physics.h>
 #include <imgui.h>
 #include <imgui-SFML.h>
@@ -24,6 +23,8 @@ namespace s2d
 	{
 		//User classes, only 1 instance
 		Game m_game;
+		std::vector<std::string> m_scene_names;
+		std::string m_current_scene;
 
 		s2d::SpriteRepository m_sprite_repository;
 		s2d::Renderer m_renderer;
@@ -35,6 +36,8 @@ namespace s2d
 		void pollEvents();
 		void updateUserScriptsAndGUI();
 		void updateWindowStyle();
+		void clearEngineUpBeforeSceneLoad();
+		void initOtherClasses();
 
 	public:
 		s2d::Event event;
@@ -44,6 +47,7 @@ namespace s2d
 		GameEngine();
 		~GameEngine();
 
+		void loadScene(const std::string& scene_name);
 		void update();
 		void start();
 		bool isGameRunning();

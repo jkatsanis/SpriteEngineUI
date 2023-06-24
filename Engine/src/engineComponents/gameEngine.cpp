@@ -4,7 +4,7 @@
 
 s2d::GameEngine::GameEngine()
 {
-    this->m_ui_window.init(this->m_sprite_repository, &this->event, &this->windowEvent);
+    this->m_ui_window.init(this->m_sprite_repository, &this->event, &this->windowEvent, this->m_scene_names);
     this->m_close = false;
     this->ptr_render_window = new sf::RenderWindow(sf::VideoMode(1920, 1080), "SpriteEngine", sf::Style::Default);
     this->windowEvent.type = sf::Event::GainedFocus;
@@ -12,19 +12,15 @@ s2d::GameEngine::GameEngine()
 
     auto desktop = sf::VideoMode::getDesktopMode();
     this->ptr_render_window->setPosition(sf::Vector2i(desktop.width / 2 - this->ptr_render_window->getSize().x / 2, 0));
-    this->m_isWindowFullScreen = false;
+    this->m_is_window_full_screen = false;
 
     this->m_ui_real_time_editor = s2d::UIRealTimeEditor(*ptr_render_window, &this->windowEvent, &this->m_ui_window.ary_any_windows_hovered,
         &this->m_ui_window.getInspector().state, &this->event, this->m_sprite_repository, this->m_ui_window.gui_repository);
     this->m_ui_window.gui_repository.camera = s2d::Camera(this->ptr_render_window);
 
     //Setting other classes
-    s2d::Initializer::initSprites(this->m_sprite_repository);
-    s2d::Initializer::initAnimations(this->m_sprite_repository);
-    s2d::Initializer::initBackground(this->m_ui_window.gui_repository.background_color);
-    s2d::Initializer::initIds(this->m_sprite_repository.highestSpriteId);
-    s2d::Initializer::initCamera(this->m_ui_window.gui_repository);
-   
+    s2d::Initializer::initScenes(this->m_scene_names);;
+    this->initOtherClasses();
     s2d::Input::setEvent(&this->event);
     s2d::UI::setRenderWindow(this->ptr_render_window);
     s2d::UI::setS2DEvent(&this->event);
@@ -33,9 +29,11 @@ s2d::GameEngine::GameEngine()
     ImGui::SFML::Init(*this->ptr_render_window);
 
     this->ptr_render_window->setKeyRepeatEnabled(false);
-    this->m_sprite_repository.isFullScreened = &this->m_isWindowFullScreen;
+    this->m_sprite_repository.isFullScreened = &this->m_is_window_full_screen;
 
     s2d::flc::cleanUp(this->m_sprite_repository, false);
+
+    this->m_current_scene = s2d::EngineData::s_scene;
 }
 
 s2d::GameEngine::~GameEngine()
@@ -43,6 +41,15 @@ s2d::GameEngine::~GameEngine()
     delete this->ptr_render_window;
 
     ImGui::SFML::Shutdown();
+}
+
+void s2d::GameEngine::initOtherClasses()
+{
+    s2d::Initializer::initSprites(this->m_sprite_repository);
+    s2d::Initializer::initAnimations(this->m_sprite_repository);
+    s2d::Initializer::initBackground(this->m_ui_window.gui_repository.background_color);
+    s2d::Initializer::initIds(this->m_sprite_repository.highestSpriteId);
+    s2d::Initializer::initCamera(this->m_ui_window.gui_repository);
 }
 
 //private functions
@@ -111,19 +118,19 @@ void s2d::GameEngine::pollEvents()
 
 void s2d::GameEngine::updateWindowStyle()
 {
-    if (!m_isWindowFullScreen)
+    if (!this->m_is_window_full_screen)
     {
         if (s2d::Input::onKeyRelease(s2d::KeyBoardCode::F11))
         {
-            this->m_isWindowFullScreen = true;
+            this->m_is_window_full_screen = true;
             this->ptr_render_window->create(sf::VideoMode(1920, 1080), "SpriteEngine", sf::Style::Fullscreen);
         }
     }
-    else if (m_isWindowFullScreen)
+    else if (m_is_window_full_screen)
     {
         if (s2d::Input::onKeyRelease(s2d::KeyBoardCode::F11))
         {
-            this->m_isWindowFullScreen = false;
+            this->m_is_window_full_screen = false;
             this->ptr_render_window->create(sf::VideoMode(1920, 1080), "SpriteEngine", sf::Style::Default);
         }
     }
@@ -139,6 +146,7 @@ void s2d::GameEngine::saveDialoge()
 
     if (this->m_close)
     {
+        ImGui::SetNextWindowFocus();
         if (ImGui::Begin("Close", NULL,
             ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoTitleBar))
         {
@@ -171,10 +179,24 @@ void s2d::GameEngine::onEngineClose(bool save)
     s2d::flc::cleanUp(this->m_sprite_repository, save);
     if (save)
     {
-        s2d::flc::saveEverything(this->m_ui_window.gui_repository.background_color, this->m_sprite_repository, this->m_ui_window.gui_repository);
+        s2d::flc::saveEverything(this->m_ui_window.gui_repository.background_color, this->m_sprite_repository, this->m_ui_window.gui_repository, this->m_scene_names);
     } 
     this->ptr_render_window->close();
 }
+
+void s2d::GameEngine::loadScene(const std::string& scene_name)
+{
+    s2d::EngineData::s_scene = scene_name;
+    this->m_current_scene = scene_name;
+    this->clearEngineUpBeforeSceneLoad();
+    this->initOtherClasses();
+}
+
+void s2d::GameEngine::clearEngineUpBeforeSceneLoad()
+{
+    this->m_sprite_repository.cleanUp();
+}
+
 
 //public functions
 
@@ -202,4 +224,9 @@ void s2d::GameEngine::update()
 
     // Other classes
     s2d::Time::update();
+
+    if (this->m_current_scene != s2d::EngineData::s_scene)
+    {
+        this->loadScene(s2d::EngineData::s_scene);
+    }
 }

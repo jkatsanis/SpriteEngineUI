@@ -9,30 +9,33 @@ This Project is a simple **2D Game Engine** designed to be fully understand by o
 
 ## Features
 
-- **UI Editor**
-- **Box Collision Detection**
-- **Parent-Child Collision Stopping** 
+- **UI editor**
+- **Scene creation**
+- **Box collision detection**
+- **Parent-Child collision Stopping** 
 - **Physics**
-- **Animations (also supporting UI editor now)**
+- **Animations (supported by editor)**
 - **Scripting with C++** 
-- **Project Creator**
+- **Project creator**
 - **Automatic project builder**
 
 ----    
 ## Enhancements
-- **Sound Manager**
-- **More C++ Functions**
+- **Sound manager**
+- **More C++ functions**
 - **Cleaner design**
+- **Box collider rotation**
 ---
 
 ## Getting Started
 
 The engine calls the only 1 update and 1 Start Method of the "Game" class, if you create a new Script you need to
-call the update method from the script in the "Game" class. If you want to share Instances simply pass them in the 
-update methods or set a pointer to it in the start method. You can get acces to a sprite by calling the myPtr = s2d::Sprite::getSpriteByName() 
-method. Now you are able to use all kinds of features with the sprite. Please not that the engine does still have alot of bugs!
+call the update method from the script in the "Game" class. If you want to share instances simply pass them in the 
+update methods or set a pointer to it in the start method. You can get acces to a sprite by calling 
+`this->config.ptr_sprites->getSpriteWithName("name");` This method returns a pointer to the sprite in the `SpriteRepository`
+. Now you are able to do all kind of things with the sprite. Please note that the engine does still have alot of bugs!
 
-You can get started by downloading the Engine folder [here](https//github.com)
+You can get started by downloading the Engine folder [here](https://github.com/jkatsanis/SpriteEngineUI)
 
 You can find a Introduction to the engine on [YouTube](https://www.youtube.com/watch?v=pnCD5dKhpmg)
 
@@ -42,11 +45,11 @@ You can find a Introduction to the engine on [YouTube](https://www.youtube.com/w
 
     A File Dialog will open, select where u want to create the project and hit the '**+**' button.
 
-    All the files from the **template** folder will be automatically copied to the location the user selected.
+    All the files from the **template** folder will be automatically copied to the location the user selected his project to be.
 
     The folder will have the name the user selected, the **.sln** file and the **.exe** wont have the same name as the **project name**. 
 
-    I'am **looking to add** a feature where u can build the project in a folder with it's name, containing all the dll's and **renamed files**. 
+    By the way, if you hit `build` or `STRG + B` in the engine the .exe will automaticly build into a folder. So you don't need to worry about messing around with ressources/dll's
 
 2. **How Do I Script My Sprites?**
 
@@ -68,7 +71,7 @@ You can find a Introduction to the engine on [YouTube](https://www.youtube.com/w
     ```C++
     void Game::start()
     {
-        this->m_sprite = Sprite::getSpriteByName("name");
+        this->m_sprite = this->configptr_sprites->getSpriteWithName("name");`
     }
     ```
 
@@ -84,7 +87,29 @@ You can find a Introduction to the engine on [YouTube](https://www.youtube.com/w
         }
     }
     ```
+3. **How do the sprites get managed?** 
 
+    All the sprites are getting managed by a object called `SpriteRepository`. This object contains a private list of sprites, you can add sprites to the scene by using this `repository`. For example
 
+    ```C++
+    void Game::start()
+    {
+        Sprite* spr = new Sprite();
+        this->config.ptr_sprites.add(spr);
+    }
+    ```
+    This will autamticly add the sprite to the repository and it will take care of the rendering / calculating collisons, physics etc. Of course you need to active the necceasary components like 
+    ```C++
+    void Game::start()
+    {
+        Sprite* spr = new Sprite();
+        spr.collider.exist = true;
+    }
+    ```
+    to have a basic collision detection.
+
+    Here is a simple imagine showing how the `Sprite Repository` works:
+
+    ![Repo plan](Github/repoplan.png)
    
 

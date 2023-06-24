@@ -110,6 +110,19 @@ void s2d::GameEngine::updateWindowStyle()
 	}
 }
 
+void s2d::GameEngine::clearEngineUpBeforeSceneLoad()
+{
+	this->m_sprite_repository.cleanUp();
+}
+
+void s2d::GameEngine::loadScene(const std::string& scene_name)
+{
+	s2d::GameData::s_scene = scene_name;
+	this->m_current_scene = scene_name;
+	this->clearEngineUpBeforeSceneLoad();
+	this->initOtherClasses();
+}
+
 // Public functions
 
 void s2d::GameEngine::update()
@@ -142,6 +155,13 @@ void s2d::GameEngine::update()
 #ifdef CAMERA
 		s2d::GameObject::camera.update();
 #endif
+
+#ifdef SCENE
+		if (this->m_current_scene != s2d::GameData::s_scene)
+		{
+			this->loadScene(s2d::GameData::s_scene);
+		}
+#endif
 	}
 
 	//Engine event
@@ -152,14 +172,6 @@ void s2d::GameEngine::update()
 
 void s2d::GameEngine::start()
 {	
-	//Engine 
-	s2d::Initializer::initIds(this->m_sprite_repository.highestSpriteId);
-	s2d::Initializer::initSprites(this->m_sprite_repository);
-	s2d::Initializer::initAnimations(this->m_sprite_repository);
-	s2d::Initializer::loadPrefabsInMemory();
-	s2d::Input::setEvent(&this->event);
-	s2d::FileData::setWindowBackground();
-
 	//Engine 
 	this->windowEvent.type = sf::Event::GainedFocus;
 	this->ptr_render_window = new sf::RenderWindow(sf::VideoMode(1920, 1080), s2d::GameData::name, sf::Style::Default);
@@ -176,7 +188,22 @@ void s2d::GameEngine::start()
 	this->m_game.config.ptr_sprites = &this->m_sprite_repository;
 	this->m_sprite_repository.main_content_iniitialied = true;
 
+	//Engine 
+	s2d::Initializer::initScenes(this->m_scene_names);;
+	this->loadScene(s2d::GameData::s_scene);
+	s2d::Initializer::loadPrefabsInMemory();
+	s2d::Input::setEvent(&this->event);
+
+	this->m_current_scene = s2d::GameData::s_scene;
+
 	// user code
 	this->m_game.start();
 }
 
+void s2d::GameEngine::initOtherClasses()
+{
+	s2d::Initializer::initBackground(this->m_renderer.background_color);
+	s2d::Initializer::initIds(this->m_sprite_repository.highestSpriteId);
+	s2d::Initializer::initSprites(this->m_sprite_repository);
+	s2d::Initializer::initAnimations(this->m_sprite_repository);
+}

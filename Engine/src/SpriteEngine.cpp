@@ -13,8 +13,8 @@ int main()
     {
         // Closing the engine since the user doesnt want to open a project;
         return -1;
-    }
-
+    }   
+    
     s2d::GameEngine engine;
 
     if (engine.ptr_render_window == nullptr)

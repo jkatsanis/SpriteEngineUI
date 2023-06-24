@@ -15,6 +15,7 @@
 #include <manager/saveSystem.h>
 #include <manager/spriteRepository.h>
 #include <manager/guiRepository.h>
+#include <UIHierarchy.h>
 
 #define TOOLS_AMOUNT 2
 #define FILE_AMOUNT 6
@@ -31,8 +32,13 @@ namespace s2d
 		EditorTools m_editor_tools;
 		s2d::GUIRepository* m_ptr_gui_repo;
 		s2d::SpriteRepository* m_ptr_repo;
+		std::vector<std::string>* m_ptr_scene_names;
 
+		char m_new_scene_name[150];
+
+		bool m_add_scene_mode;
 		bool m_clicked_on_btn;
+		std::string m_switch_scene_name;
 
 		void playGameButton();
 		void toolSelector();
@@ -44,12 +50,17 @@ namespace s2d
 		void renderWindowSelecter();
 		void renderMainMenuBar();
 		void renderToolSelector();
+		void renderSceneSelector();
+		void removeScene(const std::string& scene);
+		void renderSceneAddPopup(); 
+		void switchScene(const std::string& scene);
 
 	public:
 		bool is_hovered;
 
 		UIToolButtons();
-		UIToolButtons(s2d::SpriteRepository& sprite_repo);
+		UIToolButtons(s2d::SpriteRepository& sprite_repo, std::vector<std::string>& scene_names);
+		~UIToolButtons();
 
 		void createToolsAndButtons();
 		void setBackgroundColorToSave(const s2d::Vector3& color);

@@ -22,7 +22,7 @@ namespace s2d
 {
 	namespace flc
 	{
-		void saveEverything(const s2d::Vector3& bg, s2d::SpriteRepository& toSave, s2d::GUIRepository& gui_repo);
+		void saveEverything(const s2d::Vector3& bg, s2d::SpriteRepository& toSave, s2d::GUIRepository& gui_repo, std::vector<std::string>& scene_names);
 
 		void createSaveFile(const SpriteRepository& spriteRepo);
 		void createWindowBackgroundSaveFile(const s2d::Vector3 windowBackground);
@@ -34,6 +34,7 @@ namespace s2d
 		bool isProjectPathValid(const std::string& path);
 		bool checkIfProjectExistInFile(std::string& ref);
 		void createAnimationSaveFile(const s2d::Sprite* ptr_sprite, const s2d::Animation& animationToSave);
+		void createSceneSaveFile(const std::vector<std::string>& scene_names);
 
 		void createOrUpdatePrefabFile(const s2d::Sprite* content, const std::string& pathToFile, const std::string& pathToOldFile);
 

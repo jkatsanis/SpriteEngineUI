@@ -23,8 +23,10 @@ namespace s2d
 		UIRealTimeEditor m_ui_real_time_editor;
 		Renderer m_renderer;
 		SpriteRepository m_sprite_repository;
+		std::string m_current_scene;
+		std::vector<std::string> m_scene_names;
 
-		bool m_isWindowFullScreen;
+		bool m_is_window_full_screen;
 		bool m_close;
 
 		void pollEngineEvents();
@@ -32,8 +34,12 @@ namespace s2d
 		void updateWindowStyle();
 		void saveDialoge();
 		void onEngineClose(bool save);
+		void clearEngineUpBeforeSceneLoad();
+		void initOtherClasses();
+		void loadScene(const std::string& scene_name);
 
 	public:
+
 		s2d::Event event;
 		sf::Event windowEvent;
 		sf::RenderWindow* ptr_render_window;
@@ -44,7 +50,7 @@ namespace s2d
 		~GameEngine();
 
 		void update();
-	
+
 		s2d::SpriteRepository& getRepo() {
 			return this->m_sprite_repository;
 		}

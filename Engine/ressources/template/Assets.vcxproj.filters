@@ -135,9 +135,6 @@
     <ClCompile Include="engine\src\engineComponents\event.cpp">
       <Filter>engine src\engineComponents\gameEngiine</Filter>
     </ClCompile>
-    <ClCompile Include="engine\src\data\FileData.cpp">
-      <Filter>engine src\data</Filter>
-    </ClCompile>
     <ClCompile Include="engine\src\engineComponents\gameEngine.cpp">
       <Filter>engine src\engineComponents\gameEngiine</Filter>
     </ClCompile>
@@ -197,6 +194,9 @@
     </ClCompile>
     <ClCompile Include="engine\src\manager\prefabRepository.cpp">
       <Filter>engine src\manager</Filter>
+    </ClCompile>
+    <ClCompile Include="engine\src\data\engineConfig.cpp">
+      <Filter>engine src\data</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -534,9 +534,6 @@
       <Filter>engine src\engineComponents\input</Filter>
     </ClInclude>
     <ClInclude Include="engine\src\data\gameData.h">
-      <Filter>engine src\data</Filter>
-    </ClInclude>
-    <ClInclude Include="engine\src\data\FileData.h">
       <Filter>engine src\data</Filter>
     </ClInclude>
     <ClInclude Include="engine\src\engineComponents\event.h">

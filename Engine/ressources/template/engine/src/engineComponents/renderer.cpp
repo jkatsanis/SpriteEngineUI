@@ -73,9 +73,9 @@ void s2d::Renderer::drawRectangles()
 
 void s2d::Renderer::render()
 {
-    sf::Color backgroundColor = sf::Color(sf::Uint8(s2d::FileData::windowBackground.x),
-        sf::Uint8(s2d::FileData::windowBackground.y),
-        sf::Uint8(s2d::FileData::windowBackground.z));
+    sf::Color backgroundColor = sf::Color(sf::Uint8(this->background_color.x),
+        sf::Uint8(this->background_color.y),
+        sf::Uint8(this->background_color.z));
 
     this->m_ptr_renderWindow->clear(backgroundColor);
     this->draw();

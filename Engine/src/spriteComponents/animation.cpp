@@ -38,7 +38,7 @@ s2d::Animation::Animation(Sprite* ptr_appliedSprite, const std::string& name, co
 		currentPos += (int)this->m_keyframes[i].delay;
 		this->m_keyframes[i].position = currentPos;
 	}
-	this->setVectorSizes();
+	this->realoadTextures();
 }
 
 // Public methods
@@ -187,10 +187,10 @@ void s2d::Animation::updateAllAnimations(s2d::SpriteRepository& repo)
 	}
 }
 
-//Private methods
 
-void s2d::Animation::setVectorSizes()
+void s2d::Animation::realoadTextures()
 {
+	this->m_textures.clear();
 	this->m_textures = std::vector<sf::Texture>(this->m_keyframes.size());
 
 	for (int i = 0; i < this->m_keyframes.size(); i++)
@@ -198,3 +198,4 @@ void s2d::Animation::setVectorSizes()
 		this->m_textures[i].loadFromFile(this->m_keyframes[i].path);
 	}
 }
+

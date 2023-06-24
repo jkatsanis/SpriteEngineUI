@@ -77,12 +77,12 @@ void s2d::UIWindow::update()
 	}
 }
 
-void s2d::UIWindow::init(s2d::SpriteRepository& repo, s2d::Event* evnt, sf::Event* sf_event)
+void s2d::UIWindow::init(s2d::SpriteRepository& repo, s2d::Event* evnt, sf::Event* sf_event, std::vector<std::string>& scenes)
 {
 	this->m_ptr_repo = &repo;
 	this->ary_any_windows_hovered = false;
 	this->m_ui_hierarchy = s2d::UIHierarchy(repo);
-	this->m_ui_tool_button = s2d::UIToolButtons(repo);
+	this->m_ui_tool_button = s2d::UIToolButtons(repo, scenes);
 
 	this->m_ui_inspector.setSpriteRepository(repo);
 	this->m_ui_asset_folder.setSpriteRepository(repo);

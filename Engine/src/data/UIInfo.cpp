@@ -8,10 +8,10 @@ s2d::OpenWindow s2d::UIInfo::s_is_animation_open = s2d::OpenWindow(false);
 
 const std::string s2d::UIInfo::s_icons[ICONS_AMOUNT] =
 {
-	PATH_TO_RESSOURCS"\\Icons\\defaultIcon.png",
-	PATH_TO_RESSOURCS"\\Icons\\assetFolder.png",
-	PATH_TO_RESSOURCS"\\Icons\\prefabIcon.png",
-	PATH_TO_RESSOURCS"\\Icons\\codeIcon.png",
-	PATH_TO_RESSOURCS"\\Icons\\pngIcon.png"
+	PATH_TO_RESSOURCES"\\Icons\\defaultIcon.png",
+	PATH_TO_RESSOURCES"\\Icons\\assetFolder.png",
+	PATH_TO_RESSOURCES"\\Icons\\prefabIcon.png",
+	PATH_TO_RESSOURCES"\\Icons\\codeIcon.png",
+	PATH_TO_RESSOURCES"\\Icons\\pngIcon.png"
 };
 

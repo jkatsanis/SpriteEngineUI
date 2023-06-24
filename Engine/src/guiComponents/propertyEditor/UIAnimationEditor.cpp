@@ -40,6 +40,7 @@ void s2d::UIAnimationEditor::closeWindow()
 	if (ImGui::Button("x"))
 	{
 		this->m_anim->ptr_applied_sprite->animator.stop(this->m_anim->name);
+
 		this->resetAnim();
 	}
 

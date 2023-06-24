@@ -6,3 +6,4 @@
 #define COLLISION
 #define CAMERA
 #define ANIMATION
+#define SCENE

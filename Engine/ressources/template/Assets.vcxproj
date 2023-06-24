@@ -155,10 +155,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="engine\src\data\engineConfig.cpp" />
     <ClCompile Include="engine\src\spriteComponents\animation.cpp" />
     <ClCompile Include="engine\src\spriteComponents\animator.cpp" />
     <ClCompile Include="engine\src\engineComponents\event.cpp" />
-    <ClCompile Include="engine\src\data\FileData.cpp" />
     <ClCompile Include="engine\src\engineComponents\gameEngine.cpp" />
     <ClCompile Include="engine\src\data\gameData.cpp" />
     <ClCompile Include="engine\src\engineComponents\input.cpp" />
@@ -199,7 +199,6 @@
     <ClInclude Include="engine\src\spriteComponents\animator.h" />
     <ClInclude Include="engine\src\engineComponents\base.h" />
     <ClInclude Include="engine\src\engineComponents\event.h" />
-    <ClInclude Include="engine\src\data\FileData.h" />
     <ClInclude Include="engine\src\engineComponents\gameEngine.h" />
     <ClInclude Include="engine\src\data\gameData.h" />
     <ClInclude Include="engine\src\engineComponents\input.h" />
