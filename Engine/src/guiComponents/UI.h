@@ -7,6 +7,7 @@
 #include <guiComponents/UIModels.h>
 
 #define INVALID_SCALE 1.11f
+#define COMMON_FLAGS ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoTitleBar| ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse
 
 namespace s2d
 {

@@ -12,6 +12,7 @@
 #include <manager/spriteRepository.h>
 #include <UIHierarchy.h>
 #include <spriteComponents/component.h>
+#include <UITagSelector.h>
 
 #define DEFAULT_BACKGROUND_COLOR s2d::Vector3(139, 165, 187)
 #define INSPECTOR_WINDOW_POS ImVec2(1530, 53)
@@ -38,6 +39,8 @@ namespace s2d
 		s2d::GUIRepository* m_ptr_gui_repo;
 		s2d::Rectangle* m_ptr_collider_rectangle;
 		s2d::Rectangle* m_ptr_sprite_over_rectangle;
+
+		s2d::UITagSelector m_tag_selector;
 
 		s2d::ResizeWindowData m_resize_window_data;
 		s2d::SpriteRepository* m_ptr_sprite_repo;
@@ -79,7 +82,6 @@ namespace s2d
 		void renderComponentOptions(s2d::Component& component, const std::string& name);
 		void editDupeName();
 		void generalSettings();
-
 
 	public:
 		bool is_hovered;

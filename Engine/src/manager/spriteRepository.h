@@ -1,10 +1,12 @@
 #pragma once
 
+#include <calculationComponents/vector2.h>
+#include <UIToolButtonsModels.h>
+#include <stdExtension.h>
+
 #include <vector>
 #include <memory>
 #include <iostream>
-#include <calculationComponents/vector2.h>
-#include <UIToolButtonsModels.h>
 #include <string>
 
 namespace s2d
@@ -20,6 +22,7 @@ namespace s2d
     private:
         std::vector<s2d::Sprite*> m_sprites;
         int32_t m_highestLayerIndex;
+        std::vector<std::string> m_tags;
 
         size_t getIndexAtName(const std::string& name) const;
         void addChildsToDelete(std::vector<s2d::Sprite*>& childs, s2d::Sprite* parent);
@@ -52,15 +55,19 @@ namespace s2d
         s2d::Sprite* getSpriteWithId(int id);
         void instanitatePrefab(const std::string& path_to);
 
+        void addTag(const std::string& tag);
+        const std::vector<std::string>& getTags() const { return this->m_tags; }
+
         void cleanUp();
         void updateHighestLayerIndex();
         void reloadTextures();
 
+        uint32_t getHighestLayerIndex() const { return this->m_highestLayerIndex; }
+
+    public:
         static void getAllChilds(std::vector<const s2d::Sprite*>& childs, const s2d::Sprite* parent);
         static s2d::Sprite* getWithId(std::vector<s2d::Sprite*>& collection, uint32_t id);
         static void setValidIds(s2d::Sprite* parent, uint32_t highest_id);
-
-        uint32_t getHighestLayerIndex() const { return this->m_highestLayerIndex; }
     };
 }
 

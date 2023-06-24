@@ -2,6 +2,28 @@
 
 // public static functions
 
+void s2d::Initializer::initTags(s2d::SpriteRepository& repo)
+{
+	std::fstream tag_file;
+
+	tag_file.open(PATHT_TO_TAG_FILE, std::ios::in);
+	if (tag_file.is_open())
+	{
+		std::string line;
+		int cnt = 0;
+		while (std::getline(tag_file, line))
+		{
+			cnt++;
+			if (cnt == 1)
+			{
+				continue;
+			}
+			repo.addTag(line);
+		}
+		tag_file.close();
+	}
+}
+
 void s2d::Initializer::initScenes(std::vector<std::string>& scenes)
 {
 	std::fstream scene_file;
@@ -245,6 +267,10 @@ void s2d::Initializer::initSprite(const std::string& line, s2d::Sprite* sprite)
 		sprite->prefab.path_to_old_file = sprite->prefab.engine_path_to_file;
 		sprite->prefab.file_name = std::getFileOnPath(sprite->prefab.engine_path_to_file);
 	#pragma endregion
+
+#pragma region General
+		sprite->tag = propertys[32];
+#pragma endregion
 
 		sprite->postDefaultInitialization();
 }

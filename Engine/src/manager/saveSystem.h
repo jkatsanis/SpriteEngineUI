@@ -24,6 +24,7 @@ namespace s2d
 	{
 		void saveEverything(const s2d::Vector3& bg, s2d::SpriteRepository& toSave, s2d::GUIRepository& gui_repo, std::vector<std::string>& scene_names);
 
+		void createTagSaveFile(s2d::SpriteRepository& repo);
 		void createSaveFile(const SpriteRepository& spriteRepo);
 		void createWindowBackgroundSaveFile(const s2d::Vector3 windowBackground);
 		void createCameraSaveFile(const s2d::Camera& camera);

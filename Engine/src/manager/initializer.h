@@ -20,6 +20,10 @@ namespace s2d
 	public:
 		Initializer() = delete;
 
+		/// <summary>
+		/// Btw for all scenes
+		/// </summary>
+		static void initTags(s2d::SpriteRepository& repo);
 		static void initScenes(std::vector<std::string>& scenes);
 		static void initPrefab(const std::string& path, s2d::SpriteRepository& repo);
 		static void initCamera(s2d::GUIRepository& repo);

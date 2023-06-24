@@ -36,4 +36,5 @@
 #define PATH_TO_CAMERA_FILE s2d::EngineData::s_path_to_user_project + "\\engine\\saves\\" + s2d::EngineData::s_scene + "\\camera.txt"
 #define PATH_TO_INDEX_FILE s2d::EngineData::s_path_to_user_project + "\\engine\\saves\\" + s2d::EngineData::s_scene + "\\index.txt"
 #define PATH_TO_KNOWN_ANIMATIONS s2d::EngineData::s_path_to_user_project + "\\engine\\saves\\" + s2d::EngineData::s_scene + "\\animations.txt"
+#define PATHT_TO_TAG_FILE PATH_TO_USER_SAVES_FOLDER "\\tags.txt"
 /////////////////////

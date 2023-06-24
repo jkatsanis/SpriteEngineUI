@@ -36,6 +36,7 @@ namespace s2d
 
 		char m_new_scene_name[150];
 
+
 		bool m_add_scene_mode;
 		bool m_clicked_on_btn;
 		std::string m_switch_scene_name;

@@ -15,6 +15,7 @@ s2d::SpriteRepository::SpriteRepository()
     this->dupeNameCounter = 0;
     this->highestSpriteId = 0;
     this->m_highestLayerIndex = 0;
+    this->m_tags.push_back("none");
 }
 
 s2d::SpriteRepository::~SpriteRepository()
@@ -99,6 +100,14 @@ s2d::Sprite* s2d::SpriteRepository::getSpriteWithId(int id)
 void s2d::SpriteRepository::instanitatePrefab(const std::string& path_to)
 {
     s2d::Initializer::initPrefab(path_to, *this);
+}
+
+void s2d::SpriteRepository::addTag(const std::string& tag)
+{
+    if (!std::isEqualWithAny(tag, this->m_tags))
+    {
+        this->m_tags.push_back(tag);
+    }
 }
 
 void s2d::SpriteRepository::cleanUp()

@@ -179,7 +179,7 @@ void s2d::Sprite::validateProperties(uint32_t id, s2d::SpriteRepository& repo)
 void s2d::Sprite::initVariables(std::string& name, s2d::Vector2& spawnPos, std::string& path)
 {
 	// ID's get managed by the sprite repo!
-
+	this->tag = "none";
 	this->m_texture = new sf::Texture();
 	this->transform = s2d::Transform(this);
 	this->parent = nullptr;

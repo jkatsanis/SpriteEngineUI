@@ -319,6 +319,9 @@
     <ClCompile Include="src\data\UIDataModels.h">
       <Filter>src\data\UI</Filter>
     </ClCompile>
+    <ClCompile Include="src\guiComponents\propertyEditor\UITagSelector.cpp">
+      <Filter>src\guiComponents\inspector</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\include\imgui\imconfig.h">
@@ -818,6 +821,9 @@
     </ClInclude>
     <ClInclude Include="src\include\stdExtension.h">
       <Filter>src\Include/headers\__include</Filter>
+    </ClInclude>
+    <ClInclude Include="src\guiComponents\propertyEditor\UITagSelector.h">
+      <Filter>src\guiComponents\inspector</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

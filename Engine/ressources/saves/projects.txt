@@ -1,3 +1,2 @@
 name;absulutePathStr;date;relativePath
-Mosef;C:\Dev\Mosef;2023/23/06 05:58:30;..\..\Mosef
-DasynceSE;C:\Dev\DasynceSE;2023/23/06 08:26:30;..\..\DasynceSE
+DasynceSE;C:\Dev\C++\DasynceSE;2023/24/06 10:13:06;..\..\DasynceSE

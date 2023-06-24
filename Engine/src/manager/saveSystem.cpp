@@ -1,26 +1,45 @@
 #include "saveSystem.h"
 #include <string>
 
-void s2d::flc::saveEverything(const s2d::Vector3& bg, s2d::SpriteRepository& toSave, s2d::GUIRepository& gui_repo, std::vector<std::string>& scenes)
+void s2d::flc::saveEverything(const s2d::Vector3& bg, s2d::SpriteRepository& repo, s2d::GUIRepository& gui_repo, std::vector<std::string>& scenes)
 {
 	//Stopping all animations so there wont be saved the current path of the sprite
-	s2d::Animator::stopAllAnimations(toSave);
+	s2d::Animator::stopAllAnimations(repo);
 
 	//We need to save our data | Dont forget to save it also in "UIToolButtons"
 	s2d::flc::createSceneSaveFile(scenes);
-	s2d::flc::createSaveFile(toSave);
+	s2d::flc::createSaveFile(repo);
 	s2d::flc::createWindowBackgroundSaveFile(bg);
 	s2d::flc::createCameraSaveFile(gui_repo.camera);
-	s2d::flc::createIndexSaveFile(toSave);
-	s2d::flc::createKnownAnimationFile(toSave);
-	s2d::flc::createAnimtionSaveFiles(toSave);
+	s2d::flc::createIndexSaveFile(repo);
+	s2d::flc::createKnownAnimationFile(repo);
+	s2d::flc::createAnimtionSaveFiles(repo);
+	s2d::flc::createTagSaveFile(repo);
 	// Known projects file gets created in project selector
+}
+
+void s2d::flc::createTagSaveFile(s2d::SpriteRepository& repo)
+{
+	std::fstream tag_file;
+	tag_file.open(PATHT_TO_TAG_FILE, std::ios::out);
+	const std::vector<std::string>& tags = repo.getTags();
+
+	if (tag_file.is_open())
+	{	
+		tag_file << "Tags" << "\n";
+
+		for (int i = 0; i < tags.size(); i++)
+		{
+			tag_file << tags[i] << "\n";
+		}
+
+		tag_file.close();
+	}
 }
 
 void s2d::flc::createSaveFile(const s2d::SpriteRepository& spriteRepo)
 {
 	std::fstream spriteFile;
-	std::string s = PATH_TO_SPRITE_FILE;
 	spriteFile.open(PATH_TO_SPRITE_FILE, std::ios::out);
 
 	if (spriteFile.is_open()) 
@@ -37,7 +56,6 @@ void s2d::flc::createSaveFile(const s2d::SpriteRepository& spriteRepo)
 
 		spriteFile.close();
 	}
-
 }
 
 std::string s2d::flc::getPropertyLineWithSeperator(const Sprite* const sprite)
@@ -79,6 +97,7 @@ std::string s2d::flc::getPropertyLineWithSeperator(const Sprite* const sprite)
 	const std::string loadInMemory = std::boolToStr(sprite->prefab.load_in_memory);
 	const std::string pathToPrefab = sprite->prefab.engine_path_to_file;
 	const std::string rotation = std::to_string(sprite->transform.getRotation());
+	const std::string tag = sprite->tag;
 
 	//Name, vec, transform path, rotation
 	line = sprite->name + ";" + "0" + ";" + transformPosX + ";" + transformPosY + ";" + scaleX + ";" + scaleY + ";" + spritePath + ";" + rotation;
@@ -110,7 +129,10 @@ std::string s2d::flc::getPropertyLineWithSeperator(const Sprite* const sprite)
 
 	// Prefab
 
-	line += ";" + prefabExist + ";" + loadInMemory + ";" + pathToPrefab ;
+	line += ";" + prefabExist + ";" + loadInMemory + ";" + pathToPrefab;
+
+	// General
+	line += ";" + tag;
  	
 	return line;
 }

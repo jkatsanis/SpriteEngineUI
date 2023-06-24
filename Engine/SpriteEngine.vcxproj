@@ -211,6 +211,7 @@
     <ClCompile Include="src\guiComponents\UI.cpp" />
     <ClCompile Include="src\guiComponents\propertyEditor\UIAssetTools.cpp" />
     <ClCompile Include="src\data\UIDataModels.h" />
+    <ClCompile Include="src\guiComponents\propertyEditor\UITagSelector.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\data\fileDataMacros.h" />
@@ -379,6 +380,7 @@
     <ClInclude Include="src\guiComponents\UI.h" />
     <ClInclude Include="src\guiComponents\propertyEditor\UIAssetTools.h" />
     <ClInclude Include="src\guiComponents\UIModels.h" />
+    <ClInclude Include="src\guiComponents\propertyEditor\UITagSelector.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="src\include\SFML\Audio\SoundFileFactory.inl" />

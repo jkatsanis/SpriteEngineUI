@@ -35,6 +35,8 @@ void s2d::UIInspector::afterInit()
 	this->m_components.push_back("PhysicsBody");
 	this->m_components.push_back("Animator");
 	this->m_components.push_back("Prefab");
+
+	this->m_tag_selector.setSpriteRepo(this->m_ptr_sprite_repo);
 }
 
 //Private functions
@@ -76,8 +78,10 @@ void s2d::UIInspector::render()
 
 	const ImVec2 window_pos = ImVec2(INSPECTOR_WINDOW_POS.x + INSPECTOR_DEFAULT_WINDOW_SIZE.x - this->m_window_size.x, INSPECTOR_WINDOW_POS.y);
 	
-	this->is_hovered = s2d::UI::isHovered(window_pos, INSPECTOR_DEFAULT_WINDOW_SIZE);
-
+	if (!this->is_hovered)
+	{
+		this->is_hovered = s2d::UI::isHovered(window_pos, INSPECTOR_DEFAULT_WINDOW_SIZE);
+	}
 	ImGui::SetWindowPos(ImVec2(INSPECTOR_WINDOW_POS.x + INSPECTOR_DEFAULT_WINDOW_SIZE.x - this->m_window_size.x, INSPECTOR_WINDOW_POS.y));
 	ImGui::SetWindowFontScale(s2d::UIInfo::s_default_font_size);
 	ImGui::SetWindowSize(this->m_window_size);
@@ -357,6 +361,7 @@ void s2d::UIInspector::componentSelector()
 	{
 		this->m_ptr_sprite_repo->sprite_in_inspector->name = std::string(input_buffer);
 	}
+	this->m_tag_selector.update(&this->is_hovered);
 	ImGui::SetCursorPos(temp);
 
 	ImGui::SetCursorPosY(ImGui::GetCursorPosY() + 20);

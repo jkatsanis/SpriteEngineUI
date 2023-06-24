@@ -397,7 +397,8 @@ void s2d::UIToolButtons::toolSelector()
 			ImGui::PushStyleColor(ImGuiCol_Button, REAL_EDITOR_BUTTON_BG_COLOR);
 		}
 		ImGui::SetCursorPosY(0);
-		if (s2d::FontManager::displaySmybolAsButton(this->m_tools[i].icon.c_str()))
+		if (s2d::FontManager::displaySmybolAsButton(this->m_tools[i].icon.c_str())) { }
+		if (ImGui::IsItemClicked(ImGuiMouseButton_Left))
 		{
 			this->m_clicked_on_btn = true;
 			this->m_editor_tools = this->m_tools[i].tool;

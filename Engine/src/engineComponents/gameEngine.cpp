@@ -19,7 +19,8 @@ s2d::GameEngine::GameEngine()
     this->m_ui_window.gui_repository.camera = s2d::Camera(this->ptr_render_window);
 
     //Setting other classes
-    s2d::Initializer::initScenes(this->m_scene_names);;
+    s2d::Initializer::initTags(this->m_sprite_repository);
+    s2d::Initializer::initScenes(this->m_scene_names);
     this->initOtherClasses();
     s2d::Input::setEvent(&this->event);
     s2d::UI::setRenderWindow(this->ptr_render_window);

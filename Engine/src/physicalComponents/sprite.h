@@ -32,6 +32,7 @@ namespace s2d
 	public:	
 		// General info
 		std::string name;
+		std::string tag;
 
 		// Components
 		s2d::SpriteRenderer sprite_renderer;
