@@ -14,5 +14,7 @@ namespace s2d
 		s2d::SpriteRepository* ptr_sprites;
 
 		void loadScene(const std::string& name);
+
+		void setGameEngine(s2d::GameEngine* engine) { this->m_ptr_game_engine = engine; }
 	};
 }

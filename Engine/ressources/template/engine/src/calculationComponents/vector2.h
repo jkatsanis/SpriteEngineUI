@@ -23,6 +23,9 @@ namespace s2d
 		s2d::Vector2 operator*=(const s2d::Vector2& rhs);
 		s2d::Vector2 operator/=(const s2d::Vector2& rhs);
 		s2d::Vector2 operator*(const s2d::Vector2& rhs);
+		s2d::Vector2 operator+(const s2d::Vector2& rhs);
+
+		static s2d::Vector2 distanceBetween(const s2d::Vector2& lhs, const s2d::Vector2& rhs);
 
 		friend std::ostream& operator<<(std::ostream& os, const s2d::Vector2& rhs);
 	};

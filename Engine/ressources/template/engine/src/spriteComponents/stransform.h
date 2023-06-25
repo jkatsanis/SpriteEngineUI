@@ -13,6 +13,8 @@ namespace s2d
 	private:
 		s2d::Vector2 m_scale;
 		uint32_t m_rotation;
+		s2d::Vector2 m_position;
+		s2d::Sprite* m_attached_sprite;
 
 		/// <summary>
 		/// Sets the texture size
@@ -20,15 +22,10 @@ namespace s2d
 		/// <param name="scale">The scale for the new textureSize</param>
 		void setTextureSize(const s2d::Vector2& scale);
 		void init() override;
-		void pushSetup();
-		void pushSpriteFromCollider(s2d::BoxColliderPositionData::Position p, bool smaller, float& tXY, float& lXY, float& nXY);
+		bool validatePositionInput(const s2d::Vector2& position);
 	public:
-		s2d::Vector2 position;
 		s2d::Vector2 texture_size;
-		s2d::Vector2 next_pos;
-		s2d::Vector2 last_pos;
 		s2d::Vector2 position_to_parent;
-		s2d::Sprite* m_attached_sprite;
 
 		bool position_changed;
 
@@ -36,16 +33,17 @@ namespace s2d
 		Transform(s2d::Sprite* attachedSprite);
 		Transform(s2d::Sprite* attachedSprite, s2d::Transform& transform);
 
+		void setPosition(const s2d::Vector2& positon);
+		void setPositionForce(const s2d::Vector2& positon) {
+			this->m_position = positon;
+		}
+
+		s2d::Vector2 getPosition() { return this->m_position; }
+
 		/// <summary>
 		/// Sets the rotation
 		/// </summary>
 		void setRotation(uint32_t angle);
-
-		/// <summary>
-		/// This method sets the last position of the transform. Needs to be user called.
-		/// Sets "positionChanged" to true if it did that succesfully. Needs to be called after the position changed (!)
-		/// </summary>
-		void setLastPosition();
 
 		/// <summary>
 		/// DO NOT USE

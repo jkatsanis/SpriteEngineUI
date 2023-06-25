@@ -14,9 +14,8 @@ namespace s2d
 		ChildSystem() = delete;
 
 		static void resetPositionWhenChildIsColliding(s2d::Sprite* child);
-		static void updatePositionToParent(s2d::Sprite* parent);
 		static void updateChildPositionRecursivly(s2d::Sprite* ptr_parent);
-		static void updatePositionRevursivWhenChildIsColliding(s2d::Sprite* node);
+		static void updatePositionRevursivWhenChildIsColliding(s2d::Sprite* nodes, s2d::Sprite* copy);
 	
 	};
 }

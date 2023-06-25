@@ -4,6 +4,7 @@
 
 s2d::Renderer::Renderer()
 {
+    this->m_last_repo_size = 0;
     this->m_ptr_repo = nullptr;
     this->m_timeToUpdateSpriteTexture = 0;
     this->m_timeToUpdateLayerIndex = 0;

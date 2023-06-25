@@ -18,11 +18,15 @@ s2d::Transform::Transform(s2d::Sprite* attachedSprite, s2d::Transform& transform
 {
 	this->init();
 	this->m_attached_sprite = attachedSprite;
-	this->position = transform.position;
+	this->m_position = transform.m_position;
 	this->m_rotation = transform.m_rotation;
 	this->m_scale = transform.m_scale;
 	this->texture_size = transform.texture_size;
 	this->position_to_parent = transform.position_to_parent;
+
+	this->setScale(this->m_scale, true);
+	this->setOrigin();
+	this->setTextureSize(this->m_scale);
 }
 
 void s2d::Transform::init()
@@ -34,11 +38,28 @@ void s2d::Transform::init()
 
 // Public functions
 
+void s2d::Transform::setPosition(const s2d::Vector2& positon)
+{
+	if (!this->validatePositionInput(positon))
+	{
+		return;
+	}
+	if (this->m_attached_sprite != nullptr && this->m_attached_sprite->parent != nullptr)
+	{
+		s2d::Vector2 distance = this->m_attached_sprite->parent->transform.getPosition() - positon;
+		if (distance != this->position_to_parent)
+		{
+			this->position_to_parent = distance;
+		}
+	}
+	this->m_position = positon;
+}
+
 void s2d::Transform::reset()
 {
 	this->exist = true;
 	this->m_scale = s2d::Vector2(1.0f, 1.0f);
-	this->position = s2d::Vector2(0.0f, 0.0f);
+	this->m_position = s2d::Vector2(0.0f, 0.0f);
 	this->position_changed = false;
 	this->m_attached_sprite = nullptr;
 	this->m_rotation = 0;
@@ -65,35 +86,12 @@ void s2d::Transform::setRotation(uint32_t angle)
 	this->m_attached_sprite->getSprite().setRotation((float)this->m_rotation);
 }
 
-void s2d::Transform::setLastPosition()
-{
-	if (this->next_pos != this->position)
-	{
-		this->last_pos = this->next_pos;
-		this->next_pos = this->position;
-		this->position_changed = true;
-	}
-	else
-	{
-		this->position_changed = false;
-	}
-}
-
 void s2d::Transform::updateTransformPosition()
 {
-	//Pushing the sprites from a collider if 1 exists && we collided && IF everyting is unknown (no sprite collidng) then why a check
-	if (!this->m_attached_sprite->collider.position_data.isEverythingUnknown())
-		this->pushSetup();
-
-	float x = 960 + this->position.x;
-	float y = 540 - this->position.y;
+	float x = 960 + this->m_position.x;
+	float y = 540 - this->m_position.y;
 
 	this->m_attached_sprite->getSprite().setPosition(sf::Vector2f(x, y));
-
-	this->m_attached_sprite->collider.position_data.resetPosition();
-	this->m_attached_sprite->collider.collision_cnt = 0;
-
-	this->setLastPosition();
 }
 
 void s2d::Transform::setScale(const s2d::Vector2& scale, bool b)
@@ -135,47 +133,62 @@ void s2d::Transform::setTextureSize(const s2d::Vector2& scale)
 	this->texture_size = s2d::Vector2(textureRect.width * multiply.x, textureRect.height * multiply.y);
 }
 
-void s2d::Transform::pushSetup()
+bool s2d::Transform::validatePositionInput(const s2d::Vector2& position)
 {
-	this->pushSpriteFromCollider(s2d::BoxColliderPositionData::Right, false, this->position.x, this->next_pos.x, this->last_pos.x);
-	this->pushSpriteFromCollider(s2d::BoxColliderPositionData::Left, true, this->position.x, this->next_pos.x, this->last_pos.x);
-	this->pushSpriteFromCollider(s2d::BoxColliderPositionData::Down, true, this->position.y, this->next_pos.y, this->last_pos.y);
-	this->pushSpriteFromCollider(s2d::BoxColliderPositionData::Up, false, this->position.y, this->next_pos.y, this->last_pos.y);
-}
+	if (this->m_attached_sprite == nullptr || !this->m_attached_sprite->collider.exist)
+	{
+		return true;
+	}
 
-void s2d::Transform::pushSpriteFromCollider(s2d::BoxColliderPositionData::Position p, bool smaller, float& tXY, float& lXY, float& nXY)
-{
-	if (!smaller)
+	// Down	
+	if (this->m_attached_sprite->collider.down)
 	{
-		if (this->m_attached_sprite->collider.position_data.isEqual(p))
+		if (position.y < this->m_position.y
+			&& this->m_attached_sprite->physicsBody.velocity.y <= 0)
 		{
-			//We cant go into the gameobject when its right from us so we cant increment our x pos
-			if (tXY > lXY)
-			{
-				//Swap lol
-				tXY = lXY;
-				lXY = nXY;
-				nXY = tXY;
-			}
-		}
-		return;
-	}
-	if (this->m_attached_sprite->collider.position_data.isEqual(p))
-	{
-		if (tXY < lXY)
-		{
-			tXY = lXY;
-			lXY = nXY;
-			nXY = tXY;
+			return false;
 		}
 	}
+
+	// Up	
+	if (this->m_attached_sprite->collider.up)
+	{
+		if (position.y > this->m_position.y
+			&& this->m_attached_sprite->physicsBody.velocity.y >= 0)
+		{
+			return false;
+		}
+	}
+
+	// Left	
+	if (this->m_attached_sprite->collider.left)
+	{
+		if (position.x < this->m_position.x
+			&& this->m_attached_sprite->physicsBody.velocity.x <= 0)
+		{
+			return false;
+		}
+	}
+
+	// Right	
+	if (this->m_attached_sprite->collider.right)
+	{
+		if (position.x > this->m_position.x
+			&& this->m_attached_sprite->physicsBody.velocity.x >= 0)
+		{
+			return false;
+		}
+	}
+
+	//this->m_attached_sprite->collider.resetPositions();
+	
+	return true;
 }
 
 //Public static functions
 
 void s2d::Transform::onPositionChange(s2d::Sprite* sprite)
 {
-	ChildSystem::resetPositionWhenChildIsColliding(sprite);
-	ChildSystem::updatePositionToParent(sprite);
 	ChildSystem::updateChildPositionRecursivly(sprite);
+	ChildSystem::resetPositionWhenChildIsColliding(sprite);
 }

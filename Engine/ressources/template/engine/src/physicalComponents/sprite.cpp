@@ -5,7 +5,7 @@
 s2d::Sprite::Sprite()
 { 
 	this->name = "Unknown";
-	this->transform.position = Vector2(0, 0);
+	this->transform.setPosition(s2d::Vector2(0, 0));
 	this->m_texture = new sf::Texture();
 }
 
@@ -17,7 +17,7 @@ s2d::Sprite::Sprite(std::string name, s2d::Vector2 spawnPosition, std::string pa
 
 s2d::Sprite::Sprite(s2d::Sprite& rhs)
 {
-	this->initVariables(rhs.name, rhs.transform.position, rhs.sprite_renderer.path);
+	this->initVariables(rhs.name, rhs.transform.getPosition(), rhs.sprite_renderer.path);
 
 	this->collider = s2d::BoxCollider(this, rhs.collider);
 	this->transform = s2d::Transform(this, rhs.transform);
@@ -27,6 +27,7 @@ s2d::Sprite::Sprite(s2d::Sprite& rhs)
 	for (size_t i = 0; i < rhs.ptr_childs.size(); i++) 
 	{
 		s2d::Sprite* copy_child = new s2d::Sprite(*rhs.ptr_childs[i]);
+		copy_child->parent = this;
 		this->ptr_childs.push_back(copy_child);
 	}
 }
@@ -132,7 +133,7 @@ void s2d::Sprite::setParent(s2d::Sprite* parent)
 	this->parent = parent;
 
 	s2d::Sprite* child = this;
-	s2d::Vector2 distance = s2d::Vector2(parent->transform.position - child->transform.position);
+	s2d::Vector2 distance = s2d::Vector2(parent->transform.getPosition() - child->transform.getPosition());
 	child->transform.position_to_parent = distance;
 
 	parent->ptr_childs.push_back(this);
@@ -159,7 +160,7 @@ void s2d::Sprite::removeChild(const s2d::Sprite* child)
 void s2d::Sprite::initVariables(std::string name, s2d::Vector2 spawnPos, std::string path)
 {
 	// ID's get set in the sprite repo!!
-
+	this->tag = "none";
 	this->m_texture = new sf::Texture();
 	this->transform = s2d::Transform(this);
 	this->m_parent_id = -1;
@@ -168,9 +169,7 @@ void s2d::Sprite::initVariables(std::string name, s2d::Vector2 spawnPos, std::st
 	this->ptr_childs = std::vector<s2d::Sprite*>(0);
 	this->name = name;
 	this->sprite_renderer.path = path;
-	this->transform.position = spawnPos;
-	this->transform.last_pos = s2d::Vector2(0, 0);
-	this->transform.next_pos = this->transform.position;
+	this->transform.setPosition(spawnPos);
 
 	this->sprite_renderer.sorting_layer_index = 0;
 

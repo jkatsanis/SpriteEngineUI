@@ -170,7 +170,6 @@
     <ClCompile Include="engine\src\include\imgui\imgui_widgets.cpp" />
     <ClCompile Include="engine\src\physicalComponents\camera.cpp" />
     <ClCompile Include="engine\src\spriteComponents\boxCollider.cpp" />
-    <ClCompile Include="engine\src\spriteComponents\boxColliderPositionData.cpp" />
     <ClCompile Include="engine\src\spriteComponents\childSystem.cpp" />
     <ClCompile Include="engine\src\physicalComponents\gameObject.cpp" />
     <ClCompile Include="engine\src\spriteComponents\physicsBody.cpp" />
@@ -215,7 +214,6 @@
     <ClInclude Include="engine\src\physicalComponents\camera.h" />
     <ClInclude Include="engine\src\_header\SpriteEngine.h" />
     <ClInclude Include="engine\src\spriteComponents\boxCollider.h" />
-    <ClInclude Include="engine\src\spriteComponents\boxColliderPositionData.h" />
     <ClInclude Include="engine\src\spriteComponents\childSystem.h" />
     <ClInclude Include="engine\src\physicalComponents\gameObject.h" />
     <ClInclude Include="engine\src\spriteComponents\physicsBody.h" />

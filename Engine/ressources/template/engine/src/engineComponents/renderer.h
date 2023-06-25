@@ -18,7 +18,7 @@ namespace s2d
 		s2d::SpriteRepository* m_ptr_repo;
 		uint8_t  m_timeToUpdateLayerIndex;
 		uint8_t m_timeToUpdateSpriteTexture;
-		uint32_t m_last_repo_size;
+		size_t m_last_repo_size;
 		sf::RenderWindow* m_ptr_renderWindow;
 
 		void draw();

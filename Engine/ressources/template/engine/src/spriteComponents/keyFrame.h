@@ -8,7 +8,7 @@ namespace s2d
 	{
 		std::string path;
 		float delay;
-		uint32_t position;
+		int32_t position;
 
 		KeyFrame() { this->path = ""; this->delay = 0; }
 		KeyFrame(const std::string& path, const float delay)

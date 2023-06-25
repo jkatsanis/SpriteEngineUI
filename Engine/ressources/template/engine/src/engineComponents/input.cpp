@@ -14,7 +14,7 @@ bool s2d::Input::onKeyPress(s2d::KeyBoardCode key)
 {
 	if (s2d::Input::event->type == s2d::Event::Pressed && s2d::Input::event->key == key)
 	{
-		s2d::Input::event->type = s2d::Event::None;
+ 		s2d::Input::event->type = s2d::Event::None;
 		return true;
 	}
 	return false;

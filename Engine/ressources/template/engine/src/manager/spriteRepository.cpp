@@ -11,7 +11,7 @@ s2d::SpriteRepository::SpriteRepository()
     this->sprite_in_inspector = nullptr;
     this->child_to_parent = nullptr;
     this->right_clicked_sprite = nullptr;
-    this->highestSpriteId = 0;
+    this->highest_sprite_id = 0;
     this->m_highestLayerIndex = 0;
     this->main_content_iniitialied = false;
 }
@@ -76,13 +76,13 @@ void s2d::SpriteRepository::add(s2d::Sprite* ptr)
     }
     // Validate properties
     // Set id
-    this->highestSpriteId++;
-    ptr->validateProperties(this->highestSpriteId, *this);
+    this->highest_sprite_id++;
+    ptr->validateProperties(this->highest_sprite_id, *this);
     this->m_sprites.push_back(ptr);
 
     if (this->main_content_iniitialied)
     {
-        s2d::SpriteRepository::addChildsFromParent(ptr, this->highestSpriteId);
+        s2d::SpriteRepository::addChildsFromParent(ptr, this->highest_sprite_id);
     }
 }
 

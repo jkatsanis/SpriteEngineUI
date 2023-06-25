@@ -38,12 +38,13 @@ void s2d::PhsysicsBody::fixedUpdate()
     if (!this->exist || this->ptr_attachedSprite == nullptr || this->gravity == 0) return;
 
 	//ALl Physic calcutions will happen here! -> calle from s2d::physics::update();
-
-    this->ptr_attachedSprite->transform.position += this->velocity * s2d::Time::s_delta_time;
+    s2d::Vector2 dir = this->velocity * s2d::Time::s_delta_time;
+    dir += this->ptr_attachedSprite->transform.getPosition();
+    this->ptr_attachedSprite->transform.setPosition(dir);
 
     if (this->exist)
     {
-        if (this->ptr_attachedSprite->collider.isInCollision() && this->ptr_attachedSprite->collider.position_data.isEqual(s2d::BoxColliderPositionData::Down))
+        if (this->ptr_attachedSprite->collider.down && this->velocity.y <= 0)
         {
             this->velocity.y = 0.0f;
         }

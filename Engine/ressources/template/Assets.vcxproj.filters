@@ -85,21 +85,18 @@
     <Filter Include="engine src\_header\_include\sfml">
       <UniqueIdentifier>{52e0bfb6-0af9-4241-bfb2-e2e8c85df5bd}</UniqueIdentifier>
     </Filter>
-    <Filter Include="engine src\_header\_include\sfml\physics">
-      <UniqueIdentifier>{bb05d042-7677-4bcd-8012-ff0437c43202}</UniqueIdentifier>
-    </Filter>
     <Filter Include="engine src\_header\_include\imgui">
       <UniqueIdentifier>{a310bcee-c8a2-444b-96c7-431a9d514a99}</UniqueIdentifier>
     </Filter>
     <Filter Include="engine src\spriteComponents\prefab">
       <UniqueIdentifier>{71b7b4eb-79ba-4b79-b4bd-09a481db91f1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="engine src\engineComponents\physics">
+      <UniqueIdentifier>{bb05d042-7677-4bcd-8012-ff0437c43202}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="engine\src\spriteComponents\boxCollider.cpp">
-      <Filter>engine src\spriteComponents\boxCollider</Filter>
-    </ClCompile>
-    <ClCompile Include="engine\src\spriteComponents\boxColliderPositionData.cpp">
       <Filter>engine src\spriteComponents\boxCollider</Filter>
     </ClCompile>
     <ClCompile Include="engine\src\physicalComponents\camera.cpp">
@@ -121,7 +118,7 @@
       <Filter>engine src\physicalComponents\gameObjectParent</Filter>
     </ClCompile>
     <ClCompile Include="engine\src\calculationComponents\physics.cpp">
-      <Filter>engine src\_header\_include\sfml\physics</Filter>
+      <Filter>engine src\engineComponents\physics</Filter>
     </ClCompile>
     <ClCompile Include="engine\src\calculationComponents\vector2.cpp">
       <Filter>engine src\calculationComponents\vector</Filter>
@@ -497,9 +494,6 @@
     <ClInclude Include="engine\src\spriteComponents\physicsBody.h">
       <Filter>engine src\spriteComponents\physicBody</Filter>
     </ClInclude>
-    <ClInclude Include="engine\src\spriteComponents\boxColliderPositionData.h">
-      <Filter>engine src\spriteComponents\boxCollider</Filter>
-    </ClInclude>
     <ClInclude Include="engine\src\spriteComponents\boxCollider.h">
       <Filter>engine src\spriteComponents\boxCollider</Filter>
     </ClInclude>
@@ -519,7 +513,7 @@
       <Filter>engine src\spriteComponents\transform</Filter>
     </ClInclude>
     <ClInclude Include="engine\src\calculationComponents\physics.h">
-      <Filter>engine src\_header\_include\sfml\physics</Filter>
+      <Filter>engine src\engineComponents\physics</Filter>
     </ClInclude>
     <ClInclude Include="engine\src\calculationComponents\vector2.h">
       <Filter>engine src\calculationComponents\vector</Filter>

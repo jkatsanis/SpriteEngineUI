@@ -52,6 +52,7 @@ void s2d::UIInspector::render()
 		return;
 	}
 
+	this->is_hovered = false;
 	ImGui::Begin("##sprite-inspector", NULL, DEFAULT_WINDOW_FLAGS);
 
 	// Close rectangle

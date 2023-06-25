@@ -1,2 +1,4 @@
 name;absulutePathStr;date;relativePath
 DasynceSE;C:\Dev\C++\DasynceSE;2023/24/06 10:13:06;..\..\DasynceSE
+ojiunou;C:\Dev\C++\ojiunou;2023/24/06 19:03:19;..\..\ojiunou
+template;C:\Dev\C++\SpriteEngineUI\Engine\ressources\template;2023/25/06 10:35:59;ressources\template

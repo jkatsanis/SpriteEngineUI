@@ -1,0 +1,36 @@
+#include "game.h"
+
+void Game::start()
+{
+	this->m_ptr_player = this->config.ptr_sprites->getSpriteWithName("Player");
+}
+
+void Game::update()
+{	
+	if (s2d::Input::onKeyHold(s2d::KeyBoardCode::A))
+	{
+		const s2d::Vector2 pos = s2d::Vector2(this->m_ptr_player->transform.getPosition().x - PLAYER_SPEED * s2d::Time::s_delta_time,
+			this->m_ptr_player->transform.getPosition().y);
+
+		this->m_ptr_player->transform.setPosition(pos);
+	}
+	if (s2d::Input::onKeyHold(s2d::KeyBoardCode::D))
+	{
+		const s2d::Vector2 pos = s2d::Vector2(this->m_ptr_player->transform.getPosition().x + PLAYER_SPEED * s2d::Time::s_delta_time,
+			this->m_ptr_player->transform.getPosition().y);
+
+		this->m_ptr_player->transform.setPosition(pos);
+	}
+	if (s2d::Input::onKeyHold(s2d::KeyBoardCode::W))
+	{
+		const s2d::Vector2 pos = s2d::Vector2(this->m_ptr_player->transform.getPosition().x,
+			this->m_ptr_player->transform.getPosition().y + PLAYER_SPEED * s2d::Time::s_delta_time);
+		this->m_ptr_player->transform.setPosition(pos);
+	}
+	if (s2d::Input::onKeyHold(s2d::KeyBoardCode::S))
+	{
+		const s2d::Vector2 pos = s2d::Vector2(this->m_ptr_player->transform.getPosition().x,
+			this->m_ptr_player->transform.getPosition().y - PLAYER_SPEED * s2d::Time::s_delta_time);
+		this->m_ptr_player->transform.setPosition(pos);
+	}
+}

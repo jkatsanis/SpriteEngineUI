@@ -31,7 +31,7 @@ namespace s2d
         s2d::Sprite* sprite_in_inspector;
         s2d::Sprite* sprited_hovered_in_hierarchy;
 
-        uint32_t highestSpriteId;
+        uint32_t highest_sprite_id;
 
         AssetFolderData asset_folder_data;
         bool* isFullScreened;
