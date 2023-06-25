@@ -13,7 +13,7 @@ s2d::SpriteRepository::SpriteRepository()
     this->child_to_parent = nullptr;
     this->right_clicked_sprite = nullptr;
     this->dupeNameCounter = 0;
-    this->highestSpriteId = 0;
+    this->highest_sprite_id = 0;
     this->m_highestLayerIndex = 0;
     this->m_tags.push_back("none");
 }
@@ -73,9 +73,18 @@ void s2d::SpriteRepository::add(s2d::Sprite* ptr)
 {
     // Validate properties
     // Set id
-    this->highestSpriteId++;
-    ptr->validateProperties(this->highestSpriteId, *this);
+    this->highest_sprite_id++;
+    ptr->validateProperties(this->highest_sprite_id, *this);
     this->m_sprites.push_back(ptr);
+}
+
+void s2d::SpriteRepository::addChildsOfParent(s2d::Sprite* parent)
+{
+    for (size_t i = 0; i < parent->ptr_childs.size(); i++)
+    {
+        this->add(parent->ptr_childs[i]);
+        this->addChildsOfParent(parent->ptr_childs[i]);
+    }
 }
 
 s2d::Sprite* s2d::SpriteRepository::getSpriteWithName(const std::string& name)
@@ -210,12 +219,12 @@ s2d::Sprite* s2d::SpriteRepository::getWithId(std::vector<s2d::Sprite*>& collect
     return nullptr;
 }
 
-void s2d::SpriteRepository::setValidIds(s2d::Sprite* parent, uint32_t highest)
+void s2d::SpriteRepository::setValidParentIds(s2d::Sprite* parent, uint32_t highest)
 {
     parent->setId(highest);
     for (size_t i = 0; i < parent->ptr_childs.size(); i++)
     {
         parent->ptr_childs[i]->setParentId(highest);
-        setValidIds(parent->ptr_childs[i], highest + 1);
+        setValidParentIds(parent->ptr_childs[i], highest + 1);
     }
 }

@@ -49,7 +49,7 @@ void s2d::GameEngine::initOtherClasses()
     s2d::Initializer::initSprites(this->m_sprite_repository);
     s2d::Initializer::initAnimations(this->m_sprite_repository);
     s2d::Initializer::initBackground(this->m_ui_window.gui_repository.background_color);
-    s2d::Initializer::initIds(this->m_sprite_repository.highestSpriteId);
+    s2d::Initializer::initIds(this->m_sprite_repository.highest_sprite_id);
     s2d::Initializer::initCamera(this->m_ui_window.gui_repository);
 }
 

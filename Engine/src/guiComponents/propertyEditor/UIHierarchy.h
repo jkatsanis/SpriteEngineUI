@@ -74,6 +74,8 @@ namespace s2d
 		/// </summary>
 		void setHovering(s2d::Sprite* sprite, bool& any_hovered);
 
+		void copySprite();
+
 		void init();
 	public:
 		bool is_hovered;

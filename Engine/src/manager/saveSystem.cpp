@@ -179,7 +179,7 @@ void s2d::flc::createCameraSaveFile(const s2d::Camera& camera)
 
 void s2d::flc::createIndexSaveFile(s2d::SpriteRepository& repo)
 {
-	int index = repo.highestSpriteId;
+	int index = repo.highest_sprite_id;
 	std::fstream indexFile;
 
 	indexFile.open(PATH_TO_INDEX_FILE, std::ios::out);

@@ -36,7 +36,7 @@ namespace s2d
 
         s2d::EditorTools current_tool;
 
-        uint32_t highestSpriteId;
+        uint32_t highest_sprite_id;
         uint32_t dupeNameCounter;
 
         AssetFolderData asset_folder_data;
@@ -51,9 +51,11 @@ namespace s2d
         void deleteAt(size_t idx);
         void deleteWithName(const std::string& name);
         void add(s2d::Sprite* ref);
+        void addChildsOfParent(s2d::Sprite* parent);
         s2d::Sprite* getSpriteWithName(const std::string& name);
         s2d::Sprite* getSpriteWithId(int id);
         void instanitatePrefab(const std::string& path_to);
+
 
         void addTag(const std::string& tag);
         const std::vector<std::string>& getTags() const { return this->m_tags; }
@@ -67,7 +69,7 @@ namespace s2d
     public:
         static void getAllChilds(std::vector<const s2d::Sprite*>& childs, const s2d::Sprite* parent);
         static s2d::Sprite* getWithId(std::vector<s2d::Sprite*>& collection, uint32_t id);
-        static void setValidIds(s2d::Sprite* parent, uint32_t highest_id);
+        static void setValidParentIds(s2d::Sprite* parent, uint32_t highest_id);
     };
 }
 

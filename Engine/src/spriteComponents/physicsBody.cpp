@@ -7,6 +7,14 @@ s2d::PhsysicsBody::PhsysicsBody()
 	this->init();
 }
 
+s2d::PhsysicsBody::PhsysicsBody(const s2d::PhsysicsBody& rhs)
+{
+	this->velocity = rhs.velocity;
+	this->mass = rhs.mass;
+	this->exist = rhs.exist;
+	this->gravity = rhs.gravity;
+}
+
 void s2d::PhsysicsBody::init()
 {
 	this->base_component = false;

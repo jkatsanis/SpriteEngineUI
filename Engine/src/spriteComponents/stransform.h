@@ -27,6 +27,7 @@ namespace s2d
 
 		Transform();
 		Transform(s2d::Sprite* attachedSprite);
+		Transform(s2d::Sprite* attachedSprite, s2d::Transform& transform);
 
 		/// <summary>
 		/// This method sets the last position of the transform. Needs to be user called.

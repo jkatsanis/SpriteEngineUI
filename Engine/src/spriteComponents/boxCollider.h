@@ -22,6 +22,7 @@ namespace s2d
 		Vector2 box_collider_height;
 
 		BoxCollider();
+		BoxCollider(s2d::Sprite* sprite, s2d::BoxCollider& rhs);
 
 		//Giving it a pointer, so we dont have to update it consistently
 		BoxCollider(s2d::Sprite* ptr_sprite);

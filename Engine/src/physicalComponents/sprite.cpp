@@ -15,6 +15,25 @@ s2d::Sprite::Sprite(std::string name, s2d::Vector2 spawnPosition, std::string pa
 	this->postDefaultInitialization();
 }
 
+s2d::Sprite::Sprite(s2d::Sprite& rhs)
+{
+	this->initVariables(rhs.name, rhs.transform.position, rhs.sprite_renderer.path);
+
+	this->collider = s2d::BoxCollider(this, rhs.collider);
+	this->transform = s2d::Transform(this, rhs.transform);
+	this->animator = s2d::Animator(this, rhs.animator);
+	this->physicsBody = s2d::PhsysicsBody(rhs.physicsBody);
+	this->tag = rhs.tag;
+
+	// Initing the childs
+	for (size_t i = 0; i < rhs.ptr_childs.size(); i++)
+	{
+		s2d::Sprite* copy_child = new s2d::Sprite(*rhs.ptr_childs[i]);
+		copy_child->parent = this;
+		this->ptr_childs.push_back(copy_child);
+	}
+}
+
 s2d::Sprite::~Sprite()
 {
 	this->clearAllChilds();

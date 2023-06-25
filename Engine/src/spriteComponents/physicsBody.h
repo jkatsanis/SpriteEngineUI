@@ -15,6 +15,7 @@ namespace s2d
 		s2d::Vector2 velocity;
 
 		PhsysicsBody();
+		PhsysicsBody(const s2d::PhsysicsBody& rhs);
 
 		void reset() override;
 	};

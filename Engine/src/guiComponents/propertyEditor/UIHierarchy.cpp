@@ -102,6 +102,10 @@ void s2d::UIHierarchy::displayContextPopup()
 		{
 			this->deleteSprite();
 		}
+		if (ImGui::MenuItem("Copy"))
+		{
+			this->copySprite();
+		}
 		ImGui::EndPopup();
 	}
 }
@@ -111,7 +115,7 @@ void s2d::UIHierarchy::addSprite()
 	if (ImGui::MenuItem("Sprite"))
 	{
 		const size_t vectorPos = this->m_ptr_repo->amount() + 1;
-		const std::string name = "Sprite " + std::to_string(vectorPos) + " ID " + std::to_string(this->m_ptr_repo->highestSpriteId + 1);
+		const std::string name = "Sprite " + std::to_string(vectorPos) + " ID " + std::to_string(this->m_ptr_repo->highest_sprite_id + 1);
 
 		s2d::Sprite* sprite = new s2d::Sprite(name, s2d::Vector2(0, 0), s2d::SpriteData::s_default_sprite_path);
 
@@ -185,6 +189,23 @@ void s2d::UIHierarchy::setHovering(s2d::Sprite* sprite, bool& anyHovered)
 	{
 		this->m_ptr_repo->sprited_hovered_in_hierarchy = nullptr;
 	}
+}
+
+void s2d::UIHierarchy::copySprite()
+{
+	if (this->m_ptr_repo->sprited_hovered_in_hierarchy == nullptr)
+	{
+		return;
+	}
+
+	s2d::Sprite* to_copy = this->m_ptr_repo->sprited_hovered_in_hierarchy;
+
+	s2d::Sprite* copy = new s2d::Sprite(*to_copy);
+
+	this->m_ptr_repo->add(copy);
+	this->m_ptr_repo->addChildsOfParent(copy);
+
+	s2d::SpriteRepository::setValidParentIds(copy, this->m_ptr_repo->highest_sprite_id);
 }
 
 void s2d::UIHierarchy::setMenuitemHovered(bool& any_hovered, s2d::Sprite* sprite)

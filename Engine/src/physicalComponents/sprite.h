@@ -25,7 +25,7 @@ namespace s2d
 	private:
 		sf::Sprite m_sprite;
 	    sf::Texture* m_texture;
-		uint32_t m_id;
+		int32_t m_id;
 		int32_t m_parent_id;
 
 		void initVariables(std::string& name, s2d::Vector2& spawn_pos, std::string& path);
@@ -51,6 +51,7 @@ namespace s2d
 
 		Sprite();
 		Sprite(std::string name, s2d::Vector2 spawn_pos, std::string path);
+		Sprite(s2d::Sprite& rhs);
 		~Sprite();
 
 		void validateProperties(uint32_t id, s2d::SpriteRepository& repo);

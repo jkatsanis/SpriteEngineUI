@@ -27,11 +27,12 @@ namespace s2d
 
 		void init() override;
 	public:
-		Sprite* ptr_attachedSprite;
+		Sprite* ptr_attached_sprite;
 		std::map<std::string, Animation> animations;
 
 		Animator();
 		Animator(Sprite* ptr_attachedSprite);
+		Animator(s2d::Sprite* ptr_attached_sprite, s2d::Animator& animator);
 
 		void createAnimation(const std::string& name, const std::string& fileLocation, const std::vector<s2d::KeyFrame>& frame);
 		void removeAnimation(const std::string& name);

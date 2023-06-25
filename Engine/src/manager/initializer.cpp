@@ -115,7 +115,7 @@ void s2d::Initializer::initPrefab(const std::string& path, s2d::SpriteRepository
 				}
 			}
 		}
-		uint32_t highest = repo.highestSpriteId;
+		uint32_t highest = repo.highest_sprite_id;
 
 		// Adading the child + PARENT to the repo
 		for (size_t i = 0; i < child_repo.size(); i++)
@@ -124,7 +124,7 @@ void s2d::Initializer::initPrefab(const std::string& path, s2d::SpriteRepository
 		}
 
 		// Setting id's for the child
-		s2d::SpriteRepository::setValidIds(spr, highest);
+		s2d::SpriteRepository::setValidParentIds(spr, highest);
 
 		// Initializing the animations
 		for (size_t i = 0; i < paths_to_animations.size(); i++)

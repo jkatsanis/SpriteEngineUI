@@ -10,6 +10,16 @@ s2d::BoxCollider::BoxCollider()
     this->ptr_sprite = nullptr;
 }
 
+s2d::BoxCollider::BoxCollider(s2d::Sprite* sprite, s2d::BoxCollider& rhs)
+{
+    this->init();
+    this->ptr_sprite = sprite;
+    this->box_collider_height = rhs.box_collider_height;
+    this->box_collider_width = rhs.box_collider_width;
+    this->exist = rhs.exist;
+    this->is_solid = rhs.is_solid;
+}
+
 s2d::BoxCollider::BoxCollider(s2d::Sprite* ptr_sprite)
 {
     this->init();

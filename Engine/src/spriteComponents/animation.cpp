@@ -41,6 +41,23 @@ s2d::Animation::Animation(Sprite* ptr_appliedSprite, const std::string& name, co
 	this->realoadTextures();
 }
 
+s2d::Animation::Animation(s2d::Sprite* ptr_applied_sprite, const s2d::Animation& animation)
+{
+	this->ptr_applied_sprite = ptr_applied_sprite;
+	this->name = animation.name;
+	this->m_base_path = this->ptr_applied_sprite->sprite_renderer.path;
+	this->m_path_to_file = animation.getPathToFile();
+
+	const std::vector<s2d::KeyFrame>& keyframes = animation.getKeyFrames();
+	for (size_t i = 0; i < keyframes.size(); i++)
+	{
+		s2d::KeyFrame copy = s2d::KeyFrame(keyframes[i]);
+		this->m_keyframes.push_back(copy);
+	}
+
+	this->realoadTextures();
+}
+
 // Public methods
 
 void s2d::Animation::deleteKeyFrame(const int pos)

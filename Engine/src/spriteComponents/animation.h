@@ -37,6 +37,7 @@ namespace s2d
 
 		Animation();
 		Animation(Sprite* ptr_applied_sprite, const std::string& name, const std::string file_location, const std::vector<s2d::KeyFrame>& frames);
+		Animation(s2d::Sprite* ptr_applied_sprite, const s2d::Animation& animation);
 
 		void realoadTextures();
 		void deleteKeyFrame(const int pos);
