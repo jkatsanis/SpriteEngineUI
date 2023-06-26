@@ -115,16 +115,8 @@ void s2d::Initializer::initPrefab(const std::string& path, s2d::SpriteRepository
 				}
 			}
 		}
-		uint32_t highest = repo.highest_sprite_id;
 
-		// Adading the child + PARENT to the repo
-		for (size_t i = 0; i < child_repo.size(); i++)
-		{
-			repo.add(child_repo[i]);
-		}
-
-		// Setting id's for the child
-		s2d::SpriteRepository::setValidParentIds(spr, highest);
+		repo.add(spr);
 
 		// Initializing the animations
 		for (size_t i = 0; i < paths_to_animations.size(); i++)
@@ -399,7 +391,7 @@ void s2d::Initializer::initAnimation(const std::string& path, s2d::SpriteReposit
 	std::string animationName = "";
 
 	std::vector<s2d::KeyFrame> frames = std::vector<s2d::KeyFrame>(0);
-
+	bool loop = false;
 	if (animationFileStream.is_open())
 	{
 		std::string line;
@@ -422,6 +414,11 @@ void s2d::Initializer::initAnimation(const std::string& path, s2d::SpriteReposit
 				ptr_sprite = repo.getSpriteWithId(to_load);
 				continue;
 			}
+			if (cnt == 3)
+			{
+				loop = line == "True";
+				continue;
+			}
 			std::vector<std::string> propertys = std::splitString(line, DELIMITER);
 
 			frames.push_back(s2d::KeyFrame(s2d::EngineData::s_path_to_user_project + "\\" + propertys[1], std::stof(propertys[0].c_str())));
@@ -436,6 +433,7 @@ void s2d::Initializer::initAnimation(const std::string& path, s2d::SpriteReposit
 
 		s2d::Animation& anim = ptr_sprite->animator.animations[animationName];
 		anim.setFlagToNotDeleteAfterExit();
+		anim.loop = loop;	
 	}
 }
 

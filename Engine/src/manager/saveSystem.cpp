@@ -259,13 +259,15 @@ void s2d::flc::createAnimationSaveFile(const s2d::Sprite* ptr_sprite, const s2d:
 	std::string name = animationToSave.name;
 	std::string content =
 		animationToSave.name + "\n" +
-		std::to_string(ptr_sprite->getId()) + "\n";
+		std::to_string(ptr_sprite->getId()) + "\n" +
+		std::boolToStr(animationToSave.loop) + "\n";
 
 	const std::vector<s2d::KeyFrame>& frames = animationToSave.getKeyFrames();
 
 	for (const s2d::KeyFrame& frame : frames)
 	{
-		content += std::to_string(frame.delay) + std::string(";") + s2d::UI::getUserProjectPathSeperatetFromEnginePath(frame.path) + "\n";
+		content += std::to_string(frame.delay) + std::string(";") + 
+			s2d::UI::getUserProjectPathSeperatetFromEnginePath(frame.path) + "\n";
 	}
 
 	std::string pathAndName = s2d::EngineData::s_path_to_user_project + "\\" + animationToSave.getPathToFile();

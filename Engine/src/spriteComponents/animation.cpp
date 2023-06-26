@@ -29,6 +29,7 @@ s2d::Animation::Animation(Sprite* ptr_appliedSprite, const std::string& name, co
 	this->is_playing = false;
 	this->total_time_passed = 0.0f;
 	this->m_keyframes.resize(frames.size());
+	this->loop = false;
 
 	int currentPos = 0;
 	for (int i = 0; i < frames.size(); i++)
@@ -47,6 +48,8 @@ s2d::Animation::Animation(s2d::Sprite* ptr_applied_sprite, const s2d::Animation&
 	this->name = animation.name;
 	this->m_base_path = this->ptr_applied_sprite->sprite_renderer.path;
 	this->m_path_to_file = animation.getPathToFile();
+	this->loop = animation.loop;
+	this->m_saved_already = animation.m_saved_already;
 
 	const std::vector<s2d::KeyFrame>& keyframes = animation.getKeyFrames();
 	for (size_t i = 0; i < keyframes.size(); i++)
@@ -112,8 +115,11 @@ void s2d::Animation::update()
 		this->current_frame++;
 		if (this->current_frame == this->m_keyframes.size())
 		{		
-			this->stop();	
-			this->play();	
+			this->stop();
+			if(this->loop)
+			{
+				this->play();
+			}
 		}
 	}
 }

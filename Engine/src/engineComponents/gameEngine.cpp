@@ -31,10 +31,11 @@ s2d::GameEngine::GameEngine()
 
     this->ptr_render_window->setKeyRepeatEnabled(false);
     this->m_sprite_repository.isFullScreened = &this->m_is_window_full_screen;
+    this->m_current_scene = s2d::EngineData::s_scene;
+    this->m_sprite_repository.initialied = true;
 
     s2d::flc::cleanUp(this->m_sprite_repository, false);
 
-    this->m_current_scene = s2d::EngineData::s_scene;
 }
 
 s2d::GameEngine::~GameEngine()

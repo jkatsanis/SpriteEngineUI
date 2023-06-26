@@ -203,9 +203,6 @@ void s2d::UIHierarchy::copySprite()
 	s2d::Sprite* copy = new s2d::Sprite(*to_copy);
 
 	this->m_ptr_repo->add(copy);
-	this->m_ptr_repo->addChildsOfParent(copy);
-
-	s2d::SpriteRepository::setValidParentIds(copy, this->m_ptr_repo->highest_sprite_id);
 }
 
 void s2d::UIHierarchy::setMenuitemHovered(bool& any_hovered, s2d::Sprite* sprite)

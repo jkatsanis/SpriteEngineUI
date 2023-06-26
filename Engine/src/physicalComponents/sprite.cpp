@@ -30,6 +30,7 @@ s2d::Sprite::Sprite(s2d::Sprite& rhs)
 	{
 		s2d::Sprite* copy_child = new s2d::Sprite(*rhs.ptr_childs[i]);
 		copy_child->parent = this;
+		copy_child->setId(-1);
 		this->ptr_childs.push_back(copy_child);
 	}
 }
@@ -174,7 +175,7 @@ s2d::Vector2 s2d::Sprite::getOrigininalPosition() const
 
 void s2d::Sprite::validateProperties(uint32_t id, s2d::SpriteRepository& repo)
 {
-	if (this->m_id == -1)
+	if (repo.initialied)
 	{
 		this->m_id = id;
 	}

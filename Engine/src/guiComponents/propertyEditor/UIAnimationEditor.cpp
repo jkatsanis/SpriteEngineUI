@@ -304,12 +304,22 @@ void s2d::UIAnimationEditor::addKeyFrame()
 
 void s2d::UIAnimationEditor::displayEditor()
 {
+	if (this->m_ptr_repo->sprite_in_inspector == nullptr)
+	{
+		return;
+	}
 	this->zoomEditorTimeLine();
 	this->beginWindow();
 	this->renderTimeLineRealTimePoint();
 	this->editorTimeLine();
 	this->addKeyFrame();
+
+	ImGui::Text("Loop");
+	ImGui::SameLine();
+	ImGui::Checkbox("##loop", &this->m_anim->loop);
+
 	this->closeWindow(); 
+
 
 	if (this->keyFrameAdder.is_key_frame_menu_open)
 	{
