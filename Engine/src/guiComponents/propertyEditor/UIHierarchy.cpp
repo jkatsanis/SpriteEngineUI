@@ -344,7 +344,7 @@ void s2d::UIHierarchy::drawbackgroundRectangle()
 
 	const ImVec2 temp = ImGui::GetCursorPos();
 	ImGui::SetCursorPosX(0);
-	ImGui::SetCursorPosY(ImGui::GetCursorPosY() + 73);
+	ImGui::SetCursorPosY(ImGui::GetCursorPosY() + 73 - ImGui::GetScrollY());
 	s2d::UI::drawRectangleInGUIWIndow(
 		ImVec2(this->m_window_size.x, 20), ImGui::GetCursorPos(), SPRITE_BACKGROUND_COLOR);
 	ImGui::SetCursorPos(temp);
@@ -370,8 +370,10 @@ void s2d::UIHierarchy::drawUIRactangleWhenHovered(s2d::Sprite* sprite)
 
 		ImGui::SetCursorPosX(0);
 		ImGui::SetCursorPosY(ImGui::GetCursorPosY() + 50);
+		const ImVec2 cursor_pos = ImVec2(ImGui::GetCursorPosX(),
+			ImGui::GetCursorPosY() - ImGui::GetScrollY());
 		s2d::UI::drawRectangleInGUIWIndow(ImVec2(this->m_window_size.x, 20),
-			ImGui::GetCursorPos(), ImColor(50.0f, 50.0f, 50.0f, 0.3f));
+			cursor_pos, ImColor(50.0f, 50.0f, 50.0f, 0.3f));
 
 		ImGui::SetCursorPos(temp);
 	}

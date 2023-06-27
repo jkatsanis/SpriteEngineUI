@@ -322,9 +322,6 @@
     <ClCompile Include="src\guiComponents\propertyEditor\UITagSelector.cpp">
       <Filter>src\guiComponents\inspector</Filter>
     </ClCompile>
-    <ClCompile Include="src\guiComponents\propertyEditor\UIToolButtonsModels.cpp">
-      <Filter>src\guiComponents\tools</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\include\imgui\imconfig.h">

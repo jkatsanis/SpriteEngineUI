@@ -36,8 +36,6 @@ namespace s2d
 		
 		char m_new_scene_name[150];
 
-		s2d::EditorTools m_tool_to_set;
-
 		bool m_add_scene_mode;
 		bool m_clicked_on_btn;
 		bool m_update_event_to_set;

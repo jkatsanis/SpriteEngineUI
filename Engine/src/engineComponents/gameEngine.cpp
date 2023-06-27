@@ -148,6 +148,8 @@ void s2d::GameEngine::saveDialoge()
 
     if (this->m_close)
     {
+        s2d::Event::s_handle_other_events = false;
+       
         ImGui::SetNextWindowFocus();
         if (ImGui::Begin("Close", NULL,
             ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoTitleBar))
@@ -155,13 +157,13 @@ void s2d::GameEngine::saveDialoge()
             const ImVec2 CURSOR_POS = ImGui::GetCursorPos();
             if (ImGui::Button("Save"))
             {
-                onEngineClose(true);
+                this->onEngineClose(true);
                 return;
             }
             ImGui::SameLine();
             if (ImGui::Button("Exit"))
             {
-                onEngineClose(false);
+                this->onEngineClose(false);
                 return;
             }
             ImGui::SetCursorPos(ImVec2(CURSOR_POS.x + SAVE_MENU_SIZE.x - 50, CURSOR_POS.y));
@@ -169,15 +171,21 @@ void s2d::GameEngine::saveDialoge()
             {
                 this->m_close = false;
             }
+  
 
             s2d::UI::setWindowScreenMiddle(SAVE_MENU_SIZE);
             ImGui::End();
         }
     }
+    else
+    {
+        s2d::Event::s_handle_other_events = true;
+    }
 }
 
 void s2d::GameEngine::onEngineClose(bool save)
 {
+    s2d::Event::s_handle_other_events = false;
     s2d::flc::cleanUp(this->m_sprite_repository, save);
     if (save)
     {

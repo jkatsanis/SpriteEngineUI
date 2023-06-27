@@ -10,7 +10,6 @@ namespace s2d
 		PositionTool = 0,
 		ScaleTool = 1,
 	};
-
 	struct Tool
 	{
 		EditorTools tool;
@@ -18,7 +17,20 @@ namespace s2d
 		std::string icon;
 		std::string tool_name;
 
-		Tool(const EditorTools tool, const std::string& icon, const std::string& name);
-		Tool();
+		Tool(const EditorTools tool, const std::string& icon, const std::string& name)
+		{
+			this->tool_name = name;
+			this->background = false;
+			this->tool = tool;
+			this->icon = icon;
+		}
+
+		Tool()
+		{
+			this->tool_name = "";
+			this->background = false;
+			this->tool = s2d::EditorTools::PositionTool;
+			this->icon = "";
+		}
 	};
 }

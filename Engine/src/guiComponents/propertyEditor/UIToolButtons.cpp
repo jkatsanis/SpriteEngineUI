@@ -21,7 +21,6 @@ s2d::UIToolButtons::~UIToolButtons()
 
 void s2d::UIToolButtons::init()
 {
-	this->m_tool_to_set = s2d::EditorTools::None;
 	this->m_switch_scene_name = "";
 	this->m_new_scene_name[0] = '\0';
 	this->m_add_scene_mode = false;
