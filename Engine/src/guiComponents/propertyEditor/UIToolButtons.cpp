@@ -21,6 +21,7 @@ s2d::UIToolButtons::~UIToolButtons()
 
 void s2d::UIToolButtons::init()
 {
+	this->m_tool_to_set = s2d::EditorTools::None;
 	this->m_switch_scene_name = "";
 	this->m_new_scene_name[0] = '\0';
 	this->m_add_scene_mode = false;
@@ -47,6 +48,16 @@ void s2d::UIToolButtons::createToolsAndButtons()
 	ImGui::SetCursorPos(ImVec2(0, 0));
 	this->playGameButton();
 	this->toolSelector();
+
+	if (ImGui::IsMouseReleased(0))
+	{
+		if (this->m_update_event_to_set)
+		{
+			this->m_update_event_to_set = false;
+			s2d::Event::s_handle_other_events = true;
+		}
+	}
+
 	ImGui::SetWindowFontScale(s2d::UIInfo::s_default_font_size + 0.2f);
 	ImGui::SetWindowPos(ImVec2(1920 - this->m_ptr_gui_repo->ptr_inspector_window_size->x - 120, 56));
 	ImGui::SetWindowSize(ImVec2(120, 30));
@@ -403,6 +414,9 @@ void s2d::UIToolButtons::toolSelector()
 			this->m_clicked_on_btn = true;
 			this->m_editor_tools = this->m_tools[i].tool;
 			this->m_ptr_repo->current_tool = this->m_editor_tools;
+			this->m_update_event_to_set = true;
+
+			s2d::Event::s_handle_other_events = false;
 		}
 		if (this->m_tools[i].background)
 		{

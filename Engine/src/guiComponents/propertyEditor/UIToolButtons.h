@@ -33,12 +33,14 @@ namespace s2d
 		s2d::GUIRepository* m_ptr_gui_repo;
 		s2d::SpriteRepository* m_ptr_repo;
 		std::vector<std::string>* m_ptr_scene_names;
-
+		
 		char m_new_scene_name[150];
 
+		s2d::EditorTools m_tool_to_set;
 
 		bool m_add_scene_mode;
 		bool m_clicked_on_btn;
+		bool m_update_event_to_set;
 		std::string m_switch_scene_name;
 
 		void playGameButton();

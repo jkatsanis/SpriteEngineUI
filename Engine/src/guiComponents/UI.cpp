@@ -55,7 +55,7 @@ void s2d::UI::update()
 
 bool s2d::UI::isCursorClickedOnSprite(const s2d::Sprite* check)
 {
-    if (!sf::Mouse::isButtonPressed(sf::Mouse::Left))
+    if (!sf::Mouse::isButtonPressed(sf::Mouse::Left) || !s2d::Event::s_handle_other_events)
     {
         return false;
     }

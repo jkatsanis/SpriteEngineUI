@@ -23,6 +23,9 @@ namespace s2d
 
 		Event();
 
+	public:
+		static bool s_handle_other_events;
+
 	};	
 }
 

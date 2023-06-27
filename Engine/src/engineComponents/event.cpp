@@ -6,4 +6,5 @@ s2d::Event::Event()
 	type = s2d::Event::None;
 }
 
+bool s2d::Event::s_handle_other_events = true;
 
