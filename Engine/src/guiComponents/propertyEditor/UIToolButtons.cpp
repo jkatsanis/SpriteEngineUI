@@ -38,11 +38,12 @@ void s2d::UIToolButtons::init()
 
 void s2d::UIToolButtons::createToolsAndButtons()
 {
+	this->is_hovered = false;
+
 	this->hotkeys();
 	this->renderMainMenuBar();
 
 	ImGui::Begin("##tools-buttons", NULL, DEFAULT_WINDOW_FLAGS | ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoBackground);
-
 	// Render
 	ImGui::SetCursorPos(ImVec2(0, 0));
 	this->playGameButton();
@@ -57,6 +58,10 @@ void s2d::UIToolButtons::createToolsAndButtons()
 		}
 	}
 
+	if (!this->is_hovered)
+	{
+		this->is_hovered = s2d::UI::isHovered(ImVec2(0, 0), ImVec2(1920, 50));
+	}
 	ImGui::SetWindowFontScale(s2d::UIInfo::s_default_font_size + 0.2f);
 	ImGui::SetWindowPos(ImVec2(1920 - this->m_ptr_gui_repo->ptr_inspector_window_size->x - 120, 56));
 	ImGui::SetWindowSize(ImVec2(120, 30));
@@ -74,6 +79,7 @@ void s2d::UIToolButtons::renderMainMenuBar()
 {
 	ImGui::PushStyleColor(ImGuiCol_WindowBg, ImVec4(0.1019f, .1019f, .1019f, 1.0f));
 	ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(0, WINDOW_SIZE_Y_TOOL_BUTTONS));
+
 	if (ImGui::BeginMainMenuBar())
 	{
 		this->buildProjectIntoFolder();
@@ -90,9 +96,10 @@ void s2d::UIToolButtons::renderMainMenuBar()
 
 void s2d::UIToolButtons::renderToolSelector()
 {
-	ImGui::SetCursorPosY(3);
 	if (ImGui::BeginMenu("Tools"))
 	{
+		this->is_hovered = true;
+
 		for (int i = 0; i < TOOLS_AMOUNT; i++)
 		{
 			if (ImGui::MenuItem(this->m_tools[i].tool_name.c_str()))
@@ -109,9 +116,10 @@ void s2d::UIToolButtons::renderToolSelector()
 
 void s2d::UIToolButtons::renderSceneSelector()
 {
-	ImGui::SetCursorPosY(3);
 	if (ImGui::BeginMenu("Scenes"))
 	{
+		this->is_hovered = true;
+
 		for (size_t i = 0; i < this->m_ptr_scene_names->size(); i++)
 		{
 			const std::string name = this->m_ptr_scene_names->at(i);
@@ -193,7 +201,7 @@ void s2d::UIToolButtons::renderSceneAddPopup()
 		return;
 	}
 
-	if (ImGui::Begin("##creat-scene", NULL, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse))
+	if (ImGui::Begin("##create-scene", NULL, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse))
 	{
 		ImGui::SetNextItemWidth(200);
 		ImGui::InputTextWithHint("##add-scene", "<name>", this->m_new_scene_name, CHAR_MAX);
@@ -265,9 +273,9 @@ void s2d::UIToolButtons::switchScene(const std::string& scene)
 
 void s2d::UIToolButtons::buildProjectIntoFolder()
 {
-	ImGui::SetCursorPosY(3);
 	if (ImGui::BeginMenu("File"))
 	{
+		this->is_hovered = true;
 		if (ImGui::MenuItem("Save", "CTRL + S"))
 		{
 			s2d::flc::cleanUp(*this->m_ptr_repo, true);
@@ -285,9 +293,9 @@ void s2d::UIToolButtons::buildProjectIntoFolder()
 void s2d::UIToolButtons::renderWindowSelecter()
 {
 	// Hard coded windows
-	ImGui::SetCursorPosY(3);
 	if (ImGui::BeginMenu("Window"))
 	{
+		this->is_hovered = true;
 		if (ImGui::MenuItem("Hierarchy"))
 		{
 			s2d::UIInfo::s_is_hierarchy_open.setOpen();

@@ -225,9 +225,6 @@
     <ClCompile Include="src\guiComponents\propertyEditor\UIInspectorBoxCollider.cpp">
       <Filter>src\guiComponents\inspector</Filter>
     </ClCompile>
-    <ClCompile Include="src\guiComponents\propertyEditor\UIToolButtons.cpp">
-      <Filter>src\guiComponents\tools</Filter>
-    </ClCompile>
     <ClCompile Include="src\spriteComponents\childSystem.cpp">
       <Filter>src\spriteComponents\childSystem</Filter>
     </ClCompile>
@@ -321,6 +318,9 @@
     </ClCompile>
     <ClCompile Include="src\guiComponents\propertyEditor\UITagSelector.cpp">
       <Filter>src\guiComponents\inspector</Filter>
+    </ClCompile>
+    <ClCompile Include="src\guiComponents\propertyEditor\UIToolButtons.cpp">
+      <Filter>src\guiComponents\tools</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

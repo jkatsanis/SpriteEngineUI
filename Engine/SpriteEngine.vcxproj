@@ -156,6 +156,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\guiComponents\propertyEditor\UIToolButtons.cpp" />
     <ClCompile Include="src\spriteComponents\spriteRenderer.cpp" />
     <ClCompile Include="src\manager\guiRepository.cpp" />
     <ClCompile Include="src\manager\spriteRepository.cpp" />
@@ -190,7 +191,6 @@
     <ClCompile Include="src\engineComponents\time.cpp" />
     <ClCompile Include="src\guiComponents\UIWindow.cpp" />
     <ClCompile Include="src\guiComponents\propertyEditor\UIHierarchy.cpp" />
-    <ClCompile Include="src\guiComponents\propertyEditor\UIToolButtons.cpp" />
     <ClCompile Include="src\guiComponents\propertyEditor\UIInspector.cpp" />
     <ClCompile Include="src\guiComponents\propertyEditor\UIAssetFolder.cpp" />
     <ClCompile Include="src\spriteComponents\transform.cpp" />
