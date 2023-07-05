@@ -150,7 +150,7 @@ void s2d::UIRealTimeEditorNavigator::navigateKeys()
 	{
 		this->m_ptr_gui_repo->camera.transform.position.y -= camera_speed * s2d::Time::s_delta_time;
 	}
-	if (s2d::Input::onKeyHold(s2d::KeyBoardCode::S))
+	if (s2d::Input::onKeyHold(s2d::KeyBoardCode::S) && !s2d::Input::onKeyHold(s2d::KeyBoardCode::LControl))
 	{
 		this->m_ptr_gui_repo->camera.transform.position.y += camera_speed * s2d::Time::s_delta_time;
 	}

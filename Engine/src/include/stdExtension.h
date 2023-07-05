@@ -197,6 +197,7 @@ namespace std
 	{
 		for (const std::filesystem::directory_entry& entry : std::filesystem::directory_iterator(path))
 		{
+	
 			if (std::filesystem::is_directory(entry))
 			{
 				getFilePathWithExtensionInFolder(entry.path(), extension, to);

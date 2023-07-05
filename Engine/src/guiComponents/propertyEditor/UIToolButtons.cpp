@@ -322,6 +322,7 @@ void s2d::UIToolButtons::hotkeys()
 
 void s2d::UIToolButtons::build()
 {
+	s2d::flc::cleanUp(*this->m_ptr_repo, true);
 	s2d::flc::saveEverything(this->m_window_background_to_save, *this->m_ptr_repo, *this->m_ptr_gui_repo, *this->m_ptr_scene_names);
 	const std::string PATH = s2d::EngineData::s_path_to_user_project + "\\" + s2d::EngineData::s_name_of_user_project;
 	const std::filesystem::path TARGET_PATH = s2d::EngineData::s_path_to_user_project + "\\" + s2d::EngineData::s_name_of_user_project;
@@ -356,6 +357,7 @@ void s2d::UIToolButtons::playGameButton()
 {
 	if (s2d::FontManager::displaySmybolAsButton(ICON_FA_PLAY) || s2d::Input::onKeyRelease(s2d::KeyBoardCode::F5))
 	{
+		s2d::flc::cleanUp(*this->m_ptr_repo, true);
 		s2d::flc::saveEverything(this->m_window_background_to_save, *this->m_ptr_repo, *this->m_ptr_gui_repo, *this->m_ptr_scene_names);
 
 		wchar_t engineDirectory[MAX_PATH];

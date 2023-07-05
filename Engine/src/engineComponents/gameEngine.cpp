@@ -221,7 +221,10 @@ void s2d::GameEngine::update()
     // UIWindow (Engine)
     ImGui::PushFont(s2d::FontManager::s_default_font);
     this->m_ui_window.update();
-    this->m_ui_real_time_editor.update();
+    if (this->ptr_render_window->hasFocus())
+    {
+        this->m_ui_real_time_editor.update();
+    }
     this->saveDialoge();
     ImGui::PopFont();
 

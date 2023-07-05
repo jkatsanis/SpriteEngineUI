@@ -558,7 +558,8 @@ void s2d::flc::cleanUp(s2d::SpriteRepository& repo, bool save_sprites)
 {
 	// Deleting the prefab file if the sprite has no prfb file. It compares it's name with the prefab names
 	std::vector<std::string> valid_prefab_names;
-	std::getFilePathWithExtensionInFolder(s2d::EngineData::s_path_to_user_project, EXTENSION_PREFAB_FILE, valid_prefab_names);
+	const std::string path = s2d::EngineData::s_path_to_user_project + "\\assets";
+	std::getFilePathWithExtensionInFolder(path, EXTENSION_PREFAB_FILE, valid_prefab_names);
 
 	for (size_t i = 0; i < valid_prefab_names.size(); i++)
 	{

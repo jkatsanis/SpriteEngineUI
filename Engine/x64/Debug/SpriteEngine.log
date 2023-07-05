@@ -1,2 +1,5 @@
-﻿  UIHierarchy.cpp
+﻿  gameEngine.cpp
+  UIRealTimeEditor.cpp
+  UIRealTimeEditorNavigator.cpp
+  Generating Code...
   SpriteEngine.vcxproj -> C:\Dev\SpriteEngineUI\Engine\x64\Debug\SpriteEngine.exe
