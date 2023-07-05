@@ -33,6 +33,7 @@ namespace s2d
 		// General info
 		std::string name;
 		std::string tag;
+		bool render;
 
 		// Components
 		s2d::SpriteRenderer sprite_renderer;

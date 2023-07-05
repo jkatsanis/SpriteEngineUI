@@ -5,7 +5,7 @@
 s2d::UIAssetTools::UIAssetTools()
 {
 	this->m_is_popup_open = false;
-
+	this->m_window_font_size = 1;
 	this->m_ptr_hovered_icon_name = nullptr;
 	this->m_ptr_currentAssetPath = nullptr;
 	this->m_classFileName[0] = '\0';

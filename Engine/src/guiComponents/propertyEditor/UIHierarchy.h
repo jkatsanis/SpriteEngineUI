@@ -64,6 +64,8 @@ namespace s2d
 		void setSpriteOnClick(s2d::Sprite* sprite);
 		void drawUIRactangleWhenHovered(s2d::Sprite* sprite);
 
+		void drawRenderSymbol(s2d::Sprite* child);
+
 		/// <summary>
 		/// Dont forget to call PopStyleColor();
 		/// </summary>

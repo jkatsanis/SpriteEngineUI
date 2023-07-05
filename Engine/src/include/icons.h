@@ -612,10 +612,10 @@
 #define ICON_FA_EXTERNAL_LINK_ALT "\xef\x8d\x9d"	// U+f35d
 #define ICON_FA_EXTERNAL_LINK_SQUARE "\xef\x85\x8c"	// U+f14c
 #define ICON_FA_EXTERNAL_LINK_SQUARE_ALT "\xef\x8d\xa0"	// U+f360
-#define ICON_FA_EYE "\xef\x81\xae"	// U+f06e
+#define ICON_FA_EYE u8"\uf06e"	// U+f06e
 #define ICON_FA_EYE_DROPPER "\xef\x87\xbb"	// U+f1fb
 #define ICON_FA_EYE_EVIL "\xef\x9b\x9b"	// U+f6db
-#define ICON_FA_EYE_SLASH "\xef\x81\xb0"	// U+f070
+#define ICON_FA_EYE_SLASH u8"\uf070"	// U+f070
 #define ICON_FA_FAN "\xef\xa1\xa3"	// U+f863
 #define ICON_FA_FAN_TABLE "\xee\x80\x84"	// U+e004
 #define ICON_FA_FARM "\xef\xa1\xa4"	// U+f864

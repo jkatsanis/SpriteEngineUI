@@ -680,17 +680,6 @@ void s2d::UIInspector::prefabComponent()
 
 #pragma endregion
 
-//static functions
-
-std::string s2d::UIInspector::getNamePathSplit(std::string path)
-{
-	std::vector<std::string> pick;
-
-	std::vector<std::string> splittetSring = std::splitString(path, "\\");
-
-	return splittetSring[splittetSring.size() -1];
-}
-
 //Public functions
 
 void s2d::UIInspector::createUIInspector()
@@ -708,3 +697,13 @@ void s2d::UIInspector::setGUIRepo(s2d::GUIRepository* repo, s2d::Event* evnt)
 }
 
 
+//static functions
+
+std::string s2d::UIInspector::getNamePathSplit(std::string path)
+{
+	std::vector<std::string> pick;
+
+	std::vector<std::string> splittetSring = std::splitString(path, "\\");
+
+	return splittetSring[splittetSring.size() - 1];
+}

@@ -7,6 +7,7 @@ s2d::Sprite::Sprite()
 	this->name = "Unknown";
 	this->transform.position = Vector2(0, 0);	
 	this->m_texture = new sf::Texture();
+	this->render = true;
 }
 
 s2d::Sprite::Sprite(std::string name, s2d::Vector2 spawnPosition, std::string path)
@@ -24,6 +25,7 @@ s2d::Sprite::Sprite(s2d::Sprite& rhs)
 	this->animator = s2d::Animator(this, rhs.animator);
 	this->physicsBody = s2d::PhsysicsBody(rhs.physicsBody);
 	this->tag = rhs.tag;
+	this->render = rhs.render;
 
 	// Initing the childs
 	for (size_t i = 0; i < rhs.ptr_childs.size(); i++)
@@ -107,6 +109,7 @@ void s2d::Sprite::setSpriteTexture(const sf::Texture& texture, const std::string
 
 void s2d::Sprite::postDefaultInitialization()
 {
+	this->render = true;
 	this->transform.setOrigin();
 }
 
@@ -135,16 +138,23 @@ void s2d::Sprite::setParent(s2d::Sprite* parent)
 
 bool s2d::Sprite::containsChild(const s2d::Sprite* child) const
 {
+	if (child == nullptr)
+	{
+		return false;
+	}
 	bool contains = false;
 	
 	for (int i = 0; i < this->ptr_childs.size(); i++)
 	{
 		const s2d::Sprite* spr = this->ptr_childs[i];
-		if (child->m_id == spr->getId())
+		if (child->m_id == spr->m_id)
 		{
 			return true;
 		}
-		contains = spr->containsChild(child);
+		if (!contains)
+		{
+			contains = spr->containsChild(child);
+		}
 	}
 	return contains;
 }
@@ -199,6 +209,7 @@ void s2d::Sprite::validateProperties(uint32_t id, s2d::SpriteRepository& repo)
 void s2d::Sprite::initVariables(std::string& name, s2d::Vector2& spawnPos, std::string& path)
 {
 	// ID's get managed by the sprite repo!
+	this->render = true;
 	this->tag = "none";
 	this->m_texture = new sf::Texture();
 	this->transform = s2d::Transform(this);

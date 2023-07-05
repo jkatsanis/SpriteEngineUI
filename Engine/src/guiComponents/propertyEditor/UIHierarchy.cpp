@@ -238,6 +238,8 @@ void s2d::UIHierarchy::setMenuitemHovered(bool& any_hovered, s2d::Sprite* sprite
 
 		this->drawbackgroundRectangle();
 
+		this->drawRenderSymbol(sprite);
+
 		ImGui::SetCursorPosX(ImGui::GetCursorPosX() + add + MENU_ITEM_PADDING);
 		s2d::FontManager::displaySmybolAsText(ICON_FA_CUBE);
 		ImGui::SetCursorPos(ImVec2(ImGui::GetCursorPosX() + add_when_alone + 75 + add, ImGui::GetCursorPosY() - 21));
@@ -379,6 +381,19 @@ void s2d::UIHierarchy::drawUIRactangleWhenHovered(s2d::Sprite* sprite)
 	}
 }
 
+void s2d::UIHierarchy::drawRenderSymbol(s2d::Sprite* child)
+{
+	const ImVec2 cursor = ImGui::GetCursorPos();
+	ImGui::SetCursorPos(ImVec2(20, cursor.y - 5));
+	const std::string icon = child->render ? ICON_FA_EYE : ICON_FA_EYE_SLASH;
+	const std::string name = icon + std::string("##") + std::to_string(child->getId());
+	if (s2d::FontManager::displaySmybolAsButton(name.c_str()))
+	{
+		child->render = !child->render;
+	}
+	ImGui::SetCursorPos(cursor);
+}
+
 void s2d::UIHierarchy::setSelectedBackgroundColor(s2d::Sprite* sprite, bool& pop_style)
 {
 	if (this->m_ptr_repo->sprite_in_inspector != nullptr
@@ -428,19 +443,24 @@ void s2d::UIHierarchy::displaySpriteSeperated(s2d::Sprite* parent, bool& any_hov
 		{
 			name += " (Prefab)";
 		}
-		if (this->m_search_sprite_filter.PassFilter(name.c_str()) || parent->containsChild(this->m_search_sprite_filter))
+		const bool contains_child = (parent->containsChild(this->m_search_sprite_filter) &&  this->m_search_sprite_filter.CountGrep != 0) || parent->containsChild(this->m_ptr_repo->sprite_in_inspector);
+		if (this->m_search_sprite_filter.PassFilter(name.c_str()) || contains_child)
 		{
-			ImGui::SetCursorPosX(ImGui::GetCursorPosX() + TREE_NODE_PADDING);
 			bool entered_node = false;
-			if (parent->containsChild(this->m_search_sprite_filter) && this->m_search_sprite_filter.CountGrep != 0)
-			{
-				ImGui::SetNextItemOpen(true);
-			}
 			bool pop_style_tree_node = true;
 			bool pop_style = false;
+
+
 			this->setSelectedBackgroundColor(parent, pop_style);
 			ImGui::PushStyleColor(ImGuiCol_HeaderHovered, ImVec4(0, 0, 0, 0));
 			this->drawbackgroundRectangle();
+			this->drawRenderSymbol(parent);
+
+			ImGui::SetCursorPosX(ImGui::GetCursorPosX() + TREE_NODE_PADDING);
+			if (contains_child)
+			{
+				ImGui::SetNextItemOpen(true);
+			}
 			if (ImGui::TreeNodeEx(name.c_str(), ImGuiTreeNodeFlags_OpenOnArrow))
 			{
 				// Poppping background
