@@ -32,9 +32,9 @@ void s2d::UIProjectSelectorProjectSection::update()
 	if (*this->m_ptr_UILocation == s2d::UIProjectSelectorLocation::Projects)
 	{
 		this->renderProjectData();
-		this->renderFileDialogs();
-		this->createPopupToCreateProject();
-		this->tryToOpenProject();
+		//this->renderFileDialogs();
+		//this->createPopupToCreateProject();
+		//this->tryToOpenProject();
 	}
 }
 
@@ -42,7 +42,7 @@ void s2d::UIProjectSelectorProjectSection::update()
 
 void s2d::UIProjectSelectorProjectSection::createProject()
 {
-	std::string tryToOpenPath = s2d::flc::copyDir(PATH_TO_RESSOURCES"\\template", this->m_createFileDialoge.pathClicked, this->m_createProjectName);
+	const std::string tryToOpenPath = s2d::flc::copyDir(PATH_TO_RESSOURCES"\\template", this->m_createFileDialoge.pathClicked, this->m_createProjectName);
 
 	// Setting the project we just selected to be displayed in the selector list
 	this->m_openFileDialog.pathClicked = tryToOpenPath + "\\";

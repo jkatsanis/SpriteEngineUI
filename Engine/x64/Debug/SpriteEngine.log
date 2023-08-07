@@ -1,4 +1,5 @@
-﻿  UI.cpp
-  UIToolButtons.cpp
+﻿  SpriteEngine.cpp
+  UIProjectSelector.cpp
+  UIProjectSelectorProjectSection.cpp
   Generating Code...
   SpriteEngine.vcxproj -> C:\Dev\SpriteEngineUI\Engine\x64\Debug\SpriteEngine.exe

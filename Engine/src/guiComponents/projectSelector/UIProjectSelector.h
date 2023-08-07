@@ -11,6 +11,8 @@
 #include <UIProjectSelectorProjectSection.h>
 #include <guiComponents/colors.h>
 
+#define DATA_PADDING_TOP 10.0f
+
 namespace s2d
 {
 	class UIProjectSelector
