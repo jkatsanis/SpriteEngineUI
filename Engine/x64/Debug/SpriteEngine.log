@@ -1,5 +1,2 @@
-﻿  SpriteEngine.cpp
-  UIProjectSelector.cpp
-  UIProjectSelectorProjectSection.cpp
-  Generating Code...
-  SpriteEngine.vcxproj -> C:\Dev\SpriteEngineUI\Engine\x64\Debug\SpriteEngine.exe
+﻿  UIInspectorBoxCollider.cpp
+  SpriteEngine.vcxproj -> C:\Dev\C++\SpriteEngineUI\Engine\x64\Debug\SpriteEngine.exe

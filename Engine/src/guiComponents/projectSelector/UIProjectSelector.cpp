@@ -6,7 +6,7 @@ s2d::UIProjectSelector::UIProjectSelector()
 {
     this->m_ptr_toRenderWindow = new sf::RenderWindow(sf::VideoMode(960, 540), "SpriteEngine", sf::Style::Titlebar | sf::Style::Close);
 	this->m_renderWindowEvents.type = sf::Event::GainedFocus;
-	this->m_userLocation = s2d::UIProjectSelectorLocation::None;
+	this->m_userLocation = s2d::UIProjectSelectorLocation::Projects;
 	this->m_projectSection = s2d::UIProjectSelectorProjectSection(&this->m_userLocation);
 
 	ImGui::SFML::Init(*this->m_ptr_toRenderWindow);

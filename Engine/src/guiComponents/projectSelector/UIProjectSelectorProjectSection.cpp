@@ -32,9 +32,9 @@ void s2d::UIProjectSelectorProjectSection::update()
 	if (*this->m_ptr_UILocation == s2d::UIProjectSelectorLocation::Projects)
 	{
 		this->renderProjectData();
-		//this->renderFileDialogs();
-		//this->createPopupToCreateProject();
-		//this->tryToOpenProject();
+		this->renderFileDialogs();
+		this->createPopupToCreateProject();
+		this->tryToOpenProject();
 	}
 }
 
@@ -55,7 +55,7 @@ void s2d::UIProjectSelectorProjectSection::createProject()
 void s2d::UIProjectSelectorProjectSection::renderInfoOverProjects(float padding)
 {
 	// Small info over projects
-	ImGui::PushStyleColor(ImGuiCol_ChildBg, ImVec4(18.0f / 255.0f, 18.0f / 255.0f, 22.0f / 255.0f, 1.0f));
+	ImGui::PushStyleColor(ImGuiCol_ChildBg, SELECTOR_TOP_BAR_COLOR);
 	ImGui::SetCursorPosY(ImGui::GetCursorPosY() + 8);
 	ImGui::BeginChild("j#", ImVec2(800, 50), false);
 	ImGui::SetCursorPosY(ImGui::GetCursorPosY() + 13);
@@ -93,7 +93,7 @@ void s2d::UIProjectSelectorProjectSection::renderProjectData()
 	this->renderInfoOverProjects(paddingBetweenInfo);
 
 	ImGui::PushStyleColor(ImGuiCol_FrameBg, SELECTOR_LISTBOX_BACKGROUND_COLOR);
-	if (ImGui::ListBoxHeader("##ProjectList", ImVec2(1000, 200)))
+	if (ImGui::ListBoxHeader("##ProjectList", ImVec2(1000, 420)))
 	{
 		for (int i = 0; i < this->m_projects.size(); i++)
 		{

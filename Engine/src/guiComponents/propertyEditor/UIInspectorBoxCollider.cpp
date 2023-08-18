@@ -180,14 +180,12 @@ void s2d::UIInspectorBoxCollider::solid(float& x, float& y, s2d::Sprite* sprite)
 void s2d::UIInspectorBoxCollider::width(float x, float y, s2d::Sprite* sprite)
 {
 	ImGui::SetCursorPosX(x -= 11);
-	ImGui::SetWindowFontScale(s2d::UIInfo::s_default_font_size + 0.1f);
 	if (ImGui::TreeNode("Width"))
 	{
 		ImGui::SetCursorPos(ImVec2(x += 30, y += 80));
 		ImGui::Text("L");
 
 		ImGui::SetCursorPos(ImVec2(x += 30, y));
-		ImGui::SetWindowFontScale(s2d::UIInfo::s_default_font_size - 0.5f);
 		ImGui::SliderFloat("##WidthL", &sprite->collider.box_collider_width.x, -500, 500);
 		ImGui::SameLine();
 
@@ -196,13 +194,11 @@ void s2d::UIInspectorBoxCollider::width(float x, float y, s2d::Sprite* sprite)
 		{
 			sprite->collider.box_collider_width.x = 0;
 		}
-		ImGui::SetWindowFontScale(s2d::UIInfo::s_default_font_size);
 
 		ImGui::SetCursorPos(ImVec2(x -= 28.4f, y += 40));
 		ImGui::Text("R");
 
 		ImGui::SetCursorPos(ImVec2(x += 29, y));
-		ImGui::SetWindowFontScale(s2d::UIInfo::s_default_font_size - 0.5f);
 		ImGui::SliderFloat("##WidthR", &sprite->collider.box_collider_width.y, -500, 500);
 		ImGui::SameLine();
 
@@ -214,10 +210,8 @@ void s2d::UIInspectorBoxCollider::width(float x, float y, s2d::Sprite* sprite)
 		{
 			sprite->collider.box_collider_width.y = 0;
 		}
-		ImGui::SetWindowFontScale(s2d::UIInfo::s_default_font_size);
 		ImGui::TreePop();
 	}
-	ImGui::SetWindowFontScale(s2d::UIInfo::s_default_font_size);
 }
 
 void s2d::UIInspectorBoxCollider::height(s2d::Sprite* sprite)
@@ -226,37 +220,31 @@ void s2d::UIInspectorBoxCollider::height(s2d::Sprite* sprite)
 	float y = ImGui::GetCursorPosY();
 	ImGui::SetCursorPosX(x -= 1.5f);
 
-	ImGui::SetWindowFontScale(s2d::UIInfo::s_default_font_size + 0.07f);
 	if (ImGui::TreeNodeEx("Height"))
 	{
 		ImGui::SetCursorPos(ImVec2(x += 33.5f, y += 35));
 		ImGui::Text("U");
 
 		ImGui::SetCursorPos(ImVec2(x += 30, y));
-		ImGui::SetWindowFontScale(s2d::UIInfo::s_default_font_size - 0.5f);
 		ImGui::SliderFloat("##up", &sprite->collider.box_collider_height.x, -500, 500);
 		ImGui::SameLine();
 		if (s2d::FontManager::displaySmybolAsButton(ICON_FA_RETWEET))
 		{
 			sprite->collider.box_collider_height.x = 0;
 		}
-		ImGui::SetWindowFontScale(s2d::UIInfo::s_default_font_size);
 
 		ImGui::SetCursorPos(ImVec2(x -= 28.4f, y += 40));
 		ImGui::Text("D");
 
 		ImGui::SetCursorPos(ImVec2(x += 28, y));
-		ImGui::SetWindowFontScale(s2d::UIInfo::s_default_font_size - 0.5f);
 		ImGui::SliderFloat("##down", &sprite->collider.box_collider_height.y, -500, 500);
 		ImGui::SameLine();
 		if (s2d::FontManager::displaySmybolAsButton(ICON_FA_RETWEET "##"))
 		{
 			sprite->collider.box_collider_height.y = 0;
 		}
-		ImGui::SetWindowFontScale(s2d::UIInfo::s_default_font_size);
 		ImGui::TreePop();
 	}
-	ImGui::SetWindowFontScale(s2d::UIInfo::s_default_font_size);
 }
 
 void s2d::UIInspectorBoxCollider::drawBoxCollider(s2d::Sprite* sprite, s2d::Rectangle* ptr_rectangle)
