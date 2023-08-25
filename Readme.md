@@ -29,6 +29,8 @@ This Project is a simple **2D Game Engine** designed to be fully understand by o
 
 ## Getting Started
 
+PLEASE NOTE THAT THIS FILE MAY BE OUTDATED SINCE IM WORKING ALONE AND ALOT ON THIS ENGINE!
+
 The engine calls the only 1 update and 1 Start Method of the "Game" class, if you create a new Script you need to
 call the update method from the script in the "Game" class. If you want to share instances simply pass them in the 
 update methods or set a pointer to it in the start method. You can get acces to a sprite by calling 
@@ -53,8 +55,9 @@ You can find a Introduction to the engine on [YouTube](https://www.youtube.com/w
 
 2. **How Do I Script My Sprites?**
 
-   In the Game Engine you can right click in the Asset folder and select **New -> C++ Script**, this will create a new Script containing the **update** and **start** functions.
-   (You can find the docs the the functions in the engine)
+Right click the hierarchy window and select **New -> Sprite**
+In the Game Engine you can right click on the asset folder and select **New -> C++ Script**, this will create a new Script containing the **update** and **start** functions. Eventually the script which gets created is out of date.
+   (You can find the docs the the functions in the engine (the docs are not available yet))
 
    You can create a new **Sprite ptr** in your class:
 
