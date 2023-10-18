@@ -42,7 +42,8 @@ void s2d::UIProjectSelectorProjectSection::update()
 
 void s2d::UIProjectSelectorProjectSection::createProject()
 {
-	const std::string tryToOpenPath = s2d::flc::copyDir(PATH_TO_RESSOURCES"\\template", this->m_createFileDialoge.pathClicked, this->m_createProjectName);
+	const std::string path = this->m_createFileDialoge.pathClicked + "\\";
+	const std::string tryToOpenPath = s2d::flc::copyDir(PATH_TO_RESSOURCES"\\template", path, this->m_createProjectName);
 
 	// Setting the project we just selected to be displayed in the selector list
 	this->m_openFileDialog.pathClicked = tryToOpenPath + "\\";
@@ -200,7 +201,7 @@ void s2d::UIProjectSelectorProjectSection::createPopupToCreateProject()
 		ImGui::SetCursorPosX(x += 100);
 		if (ImGui::Button("Create"))
 		{
-			std::string s = this->m_createFileDialoge.pathClicked + this->m_createProjectName.data();
+			std::string s = this->m_createFileDialoge.pathClicked +"\\"+  this->m_createProjectName.data();
 			if (!s2d::flc::checkIfProjcetAlreadyExists(s))
 			{
 				this->createProject();
@@ -223,7 +224,7 @@ void s2d::UIProjectSelectorProjectSection::tryToOpenProject()
 {
 	if (this->m_openFileDialog.pathClicked != "" && !s2d::flc::checkIfProjcetAlreadyExists(this->m_openFileDialog.pathClicked))
 	{
-		std::string pathToVerify = this->m_openFileDialog.pathClicked + "engine\\saves\\verify.vsn";		
+		std::string pathToVerify = this->m_openFileDialog.pathClicked + "\\engine\\saves\\verify.vsn";		
 
 		if(!s2d::flc::isProjectPathValid(pathToVerify))
 		{
