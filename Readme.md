@@ -31,7 +31,7 @@ This Project is a simple **2D Game Engine** designed to be fully understand by o
 
 PLEASE NOTE THAT THIS FILE MAY BE OUTDATED SINCE IM WORKING ALONE AND ALOT ON THIS ENGINE!
 
-The engine calls the only 1 update and 1 Start Method of the "Game" class, if you create a new Script you need to
+"The engine invokes the 'update' and 'start' methods of the 'Game' class only once. If you create a new script you need to
 call the update method from the script in the "Game" class. If you want to share instances simply pass them in the 
 update methods or set a pointer to it in the start method. You can get acces to a sprite by calling 
 `this->config.ptr_sprites->getSpriteWithName("name");` This method returns a pointer to the sprite in the `SpriteRepository`
@@ -45,7 +45,7 @@ You can find a Introduction to the engine on [YouTube](https://www.youtube.com/w
 
     In the folder open the .exe and create a new project by clicking on the create button. 
 
-    A File Dialog will open, select where u want to create the project and hit the '**+**' button.
+    A file dialog will open, select where u want to create the project and hit the '**+**' button.
 
     All the files from the **template** folder will be automatically copied to the location the user selected his project to be.
 
@@ -55,11 +55,11 @@ You can find a Introduction to the engine on [YouTube](https://www.youtube.com/w
 
 2. **How Do I Script My Sprites?**
 
-Right click the hierarchy window and select **New -> Sprite**
-In the Game Engine you can right click on the asset folder and select **New -> C++ Script**, this will create a new Script containing the **update** and **start** functions. Eventually the script which gets created is out of date.
-   (You can find the docs the the functions in the engine (the docs are not available yet))
+    Right click the hierarchy window and select **New -> Sprite**
+    In the game engine you can right click on the asset folder and select **New -> C++ Script**, this will create a new script containing the **update** and **start** functions. Eventually the script which gets created is out of date.
+    (You can find the docs the the functions in the engine (the docs are not available yet))
 
-   You can create a new **Sprite ptr** in your class:
+    You can create a new **Sprite ptr** in your class:
 
     ```C++
     class Game : public s2d::Base
@@ -67,7 +67,6 @@ In the Game Engine you can right click on the asset folder and select **New -> C
     private:
         Sprite* m_sprite;
     }
-
     ```
    You can give the **Sprite ptr** a address by calling the **s2d::Sprite::getSpriteByName("name");** function, to search for a sprite with the name **'name'**. This will return a **'nullptr'** or the adress to this sprite.
 
@@ -102,11 +101,12 @@ In the Game Engine you can right click on the asset folder and select **New -> C
     }
     ```
     This will autamticly add the sprite to the repository and it will take care of the rendering / calculating collisons, physics etc. Of course you need to active the necceasary components like 
+
     ```C++
     void Game::start()
     {
         Sprite* spr = new Sprite();
-        spr.collider.exist = true;
+        spr->collider.exist = true;
     }
     ```
     to have a basic collision detection.
