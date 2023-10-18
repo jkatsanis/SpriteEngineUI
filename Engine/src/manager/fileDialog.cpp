@@ -11,7 +11,7 @@ s2d::FileDialog::FileDialog()
     this->windowFocus = true;
 }
 
-s2d::FileDialog::FileDialog(std::string path, std::string icon, std::string title, ImVec2 windowSize)
+s2d::FileDialog::FileDialog(std::string path, std::string icon, std::string title, ImVec2 windowSize, bool show_file)
 {
     this->m_firstNodeText = path;
     this->m_path = path;
@@ -22,7 +22,8 @@ s2d::FileDialog::FileDialog(std::string path, std::string icon, std::string titl
     this->itemClicked = "";
     this->m_icon = icon;
     this->windowFocus = true;
-    this->is_open = false;
+    this->m_is_open = false;
+    this->m_show_files = show_file;
 }
 
 // Public methods
@@ -84,6 +85,7 @@ void s2d::FileDialog::displayNodes()
             ImGui::TreePop();
         }
     }
+    ImGui::SetWindowFontScale(s2d::UIInfo::s_default_font_size);
 
     ImGui::SetWindowSize(this->m_windowSize);
     ImGui::End();
@@ -93,7 +95,7 @@ void s2d::FileDialog::enableWindow()
 {
     this->windowFocus = true;
     this->m_closeWindow = false;
-    this->is_open = true;
+    this->m_is_open = true;
 }
 
 
@@ -104,7 +106,7 @@ void s2d::FileDialog::enableWindow(const std::string& title)
 }
 void s2d::FileDialog::update()
 {
-    if (this->is_open)
+    if (this->m_is_open)
     {
         if (this->pathClicked == ""
             && !this->isWindowClosed())
@@ -156,7 +158,7 @@ void s2d::FileDialog::openFile(const char* dir_path)
 
         if (entry->d_type == DT_DIR)
         {
-            if (!checkIfADirHasSubDirs(path))
+            if (!s2d::FileDialog::checkIfADirHasSubItems(path, this->m_show_files))
             {
                 ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 5);
                 s2d::FontManager::displaySymbolInMenuItemWithText(ICON_FA_FOLDER, entry->d_name);
@@ -170,7 +172,7 @@ void s2d::FileDialog::openFile(const char* dir_path)
             }
 
         }
-        else
+        else if(m_show_files)
         {
             ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 5);
 
@@ -218,7 +220,7 @@ std::string s2d::FileDialog::getEmptyStringBetween(const std::string& content, c
     return empty;
 }
 
-bool s2d::FileDialog::checkIfADirHasSubDirs(const std::string& dirPath)
+bool s2d::FileDialog::checkIfADirHasSubItems(const std::string& dirPath, bool show_files)
 {
     bool value = false;
     DIR* dir = opendir(dirPath.c_str());
@@ -230,13 +232,25 @@ bool s2d::FileDialog::checkIfADirHasSubDirs(const std::string& dirPath)
     int cnt = 0;
     while ((entry = readdir(dir)) != NULL)
     {
-    
-        if (strcmp(entry->d_name, ".") == 0 || strcmp(entry->d_name, "..") == 0)
+        if (!show_files)
         {
-            continue;
+            if (entry->d_type == DT_DIR)
+            {
+                if (strcmp(entry->d_name, ".") == 0 || strcmp(entry->d_name, "..") == 0)
+                {
+                    continue;
+                }
+                value = true;
+            }
         }
-        value = true;
-        
+        else
+        {
+            if (strcmp(entry->d_name, ".") == 0 || strcmp(entry->d_name, "..") == 0)
+            {
+                continue;
+            }
+            value = true;
+        }
     }
 
     closedir(dir);

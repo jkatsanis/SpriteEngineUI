@@ -17,8 +17,8 @@ void s2d::UIProjectSelectorProjectSection::init()
 {
 	this->m_createProjectName = "";
 	this->m_createWindowSize = ImVec2(900, 450);
-	this->m_createFileDialoge = s2d::FolderDialog("C:\\", ICON_FA_PLUS, "Select where you want to create a project", this->m_createWindowSize);
-	this->m_openFileDialog = s2d::FolderDialog("C:\\", ICON_FA_EDIT, "Select where you want to open a project", this->m_createWindowSize);
+	this->m_createFileDialoge = s2d::FileDialog("C:\\", ICON_FA_PLUS, "Select where you want to create a project", this->m_createWindowSize, false);
+	this->m_openFileDialog = s2d::FileDialog("C:\\", ICON_FA_EDIT, "Select where you want to open a project", this->m_createWindowSize, false);
 	this->m_currentFileDialoge = s2d::CurrentFileDialog::None;
 
 	// Reads project data from a CSV filed
@@ -46,7 +46,7 @@ void s2d::UIProjectSelectorProjectSection::createProject()
 
 	// Setting the project we just selected to be displayed in the selector list
 	this->m_openFileDialog.pathClicked = tryToOpenPath + "\\";
-	this->m_openFileDialog.folderClicked = this->m_createProjectName.data();
+	this->m_openFileDialog.itemClicked = this->m_createProjectName.data();
 
 	this->m_createProjectName = "";
 	this->m_createFileDialoge.disableWindow();
@@ -102,8 +102,8 @@ void s2d::UIProjectSelectorProjectSection::renderProjectData()
 			{
 				// from left to first sep its 
 
-				std::string emptyBetweenNameAndCreation = s2d::FolderDialog::getEmptyStringBetween("Project Name", filterName, paddingBetweenInfo);
-				std::string emptyBetweenCreationAndPath = s2d::FolderDialog::getEmptyStringBetween("Last Opened   ", this->m_projects[i].lastOpened, paddingBetweenInfo);
+				std::string emptyBetweenNameAndCreation = s2d::FileDialog::getEmptyStringBetween("Project Name", filterName, paddingBetweenInfo);
+				std::string emptyBetweenCreationAndPath = s2d::FileDialog::getEmptyStringBetween("Last Opened   ", this->m_projects[i].lastOpened, paddingBetweenInfo);
 
 				std::string fullData = filterName + emptyBetweenNameAndCreation + this->m_projects[i].lastOpened + emptyBetweenCreationAndPath + this->m_projects[i].absulutePath;
 
@@ -234,12 +234,12 @@ void s2d::UIProjectSelectorProjectSection::tryToOpenProject()
 		std::filesystem::path current_path = std::filesystem::current_path();
 		std::filesystem::path relative_path = std::filesystem::relative(this->m_openFileDialog.pathClicked, current_path);
 
-		std::string name = this->m_openFileDialog.folderClicked;
+		std::string name = this->m_openFileDialog.itemClicked;
 
 		this->m_projects.push_back(s2d::UserProjectInfo(name, this->m_openFileDialog.pathClicked, "now", relative_path.string()));
 
 		this->m_openFileDialog.pathClicked = "";
-		this->m_openFileDialog.folderClicked = "";
+		this->m_openFileDialog.itemClicked = "";
 		this->m_currentFileDialoge = s2d::CurrentFileDialog::None;
 
 		// Updating the file when we open or CREATE a project

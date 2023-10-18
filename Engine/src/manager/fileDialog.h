@@ -10,6 +10,13 @@
 
 namespace s2d
 {
+	enum class CurrentFileDialog
+	{
+		None = -1,
+		Open = 0,
+		Create
+	};
+
 	/// <summary>
 	/// File dialogs coll the "disableWindow();" function when the "x" button is pressed
 	/// Absulute and relative paths will work
@@ -24,7 +31,8 @@ namespace s2d
 		std::string m_firstNodeText;
 		ImVec2 m_windowSize;
 		std::string m_title;
-		bool is_open;
+		bool m_is_open;
+		bool m_show_files;
 
 		/// <summary>
 		/// Opens a file and displays the folder recursivly with <ImGui::TreeNodes>, needs to be called by <displayNoded>
@@ -46,7 +54,7 @@ namespace s2d
 		/// <param name="icon">The icon next to the FOLDER</param>
 		/// <param name="title">The title in the top left corner</param>
 		/// <param name="windowSize">The window size of the file dialoge window</param>
-		FileDialog(std::string path, std::string icon, std::string title, ImVec2 windowSize);
+		FileDialog(std::string path, std::string icon, std::string title, ImVec2 windowSize, bool show_files);
 
 		/// <summary>
 		/// Rests the data of the File Dialog
@@ -85,7 +93,7 @@ namespace s2d
 
 	public:
 		static std::string getEmptyStringBetween(const std::string& content, const std::string& name, float padding);
-		static bool checkIfADirHasSubDirs(const std::string& dir);
+		static bool checkIfADirHasSubItems(const std::string& dir, bool show_files);
 	};
 }
 

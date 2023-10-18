@@ -3,7 +3,7 @@
 #include <ImGui.h>
 #include <iostream>
 #include <imgui_internal.h>
-#include <manager/folderDialog.h>
+#include <manager/fileDialog.h>
 #include <data/projectInfo.h>
 #include <fstream>
 #include <data/engineData.h>
@@ -21,8 +21,8 @@ namespace s2d
 		ImVec2 m_createWindowSize;
 		s2d::CurrentFileDialog m_currentFileDialoge;
 
-		s2d::FolderDialog m_createFileDialoge;
-		s2d::FolderDialog m_openFileDialog;
+		s2d::FileDialog m_createFileDialoge;
+		s2d::FileDialog m_openFileDialog;
 
 		const s2d::UIProjectSelectorLocation* m_ptr_UILocation;
 

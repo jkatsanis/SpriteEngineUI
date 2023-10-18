@@ -5,8 +5,8 @@ s2d::UIAnimation::UIAnimation()
 	this->m_UIAnimationEditor.resetAnim();
 	this->m_fileName = "";
 	const std::string pathToAssets = s2d::EngineData::s_path_to_user_project + "\\" + "assets\\";
-	this->m_animation_create_file_dialog = s2d::FolderDialog(pathToAssets, ICON_FA_PLUS, "Create Animation", ImVec2(500, 250));
-	this->m_animation_open_file_dialog = s2d::FileDialog(pathToAssets, ICON_FA_PLUS, "Open Animation", ImVec2(500, 250));
+	this->m_animation_open_file_dialog = s2d::FileDialog(pathToAssets, ICON_FA_PLUS, "Open Animation", ImVec2(500, 250), true);
+	this->m_animation_create_file_dialog = s2d::FileDialog(pathToAssets, ICON_FA_PLUS, "Create Animation", ImVec2(500, 250), false);
 	this->m_animation_create_file_dialog.setFirstNode("assets");
 	this->m_animation_open_file_dialog.setFirstNode("assets");
 	this->m_background_counter = START_CNT_BG;
@@ -72,7 +72,6 @@ void s2d::UIAnimation::getFileNameInput()
 		this->m_animation_open_file_dialog.enableWindow("Open animation");
 	}
 
-
 	this->m_animation_open_file_dialog.update();
 
 	if (this->m_animation_open_file_dialog.IsItemSelected())
@@ -81,6 +80,53 @@ void s2d::UIAnimation::getFileNameInput()
 		s2d::Initializer::postInitAnimation(sprite, s2d::UI::getUserProjectPathSeperatetFromEnginePath( this->m_animation_open_file_dialog.pathClicked ), *this->m_ptr_repo);
 		this->m_animation_open_file_dialog.disableWindow();
 	}
+
+	const std::string icon_2 = ICON_FA_PLUS + std::string("##ADD");
+	// Open popup
+	if (s2d::FontManager::displaySmybolAsButton(icon_2.c_str(), s2d::UIInfo::s_default_font_size - 0.2f))
+	{
+		this->m_animation_create_file_dialog.enableWindow();
+	}
+
+	ImGui::SameLine();
+	ImGui::SetCursorPosY(ImGui::GetCursorPosY() - 3);
+	ImGui::Text("Add animation");
+
+	this->m_animation_create_file_dialog.update();
+	
+	if (this->m_animation_create_file_dialog.pathClicked == "")
+	{
+		return;
+	}
+
+	ImGui::SetNextWindowFocus();
+	if (ImGui::Begin("##CreateAnimtion", NULL, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse))
+	{
+		ImVec2 old = ImGui::GetCursorPos();
+		ImVec2 closeCursorPos = ImVec2(WINDOW_SIZE_ANIMATION_CREATE.x - 50, ImGui::GetCursorPosY() - 5);
+		ImGui::SetCursorPos(closeCursorPos);
+
+		// Clicked at the "x", stop displaying the file dialoge
+		if (ImGui::Button("x") || s2d::Input::onKeyPress(s2d::KeyBoardCode::Escape))
+		{
+			this->m_animationFile[0] = '\0';
+			this->m_animation_create_file_dialog.disableWindow();
+		}
+		ImGui::SetCursorPos(old);
+
+		ImGui::InputTextWithHint("##addFile", "<name>", this->m_animationFile, CHAR_MAX);
+		if (ImGui::IsItemHovered() || ImGui::IsItemFocused())
+		{
+			this->is_hovered = true;
+		}
+		const std::string path = s2d::UI::getUserProjectPathSeperatetFromEnginePath(this->m_animation_create_file_dialog.pathClicked);
+		std::string createAnimtionAt = "Create animation file at: " + path;
+		ImGui::Text(createAnimtionAt.c_str());
+		ImGui::Text("Press Enter when u are done giving it a name");
+		ImGui::SetWindowSize(ImVec2(WINDOW_SIZE_ANIMATION_CREATE.x, 120));
+		ImGui::End();
+	}
+	this->addAnimationsToAnimator();
 }
 
 void s2d::UIAnimation::displayAnimations()
@@ -169,6 +215,7 @@ void s2d::UIAnimation::addAnimationsToAnimator()
 		{
 			const std::string& path = 
 				s2d::UI::getUserProjectPathSeperatetFromEnginePath(this->m_animation_create_file_dialog.pathClicked)
+				+ "\\"
 				+ this->m_animationFile
 				+ EXTENSION_ANIMATION_FILE;
 			this->m_ptr_repo->sprite_in_inspector->animator.createAnimation(this->m_animationFile, path, { });

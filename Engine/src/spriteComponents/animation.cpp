@@ -220,7 +220,7 @@ void s2d::Animation::realoadTextures()
 	{
 		if (!this->m_textures[i].loadFromFile(this->m_keyframes[i].path))
 		{
-			std::cout << "LOG [ERROR] Couldnt load the animation file " + this->m_keyframes[i].path +  " !";
+			std::cout << "LOG [ERROR] Couldnt load the animation file " + this->m_keyframes[i].path + " !";
 		}
 	}
 }

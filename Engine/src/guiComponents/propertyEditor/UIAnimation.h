@@ -7,7 +7,6 @@
 #include <physicalComponents/sprite.h>
 #include <UIAnimationEditor.h>
 #include <manager/fontManager.h>
-#include <manager/folderDialog.h>
 #include <manager/fileDialog.h>
 #include <engineComponents/input.h>
 
@@ -23,8 +22,9 @@ namespace s2d
 		s2d::SpriteRepository* m_ptr_repo;
 		UIAnimationEditor m_UIAnimationEditor;
 		std::string m_fileName;
-		s2d::FolderDialog m_animation_create_file_dialog;
+
 		s2d::FileDialog m_animation_open_file_dialog;
+		s2d::FileDialog m_animation_create_file_dialog;
 
 		ImGuiTextFilter m_search_filter_animation;
 

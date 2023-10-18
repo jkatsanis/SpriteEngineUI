@@ -1,7 +1,6 @@
 #pragma once
 
 #include <iostream>
-#include <manager/folderDialog.h>
 
 namespace s2d
 {

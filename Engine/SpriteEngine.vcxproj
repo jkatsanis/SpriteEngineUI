@@ -156,8 +156,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\manager\fileDialog.cpp" />
     <ClCompile Include="src\guiComponents\propertyEditor\UIToolButtons.cpp" />
+    <ClCompile Include="src\manager\fileDialog.cpp" />
     <ClCompile Include="src\spriteComponents\spriteRenderer.cpp" />
     <ClCompile Include="src\manager\guiRepository.cpp" />
     <ClCompile Include="src\manager\spriteRepository.cpp" />
@@ -165,7 +165,6 @@
     <ClCompile Include="src\manager\initializer.cpp" />
     <ClCompile Include="src\engineComponents\renderer.cpp" />
     <ClCompile Include="src\data\engineData.cpp" />
-    <ClCompile Include="src\manager\folderDialog.cpp" />
     <ClCompile Include="src\guiComponents\projectSelector\UIProjectSelector.cpp" />
     <ClCompile Include="src\manager\fontManager.cpp" />
     <ClCompile Include="src\engineComponents\event.cpp" />
@@ -215,8 +214,8 @@
     <ClCompile Include="src\guiComponents\propertyEditor\UITagSelector.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\manager\fileDialog.h" />
     <ClInclude Include="src\data\fileDataMacros.h" />
+    <ClInclude Include="src\manager\fileDialog.h" />
     <ClInclude Include="src\spriteComponents\spriteRenderer.h" />
     <ClInclude Include="src\spriteComponents\component.h" />
     <ClInclude Include="src\manager\guiRepository.h" />
@@ -228,7 +227,6 @@
     <ClInclude Include="src\engineComponents\renderer.h" />
     <ClInclude Include="src\data\engineData.h" />
     <ClInclude Include="src\data\projectInfo.h" />
-    <ClInclude Include="src\manager\folderDialog.h" />
     <ClInclude Include="src\guiComponents\projectSelector\UIProjectSelector.h" />
     <ClInclude Include="src\manager\fontManager.h" />
     <ClInclude Include="src\engineComponents\keyBoard.h" />
