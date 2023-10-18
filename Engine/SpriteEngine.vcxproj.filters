@@ -16,9 +16,6 @@
     <Filter Include="src\manager\font">
       <UniqueIdentifier>{08adcc0f-cc67-4ded-97f9-d0de4626b4e3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\manager\fileDialgo">
-      <UniqueIdentifier>{4fbfab22-2202-40a3-bf2e-13ae7c38df85}</UniqueIdentifier>
-    </Filter>
     <Filter Include="src\guiComponents">
       <UniqueIdentifier>{4779ba32-237f-4772-a1b4-9aa47d69e4dc}</UniqueIdentifier>
     </Filter>
@@ -154,6 +151,12 @@
     <Filter Include="src\spriteComponents\spriteRenderer">
       <UniqueIdentifier>{06689324-67c3-4e41-b617-b15053c96032}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\manager\repositories">
+      <UniqueIdentifier>{45b410ec-6f76-4863-9bf3-e31d7449e290}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\manager\dialog">
+      <UniqueIdentifier>{4fbfab22-2202-40a3-bf2e-13ae7c38df85}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\include\imgui\imgui.cpp">
@@ -258,8 +261,8 @@
     <ClCompile Include="src\guiComponents\UIWindow.cpp">
       <Filter>src\guiComponents\window</Filter>
     </ClCompile>
-    <ClCompile Include="src\manager\fileDialogs.cpp">
-      <Filter>src\manager\fileDialgo</Filter>
+    <ClCompile Include="src\manager\folderDialog.cpp">
+      <Filter>src\manager\dialog</Filter>
     </ClCompile>
     <ClCompile Include="src\guiComponents\projectSelector\UIProjectSelector.cpp">
       <Filter>src\guiComponents\projectSelector\selector</Filter>
@@ -298,17 +301,11 @@
       <Filter>src\physicalComponents\sprite</Filter>
     </ClCompile>
     <ClCompile Include="src\SpriteEngine.cpp" />
-    <ClCompile Include="src\manager\spriteRepository.cpp">
-      <Filter>src\manager</Filter>
-    </ClCompile>
     <ClCompile Include="src\guiComponents\projectSelector\UIProjectSelectorProjectSection.cpp">
       <Filter>src\guiComponents\projectSelector\create/open</Filter>
     </ClCompile>
     <ClCompile Include="src\guiComponents\UI.cpp">
       <Filter>src\guiComponents</Filter>
-    </ClCompile>
-    <ClCompile Include="src\manager\guiRepository.cpp">
-      <Filter>src\manager</Filter>
     </ClCompile>
     <ClCompile Include="src\spriteComponents\spriteRenderer.cpp">
       <Filter>src\spriteComponents\spriteRenderer</Filter>
@@ -321,6 +318,15 @@
     </ClCompile>
     <ClCompile Include="src\guiComponents\propertyEditor\UIToolButtons.cpp">
       <Filter>src\guiComponents\tools</Filter>
+    </ClCompile>
+    <ClCompile Include="src\manager\fileDialog.cpp">
+      <Filter>src\manager\dialog</Filter>
+    </ClCompile>
+    <ClCompile Include="src\manager\guiRepository.cpp">
+      <Filter>src\manager\repositories</Filter>
+    </ClCompile>
+    <ClCompile Include="src\manager\spriteRepository.cpp">
+      <Filter>src\manager\repositories</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -744,8 +750,8 @@
     <ClInclude Include="src\headers\SpriteEngine.h">
       <Filter>src\Include/headers\_header</Filter>
     </ClInclude>
-    <ClInclude Include="src\manager\fileDialogs.h">
-      <Filter>src\manager\fileDialgo</Filter>
+    <ClInclude Include="src\manager\folderDialog.h">
+      <Filter>src\manager\dialog</Filter>
     </ClInclude>
     <ClInclude Include="src\guiComponents\projectSelector\UIProjectSelector.h">
       <Filter>src\guiComponents\projectSelector\selector</Filter>
@@ -801,12 +807,6 @@
     <ClInclude Include="src\guiComponents\propertyEditor\UIHierarchy.h">
       <Filter>src\guiComponents\hirachy</Filter>
     </ClInclude>
-    <ClInclude Include="src\manager\spriteRepository.h">
-      <Filter>src\manager</Filter>
-    </ClInclude>
-    <ClInclude Include="src\manager\guiRepository.h">
-      <Filter>src\manager</Filter>
-    </ClInclude>
     <ClInclude Include="src\spriteComponents\component.h">
       <Filter>src\spriteComponents</Filter>
     </ClInclude>
@@ -824,6 +824,15 @@
     </ClInclude>
     <ClInclude Include="src\guiComponents\propertyEditor\UITagSelector.h">
       <Filter>src\guiComponents\inspector</Filter>
+    </ClInclude>
+    <ClInclude Include="src\manager\fileDialog.h">
+      <Filter>src\manager\dialog</Filter>
+    </ClInclude>
+    <ClInclude Include="src\manager\guiRepository.h">
+      <Filter>src\manager\repositories</Filter>
+    </ClInclude>
+    <ClInclude Include="src\manager\spriteRepository.h">
+      <Filter>src\manager\repositories</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -17,8 +17,8 @@ void s2d::UIProjectSelectorProjectSection::init()
 {
 	this->m_createProjectName = "";
 	this->m_createWindowSize = ImVec2(900, 450);
-	this->m_createFileDialoge = s2d::FileDialog("C:\\", ICON_FA_PLUS, "Select where you want to create a project", this->m_createWindowSize);
-	this->m_openFileDialog = s2d::FileDialog("C:\\", ICON_FA_EDIT, "Select where you want to open a project", this->m_createWindowSize);
+	this->m_createFileDialoge = s2d::FolderDialog("C:\\", ICON_FA_PLUS, "Select where you want to create a project", this->m_createWindowSize);
+	this->m_openFileDialog = s2d::FolderDialog("C:\\", ICON_FA_EDIT, "Select where you want to open a project", this->m_createWindowSize);
 	this->m_currentFileDialoge = s2d::CurrentFileDialog::None;
 
 	// Reads project data from a CSV filed
@@ -102,8 +102,8 @@ void s2d::UIProjectSelectorProjectSection::renderProjectData()
 			{
 				// from left to first sep its 
 
-				std::string emptyBetweenNameAndCreation = s2d::FileDialog::getEmptyStringBetween("Project Name", filterName, paddingBetweenInfo);
-				std::string emptyBetweenCreationAndPath = s2d::FileDialog::getEmptyStringBetween("Last Opened   ", this->m_projects[i].lastOpened, paddingBetweenInfo);
+				std::string emptyBetweenNameAndCreation = s2d::FolderDialog::getEmptyStringBetween("Project Name", filterName, paddingBetweenInfo);
+				std::string emptyBetweenCreationAndPath = s2d::FolderDialog::getEmptyStringBetween("Last Opened   ", this->m_projects[i].lastOpened, paddingBetweenInfo);
 
 				std::string fullData = filterName + emptyBetweenNameAndCreation + this->m_projects[i].lastOpened + emptyBetweenCreationAndPath + this->m_projects[i].absulutePath;
 
@@ -131,7 +131,7 @@ void s2d::UIProjectSelectorProjectSection::renderFileDialogs()
 	// Opens a file dialog, where u can create a new SpriteEngine project
 	if (this->m_currentFileDialoge == s2d::CurrentFileDialog::Create)
 	{
-		if (this->m_createFileDialoge.closeWindow())
+		if (this->m_createFileDialoge.isWindowClosed())
 		{
 			this->m_currentFileDialoge = s2d::CurrentFileDialog::None;
 		}
@@ -139,7 +139,7 @@ void s2d::UIProjectSelectorProjectSection::renderFileDialogs()
 	}
 	if (this->m_currentFileDialoge == s2d::CurrentFileDialog::Open)
 	{
-		if (this->m_openFileDialog.closeWindow())
+		if (this->m_openFileDialog.isWindowClosed())
 		{
 			this->m_currentFileDialoge = s2d::CurrentFileDialog::None;
 		}

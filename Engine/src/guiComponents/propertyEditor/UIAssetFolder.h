@@ -12,7 +12,7 @@
 #include <manager/fontManager.h>
 #include <icons.h>
 #include <manager/guiRepository.h>
-#include <manager/fileDialogs.h>
+#include <manager/folderDialog.h>
 
 #define CLOSE_RECTANGLE_PADDIND_X 50
 #define FOLDER_HIERARCHY_PADDING 32

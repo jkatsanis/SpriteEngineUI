@@ -200,7 +200,7 @@ void s2d::UIAssetFolder::renderFolderHierarchyRecursiv(const char* path, const c
     }
     this->m_interacted = false;
 
-    if (!s2d::FileDialog::checkIfADirHasSubDirs(path))
+    if (!s2d::FolderDialog::checkIfADirHasSubDirs(path))
     {
         if (s2d::FontManager::displaySymbolInMenuItemWithText(ICON_FA_FOLDER, name))
         {

@@ -7,7 +7,8 @@
 #include <physicalComponents/sprite.h>
 #include <UIAnimationEditor.h>
 #include <manager/fontManager.h>
-#include <manager/fileDialogs.h>
+#include <manager/folderDialog.h>
+#include <manager/fileDialog.h>
 #include <engineComponents/input.h>
 
 #define WINDOW_SIZE_ANIMATION_CREATE ImVec2(500, 500)
@@ -22,12 +23,12 @@ namespace s2d
 		s2d::SpriteRepository* m_ptr_repo;
 		UIAnimationEditor m_UIAnimationEditor;
 		std::string m_fileName;
-		s2d::FileDialog m_createAnimtionPathFileDialoge;
+		s2d::FolderDialog m_animation_create_file_dialog;
+		s2d::FileDialog m_animation_open_file_dialog;
+
 		ImGuiTextFilter m_search_filter_animation;
 
 		uint8_t m_background_counter;
-		bool m_openFileDialog;
-		bool m_openInputWindow;
 		char m_animationFile[150];
 
 		void getFileNameInput();

@@ -95,7 +95,7 @@ bool s2d::FontManager::displaySmybolAsButton(const char* symbol, ImVec2 cursorPo
 bool s2d::FontManager::displaySymbolInTreeNode(const char* symbol, std::string name, bool openNode)
 {
 	const ImVec2 cursor = ImVec2(ImGui::GetCursorPos().x, ImGui::GetCursorPosY());
-	ImGui::SetCursorPos(ImVec2(cursor.x + 30, cursor.y));
+	ImGui::SetCursorPos(ImVec2(cursor.x + 35, cursor.y));
 	s2d::FontManager::displaySmybolAsText(symbol);
 	ImGui::SetCursorPos(cursor);
 
@@ -110,7 +110,9 @@ bool s2d::FontManager::displaySymbolInMenuItemWithText(const char* symbol, std::
 {
 	const ImVec2 cursor = ImVec2(ImGui::GetCursorPos().x, ImGui::GetCursorPosY());
 	ImGui::SetCursorPos(ImVec2(cursor.x + 30, cursor.y));
+	ImGui::SetWindowFontScale(s2d::UIInfo::s_default_font_size - 0.1f);
 	s2d::FontManager::displaySmybolAsText(symbol);
+	ImGui::SetWindowFontScale(s2d::UIInfo::s_default_font_size);
 	ImGui::SetCursorPos(cursor);
 
 	const std::string whiteSpaces = std::string("           ") + name;
@@ -156,6 +158,7 @@ void s2d::FontManager::InitFonts(ImGuiIO& io)
 		0xf079, 0xf079, // Retweet
 		0xf04b, 0xf04b, // Play button
 		0xf03e, 0xf03e, // Image
+		0xf15b, 0xf15b, // File
 		0,
 	};
 

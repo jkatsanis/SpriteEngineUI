@@ -629,7 +629,7 @@
 #define ICON_FA_FEMALE "\xef\x86\x82"	// U+f182
 #define ICON_FA_FIELD_HOCKEY "\xef\x91\x8c"	// U+f44c
 #define ICON_FA_FIGHTER_JET "\xef\x83\xbb"	// U+f0fb
-#define ICON_FA_FILE "\xef\x85\x9b"	// U+f15b
+#define ICON_FA_FILE  u8"\uf15b"	// U+f15b 
 #define ICON_FA_FILE_ALT "\xef\x85\x9c"	// U+f15c
 #define ICON_FA_FILE_ARCHIVE "\xef\x87\x86"	// U+f1c6
 #define ICON_FA_FILE_AUDIO "\xef\x87\x87"	// U+f1c7
