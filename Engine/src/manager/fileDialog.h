@@ -34,7 +34,7 @@ namespace s2d
 		bool displaySymbol(const std::string& icon, float windowSizeX);
 	public:
 		std::string pathClicked;
-		std::string folderClicked;
+		std::string itemClicked;
 		bool windowFocus;
 
 		FileDialog();
@@ -80,6 +80,8 @@ namespace s2d
 		void setFirstNode(const std::string& top) { this->m_firstNodeText = top; }
 
 		void update();
+
+		bool IsItemSelected();
 
 	public:
 		static std::string getEmptyStringBetween(const std::string& content, const std::string& name, float padding);

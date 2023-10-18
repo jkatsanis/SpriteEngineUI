@@ -74,6 +74,13 @@ void s2d::UIAnimation::getFileNameInput()
 
 
 	this->m_animation_open_file_dialog.update();
+
+	if (this->m_animation_open_file_dialog.IsItemSelected())
+	{
+		s2d::Sprite* sprite = this->m_ptr_repo->sprite_in_inspector;
+		s2d::Initializer::postInitAnimation(sprite, s2d::UI::getUserProjectPathSeperatetFromEnginePath( this->m_animation_open_file_dialog.pathClicked ), *this->m_ptr_repo);
+		this->m_animation_open_file_dialog.disableWindow();
+	}
 }
 
 void s2d::UIAnimation::displayAnimations()

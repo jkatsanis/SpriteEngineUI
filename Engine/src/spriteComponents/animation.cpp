@@ -218,7 +218,10 @@ void s2d::Animation::realoadTextures()
 
 	for (int i = 0; i < this->m_keyframes.size(); i++)
 	{
-		this->m_textures[i].loadFromFile(this->m_keyframes[i].path);
+		if (!this->m_textures[i].loadFromFile(this->m_keyframes[i].path))
+		{
+			std::cout << "LOG [ERROR] Couldnt load the animation file " + this->m_keyframes[i].path +  " !";
+		}
 	}
 }
 

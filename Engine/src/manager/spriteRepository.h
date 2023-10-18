@@ -62,6 +62,8 @@ namespace s2d
         void updateHighestLayerIndex();
         void reloadTextures();
 
+        uint32_t getListPosition(const s2d::Sprite* sprite) const;
+
         uint32_t getHighestLayerIndex() const { return this->m_highestLayerIndex; }
 
     public:

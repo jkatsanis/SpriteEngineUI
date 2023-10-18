@@ -7,7 +7,7 @@ s2d::FileDialog::FileDialog()
     this->m_closeWindow = false;
     this->m_displayTitle = true;
     this->pathClicked = "";
-    this->folderClicked = "";
+    this->itemClicked = "";
     this->windowFocus = true;
 }
 
@@ -19,7 +19,7 @@ s2d::FileDialog::FileDialog(std::string path, std::string icon, std::string titl
     this->m_title = title;
     this->m_displayTitle = true;
     this->pathClicked = "";
-    this->folderClicked = "";
+    this->itemClicked = "";
     this->m_icon = icon;
     this->windowFocus = true;
     this->is_open = false;
@@ -32,7 +32,7 @@ void s2d::FileDialog::disableWindow()
     this->pathClicked = "";
     this->windowFocus = true;
     this->m_displayTitle = true;
-    this->folderClicked = "";
+    this->itemClicked = "";
     this->m_closeWindow = true;
 }
 
@@ -115,6 +115,11 @@ void s2d::FileDialog::update()
     }
 }
 
+bool s2d::FileDialog::IsItemSelected()
+{
+    return this->pathClicked != "";
+}
+
 
 // private methods
 
@@ -140,12 +145,12 @@ void s2d::FileDialog::openFile(const char* dir_path)
         // If the entry is a directory, recursively traverse it
     
         // clicked on the icon of the right
-        const std::string BUTTON_NAME = this->m_icon + "##" + path + "\\";
+        const std::string BUTTON_NAME = this->m_icon + "##" + path;
 
         if (this->displaySymbol(BUTTON_NAME, this->m_windowSize.x))
         {
             this->pathClicked = path;
-            this->folderClicked = entry->d_name;
+            this->itemClicked = entry->d_name;
         }
         std::string name = " " + std::string(entry->d_name);
 
@@ -159,6 +164,7 @@ void s2d::FileDialog::openFile(const char* dir_path)
 
             else if (s2d::FontManager::displaySymbolInTreeNode(ICON_FA_FOLDER, entry->d_name, false))
             {
+                path += "\\";
                 openFile(path.c_str());
                 ImGui::TreePop();
             }
@@ -224,14 +230,13 @@ bool s2d::FileDialog::checkIfADirHasSubDirs(const std::string& dirPath)
     int cnt = 0;
     while ((entry = readdir(dir)) != NULL)
     {
-        if (entry->d_type == DT_DIR)
+    
+        if (strcmp(entry->d_name, ".") == 0 || strcmp(entry->d_name, "..") == 0)
         {
-            if (strcmp(entry->d_name, ".") == 0 || strcmp(entry->d_name, "..") == 0)
-            {
-                continue;
-            }
-            value = true;
+            continue;
         }
+        value = true;
+        
     }
 
     closedir(dir);

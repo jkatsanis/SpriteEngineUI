@@ -376,6 +376,11 @@ void s2d::Initializer::initIds(uint32_t& highestId)
 	highestId = index;
 }
 
+void s2d::Initializer::postInitAnimation(s2d::Sprite* sprite, const std::string& file_path, s2d::SpriteRepository& repo)
+{
+	s2d::Initializer::initAnimation(file_path, repo, sprite->getId());
+}
+
 // private static functions
 
 void s2d::Initializer::initAnimation(const std::string& path, s2d::SpriteRepository& repo, int32_t idx)

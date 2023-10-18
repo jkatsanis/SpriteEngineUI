@@ -32,6 +32,8 @@ namespace s2d
 		static void initSprites(s2d::SpriteRepository& spriteRepo);
 		static void initBackground(s2d::Vector3& vec);
 		static void initIds(uint32_t& highestId);
+
+		static void postInitAnimation(s2d::Sprite* sprite, const std::string& file_path, s2d::SpriteRepository& repo);
 	};
 }
 
