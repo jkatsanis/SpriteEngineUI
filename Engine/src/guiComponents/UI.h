@@ -61,6 +61,8 @@ namespace s2d
 		static float xScaleChanger(s2d::ScaleDott& dott, float default_size, float pos_x);
 		static float yScaleChanger(s2d::ScaleDott& dott, float default_size, float pos_y);
 
+		static void sameLine(float top_difference);
+
 		static void update();
 	};
 }

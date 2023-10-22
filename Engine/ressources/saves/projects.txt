@@ -1,3 +1,2 @@
 name;absulutePathStr;date;relativePath
-Guess;C:\Dev\Guess;2023/18/10 16:49:35;..\..\..\Guess
-iss;C:\Dev\iss;2023/18/10 16:49:50;..\..\..\iss
+Hello;C:\Dev\C++\Hello;2023/21/10 13:00:17;..\..\Hello

@@ -132,8 +132,16 @@ void s2d::UIAnimationEditor::displayKeyFrameInfo()
 		return;
 	}
 
+	const ImVec2 pos = ImGui::GetCursorPos();
+
+	ImGui::SetCursorPosY(ImGui::GetCursorPosY() + 10);
+
+	ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 250);
+
 	const std::string keyFrameSelected = "KeyFrame Selected: " + std::to_string(this->m_keyFrameSelected.position);
 	ImGui::Text(keyFrameSelected.c_str());
+
+	ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 245);
 
 	if (ImGui::Button("Delete"))
 	{
@@ -142,6 +150,10 @@ void s2d::UIAnimationEditor::displayKeyFrameInfo()
 		this->m_anim->deleteKeyFrame(this->m_keyFrameSelected.position);
 		this->m_keyFrameSelected.keyFrameSelected = nullptr;
 	}
+	ImGui::SameLine();
+	s2d::FontManager::displaySmybolAsText(ICON_FA_TRASH);
+
+	ImGui::SetCursorPos(pos);
 }
 
 bool s2d::UIAnimationEditor::renderTextBasedOnScroll(size_t i)
@@ -294,10 +306,21 @@ void s2d::UIAnimationEditor::addKeyFrame()
 		this->keyFrameAdder.is_key_frame_menu_open = true;
 		this->keyFrameAdder.setAnimation(this->m_anim);
 	}
-	this->is_hovered = (this->keyFrameAdder.is_hovered) 
+	ImGui::SameLine();
+	s2d::FontManager::displaySmybolAsText(ICON_FA_PLUS);
+	this->is_hovered = (this->keyFrameAdder.is_hovered)
 		? true 
 		: ImGui::IsWindowHovered(ImGuiHoveredFlags_AllowWhenBlockedByActiveItem | ImGuiHoveredFlags_AllowWhenBlockedByPopup);
 	
+}
+void s2d::UIAnimationEditor::saveAnimation()
+{
+	if (ImGui::Button("Save"))
+	{
+		s2d::flc::createAnimationSaveFile(this->m_ptr_repo->sprite_in_inspector, *this->m_anim);
+	}
+	s2d::UI::sameLine(2);
+	s2d::FontManager::displaySmybolAsText(ICON_FA_SAVE);
 }
 
 // Public methods
@@ -314,10 +337,14 @@ void s2d::UIAnimationEditor::displayEditor()
 	this->editorTimeLine();
 	this->addKeyFrame();
 
+	ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 8);
 	ImGui::Text("Loop");
 	ImGui::SameLine();
+	ImGui::SetWindowFontScale(s2d::UIInfo::s_default_font_size - 0.2f);
 	ImGui::Checkbox("##loop", &this->m_anim->loop);
+	ImGui::SetWindowFontScale(s2d::UIInfo::s_default_font_size);
 
+	this->saveAnimation();
 	this->closeWindow(); 
 
 

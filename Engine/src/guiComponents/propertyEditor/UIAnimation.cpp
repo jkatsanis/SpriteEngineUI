@@ -67,10 +67,24 @@ void s2d::UIAnimation::setSpriteRepository(s2d::SpriteRepository& repo)
 void s2d::UIAnimation::getFileNameInput()
 {
 
+	const ImVec2 pos = ImGui::GetCursorPos();
+
+	ImGui::SetCursorPos(ImVec2(ImGui::GetCursorPosX() + 250, ImGui::GetCursorPosY() + 57));
+
+    ImVec2 open_pos = ImVec2(ImGui::GetCursorPosX() + 30, ImGui::GetCursorPosY() - 54);
+
+	ImGui::SetCursorPos(open_pos);
+	ImGui::Text("Open animation");
+
+	open_pos.x -= 30;
+
+	ImGui::SetCursorPos(open_pos);
 	if (s2d::FontManager::displaySmybolAsButton(ICON_FA_PLUS, s2d::UIInfo::s_default_font_size - 0.2f))
 	{
 		this->m_animation_open_file_dialog.enableWindow("Open animation");
 	}
+
+	ImGui::SetCursorPos(pos);
 
 	this->m_animation_open_file_dialog.update();
 

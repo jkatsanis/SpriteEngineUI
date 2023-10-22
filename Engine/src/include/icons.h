@@ -914,7 +914,7 @@
 #define ICON_FA_ID_CARD "\xef\x8b\x82"	// U+f2c2
 #define ICON_FA_ID_CARD_ALT "\xef\x91\xbf"	// U+f47f
 #define ICON_FA_IGLOO "\xef\x9e\xae"	// U+f7ae
-#define ICON_FA_IMAGE u8"\uf03e"	// U+f03e
+#define ICON_FA_IMAGE u8"\uf03e"	// U+f03e 
 #define ICON_FA_IMAGE_POLAROID "\xef\xa3\x84"	// U+f8c4
 #define ICON_FA_IMAGES "\xef\x8c\x82"	// U+f302
 #define ICON_FA_INBOX "\xef\x80\x9c"	// U+f01c
@@ -1328,7 +1328,7 @@
 #define ICON_FA_SATELLITE "\xef\x9e\xbf"	// U+f7bf
 #define ICON_FA_SATELLITE_DISH "\xef\x9f\x80"	// U+f7c0
 #define ICON_FA_SAUSAGE "\xef\xa0\xa0"	// U+f820
-#define ICON_FA_SAVE "\xef\x83\x87"	// U+f0c7
+#define ICON_FA_SAVE u8"\uf0c7"	// U+f0c7
 #define ICON_FA_SAX_HOT "\xef\xa3\x9b"	// U+f8db
 #define ICON_FA_SAXOPHONE "\xef\xa3\x9c"	// U+f8dc
 #define ICON_FA_SCALPEL "\xef\x98\x9d"	// U+f61d

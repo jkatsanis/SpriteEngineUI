@@ -39,6 +39,7 @@ namespace s2d
 		void editorTimeLine();
 		void displayKeyFrameInfo();
 		bool renderTextBasedOnScroll(size_t i);
+		void saveAnimation();
 
 		bool displayTimeFrameBasedOnCursorSpace(size_t i_pos);
 

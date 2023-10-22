@@ -219,3 +219,10 @@ float s2d::UI::yScaleChanger(s2d::ScaleDott& dott, float default_size, float pos
 {
     return s2d::UI::scaleChanger(dott, default_size, pos_y, false);
 }
+
+void s2d::UI::sameLine(float top_difference)
+{
+    ImGui::SameLine();
+
+    ImGui::SetCursorPosY(ImGui::GetCursorPosY() + top_difference);
+}
