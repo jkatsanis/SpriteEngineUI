@@ -1,4 +1,4 @@
- #include "UIToolButtons.h"
+#include "UIToolButtons.h"
 
 // Constructor
 
@@ -89,7 +89,7 @@ void s2d::UIToolButtons::renderMainMenuBar()
 
 		ImGui::SetWindowFontScale(s2d::UIInfo::s_default_font_size);
 		ImGui::EndMainMenuBar();
-	}	
+	}
 	ImGui::PopStyleVar();
 	ImGui::PopStyleColor();
 }
@@ -128,7 +128,7 @@ void s2d::UIToolButtons::renderSceneSelector()
 				ImGui::PushStyleColor(ImGuiCol_Text, SPRITE_SELECTED_COLOR);
 				ImGui::Text(name.c_str());
 				ImGui::PopStyleColor();
-			}			
+			}
 			else
 			{
 				ImGui::Text(name.c_str());
@@ -201,12 +201,32 @@ void s2d::UIToolButtons::renderSceneAddPopup()
 		return;
 	}
 
-	if (ImGui::Begin("##create-scene", NULL, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse))
+	const static ImVec2 window_size = ImVec2(200, 75);
+
+	if (ImGui::Begin("##create-scene", NULL, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoScrollbar))
 	{
-		ImGui::SetNextItemWidth(200);
+		ImGui::Text("Add scene");
+		ImGui::Separator();
+
+		ImGui::SetNextItemWidth(150);
+		ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(0, 7));
 		ImGui::InputTextWithHint("##add-scene", "<name>", this->m_new_scene_name, CHAR_MAX);
 
-		ImGui::SetWindowSize(ImVec2(200, 70));
+		ImGui::PopStyleVar();
+
+		s2d::UI::sameLine(0);
+
+		if (s2d::FontManager::displaySmybolAsButton(ICON_FA_ARROW_RIGHT))
+		{
+			this->createScene();
+		}
+
+		ImGui::SetWindowSize(window_size);
+		ImGui::SetWindowFontScale(s2d::UIInfo::s_default_font_size);
+		if (!this->is_hovered)
+		{
+			this->is_hovered = s2d::UI::isHovered(window_size, ImGui::GetWindowPos());
+		}
 		ImGui::End();
 	}
 	if (ImGui::IsKeyReleased(ImGuiKey_Escape))
@@ -217,19 +237,7 @@ void s2d::UIToolButtons::renderSceneAddPopup()
 
 	if (this->m_add_scene_mode && ImGui::IsKeyReleased(ImGuiKey_Enter))
 	{
-		this->m_add_scene_mode = false;
-		const std::string scene_name = std::string(this->m_new_scene_name);
-		if (!std::isEqualWithAny(scene_name, *this->m_ptr_scene_names))
-		{
-			// ADDING THE SCENE			
-			const std::string input_dir = PATH_TO_USER_FIRST_SCENE;
-			const std::string output_dir = s2d::EngineData::s_path_to_user_project + "\\engine\\saves\\";
-			s2d::flc::copyDir(input_dir, output_dir, scene_name);
-			this->m_ptr_scene_names->push_back(scene_name);
-
-			s2d::flc::createSceneSaveFile(*this->m_ptr_scene_names);
-		}
-		this->m_new_scene_name[0] = '\0';
+		this->createScene();
 	}
 }
 
@@ -241,8 +249,8 @@ void s2d::UIToolButtons::switchScene(const std::string& scene)
 	}
 	ImGui::SetNextWindowFocus();
 	if (ImGui::Begin("close-scene-popup", NULL,
-		ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse 
-		| ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoTitleBar 
+		ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse
+		| ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoTitleBar
 		| ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse))
 	{
 		ImGui::SetCursorPosY(ImGui::GetCursorPosY() - 7.5f);
@@ -250,7 +258,7 @@ void s2d::UIToolButtons::switchScene(const std::string& scene)
 		if (ImGui::Button("Save"))
 		{
 			s2d::flc::cleanUp(*this->m_ptr_repo, true);
-			s2d::flc::saveEverything(this->m_window_background_to_save, *this->m_ptr_repo, *this->m_ptr_gui_repo, *this->m_ptr_scene_names);			
+			s2d::flc::saveEverything(this->m_window_background_to_save, *this->m_ptr_repo, *this->m_ptr_gui_repo, *this->m_ptr_scene_names);
 			s2d::EngineData::s_scene = scene;
 			this->m_switch_scene_name = "";
 		}
@@ -267,7 +275,7 @@ void s2d::UIToolButtons::switchScene(const std::string& scene)
 
 		s2d::UI::setWindowScreenMiddle(ImVec2(200, 50));
 		ImGui::SetWindowSize(ImVec2(200, 50)),
-		ImGui::End();
+			ImGui::End();
 	}
 }
 
@@ -280,7 +288,7 @@ void s2d::UIToolButtons::buildProjectIntoFolder()
 		{
 			s2d::flc::cleanUp(*this->m_ptr_repo, true);
 			s2d::flc::saveEverything(this->m_window_background_to_save, *this->m_ptr_repo, *this->m_ptr_gui_repo, *this->m_ptr_scene_names);
-		}	
+		}
 		if (ImGui::MenuItem("Build", "CTRL + B"))
 		{
 			this->build();
@@ -357,8 +365,29 @@ void s2d::UIToolButtons::build()
 		}
 	}
 
-	s2d::flc::copyDir(s2d::EngineData::s_path_to_user_project + "\\assets", PATH, "\\assets", { "\\src\\", ".cpp", ".h" } );
-	s2d::flc::copyDir(s2d::EngineData::s_path_to_user_project + "\\engine", PATH, "\\engine", { "\\src\\", ".cpp", ".h" } );
+	s2d::flc::copyDir(s2d::EngineData::s_path_to_user_project + "\\assets", PATH, "\\assets", { "\\src\\", ".cpp", ".h" });
+	s2d::flc::copyDir(s2d::EngineData::s_path_to_user_project + "\\engine", PATH, "\\engine", { "\\src\\", ".cpp", ".h" });
+}
+
+void s2d::UIToolButtons::createScene()
+{
+	this->m_add_scene_mode = false;
+	const std::string scene_name = std::string(this->m_new_scene_name);
+	if (scene_name == "")
+	{
+		return;
+	}
+	if (!std::isEqualWithAny(scene_name, *this->m_ptr_scene_names))
+	{
+		// ADDING THE SCENE			
+		const std::string input_dir = PATH_TO_USER_FIRST_SCENE;
+		const std::string output_dir = s2d::EngineData::s_path_to_user_project + "\\engine\\saves\\";
+		s2d::flc::copyDir(input_dir, output_dir, scene_name);
+		this->m_ptr_scene_names->push_back(scene_name);
+
+		s2d::flc::createSceneSaveFile(*this->m_ptr_scene_names);
+	}
+	this->m_new_scene_name[0] = '\0';
 }
 
 void s2d::UIToolButtons::playGameButton()
@@ -387,7 +416,7 @@ void s2d::UIToolButtons::playGameButton()
 
 		if (!SetCurrentDirectory(wideString))
 		{
-			std::cout << "FAILED SETTING DIR";	
+			std::cout << "FAILED SETTING DIR";
 		}
 
 		// if you get "the command has not been found msg" you have not built the project!
@@ -417,7 +446,7 @@ void s2d::UIToolButtons::toolSelector()
 			ImGui::PushStyleColor(ImGuiCol_Button, REAL_EDITOR_BUTTON_BG_COLOR);
 		}
 		ImGui::SetCursorPosY(0);
-		if (s2d::FontManager::displaySmybolAsButton(this->m_tools[i].icon.c_str())) { }
+		if (s2d::FontManager::displaySmybolAsButton(this->m_tools[i].icon.c_str())) {}
 		if (ImGui::IsItemClicked(ImGuiMouseButton_Left))
 		{
 			this->m_clicked_on_btn = true;
@@ -448,5 +477,3 @@ void s2d::UIToolButtons::removeBackgroundFromButtons()
 		this->m_tools[i].background = false;
 	}
 }
-
-

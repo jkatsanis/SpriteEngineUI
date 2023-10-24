@@ -41,6 +41,7 @@ namespace s2d
 		bool m_update_event_to_set;
 		std::string m_switch_scene_name;
 
+		void createScene();
 		void playGameButton();
 		void toolSelector();
 		void removeBackgroundFromButtons();

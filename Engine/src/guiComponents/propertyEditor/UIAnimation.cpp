@@ -155,19 +155,19 @@ void s2d::UIAnimation::displayAnimations()
 			continue;
 		}
 		this->drawBackgroundBehinAnimation();
-		if (ImGui::Selectable(anim.second.name.c_str(), false, ImGuiSelectableFlags_DontClosePopups,
-			ImVec2(ImGui::CalcTextSize(anim.second.name.c_str()).x, 0)))
+		if (ImGui::Selectable(anim.second.getName().c_str(), false, ImGuiSelectableFlags_DontClosePopups,
+			ImVec2(ImGui::CalcTextSize(anim.second.getName().c_str()).x, 0)))
 		{
 			this->enterAnimation(anim.second);
 		}
 
-		const std::string s = "#" + anim.second.name;
-		const std::string deleteButton = ICON_FA_TRASH "##" + anim.second.name;
+		const std::string s = "#" + anim.second.getName();
+		const std::string deleteButton = ICON_FA_TRASH "##" + anim.second.getName();
 
 		if (s2d::FontManager::displaySmybolAsButton(deleteButton.c_str(),
 			ImVec2(WINDOW_SIZE_ANIMATION_CREATE.x - 50, ImGui::GetCursorPosY() - 30)))
 		{
-			this->m_ptr_repo->sprite_in_inspector->animator.removeAnimation(anim.second.name);
+			this->m_ptr_repo->sprite_in_inspector->animator.removeAnimation(anim.second.getName());
 			break;
 		}
 	}

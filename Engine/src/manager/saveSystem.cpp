@@ -256,9 +256,9 @@ void s2d::flc::createAnimtionSaveFiles(const s2d::SpriteRepository& spriteReposi
 
 void s2d::flc::createAnimationSaveFile(const s2d::Sprite* ptr_sprite, const s2d::Animation& animationToSave)
 {
-	std::string name = animationToSave.name;
+	std::string name = animationToSave.getName();
 	std::string content =
-		animationToSave.name + "\n" +
+		animationToSave.getName() +"\n" +
 		std::to_string(ptr_sprite->getId()) + "\n" +
 		std::boolToStr(animationToSave.loop) + "\n";
 

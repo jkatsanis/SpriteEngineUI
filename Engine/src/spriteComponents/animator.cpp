@@ -24,7 +24,7 @@ s2d::Animator::Animator(s2d::Sprite* ptr_attached_sprite, s2d::Animator& animato
 	{
 		// Copy animation
 		s2d::Animation anim = s2d::Animation(this->ptr_attached_sprite, animation.second);
-		animations.insert({ anim.name, anim });
+		animations.insert({ anim.getName(), anim});
 	}
 }
 
@@ -77,6 +77,21 @@ void s2d::Animator::stop(const std::string& name)
 		this->m_animation_playing.name = "<Unknown>";
 		this->m_animation_playing.isAAnimationPlaying = false;
 		it->second.stop();
+	}
+}
+
+void s2d::Animator::setName(const std::string& new_name, const std::string& old_name)
+{
+	EXIST_COMPONENT;
+
+	auto it = animations.find(old_name);
+	if (it != animations.end())
+	{
+		Animation animation = s2d::Animation(this->ptr_attached_sprite, it->second, new_name);
+
+		animations.erase(it);
+
+		animations[new_name] = animation;
 	}
 }
 

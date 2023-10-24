@@ -16,6 +16,7 @@ namespace s2d
 		std::vector<s2d::KeyFrame> m_keyframes;
 		std::string m_path_to_file;
 		bool m_saved_already;
+		std::string m_name;
 
 		/// <summary>
 		/// Gets set in the play function and gets resettet in the s
@@ -24,7 +25,6 @@ namespace s2d
 		std::string m_base_path;
 
 	public:
-		std::string name;
 		int current_frame;
 		float time_passed;
 		float total_time_passed;
@@ -38,11 +38,18 @@ namespace s2d
 		Animation();
 		Animation(Sprite* ptr_applied_sprite, const std::string& name, const std::string file_location, const std::vector<s2d::KeyFrame>& frames);
 		Animation(s2d::Sprite* ptr_applied_sprite, const s2d::Animation& animation);
+		Animation(s2d::Sprite* ptr_applied_sprite, const s2d::Animation& animation, const std::string& name);
 
+		void initCopyCtor(const s2d::Animation& animation);
 		void realoadTextures();
 		void deleteKeyFrame(const int pos);
 		void play();
 		void update();
+		const std::string& getName() const { return this->m_name; }
+
+		/// <summary>
+		/// Basically stop, but it resets the fields and it is setting the basepath
+		/// </summary>
 		void stop();
 		int getSize() const { return (int)this->m_keyframes.size(); }
 		const std::vector<s2d::KeyFrame>& getKeyFrames() const { return this->m_keyframes; }

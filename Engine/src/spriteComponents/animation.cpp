@@ -7,6 +7,7 @@
 
 s2d::Animation::Animation()
 {
+	this->loop = false;
 	this->total_time_passed = 0.0f;
 	this->total_frame_passed = 0.0f;
 	this->current_frame = 0;
@@ -24,7 +25,7 @@ s2d::Animation::Animation(Sprite* ptr_appliedSprite, const std::string& name, co
 	this->m_path_to_file = fileLocation;
 	this->time_passed = 2.0f;
 	this->current_frame = -1;
-	this->name = name;
+	this->m_name = name;
 	this->ptr_applied_sprite = ptr_appliedSprite;
 	this->is_playing = false;
 	this->total_time_passed = 0.0f;
@@ -45,7 +46,21 @@ s2d::Animation::Animation(Sprite* ptr_appliedSprite, const std::string& name, co
 s2d::Animation::Animation(s2d::Sprite* ptr_applied_sprite, const s2d::Animation& animation)
 {
 	this->ptr_applied_sprite = ptr_applied_sprite;
-	this->name = animation.name;
+	this->initCopyCtor(animation);
+}
+
+s2d::Animation::Animation(s2d::Sprite* ptr_applied_sprite, const s2d::Animation& animation, const std::string& name)
+{
+	this->ptr_applied_sprite = ptr_applied_sprite;
+	this->initCopyCtor(animation);
+	this->m_name = name;
+}
+
+
+void s2d::Animation::initCopyCtor(const s2d::Animation& animation)
+{
+	this->ptr_applied_sprite = ptr_applied_sprite;
+	this->m_name = animation.m_name;
 	this->m_base_path = this->ptr_applied_sprite->sprite_renderer.path;
 	this->m_path_to_file = animation.getPathToFile();
 	this->loop = animation.loop;
@@ -115,10 +130,15 @@ void s2d::Animation::update()
 		this->current_frame++;
 		if (this->current_frame == this->m_keyframes.size())
 		{		
-			this->stop();
 			if(this->loop)
 			{
+				// Hard coding the path bc skill issue
+				this->ptr_applied_sprite->sprite_renderer.path = this->m_base_path;
 				this->play();
+			}
+			else
+			{
+				this->stop();
 			}
 		}
 	}
@@ -130,8 +150,9 @@ void s2d::Animation::stop()
 	this->total_frame_passed = 0;
 	this->total_time_passed = 0.0f;
 	this->current_frame = -1;
-	this->ptr_applied_sprite->setSpriteTexture(this->m_base_path);
 	this->is_playing = false;
+
+	this->ptr_applied_sprite->setSpriteTexture(this->m_base_path);
 }
 
 s2d::KeyFrame& s2d::Animation::getKeyFrameAtMs(const float ms)
@@ -209,7 +230,6 @@ void s2d::Animation::updateAllAnimations(s2d::SpriteRepository& repo)
 		sprite->animator.update();
 	}
 }
-
 
 void s2d::Animation::realoadTextures()
 {

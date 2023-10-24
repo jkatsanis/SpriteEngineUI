@@ -40,6 +40,7 @@ namespace s2d
 		void play(const std::string& name);
 		void stop(const std::string& name);
 
+		void setName(const std::string& new_name, const std::string& old_name);
 		void update();
 
 		void reset() override;

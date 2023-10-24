@@ -6,12 +6,13 @@ s2d::UIAnimationEditor::UIAnimationEditor()
 {
 	// 100 by default, will increase with the animation size
 	this->m_keyFramesToEdit = 10000;
-	this->keyFrameAdder = s2d::UIAnimationKeyFrameAdder();
 	this->m_anim = nullptr;
 	this->display = false;
 	this->m_keyFrameSelected.keyFrameSelected = nullptr;
 	this->is_hovered = false;
 	this->m_cursor_space = 30;
+	this->m_ptr_event_engine = nullptr;
+	this->m_ptr_repo = nullptr;
 }
 
 //Private methods
@@ -29,7 +30,7 @@ void s2d::UIAnimationEditor::resetAnim()
 
 void s2d::UIAnimationEditor::closeWindow()
 {
-	std::string name = "Editor - " + this->m_anim->name;
+	std::string name = "Editor - " + this->m_anim->getName();
 
 	ImGui::SetCursorPos(ImVec2(8 + ImGui::GetScrollX(), 15));
 	ImGui::Text(name.c_str());
@@ -39,7 +40,7 @@ void s2d::UIAnimationEditor::closeWindow()
 	//Close button
 	if (ImGui::Button("x"))
 	{
-		this->m_anim->ptr_applied_sprite->animator.stop(this->m_anim->name);
+		this->m_anim->ptr_applied_sprite->animator.stop(this->m_anim->getName());
 
 		this->resetAnim();
 	}
@@ -68,14 +69,14 @@ void s2d::UIAnimationEditor::editorTimeLine()
 	{
 		if (s2d::FontManager::displaySmybolAsButton(ICON_FA_PLAY))
 		{
-			this->m_anim->ptr_applied_sprite->animator.play(this->m_anim->name);
+			this->m_anim->ptr_applied_sprite->animator.play(this->m_anim->getName());
 		}
 	}
 	else
 	{
 		if (s2d::FontManager::displaySmybolAsButton(ICON_FA_SQUARE))
 		{
-			this->m_anim->ptr_applied_sprite->animator.stop(this->m_anim->name);
+			this->m_anim->ptr_applied_sprite->animator.stop(this->m_anim->getName());
 		}
 	}
 
@@ -145,7 +146,6 @@ void s2d::UIAnimationEditor::displayKeyFrameInfo()
 
 	if (ImGui::Button("Delete"))
 	{
-		this->m_anim->play();
 		this->m_anim->stop();
 		this->m_anim->deleteKeyFrame(this->m_keyFrameSelected.position);
 		this->m_keyFrameSelected.keyFrameSelected = nullptr;
@@ -308,10 +308,12 @@ void s2d::UIAnimationEditor::addKeyFrame()
 	}
 	ImGui::SameLine();
 	s2d::FontManager::displaySmybolAsText(ICON_FA_PLUS);
-	this->is_hovered = (this->keyFrameAdder.is_hovered)
-		? true 
-		: ImGui::IsWindowHovered(ImGuiHoveredFlags_AllowWhenBlockedByActiveItem | ImGuiHoveredFlags_AllowWhenBlockedByPopup);
-	
+
+	this->is_hovered = this->keyFrameAdder.is_hovered;
+	if (!this->is_hovered)
+	{
+		this->is_hovered = s2d::UI::isHovered(ImGui::GetWindowSize(), ImGui::GetWindowPos());
+	}
 }
 void s2d::UIAnimationEditor::saveAnimation()
 {
@@ -321,6 +323,38 @@ void s2d::UIAnimationEditor::saveAnimation()
 	}
 	s2d::UI::sameLine(2);
 	s2d::FontManager::displaySmybolAsText(ICON_FA_SAVE);
+}
+
+void s2d::UIAnimationEditor::renameAnimation()
+{
+	static std::string s_renamed_pop_up_name = "";
+
+	if (ImGui::Button("Rename"))
+	{
+		ImGui::OpenPopup("First");
+	}
+
+	if (ImGui::BeginPopup("First"))
+	{
+		ImGui::Text("Rename");
+		ImGui::Separator();
+		ImGui::InputTextWithHint("##rename-anim", "<name>", &s_renamed_pop_up_name[0], CHAR_MAX);
+
+		s2d::UI::sameLine(2);
+		
+		if (s2d::FontManager::displaySmybolAsButton(ICON_FA_ARROW_RIGHT))
+		{
+			this->m_ptr_repo->sprite_in_inspector->animator.setName(s_renamed_pop_up_name.c_str(), this->m_anim->getName());
+			s_renamed_pop_up_name = "";
+		}
+		
+		this->is_hovered = s2d::UI::isHovered(ImGui::GetWindowSize(), ImGui::GetWindowPos());
+
+		ImGui::EndPopup();
+	}
+
+	s2d::UI::sameLine(2);
+	s2d::FontManager::displaySmybolAsText(ICON_FA_EDIT);
 }
 
 // Public methods
@@ -345,7 +379,9 @@ void s2d::UIAnimationEditor::displayEditor()
 	ImGui::SetWindowFontScale(s2d::UIInfo::s_default_font_size);
 
 	this->saveAnimation();
-	this->closeWindow(); 
+	this->renameAnimation();
+
+	this->closeWindow();
 
 
 	if (this->keyFrameAdder.is_key_frame_menu_open)
