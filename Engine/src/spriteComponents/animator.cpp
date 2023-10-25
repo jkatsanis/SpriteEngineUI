@@ -124,15 +124,6 @@ void s2d::Animator::reset()
 	this->animations.clear();
 }
 
-void s2d::Animator::flagAllAnimationsToNotDelete()
-{
-	for (auto& pair : this->animations)
-	{
-	    auto& value = pair.second;
-		value.setFlagToNotDeleteAfterExit();
-	}
-}
-
 //Static functions
 
 void s2d::Animator::stopAllAnimations(s2d::SpriteRepository& toUpdate)

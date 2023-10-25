@@ -186,6 +186,8 @@ void s2d::GameEngine::saveDialoge()
 void s2d::GameEngine::onEngineClose(bool save)
 {
     s2d::Event::s_handle_other_events = false;
+
+    // The animations are permanent thats why in cleanUp there are getting saved
     s2d::flc::cleanUp(this->m_sprite_repository, save);
     if (save)
     {

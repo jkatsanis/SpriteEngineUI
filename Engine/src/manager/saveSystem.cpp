@@ -570,34 +570,12 @@ void s2d::flc::cleanUp(s2d::SpriteRepository& repo, bool save_sprites)
 	{
 		const std::string engine_name = std::getFileOnPath(repo.readAt(i)->prefab.engine_path_to_file);
 
+		// Updating all the prefab files, and checking if they still exist
 		if (!std::isEqualWithAny(engine_name, valid_prefab_names))
 		{
 			repo.readAt(i)->prefab.reset();
 		}
 	}
-
-	// Cleaning up animations
-	if (save_sprites)
-	{
-		for (size_t i = 0; i < repo.amount(); i++)
-		{
-			s2d::Sprite* const spr = repo.readAt(i);
-			spr->animator.flagAllAnimationsToNotDelete();
-		}
-	}
-
-	// Removing the animations if they didnt got flagged
-	for (size_t i = 0; i < repo.amount(); i++)
-	{
-		s2d::Sprite* spr = repo.readAt(i);
-		for (const auto& pair : spr->animator.animations)
-		{
-			const auto& value = pair.second;
-			if (value.removeOnClose())
-			{
-				std::removeFile(value.getEnginePathToFile());
-			}
-		}
-	}
+	s2d::flc::createKnownAnimationFile(repo);
 }
 

@@ -15,7 +15,6 @@ namespace s2d
 		std::vector<sf::Texture> m_textures;
 		std::vector<s2d::KeyFrame> m_keyframes;
 		std::string m_path_to_file;
-		bool m_saved_already;
 		std::string m_name;
 
 		/// <summary>
@@ -72,9 +71,6 @@ namespace s2d
 		/// <param name="vecpos"></param>
 		/// <param name="frame"></param>
 		void addKeyFrameAt(const int vecpos, const s2d::KeyFrame& frame);
-
-		bool removeOnClose() const { return !this->m_saved_already; }
-		void setFlagToNotDeleteAfterExit() { this->m_saved_already = true; }
 
 	public:
 		static void updateAllAnimations(s2d::SpriteRepository& repo);

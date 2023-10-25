@@ -437,7 +437,6 @@ void s2d::Initializer::initAnimation(const std::string& path, s2d::SpriteReposit
 		ptr_sprite->animator.createAnimation(animationName, path, frames);
 
 		s2d::Animation& anim = ptr_sprite->animator.animations[animationName];
-		anim.setFlagToNotDeleteAfterExit();
 		anim.loop = loop;	
 	}
 }

@@ -12,7 +12,6 @@ s2d::Animation::Animation()
 	this->total_frame_passed = 0.0f;
 	this->current_frame = 0;
 	this->is_playing = false;
-	this->m_saved_already = false;
 	this->ptr_applied_sprite = nullptr;
 	this->time_passed = 0.0f;
 }
@@ -20,7 +19,6 @@ s2d::Animation::Animation()
 s2d::Animation::Animation(Sprite* ptr_appliedSprite, const std::string& name, const std::string fileLocation, const std::vector<s2d::KeyFrame>& frames)
 {
 	this->total_frame_passed = 0.0f;
-	this->m_saved_already = false;
 	this->m_base_path = ptr_appliedSprite->sprite_renderer.path;
 	this->m_path_to_file = fileLocation;
 	this->time_passed = 2.0f;
@@ -71,7 +69,6 @@ void s2d::Animation::initCopyCtor(const s2d::Animation& animation)
 	this->m_base_path = this->ptr_applied_sprite->sprite_renderer.path;
 	this->m_path_to_file = animation.getUserPathToFile();
 	this->loop = animation.loop;
-	this->m_saved_already = animation.m_saved_already;
 
 	const std::vector<s2d::KeyFrame>& keyframes = animation.getKeyFrames();
 	for (size_t i = 0; i < keyframes.size(); i++)
