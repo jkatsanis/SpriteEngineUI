@@ -58,7 +58,7 @@ namespace s2d
 		s2d::KeyFrame& getKeyFrameAtMs(const float ms);
 		int getFrameSize() { return int(this->m_keyframes.size()); }
 
-		const std::string& getPathToFile() const { return this->m_path_to_file; }
+		const std::string& getUserPathToFile() const { return this->m_path_to_file; }
 
 	    const std::string getEnginePathToFile() const;
 

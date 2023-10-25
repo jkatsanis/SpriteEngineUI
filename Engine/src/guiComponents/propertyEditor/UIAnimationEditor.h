@@ -8,6 +8,8 @@
 #include <UIAnimationKeyFrameAdder.h>
 #include <guiComponents/colors.h>
 
+#define WINDOW_SIZE_ANIMATION_EDITOR ImVec2(900, 350)
+
 namespace s2d
 {
 	struct KeyFrameSelected

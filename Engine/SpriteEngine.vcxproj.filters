@@ -325,6 +325,9 @@
     <ClCompile Include="src\manager\fileDialog.cpp">
       <Filter>src\manager\dialog</Filter>
     </ClCompile>
+    <ClCompile Include="src\include\stdextension.cpp">
+      <Filter>src\Include/headers\__include</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\include\imgui\imconfig.h">

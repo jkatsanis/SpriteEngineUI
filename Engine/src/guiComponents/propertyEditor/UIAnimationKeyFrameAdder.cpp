@@ -60,7 +60,7 @@ void s2d::UIAnimationKeyFrameAdder::inputData()
 
 void s2d::UIAnimationKeyFrameAdder::closeWindowAndSafeKeyFrame()
 {
-	this->is_hovered = ImGui::IsWindowHovered(ImGuiHoveredFlags_AllowWhenBlockedByActiveItem | ImGuiHoveredFlags_AllowWhenBlockedByPopup);
+	this->is_hovered = s2d::UI::isHovered(ImGui::GetWindowSize(), ImGui::GetWindowPos());
 
 	ImGui::SetCursorPosX(ImGui::GetCursorPosX() - 8);
 	if (ImGui::Button("Done"))

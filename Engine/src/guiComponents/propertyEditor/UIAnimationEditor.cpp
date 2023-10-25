@@ -45,8 +45,12 @@ void s2d::UIAnimationEditor::closeWindow()
 		this->resetAnim();
 	}
 
+	this->is_hovered = this->keyFrameAdder.is_hovered;
 	if (!this->is_hovered)
-		this->is_hovered = ImGui::IsWindowHovered();
+	{
+		this->is_hovered = s2d::UI::isHovered(ImGui::GetWindowPos(), WINDOW_SIZE_ANIMATION_EDITOR);
+	}
+
 
 	ImGui::End();
 }
@@ -55,7 +59,7 @@ void s2d::UIAnimationEditor::beginWindow()
 {
 	this->display = true;
 	ImGui::Begin("##Editor", NULL, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_HorizontalScrollbar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse);
-	ImGui::SetWindowSize(ImVec2(900, 350));
+	ImGui::SetWindowSize(WINDOW_SIZE_ANIMATION_EDITOR);
 
 	ImGui::SetCursorPos(ImVec2(0, 50));
 	ImGui::Separator();
@@ -308,12 +312,6 @@ void s2d::UIAnimationEditor::addKeyFrame()
 	}
 	ImGui::SameLine();
 	s2d::FontManager::displaySmybolAsText(ICON_FA_PLUS);
-
-	this->is_hovered = this->keyFrameAdder.is_hovered;
-	if (!this->is_hovered)
-	{
-		this->is_hovered = s2d::UI::isHovered(ImGui::GetWindowSize(), ImGui::GetWindowPos());
-	}
 }
 void s2d::UIAnimationEditor::saveAnimation()
 {
@@ -336,7 +334,7 @@ void s2d::UIAnimationEditor::renameAnimation()
 
 	if (ImGui::BeginPopup("First"))
 	{
-		ImGui::Text("Rename");
+		ImGui::Text("Rename    -    Changes will be permanent");
 		ImGui::Separator();
 		ImGui::InputTextWithHint("##rename-anim", "<name>", &s_renamed_pop_up_name[0], CHAR_MAX);
 
@@ -344,7 +342,12 @@ void s2d::UIAnimationEditor::renameAnimation()
 		
 		if (s2d::FontManager::displaySmybolAsButton(ICON_FA_ARROW_RIGHT))
 		{
-			this->m_ptr_repo->sprite_in_inspector->animator.setName(s_renamed_pop_up_name.c_str(), this->m_anim->getName());
+			const char* name = s_renamed_pop_up_name.c_str();
+			const std::string std_name(name);
+			this->m_ptr_repo->sprite_in_inspector->animator.setName(std_name, this->m_anim->getName());
+			// Getting the new animation becuase the old 1 got deleted
+			this->m_anim = &this->m_ptr_repo->sprite_in_inspector->animator.animations[std_name];
+			
 			s_renamed_pop_up_name = "";
 		}
 		

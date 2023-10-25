@@ -212,6 +212,7 @@
     <ClCompile Include="src\guiComponents\propertyEditor\UIAssetTools.cpp" />
     <ClCompile Include="src\data\UIDataModels.h" />
     <ClCompile Include="src\guiComponents\propertyEditor\UITagSelector.cpp" />
+    <ClCompile Include="src\include\stdextension.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\data\fileDataMacros.h" />

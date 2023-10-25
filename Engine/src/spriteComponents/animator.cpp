@@ -1,5 +1,6 @@
 #include "Animator.h"
 #include <physicalComponents/sprite.h>
+#include <manager/saveSystem.h>
 
 // Constructor / Destructor
 
@@ -87,12 +88,21 @@ void s2d::Animator::setName(const std::string& new_name, const std::string& old_
 	auto it = animations.find(old_name);
 	if (it != animations.end())
 	{
+		// The animation copy constructor handles the path renaming
 		Animation animation = s2d::Animation(this->ptr_attached_sprite, it->second, new_name);
 
+		// Getting the old file to delete it
+		const std::string old_path = s2d::EngineData::s_path_to_user_project + "\\"+ it->second.getUserPathToFile();
 		animations.erase(it);
 
 		animations[new_name] = animation;
+
+		// Deleting old file, creating new file
+		std::removeFile(old_path);
+		s2d::flc::createAnimationSaveFile(this->ptr_attached_sprite, animation);
+
 	}
+
 }
 
 void s2d::Animator::update()

@@ -54,6 +54,13 @@ s2d::Animation::Animation(s2d::Sprite* ptr_applied_sprite, const s2d::Animation&
 	this->ptr_applied_sprite = ptr_applied_sprite;
 	this->initCopyCtor(animation);
 	this->m_name = name;
+
+	// renaming the path_to_file
+
+
+
+	const std::string new_path = std::renamePartOnPath(this->m_path_to_file, this->m_name, "\\", EXTENSION_ANIMATION_FILE, 1);
+	this->m_path_to_file = new_path;
 }
 
 
@@ -62,7 +69,7 @@ void s2d::Animation::initCopyCtor(const s2d::Animation& animation)
 	this->ptr_applied_sprite = ptr_applied_sprite;
 	this->m_name = animation.m_name;
 	this->m_base_path = this->ptr_applied_sprite->sprite_renderer.path;
-	this->m_path_to_file = animation.getPathToFile();
+	this->m_path_to_file = animation.getUserPathToFile();
 	this->loop = animation.loop;
 	this->m_saved_already = animation.m_saved_already;
 
@@ -89,8 +96,8 @@ void s2d::Animation::deleteKeyFrame(const int pos)
 		{
 			float delayAdd = this->m_keyframes[i].delay;
 
-			std::removeAt(this->m_keyframes, i);
-			std::removeAt(this->m_textures, i);
+			std::removeAtVec<s2d::KeyFrame>(this->m_keyframes, i);
+			std::removeAtVec<sf::Texture>(this->m_textures, i);
 
 			if (i + 1 > this->m_keyframes.size())
 			{
