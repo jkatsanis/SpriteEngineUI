@@ -1,17 +1,20 @@
 // light_shader.frag
 
+#define MAX_LIGHTS 255
+
 uniform sampler2D texture; // The texture of the object being rendered
-uniform vec2 lightPositions[2]; // An array of positions for up to 2 light sources
-uniform float lightRadii[2]; // An array of radii for up to 2 light sources
-uniform float lightIntensities[2]; // An array of intensities for up to 2 light sources
-uniform vec3 lightColors[2]; // An array of colors for up to 2 light sources
+uniform vec2 lightPositions[MAX_LIGHTS]; // An array of positions for up to 2 light sources
+uniform float lightRadii[MAX_LIGHTS]; // An array of radii for up to 2 light sources
+uniform float lightIntensities[MAX_LIGHTS]; // An array of intensities for up to 2 light sources
+uniform vec3 lightColors[MAX_LIGHTS]; // An array of colors for up to 2 light sources
+uniform int lightAmount;
 
 void main()
 {
     vec2 fragmentPosition = gl_FragCoord.xy;
     vec4 finalColor = vec4(0.0, 0.0, 0.0, 1.0);
 
-    for (int i = 0; i < 2; i++) {
+    for (int i = 0; i < lightAmount; i++) {
 
         vec2 lightPosition = lightPositions[i];
         float lightRadius = lightRadii[i];

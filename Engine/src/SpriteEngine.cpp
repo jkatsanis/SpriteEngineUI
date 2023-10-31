@@ -1,4 +1,5 @@
 #include <SFML/Graphics.hpp>
+#include <light/lightRepository.h>
 
 int main()
 {
@@ -13,48 +14,11 @@ int main()
     sf::Sprite ds;
     ds.setTexture(d);
 
-    // Create light source sprites
-    sf::Sprite lightSource;
-    lightSource.setTexture(lightTexture);
-    lightSource.setPosition(300, 300);
-
-    sf::Sprite lightSource2;
-    lightSource2.setTexture(lightTexture);
-    lightSource2.setPosition(0, 50);
+    s2d::LightRepository repo;
+    repo.add(s2d::Vector2(50, 50), 100, 1, s2d::Vector3(0, 0.5f, 1), "First");
 
 
-
-
-
-
-
-    const int maxLights = 2; // You can change this to support more lights if needed
-    sf::Vector2f lightPositions[maxLights];
-    float lightRadii[maxLights];
-    float lightIntensities[maxLights];
-    sf::Vector3f lightColors[maxLights];
-
-    // Initialize light properties for two lights (you can add more if needed)
-    lightPositions[0] = sf::Vector2f(100.0f, 100.0f);
-    lightRadii[0] = 200.0f;
-    lightIntensities[0] = 1.0f;
-    lightColors[0] = sf::Vector3f(1.0f, 0.0f, 0.0f); // Red light
-
-    lightPositions[1] = sf::Vector2f(300.0f, 300.0f);
-    lightRadii[1] = 150.0f;
-    lightIntensities[1] = 0.7f;
-    lightColors[1] = sf::Vector3f(0.0f, 1.0f, 0.0f); // Green light
-
-
-    // Create the light shader
-    sf::Shader lightShader;
-    lightShader.loadFromFile("ressources/shaders/circulaer_gradient.frag", sf::Shader::Fragment);
-
-
-    lightShader.setUniformArray("lightPositions", lightPositions, maxLights);
-    lightShader.setUniformArray("lightRadii", lightRadii, maxLights);
-    lightShader.setUniformArray("lightIntensities", lightIntensities, maxLights);
-    lightShader.setUniformArray("lightColors", lightColors, maxLights);
+    s2d::Vector2 position;
 
     float playerSpeed = 0.5f;
 
@@ -68,24 +32,20 @@ int main()
         }
 
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
-            lightSource.move(0, -playerSpeed);
+            position.y += playerSpeed;
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
-            lightSource.move(-playerSpeed, 0);
+            position.x -= playerSpeed;
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
-            lightSource.move(0, playerSpeed);
+            position.y -= playerSpeed;
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
-            lightSource.move(playerSpeed, 0);
+            position.x += playerSpeed;
 
+        repo.moveLightSource("First", position);
 
         window.clear(sf::Color(0, 0, 0));
 
-        window.draw(ds, &lightShader);
+        window.draw(ds, &repo.getShader());
 
-        window.draw(lightSource2, &lightShader);
-
-        window.draw(lightSource, &lightShader);
-
- 
         window.display();
     }
 

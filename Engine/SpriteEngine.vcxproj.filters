@@ -61,9 +61,6 @@
     <Filter Include="src\physicalComponents\camera">
       <UniqueIdentifier>{7ab40c3c-1dbb-40a7-b976-59dfbcfc45bc}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\physicalComponents\gameObject">
-      <UniqueIdentifier>{e296e12f-7662-4255-b780-077a09cd5859}</UniqueIdentifier>
-    </Filter>
     <Filter Include="src\physicalComponents\sprite">
       <UniqueIdentifier>{b67dde46-5c81-4e2d-a567-fb549e7a0741}</UniqueIdentifier>
     </Filter>
@@ -156,6 +153,9 @@
     </Filter>
     <Filter Include="src\manager\dialog">
       <UniqueIdentifier>{32d6821a-ceb7-4864-bdf0-d211597fbf4e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\physicalComponents\light">
+      <UniqueIdentifier>{e891688f-3176-4683-a0ed-0633bd108d91}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -327,6 +327,12 @@
     </ClCompile>
     <ClCompile Include="src\include\stdextension.cpp">
       <Filter>src\Include/headers\__include</Filter>
+    </ClCompile>
+    <ClCompile Include="src\light\lightRepository.cpp">
+      <Filter>src\physicalComponents\light</Filter>
+    </ClCompile>
+    <ClCompile Include="src\light\lightSource.cpp">
+      <Filter>src\physicalComponents\light</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -830,6 +836,12 @@
     </ClInclude>
     <ClInclude Include="src\manager\fileDialog.h">
       <Filter>src\manager\dialog</Filter>
+    </ClInclude>
+    <ClInclude Include="src\light\lightRepository.h">
+      <Filter>src\physicalComponents\light</Filter>
+    </ClInclude>
+    <ClInclude Include="src\light\lightSource.h">
+      <Filter>src\physicalComponents\light</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

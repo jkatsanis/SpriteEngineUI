@@ -15,6 +15,7 @@ namespace s2d
 		Vector2(float x, float y);
 		Vector2(const ImVec2& vec);
 		Vector2(const s2d::Vector2& rhs);
+		Vector2(const sf::Vector2f& rhs);
 
 		bool operator==(const Vector2& rhs);
 		bool operator!=(const Vector2& rhs);
@@ -32,6 +33,7 @@ namespace s2d
 	public:
 		static const s2d::Vector2 SCREEN_MIDDLE;
 		static ImVec2 toImVec2(const s2d::Vector2& vec);
+		static sf::Vector2f toSFVector(const s2d::Vector2& vec);
 	};
 
 	std::ostream& operator<<(std::ostream& os, const s2d::Vector2& rhs);
