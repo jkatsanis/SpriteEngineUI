@@ -1,2 +1,5 @@
 name;absulutePathStr;date;relativePath
-DasynceSE;C:\Dev\DasynceSE;2023/23/10 10:37:57;..\..\DasynceSE
+Hello;C:\Dev\C++\Hello;2023/26/10 13:12:47;..\..\Hello
+Amogus;C:\Dev\C++\Amogus;2023/26/10 13:24:04;..\..\Amogus
+DasynceSE;C:\Dev\C++\DasynceSE;2023/26/10 13:30:09;..\..\DasynceSE
+Hallo;C:\Dev\Hallo;2023/28/10 18:11:33;..\..\..\Hallo

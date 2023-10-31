@@ -228,6 +228,7 @@ void s2d::UIProjectSelectorProjectSection::tryToOpenProject()
 
 		if(!s2d::flc::isProjectPathValid(pathToVerify))
 		{
+			std::cout << "LOG [ERROR] Path is not valid" << std::endl;
 			this->m_openFileDialog.pathClicked = "";
 			return;
 		}
