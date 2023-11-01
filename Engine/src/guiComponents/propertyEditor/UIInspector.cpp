@@ -34,7 +34,7 @@ void s2d::UIInspector::afterInit()
 	this->m_components.push_back("BoxCollider");
 	this->m_components.push_back("PhysicsBody");
 	this->m_components.push_back("Animator");
-	this->m_components.push_back("Prefab");
+	this->m_components.push_back("Light");
 
 	this->m_tag_selector.setSpriteRepo(this->m_ptr_sprite_repo);
 }
@@ -344,6 +344,11 @@ void s2d::UIInspector::setCompontents()
 	if (this->m_current_component_selected == "Prefab")
 	{
 		this->m_ptr_sprite_repo->sprite_in_inspector->prefab.exist = true;
+		this->m_current_component_selected = " ";
+	}
+	if (this->m_current_component_selected == "Light")
+	{
+		this->m_ptr_sprite_repo->sprite_in_inspector->light.exist = true;
 		this->m_current_component_selected = " ";
 	}
 }

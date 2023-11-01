@@ -196,6 +196,7 @@ void s2d::Initializer::initSprite(const std::string& line, s2d::Sprite* sprite)
 	sprite->collider = BoxCollider(sprite);
 	sprite->animator = s2d::Animator(sprite);
 	sprite->prefab = s2d::Prefab(sprite);
+	sprite->light = s2d::Light(sprite);	// TODO INIT PROPS FROM LIGHT
 
 	sprite->name = propertys[0];
 	sprite->transform.position.x = std::stof(propertys[2].c_str());
@@ -260,9 +261,9 @@ void s2d::Initializer::initSprite(const std::string& line, s2d::Sprite* sprite)
 		sprite->prefab.file_name = std::getFileOnPath(sprite->prefab.engine_path_to_file);
 	#pragma endregion
 
-#pragma region General
+	#pragma region General
 		sprite->tag = propertys[32];
-#pragma endregion
+	#pragma endregion
 
 		sprite->postDefaultInitialization();
 }

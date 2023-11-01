@@ -15,6 +15,7 @@
 #include <manager/spriteRepository.h>
 #include <spriteComponents/spriteRenderer.h>
 #include <spriteComponents/stransform.h>
+#include <spriteComponents/light.h>
 
 #define INVALID_SPRITE_SYMBOLS 1
 
@@ -34,6 +35,7 @@ namespace s2d
 		std::string name;
 		std::string tag;
 		bool render;
+		bool effected_by_light;
 
 		// Components
 		s2d::SpriteRenderer sprite_renderer;
@@ -42,6 +44,7 @@ namespace s2d
 		s2d::Transform transform;
 		s2d::Animator animator; 
 		s2d::Prefab prefab;
+		s2d::Light light;
 
 		//Parent / child infos
 		// Pointer to all the childs.

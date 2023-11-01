@@ -13,6 +13,7 @@
 #include <guiComponents/UI.h>
 #include <manager/initializer.h>
 #include <manager/spriteRepository.h>
+#include <manager/lightRepository.h>
 
 namespace s2d
 {

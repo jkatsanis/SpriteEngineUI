@@ -208,15 +208,23 @@ void s2d::Sprite::validateProperties(uint32_t id, s2d::SpriteRepository& repo)
 
 void s2d::Sprite::initVariables(std::string& name, s2d::Vector2& spawnPos, std::string& path)
 {
+	// Components
+	this->transform = s2d::Transform(this);
+	this->light = s2d::Light(this);
+	this->animator = s2d::Animator(this);
+	this->collider = s2d::BoxCollider(this);
+	this->physicsBody = s2d::PhsysicsBody();
+	this->prefab = s2d::Prefab(this);
+
 	// ID's get managed by the sprite repo!
 	this->render = true;
 	this->tag = "none";
 	this->m_texture = new sf::Texture();
-	this->transform = s2d::Transform(this);
 	this->parent = nullptr;
 	this->ptr_childs = std::vector<s2d::Sprite*>(0);
 	this->m_id = -1;
 	this->m_parent_id = -1;
+	this->effected_by_light = false;
 
 	this->name = name;
 	this->sprite_renderer.path = path;
@@ -224,7 +232,6 @@ void s2d::Sprite::initVariables(std::string& name, s2d::Vector2& spawnPos, std::
 	this->transform.last_pos = s2d::Vector2(0, 0);
 	this->transform.next_pos = this->transform.position;
 	this->sprite_renderer.sorting_layer_index = 0;
-	this->animator = s2d::Animator(this);
 
 	sf::Sprite sprite;
 
@@ -234,10 +241,6 @@ void s2d::Sprite::initVariables(std::string& name, s2d::Vector2& spawnPos, std::
 
 	//Finally setting the sprite
 	this->m_sprite = sprite;
-
-	this->collider = s2d::BoxCollider(this);
-	this->physicsBody = s2d::PhsysicsBody();
-	this->prefab = s2d::Prefab(this);
 
 	//Setting sprite size also in init and setTexture
 	this->transform.setScale(s2d::Vector2(1, 1));
