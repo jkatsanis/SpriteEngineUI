@@ -47,7 +47,6 @@ namespace s2d
 		std::string m_menu_name;
 		std::string m_sprite_name;
 ;
-		ImGuiTextFilter m_search_component_filter;
 		ImVec2 m_window_size;
 		ImVec2 m_pop_up_cursor_pos;
 		float m_sprite_input_width;
@@ -64,12 +63,15 @@ namespace s2d
 		void renderOptions();
 		void resizeWindow();
 		void setupComponents();
+
 		void transformComponent();
 		void spriteRendererComponent();
 		void boxColliderComponent();
 		void physicsBodyComponent();
 		void animatorComponent();
 		void prefabComponent();
+		void lightComponent();
+		
 		void componentSelector();
 		void setCompontents();
 		void drawRectangleOverCurrentObject();

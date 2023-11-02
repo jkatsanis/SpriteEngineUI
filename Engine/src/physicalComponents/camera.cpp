@@ -37,6 +37,14 @@ void s2d::Camera::update()
 
 	this->camera_view.setCenter(sf::Vector2f(defaultPos.x, defaultPos.y));
 	this->ptr_renderWindow_to_engine->setView(this->camera_view);
+
+	sf::Shader& shader =  s2d::LightRepository::getShader();
+	shader.setUniform("cameraPosition", this->camera_view.getCenter());
+}
+
+void s2d::Camera::updateLights()
+{
+	
 }
 
 

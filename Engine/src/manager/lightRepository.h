@@ -29,7 +29,8 @@ namespace s2d
 		/// <param name="pos"></param>
 		static void moveLightSource(const std::string& source, const s2d::Vector2& pos);
 
-		static const sf::Shader& getShader() { return LightRepository::s_m_light_shader; }
+		static uint32_t getIndex() { return LightRepository::s_m_index; }
+		static sf::Shader& getShader() { return LightRepository::s_m_light_shader; }
 	};
 }
 

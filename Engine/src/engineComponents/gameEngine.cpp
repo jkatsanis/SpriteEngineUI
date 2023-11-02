@@ -5,7 +5,7 @@
 s2d::GameEngine::GameEngine()
 {
     s2d::LightRepository::init();
-    //s2d::LightRepository::add(s2d::Vector2(50, 50), 1000, 1, s2d::Vector3(0.5, 1, 0.5), "Oga");
+    s2d::LightRepository::add(s2d::Vector2(0, 0), 50, 100, s2d::Vector3(1, 1, 1), "Oga");
 
     this->m_ui_window.init(this->m_sprite_repository, &this->event, &this->windowEvent, this->m_scene_names);
     this->m_close = false;

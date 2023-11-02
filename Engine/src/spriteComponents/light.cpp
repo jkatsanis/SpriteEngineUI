@@ -1,9 +1,13 @@
 #include "light.h"
+#include <physicalComponents/sprite.h>
 
 // Constructor
 
 void s2d::Light::init()
 {
+	this->intensity = 1;
+	this->color = s2d::Vector3(1, 1, 1);
+	this->radius = DEFAULT_LIGHT_RADIUS;
 	this->exist = false;
 	this->base_component = false;
 }
@@ -21,8 +25,14 @@ s2d::Light::Light(Sprite* ptr_attached_sprite)
 
 // Public methods
 
+void s2d::Light::enable()
+{
+	this->exist = true;
+	s2d::LightRepository::add(this->ptr_attached_sprite->transform.position, this->radius, this->intensity, this->color, "Oga");
+}
+
 void s2d::Light::reset()
 {
-	this->radius = 20;
+	this->radius = DEFAULT_LIGHT_RADIUS;
 }
 

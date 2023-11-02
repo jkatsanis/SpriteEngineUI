@@ -14,8 +14,8 @@ void s2d::LightRepository::init()
 
 void s2d::LightRepository::add(const s2d::Vector2& pos, float radius, float intensiti, const s2d::Vector3& color, const std::string& name)
 {
-	LightRepository::s_m_light_sources[name] = s2d::LightSource(pos, radius, intensiti, color);
-
+	const s2d::Vector2 new_pos = s2d::Vector2(pos.x + 960, pos.y + 540);
+	LightRepository::s_m_light_sources[name] = s2d::LightSource(new_pos, radius, intensiti, color);
 
 	const size_t size = LightRepository::s_m_light_sources.size();
 
@@ -33,15 +33,19 @@ void s2d::LightRepository::add(const s2d::Vector2& pos, float radius, float inte
 		lightRadii[i] = source.radius;
 		lightIntensities[i] = source.light_intensities;
 		lightColors[i] = s2d::Vector3::toSFVector3(source.color);
+		i++;
 	}
 
 	
 	LightRepository::s_m_light_shader.setUniform("lightAmount", (int)size);
+	LightRepository::s_m_light_shader.setUniformArray("lightPositions", lightPositions, LightRepository::s_m_light_sources.size());
+
 	LightRepository::s_m_light_shader.setUniformArray("lightPositions", lightPositions, size);
 	LightRepository::s_m_light_shader.setUniformArray("lightRadii", lightRadii, size);
 	LightRepository::s_m_light_shader.setUniformArray("lightIntensities", lightIntensities, size);
 	LightRepository::s_m_light_shader.setUniformArray("lightColors", lightColors, size);
 
+	LightRepository::s_m_index++;
 
 	delete[] lightPositions;
 	delete[] lightRadii;

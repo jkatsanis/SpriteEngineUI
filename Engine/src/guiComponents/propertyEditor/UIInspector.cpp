@@ -34,7 +34,7 @@ void s2d::UIInspector::afterInit()
 	this->m_components.push_back("BoxCollider");
 	this->m_components.push_back("PhysicsBody");
 	this->m_components.push_back("Animator");
-	this->m_components.push_back("Light");
+	this->m_components.push_back("Light Source");
 
 	this->m_tag_selector.setSpriteRepo(this->m_ptr_sprite_repo);
 }
@@ -91,6 +91,7 @@ void s2d::UIInspector::render()
 
 void s2d::UIInspector::renderComponentOptions(s2d::Component& component, const std::string& name)
 {
+
 	const std::string button_name = std::string(ICON_FA_COG) + "##" + name;
 	const ImVec2 temp_pos = ImGui::GetCursorPos();
 	ImGui::SetCursorPosY(ImGui::GetCursorPosY());
@@ -102,6 +103,9 @@ void s2d::UIInspector::renderComponentOptions(s2d::Component& component, const s
 		ImGui::OpenPopup(button_name.c_str());
 		this->m_pop_up_cursor_pos = ImVec2(s2d::UI::s_gui_cursor.position.x - 150, s2d::UI::s_gui_cursor.position.y + 20);
 	}
+
+	ImGui::SetWindowFontScale(s2d::UIInfo::s_default_font_size + 0.2f);
+
 	ImGui::SetNextWindowPos(this->m_pop_up_cursor_pos);
 	if (ImGui::BeginPopup(button_name.c_str()))
 	{
@@ -123,6 +127,8 @@ void s2d::UIInspector::renderComponentOptions(s2d::Component& component, const s
 	
 	ImGui::PopStyleVar();
 	ImGui::SetCursorPos(temp_pos);
+
+	ImGui::SetWindowFontScale(s2d::UIInfo::s_default_font_size);
 }
 
 void s2d::UIInspector::editDupeName()
@@ -346,9 +352,9 @@ void s2d::UIInspector::setCompontents()
 		this->m_ptr_sprite_repo->sprite_in_inspector->prefab.exist = true;
 		this->m_current_component_selected = " ";
 	}
-	if (this->m_current_component_selected == "Light")
+	if (this->m_current_component_selected == "Light Source")
 	{
-		this->m_ptr_sprite_repo->sprite_in_inspector->light.exist = true;
+		this->m_ptr_sprite_repo->sprite_in_inspector->light.enable();
 		this->m_current_component_selected = " ";
 	}
 }
@@ -394,17 +400,14 @@ void s2d::UIInspector::componentSelector()
 void s2d::UIInspector::setupComponents()
 {
 	ImGui::Dummy(ImVec2(0, 15));
-	if (this->m_search_component_filter.PassFilter("Transform"))
-	{
-		this->transformComponent();
-		DUMMY_COMPONENT;
-	}
-	if (this->m_search_component_filter.PassFilter("Sprite Renderer"))
-	{
-		this->spriteRendererComponent();
-		DUMMY_COMPONENT;
-	}
+	// Base Components
+	this->transformComponent();
+	DUMMY_COMPONENT;
 
+
+	this->spriteRendererComponent();
+	DUMMY_COMPONENT;
+	
 	//Collider
 	if (this->m_ptr_sprite_repo->sprite_in_inspector->collider.exist)
 	{
@@ -418,26 +421,29 @@ void s2d::UIInspector::setupComponents()
 	}
 
 	//PhysicsBody
-	if (this->m_ptr_sprite_repo->sprite_in_inspector->physicsBody.exist
-		&& this->m_search_component_filter.PassFilter(this->m_components[1]))
+	if (this->m_ptr_sprite_repo->sprite_in_inspector->physicsBody.exist)
 	{
 		this->physicsBodyComponent();
 		DUMMY_COMPONENT;
 	}
 
 	//Animator
-	if (this->m_ptr_sprite_repo->sprite_in_inspector->animator.exist
-		&& this->m_search_component_filter.PassFilter(this->m_components[2]))
+	if (this->m_ptr_sprite_repo->sprite_in_inspector->animator.exist)
 	{
 		this->animatorComponent();
 		DUMMY_COMPONENT;
 	}
 
 	// Prefab
-	if (this->m_ptr_sprite_repo->sprite_in_inspector->prefab.exist
-		&& this->m_search_component_filter.PassFilter(this->m_components[3]))
+	if (this->m_ptr_sprite_repo->sprite_in_inspector->prefab.exist)
 	{
 		this->prefabComponent();
+	}
+
+	// Light Source
+	if (this->m_ptr_sprite_repo->sprite_in_inspector->light.exist)
+	{
+		this->lightComponent();
 	}
 
 	this->componentSelector();
@@ -553,6 +559,11 @@ void s2d::UIInspector::spriteRendererComponent()
 		}
 		this->m_ptr_sprite_repo->sprite_in_inspector->sprite_renderer.sorting_layer_index = layerIndex;
 
+		ImGui::Dummy(ImVec2(0, 2));
+		ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 18);
+		ImGui::Text("Affected by light");
+		s2d::UI::sameLine(0);
+		ImGui::Checkbox("##light-checkbox", &this->m_ptr_sprite_repo->sprite_in_inspector->effected_by_light);
 		ImGui::Dummy(ImVec2(0, 7));
 		ImGui::TreePop();
 	}
@@ -681,6 +692,27 @@ void s2d::UIInspector::prefabComponent()
 		ImGui::Checkbox("##LoadInMemory", &this->m_ptr_sprite_repo->sprite_in_inspector->prefab.load_in_memory);
 		ImGui::TreePop();
 	}	
+}
+
+void s2d::UIInspector::lightComponent()
+{
+	this->renderBackgroundBehindComponent();
+	this->renderComponentOptions(this->m_ptr_sprite_repo->sprite_in_inspector->light, "Light Source");
+	if (ImGui::TreeNode("Light Source"))
+	{
+		float y = ImGui::GetCursorPos().y;
+		float x = ImGui::GetCursorPos().x;
+
+		ImGui::SetCursorPos(ImVec2(x += 8.0f, y += 10));
+
+		ImGui::SetCursorPosX(x += 5);
+		ImGui::Text("Radius: ");
+		s2d::UI::sameLine(0);
+		ImGui::SetNextItemWidth(50);
+		ImGui::InputFloat("##light-radius", &this->m_ptr_sprite_repo->sprite_in_inspector->light.radius, 0, 0, "%g");
+
+		ImGui::TreePop();
+	}
 }
 
 #pragma endregion

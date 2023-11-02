@@ -3,6 +3,7 @@
 #include <SFML/Graphics.hpp>
 #include <calculationComponents/vector2.h>
 #include <spriteComponents/stransform.h>
+#include <manager/lightRepository.h>
 
 namespace s2d
 {
@@ -25,5 +26,6 @@ namespace s2d
 
 		void reset();
 		void update();
+		void updateLights();
 	};
 }
