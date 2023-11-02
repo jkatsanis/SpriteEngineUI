@@ -3,7 +3,7 @@
 #include <spriteComponents/component.h>
 #include <manager/lightRepository.h>
 
-#define DEFAULT_LIGHT_RADIUS 20
+#define DEFAULT_LIGHT_RADIUS 200
 
 namespace s2d
 {
@@ -11,7 +11,6 @@ namespace s2d
 	class Light : public s2d::Component
 	{
 	private:
-
 		void init() override;
 	public:
 		float radius;

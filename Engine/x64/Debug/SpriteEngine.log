@@ -1,2 +1,8 @@
 ﻿  SpriteEngine.cpp
+  gameEngine.cpp
+  renderer.cpp
+  UIToolButtonsModels.h
+  UIRealTimeEditorNavigator.cpp
+  light.cpp
+  Generating Code...
   SpriteEngine.vcxproj -> C:\Dev\C++\SpriteEngineUI\Engine\x64\Debug\SpriteEngine.exe

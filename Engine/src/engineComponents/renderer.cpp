@@ -94,6 +94,9 @@ void s2d::Renderer::render()
     this->m_ptr_render_window->clear(backgroundColor);
     this->draw();
     ImGui::SFML::Render(*this->m_ptr_render_window);
+
+    this->m_ptr_render_window->setView(this->m_ptr_gui_repo->camera.camera_view);
+
     this->m_ptr_render_window->display();
 
 }

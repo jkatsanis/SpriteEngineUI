@@ -28,7 +28,7 @@ s2d::Light::Light(Sprite* ptr_attached_sprite)
 void s2d::Light::enable()
 {
 	this->exist = true;
-	s2d::LightRepository::add(this->ptr_attached_sprite->transform.position, this->radius, this->intensity, this->color, "Oga");
+	s2d::LightRepository::add(s2d::Vector2(0, 0), this->radius, this->intensity, this->color, "Oga");
 }
 
 void s2d::Light::reset()

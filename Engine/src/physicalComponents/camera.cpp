@@ -6,7 +6,7 @@ s2d::Camera::Camera()
 { 
 	this->ptr_renderWindow_to_engine = nullptr;
 	this->transform.position = Vector2(0, 0);
-	this->camera_zoom = 0.8f;
+	this->camera_zoom = 1.0f;
 	this->camera_speed = 2000.0f;
 }
 
@@ -14,7 +14,7 @@ s2d::Camera::Camera(sf::RenderWindow* ptr)
 {
 	s2d::Vector2 defaultPos = this->getDefaultPosition();
 
-	this->camera_zoom = 0.8f;
+	this->camera_zoom = 1.0f;
 	this->transform.position = Vector2(0, 0);
 	this->ptr_renderWindow_to_engine = ptr;
 	this->camera_view = sf::View(sf::Vector2f(defaultPos.x, defaultPos.y), sf::Vector2f(1920, 1080));
@@ -23,12 +23,12 @@ s2d::Camera::Camera(sf::RenderWindow* ptr)
 void s2d::Camera::reset()
 {
 	this->transform.position = Vector2(0, 0);
-	this->camera_zoom = 0.8f;
+	this->camera_zoom = 1.0f;
 }
 
 void s2d::Camera::update()
 {
-	this->camera_view.setSize(this->camera_zoom * 1920, this->camera_zoom * 1080);
+	this->camera_view.setSize(1920 * this->camera_zoom, 1080 * this->camera_zoom);
 
 	s2d::Vector2 defaultPos = this->getDefaultPosition();
 
@@ -36,10 +36,12 @@ void s2d::Camera::update()
 	defaultPos.y += transform.position.y;
 
 	this->camera_view.setCenter(sf::Vector2f(defaultPos.x, defaultPos.y));
-	this->ptr_renderWindow_to_engine->setView(this->camera_view);
 
 	sf::Shader& shader =  s2d::LightRepository::getShader();
-	shader.setUniform("cameraPosition", this->camera_view.getCenter());
+
+	sf::Vector2f a = sf::Vector2f(defaultPos.x - 960, defaultPos.y - 540);
+	shader.setUniform("cameraPosition", a);
+	shader.setUniform("cameraZoom", this->camera_zoom);
 }
 
 void s2d::Camera::updateLights()

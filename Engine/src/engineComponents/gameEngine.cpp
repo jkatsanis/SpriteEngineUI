@@ -5,7 +5,7 @@
 s2d::GameEngine::GameEngine()
 {
     s2d::LightRepository::init();
-    s2d::LightRepository::add(s2d::Vector2(0, 0), 50, 100, s2d::Vector3(1, 1, 1), "Oga");
+    s2d::LightRepository::add(s2d::Vector2(0, 0), 200, 1, s2d::Vector3(1, 1, 1), "Oga");
 
     this->m_ui_window.init(this->m_sprite_repository, &this->event, &this->windowEvent, this->m_scene_names);
     this->m_close = false;
@@ -54,7 +54,7 @@ void s2d::GameEngine::initOtherClasses()
     s2d::Initializer::initAnimations(this->m_sprite_repository);
     s2d::Initializer::initBackground(this->m_ui_window.gui_repository.background_color);
     s2d::Initializer::initIds(this->m_sprite_repository.highest_sprite_id);
-    s2d::Initializer::initCamera(this->m_ui_window.gui_repository);
+   //  s2d::Initializer::initCamera(this->m_ui_window.gui_repository);
 }
 
 //private functions
@@ -217,6 +217,8 @@ void s2d::GameEngine::clearEngineUpBeforeSceneLoad()
 
 void s2d::GameEngine::update()
 {
+
+
     // Fullscreen / Not Fullscreen
     this->updateWindowStyle();
 
