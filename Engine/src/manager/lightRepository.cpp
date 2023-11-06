@@ -11,7 +11,11 @@ void s2d::LightRepository::updateSprite(const s2d::Sprite* sprite)
 		return;
 	}
 	uint32_t idx = sprite->light.getLightIndex();
-	const s2d::Vector2 new_pos = s2d::Vector2(sprite->transform.position.x + 960, -1 *sprite->transform.position.y + 540);
+
+	const float a = (sprite->transform.position.y * -1) + 540;
+
+	const s2d::Vector2 new_pos = s2d::Vector2(sprite->transform.position.x + 960, a);
+
 
 	s2d::LightSource& source = s2d::LightRepository::s_m_light_sources[idx];
 	source.position = new_pos;

@@ -30,11 +30,17 @@ void main()
         float lightIntensity = lightIntensities[i];
         vec3 lightColor = lightColors[i];
 
-        float add_x = -0.208333333 * lightPosition.x + 200;
-        float add_y = 0.185185179 * lightPosition.y + 100;
+        float add_x = -0.208333333f * lightPosition.x + 200.0f;
+
+
+        float y = (lightPosition.y - 540) * -1;       
+      
+      
+      	float add_y = (5.0f / 27.0f) * y;
+   
 
         lightPosition.x += add_x;        
-        lightPosition.y += add_y;
+        lightPosition.y += add_y;        
 
         float distanceToLight = length(fragmentPosition - lightPosition);
 
