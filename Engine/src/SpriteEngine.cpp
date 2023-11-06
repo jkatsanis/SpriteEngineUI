@@ -26,8 +26,7 @@ int main()
     }
     while (engine.ptr_render_window->isOpen())
     {
-       engine.update();
-
+        engine.update();
      
     }
     return 0;

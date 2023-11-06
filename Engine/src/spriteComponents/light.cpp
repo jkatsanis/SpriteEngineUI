@@ -5,7 +5,7 @@
 
 void s2d::Light::init()
 {
-	this->intensity = 1;
+	this->intensity = 200;
 	this->color = s2d::Vector3(1, 1, 1);
 	this->radius = DEFAULT_LIGHT_RADIUS;
 	this->exist = false;
@@ -25,14 +25,22 @@ s2d::Light::Light(Sprite* ptr_attached_sprite)
 
 // Public methods
 
+void s2d::Light::deleteLight()
+{
+	s2d::LightRepository::remove(this->m_light_index);
+	this->m_light_index = 0;
+}
+
 void s2d::Light::enable()
 {
+	this->m_light_index = s2d::LightRepository::getIndex();
 	this->exist = true;
-	s2d::LightRepository::add(s2d::Vector2(0, 0), this->radius, this->intensity, this->color, "Oga");
+	s2d::LightRepository::add(this->ptr_attached_sprite->transform.position, this->radius, this->intensity, this->color);
 }
 
 void s2d::Light::reset()
 {
 	this->radius = DEFAULT_LIGHT_RADIUS;
+	this->intensity = 1;
 }
 

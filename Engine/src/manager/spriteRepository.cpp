@@ -159,7 +159,7 @@ void s2d::SpriteRepository::reloadTextures()
 
 uint32_t s2d::SpriteRepository::getListPosition(const s2d::Sprite* sprite) const
 {
-    for (size_t i = 0; i < this->m_sprites.size(); i++)
+    for (uint32_t i = 0; i < this->m_sprites.size(); i++)
     {
         if (this->m_sprites[i]->getId() == sprite->getId())
         {

@@ -5,7 +5,6 @@
 s2d::GameEngine::GameEngine()
 {
     s2d::LightRepository::init();
-    s2d::LightRepository::add(s2d::Vector2(0, 0), 200, 1, s2d::Vector3(1, 1, 1), "Oga");
 
     this->m_ui_window.init(this->m_sprite_repository, &this->event, &this->windowEvent, this->m_scene_names);
     this->m_close = false;
@@ -38,7 +37,7 @@ s2d::GameEngine::GameEngine()
     this->m_sprite_repository.initialied = true;
 
     s2d::flc::cleanUp(this->m_sprite_repository, false);
-
+    // m_sprite_repository.readAt(12)->light.enable();
 }
 
 s2d::GameEngine::~GameEngine()

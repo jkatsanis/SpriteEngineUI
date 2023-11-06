@@ -91,7 +91,6 @@ void s2d::UIInspector::render()
 
 void s2d::UIInspector::renderComponentOptions(s2d::Component& component, const std::string& name)
 {
-
 	const std::string button_name = std::string(ICON_FA_COG) + "##" + name;
 	const ImVec2 temp_pos = ImGui::GetCursorPos();
 	ImGui::SetCursorPosY(ImGui::GetCursorPosY());
@@ -118,6 +117,11 @@ void s2d::UIInspector::renderComponentOptions(s2d::Component& component, const s
 		{
 			if (s2d::FontManager::displaySymbolInMenuItemWithText(ICON_FA_TRASH, "Delete"))
 			{
+				s2d::Light* childPtr = dynamic_cast<Light*>(&component);
+				if (childPtr) {
+					childPtr->deleteLight();
+				}
+
 				component.reset();
 				component.exist = false;
 			}

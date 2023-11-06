@@ -1,8 +1,70 @@
-﻿  SpriteEngine.cpp
-  gameEngine.cpp
+﻿  light.cpp
+  UIToolButtons.cpp
+  lightRepository.cpp
+C:\Dev\C++\SpriteEngineUI\Engine\src\manager\lightRepository.cpp(114,77): warning C4267: '=': conversion from 'size_t' to 'uint32_t', possible loss of data
+  lightSource.cpp
+  fileDialog.cpp
+  spriteRenderer.cpp
+  guiRepository.cpp
+  spriteRepository.cpp
+  prefab.cpp
+  initializer.cpp
   renderer.cpp
-  UIToolButtonsModels.h
+  engineData.cpp
+  UIProjectSelector.cpp
+  fontManager.cpp
+  event.cpp
+  childSystem.cpp
+  animation.cpp
+  animator.cpp
+  physicsBody.cpp
+  camera.cpp
+  Generating Code...
+  Compiling...
+  boxCollider.cpp
+  line.cpp
+  input.cpp
+  spriteData.cpp
+  fileData.cpp
+  saveSystem.cpp
+  sprite.cpp
+  gameEngine.cpp
+  imgui-SFML.cpp
+  imgui.cpp
+  imgui_draw.cpp
+  imgui_tables.cpp
+  imgui_widgets.cpp
+C:\Dev\C++\SpriteEngineUI\Engine\src\include\imgui\imgui_widgets.cpp(3893,69): warning C4554: '&': check operator precedence for possible error; use parentheses to clarify precedence
+C:\Dev\C++\SpriteEngineUI\Engine\src\include\imgui\imgui_widgets.cpp(3894,73): warning C4554: '&': check operator precedence for possible error; use parentheses to clarify precedence
+  SpriteEngine.cpp
+  vector2.cpp
+  time.cpp
+  UIWindow.cpp
+  UIHierarchy.cpp
+  UIInspector.cpp
+  UIAssetFolder.cpp
+C:\Dev\C++\SpriteEngineUI\Engine\src\guiComponents\propertyEditor\UIAssetFolder.cpp(285,8): warning C4312: 'type cast': conversion from 'uint32_t' to 'ImTextureID' of greater size
+  Generating Code...
+  Compiling...
+  transform.cpp
+  vector3.cpp
+  UIRealTimeEditor.cpp
+  UIInspectorBoxCollider.cpp
+  UIAnimation.cpp
+  UIInfo.cpp
+  UIAnimationKeyFrameAdder.cpp
+  UIAnimationEditor.cpp
+  UIIconData.cpp
   UIRealTimeEditorNavigator.cpp
-  light.cpp
+  UIRealTimeEditorTransform.cpp
+  UIProjectSelectorProjectSection.cpp
+  UIRealTimeEditorTransformPosition.cpp
+  UIRealTimeEditorTransfsormScale.cpp
+  UIToolButtonsModels.h
+  UI.cpp
+  UIAssetTools.cpp
+  UIDataModels.h
+  UITagSelector.cpp
+  stdextension.cpp
   Generating Code...
   SpriteEngine.vcxproj -> C:\Dev\C++\SpriteEngineUI\Engine\x64\Debug\SpriteEngine.exe

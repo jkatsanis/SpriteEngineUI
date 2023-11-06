@@ -28,6 +28,7 @@ void s2d::Camera::reset()
 
 void s2d::Camera::update()
 {
+	this->camera_zoom = 1.25f;
 	this->camera_view.setSize(1920 * this->camera_zoom, 1080 * this->camera_zoom);
 
 	s2d::Vector2 defaultPos = this->getDefaultPosition();
@@ -42,6 +43,8 @@ void s2d::Camera::update()
 	sf::Vector2f a = sf::Vector2f(defaultPos.x - 960, defaultPos.y - 540);
 	shader.setUniform("cameraPosition", a);
 	shader.setUniform("cameraZoom", this->camera_zoom);
+
+	// std::cout << this->camera_zoom << std::endl;
 }
 
 void s2d::Camera::updateLights()

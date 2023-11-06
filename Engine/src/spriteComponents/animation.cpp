@@ -232,6 +232,9 @@ void s2d::Animation::updateAllAnimations(s2d::SpriteRepository& repo)
 	{
 		s2d::Sprite* const sprite = repo.readAt(i);
 		sprite->animator.update();
+
+		if (sprite->name == "Player")
+			s2d::LightRepository::updateSprite(sprite);
 	}
 }
 

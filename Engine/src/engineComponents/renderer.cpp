@@ -56,7 +56,7 @@ void s2d::Renderer::drawSprites()
                 sprite->transform.updateTransformPosition();
                 if (sprite->render)
                 {
-                    if (!sprite->effected_by_light)
+                    if (!!!sprite->effected_by_light)
                     {
                         this->m_ptr_render_window->draw(sprite->getSprite(), &s2d::LightRepository::getShader());
                     }
