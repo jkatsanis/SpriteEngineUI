@@ -22,7 +22,7 @@ namespace s2d
 	public:
 		LightRepository() = delete;
 
-		static void updateSprite(const s2d::Sprite* sprite);
+		static void updateSprite(s2d::Sprite* sprite);
 
 		static void init();
 		static void add(const s2d::Vector2& pos, float radius, float intensiti, const s2d::Vector3& color);

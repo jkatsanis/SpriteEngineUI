@@ -29,18 +29,7 @@ void main()
         float lightRadius = lightRadii[i] / cameraZoom;
         float lightIntensity = lightIntensities[i];
         vec3 lightColor = lightColors[i];
-
-        float add_x = -0.208333333f * lightPosition.x + 200.0f;
-
-
-        float y = (lightPosition.y - 540) * -1;       
-      
-      
-      	float add_y = (5.0f / 27.0f) * y;
    
-
-        lightPosition.x += add_x;        
-        lightPosition.y += add_y;        
 
         float distanceToLight = length(fragmentPosition - lightPosition);
 

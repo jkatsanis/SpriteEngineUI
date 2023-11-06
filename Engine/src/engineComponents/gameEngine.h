@@ -38,6 +38,7 @@ namespace s2d
 		void clearEngineUpBeforeSceneLoad();
 		void initOtherClasses();
 		void loadScene(const std::string& scene_name);
+		void updateComponents();
 
 	public:
 

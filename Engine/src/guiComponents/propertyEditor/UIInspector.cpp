@@ -287,6 +287,39 @@ void s2d::UIInspector::backgroundSetting()
 void s2d::UIInspector::gameEngineViewSetting()
 {
 	this->renderBackgroundBehindComponent();
+
+	const std::string button_name = std::string(ICON_FA_COG) + "##" + "camera-comp";
+	const ImVec2 temp_pos = ImGui::GetCursorPos();
+	ImGui::SetCursorPosY(ImGui::GetCursorPosY());
+	ImGui::SetCursorPosX(ImGui::GetCursorPosX() + ImGui::GetContentRegionAvail().x - 40);
+
+	ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(5, 2));
+	if (s2d::FontManager::displaySmybolAsButton(button_name.c_str()))
+	{
+		ImGui::OpenPopup(button_name.c_str());
+		this->m_pop_up_cursor_pos = ImVec2(s2d::UI::s_gui_cursor.position.x - 150, s2d::UI::s_gui_cursor.position.y + 20);
+	}
+
+	ImGui::SetWindowFontScale(s2d::UIInfo::s_default_font_size + 0.2f);
+
+	ImGui::SetNextWindowPos(this->m_pop_up_cursor_pos);
+	if (ImGui::BeginPopup(button_name.c_str()))
+	{
+		if (s2d::FontManager::displaySymbolInMenuItemWithText(ICON_FA_RETWEET, "Reset"))
+		{
+			this->m_ptr_gui_repo->camera.reset();
+		}
+		
+		ImGui::EndPopup();
+	}
+
+	ImGui::PopStyleVar();
+	ImGui::SetCursorPos(temp_pos);
+
+	ImGui::SetWindowFontScale(s2d::UIInfo::s_default_font_size);
+
+
+
 	if (ImGui::TreeNode("Camera"))
 	{
 		float x = ImGui::GetCursorPosX();
@@ -565,7 +598,7 @@ void s2d::UIInspector::spriteRendererComponent()
 
 		ImGui::Dummy(ImVec2(0, 2));
 		ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 18);
-		ImGui::Text("Affected by light");
+		ImGui::Text("Effected by light");
 		s2d::UI::sameLine(0);
 		ImGui::Checkbox("##light-checkbox", &this->m_ptr_sprite_repo->sprite_in_inspector->effected_by_light);
 		ImGui::Dummy(ImVec2(0, 7));
@@ -621,7 +654,6 @@ void s2d::UIInspector::physicsBodyComponent()
 
 		ImGui::Text("Gravity");
 		ImGui::PushItemWidth(55);
-		ImGui::SetWindowFontScale(s2d::UIInfo::s_default_font_size - 0.2f);
 		ImGui::SetCursorPos(ImVec2(x += 125, y -= 6.0f));
 		ImGui::InputFloat("##gravity", &this->m_ptr_sprite_repo->sprite_in_inspector->physicsBody.gravity, 0, 0, "%g");
 		ImGui::SetWindowFontScale(s2d::UIInfo::s_default_font_size);
@@ -632,11 +664,9 @@ void s2d::UIInspector::physicsBodyComponent()
 		ImGui::SetCursorPosX(x - 122);
 		ImGui::Text("Mass");
 		ImGui::PushItemWidth(55);
-		ImGui::SetWindowFontScale(s2d::UIInfo::s_default_font_size - 0.2f);
 		ImGui::SetCursorPos(ImVec2(x, y += 45.0f));
 		ImGui::InputFloat("##mass", &this->m_ptr_sprite_repo->sprite_in_inspector->physicsBody.mass, 0, 0, "%g");
 		ImGui::PopItemWidth();
-		ImGui::SetWindowFontScale(s2d::UIInfo::s_default_font_size);
 
 		ImGui::TreePop();
 	}	
@@ -700,6 +730,10 @@ void s2d::UIInspector::prefabComponent()
 
 void s2d::UIInspector::lightComponent()
 {
+	this->m_light_radius = this->m_ptr_sprite_repo->sprite_in_inspector->light.getRadius();
+	this->m_light_intensity = this->m_ptr_sprite_repo->sprite_in_inspector->light.getIntensity();
+
+
 	this->renderBackgroundBehindComponent();
 	this->renderComponentOptions(this->m_ptr_sprite_repo->sprite_in_inspector->light, "Light Source");
 	if (ImGui::TreeNode("Light Source"))
@@ -713,7 +747,19 @@ void s2d::UIInspector::lightComponent()
 		ImGui::Text("Radius: ");
 		s2d::UI::sameLine(0);
 		ImGui::SetNextItemWidth(50);
-		ImGui::InputFloat("##light-radius", &this->m_ptr_sprite_repo->sprite_in_inspector->light.radius, 0, 0, "%g");
+		ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 47);
+		ImGui::InputFloat("##light-radius", &this->m_light_radius, 0, 0, "%g");
+
+		this->m_ptr_sprite_repo->sprite_in_inspector->light.setRadius(this->m_light_radius);
+
+		ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 14.5f);
+		ImGui::Text("Intensity: ");
+		s2d::UI::sameLine(0);
+		ImGui::SetNextItemWidth(50);
+		ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 38);
+		ImGui::InputFloat("##light-intensity", &this->m_light_intensity, 0, 0, "%g");
+
+		this->m_ptr_sprite_repo->sprite_in_inspector->light.setIntensity(this->m_light_intensity);
 
 		ImGui::TreePop();
 	}

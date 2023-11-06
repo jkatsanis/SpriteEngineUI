@@ -28,7 +28,6 @@ void s2d::Camera::reset()
 
 void s2d::Camera::update()
 {
-	this->camera_zoom = 1.25f;
 	this->camera_view.setSize(1920 * this->camera_zoom, 1080 * this->camera_zoom);
 
 	s2d::Vector2 defaultPos = this->getDefaultPosition();

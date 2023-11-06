@@ -59,6 +59,9 @@ namespace s2d
 		char* m_input_name;
 		s2d::UIInspectorBoxCollider m_collider;
 
+		float m_light_radius;
+		float m_light_intensity;
+
 		void render();
 		void renderOptions();
 		void resizeWindow();

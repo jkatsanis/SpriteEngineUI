@@ -4,21 +4,34 @@
 
 // Public methods
 
-void s2d::LightRepository::updateSprite(const s2d::Sprite* sprite)
+void s2d::LightRepository::updateSprite(s2d::Sprite* sprite)
 {
-	if (!sprite->transform.position_changed || !sprite->light.exist)
+
+	if (!sprite->light.exist)
 	{
 		return;
 	}
+
 	uint32_t idx = sprite->light.getLightIndex();
-
-	const float a = (sprite->transform.position.y * -1) + 540;
-
-	const s2d::Vector2 new_pos = s2d::Vector2(sprite->transform.position.x + 960, a);
-
-
 	s2d::LightSource& source = s2d::LightRepository::s_m_light_sources[idx];
-	source.position = new_pos;
+
+	if (sprite->transform.position_changed)
+	{
+		const float a = (sprite->transform.position.y * -1) + 540;
+		const s2d::Vector2 new_pos = s2d::Vector2(sprite->transform.position.x + 960, a);
+		source.position = new_pos;
+	}
+	if (sprite->light.hasRadiusChanged())
+	{
+		sprite->light.setRadiosChangeFlagFalse();
+		source.radius = sprite->light.getRadius();
+	}
+	if (sprite->light.hasIntensityChanged())
+	{
+		sprite->light.setIntensityChangeFlagFalse();
+		source.light_intensities = sprite->light.getIntensity();
+	}
+
 	s2d::LightRepository::s_m_update = true;
 	s2d::LightRepository::updateArrays();
 }

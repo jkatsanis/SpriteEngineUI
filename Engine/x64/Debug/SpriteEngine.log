@@ -1,3 +1,2 @@
-﻿  lightRepository.cpp
-C:\Dev\SpriteEngineUI\Engine\src\manager\lightRepository.cpp(127,77): warning C4267: '=': conversion from 'size_t' to 'uint32_t', possible loss of data
+﻿  UIInspector.cpp
   SpriteEngine.vcxproj -> C:\Dev\SpriteEngineUI\Engine\x64\Debug\SpriteEngine.exe

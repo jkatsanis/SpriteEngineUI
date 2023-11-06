@@ -206,6 +206,16 @@ void s2d::GameEngine::loadScene(const std::string& scene_name)
     this->initOtherClasses();
 }
 
+void s2d::GameEngine::updateComponents()
+{
+    for (int i = 0; i < this->m_sprite_repository.amount(); i++)
+    {
+        s2d::Sprite* const sprite = this->m_sprite_repository.readAt(i);
+        sprite->animator.update();
+        s2d::LightRepository::updateSprite(sprite);
+    }
+}
+
 void s2d::GameEngine::clearEngineUpBeforeSceneLoad()
 {
     this->m_sprite_repository.cleanUp();
@@ -234,7 +244,8 @@ void s2d::GameEngine::update()
     this->saveDialoge();
     ImGui::PopFont();
 
-    s2d::Animation::updateAllAnimations(this->m_sprite_repository);
+    this->updateComponents();
+
 
     // Engine event
     this->pollEngineEvents();

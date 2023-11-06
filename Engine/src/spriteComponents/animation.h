@@ -71,9 +71,6 @@ namespace s2d
 		/// <param name="vecpos"></param>
 		/// <param name="frame"></param>
 		void addKeyFrameAt(const int vecpos, const s2d::KeyFrame& frame);
-
-	public:
-		static void updateAllAnimations(s2d::SpriteRepository& repo);
 	};
 }
 
