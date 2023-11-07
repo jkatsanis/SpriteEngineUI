@@ -8,6 +8,7 @@
 
 namespace s2d
 {
+	class Camera;
 	class Sprite;
 	class LightRepository
 	{
@@ -17,13 +18,14 @@ namespace s2d
 		static uint32_t s_m_index;
 		static bool s_m_update;
 
-		static void updateArrays();
 		static sf::Vector2f* getPositionArray();
 
 	public:
 		LightRepository() = delete;
+		static void updateArrays();
 
-		static void updateSprite(s2d::Sprite* sprite, bool call_by_update);
+		static void updateLightSource(s2d::Sprite* sprite, bool call_by_update, const s2d::Camera* cam);
+		static void updateSprite(s2d::Sprite* sprite, bool call_by_update, const s2d::Camera* cam);
 		static bool s_update_next;
 
 		static void init();

@@ -224,7 +224,6 @@ void s2d::Sprite::initVariables(std::string& name, s2d::Vector2& spawnPos, std::
 	this->ptr_childs = std::vector<s2d::Sprite*>(0);
 	this->m_id = -1;
 	this->m_parent_id = -1;
-	this->effected_by_light = false;
 
 	this->name = name;
 	this->sprite_renderer.path = path;

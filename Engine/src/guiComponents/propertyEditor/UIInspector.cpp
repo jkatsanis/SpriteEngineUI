@@ -596,7 +596,7 @@ void s2d::UIInspector::spriteRendererComponent()
 		ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 18);
 		ImGui::Text("Effected by light");
 		s2d::UI::sameLine(0);
-		ImGui::Checkbox("##light-checkbox", &this->m_ptr_sprite_repo->sprite_in_inspector->effected_by_light);
+		ImGui::Checkbox("##light-checkbox", &this->m_ptr_sprite_repo->sprite_in_inspector->sprite_renderer.effected_by_light);
 		ImGui::Dummy(ImVec2(0, 7));
 		ImGui::TreePop();
 	}

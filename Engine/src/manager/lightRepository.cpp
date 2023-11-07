@@ -1,12 +1,12 @@
 #include "lightRepository.h"
 #include <physicalComponents/sprite.h>
+#include <physicalComponents/camera.h>
 
 
 // Public methods
 
-void s2d::LightRepository::updateSprite(s2d::Sprite* sprite, bool call_by_update)
+void s2d::LightRepository::updateLightSource(s2d::Sprite* sprite, bool call_by_update, const s2d::Camera* cam)
 {
-
 	if (!sprite->light.exist)
 	{
 		return;
@@ -17,26 +17,38 @@ void s2d::LightRepository::updateSprite(s2d::Sprite* sprite, bool call_by_update
 
 	if (sprite->transform.position_changed || call_by_update)
 	{
-		float zoom = s2d::Camera::zoom - 1;
+		s2d::LightRepository::s_m_update = true;
+
+		float zoom = cam->getZoom() - 1;
 
 		const float a = ((sprite->transform.position.y * -1) + 540) + 540 * zoom;
-	    s2d::Vector2 new_pos = s2d::Vector2((sprite->transform.position.x + 960) + 960 * zoom, a);
+		s2d::Vector2 new_pos = s2d::Vector2((sprite->transform.position.x + 960) + 960 * zoom, a);
 
 		source.position = new_pos;
 	}
 	if (sprite->light.hasRadiusChanged() || call_by_update)
 	{
+		s2d::LightRepository::s_m_update = true;
+
 		sprite->light.setRadiosChangeFlagFalse();
 		source.radius = sprite->light.getRadius();
 	}
 	if (sprite->light.hasIntensityChanged() || call_by_update)
 	{
+		s2d::LightRepository::s_m_update = true;
+
 		sprite->light.setIntensityChangeFlagFalse();
 		source.light_intensities = sprite->light.getIntensity();
 	}
+}
 
-	s2d::LightRepository::s_update_next = false;
-	s2d::LightRepository::s_m_update = true;
+void s2d::LightRepository::updateSprite(s2d::Sprite* sprite, bool call_by_update, const s2d::Camera* cam)
+{
+	if (!sprite->light.exist)
+	{
+		return;
+	}
+	s2d::LightRepository::updateLightSource(sprite, call_by_update, cam);
 	s2d::LightRepository::updateArrays();
 }
 
@@ -51,7 +63,7 @@ void s2d::LightRepository::init()
 
 void s2d::LightRepository::add(const s2d::Vector2& pos, float radius, float intensiti, const s2d::Vector3& color)
 {
-	float zoom = s2d::Camera::zoom - 1;
+	float zoom = 1;
 
 	const float a = ((pos.y * -1) + 540) + 540 * zoom;
 	s2d::Vector2 new_pos = s2d::Vector2((pos.x + 960) + 960 * zoom, a);
@@ -59,6 +71,7 @@ void s2d::LightRepository::add(const s2d::Vector2& pos, float radius, float inte
 	LightRepository::s_m_light_sources[LightRepository::s_m_index] = s2d::LightSource(new_pos, radius, intensiti, color);
 	s2d::LightRepository::s_m_update = true;
 	s2d::LightRepository::updateArrays();
+	s2d::LightRepository::s_update_next = true;
 }
 
 void s2d::LightRepository::remove(uint32_t index)
@@ -87,10 +100,6 @@ void s2d::LightRepository::moveLightSource(uint32_t idx, const s2d::Vector2& pos
 		std::cout << "LOG [ERROR] Key does not exist " << idx << std::endl;
 	}
 }
-
-
-// Private functions
-
 
 void s2d::LightRepository::updateArrays()
 {
@@ -144,6 +153,8 @@ void s2d::LightRepository::updateArrays()
 	delete[] lightColors;
 
 }
+
+// Private functions
 
 sf::Vector2f* s2d::LightRepository::getPositionArray()
 {

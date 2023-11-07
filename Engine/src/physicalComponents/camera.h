@@ -12,7 +12,7 @@ namespace s2d
 	private:
 
 		sf::RenderWindow* ptr_renderWindow_to_engine;
-		float camera_zoom;
+		float m_camera_zoom;
 		s2d::SpriteRepository* m_ptr_sprite_repo;
 
 		s2d::Vector2 getDefaultPosition();
@@ -22,16 +22,12 @@ namespace s2d
 		sf::View camera_view;
 		float camera_speed;
 
-
 		Camera();
 		Camera(sf::RenderWindow* ptr, s2d::SpriteRepository& repository);
 
-		float getZoom() const { return this->camera_zoom; } 
+		float getZoom() const { return this->m_camera_zoom; } 
 		void setZoom(float zoom);
 		void reset();
 		void update();
-		void updateLights();
-
-		static float zoom;
 	};
 }

@@ -265,6 +265,17 @@ void s2d::Initializer::initSprite(const std::string& line, s2d::Sprite* sprite)
 		sprite->tag = propertys[32];
 	#pragma endregion
 
+	#pragma region Light
+		sprite->light.setRadius(std::stof(propertys[34]));
+		sprite->light.setIntensity(std::stof(propertys[35]));
+		if (propertys[33] == "True")
+		{
+			sprite->light.enable();
+		}
+
+		sprite->sprite_renderer.effected_by_light = propertys[36] == "True";
+	#pragma endregion
+
 		sprite->postDefaultInitialization();
 }
 

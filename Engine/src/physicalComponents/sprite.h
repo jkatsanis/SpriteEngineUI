@@ -35,7 +35,6 @@ namespace s2d
 		std::string name;
 		std::string tag;
 		bool render;
-		bool effected_by_light;
 
 		// Components
 		s2d::SpriteRenderer sprite_renderer;
