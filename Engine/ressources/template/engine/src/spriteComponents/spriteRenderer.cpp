@@ -11,6 +11,7 @@ void s2d::SpriteRenderer::init()
 {
 	this->path = "";
 	this->exist = true;
+	this->effected_by_light = false;
 	this->sorting_layer_index = 0;
 }
 

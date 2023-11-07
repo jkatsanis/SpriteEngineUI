@@ -30,6 +30,7 @@ void s2d::ChildSystem::resetPositionWhenChildIsColliding(s2d::Sprite* child)
 	{
 		return;
 	}
+
 	s2d::Sprite* node = child->getNode();
 
 	setBoxColliderPosition(node, child);

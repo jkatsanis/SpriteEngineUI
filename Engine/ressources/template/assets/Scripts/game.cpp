@@ -2,10 +2,8 @@
 
 void Game::start()
 {
-
 }
 
 void Game::update()
 {	
-
 }

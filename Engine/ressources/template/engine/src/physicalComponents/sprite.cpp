@@ -22,6 +22,9 @@ s2d::Sprite::Sprite(s2d::Sprite& rhs)
 	this->collider = s2d::BoxCollider(this, rhs.collider);
 	this->transform = s2d::Transform(this, rhs.transform);
 	this->animator = s2d::Animator(this, rhs.animator);
+	this->physicsBody = s2d::PhsysicsBody(this, rhs.physicsBody);
+
+	this->tag = rhs.tag;
 
 	// Initing the childs
 	for (size_t i = 0; i < rhs.ptr_childs.size(); i++) 
@@ -86,7 +89,7 @@ s2d::Vector2 s2d::Sprite::getOrigininalPosition()
 
 void s2d::Sprite::validateProperties(int id, s2d::SpriteRepository& repo)
 {
-	if (this->m_id == -1)
+	if (repo.main_content_iniitialied)
 	{
 		this->m_id = id;
 	}
@@ -186,6 +189,7 @@ void s2d::Sprite::initVariables(std::string name, s2d::Vector2 spawnPos, std::st
 	this->collider = s2d::BoxCollider(this);
 	this->physicsBody = s2d::PhsysicsBody(this);
 	this->prefab = s2d::Prefab(this);
+	this->light = s2d::Light(this);
 
 	this->postInit();
 }

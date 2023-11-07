@@ -56,7 +56,7 @@ void s2d::Animation::init()
 	this->current_frame = -1;
 	this->is_playing = false;
 	this->total_time_passed = 0.0f;
-	this->loop = true;
+	this->loop = false;
 }
 
 
@@ -114,8 +114,16 @@ void s2d::Animation::update()
 		this->current_frame++;
 		if (this->current_frame == this->m_keyframes.size())
 		{
-			this->stop();
-			this->play();
+			if (this->loop)
+			{
+				// Hard coding the path bc skill issue
+				this->ptr_applied_sprite->sprite_renderer.path = this->m_base_path;
+				this->play();
+			}
+			else
+			{
+				this->stop();
+			}
 		}
 	}
 }
@@ -205,6 +213,7 @@ void s2d::Animation::updateAllAnimations(s2d::SpriteRepository& repo)
 
 void s2d::Animation::setVectorSizes()
 {
+	this->m_textures.clear();
 	this->m_textures = std::vector<sf::Texture>(this->m_keyframes.size());
 
 	for (int i = 0; i < this->m_keyframes.size(); i++)

@@ -15,6 +15,15 @@ s2d::PhsysicsBody::PhsysicsBody(s2d::Sprite* ptr_attachedSprite)
     this->ptr_attachedSprite = ptr_attachedSprite;
 }
 
+s2d::PhsysicsBody::PhsysicsBody(s2d::Sprite* attached, const s2d::PhsysicsBody& rhs)
+{
+    this->velocity = rhs.velocity;
+    this->mass = rhs.mass;
+    this->exist = rhs.exist;
+    this->gravity = rhs.gravity;
+    this->ptr_attachedSprite = attached;
+}
+
 void s2d::PhsysicsBody::init()
 {
     this->ptr_attachedSprite = nullptr;
@@ -36,7 +45,6 @@ void s2d::PhsysicsBody::reset()
 void s2d::PhsysicsBody::fixedUpdate()
 {
     if (!this->exist || this->ptr_attachedSprite == nullptr || this->gravity == 0) return;
-
 	//ALl Physic calcutions will happen here! -> calle from s2d::physics::update();
     s2d::Vector2 dir = this->velocity * s2d::Time::s_delta_time;
     dir += this->ptr_attachedSprite->transform.getPosition();

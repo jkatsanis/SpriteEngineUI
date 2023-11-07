@@ -82,7 +82,10 @@ void s2d::SpriteRepository::add(s2d::Sprite* ptr)
 
     if (this->main_content_iniitialied)
     {
-        s2d::SpriteRepository::addChildsFromParent(ptr, this->highest_sprite_id);
+        for (size_t i = 0; i < ptr->ptr_childs.size(); i++)
+        {
+            this->add(ptr->ptr_childs[i]);
+        }    
     }
 }
 
@@ -190,15 +193,4 @@ s2d::Sprite* s2d::SpriteRepository::getWithId(std::vector<s2d::Sprite*>& collect
         }
     }
     return nullptr;
-}
-
-void s2d::SpriteRepository::addChildsFromParent(s2d::Sprite* parent, uint32_t highest)
-{
-    parent->setId(highest);
-    for (size_t i = 0; i < parent->ptr_childs.size(); i++)
-    {
-        this->m_sprites.push_back(parent->ptr_childs[i]);
-        parent->ptr_childs[i]->setParentId(highest);
-        addChildsFromParent(parent->ptr_childs[i], highest + 1);
-    }
 }

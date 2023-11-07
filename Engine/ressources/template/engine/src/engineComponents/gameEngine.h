@@ -38,6 +38,7 @@ namespace s2d
 		void updateWindowStyle();
 		void clearEngineUpBeforeSceneLoad();
 		void initOtherClasses();
+		void updateComponents();
 
 	public:
 		s2d::Event event;

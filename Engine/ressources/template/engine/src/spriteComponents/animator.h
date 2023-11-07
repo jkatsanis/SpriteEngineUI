@@ -39,6 +39,8 @@ namespace s2d
 		void play(const std::string& name);
 		void stop(const std::string& name);
 
+		void stopAll();
+
 		void update();
 
 		void reset() override;

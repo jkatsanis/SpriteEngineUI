@@ -96,12 +96,15 @@ void s2d::Initializer::initAnimations(s2d::SpriteRepository& repo)
 		{
 			cnt++;
 			if (cnt == 1) continue;
-			s2d::Initializer::initAnimation(line, repo);
+			s2d::Initializer::initAnimationRepo(line, repo);
 		}
 
 		knownAnimationFileStream.close();
 	}
-	else std::cout << "LOG: [ERROR] could not open animation(s) file!";
+	else
+	{
+		std::cout << "LOG: [ERROR] could not open animation(s) file!";
+	}
 }
 
 void s2d::Initializer::initSprites(s2d::SpriteRepository& spriteRepo)
@@ -238,8 +241,6 @@ void s2d::Initializer::initPrefab(const std::string& path)
 
 		for (size_t i = 0; i < paths_to_animations.size(); i++)
 		{
-			s2d::SpriteRepository repo;
-
 			s2d::Initializer::initAnimation(paths_to_animations[i], spr);
 		}
 
@@ -257,7 +258,7 @@ void s2d::Initializer::initPrefab(const std::string& path)
 	}
 }
 
-void s2d::Initializer::initAnimation(const std::string& path, s2d::SpriteRepository& repo)
+void s2d::Initializer::initAnimationRepo(const std::string& path, s2d::SpriteRepository& repo)
 {
 	std::fstream animationFileStream;
 	animationFileStream.open(path);
@@ -299,7 +300,7 @@ void s2d::Initializer::initAnimation(const std::string& path, s2d::Sprite* spr)
 	std::string animationName = "";
 
 	std::vector<s2d::KeyFrame> frames = std::vector<s2d::KeyFrame>(0);
-
+	bool loop = false;
 	if (animationFileStream.is_open())
 	{
 		std::string line;
@@ -316,6 +317,11 @@ void s2d::Initializer::initAnimation(const std::string& path, s2d::Sprite* spr)
 			{
 				continue;
 			}
+			if (cnt == 3)
+			{
+				loop = line == "True";
+				continue;
+			}
 
 			std::vector<std::string> propertys = std::splitString(line, DELIMITER);
 
@@ -324,10 +330,15 @@ void s2d::Initializer::initAnimation(const std::string& path, s2d::Sprite* spr)
 		}
 		animationFileStream.close();
 	}
-	else std::cout << "LOG: [ERROR] could not open animation data file!";
+	else
+	{
+		std::cout << "LOG: [ERROR] could not open animation data file! at " << path;
+	}
 	if (ptr_sprite != nullptr)
 	{
 		ptr_sprite->animator.createAnimation(animationName, path, frames);
+		s2d::Animation& anim = ptr_sprite->animator.animations[animationName];
+		anim.loop = loop;
 	}
 }
 
@@ -342,6 +353,7 @@ void s2d::Initializer::initSprite(const std::string& line, s2d::Sprite* sprite)
 	sprite->transform = s2d::Transform(sprite);
 	sprite->physicsBody = s2d::PhsysicsBody(sprite);
 	sprite->prefab = s2d::Prefab(sprite);
+	sprite->light = s2d::Light(sprite);
 
 	sprite->name = propertys[0];
 	const s2d::Vector2 position = s2d::Vector2(std::stof(propertys[2].c_str()), std::stof(propertys[3].c_str()));
@@ -396,5 +408,17 @@ void s2d::Initializer::initSprite(const std::string& line, s2d::Sprite* sprite)
 
 #pragma region General
 	sprite->tag = propertys[32];
+#pragma endregion
+
+
+#pragma region Light
+	sprite->light.setRadius(std::stof(propertys[34]));
+	sprite->light.setIntensity(std::stof(propertys[35]));
+	if (propertys[33] == "True")
+	{
+		sprite->light.enable();
+	}
+
+	sprite->sprite_renderer.effected_by_light = propertys[36] == "True";
 #pragma endregion
 }
