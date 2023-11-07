@@ -18,7 +18,14 @@ s2d::GameEngine::GameEngine()
 
     this->m_ui_real_time_editor = s2d::UIRealTimeEditor(*ptr_render_window, &this->windowEvent, &this->m_ui_window.ary_any_windows_hovered,
         &this->m_ui_window.getInspector().state, &this->event, this->m_sprite_repository, this->m_ui_window.gui_repository);
-    this->m_ui_window.gui_repository.camera = s2d::Camera(this->ptr_render_window);
+    this->m_ui_window.gui_repository.camera = s2d::Camera(this->ptr_render_window, this->m_sprite_repository);
+
+    sf::Image icon64;
+  
+    if (icon64.loadFromFile("ressources/Icons/icon.png"))
+    {
+        this->ptr_render_window->setIcon(icon64.getSize().x, icon64.getSize().y, icon64.getPixelsPtr());
+    }
 
     //Setting other classes
     s2d::Initializer::initTags(this->m_sprite_repository);
@@ -212,7 +219,7 @@ void s2d::GameEngine::updateComponents()
     {
         s2d::Sprite* const sprite = this->m_sprite_repository.readAt(i);
         sprite->animator.update();
-        s2d::LightRepository::updateSprite(sprite);
+        s2d::LightRepository::updateSprite(sprite, s2d::LightRepository::s_update_next);
     }
 }
 

@@ -4,7 +4,6 @@
 
 s2d::GUIRepository::GUIRepository()
 {
-	this->camera = nullptr;
 	this->ptr_asset_window_size = nullptr;
 	this->ptr_hierarchy_window_size = nullptr;
 	this->ptr_inspector_window_size = nullptr;

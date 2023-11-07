@@ -62,6 +62,8 @@ namespace s2d
 		float m_light_radius;
 		float m_light_intensity;
 
+		float m_cam_zoom;
+
 		void render();
 		void renderOptions();
 		void resizeWindow();

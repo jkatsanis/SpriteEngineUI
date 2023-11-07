@@ -1,2 +1,12 @@
-﻿  UIInspector.cpp
+﻿  UIDataModels.h
+  gameEngine.cpp
+  UIRealTimeEditor.cpp
+  UIRealTimeEditorNavigator.cpp
+  guiRepository.cpp
+  lightRepository.cpp
+C:\Dev\SpriteEngineUI\Engine\src\manager\lightRepository.cpp(139,77): warning C4267: '=': conversion from 'size_t' to 'uint32_t', possible loss of data
+  camera.cpp
+  light.cpp
+  transform.cpp
+  Generating Code...
   SpriteEngine.vcxproj -> C:\Dev\SpriteEngineUI\Engine\x64\Debug\SpriteEngine.exe

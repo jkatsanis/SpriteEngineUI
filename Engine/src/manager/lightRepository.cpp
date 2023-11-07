@@ -4,7 +4,7 @@
 
 // Public methods
 
-void s2d::LightRepository::updateSprite(s2d::Sprite* sprite)
+void s2d::LightRepository::updateSprite(s2d::Sprite* sprite, bool call_by_update)
 {
 
 	if (!sprite->light.exist)
@@ -15,23 +15,27 @@ void s2d::LightRepository::updateSprite(s2d::Sprite* sprite)
 	uint32_t idx = sprite->light.getLightIndex();
 	s2d::LightSource& source = s2d::LightRepository::s_m_light_sources[idx];
 
-	if (sprite->transform.position_changed)
+	if (sprite->transform.position_changed || call_by_update)
 	{
-		const float a = (sprite->transform.position.y * -1) + 540;
-		const s2d::Vector2 new_pos = s2d::Vector2(sprite->transform.position.x + 960, a);
+		float zoom = s2d::Camera::zoom - 1;
+
+		const float a = ((sprite->transform.position.y * -1) + 540) + 540 * zoom;
+	    s2d::Vector2 new_pos = s2d::Vector2((sprite->transform.position.x + 960) + 960 * zoom, a);
+
 		source.position = new_pos;
 	}
-	if (sprite->light.hasRadiusChanged())
+	if (sprite->light.hasRadiusChanged() || call_by_update)
 	{
 		sprite->light.setRadiosChangeFlagFalse();
 		source.radius = sprite->light.getRadius();
 	}
-	if (sprite->light.hasIntensityChanged())
+	if (sprite->light.hasIntensityChanged() || call_by_update)
 	{
 		sprite->light.setIntensityChangeFlagFalse();
 		source.light_intensities = sprite->light.getIntensity();
 	}
 
+	s2d::LightRepository::s_update_next = false;
 	s2d::LightRepository::s_m_update = true;
 	s2d::LightRepository::updateArrays();
 }
@@ -47,7 +51,11 @@ void s2d::LightRepository::init()
 
 void s2d::LightRepository::add(const s2d::Vector2& pos, float radius, float intensiti, const s2d::Vector3& color)
 {
-	const s2d::Vector2 new_pos = s2d::Vector2(pos.x + 960, -1 * pos.y + 540);
+	float zoom = s2d::Camera::zoom - 1;
+
+	const float a = ((pos.y * -1) + 540) + 540 * zoom;
+	s2d::Vector2 new_pos = s2d::Vector2((pos.x + 960) + 960 * zoom, a);
+
 	LightRepository::s_m_light_sources[LightRepository::s_m_index] = s2d::LightSource(new_pos, radius, intensiti, color);
 	s2d::LightRepository::s_m_update = true;
 	s2d::LightRepository::updateArrays();
@@ -159,3 +167,4 @@ std::unordered_map<uint32_t, s2d::LightSource> s2d::LightRepository::s_m_light_s
 sf::Shader s2d::LightRepository::s_m_light_shader;
 uint32_t s2d::LightRepository::s_m_index = 0;
 bool s2d::LightRepository::s_m_update = true;
+bool s2d::LightRepository::s_update_next = true;

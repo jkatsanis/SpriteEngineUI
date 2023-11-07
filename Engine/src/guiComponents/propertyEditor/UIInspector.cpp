@@ -348,7 +348,7 @@ void s2d::UIInspector::gameEngineViewSetting()
 		ImGui::SetWindowFontScale(s2d::UIInfo::s_default_font_size);
 		ImGui::SameLine();
 		ImGui::SetCursorPos(ImVec2(x -= 120, y += 45));
-		ImGui::SliderFloat("##Zoom", &this->m_ptr_gui_repo->camera.camera_zoom, 0.1f, 4.0f, "%g");
+		ImGui::SliderFloat("##Zoom", &this->m_cam_zoom, 0.1f, 4.0f, "%g");
 
 		ImGui::Dummy(ImVec2(0, 15));
 		ImGui::Text("Speed");
@@ -356,11 +356,7 @@ void s2d::UIInspector::gameEngineViewSetting()
 		ImGui::SetCursorPos(ImVec2(x, ImGui::GetCursorPosY() - 25));
 		ImGui::InputFloat("##speed-camera", &this->m_ptr_gui_repo->camera.camera_speed, 0, 0, "%g");
 
-		if (this->m_ptr_gui_repo->camera.camera_zoom <= 0)
-		{
-			this->m_ptr_gui_repo->camera.camera_zoom = 0.8f;
-		}
-
+		this->m_ptr_gui_repo->camera.setZoom(this->m_cam_zoom);
 		ImGui::TreePop();
 	}
 }

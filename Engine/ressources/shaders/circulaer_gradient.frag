@@ -22,14 +22,14 @@ void main()
 
     fragmentPosition += adjustedCameraPosition;
 
-
     for(int i = 0; i < lightAmount; i++)
     {
-        vec2 lightPosition = lightPositions[i]; // Adjusted light position
+        vec2 lightPosition = (lightPositions[i] - adjustedCameraPosition) / cameraZoom; // Adjusted light position
         float lightRadius = lightRadii[i] / cameraZoom;
         float lightIntensity = lightIntensities[i];
         vec3 lightColor = lightColors[i];
    
+       lightPosition += adjustedCameraPosition / cameraZoom;
 
         float distanceToLight = length(fragmentPosition - lightPosition);
 

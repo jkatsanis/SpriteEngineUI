@@ -2,6 +2,7 @@
 
 #include <vector>
 #include <physicalComponents/lightSource.h>
+#include <manager/spriteRepository.h>
 #include <SFML/Graphics.hpp>
 #include <unordered_map>
 
@@ -22,7 +23,8 @@ namespace s2d
 	public:
 		LightRepository() = delete;
 
-		static void updateSprite(s2d::Sprite* sprite);
+		static void updateSprite(s2d::Sprite* sprite, bool call_by_update);
+		static bool s_update_next;
 
 		static void init();
 		static void add(const s2d::Vector2& pos, float radius, float intensiti, const s2d::Vector3& color);
