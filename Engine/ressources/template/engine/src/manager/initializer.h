@@ -17,7 +17,7 @@ namespace s2d
 	{
 	private:
 		static void initPrefab(const std::string& path);
-		static void initAnimation(const std::string& path, s2d::SpriteRepository& repo);
+		static void initAnimationRepo(const std::string& path, s2d::SpriteRepository& repo);
 		static void initAnimation(const std::string& path, s2d::Sprite* spr);
 
 	public:

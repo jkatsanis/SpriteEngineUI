@@ -21,6 +21,7 @@ namespace s2d
 
 		PhsysicsBody();
 		PhsysicsBody(s2d::Sprite* ptr_attachedSprite);
+		PhsysicsBody(s2d::Sprite* attached, const s2d::PhsysicsBody& rhs);
 
 		void reset() override;
 

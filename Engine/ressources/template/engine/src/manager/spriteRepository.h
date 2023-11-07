@@ -23,7 +23,6 @@ namespace s2d
         size_t getIndexAtName(const std::string& name) const;
         void addChildsToDelete(std::vector<s2d::Sprite*>& childs, s2d::Sprite* parent);
         void eraseWithId(uint8_t id);
-        void addChildsFromParent(s2d::Sprite* parent, uint32_t highest);
 
     public:
         s2d::Sprite* child_to_parent;

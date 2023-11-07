@@ -38,21 +38,17 @@ void s2d::Transform::init()
 
 // Public functions
 
-void s2d::Transform::setPosition(const s2d::Vector2& positon)
+void s2d::Transform::addPositionX(const float x)
 {
-	if (!this->validatePositionInput(positon))
-	{
-		return;
-	}
-	if (this->m_attached_sprite != nullptr && this->m_attached_sprite->parent != nullptr)
-	{
-		s2d::Vector2 distance = this->m_attached_sprite->parent->transform.getPosition() - positon;
-		if (distance != this->position_to_parent)
-		{
-			this->position_to_parent = distance;
-		}
-	}
-	this->m_position = positon;
+	this->setPosition(s2d::Vector2(this->m_position.x + x, this->m_position.y));
+}
+
+void s2d::Transform::setPosition(const s2d::Vector2& position)
+{
+	s2d::Vector2 new_pos = this->validatePositionInput(position);
+
+	this->updateSpritePositionToParent(new_pos);
+	this->m_position = new_pos;
 }
 
 void s2d::Transform::reset()
@@ -133,12 +129,18 @@ void s2d::Transform::setTextureSize(const s2d::Vector2& scale)
 	this->texture_size = s2d::Vector2(textureRect.width * multiply.x, textureRect.height * multiply.y);
 }
 
-bool s2d::Transform::validatePositionInput(const s2d::Vector2& position)
+s2d::Vector2 s2d::Transform::validatePositionInput(const s2d::Vector2& position)
 {
-	if (this->m_attached_sprite == nullptr || !this->m_attached_sprite->collider.exist)
+	s2d::Vector2 new_position(position);
+
+	if (this->m_attached_sprite == nullptr || !this->m_attached_sprite->collider.exist || !this->m_attached_sprite->collider.collided)
 	{
-		return true;
+		// No collision check
+		return new_position;
 	}
+
+	const float current_y = this->m_attached_sprite->transform.getPosition().y;
+	const float current_x = this->m_attached_sprite->transform.getPosition().x;
 
 	// Down	
 	if (this->m_attached_sprite->collider.down)
@@ -146,7 +148,7 @@ bool s2d::Transform::validatePositionInput(const s2d::Vector2& position)
 		if (position.y < this->m_position.y
 			&& this->m_attached_sprite->physicsBody.velocity.y <= 0)
 		{
-			return false;
+			new_position.y = current_y;
 		}
 	}
 
@@ -156,7 +158,7 @@ bool s2d::Transform::validatePositionInput(const s2d::Vector2& position)
 		if (position.y > this->m_position.y
 			&& this->m_attached_sprite->physicsBody.velocity.y >= 0)
 		{
-			return false;
+			new_position.y = current_y;
 		}
 	}
 
@@ -166,7 +168,7 @@ bool s2d::Transform::validatePositionInput(const s2d::Vector2& position)
 		if (position.x < this->m_position.x
 			&& this->m_attached_sprite->physicsBody.velocity.x <= 0)
 		{
-			return false;
+			new_position.x = current_x;
 		}
 	}
 
@@ -176,13 +178,23 @@ bool s2d::Transform::validatePositionInput(const s2d::Vector2& position)
 		if (position.x > this->m_position.x
 			&& this->m_attached_sprite->physicsBody.velocity.x >= 0)
 		{
-			return false;
+			new_position.x = current_x;
 		}
 	}
-
+	return new_position;
 	//this->m_attached_sprite->collider.resetPositions();
-	
-	return true;
+}
+
+void s2d::Transform::updateSpritePositionToParent(const s2d::Vector2& position)
+{
+	if (this->m_attached_sprite != nullptr && this->m_attached_sprite->parent != nullptr)
+	{
+		s2d::Vector2 distance = this->m_attached_sprite->parent->transform.getPosition() - position;
+		if (distance != this->position_to_parent)
+		{
+			this->position_to_parent = distance;
+		}
+	}
 }
 
 //Public static functions

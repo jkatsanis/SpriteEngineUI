@@ -66,19 +66,19 @@ void s2d::UIRealTimeEditorNavigator::navigateScrollWheel()
 	if (this->m_ptr_event_engine->type == sf::Event::MouseWheelScrolled)
 	{
 		this->m_ptr_event_engine->type = sf::Event::GainedFocus;
-
+		const float zoom = this->m_ptr_gui_repo->camera.getZoom();
 		if (this->m_ptr_event_engine->mouseWheel.x < 0)
 		{
-			if (this->m_ptr_gui_repo->camera.camera_zoom + this->m_scroll_speed < 4)
+			if (zoom + this->m_scroll_speed < 4)
 			{
-				this->m_ptr_gui_repo->camera.camera_zoom += this->m_scroll_speed;
+				this->m_ptr_gui_repo->camera.setZoom(zoom + this->m_scroll_speed);
 			}
 		}
 		else
 		{
-			if (this->m_ptr_gui_repo->camera.camera_zoom - this->m_scroll_speed > 0.04)
+			if (zoom - this->m_scroll_speed > 0.04)
 			{
-				this->m_ptr_gui_repo->camera.camera_zoom -= this->m_scroll_speed;
+				this->m_ptr_gui_repo->camera.setZoom(zoom - this->m_scroll_speed);
 			}
 		}
 	}

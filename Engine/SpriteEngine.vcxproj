@@ -156,7 +156,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\spriteComponents\light.cpp" />
     <ClCompile Include="src\guiComponents\propertyEditor\UIToolButtons.cpp" />
+    <ClCompile Include="src\manager\lightRepository.cpp" />
+    <ClCompile Include="src\physicalComponents\lightSource.cpp" />
     <ClCompile Include="src\manager\fileDialog.cpp" />
     <ClCompile Include="src\spriteComponents\spriteRenderer.cpp" />
     <ClCompile Include="src\manager\guiRepository.cpp" />
@@ -215,7 +218,10 @@
     <ClCompile Include="src\include\stdextension.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\spriteComponents\light.h" />
     <ClInclude Include="src\data\fileDataMacros.h" />
+    <ClInclude Include="src\manager\lightRepository.h" />
+    <ClInclude Include="src\physicalComponents\lightSource.h" />
     <ClInclude Include="src\manager\fileDialog.h" />
     <ClInclude Include="src\spriteComponents\spriteRenderer.h" />
     <ClInclude Include="src\spriteComponents\component.h" />

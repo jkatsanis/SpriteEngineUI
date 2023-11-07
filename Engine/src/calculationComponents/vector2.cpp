@@ -24,6 +24,12 @@ s2d::Vector2::Vector2(const s2d::Vector2& rhs)
 	this->y = rhs.y;
 }
 
+s2d::Vector2::Vector2(const sf::Vector2f& rhs)
+{
+	this->x = rhs.x;
+	this->y = rhs.y;
+}
+
 bool s2d::Vector2::operator==(const Vector2& rhs)
 {
 	return(rhs.x == this->x
@@ -78,6 +84,11 @@ s2d::Vector2 s2d::Vector2::operator*(const s2d::Vector2& rhs)
 ImVec2 s2d::Vector2::toImVec2(const s2d::Vector2& vec)
 {
 	return ImVec2(vec.x, vec.y);
+}
+
+sf::Vector2f s2d::Vector2::toSFVector(const s2d::Vector2& vec)
+{
+	return sf::Vector2f(vec.x, vec.y);
 }
 
 

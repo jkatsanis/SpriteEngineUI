@@ -13,6 +13,7 @@ namespace s2d
 	public:
 		std::string path;
 		int32_t sorting_layer_index;
+		bool effected_by_light;
 
 		SpriteRenderer();
 

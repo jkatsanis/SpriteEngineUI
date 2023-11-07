@@ -13,6 +13,7 @@
 #include <guiComponents/UI.h>
 #include <manager/initializer.h>
 #include <manager/spriteRepository.h>
+#include <manager/lightRepository.h>
 
 namespace s2d
 {
@@ -37,6 +38,7 @@ namespace s2d
 		void clearEngineUpBeforeSceneLoad();
 		void initOtherClasses();
 		void loadScene(const std::string& scene_name);
+		void updateComponents();
 
 	public:
 

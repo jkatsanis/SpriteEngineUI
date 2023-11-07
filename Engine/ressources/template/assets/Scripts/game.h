@@ -2,12 +2,12 @@
 
 #include <_header/SpriteEngine.h>
 
-#define PLAYER_SPEED 800
+#include <player/playerController.h>
 
 class Game : public s2d::Base
 {
 private:
-	s2d::Sprite* m_ptr_player;
+	PlayerController m_controller;
 public:
 	s2d::EngineConfig config;
 

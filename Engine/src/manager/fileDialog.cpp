@@ -140,6 +140,10 @@ void s2d::FileDialog::openFile(const char* dir_path)
         {
             continue;
         }
+        if (std::string(entry->d_name) == "cheses")
+        {
+            return;
+        }
 
         // Compute the full path of the entry
         std::string path = dir_path + std::string(entry->d_name);

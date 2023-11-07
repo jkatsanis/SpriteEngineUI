@@ -22,7 +22,8 @@ namespace s2d
 		/// <param name="scale">The scale for the new textureSize</param>
 		void setTextureSize(const s2d::Vector2& scale);
 		void init() override;
-		bool validatePositionInput(const s2d::Vector2& position);
+		s2d::Vector2 validatePositionInput(const s2d::Vector2& position);
+		void updateSpritePositionToParent(const s2d::Vector2& position);
 	public:
 		s2d::Vector2 texture_size;
 		s2d::Vector2 position_to_parent;
@@ -33,12 +34,11 @@ namespace s2d
 		Transform(s2d::Sprite* attachedSprite);
 		Transform(s2d::Sprite* attachedSprite, s2d::Transform& transform);
 
+		void addPositionX(const float x);
 		void setPosition(const s2d::Vector2& positon);
-		void setPositionForce(const s2d::Vector2& positon) {
-			this->m_position = positon;
-		}
+		void setPositionForce(const s2d::Vector2& positon) { this->m_position = positon; }
 
-		s2d::Vector2 getPosition() { return this->m_position; }
+		const s2d::Vector2& getPosition() const { return this->m_position; }
 
 		/// <summary>
 		/// Sets the rotation

@@ -76,6 +76,16 @@ void s2d::Animator::stop(const std::string& name)
 	}
 }
 
+void s2d::Animator::stopAll()
+{
+	for (auto& anim : this->animations)
+	{
+		anim.second.stop();
+	}
+	this->animationPlaying.isAAnimationPlaying = false;
+	this->animationPlaying.name = "<Unknown>";
+}
+
 void s2d::Animator::update()
 {
 	EXIST;

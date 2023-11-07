@@ -9,7 +9,7 @@ s2d::Renderer::Renderer()
     this->m_timeToUpdateSpriteTexture = 0;
     this->m_timeToUpdateLayerIndex = 0;
     this->m_timePassedToUpdateLayerIndex = 0;
-    this->m_ptr_renderWindow = nullptr;
+    this->m_ptr_render_window = nullptr;
 }
 
 s2d::Renderer::Renderer(sf::RenderWindow* renderWindow)
@@ -17,7 +17,7 @@ s2d::Renderer::Renderer(sf::RenderWindow* renderWindow)
     this->m_ptr_repo = nullptr;
     this->m_last_repo_size = 0;
     this->m_timePassedToUpdateLayerIndex = 0;
-    this->m_ptr_renderWindow = renderWindow;
+    this->m_ptr_render_window = renderWindow;
 
     this->m_timeToUpdateLayerIndex = 2;
     this->m_timeToUpdateSpriteTexture = 1;
@@ -55,7 +55,15 @@ void s2d::Renderer::drawSprites()
             if (sprite->sprite_renderer.sorting_layer_index == i)
             {
                 sprite->transform.updateTransformPosition();
-                this->m_ptr_renderWindow->draw(sprite->getSprite());
+
+                if (sprite->sprite_renderer.effected_by_light)
+                {
+                    this->m_ptr_render_window->draw(sprite->getSprite(), &s2d::LightRepository::getShader());
+                }
+                else
+                {
+                    this->m_ptr_render_window->draw(sprite->getSprite());
+                }
             }
         }
     }
@@ -66,7 +74,7 @@ void s2d::Renderer::drawRectangles()
 {
     for (sf::RectangleShape shape : s2d::GameObject::rects)
     {
-        this->m_ptr_renderWindow->draw(shape);
+        this->m_ptr_render_window->draw(shape);
     }
 }
 
@@ -78,10 +86,10 @@ void s2d::Renderer::render()
         sf::Uint8(this->background_color.y),
         sf::Uint8(this->background_color.z));
 
-    this->m_ptr_renderWindow->clear(backgroundColor);
+    this->m_ptr_render_window->clear(backgroundColor);
     this->draw();
-    ImGui::SFML::Render(*this->m_ptr_renderWindow);
-    this->m_ptr_renderWindow->display();
+    ImGui::SFML::Render(*this->m_ptr_render_window);
+    this->m_ptr_render_window->display();
 
 }
 

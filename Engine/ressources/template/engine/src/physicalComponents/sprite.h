@@ -13,6 +13,7 @@
 #include <manager/spriteRepository.h>
 #include <spriteComponents/spriteRenderer.h>
 #include <spriteComponents/prefab.h>
+#include <spriteComponents/light.h>
 
 #define INVALID_SPRITE_SYMBOLS 1
 
@@ -39,6 +40,7 @@ namespace s2d
 		s2d::Transform transform;
 		s2d::Animator animator;
 		s2d::Prefab prefab;
+		s2d::Light light;
 
 		//Parent / child infos
 		std::vector<s2d::Sprite*> ptr_childs;

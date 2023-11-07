@@ -4,6 +4,8 @@
 
 s2d::GameEngine::GameEngine()
 {
+    s2d::LightRepository::init();
+
     this->m_ui_window.init(this->m_sprite_repository, &this->event, &this->windowEvent, this->m_scene_names);
     this->m_close = false;
     this->ptr_render_window = new sf::RenderWindow(sf::VideoMode(1920, 1080), "SpriteEngine", sf::Style::Default);
@@ -16,7 +18,14 @@ s2d::GameEngine::GameEngine()
 
     this->m_ui_real_time_editor = s2d::UIRealTimeEditor(*ptr_render_window, &this->windowEvent, &this->m_ui_window.ary_any_windows_hovered,
         &this->m_ui_window.getInspector().state, &this->event, this->m_sprite_repository, this->m_ui_window.gui_repository);
-    this->m_ui_window.gui_repository.camera = s2d::Camera(this->ptr_render_window);
+    this->m_ui_window.gui_repository.camera = s2d::Camera(this->ptr_render_window, this->m_sprite_repository);
+
+    sf::Image icon64;
+  
+    if (icon64.loadFromFile("ressources/Icons/icon.png"))
+    {
+        this->ptr_render_window->setIcon(icon64.getSize().x, icon64.getSize().y, icon64.getPixelsPtr());
+    }
 
     //Setting other classes
     s2d::Initializer::initTags(this->m_sprite_repository);
@@ -35,7 +44,7 @@ s2d::GameEngine::GameEngine()
     this->m_sprite_repository.initialied = true;
 
     s2d::flc::cleanUp(this->m_sprite_repository, false);
-
+    // m_sprite_repository.readAt(12)->light.enable();
 }
 
 s2d::GameEngine::~GameEngine()
@@ -51,7 +60,7 @@ void s2d::GameEngine::initOtherClasses()
     s2d::Initializer::initAnimations(this->m_sprite_repository);
     s2d::Initializer::initBackground(this->m_ui_window.gui_repository.background_color);
     s2d::Initializer::initIds(this->m_sprite_repository.highest_sprite_id);
-    s2d::Initializer::initCamera(this->m_ui_window.gui_repository);
+   //  s2d::Initializer::initCamera(this->m_ui_window.gui_repository);
 }
 
 //private functions
@@ -204,6 +213,18 @@ void s2d::GameEngine::loadScene(const std::string& scene_name)
     this->initOtherClasses();
 }
 
+void s2d::GameEngine::updateComponents()
+{
+    for (int i = 0; i < this->m_sprite_repository.amount(); i++)
+    {
+        s2d::Sprite* const sprite = this->m_sprite_repository.readAt(i);
+        sprite->animator.update();
+        s2d::LightRepository::updateLightSource(sprite, s2d::LightRepository::s_update_next, &this->m_ui_window.gui_repository.camera);
+    }
+    s2d::LightRepository::updateArrays();
+    s2d::LightRepository::s_update_next = false;
+}
+
 void s2d::GameEngine::clearEngineUpBeforeSceneLoad()
 {
     this->m_sprite_repository.cleanUp();
@@ -230,7 +251,7 @@ void s2d::GameEngine::update()
     this->saveDialoge();
     ImGui::PopFont();
 
-    s2d::Animation::updateAllAnimations(this->m_sprite_repository);
+    this->updateComponents();
 
     // Engine event
     this->pollEngineEvents();

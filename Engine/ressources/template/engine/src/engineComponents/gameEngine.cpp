@@ -122,6 +122,25 @@ void s2d::GameEngine::loadScene(const std::string& scene_name)
 	this->initOtherClasses();
 }
 
+void s2d::GameEngine::updateComponents()
+{
+	for (int i = 0; i < this->m_sprite_repository.amount(); i++)
+	{
+
+#ifdef COLLISION
+		s2d::BoxCollider::checkCollisions(this->m_sprite_repository);
+#endif
+
+#ifdef ANIMATION
+		s2d::Sprite* const sprite = this->m_sprite_repository.readAt(i);
+		sprite->animator.update();
+#endif
+		s2d::LightRepository::updateLightSource(sprite, s2d::LightRepository::s_update_next, &s2d::GameObject::camera);
+	}
+	s2d::LightRepository::updateArrays();
+	s2d::LightRepository::s_update_next = false;
+}
+
 // Public functions
 
 void s2d::GameEngine::update()
@@ -135,7 +154,7 @@ void s2d::GameEngine::update()
 	this->pollEvents();
 
 	// Loading everything for 1s
-	if (s2d::Time::timePassed > 2.5f)
+	if (s2d::Time::timePassed > 1.0f)
 	{
 #ifdef PHYSICS
 		s2d::Physics::update(this->m_sprite_repository);
@@ -143,13 +162,7 @@ void s2d::GameEngine::update()
 		this->updateWindowStyle();
 		this->updateUserScriptsAndGUI();
 
-#ifdef COLLISION
-		s2d::BoxCollider::checkCollisions(this->m_sprite_repository);
-#endif
-
-#ifdef ANIMATION
-		s2d::Animation::updateAllAnimations(this->m_sprite_repository);
-#endif
+		this->updateComponents();
 
 #ifdef CAMERA
 		s2d::GameObject::camera.update();
@@ -172,6 +185,8 @@ void s2d::GameEngine::update()
 void s2d::GameEngine::start()
 {	
 	//Engine 
+	s2d::LightRepository::init();
+
 	this->windowEvent.type = sf::Event::GainedFocus;
 	this->ptr_render_window = new sf::RenderWindow(sf::VideoMode(1920, 1080), s2d::GameData::name, sf::Style::Default);
 
@@ -198,6 +213,7 @@ void s2d::GameEngine::start()
 
 	// user code
 	this->m_game.start();
+
 }
 
 void s2d::GameEngine::initOtherClasses()

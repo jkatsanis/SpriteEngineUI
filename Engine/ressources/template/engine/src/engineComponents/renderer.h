@@ -19,7 +19,7 @@ namespace s2d
 		uint8_t  m_timeToUpdateLayerIndex;
 		uint8_t m_timeToUpdateSpriteTexture;
 		size_t m_last_repo_size;
-		sf::RenderWindow* m_ptr_renderWindow;
+		sf::RenderWindow* m_ptr_render_window;
 
 		void draw();
 

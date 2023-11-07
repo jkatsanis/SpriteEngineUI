@@ -44,7 +44,7 @@ void s2d::flc::createSaveFile(const s2d::SpriteRepository& spriteRepo)
 
 	if (spriteFile.is_open()) 
 	{
-		spriteFile << "name;vecpos;transformPosX;transformPosY;ScaleX;ScaleY;rotation;filepath;boxColliderWidthLeftOrRightX;boxColliderWidthLeftOrRighY;boxColliderHeightUpOrDownX;boxColliderHeightUpOrDownY;boxColliderExists;solid;sortingLayer;gravity;mass;physicsBodyExists;id;parentId;nextPosX;nextPosY;lastPosX;lastPosY;listPos;highestChild;positionToParentX;positionToParentY;animatorExists;prefabExist;loadInMemory;pathToPrefab" << "\n";
+		spriteFile << "name;vecpos;transformPosX;transformPosY;ScaleX;ScaleY;rotation;filepath;boxColliderWidthLeftOrRightX;boxColliderWidthLeftOrRighY;boxColliderHeightUpOrDownX;boxColliderHeightUpOrDownY;boxColliderExists;solid;sortingLayer;gravity;mass;physicsBodyExists;id;parentId;nextPosX;nextPosY;lastPosX;lastPosY;listPos;highestChild;positionToParentX;positionToParentY;animatorExists;prefabExist;loadInMemory;pathToPrefab;tag;lightExist;lightRadius;lightIntensity" << "\n";
 		for (int i = 0; i < spriteRepo.amount(); i++)
 		{
 			const s2d::Sprite* const sprite = spriteRepo.readAt(i, true);
@@ -99,6 +99,11 @@ std::string s2d::flc::getPropertyLineWithSeperator(const Sprite* const sprite)
 	const std::string rotation = std::to_string(sprite->transform.getRotation());
 	const std::string tag = sprite->tag;
 
+	const std::string lightExist = std::boolToStr(sprite->light.exist);
+	const std::string light_radiues = std::to_string(sprite->light.getRadius());
+	const std::string light_intensy = std::to_string(sprite->light.getIntensity());
+	const std::string effected_by_light = std::boolToStr(sprite->sprite_renderer.effected_by_light);
+
 	//Name, vec, transform path, rotation
 	line = sprite->name + ";" + "0" + ";" + transformPosX + ";" + transformPosY + ";" + scaleX + ";" + scaleY + ";" + spritePath + ";" + rotation;
 
@@ -133,7 +138,11 @@ std::string s2d::flc::getPropertyLineWithSeperator(const Sprite* const sprite)
 
 	// General
 	line += ";" + tag;
+
+	line += ";" + lightExist + ";" + light_radiues + ";" + light_intensy;
  	
+	line += ";" + effected_by_light;
+
 	return line;
 }
 
@@ -168,7 +177,7 @@ void s2d::flc::createCameraSaveFile(const s2d::Camera& camera)
 
 		std::string line = std::to_string(camera.transform.position.x) + ";" +
 			std::to_string(camera.transform.position.y) + ";" +
-			std::to_string(camera.camera_zoom) + ";" + 
+			std::to_string(camera.getZoom()) + ";" + 
 			std::to_string(camera.camera_speed);
 
 		backgroundFile << line << "\n";

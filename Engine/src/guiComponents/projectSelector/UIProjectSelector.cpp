@@ -4,14 +4,22 @@
 
 s2d::UIProjectSelector::UIProjectSelector()
 {
-    this->m_ptr_toRenderWindow = new sf::RenderWindow(sf::VideoMode(960, 540), "SpriteEngine", sf::Style::Titlebar | sf::Style::Close);
+    this->m_ptr_render_window = new sf::RenderWindow(sf::VideoMode(960, 540), "SpriteEngine", sf::Style::Titlebar | sf::Style::Close);
 	this->m_renderWindowEvents.type = sf::Event::GainedFocus;
 	this->m_userLocation = s2d::UIProjectSelectorLocation::Projects;
 	this->m_projectSection = s2d::UIProjectSelectorProjectSection(&this->m_userLocation);
 
-	ImGui::SFML::Init(*this->m_ptr_toRenderWindow);
+	ImGui::SFML::Init(*this->m_ptr_render_window);
 	ImGuiIO& io = ImGui::GetIO();
 	s2d::FontManager::InitFonts(io);
+
+
+	sf::Image icon64;
+
+	if (icon64.loadFromFile("ressources/Icons/icon.png"))
+	{
+		this->m_ptr_render_window->setIcon(icon64.getSize().x, icon64.getSize().y, icon64.getPixelsPtr());
+	}
 
 	// When the project selector gets constructed the not known projects will automaticly get deletet from the file
 	s2d::flc::removeInvalidPathsFromFile();
@@ -20,23 +28,23 @@ s2d::UIProjectSelector::UIProjectSelector()
 s2d::UIProjectSelector::~UIProjectSelector()
 {
 	s2d::Time::reset();
-	delete this->m_ptr_toRenderWindow;
+	delete this->m_ptr_render_window;
 }
 
 // Private functions
 
 void s2d::UIProjectSelector::pollEvents()
 {
-	while (this->m_ptr_toRenderWindow->pollEvent(this->m_renderWindowEvents))
+	while (this->m_ptr_render_window->pollEvent(this->m_renderWindowEvents))
 	{
 		ImGui::SFML::ProcessEvent(this->m_renderWindowEvents);
 
 		if (this->m_renderWindowEvents.type == sf::Event::Closed)
 		{
-			this->m_ptr_toRenderWindow->close();
+			this->m_ptr_render_window->close();
 		}
 	}
-	ImGui::SFML::Update(*this->m_ptr_toRenderWindow, s2d::Time::s_delta_clock.restart());
+	ImGui::SFML::Update(*this->m_ptr_render_window, s2d::Time::s_delta_clock.restart());
 }
 
 void s2d::UIProjectSelector::render()
@@ -109,7 +117,7 @@ void s2d::UIProjectSelector::update()
 {
 	if (s2d::EngineData::s_path_to_user_project != "")
 	{
-		this->m_ptr_toRenderWindow->close();
+		this->m_ptr_render_window->close();
 	}
 
 	this->pollEvents();
@@ -125,9 +133,9 @@ void s2d::UIProjectSelector::update()
     ImGui::PopFont();
 	ImGui::PopStyleColor();
 
-	this->m_ptr_toRenderWindow->clear();
-	ImGui::SFML::Render(*this->m_ptr_toRenderWindow);
-	this->m_ptr_toRenderWindow->display();
+	this->m_ptr_render_window->clear();
+	ImGui::SFML::Render(*this->m_ptr_render_window);
+	this->m_ptr_render_window->display();
 
 	s2d::Time::update();
 }

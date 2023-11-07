@@ -152,7 +152,7 @@ void s2d::Initializer::initCamera(s2d::GUIRepository& repo)
 			//INITIIALIZING PROPS
 			repo.camera.transform.position.x = std::stof(propertys[0].c_str());
 			repo.camera.transform.position.y = std::stof(propertys[1].c_str());
-			repo.camera.camera_zoom = std::stof(propertys[2].c_str());
+			repo.camera.setZoom(std::stof(propertys[2].c_str()));
 			repo.camera.camera_speed = std::stof(propertys[3].c_str());
 		}
 		cameraFile.close();
@@ -196,6 +196,7 @@ void s2d::Initializer::initSprite(const std::string& line, s2d::Sprite* sprite)
 	sprite->collider = BoxCollider(sprite);
 	sprite->animator = s2d::Animator(sprite);
 	sprite->prefab = s2d::Prefab(sprite);
+	sprite->light = s2d::Light(sprite);	// TODO INIT PROPS FROM LIGHT
 
 	sprite->name = propertys[0];
 	sprite->transform.position.x = std::stof(propertys[2].c_str());
@@ -260,9 +261,20 @@ void s2d::Initializer::initSprite(const std::string& line, s2d::Sprite* sprite)
 		sprite->prefab.file_name = std::getFileOnPath(sprite->prefab.engine_path_to_file);
 	#pragma endregion
 
-#pragma region General
+	#pragma region General
 		sprite->tag = propertys[32];
-#pragma endregion
+	#pragma endregion
+
+	#pragma region Light
+		sprite->light.setRadius(std::stof(propertys[34]));
+		sprite->light.setIntensity(std::stof(propertys[35]));
+		if (propertys[33] == "True")
+		{
+			sprite->light.enable();
+		}
+
+		sprite->sprite_renderer.effected_by_light = propertys[36] == "True";
+	#pragma endregion
 
 		sprite->postDefaultInitialization();
 }

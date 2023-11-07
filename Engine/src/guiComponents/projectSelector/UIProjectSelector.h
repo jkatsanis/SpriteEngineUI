@@ -18,7 +18,7 @@ namespace s2d
 	class UIProjectSelector
 	{
 	private:
-		sf::RenderWindow* m_ptr_toRenderWindow;
+		sf::RenderWindow* m_ptr_render_window;
 		sf::Event m_renderWindowEvents;
 
 		ImVec2 m_createWindowSize;
@@ -45,7 +45,7 @@ namespace s2d
 		void update();
 
 	public:
-		bool isOpen() { return this->m_ptr_toRenderWindow->isOpen(); }
+		bool isOpen() { return this->m_ptr_render_window->isOpen(); }
 	};
 }
 

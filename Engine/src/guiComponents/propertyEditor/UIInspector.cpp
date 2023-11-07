@@ -34,7 +34,7 @@ void s2d::UIInspector::afterInit()
 	this->m_components.push_back("BoxCollider");
 	this->m_components.push_back("PhysicsBody");
 	this->m_components.push_back("Animator");
-	this->m_components.push_back("Prefab");
+	this->m_components.push_back("Light Source");
 
 	this->m_tag_selector.setSpriteRepo(this->m_ptr_sprite_repo);
 }
@@ -102,6 +102,9 @@ void s2d::UIInspector::renderComponentOptions(s2d::Component& component, const s
 		ImGui::OpenPopup(button_name.c_str());
 		this->m_pop_up_cursor_pos = ImVec2(s2d::UI::s_gui_cursor.position.x - 150, s2d::UI::s_gui_cursor.position.y + 20);
 	}
+
+	ImGui::SetWindowFontScale(s2d::UIInfo::s_default_font_size + 0.2f);
+
 	ImGui::SetNextWindowPos(this->m_pop_up_cursor_pos);
 	if (ImGui::BeginPopup(button_name.c_str()))
 	{
@@ -114,6 +117,11 @@ void s2d::UIInspector::renderComponentOptions(s2d::Component& component, const s
 		{
 			if (s2d::FontManager::displaySymbolInMenuItemWithText(ICON_FA_TRASH, "Delete"))
 			{
+				s2d::Light* childPtr = dynamic_cast<Light*>(&component);
+				if (childPtr) {
+					childPtr->deleteLight();
+				}
+
 				component.reset();
 				component.exist = false;
 			}
@@ -123,6 +131,8 @@ void s2d::UIInspector::renderComponentOptions(s2d::Component& component, const s
 	
 	ImGui::PopStyleVar();
 	ImGui::SetCursorPos(temp_pos);
+
+	ImGui::SetWindowFontScale(s2d::UIInfo::s_default_font_size);
 }
 
 void s2d::UIInspector::editDupeName()
@@ -277,6 +287,39 @@ void s2d::UIInspector::backgroundSetting()
 void s2d::UIInspector::gameEngineViewSetting()
 {
 	this->renderBackgroundBehindComponent();
+
+	const std::string button_name = std::string(ICON_FA_COG) + "##" + "camera-comp";
+	const ImVec2 temp_pos = ImGui::GetCursorPos();
+	ImGui::SetCursorPosY(ImGui::GetCursorPosY());
+	ImGui::SetCursorPosX(ImGui::GetCursorPosX() + ImGui::GetContentRegionAvail().x - 40);
+
+	ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(5, 2));
+	if (s2d::FontManager::displaySmybolAsButton(button_name.c_str()))
+	{
+		ImGui::OpenPopup(button_name.c_str());
+		this->m_pop_up_cursor_pos = ImVec2(s2d::UI::s_gui_cursor.position.x - 150, s2d::UI::s_gui_cursor.position.y + 20);
+	}
+
+	ImGui::SetWindowFontScale(s2d::UIInfo::s_default_font_size + 0.2f);
+
+	ImGui::SetNextWindowPos(this->m_pop_up_cursor_pos);
+	if (ImGui::BeginPopup(button_name.c_str()))
+	{
+		if (s2d::FontManager::displaySymbolInMenuItemWithText(ICON_FA_RETWEET, "Reset"))
+		{
+			this->m_ptr_gui_repo->camera.reset();
+		}
+		
+		ImGui::EndPopup();
+	}
+
+	ImGui::PopStyleVar();
+	ImGui::SetCursorPos(temp_pos);
+
+	ImGui::SetWindowFontScale(s2d::UIInfo::s_default_font_size);
+
+
+
 	if (ImGui::TreeNode("Camera"))
 	{
 		float x = ImGui::GetCursorPosX();
@@ -305,7 +348,7 @@ void s2d::UIInspector::gameEngineViewSetting()
 		ImGui::SetWindowFontScale(s2d::UIInfo::s_default_font_size);
 		ImGui::SameLine();
 		ImGui::SetCursorPos(ImVec2(x -= 120, y += 45));
-		ImGui::SliderFloat("##Zoom", &this->m_ptr_gui_repo->camera.camera_zoom, 0.1f, 4.0f, "%g");
+		ImGui::SliderFloat("##Zoom", &this->m_cam_zoom, 0.1f, 4.0f, "%g");
 
 		ImGui::Dummy(ImVec2(0, 15));
 		ImGui::Text("Speed");
@@ -313,11 +356,7 @@ void s2d::UIInspector::gameEngineViewSetting()
 		ImGui::SetCursorPos(ImVec2(x, ImGui::GetCursorPosY() - 25));
 		ImGui::InputFloat("##speed-camera", &this->m_ptr_gui_repo->camera.camera_speed, 0, 0, "%g");
 
-		if (this->m_ptr_gui_repo->camera.camera_zoom <= 0)
-		{
-			this->m_ptr_gui_repo->camera.camera_zoom = 0.8f;
-		}
-
+		this->m_ptr_gui_repo->camera.setZoom(this->m_cam_zoom);
 		ImGui::TreePop();
 	}
 }
@@ -344,6 +383,11 @@ void s2d::UIInspector::setCompontents()
 	if (this->m_current_component_selected == "Prefab")
 	{
 		this->m_ptr_sprite_repo->sprite_in_inspector->prefab.exist = true;
+		this->m_current_component_selected = " ";
+	}
+	if (this->m_current_component_selected == "Light Source")
+	{
+		this->m_ptr_sprite_repo->sprite_in_inspector->light.enable();
 		this->m_current_component_selected = " ";
 	}
 }
@@ -389,17 +433,14 @@ void s2d::UIInspector::componentSelector()
 void s2d::UIInspector::setupComponents()
 {
 	ImGui::Dummy(ImVec2(0, 15));
-	if (this->m_search_component_filter.PassFilter("Transform"))
-	{
-		this->transformComponent();
-		DUMMY_COMPONENT;
-	}
-	if (this->m_search_component_filter.PassFilter("Sprite Renderer"))
-	{
-		this->spriteRendererComponent();
-		DUMMY_COMPONENT;
-	}
+	// Base Components
+	this->transformComponent();
+	DUMMY_COMPONENT;
 
+
+	this->spriteRendererComponent();
+	DUMMY_COMPONENT;
+	
 	//Collider
 	if (this->m_ptr_sprite_repo->sprite_in_inspector->collider.exist)
 	{
@@ -413,26 +454,29 @@ void s2d::UIInspector::setupComponents()
 	}
 
 	//PhysicsBody
-	if (this->m_ptr_sprite_repo->sprite_in_inspector->physicsBody.exist
-		&& this->m_search_component_filter.PassFilter(this->m_components[1]))
+	if (this->m_ptr_sprite_repo->sprite_in_inspector->physicsBody.exist)
 	{
 		this->physicsBodyComponent();
 		DUMMY_COMPONENT;
 	}
 
 	//Animator
-	if (this->m_ptr_sprite_repo->sprite_in_inspector->animator.exist
-		&& this->m_search_component_filter.PassFilter(this->m_components[2]))
+	if (this->m_ptr_sprite_repo->sprite_in_inspector->animator.exist)
 	{
 		this->animatorComponent();
 		DUMMY_COMPONENT;
 	}
 
 	// Prefab
-	if (this->m_ptr_sprite_repo->sprite_in_inspector->prefab.exist
-		&& this->m_search_component_filter.PassFilter(this->m_components[3]))
+	if (this->m_ptr_sprite_repo->sprite_in_inspector->prefab.exist)
 	{
 		this->prefabComponent();
+	}
+
+	// Light Source
+	if (this->m_ptr_sprite_repo->sprite_in_inspector->light.exist)
+	{
+		this->lightComponent();
 	}
 
 	this->componentSelector();
@@ -548,6 +592,11 @@ void s2d::UIInspector::spriteRendererComponent()
 		}
 		this->m_ptr_sprite_repo->sprite_in_inspector->sprite_renderer.sorting_layer_index = layerIndex;
 
+		ImGui::Dummy(ImVec2(0, 2));
+		ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 18);
+		ImGui::Text("Effected by light");
+		s2d::UI::sameLine(0);
+		ImGui::Checkbox("##light-checkbox", &this->m_ptr_sprite_repo->sprite_in_inspector->sprite_renderer.effected_by_light);
 		ImGui::Dummy(ImVec2(0, 7));
 		ImGui::TreePop();
 	}
@@ -601,7 +650,6 @@ void s2d::UIInspector::physicsBodyComponent()
 
 		ImGui::Text("Gravity");
 		ImGui::PushItemWidth(55);
-		ImGui::SetWindowFontScale(s2d::UIInfo::s_default_font_size - 0.2f);
 		ImGui::SetCursorPos(ImVec2(x += 125, y -= 6.0f));
 		ImGui::InputFloat("##gravity", &this->m_ptr_sprite_repo->sprite_in_inspector->physicsBody.gravity, 0, 0, "%g");
 		ImGui::SetWindowFontScale(s2d::UIInfo::s_default_font_size);
@@ -612,11 +660,9 @@ void s2d::UIInspector::physicsBodyComponent()
 		ImGui::SetCursorPosX(x - 122);
 		ImGui::Text("Mass");
 		ImGui::PushItemWidth(55);
-		ImGui::SetWindowFontScale(s2d::UIInfo::s_default_font_size - 0.2f);
 		ImGui::SetCursorPos(ImVec2(x, y += 45.0f));
 		ImGui::InputFloat("##mass", &this->m_ptr_sprite_repo->sprite_in_inspector->physicsBody.mass, 0, 0, "%g");
 		ImGui::PopItemWidth();
-		ImGui::SetWindowFontScale(s2d::UIInfo::s_default_font_size);
 
 		ImGui::TreePop();
 	}	
@@ -676,6 +722,43 @@ void s2d::UIInspector::prefabComponent()
 		ImGui::Checkbox("##LoadInMemory", &this->m_ptr_sprite_repo->sprite_in_inspector->prefab.load_in_memory);
 		ImGui::TreePop();
 	}	
+}
+
+void s2d::UIInspector::lightComponent()
+{
+	this->m_light_radius = this->m_ptr_sprite_repo->sprite_in_inspector->light.getRadius();
+	this->m_light_intensity = this->m_ptr_sprite_repo->sprite_in_inspector->light.getIntensity();
+
+
+	this->renderBackgroundBehindComponent();
+	this->renderComponentOptions(this->m_ptr_sprite_repo->sprite_in_inspector->light, "Light Source");
+	if (ImGui::TreeNode("Light Source"))
+	{
+		float y = ImGui::GetCursorPos().y;
+		float x = ImGui::GetCursorPos().x;
+
+		ImGui::SetCursorPos(ImVec2(x += 8.0f, y += 10));
+
+		ImGui::SetCursorPosX(x += 5);
+		ImGui::Text("Radius: ");
+		s2d::UI::sameLine(0);
+		ImGui::SetNextItemWidth(50);
+		ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 47);
+		ImGui::InputFloat("##light-radius", &this->m_light_radius, 0, 0, "%g");
+
+		this->m_ptr_sprite_repo->sprite_in_inspector->light.setRadius(this->m_light_radius);
+
+		ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 14.5f);
+		ImGui::Text("Intensity: ");
+		s2d::UI::sameLine(0);
+		ImGui::SetNextItemWidth(50);
+		ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 38);
+		ImGui::InputFloat("##light-intensity", &this->m_light_intensity, 0, 0, "%g");
+
+		this->m_ptr_sprite_repo->sprite_in_inspector->light.setIntensity(this->m_light_intensity);
+
+		ImGui::TreePop();
+	}
 }
 
 #pragma endregion

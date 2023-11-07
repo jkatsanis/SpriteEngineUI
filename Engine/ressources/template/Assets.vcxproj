@@ -188,6 +188,9 @@
     <ClCompile Include="engine\src\spriteComponents\spriteRenderer.cpp" />
     <ClCompile Include="engine\src\manager\prefabRepository.cpp" />
     <ClCompile Include="engine\src\spriteComponents\prefab.cpp" />
+    <ClCompile Include="engine\src\manager\lightRepository.cpp" />
+    <ClCompile Include="engine\src\physicalComponents\lightSource.cpp" />
+    <ClCompile Include="engine\src\spriteComponents\light.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="assets\Scripts\features.h" />
@@ -233,6 +236,9 @@
     <ClInclude Include="engine\src\data\fileDataMacros.h" />
     <ClInclude Include="engine\src\manager\prefabRepository.h" />
     <ClInclude Include="engine\src\spriteComponents\prefab.h" />
+    <ClInclude Include="engine\src\manager\lightRepository.h" />
+    <ClInclude Include="engine\src\physicalComponents\lightSource.h" />
+    <ClInclude Include="engine\src\spriteComponents\light.h" />
     <ClInclude Include="src\libraries\include\SFML\Audio.hpp" />
     <ClInclude Include="src\libraries\include\SFML\Audio\AlResource.hpp" />
     <ClInclude Include="src\libraries\include\SFML\Audio\Export.hpp" />
