@@ -21,6 +21,7 @@ s2d::UIToolButtons::~UIToolButtons()
 
 void s2d::UIToolButtons::init()
 {
+	this->m_display_engine_info = true;
 	this->m_switch_scene_name = "";
 	this->m_new_scene_name[0] = '\0';
 	this->m_add_scene_mode = false;
@@ -86,6 +87,7 @@ void s2d::UIToolButtons::renderMainMenuBar()
 		this->renderWindowSelecter();
 		this->renderToolSelector();
 		this->renderSceneSelector();
+		this->displayEngineInfo();
 
 		ImGui::SetWindowFontScale(s2d::UIInfo::s_default_font_size);
 		ImGui::EndMainMenuBar();
@@ -156,11 +158,6 @@ void s2d::UIToolButtons::renderSceneSelector()
 
 		ImGui::EndMenu();
 	}
-	const std::string scene_text = "Currently editing: " + s2d::EngineData::s_scene;
-	ImGui::SetCursorPosX(1880 - ImGui::CalcTextSize(scene_text.c_str()).x);
-	ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(0.5f, 0.5f, 0.5f, 1.0f));
-	ImGui::Text(scene_text.c_str());
-	ImGui::PopStyleColor();
 
 	this->switchScene(this->m_switch_scene_name);
 	this->renderSceneAddPopup();
@@ -279,6 +276,25 @@ void s2d::UIToolButtons::switchScene(const std::string& scene)
 	}
 }
 
+void s2d::UIToolButtons::displayEngineInfo()
+{
+	if (!this->m_display_engine_info)
+	{
+		return;
+	}
+
+	const std::string scene_text = "Editing: " + s2d::EngineData::s_scene;
+	ImGui::SetCursorPosX(1880 - ImGui::CalcTextSize(scene_text.c_str()).x);
+	ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(0.5f, 0.5f, 0.5f, 1.0f));
+	ImGui::Text(scene_text.c_str());
+
+	const std::string info_text = "FPS: " + std::to_string(s2d::Time::s_fps);
+	ImGui::SetCursorPosX(1650 - ImGui::CalcTextSize(info_text.c_str()).x);
+	ImGui::Text(info_text.c_str());
+
+	ImGui::PopStyleColor();
+}
+
 void s2d::UIToolButtons::buildProjectIntoFolder()
 {
 	if (ImGui::BeginMenu("File"))
@@ -315,6 +331,10 @@ void s2d::UIToolButtons::renderWindowSelecter()
 		if (ImGui::MenuItem("Content Browser"))
 		{
 			s2d::UIInfo::s_is_asset_folder_open.setOpen();
+		}
+		if (ImGui::MenuItem("Engine info"))
+		{
+			this->m_display_engine_info = !this->m_display_engine_info;
 		}
 		ImGui::EndMenu();
 	}

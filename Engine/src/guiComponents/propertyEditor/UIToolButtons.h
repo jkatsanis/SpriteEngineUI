@@ -36,6 +36,7 @@ namespace s2d
 		
 		char m_new_scene_name[150];
 
+		bool m_display_engine_info;
 		bool m_add_scene_mode;
 		bool m_clicked_on_btn;
 		bool m_update_event_to_set;
@@ -56,6 +57,7 @@ namespace s2d
 		void removeScene(const std::string& scene);
 		void renderSceneAddPopup(); 
 		void switchScene(const std::string& scene);
+		void displayEngineInfo();
 
 	public:
 		bool is_hovered;
