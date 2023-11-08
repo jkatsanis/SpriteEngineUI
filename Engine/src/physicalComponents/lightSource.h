@@ -9,12 +9,12 @@ namespace s2d
 	{
 	public:
 		LightSource();
-		LightSource(const s2d::Vector2& pos, float radius, float intensiti, const s2d::Vector3& color);
+		LightSource(const s2d::Vector2& pos, float radius, float intensiti, const sf::Vector3f& color);
 
 		s2d::Vector2 position;
 		float radius;
 		float light_intensities;
-		s2d::Vector3 color;
+		sf::Vector3f color;
 	};
 }
 

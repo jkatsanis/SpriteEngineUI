@@ -6,7 +6,7 @@
 void s2d::Light::init()
 {
 	this->m_intensity = 200;
-	this->color = s2d::Vector3(1, 1, 1);
+	this->m_color = sf::Vector3f(1, 1, 1);
 	this->m_radius = DEFAULT_LIGHT_RADIUS;
 	this->exist = false;
 	this->base_component = false;
@@ -40,13 +40,24 @@ void s2d::Light::enable()
 	}
 	this->m_light_index = s2d::LightRepository::getIndex();
 	this->exist = true;
-	s2d::LightRepository::add(this->ptr_attached_sprite->transform.position, this->m_radius, this->m_intensity, this->color);
+	s2d::LightRepository::add(this->ptr_attached_sprite->transform.position, this->m_radius, this->m_intensity, this->m_color);
 }
 
 void s2d::Light::reset()
 {
 	this->m_radius = DEFAULT_LIGHT_RADIUS;
 }
+
+void s2d::Light::setColor(const sf::Vector3f& color)
+{
+	if (this->m_color == color)
+	{
+		return;
+	}
+	this->m_color = color;
+	this->m_color_changed = true;
+}
+
 
 void s2d::Light::setIntensity(float intense)
 {

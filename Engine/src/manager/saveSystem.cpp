@@ -104,6 +104,10 @@ std::string s2d::flc::getPropertyLineWithSeperator(const Sprite* const sprite)
 	const std::string light_intensy = std::to_string(sprite->light.getIntensity());
 	const std::string effected_by_light = std::boolToStr(sprite->sprite_renderer.effected_by_light);
 
+	const std::string light_color_r = std::to_string(sprite->light.getColor().x);
+	const std::string light_color_g = std::to_string(sprite->light.getColor().y);
+	const std::string light_color_b = std::to_string(sprite->light.getColor().z);
+
 	//Name, vec, transform path, rotation
 	line = sprite->name + ";" + "0" + ";" + transformPosX + ";" + transformPosY + ";" + scaleX + ";" + scaleY + ";" + spritePath + ";" + rotation;
 
@@ -139,9 +143,13 @@ std::string s2d::flc::getPropertyLineWithSeperator(const Sprite* const sprite)
 	// General
 	line += ";" + tag;
 
+	// Light
+
 	line += ";" + lightExist + ";" + light_radiues + ";" + light_intensy;
  	
 	line += ";" + effected_by_light;
+
+	line += ";" + light_color_r + ";" + light_color_g + ";" + light_color_b;
 
 	return line;
 }

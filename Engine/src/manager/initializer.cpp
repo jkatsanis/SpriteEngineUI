@@ -274,6 +274,14 @@ void s2d::Initializer::initSprite(const std::string& line, s2d::Sprite* sprite)
 		}
 
 		sprite->sprite_renderer.effected_by_light = propertys[36] == "True";
+
+		sf::Vector3f color;
+
+		color.x = std::stof(propertys[37]);
+		color.y = std::stof(propertys[38]);
+		color.z = std::stof(propertys[39]);
+
+		sprite->light.setColor(color);
 	#pragma endregion
 
 		sprite->postDefaultInitialization();

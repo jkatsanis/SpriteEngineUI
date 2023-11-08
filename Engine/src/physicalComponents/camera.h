@@ -14,7 +14,7 @@ namespace s2d
 		sf::RenderWindow* ptr_renderWindow_to_engine;
 		float m_camera_zoom;
 		s2d::SpriteRepository* m_ptr_sprite_repo;
-
+		bool m_zoom_changed;
 		s2d::Vector2 getDefaultPosition();
 
 	public:
@@ -25,7 +25,10 @@ namespace s2d
 		Camera();
 		Camera(sf::RenderWindow* ptr, s2d::SpriteRepository& repository);
 
-		float getZoom() const { return this->m_camera_zoom; } 
+		bool hasZoomChanged() const { return this->m_zoom_changed; }
+		void setZoomFlag() { this->m_zoom_changed = false; }
+
+		float getZoom() const { return this->m_camera_zoom; }
 		void setZoom(float zoom);
 		void reset();
 		void update();
