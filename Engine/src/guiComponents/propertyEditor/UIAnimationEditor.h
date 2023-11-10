@@ -26,6 +26,10 @@ namespace s2d
 		const float SMALL_INCREMENT = 0.5f;
 		const float LARGE_INCREMENT = 2;
 
+		char m_keyFramePathDataHolder[100];
+		int m_key_frame_pos;
+		std::string m_key_frame_path;
+
 		sf::Event* m_ptr_event_engine;
 		float m_cursor_space;
 		int m_keyFramesToEdit;

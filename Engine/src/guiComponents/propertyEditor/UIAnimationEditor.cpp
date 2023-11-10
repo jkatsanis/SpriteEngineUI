@@ -157,6 +157,7 @@ void s2d::UIAnimationEditor::displayKeyFrameInfo()
 	ImGui::SameLine();
 	s2d::FontManager::displaySmybolAsText(ICON_FA_TRASH);
 
+
 	ImGui::SetCursorPos(pos);
 }
 
