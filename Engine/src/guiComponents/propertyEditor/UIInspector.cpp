@@ -757,6 +757,14 @@ void s2d::UIInspector::lightComponent()
 
 		this->m_ptr_sprite_repo->sprite_in_inspector->light.setIntensity(this->m_light_intensity);
 
+		
+		ImGui::Text("Color: ");
+		const sf::Vector3f& clr = this->m_ptr_sprite_repo->sprite_in_inspector->light.getColor();
+		ImVec4 clear_color = ImVec4(clr.x, clr.y, clr.z, 1.0f);
+		ImGui::ColorEdit3("##light-Color", (float*)&clear_color);
+
+		this->m_ptr_sprite_repo->sprite_in_inspector->light.setColor(sf::Vector3f(clear_color.x, clear_color.y, clear_color.z));
+
 		ImGui::TreePop();
 	}
 }

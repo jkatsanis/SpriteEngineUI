@@ -24,12 +24,11 @@ namespace s2d
 		LightRepository() = delete;
 		static void updateArrays();
 
-		static void updateLightSource(s2d::Sprite* sprite, bool call_by_update, const s2d::Camera* cam);
-		static void updateSprite(s2d::Sprite* sprite, bool call_by_update, const s2d::Camera* cam);
-		static bool s_update_next;
+		static void updateLightSource(s2d::Sprite* sprite, s2d::Camera* cam);
+		static void updateSprite(s2d::Sprite* sprite, s2d::Camera* cam);
 
 		static void init();
-		static void add(const s2d::Vector2& pos, float radius, float intensiti, const s2d::Vector3& color);
+		static void add(const s2d::Vector2& pos, float radius, float intensiti, const sf::Vector3f& color);
 		static void remove(uint32_t index);
 
 		static void moveLightSource(uint32_t idx, const s2d::Vector2& pos);

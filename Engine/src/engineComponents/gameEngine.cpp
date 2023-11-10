@@ -219,10 +219,9 @@ void s2d::GameEngine::updateComponents()
     {
         s2d::Sprite* const sprite = this->m_sprite_repository.readAt(i);
         sprite->animator.update();
-        s2d::LightRepository::updateLightSource(sprite, s2d::LightRepository::s_update_next, &this->m_ui_window.gui_repository.camera);
+        s2d::LightRepository::updateLightSource(sprite, &this->m_ui_window.gui_repository.camera);
     }
     s2d::LightRepository::updateArrays();
-    s2d::LightRepository::s_update_next = false;
 }
 
 void s2d::GameEngine::clearEngineUpBeforeSceneLoad()

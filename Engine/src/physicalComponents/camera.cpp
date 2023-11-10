@@ -30,7 +30,7 @@ void s2d::Camera::setZoom(float zoom)
 	}
 	// need to update the light shader here !! 
 	this->m_camera_zoom = zoom;
-	s2d::LightRepository::s_update_next = true;
+	this->m_zoom_changed = true;
 }
 
 void s2d::Camera::reset()

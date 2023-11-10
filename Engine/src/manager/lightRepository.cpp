@@ -5,7 +5,7 @@
 
 // Public methods
 
-void s2d::LightRepository::updateLightSource(s2d::Sprite* sprite, bool call_by_update, const s2d::Camera* cam)
+void s2d::LightRepository::updateLightSource(s2d::Sprite* sprite, s2d::Camera* cam)
 {
 	if (!sprite->light.exist)
 	{
@@ -15,7 +15,7 @@ void s2d::LightRepository::updateLightSource(s2d::Sprite* sprite, bool call_by_u
 	uint32_t idx = sprite->light.getLightIndex();
 	s2d::LightSource& source = s2d::LightRepository::s_m_light_sources[idx];
 
-	if (sprite->transform.position_changed || call_by_update)
+	if (sprite->transform.position_changed || cam->hasZoomChanged())
 	{
 		s2d::LightRepository::s_m_update = true;
 
@@ -26,29 +26,36 @@ void s2d::LightRepository::updateLightSource(s2d::Sprite* sprite, bool call_by_u
 
 		source.position = new_pos;
 	}
-	if (sprite->light.hasRadiusChanged() || call_by_update)
+	if (sprite->light.hasRadiusChanged())
 	{
 		s2d::LightRepository::s_m_update = true;
 
 		sprite->light.setRadiosChangeFlagFalse();
 		source.radius = sprite->light.getRadius();
 	}
-	if (sprite->light.hasIntensityChanged() || call_by_update)
+	if (sprite->light.hasIntensityChanged())
 	{
 		s2d::LightRepository::s_m_update = true;
 
 		sprite->light.setIntensityChangeFlagFalse();
 		source.light_intensities = sprite->light.getIntensity();
 	}
+	if (sprite->light.hasColorChanged())
+	{
+		s2d::LightRepository::s_m_update = true;
+
+		sprite->light.setColorChangeFlag();
+		source.color = sprite->light.getColor();
+	}
 }
 
-void s2d::LightRepository::updateSprite(s2d::Sprite* sprite, bool call_by_update, const s2d::Camera* cam)
+void s2d::LightRepository::updateSprite(s2d::Sprite* sprite, s2d::Camera* cam)
 {
 	if (!sprite->light.exist)
 	{
 		return;
 	}
-	s2d::LightRepository::updateLightSource(sprite, call_by_update, cam);
+	s2d::LightRepository::updateLightSource(sprite, cam);
 	s2d::LightRepository::updateArrays();
 }
 
@@ -61,7 +68,7 @@ void s2d::LightRepository::init()
 	LightRepository::s_m_index = 0;
 }
 
-void s2d::LightRepository::add(const s2d::Vector2& pos, float radius, float intensiti, const s2d::Vector3& color)
+void s2d::LightRepository::add(const s2d::Vector2& pos, float radius, float intensiti, const sf::Vector3f& color)
 {
 	float zoom = 1;
 
@@ -69,16 +76,16 @@ void s2d::LightRepository::add(const s2d::Vector2& pos, float radius, float inte
 	s2d::Vector2 new_pos = s2d::Vector2((pos.x + 960) + 960 * zoom, a);
 
 	LightRepository::s_m_light_sources[LightRepository::s_m_index] = s2d::LightSource(new_pos, radius, intensiti, color);
+
 	s2d::LightRepository::s_m_update = true;
 	s2d::LightRepository::updateArrays();
-	s2d::LightRepository::s_update_next = true;
 }
 
 void s2d::LightRepository::remove(uint32_t index)
 {
 	LightRepository::s_m_light_sources.erase(index);
 	s2d::LightRepository::s_m_update = true;
-	LightRepository::updateArrays();	
+	LightRepository::updateArrays();
 }
 
 void s2d::LightRepository::moveLightSource(uint32_t idx, const s2d::Vector2& pos)
@@ -95,7 +102,7 @@ void s2d::LightRepository::moveLightSource(uint32_t idx, const s2d::Vector2& pos
 
 		delete[] lightPositions;
 	}
-	else 
+	else
 	{
 		std::cout << "LOG [ERROR] Key does not exist " << idx << std::endl;
 	}
@@ -108,7 +115,7 @@ void s2d::LightRepository::updateArrays()
 		return;
 	}
 	s2d::LightRepository::s_m_update = false;
-    size_t size = LightRepository::s_m_light_sources.size();
+	size_t size = LightRepository::s_m_light_sources.size();
 
 	if (size == 0)
 	{
@@ -127,7 +134,7 @@ void s2d::LightRepository::updateArrays()
 
 	lightColors[0] = sf::Vector3f(0, 0, 0);
 
- 
+
 	size_t i = 0;
 	for (const auto& pair : LightRepository::s_m_light_sources)
 	{
@@ -135,7 +142,7 @@ void s2d::LightRepository::updateArrays()
 		lightPositions[i] = s2d::Vector2::toImVec2(source.position);
 		lightRadii[i] = source.radius;
 		lightIntensities[i] = source.light_intensities;
-		lightColors[i] = s2d::Vector3::toSFVector3(source.color);
+		lightColors[i] = sf::Vector3f(source.color.x, source.color.y, source.color.z);
 		i++;
 	}
 
@@ -145,7 +152,7 @@ void s2d::LightRepository::updateArrays()
 	LightRepository::s_m_light_shader.setUniformArray("lightIntensities", lightIntensities, size);
 	LightRepository::s_m_light_shader.setUniformArray("lightColors", lightColors, size);
 
-	LightRepository::s_m_index = s2d::LightRepository::s_m_light_sources.size();
+	LightRepository::s_m_index = (uint32_t)s2d::LightRepository::s_m_light_sources.size();
 
 	delete[] lightPositions;
 	delete[] lightRadii;
@@ -165,7 +172,7 @@ sf::Vector2f* s2d::LightRepository::getPositionArray()
 	for (const auto& pair : LightRepository::s_m_light_sources)
 	{
 		lightPositions[i] = s2d::Vector2::toSFVector(pair.second.position);
-		i++;	
+		i++;
 	}
 
 	return lightPositions;
@@ -178,4 +185,3 @@ std::unordered_map<uint32_t, s2d::LightSource> s2d::LightRepository::s_m_light_s
 sf::Shader s2d::LightRepository::s_m_light_shader;
 uint32_t s2d::LightRepository::s_m_index = 0;
 bool s2d::LightRepository::s_m_update = true;
-bool s2d::LightRepository::s_update_next = true;
