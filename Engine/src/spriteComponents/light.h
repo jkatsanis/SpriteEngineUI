@@ -26,6 +26,8 @@ namespace s2d
 
 		Light();
 		Light(Sprite* ptr_sprite);
+		Light(Sprite* ptr_sprite, const s2d::Light& rhs);
+
 	
 		uint32_t getLightIndex() const { return this->m_light_index; }
 		void deleteLight();

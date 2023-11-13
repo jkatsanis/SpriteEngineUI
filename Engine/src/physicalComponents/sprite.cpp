@@ -27,6 +27,8 @@ s2d::Sprite::Sprite(s2d::Sprite& rhs)
 	this->tag = rhs.tag;
 	this->render = rhs.render;
 
+	this->light = s2d::Light(this, rhs.light);
+
 	// Initing the childs
 	for (size_t i = 0; i < rhs.ptr_childs.size(); i++)
 	{
@@ -41,6 +43,9 @@ s2d::Sprite::~Sprite()
 {
 	this->clearAllChilds();
 	this->clearParentData();
+
+	this->light.deleteLight();
+	this->light.reset();
 
 	delete this->m_texture;
 	this->m_texture = nullptr;

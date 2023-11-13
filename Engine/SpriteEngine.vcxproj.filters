@@ -334,7 +334,9 @@
     <ClCompile Include="src\physicalComponents\lightSource.cpp">
       <Filter>src\physicalComponents\light</Filter>
     </ClCompile>
-    <ClCompile Include="src\spriteComponents\light.cpp" />
+    <ClCompile Include="src\spriteComponents\light.cpp">
+      <Filter>src\spriteComponents</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\include\imgui\imconfig.h">
@@ -844,7 +846,9 @@
     <ClInclude Include="src\physicalComponents\lightSource.h">
       <Filter>src\physicalComponents\light</Filter>
     </ClInclude>
-    <ClInclude Include="src\spriteComponents\light.h" />
+    <ClInclude Include="src\spriteComponents\light.h">
+      <Filter>src\spriteComponents</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="src\include\SFML\System\Vector3.inl">

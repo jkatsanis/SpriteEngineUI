@@ -24,6 +24,14 @@ s2d::Light::Light(Sprite* ptr_attached_sprite)
 	this->ptr_attached_sprite = ptr_attached_sprite;
 }
 
+s2d::Light::Light(Sprite* ptr_sprite, const s2d::Light& rhs)
+{
+	this->exist = rhs.exist;
+	this->m_color = rhs.getColor();
+	this->m_radius = rhs.getRadius();
+	this->m_intensity = rhs.getIntensity();
+}
+
 // Public methods
 
 void s2d::Light::deleteLight()
