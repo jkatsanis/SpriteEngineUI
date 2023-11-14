@@ -15,6 +15,8 @@
 #include <manager/spriteRepository.h>
 #include <manager/lightRepository.h>
 
+#define WINDOW_SIZE s2d::Vector2(1920, 1080)
+
 namespace s2d
 {
 	class GameEngine
@@ -26,6 +28,8 @@ namespace s2d
 		SpriteRepository m_sprite_repository;
 		std::string m_current_scene;
 		std::vector<std::string> m_scene_names;
+		sf::IntRect windowBounds;
+
 
 		bool m_is_window_full_screen;
 		bool m_close;

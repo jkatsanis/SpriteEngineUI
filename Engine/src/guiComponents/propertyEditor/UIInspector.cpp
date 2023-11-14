@@ -318,7 +318,7 @@ void s2d::UIInspector::gameEngineViewSetting()
 
 	ImGui::SetWindowFontScale(s2d::UIInfo::s_default_font_size);
 
-
+	this->m_cam_zoom = this->m_ptr_gui_repo->camera.getZoom();
 
 	if (ImGui::TreeNode("Camera"))
 	{

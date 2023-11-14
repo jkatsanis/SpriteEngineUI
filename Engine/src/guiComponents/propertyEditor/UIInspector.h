@@ -76,12 +76,13 @@ namespace s2d
 		void animatorComponent();
 		void prefabComponent();
 		void lightComponent();
-		
+
+		void displayDefaultInspectorView();
+	
 		void componentSelector();
 		void setCompontents();
 		void drawRectangleOverCurrentObject();
 		void renderBackgroundBehindComponent();
-		void displayDefaultInspectorView();
 		void backgroundSetting();
 		void gameEngineViewSetting();
 		void preInit();

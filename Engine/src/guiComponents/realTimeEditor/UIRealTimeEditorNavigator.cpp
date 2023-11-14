@@ -35,6 +35,7 @@ void s2d::UIRealTimeEditorNavigator::update()
 	//Camera update (updating every frame)
 	this->m_ptr_gui_repo->camera.update();
 
+	
 	if (*this->m_is_any_ui_window_hovered) return;
 
 	this->navigateRightClick();
@@ -51,6 +52,8 @@ void s2d::UIRealTimeEditorNavigator::navigateRightClick()
 	if (sf::Mouse::isButtonPressed(sf::Mouse::Right))
 	{
 		sf::Vector2i mousePos = sf::Mouse::getPosition(*this->m_ptr_renderWindow);
+
+		std::cout << mousePos.x << std::endl;
 
 		if (this->m_cursor.position_changed)
 		{

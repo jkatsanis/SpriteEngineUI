@@ -8,7 +8,7 @@ s2d::GameEngine::GameEngine()
 
     this->m_ui_window.init(this->m_sprite_repository, &this->event, &this->windowEvent, this->m_scene_names);
     this->m_close = false;
-    this->ptr_render_window = new sf::RenderWindow(sf::VideoMode(1920, 1080), "SpriteEngine", sf::Style::Default);
+    this->ptr_render_window = new sf::RenderWindow(sf::VideoMode(WINDOW_SIZE.x, WINDOW_SIZE.y), "SpriteEngine", sf::Style::Default);
     this->windowEvent.type = sf::Event::GainedFocus;
     this->m_renderer = s2d::Renderer(this->ptr_render_window, this->m_sprite_repository, this->m_ui_window.gui_repository);
 
@@ -19,6 +19,8 @@ s2d::GameEngine::GameEngine()
     this->m_ui_real_time_editor = s2d::UIRealTimeEditor(*ptr_render_window, &this->windowEvent, &this->m_ui_window.ary_any_windows_hovered,
         &this->m_ui_window.getInspector().state, &this->event, this->m_sprite_repository, this->m_ui_window.gui_repository);
     this->m_ui_window.gui_repository.camera = s2d::Camera(this->ptr_render_window, this->m_sprite_repository);
+
+    this->windowBounds = sf::IntRect(0, 0, this->ptr_render_window->getSize().x, this->ptr_render_window->getSize().y);
 
     sf::Image icon64;
   
@@ -60,7 +62,8 @@ void s2d::GameEngine::initOtherClasses()
     s2d::Initializer::initAnimations(this->m_sprite_repository);
     s2d::Initializer::initBackground(this->m_ui_window.gui_repository.background_color);
     s2d::Initializer::initIds(this->m_sprite_repository.highest_sprite_id);
-   //  s2d::Initializer::initCamera(this->m_ui_window.gui_repository);
+  
+    s2d::Initializer::initCamera(this->m_ui_window.gui_repository);
 }
 
 //private functions
@@ -243,10 +246,14 @@ void s2d::GameEngine::update()
     // UIWindow (Engine)
     ImGui::PushFont(s2d::FontManager::s_default_font);
     this->m_ui_window.update();
-    if (this->ptr_render_window->hasFocus())
+
+    sf::Vector2i mousePosition = sf::Mouse::getPosition(*this->ptr_render_window);
+    if (windowBounds.contains(mousePosition))
     {
         this->m_ui_real_time_editor.update();
     }
+
+
     this->saveDialoge();
     ImGui::PopFont();
 
