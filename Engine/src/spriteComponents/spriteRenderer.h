@@ -16,6 +16,7 @@ namespace s2d
 		bool effected_by_light;
 
 		SpriteRenderer();
+		SpriteRenderer(const s2d::SpriteRenderer& rhs);
 
 		void reset();
 	};

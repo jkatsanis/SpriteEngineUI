@@ -8,6 +8,13 @@ s2d::SpriteRenderer::SpriteRenderer()
 	this->init();
 }
 
+s2d::SpriteRenderer::SpriteRenderer(const s2d::SpriteRenderer& rhs)
+{
+	this->effected_by_light = rhs.effected_by_light;
+	this->path = rhs.path;
+	this->sorting_layer_index = rhs.sorting_layer_index;
+}
+
 void s2d::SpriteRenderer::init()
 {
 	this->base_component = true;

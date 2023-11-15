@@ -77,6 +77,11 @@ void s2d::SpriteRepository::add(s2d::Sprite* ptr)
     ptr->validateProperties(this->highest_sprite_id, *this);
     this->m_sprites.push_back(ptr);
 
+    if (ptr->parent != nullptr)
+    {
+        ptr->setParentId(ptr->parent->getId());
+    }
+
     if (this->initialied)
     {
         for (size_t i = 0; i < ptr->ptr_childs.size(); i++)

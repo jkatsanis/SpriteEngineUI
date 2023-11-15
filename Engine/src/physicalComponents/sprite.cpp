@@ -24,6 +24,8 @@ s2d::Sprite::Sprite(s2d::Sprite& rhs)
 	this->transform = s2d::Transform(this, rhs.transform);
 	this->animator = s2d::Animator(this, rhs.animator);
 	this->physicsBody = s2d::PhsysicsBody(rhs.physicsBody);
+	this->sprite_renderer = s2d::SpriteRenderer(rhs.sprite_renderer);
+
 	this->tag = rhs.tag;
 	this->render = rhs.render;
 
@@ -114,7 +116,6 @@ void s2d::Sprite::setSpriteTexture(const sf::Texture& texture, const std::string
 
 void s2d::Sprite::postDefaultInitialization()
 {
-	this->render = true;
 	this->transform.setOrigin();
 }
 

@@ -253,7 +253,6 @@ void s2d::GameEngine::update()
         this->m_ui_real_time_editor.update();
     }
 
-
     this->saveDialoge();
     ImGui::PopFont();
 

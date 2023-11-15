@@ -75,6 +75,7 @@ void s2d::LightRepository::add(const s2d::Vector2& pos, float radius, float inte
 	const float a = ((pos.y * -1) + 540) + 540 * zoom;
 	s2d::Vector2 new_pos = s2d::Vector2((pos.x + 960) + 960 * zoom, a);
 
+	LightRepository::s_m_index++;
 	LightRepository::s_m_light_sources[LightRepository::s_m_index] = s2d::LightSource(new_pos, radius, intensiti, color);
 
 	s2d::LightRepository::s_m_update = true;
@@ -84,6 +85,7 @@ void s2d::LightRepository::add(const s2d::Vector2& pos, float radius, float inte
 void s2d::LightRepository::remove(uint32_t index)
 {
 	LightRepository::s_m_light_sources.erase(index);
+
 	s2d::LightRepository::s_m_update = true;
 	LightRepository::updateArrays();
 }
@@ -151,8 +153,6 @@ void s2d::LightRepository::updateArrays()
 	LightRepository::s_m_light_shader.setUniformArray("lightRadii", lightRadii, size);
 	LightRepository::s_m_light_shader.setUniformArray("lightIntensities", lightIntensities, size);
 	LightRepository::s_m_light_shader.setUniformArray("lightColors", lightColors, size);
-
-	LightRepository::s_m_index = (uint32_t)s2d::LightRepository::s_m_light_sources.size();
 
 	delete[] lightPositions;
 	delete[] lightRadii;

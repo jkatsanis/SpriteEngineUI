@@ -46,9 +46,9 @@ void s2d::Light::enable()
 	{
 		return;
 	}
-	this->m_light_index = s2d::LightRepository::getIndex();
 	this->exist = true;
 	s2d::LightRepository::add(this->ptr_attached_sprite->transform.position, this->m_radius, this->m_intensity, this->m_color);
+	this->m_light_index = s2d::LightRepository::getIndex();
 }
 
 void s2d::Light::reset()

@@ -44,7 +44,7 @@ void s2d::flc::createSaveFile(const s2d::SpriteRepository& spriteRepo)
 
 	if (spriteFile.is_open()) 
 	{
-		spriteFile << "name;vecpos;transformPosX;transformPosY;ScaleX;ScaleY;rotation;filepath;boxColliderWidthLeftOrRightX;boxColliderWidthLeftOrRighY;boxColliderHeightUpOrDownX;boxColliderHeightUpOrDownY;boxColliderExists;solid;sortingLayer;gravity;mass;physicsBodyExists;id;parentId;nextPosX;nextPosY;lastPosX;lastPosY;listPos;highestChild;positionToParentX;positionToParentY;animatorExists;prefabExist;loadInMemory;pathToPrefab;tag;lightExist;lightRadius;lightIntensity" << "\n";
+		spriteFile << "name;vecpos;transformPosX;transformPosY;ScaleX;ScaleY;rotation;filepath;boxColliderWidthLeftOrRightX;boxColliderWidthLeftOrRighY;boxColliderHeightUpOrDownX;boxColliderHeightUpOrDownY;boxColliderExists;solid;sortingLayer;gravity;mass;physicsBodyExists;id;parentId;nextPosX;nextPosY;lastPosX;lastPosY;listPos;highestChild;positionToParentX;positionToParentY;animatorExists;prefabExist;loadInMemory;pathToPrefab;tag;lightExist;lightRadius;lightIntensity;render" << "\n";
 		for (int i = 0; i < spriteRepo.amount(); i++)
 		{
 			const s2d::Sprite* const sprite = spriteRepo.readAt(i, true);
@@ -108,6 +108,8 @@ std::string s2d::flc::getPropertyLineWithSeperator(const Sprite* const sprite)
 	const std::string light_color_g = std::to_string(sprite->light.getColor().y);
 	const std::string light_color_b = std::to_string(sprite->light.getColor().z);
 
+	const std::string render = std::boolToStr(sprite->render);
+
 	//Name, vec, transform path, rotation
 	line = sprite->name + ";" + "0" + ";" + transformPosX + ";" + transformPosY + ";" + scaleX + ";" + scaleY + ";" + spritePath + ";" + rotation;
 
@@ -150,6 +152,9 @@ std::string s2d::flc::getPropertyLineWithSeperator(const Sprite* const sprite)
 	line += ";" + effected_by_light;
 
 	line += ";" + light_color_r + ";" + light_color_g + ";" + light_color_b;
+
+
+	line += ";" + render;
 
 	return line;
 }
