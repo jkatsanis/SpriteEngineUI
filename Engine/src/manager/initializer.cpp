@@ -284,7 +284,7 @@ void s2d::Initializer::initSprite(const std::string& line, s2d::Sprite* sprite)
 		sprite->light.setColor(color);
 	#pragma endregion
 
-		sprite->render = propertys[40] == "True";
+		// sprite->render = propertys[40] == "True";
 
 
 		sprite->postDefaultInitialization();

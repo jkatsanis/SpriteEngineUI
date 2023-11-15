@@ -471,12 +471,14 @@ void s2d::UIInspector::setupComponents()
 	if (this->m_ptr_sprite_repo->sprite_in_inspector->prefab.exist)
 	{
 		this->prefabComponent();
+		DUMMY_COMPONENT;
 	}
 
 	// Light Source
 	if (this->m_ptr_sprite_repo->sprite_in_inspector->light.exist)
 	{
 		this->lightComponent();
+		DUMMY_COMPONENT;
 	}
 
 	this->componentSelector();
