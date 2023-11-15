@@ -1,118 +1,126 @@
 # Welcome To Sprite Engine
 
-This Project is a simple **2D Game Engine** designed to be fully understand by one Person.
+Welcome to Sprite Engine, a user-friendly **2D Game Engine** designed for solo developers who want a straightforward yet powerful tool.
 
-## Tools used
+## Table of Contents
+1. [Welcome To Sprite Engine](#welcome-to-sprite-engine)
+2. [Tools Used](#tools-used)
+3. [Features](#features)
+4. [Enhancements](#enhancements)
+5. [Quick overview](#quick-overview)
+6. [Getting Started](#getting-started)
+    - [Create a Project](#1-create-a-project)
+    - [How Do I Script My Sprites?](#2-how-do-i-script-my-sprites)
+    - [How do the sprites get managed?](#3-how-do-the-sprites-get-managed)
+7. [The Engine](#the-engine)
+    - [Picture of the Engine](#picture-of-the-engine)
+    - [How does the SpriteRepository work?](#how-does-the-spriterepository-work)
+
+## Tools Used
 - **SFML**
-- **Dear ImGui** 
-- **Rene** 
+- **Dear ImGui**
+- **Rene**
 
 ## Features
-
-- **UI editor**
-- **Scene creation**
-- **Box collision detection**
-- **Parent-Child collision Stopping** 
+- **UI Editor**
+- **Scene Creation**
+- **Box Collision Detection**
+- **Parent-Child Collision Stopping**
 - **Physics**
-- **Animations (supported by editor)**
-- **Scripting with C++** 
-- **Project creator**
-- **Automatic project builder**
+- **Animations (supported by the editor)**
+- **Scripting with C++**
+- **Project Creator**
+- **Automatic Project Builder**
+- **Lighting**
+- **Prefabs**
 
-----    
 ## Enhancements
-- **Sound manager**
-- **More C++ functions**
-- **Cleaner design**
-- **Box collider rotation**
----
+- **Sound Manager**
+- **Additional C++ Functions**
+- **Cleaner Design**
+- **Box Collider Rotation**
+
+
+## Quick overview 
+The engine calls the `update` and `start` methods of the `Game` class only once. If you create a new script, you need to invoke the `update` method from the script within the `Game` class. If you wish to share instances, simply pass them in the `update` methods or set a pointer to them in the `start` method. To access a sprite, call `this->config.ptr_sprites->getSpriteWithName("name");` This method returns a pointer to the sprite in the `SpriteRepository`. You can now perform various operations with the sprite. Please be aware that the engine still has many bugs.
 
 ## Getting Started
 
-PLEASE NOTE THAT THIS FILE MAY BE OUTDATED SINCE IM WORKING ALONE AND ALOT ON THIS ENGINE!
+**Note:** This file may be outdated as I am working solo on this engine.
 
-"The engine invokes the 'update' and 'start' methods of the 'Game' class only once. If you create a new script you need to
-call the update method from the script in the "Game" class. If you want to share instances simply pass them in the 
-update methods or set a pointer to it in the start method. You can get acces to a sprite by calling 
-`this->config.ptr_sprites->getSpriteWithName("name");` This method returns a pointer to the sprite in the `SpriteRepository`
-. Now you are able to do all kind of things with the sprite. Please note that the engine does still have alot of bugs!
+To begin, clone this github repository.
 
-You can get started by downloading the Engine folder [here](https://github.com/jkatsanis/SpriteEngineUI)
-
-You can find a Introduction to the engine on [YouTube](https://www.youtube.com/watch?v=pnCD5dKhpmg)
+Watch an introduction to the engine on [YouTube](https://www.youtube.com/watch?v=pnCD5dKhpmg).
 
 1. **Create a Project**
+   - Click the `create` button to initiate a new project.
+   - In the file dialog, choose the project location and press the `+` button.
+   - All files from the **template** folder will be copied to the selected project location.
+   - The project folder takes the user-selected name, while the **.sln** and **.exe** files have different names.
 
-    In the folder open the .exe and create a new project by clicking on the create button. 
-
-    A file dialog will open, select where u want to create the project and hit the '**+**' button.
-
-    All the files from the **template** folder will be automatically copied to the location the user selected his project to be.
-
-    The folder will have the name the user selected, the **.sln** file and the **.exe** wont have the same name as the **project name**. 
-
-    By the way, if you hit `build` or `STRG + B` in the engine the .exe will automaticly build into a folder. So you don't need to worry about messing around with ressources/dll's
+   *Tip:* Pressing `build` or `STRG + B` in the engine will automatically build the .exe into a folder, avoiding manual resource/DLL handling.
 
 2. **How Do I Script My Sprites?**
+   - Ensure you've built the Assets project manually using Visual Studio (Buildsystem is coming).
+   - Right-click the hierarchy window and select **New -> Sprite**.
+   - In the game engine, right-click on the asset folder and choose **New -> C++ Script** to create a script with **update** and **start** functions.
+   - Create a new **Sprite ptr** in your class:
 
-    Right click the hierarchy window and select **New -> Sprite**
-    In the game engine you can right click on the asset folder and select **New -> C++ Script**, this will create a new script containing the **update** and **start** functions. Eventually the script which gets created is out of date.
-    (You can find the docs the the functions in the engine (the docs are not available yet))
+     ```C++
+     class Game : public s2d::Base
+     {
+     private:
+         Sprite* m_sprite;
+     }
+     ```
 
-    You can create a new **Sprite ptr** in your class:
+   - Assign an address to the **Sprite ptr** using:
 
-    ```C++
-    class Game : public s2d::Base
-    {
-    private:
-        Sprite* m_sprite;
-    }
-    ```
-   You can give the **Sprite ptr** a address by calling the **s2d::Sprite::getSpriteByName("name");** function, to search for a sprite with the name **'name'**. This will return a **'nullptr'** or the adress to this sprite.
+     ```C++
+     void Game::start()
+     {
+         this->m_sprite = this->configptr_sprites->getSpriteWithName("name");
+     }
+     ```
 
-    ```C++
-    void Game::start()
-    {
-        this->m_sprite = this->configptr_sprites->getSpriteWithName("name");`
-    }
-    ```
+   - Change sprite properties in the **update** function:
 
-    Finally you can change the properties of the sprite using the **update** function for example: 
+     ```C++
+     void Game::update()
+     {
+         if(Input::onKeyHold(KeyBoardCode::A))
+         {
+             this->m_sprite.transform.position.x -= 700 * Time::deltaTime;
+         }
+     }
+     ```
 
+3. **How do the sprites get managed?**
+   - All sprites are managed by an object called `SpriteRepository`.
+   - Add sprites to the scene using the repository:
 
-    ```C++
-    void Game::update()
-    {
-        if(Input::onKeyHold(KeyBoardCode::A))
-        {
-            this->m_sprite.transform.position.x -= 700 * Time::deltaTime;
-        }
-    }
-    ```
-3. **How do the sprites get managed?** 
+     ```C++
+     void Game::start()
+     {
+         Sprite* spr = new Sprite();
+         this->config.ptr_sprites.add(spr);
+     }
+     ```
 
-    All the sprites are getting managed by a object called `SpriteRepository`. This object contains a private list of sprites, you can add sprites to the scene by using this `repository`. For example
+   - Activate necessary components for basic collision detection:
 
-    ```C++
-    void Game::start()
-    {
-        Sprite* spr = new Sprite();
-        this->config.ptr_sprites.add(spr);
-    }
-    ```
-    This will autamticly add the sprite to the repository and it will take care of the rendering / calculating collisons, physics etc. Of course you need to active the necceasary components like 
+     ```C++
+     void Game::start()
+     {
+         Sprite* spr = new Sprite();
+         spr->collider.exist = true;
+     }
+     ```
 
-    ```C++
-    void Game::start()
-    {
-        Sprite* spr = new Sprite();
-        spr->collider.exist = true;
-    }
-    ```
-    to have a basic collision detection.
+# The Engine
 
-    Here is a simple imagine showing how the `Sprite Repository` works:
+**Picture of the Engine**
+![Engine](Github/Game.PNG)
 
-    ![Repo plan](Github/repoplan.png)
-   
-
+**How does the SpriteRepository work?**
+![SpriteRepository](Github/repoplan.png)
