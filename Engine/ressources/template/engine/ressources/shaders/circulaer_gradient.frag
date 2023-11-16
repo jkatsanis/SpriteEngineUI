@@ -40,7 +40,9 @@ void main()
         vec4 texColor = texture2D(texture, gl_TexCoord[0].xy);
         finalColor += texColor * vec4(lightColor, 1.0) * intensity;
     
-        if (texColor.a <= 0.01) {
+        if (texColor.a > 0.01) {
+            finalColor += texColor * vec4(lightColor, 1.0) * intensity;
+        } else {
             finalColor = texColor;
         }
     }   
