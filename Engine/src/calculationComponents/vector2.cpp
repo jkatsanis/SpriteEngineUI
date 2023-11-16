@@ -49,7 +49,7 @@ s2d::Vector2 s2d::Vector2::operator+=(const s2d::Vector2& rhs)
 
 s2d::Vector2 s2d::Vector2::operator*(const float& rhs)
 {
-	return s2d::Vector2(this->x + rhs, this->y + rhs);
+	return s2d::Vector2(this->x * rhs, this->y * rhs);
 }
 
 s2d::Vector2 s2d::Vector2::operator-(const s2d::Vector2& rhs)
