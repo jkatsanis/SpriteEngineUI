@@ -1,2 +1,51 @@
-﻿  vector2.cpp
+﻿  SpriteEngine.cpp
+  UIIconData.cpp
+  UIInfo.cpp
+  spriteData.cpp
+  gameEngine.cpp
+C:\Dev\SpriteEngineUI\Engine\src\engineComponents\gameEngine.cpp(11,92): warning C4244: 'argument': conversion from 'float' to 'unsigned int', possible loss of data
+C:\Dev\SpriteEngineUI\Engine\src\engineComponents\gameEngine.cpp(11,77): warning C4244: 'argument': conversion from 'float' to 'unsigned int', possible loss of data
+  renderer.cpp
+  UI.cpp
+  UIWindow.cpp
+  UIProjectSelector.cpp
+  UIProjectSelectorProjectSection.cpp
+  UIAnimation.cpp
+  UIAnimationEditor.cpp
+  UIAnimationKeyFrameAdder.cpp
+  UIAssetFolder.cpp
+C:\Dev\SpriteEngineUI\Engine\src\guiComponents\propertyEditor\UIAssetFolder.cpp(285,8): warning C4312: 'type cast': conversion from 'uint32_t' to 'ImTextureID' of greater size
+  UIAssetTools.cpp
+  UIHierarchy.cpp
+  UIInspector.cpp
+  UIInspectorBoxCollider.cpp
+  UITagSelector.cpp
+  UIToolButtons.cpp
+  Generating Code...
+  Compiling...
+  UIRealTimeEditor.cpp
+  UIRealTimeEditorNavigator.cpp
+  UIRealTimeEditorTransform.cpp
+  UIRealTimeEditorTransformPosition.cpp
+  UIRealTimeEditorTransfsormScale.cpp
+  fileDialog.cpp
+  fontManager.cpp
+  guiRepository.cpp
+  initializer.cpp
+  lightRepository.cpp
+  saveSystem.cpp
+  spriteRepository.cpp
+  camera.cpp
+  sprite.cpp
+  animation.cpp
+  animator.cpp
+  boxCollider.cpp
+  childSystem.cpp
+  light.cpp
+  prefab.cpp
+  Generating Code...
+  Compiling...
+  spriteRenderer.cpp
+  transform.cpp
+  Generating Code...
   SpriteEngine.vcxproj -> C:\Dev\SpriteEngineUI\Engine\x64\Debug\SpriteEngine.exe

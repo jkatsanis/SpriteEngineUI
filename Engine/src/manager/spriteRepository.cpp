@@ -199,7 +199,7 @@ void s2d::SpriteRepository::addChildsToDelete(std::vector<s2d::Sprite*>& ids, s2
     }
 }
 
-void s2d::SpriteRepository::eraseWithId(uint8_t id)
+void s2d::SpriteRepository::eraseWithId(uint32_t id)
 {
     for (int i = 0; i < this->amount(); i++)
     {

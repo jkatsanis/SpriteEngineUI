@@ -26,18 +26,27 @@ s2d::Light::Light(Sprite* ptr_attached_sprite)
 
 s2d::Light::Light(Sprite* ptr_sprite, const s2d::Light& rhs)
 {
+	this->m_light_index = -1;
 	this->exist = rhs.exist;
 	this->m_color = rhs.getColor();
 	this->m_radius = rhs.getRadius();
 	this->m_intensity = rhs.getIntensity();
+
+	if (this->exist)
+	{
+		s2d::LightRepository::add(ptr_sprite->transform.position, this->m_radius, this->m_intensity, this->m_color);
+	}
 }
 
 // Public methods
 
 void s2d::Light::deleteLight()
 {
-	s2d::LightRepository::remove(this->m_light_index);
-	this->m_light_index = 0;
+	if (this->exist)
+	{
+		s2d::LightRepository::remove(this->m_light_index);
+		this->m_light_index = 0;
+	}
 }
 
 void s2d::Light::enable()
