@@ -1,0 +1,3 @@
+Copy this template project anywhere else 
+Link the core against it 
+Save the core path in a file 
