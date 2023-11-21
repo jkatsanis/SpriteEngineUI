@@ -1,6 +1,6 @@
-^C:\DEV\C++\CMAKE\BUILD\CMAKEFILES\5617366487E5BC816DCEB8132DAA3FF5\GENERATE.STAMP.RULE
+^C:\DEV\C++\SPRITEENGINEUI\BUILD\CMAKEFILES\6FDA92D1D03F53E342721355D02DC6CF\GENERATE.STAMP.RULE
 setlocal
-"C:\Program Files\CMake\bin\cmake.exe" -SC:/Dev/C++/CMake -BC:/Dev/C++/CMake/Build --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file C:/Dev/C++/CMake/Build/SpriteEngine.sln
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Dev/C++/SpriteEngineUI -BC:/Dev/C++/SpriteEngineUI/Build --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file C:/Dev/C++/SpriteEngineUI/Build/SpriteEngine.sln
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone

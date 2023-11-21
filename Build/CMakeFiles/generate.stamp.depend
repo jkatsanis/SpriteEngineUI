@@ -1,14 +1,9 @@
 # CMake generation dependency list for this directory.
-C:/Dev/C++/CMake/Build/CMakeFiles/3.28.0-rc5/CMakeCCompiler.cmake
-C:/Dev/C++/CMake/Build/CMakeFiles/3.28.0-rc5/CMakeCXXCompiler.cmake
-C:/Dev/C++/CMake/Build/CMakeFiles/3.28.0-rc5/CMakeRCCompiler.cmake
-C:/Dev/C++/CMake/Build/CMakeFiles/3.28.0-rc5/CMakeSystem.cmake
-C:/Dev/C++/CMake/CMakeLists.txt
-C:/Dev/C++/CMake/Source/Include/DLL/sfml-audio-d-2.dll
-C:/Dev/C++/CMake/Source/Include/DLL/sfml-graphics-d-2.dll
-C:/Dev/C++/CMake/Source/Include/DLL/sfml-network-d-2.dll
-C:/Dev/C++/CMake/Source/Include/DLL/sfml-system-d-2.dll
-C:/Dev/C++/CMake/Source/Include/DLL/sfml-window-d-2.dll
+C:/Dev/C++/SpriteEngineUI/Build/CMakeFiles/3.28.0-rc5/CMakeCCompiler.cmake
+C:/Dev/C++/SpriteEngineUI/Build/CMakeFiles/3.28.0-rc5/CMakeCXXCompiler.cmake
+C:/Dev/C++/SpriteEngineUI/Build/CMakeFiles/3.28.0-rc5/CMakeRCCompiler.cmake
+C:/Dev/C++/SpriteEngineUI/Build/CMakeFiles/3.28.0-rc5/CMakeSystem.cmake
+C:/Dev/C++/SpriteEngineUI/CMakeLists.txt
 C:/Program Files/CMake/share/cmake-3.28/Modules/CMakeCCompiler.cmake.in
 C:/Program Files/CMake/share/cmake-3.28/Modules/CMakeCCompilerABI.c
 C:/Program Files/CMake/share/cmake-3.28/Modules/CMakeCInformation.cmake
