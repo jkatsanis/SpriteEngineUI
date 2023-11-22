@@ -99,6 +99,9 @@
     <ClInclude Include="C:\Dev\C++\SpriteEngineUI\Engine\Core\Source\Core\IApplication.h">
       <Filter>Source\Core</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Core\Source\Core\Repository.h">
+      <Filter>Source\Core</Filter>
+    </ClInclude>
     <ClInclude Include="C:\Dev\C++\SpriteEngineUI\Engine\Core\Source\Core\Log.h">
       <Filter>Source\Core</Filter>
     </ClInclude>

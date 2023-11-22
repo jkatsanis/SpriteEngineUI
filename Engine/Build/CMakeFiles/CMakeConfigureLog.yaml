@@ -24,7 +24,7 @@ events:
       The output was:
       0
       MSBuild version 17.5.1+f6fdcf537 for .NET Framework
-      Der Buildvorgang wurde am 22.11.2023 21:23:04 gestartet.
+      Der Buildvorgang wurde am 22.11.2023 21:41:08 gestartet.
       Included response file: C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\MSBuild\\Current\\Bin\\amd64\\MSBuild.rsp
       
       Projekt "C:\\Dev\\C++\\SpriteEngineUI\\Engine\\Build\\CMakeFiles\\3.28.0-rc5\\CompilerIdC\\CompilerIdC.vcxproj" auf Knoten "1" (Standardziele).
@@ -52,7 +52,7 @@ events:
           0 Warnung(en)
           0 Fehler
       
-      Verstrichene Zeit 00:00:01.01
+      Verstrichene Zeit 00:00:01.38
       
       
       Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "CompilerIdC.exe"
@@ -78,7 +78,7 @@ events:
       The output was:
       0
       MSBuild version 17.5.1+f6fdcf537 for .NET Framework
-      Der Buildvorgang wurde am 22.11.2023 21:23:05 gestartet.
+      Der Buildvorgang wurde am 22.11.2023 21:41:10 gestartet.
       Included response file: C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\MSBuild\\Current\\Bin\\amd64\\MSBuild.rsp
       
       Projekt "C:\\Dev\\C++\\SpriteEngineUI\\Engine\\Build\\CMakeFiles\\3.28.0-rc5\\CompilerIdCXX\\CompilerIdCXX.vcxproj" auf Knoten "1" (Standardziele).
@@ -106,7 +106,7 @@ events:
           0 Warnung(en)
           0 Fehler
       
-      Verstrichene Zeit 00:00:00.74
+      Verstrichene Zeit 00:00:00.73
       
       
       Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "CompilerIdCXX.exe"
@@ -125,8 +125,8 @@ events:
     checks:
       - "Detecting C compiler ABI info"
     directories:
-      source: "C:/Dev/C++/SpriteEngineUI/Engine/Build/CMakeFiles/CMakeScratch/TryCompile-hkrp18"
-      binary: "C:/Dev/C++/SpriteEngineUI/Engine/Build/CMakeFiles/CMakeScratch/TryCompile-hkrp18"
+      source: "C:/Dev/C++/SpriteEngineUI/Engine/Build/CMakeFiles/CMakeScratch/TryCompile-hlch7l"
+      binary: "C:/Dev/C++/SpriteEngineUI/Engine/Build/CMakeFiles/CMakeScratch/TryCompile-hlch7l"
     cmakeVariables:
       CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS /W3"
       CMAKE_C_FLAGS_DEBUG: "/MDd /Zi /Ob0 /Od /RTC1"
@@ -135,39 +135,39 @@ events:
       variable: "CMAKE_C_ABI_COMPILED"
       cached: true
       stdout: |
-        Change Dir: 'C:/Dev/C++/SpriteEngineUI/Engine/Build/CMakeFiles/CMakeScratch/TryCompile-hkrp18'
+        Change Dir: 'C:/Dev/C++/SpriteEngineUI/Engine/Build/CMakeFiles/CMakeScratch/TryCompile-hlch7l'
         
-        Run Build Command(s): "C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_d843f.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
+        Run Build Command(s): "C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_de780.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
         MSBuild version 17.5.1+f6fdcf537 for .NET Framework
-        Der Buildvorgang wurde am 22.11.2023 21:23:06 gestartet.
+        Der Buildvorgang wurde am 22.11.2023 21:41:11 gestartet.
         Included response file: C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\MSBuild\\Current\\Bin\\amd64\\MSBuild.rsp
         
-        Projekt "C:\\Dev\\C++\\SpriteEngineUI\\Engine\\Build\\CMakeFiles\\CMakeScratch\\TryCompile-hkrp18\\cmTC_d843f.vcxproj" auf Knoten "1" (Standardziele).
+        Projekt "C:\\Dev\\C++\\SpriteEngineUI\\Engine\\Build\\CMakeFiles\\CMakeScratch\\TryCompile-hlch7l\\cmTC_de780.vcxproj" auf Knoten "1" (Standardziele).
         PrepareForBuild:
-          Das Verzeichnis "cmTC_d843f.dir\\Debug\\" wird erstellt.
-          Das Verzeichnis "C:\\Dev\\C++\\SpriteEngineUI\\Engine\\Build\\CMakeFiles\\CMakeScratch\\TryCompile-hkrp18\\Debug\\" wird erstellt.
-          Das Verzeichnis "cmTC_d843f.dir\\Debug\\cmTC_d843f.tlog\\" wird erstellt.
+          Das Verzeichnis "cmTC_de780.dir\\Debug\\" wird erstellt.
+          Das Verzeichnis "C:\\Dev\\C++\\SpriteEngineUI\\Engine\\Build\\CMakeFiles\\CMakeScratch\\TryCompile-hlch7l\\Debug\\" wird erstellt.
+          Das Verzeichnis "cmTC_de780.dir\\Debug\\cmTC_de780.tlog\\" wird erstellt.
         InitializeBuildStatus:
-          "cmTC_d843f.dir\\Debug\\cmTC_d843f.tlog\\unsuccessfulbuild" wird erstellt, da "AlwaysCreate" angegeben wurde.
+          "cmTC_de780.dir\\Debug\\cmTC_de780.tlog\\unsuccessfulbuild" wird erstellt, da "AlwaysCreate" angegeben wurde.
         ClCompile:
-          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.34.31933\\bin\\HostX64\\x64\\CL.exe /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_d843f.dir\\Debug\\\\" /Fd"cmTC_d843f.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue "C:\\Program Files\\CMake\\share\\cmake-3.28\\Modules\\CMakeCCompilerABI.c"
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.34.31933\\bin\\HostX64\\x64\\CL.exe /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_de780.dir\\Debug\\\\" /Fd"cmTC_de780.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue "C:\\Program Files\\CMake\\share\\cmake-3.28\\Modules\\CMakeCCompilerABI.c"
           Microsoft (R) C/C++-Optimierungscompiler Version 19.34.31943 für x64
           CMakeCCompilerABI.c
           Copyright (C) Microsoft Corporation. Alle Rechte vorbehalten.
-          cl /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_d843f.dir\\Debug\\\\" /Fd"cmTC_d843f.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue "C:\\Program Files\\CMake\\share\\cmake-3.28\\Modules\\CMakeCCompilerABI.c"
+          cl /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_de780.dir\\Debug\\\\" /Fd"cmTC_de780.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue "C:\\Program Files\\CMake\\share\\cmake-3.28\\Modules\\CMakeCCompilerABI.c"
         Link:
-          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.34.31933\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:"C:\\Dev\\C++\\SpriteEngineUI\\Engine\\Build\\CMakeFiles\\CMakeScratch\\TryCompile-hkrp18\\Debug\\cmTC_d843f.exe" /INCREMENTAL /ILK:"cmTC_d843f.dir\\Debug\\cmTC_d843f.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:/Dev/C++/SpriteEngineUI/Engine/Build/CMakeFiles/CMakeScratch/TryCompile-hkrp18/Debug/cmTC_d843f.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:/Dev/C++/SpriteEngineUI/Engine/Build/CMakeFiles/CMakeScratch/TryCompile-hkrp18/Debug/cmTC_d843f.lib" /MACHINE:X64  /machine:x64 cmTC_d843f.dir\\Debug\\CMakeCCompilerABI.obj
-          cmTC_d843f.vcxproj -> C:\\Dev\\C++\\SpriteEngineUI\\Engine\\Build\\CMakeFiles\\CMakeScratch\\TryCompile-hkrp18\\Debug\\cmTC_d843f.exe
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.34.31933\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:"C:\\Dev\\C++\\SpriteEngineUI\\Engine\\Build\\CMakeFiles\\CMakeScratch\\TryCompile-hlch7l\\Debug\\cmTC_de780.exe" /INCREMENTAL /ILK:"cmTC_de780.dir\\Debug\\cmTC_de780.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:/Dev/C++/SpriteEngineUI/Engine/Build/CMakeFiles/CMakeScratch/TryCompile-hlch7l/Debug/cmTC_de780.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:/Dev/C++/SpriteEngineUI/Engine/Build/CMakeFiles/CMakeScratch/TryCompile-hlch7l/Debug/cmTC_de780.lib" /MACHINE:X64  /machine:x64 cmTC_de780.dir\\Debug\\CMakeCCompilerABI.obj
+          cmTC_de780.vcxproj -> C:\\Dev\\C++\\SpriteEngineUI\\Engine\\Build\\CMakeFiles\\CMakeScratch\\TryCompile-hlch7l\\Debug\\cmTC_de780.exe
         FinalizeBuildStatus:
-          Die Datei "cmTC_d843f.dir\\Debug\\cmTC_d843f.tlog\\unsuccessfulbuild" wird gelöscht.
-          Aktualisieren des Timestamps von "cmTC_d843f.dir\\Debug\\cmTC_d843f.tlog\\cmTC_d843f.lastbuildstate".
-        Die Erstellung von Projekt "C:\\Dev\\C++\\SpriteEngineUI\\Engine\\Build\\CMakeFiles\\CMakeScratch\\TryCompile-hkrp18\\cmTC_d843f.vcxproj" ist abgeschlossen (Standardziele).
+          Die Datei "cmTC_de780.dir\\Debug\\cmTC_de780.tlog\\unsuccessfulbuild" wird gelöscht.
+          Aktualisieren des Timestamps von "cmTC_de780.dir\\Debug\\cmTC_de780.tlog\\cmTC_de780.lastbuildstate".
+        Die Erstellung von Projekt "C:\\Dev\\C++\\SpriteEngineUI\\Engine\\Build\\CMakeFiles\\CMakeScratch\\TryCompile-hlch7l\\cmTC_de780.vcxproj" ist abgeschlossen (Standardziele).
         
         Der Buildvorgang wurde erfolgreich ausgeführt.
             0 Warnung(en)
             0 Fehler
         
-        Verstrichene Zeit 00:00:00.63
+        Verstrichene Zeit 00:00:00.78
         
       exitCode: 0
   -
@@ -179,8 +179,8 @@ events:
     checks:
       - "Detecting CXX compiler ABI info"
     directories:
-      source: "C:/Dev/C++/SpriteEngineUI/Engine/Build/CMakeFiles/CMakeScratch/TryCompile-adagt3"
-      binary: "C:/Dev/C++/SpriteEngineUI/Engine/Build/CMakeFiles/CMakeScratch/TryCompile-adagt3"
+      source: "C:/Dev/C++/SpriteEngineUI/Engine/Build/CMakeFiles/CMakeScratch/TryCompile-caljpa"
+      binary: "C:/Dev/C++/SpriteEngineUI/Engine/Build/CMakeFiles/CMakeScratch/TryCompile-caljpa"
     cmakeVariables:
       CMAKE_CXX_FLAGS: "/DWIN32 /D_WINDOWS /W3 /GR /EHsc"
       CMAKE_CXX_FLAGS_DEBUG: "/MDd /Zi /Ob0 /Od /RTC1"
@@ -189,39 +189,39 @@ events:
       variable: "CMAKE_CXX_ABI_COMPILED"
       cached: true
       stdout: |
-        Change Dir: 'C:/Dev/C++/SpriteEngineUI/Engine/Build/CMakeFiles/CMakeScratch/TryCompile-adagt3'
+        Change Dir: 'C:/Dev/C++/SpriteEngineUI/Engine/Build/CMakeFiles/CMakeScratch/TryCompile-caljpa'
         
-        Run Build Command(s): "C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_4e617.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
+        Run Build Command(s): "C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_aa7f9.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
         MSBuild version 17.5.1+f6fdcf537 for .NET Framework
-        Der Buildvorgang wurde am 22.11.2023 21:23:07 gestartet.
+        Der Buildvorgang wurde am 22.11.2023 21:41:13 gestartet.
         Included response file: C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\MSBuild\\Current\\Bin\\amd64\\MSBuild.rsp
         
-        Projekt "C:\\Dev\\C++\\SpriteEngineUI\\Engine\\Build\\CMakeFiles\\CMakeScratch\\TryCompile-adagt3\\cmTC_4e617.vcxproj" auf Knoten "1" (Standardziele).
+        Projekt "C:\\Dev\\C++\\SpriteEngineUI\\Engine\\Build\\CMakeFiles\\CMakeScratch\\TryCompile-caljpa\\cmTC_aa7f9.vcxproj" auf Knoten "1" (Standardziele).
         PrepareForBuild:
-          Das Verzeichnis "cmTC_4e617.dir\\Debug\\" wird erstellt.
-          Das Verzeichnis "C:\\Dev\\C++\\SpriteEngineUI\\Engine\\Build\\CMakeFiles\\CMakeScratch\\TryCompile-adagt3\\Debug\\" wird erstellt.
-          Das Verzeichnis "cmTC_4e617.dir\\Debug\\cmTC_4e617.tlog\\" wird erstellt.
+          Das Verzeichnis "cmTC_aa7f9.dir\\Debug\\" wird erstellt.
+          Das Verzeichnis "C:\\Dev\\C++\\SpriteEngineUI\\Engine\\Build\\CMakeFiles\\CMakeScratch\\TryCompile-caljpa\\Debug\\" wird erstellt.
+          Das Verzeichnis "cmTC_aa7f9.dir\\Debug\\cmTC_aa7f9.tlog\\" wird erstellt.
         InitializeBuildStatus:
-          "cmTC_4e617.dir\\Debug\\cmTC_4e617.tlog\\unsuccessfulbuild" wird erstellt, da "AlwaysCreate" angegeben wurde.
+          "cmTC_aa7f9.dir\\Debug\\cmTC_aa7f9.tlog\\unsuccessfulbuild" wird erstellt, da "AlwaysCreate" angegeben wurde.
         ClCompile:
-          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.34.31933\\bin\\HostX64\\x64\\CL.exe /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /GR /Fo"cmTC_4e617.dir\\Debug\\\\" /Fd"cmTC_4e617.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TP /errorReport:queue "C:\\Program Files\\CMake\\share\\cmake-3.28\\Modules\\CMakeCXXCompilerABI.cpp"
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.34.31933\\bin\\HostX64\\x64\\CL.exe /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /GR /Fo"cmTC_aa7f9.dir\\Debug\\\\" /Fd"cmTC_aa7f9.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TP /errorReport:queue "C:\\Program Files\\CMake\\share\\cmake-3.28\\Modules\\CMakeCXXCompilerABI.cpp"
           Microsoft (R) C/C++-Optimierungscompiler Version 19.34.31943 für x64
           CMakeCXXCompilerABI.cpp
           Copyright (C) Microsoft Corporation. Alle Rechte vorbehalten.
-          cl /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /GR /Fo"cmTC_4e617.dir\\Debug\\\\" /Fd"cmTC_4e617.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TP /errorReport:queue "C:\\Program Files\\CMake\\share\\cmake-3.28\\Modules\\CMakeCXXCompilerABI.cpp"
+          cl /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /GR /Fo"cmTC_aa7f9.dir\\Debug\\\\" /Fd"cmTC_aa7f9.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TP /errorReport:queue "C:\\Program Files\\CMake\\share\\cmake-3.28\\Modules\\CMakeCXXCompilerABI.cpp"
         Link:
-          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.34.31933\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:"C:\\Dev\\C++\\SpriteEngineUI\\Engine\\Build\\CMakeFiles\\CMakeScratch\\TryCompile-adagt3\\Debug\\cmTC_4e617.exe" /INCREMENTAL /ILK:"cmTC_4e617.dir\\Debug\\cmTC_4e617.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:/Dev/C++/SpriteEngineUI/Engine/Build/CMakeFiles/CMakeScratch/TryCompile-adagt3/Debug/cmTC_4e617.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:/Dev/C++/SpriteEngineUI/Engine/Build/CMakeFiles/CMakeScratch/TryCompile-adagt3/Debug/cmTC_4e617.lib" /MACHINE:X64  /machine:x64 cmTC_4e617.dir\\Debug\\CMakeCXXCompilerABI.obj
-          cmTC_4e617.vcxproj -> C:\\Dev\\C++\\SpriteEngineUI\\Engine\\Build\\CMakeFiles\\CMakeScratch\\TryCompile-adagt3\\Debug\\cmTC_4e617.exe
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.34.31933\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:"C:\\Dev\\C++\\SpriteEngineUI\\Engine\\Build\\CMakeFiles\\CMakeScratch\\TryCompile-caljpa\\Debug\\cmTC_aa7f9.exe" /INCREMENTAL /ILK:"cmTC_aa7f9.dir\\Debug\\cmTC_aa7f9.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:/Dev/C++/SpriteEngineUI/Engine/Build/CMakeFiles/CMakeScratch/TryCompile-caljpa/Debug/cmTC_aa7f9.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:/Dev/C++/SpriteEngineUI/Engine/Build/CMakeFiles/CMakeScratch/TryCompile-caljpa/Debug/cmTC_aa7f9.lib" /MACHINE:X64  /machine:x64 cmTC_aa7f9.dir\\Debug\\CMakeCXXCompilerABI.obj
+          cmTC_aa7f9.vcxproj -> C:\\Dev\\C++\\SpriteEngineUI\\Engine\\Build\\CMakeFiles\\CMakeScratch\\TryCompile-caljpa\\Debug\\cmTC_aa7f9.exe
         FinalizeBuildStatus:
-          Die Datei "cmTC_4e617.dir\\Debug\\cmTC_4e617.tlog\\unsuccessfulbuild" wird gelöscht.
-          Aktualisieren des Timestamps von "cmTC_4e617.dir\\Debug\\cmTC_4e617.tlog\\cmTC_4e617.lastbuildstate".
-        Die Erstellung von Projekt "C:\\Dev\\C++\\SpriteEngineUI\\Engine\\Build\\CMakeFiles\\CMakeScratch\\TryCompile-adagt3\\cmTC_4e617.vcxproj" ist abgeschlossen (Standardziele).
+          Die Datei "cmTC_aa7f9.dir\\Debug\\cmTC_aa7f9.tlog\\unsuccessfulbuild" wird gelöscht.
+          Aktualisieren des Timestamps von "cmTC_aa7f9.dir\\Debug\\cmTC_aa7f9.tlog\\cmTC_aa7f9.lastbuildstate".
+        Die Erstellung von Projekt "C:\\Dev\\C++\\SpriteEngineUI\\Engine\\Build\\CMakeFiles\\CMakeScratch\\TryCompile-caljpa\\cmTC_aa7f9.vcxproj" ist abgeschlossen (Standardziele).
         
         Der Buildvorgang wurde erfolgreich ausgeführt.
             0 Warnung(en)
             0 Fehler
         
-        Verstrichene Zeit 00:00:00.68
+        Verstrichene Zeit 00:00:00.71
         
       exitCode: 0
 ...

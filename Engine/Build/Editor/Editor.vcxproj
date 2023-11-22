@@ -319,6 +319,8 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
   <ItemGroup>
     <ClCompile Include="C:\Dev\C++\SpriteEngineUI\Engine\Editor\Source\Editor.cpp" />
     <ClInclude Include="C:\Dev\C++\SpriteEngineUI\Engine\Editor\Source\Editor.h" />
+    <ClCompile Include="C:\Dev\C++\SpriteEngineUI\Engine\Editor\Source\GUI\GUIRepository.cpp" />
+    <ClInclude Include="C:\Dev\C++\SpriteEngineUI\Engine\Editor\Source\GUI\GUIRepository.h" />
     <ClCompile Include="C:\Dev\C++\SpriteEngineUI\Engine\Editor\Source\Main.cpp" />
   </ItemGroup>
   <ItemGroup>

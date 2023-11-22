@@ -4,6 +4,9 @@
     <ClCompile Include="C:\Dev\C++\SpriteEngineUI\Engine\Editor\Source\Editor.cpp">
       <Filter>Source</Filter>
     </ClCompile>
+    <ClCompile Include="C:\Dev\C++\SpriteEngineUI\Engine\Editor\Source\GUI\GUIRepository.cpp">
+      <Filter>Source\GUI</Filter>
+    </ClCompile>
     <ClCompile Include="C:\Dev\C++\SpriteEngineUI\Engine\Editor\Source\Main.cpp">
       <Filter>Source</Filter>
     </ClCompile>
@@ -12,6 +15,9 @@
     <ClInclude Include="C:\Dev\C++\SpriteEngineUI\Engine\Editor\Source\Editor.h">
       <Filter>Source</Filter>
     </ClInclude>
+    <ClInclude Include="C:\Dev\C++\SpriteEngineUI\Engine\Editor\Source\GUI\GUIRepository.h">
+      <Filter>Source\GUI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="C:\Dev\C++\SpriteEngineUI\Engine\Editor\CMakeLists.txt" />
@@ -19,6 +25,9 @@
   <ItemGroup>
     <Filter Include="Source">
       <UniqueIdentifier>{60A66333-8E03-396C-B8D4-C9D726CBDF3C}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\GUI">
+      <UniqueIdentifier>{1474BAC9-3BBC-359C-A842-FF8F9D678298}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
