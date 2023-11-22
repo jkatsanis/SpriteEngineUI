@@ -1,24 +1,99 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="C:\Dev\C++\SpriteEngineUI\Core\Source\Core.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="C:\Dev\Refactor\SpriteEngineUI\Engine\Core\Source\Core.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Dev\Refactor\SpriteEngineUI\Engine\Core\Source\Include\ImGui\imgui-SFML.cpp">
+      <Filter>Source\Include\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Dev\Refactor\SpriteEngineUI\Engine\Core\Source\Include\ImGui\imgui.cpp">
+      <Filter>Source\Include\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Dev\Refactor\SpriteEngineUI\Engine\Core\Source\Include\ImGui\imgui_draw.cpp">
+      <Filter>Source\Include\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Dev\Refactor\SpriteEngineUI\Engine\Core\Source\Include\ImGui\imgui_tables.cpp">
+      <Filter>Source\Include\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Dev\Refactor\SpriteEngineUI\Engine\Core\Source\Include\ImGui\imgui_widgets.cpp">
+      <Filter>Source\Include\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Dev\Refactor\SpriteEngineUI\Engine\Core\Source\Include\UtilityFunctions.cpp">
+      <Filter>Source\Include</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Dev\Refactor\SpriteEngineUI\Engine\Core\Source\Math\Vector2.cpp">
+      <Filter>Source\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Dev\Refactor\SpriteEngineUI\Engine\Core\Source\Math\Vector3.cpp">
+      <Filter>Source\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Dev\Refactor\SpriteEngineUI\Engine\Core\Source\Window.cpp">
+      <Filter>Source</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="C:\Dev\C++\SpriteEngineUI\Core\Source\Core.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="C:\Dev\Refactor\SpriteEngineUI\Engine\Core\Source\Core.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Dev\Refactor\SpriteEngineUI\Engine\Core\Source\Include\ImGui\ImGUISFML.h">
+      <Filter>Source\Include\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Dev\Refactor\SpriteEngineUI\Engine\Core\Source\Include\ImGui\imconfig-SFML.h">
+      <Filter>Source\Include\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Dev\Refactor\SpriteEngineUI\Engine\Core\Source\Include\ImGui\imconfig.h">
+      <Filter>Source\Include\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Dev\Refactor\SpriteEngineUI\Engine\Core\Source\Include\ImGui\imgui-SFML.h">
+      <Filter>Source\Include\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Dev\Refactor\SpriteEngineUI\Engine\Core\Source\Include\ImGui\imgui-SFML_export.h">
+      <Filter>Source\Include\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Dev\Refactor\SpriteEngineUI\Engine\Core\Source\Include\ImGui\imgui.h">
+      <Filter>Source\Include\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Dev\Refactor\SpriteEngineUI\Engine\Core\Source\Include\ImGui\imgui_internal.h">
+      <Filter>Source\Include\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Dev\Refactor\SpriteEngineUI\Engine\Core\Source\Include\ImGui\imstb_rectpack.h">
+      <Filter>Source\Include\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Dev\Refactor\SpriteEngineUI\Engine\Core\Source\Include\ImGui\imstb_textedit.h">
+      <Filter>Source\Include\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Dev\Refactor\SpriteEngineUI\Engine\Core\Source\Include\ImGui\imstb_truetype.h">
+      <Filter>Source\Include\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Dev\Refactor\SpriteEngineUI\Engine\Core\Source\Include\UtilityFunctions.h">
+      <Filter>Source\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Dev\Refactor\SpriteEngineUI\Engine\Core\Source\Math\Vector2.h">
+      <Filter>Source\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Dev\Refactor\SpriteEngineUI\Engine\Core\Source\Math\Vector3.h">
+      <Filter>Source\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Dev\Refactor\SpriteEngineUI\Engine\Core\Source\Window.h">
+      <Filter>Source</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <CustomBuild Include="C:\Dev\C++\SpriteEngineUI\Core\CMakeLists.txt" />
+    <CustomBuild Include="C:\Dev\Refactor\SpriteEngineUI\Engine\Core\CMakeLists.txt" />
   </ItemGroup>
   <ItemGroup>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{A1F60AFA-407F-34B5-9416-C8355C851C68}</UniqueIdentifier>
+    <Filter Include="Source">
+      <UniqueIdentifier>{BFDEC347-DB2C-39E3-BF41-2B1C6D2E6ECB}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{A069D047-BF96-3C14-902D-DE2B100FE5A5}</UniqueIdentifier>
+    <Filter Include="Source\Include">
+      <UniqueIdentifier>{12C63929-9190-3463-A215-9805BF505ED6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Include\ImGui">
+      <UniqueIdentifier>{8B22EBF2-C57D-3D6C-83F1-CD9DADB53F72}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Math">
+      <UniqueIdentifier>{97AB3893-EF32-372C-B2DA-2392C29EB7C5}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

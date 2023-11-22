@@ -1,4 +1,4 @@
-# Install script for directory: C:/Dev/C++/SpriteEngineUI/Core
+# Install script for directory: C:/Dev/Refactor/SpriteEngineUI/Engine/Core
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)

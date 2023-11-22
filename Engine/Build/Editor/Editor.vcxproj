@@ -22,7 +22,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{27E4CF88-1D9D-33E2-9E39-16DBC11EBD0C}</ProjectGuid>
+    <ProjectGuid>{455E553C-A03B-3BAB-B28A-E7C18F8BCC4F}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <WindowsTargetPlatformVersion>10.0.22000.0</WindowsTargetPlatformVersion>
     <Platform>x64</Platform>
@@ -59,25 +59,25 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup>
     <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Dev\C++\SpriteEngineUI\Build\Editor\Debug\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Dev\Refactor\SpriteEngineUI\Engine\Build\Editor\Debug\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Editor.dir\Debug\</IntDir>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Editor</TargetName>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.exe</TargetExt>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</LinkIncremental>
     <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</GenerateManifest>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Dev\C++\SpriteEngineUI\Build\Editor\Release\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Dev\Refactor\SpriteEngineUI\Engine\Build\Editor\Release\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Editor.dir\Release\</IntDir>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Editor</TargetName>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.exe</TargetExt>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkIncremental>
     <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</GenerateManifest>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\Dev\C++\SpriteEngineUI\Build\Editor\MinSizeRel\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\Dev\Refactor\SpriteEngineUI\Engine\Build\Editor\MinSizeRel\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">Editor.dir\MinSizeRel\</IntDir>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">Editor</TargetName>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">.exe</TargetExt>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkIncremental>
     <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">true</GenerateManifest>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\Dev\C++\SpriteEngineUI\Build\Editor\RelWithDebInfo\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\Dev\Refactor\SpriteEngineUI\Engine\Build\Editor\RelWithDebInfo\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">Editor.dir\RelWithDebInfo\</IntDir>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">Editor</TargetName>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">.exe</TargetExt>
@@ -86,7 +86,7 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>C:\Dev\C++\SpriteEngineUI\$(CMAKE_SOURCE_DIR)\Core\Source\Include;C:\Dev\C++\SpriteEngineUI\Core;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Dev\Refactor\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source\Include\ImGui;C:\Dev\Refactor\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source\Include;C:\Dev\Refactor\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source;C:\Dev\Refactor\SpriteEngineUI\Engine\Core;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
@@ -104,10 +104,10 @@
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_DEBUG;_WINDOWS;CMAKE_INTDIR=\"Debug\"</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\Dev\C++\SpriteEngineUI\$(CMAKE_SOURCE_DIR)\Core\Source\Include;C:\Dev\C++\SpriteEngineUI\Core;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Dev\Refactor\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source\Include\ImGui;C:\Dev\Refactor\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source\Include;C:\Dev\Refactor\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source;C:\Dev\Refactor\SpriteEngineUI\Engine\Core;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>C:\Dev\C++\SpriteEngineUI\$(CMAKE_SOURCE_DIR)\Core\Source\Include;C:\Dev\C++\SpriteEngineUI\Core;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Dev\Refactor\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source\Include\ImGui;C:\Dev\Refactor\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source\Include;C:\Dev\Refactor\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source;C:\Dev\Refactor\SpriteEngineUI\Engine\Core;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -115,13 +115,13 @@
       <ProxyFileName>%(Filename)_p.c</ProxyFileName>
     </Midl>
     <Link>
-      <AdditionalDependencies>..\Core\Debug\Core.lib;C:\Dev\C++\SpriteEngineUI\Editor\Source\Include\LIB\sfml-audio-d.lib;C:\Dev\C++\SpriteEngineUI\Editor\Source\Include\LIB\sfml-graphics-d.lib;C:\Dev\C++\SpriteEngineUI\Editor\Source\Include\LIB\sfml-network-d.lib;C:\Dev\C++\SpriteEngineUI\Editor\Source\Include\LIB\sfml-system-d.lib;C:\Dev\C++\SpriteEngineUI\Editor\Source\Include\LIB\sfml-window-d.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalDependencies>..\Core\Debug\Core.lib;C:\Dev\Refactor\SpriteEngineUI\Engine\Editor\Source\Include\LIB\sfml-audio-d.lib;C:\Dev\Refactor\SpriteEngineUI\Engine\Editor\Source\Include\LIB\sfml-graphics-d.lib;C:\Dev\Refactor\SpriteEngineUI\Engine\Editor\Source\Include\LIB\sfml-network-d.lib;C:\Dev\Refactor\SpriteEngineUI\Engine\Editor\Source\Include\LIB\sfml-system-d.lib;C:\Dev\Refactor\SpriteEngineUI\Engine\Editor\Source\Include\LIB\sfml-window-d.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
-      <ImportLibrary>C:/Dev/C++/SpriteEngineUI/Build/Editor/Debug/Editor.lib</ImportLibrary>
-      <ProgramDataBaseFile>C:/Dev/C++/SpriteEngineUI/Build/Editor/Debug/Editor.pdb</ProgramDataBaseFile>
+      <ImportLibrary>C:/Dev/Refactor/SpriteEngineUI/Engine/Build/Editor/Debug/Editor.lib</ImportLibrary>
+      <ProgramDataBaseFile>C:/Dev/Refactor/SpriteEngineUI/Engine/Build/Editor/Debug/Editor.pdb</ProgramDataBaseFile>
       <SubSystem>Console</SubSystem>
     </Link>
     <ProjectReference>
@@ -130,7 +130,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>C:\Dev\C++\SpriteEngineUI\$(CMAKE_SOURCE_DIR)\Core\Source\Include;C:\Dev\C++\SpriteEngineUI\Core;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Dev\Refactor\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source\Include\ImGui;C:\Dev\Refactor\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source\Include;C:\Dev\Refactor\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source;C:\Dev\Refactor\SpriteEngineUI\Engine\Core;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <ExceptionHandling>Sync</ExceptionHandling>
       <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
@@ -148,10 +148,10 @@
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR=\"Release\"</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\Dev\C++\SpriteEngineUI\$(CMAKE_SOURCE_DIR)\Core\Source\Include;C:\Dev\C++\SpriteEngineUI\Core;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Dev\Refactor\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source\Include\ImGui;C:\Dev\Refactor\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source\Include;C:\Dev\Refactor\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source;C:\Dev\Refactor\SpriteEngineUI\Engine\Core;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>C:\Dev\C++\SpriteEngineUI\$(CMAKE_SOURCE_DIR)\Core\Source\Include;C:\Dev\C++\SpriteEngineUI\Core;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Dev\Refactor\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source\Include\ImGui;C:\Dev\Refactor\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source\Include;C:\Dev\Refactor\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source;C:\Dev\Refactor\SpriteEngineUI\Engine\Core;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -159,13 +159,13 @@
       <ProxyFileName>%(Filename)_p.c</ProxyFileName>
     </Midl>
     <Link>
-      <AdditionalDependencies>..\Core\Release\Core.lib;C:\Dev\C++\SpriteEngineUI\Editor\Source\Include\LIB\sfml-audio-d.lib;C:\Dev\C++\SpriteEngineUI\Editor\Source\Include\LIB\sfml-graphics-d.lib;C:\Dev\C++\SpriteEngineUI\Editor\Source\Include\LIB\sfml-network-d.lib;C:\Dev\C++\SpriteEngineUI\Editor\Source\Include\LIB\sfml-system-d.lib;C:\Dev\C++\SpriteEngineUI\Editor\Source\Include\LIB\sfml-window-d.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalDependencies>..\Core\Release\Core.lib;C:\Dev\Refactor\SpriteEngineUI\Engine\Editor\Source\Include\LIB\sfml-audio-d.lib;C:\Dev\Refactor\SpriteEngineUI\Engine\Editor\Source\Include\LIB\sfml-graphics-d.lib;C:\Dev\Refactor\SpriteEngineUI\Engine\Editor\Source\Include\LIB\sfml-network-d.lib;C:\Dev\Refactor\SpriteEngineUI\Engine\Editor\Source\Include\LIB\sfml-system-d.lib;C:\Dev\Refactor\SpriteEngineUI\Engine\Editor\Source\Include\LIB\sfml-window-d.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
-      <ImportLibrary>C:/Dev/C++/SpriteEngineUI/Build/Editor/Release/Editor.lib</ImportLibrary>
-      <ProgramDataBaseFile>C:/Dev/C++/SpriteEngineUI/Build/Editor/Release/Editor.pdb</ProgramDataBaseFile>
+      <ImportLibrary>C:/Dev/Refactor/SpriteEngineUI/Engine/Build/Editor/Release/Editor.lib</ImportLibrary>
+      <ProgramDataBaseFile>C:/Dev/Refactor/SpriteEngineUI/Engine/Build/Editor/Release/Editor.pdb</ProgramDataBaseFile>
       <SubSystem>Console</SubSystem>
     </Link>
     <ProjectReference>
@@ -174,7 +174,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>C:\Dev\C++\SpriteEngineUI\$(CMAKE_SOURCE_DIR)\Core\Source\Include;C:\Dev\C++\SpriteEngineUI\Core;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Dev\Refactor\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source\Include\ImGui;C:\Dev\Refactor\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source\Include;C:\Dev\Refactor\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source;C:\Dev\Refactor\SpriteEngineUI\Engine\Core;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <ExceptionHandling>Sync</ExceptionHandling>
       <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
@@ -192,10 +192,10 @@
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR=\"MinSizeRel\"</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\Dev\C++\SpriteEngineUI\$(CMAKE_SOURCE_DIR)\Core\Source\Include;C:\Dev\C++\SpriteEngineUI\Core;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Dev\Refactor\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source\Include\ImGui;C:\Dev\Refactor\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source\Include;C:\Dev\Refactor\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source;C:\Dev\Refactor\SpriteEngineUI\Engine\Core;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>C:\Dev\C++\SpriteEngineUI\$(CMAKE_SOURCE_DIR)\Core\Source\Include;C:\Dev\C++\SpriteEngineUI\Core;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Dev\Refactor\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source\Include\ImGui;C:\Dev\Refactor\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source\Include;C:\Dev\Refactor\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source;C:\Dev\Refactor\SpriteEngineUI\Engine\Core;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -203,13 +203,13 @@
       <ProxyFileName>%(Filename)_p.c</ProxyFileName>
     </Midl>
     <Link>
-      <AdditionalDependencies>..\Core\MinSizeRel\Core.lib;C:\Dev\C++\SpriteEngineUI\Editor\Source\Include\LIB\sfml-audio-d.lib;C:\Dev\C++\SpriteEngineUI\Editor\Source\Include\LIB\sfml-graphics-d.lib;C:\Dev\C++\SpriteEngineUI\Editor\Source\Include\LIB\sfml-network-d.lib;C:\Dev\C++\SpriteEngineUI\Editor\Source\Include\LIB\sfml-system-d.lib;C:\Dev\C++\SpriteEngineUI\Editor\Source\Include\LIB\sfml-window-d.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalDependencies>..\Core\MinSizeRel\Core.lib;C:\Dev\Refactor\SpriteEngineUI\Engine\Editor\Source\Include\LIB\sfml-audio-d.lib;C:\Dev\Refactor\SpriteEngineUI\Engine\Editor\Source\Include\LIB\sfml-graphics-d.lib;C:\Dev\Refactor\SpriteEngineUI\Engine\Editor\Source\Include\LIB\sfml-network-d.lib;C:\Dev\Refactor\SpriteEngineUI\Engine\Editor\Source\Include\LIB\sfml-system-d.lib;C:\Dev\Refactor\SpriteEngineUI\Engine\Editor\Source\Include\LIB\sfml-window-d.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
-      <ImportLibrary>C:/Dev/C++/SpriteEngineUI/Build/Editor/MinSizeRel/Editor.lib</ImportLibrary>
-      <ProgramDataBaseFile>C:/Dev/C++/SpriteEngineUI/Build/Editor/MinSizeRel/Editor.pdb</ProgramDataBaseFile>
+      <ImportLibrary>C:/Dev/Refactor/SpriteEngineUI/Engine/Build/Editor/MinSizeRel/Editor.lib</ImportLibrary>
+      <ProgramDataBaseFile>C:/Dev/Refactor/SpriteEngineUI/Engine/Build/Editor/MinSizeRel/Editor.pdb</ProgramDataBaseFile>
       <SubSystem>Console</SubSystem>
     </Link>
     <ProjectReference>
@@ -218,7 +218,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>C:\Dev\C++\SpriteEngineUI\$(CMAKE_SOURCE_DIR)\Core\Source\Include;C:\Dev\C++\SpriteEngineUI\Core;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Dev\Refactor\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source\Include\ImGui;C:\Dev\Refactor\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source\Include;C:\Dev\Refactor\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source;C:\Dev\Refactor\SpriteEngineUI\Engine\Core;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <ExceptionHandling>Sync</ExceptionHandling>
@@ -235,10 +235,10 @@
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR=\"RelWithDebInfo\"</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\Dev\C++\SpriteEngineUI\$(CMAKE_SOURCE_DIR)\Core\Source\Include;C:\Dev\C++\SpriteEngineUI\Core;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Dev\Refactor\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source\Include\ImGui;C:\Dev\Refactor\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source\Include;C:\Dev\Refactor\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source;C:\Dev\Refactor\SpriteEngineUI\Engine\Core;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>C:\Dev\C++\SpriteEngineUI\$(CMAKE_SOURCE_DIR)\Core\Source\Include;C:\Dev\C++\SpriteEngineUI\Core;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Dev\Refactor\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source\Include\ImGui;C:\Dev\Refactor\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source\Include;C:\Dev\Refactor\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source;C:\Dev\Refactor\SpriteEngineUI\Engine\Core;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -246,13 +246,13 @@
       <ProxyFileName>%(Filename)_p.c</ProxyFileName>
     </Midl>
     <Link>
-      <AdditionalDependencies>..\Core\RelWithDebInfo\Core.lib;C:\Dev\C++\SpriteEngineUI\Editor\Source\Include\LIB\sfml-audio-d.lib;C:\Dev\C++\SpriteEngineUI\Editor\Source\Include\LIB\sfml-graphics-d.lib;C:\Dev\C++\SpriteEngineUI\Editor\Source\Include\LIB\sfml-network-d.lib;C:\Dev\C++\SpriteEngineUI\Editor\Source\Include\LIB\sfml-system-d.lib;C:\Dev\C++\SpriteEngineUI\Editor\Source\Include\LIB\sfml-window-d.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalDependencies>..\Core\RelWithDebInfo\Core.lib;C:\Dev\Refactor\SpriteEngineUI\Engine\Editor\Source\Include\LIB\sfml-audio-d.lib;C:\Dev\Refactor\SpriteEngineUI\Engine\Editor\Source\Include\LIB\sfml-graphics-d.lib;C:\Dev\Refactor\SpriteEngineUI\Engine\Editor\Source\Include\LIB\sfml-network-d.lib;C:\Dev\Refactor\SpriteEngineUI\Engine\Editor\Source\Include\LIB\sfml-system-d.lib;C:\Dev\Refactor\SpriteEngineUI\Engine\Editor\Source\Include\LIB\sfml-window-d.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
-      <ImportLibrary>C:/Dev/C++/SpriteEngineUI/Build/Editor/RelWithDebInfo/Editor.lib</ImportLibrary>
-      <ProgramDataBaseFile>C:/Dev/C++/SpriteEngineUI/Build/Editor/RelWithDebInfo/Editor.pdb</ProgramDataBaseFile>
+      <ImportLibrary>C:/Dev/Refactor/SpriteEngineUI/Engine/Build/Editor/RelWithDebInfo/Editor.lib</ImportLibrary>
+      <ProgramDataBaseFile>C:/Dev/Refactor/SpriteEngineUI/Engine/Build/Editor/RelWithDebInfo/Editor.pdb</ProgramDataBaseFile>
       <SubSystem>Console</SubSystem>
     </Link>
     <ProjectReference>
@@ -260,11 +260,11 @@
     </ProjectReference>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <CustomBuild Include="C:\Dev\C++\SpriteEngineUI\Editor\CMakeLists.txt">
+    <CustomBuild Include="C:\Dev\Refactor\SpriteEngineUI\Engine\Editor\CMakeLists.txt">
       <UseUtf8Encoding>Always</UseUtf8Encoding>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Building Custom Rule C:/Dev/C++/SpriteEngineUI/Editor/CMakeLists.txt</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Building Custom Rule C:/Dev/Refactor/SpriteEngineUI/Engine/Editor/CMakeLists.txt</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
-"C:\Program Files\CMake\bin\cmake.exe" -SC:/Dev/C++/SpriteEngineUI -BC:/Dev/C++/SpriteEngineUI/Build --check-stamp-file C:/Dev/C++/SpriteEngineUI/Build/Editor/CMakeFiles/generate.stamp
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Dev/Refactor/SpriteEngineUI/Engine -BC:/Dev/Refactor/SpriteEngineUI/Engine/Build --check-stamp-file C:/Dev/Refactor/SpriteEngineUI/Engine/Build/Editor/CMakeFiles/generate.stamp
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -272,12 +272,12 @@ endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Dev\C++\SpriteEngineUI\Editor\Source\Include\DLL\sfml-audio-d-2.dll;C:\Dev\C++\SpriteEngineUI\Editor\Source\Include\DLL\sfml-graphics-d-2.dll;C:\Dev\C++\SpriteEngineUI\Editor\Source\Include\DLL\sfml-network-d-2.dll;C:\Dev\C++\SpriteEngineUI\Editor\Source\Include\DLL\sfml-system-d-2.dll;C:\Dev\C++\SpriteEngineUI\Editor\Source\Include\DLL\sfml-window-d-2.dll;%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Dev\C++\SpriteEngineUI\Build\Editor\CMakeFiles\generate.stamp</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Dev\Refactor\SpriteEngineUI\Engine\Editor\Source\Include\DLL\sfml-audio-d-2.dll;C:\Dev\Refactor\SpriteEngineUI\Engine\Editor\Source\Include\DLL\sfml-graphics-d-2.dll;C:\Dev\Refactor\SpriteEngineUI\Engine\Editor\Source\Include\DLL\sfml-network-d-2.dll;C:\Dev\Refactor\SpriteEngineUI\Engine\Editor\Source\Include\DLL\sfml-system-d-2.dll;C:\Dev\Refactor\SpriteEngineUI\Engine\Editor\Source\Include\DLL\sfml-window-d-2.dll;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Dev\Refactor\SpriteEngineUI\Engine\Build\Editor\CMakeFiles\generate.stamp</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Building Custom Rule C:/Dev/C++/SpriteEngineUI/Editor/CMakeLists.txt</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Building Custom Rule C:/Dev/Refactor/SpriteEngineUI/Engine/Editor/CMakeLists.txt</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
-"C:\Program Files\CMake\bin\cmake.exe" -SC:/Dev/C++/SpriteEngineUI -BC:/Dev/C++/SpriteEngineUI/Build --check-stamp-file C:/Dev/C++/SpriteEngineUI/Build/Editor/CMakeFiles/generate.stamp
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Dev/Refactor/SpriteEngineUI/Engine -BC:/Dev/Refactor/SpriteEngineUI/Engine/Build --check-stamp-file C:/Dev/Refactor/SpriteEngineUI/Engine/Build/Editor/CMakeFiles/generate.stamp
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -285,12 +285,12 @@ endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Dev\C++\SpriteEngineUI\Editor\Source\Include\DLL\sfml-audio-d-2.dll;C:\Dev\C++\SpriteEngineUI\Editor\Source\Include\DLL\sfml-graphics-d-2.dll;C:\Dev\C++\SpriteEngineUI\Editor\Source\Include\DLL\sfml-network-d-2.dll;C:\Dev\C++\SpriteEngineUI\Editor\Source\Include\DLL\sfml-system-d-2.dll;C:\Dev\C++\SpriteEngineUI\Editor\Source\Include\DLL\sfml-window-d-2.dll;%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Dev\C++\SpriteEngineUI\Build\Editor\CMakeFiles\generate.stamp</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Dev\Refactor\SpriteEngineUI\Engine\Editor\Source\Include\DLL\sfml-audio-d-2.dll;C:\Dev\Refactor\SpriteEngineUI\Engine\Editor\Source\Include\DLL\sfml-graphics-d-2.dll;C:\Dev\Refactor\SpriteEngineUI\Engine\Editor\Source\Include\DLL\sfml-network-d-2.dll;C:\Dev\Refactor\SpriteEngineUI\Engine\Editor\Source\Include\DLL\sfml-system-d-2.dll;C:\Dev\Refactor\SpriteEngineUI\Engine\Editor\Source\Include\DLL\sfml-window-d-2.dll;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Dev\Refactor\SpriteEngineUI\Engine\Build\Editor\CMakeFiles\generate.stamp</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
-      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">Building Custom Rule C:/Dev/C++/SpriteEngineUI/Editor/CMakeLists.txt</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">Building Custom Rule C:/Dev/Refactor/SpriteEngineUI/Engine/Editor/CMakeLists.txt</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">setlocal
-"C:\Program Files\CMake\bin\cmake.exe" -SC:/Dev/C++/SpriteEngineUI -BC:/Dev/C++/SpriteEngineUI/Build --check-stamp-file C:/Dev/C++/SpriteEngineUI/Build/Editor/CMakeFiles/generate.stamp
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Dev/Refactor/SpriteEngineUI/Engine -BC:/Dev/Refactor/SpriteEngineUI/Engine/Build --check-stamp-file C:/Dev/Refactor/SpriteEngineUI/Engine/Build/Editor/CMakeFiles/generate.stamp
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -298,12 +298,12 @@ endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\Dev\C++\SpriteEngineUI\Editor\Source\Include\DLL\sfml-audio-d-2.dll;C:\Dev\C++\SpriteEngineUI\Editor\Source\Include\DLL\sfml-graphics-d-2.dll;C:\Dev\C++\SpriteEngineUI\Editor\Source\Include\DLL\sfml-network-d-2.dll;C:\Dev\C++\SpriteEngineUI\Editor\Source\Include\DLL\sfml-system-d-2.dll;C:\Dev\C++\SpriteEngineUI\Editor\Source\Include\DLL\sfml-window-d-2.dll;%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\Dev\C++\SpriteEngineUI\Build\Editor\CMakeFiles\generate.stamp</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\Dev\Refactor\SpriteEngineUI\Engine\Editor\Source\Include\DLL\sfml-audio-d-2.dll;C:\Dev\Refactor\SpriteEngineUI\Engine\Editor\Source\Include\DLL\sfml-graphics-d-2.dll;C:\Dev\Refactor\SpriteEngineUI\Engine\Editor\Source\Include\DLL\sfml-network-d-2.dll;C:\Dev\Refactor\SpriteEngineUI\Engine\Editor\Source\Include\DLL\sfml-system-d-2.dll;C:\Dev\Refactor\SpriteEngineUI\Engine\Editor\Source\Include\DLL\sfml-window-d-2.dll;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\Dev\Refactor\SpriteEngineUI\Engine\Build\Editor\CMakeFiles\generate.stamp</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkObjects>
-      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">Building Custom Rule C:/Dev/C++/SpriteEngineUI/Editor/CMakeLists.txt</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">Building Custom Rule C:/Dev/Refactor/SpriteEngineUI/Engine/Editor/CMakeLists.txt</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">setlocal
-"C:\Program Files\CMake\bin\cmake.exe" -SC:/Dev/C++/SpriteEngineUI -BC:/Dev/C++/SpriteEngineUI/Build --check-stamp-file C:/Dev/C++/SpriteEngineUI/Build/Editor/CMakeFiles/generate.stamp
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Dev/Refactor/SpriteEngineUI/Engine -BC:/Dev/Refactor/SpriteEngineUI/Engine/Build --check-stamp-file C:/Dev/Refactor/SpriteEngineUI/Engine/Build/Editor/CMakeFiles/generate.stamp
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -311,23 +311,26 @@ endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\Dev\C++\SpriteEngineUI\Editor\Source\Include\DLL\sfml-audio-d-2.dll;C:\Dev\C++\SpriteEngineUI\Editor\Source\Include\DLL\sfml-graphics-d-2.dll;C:\Dev\C++\SpriteEngineUI\Editor\Source\Include\DLL\sfml-network-d-2.dll;C:\Dev\C++\SpriteEngineUI\Editor\Source\Include\DLL\sfml-system-d-2.dll;C:\Dev\C++\SpriteEngineUI\Editor\Source\Include\DLL\sfml-window-d-2.dll;%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\Dev\C++\SpriteEngineUI\Build\Editor\CMakeFiles\generate.stamp</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\Dev\Refactor\SpriteEngineUI\Engine\Editor\Source\Include\DLL\sfml-audio-d-2.dll;C:\Dev\Refactor\SpriteEngineUI\Engine\Editor\Source\Include\DLL\sfml-graphics-d-2.dll;C:\Dev\Refactor\SpriteEngineUI\Engine\Editor\Source\Include\DLL\sfml-network-d-2.dll;C:\Dev\Refactor\SpriteEngineUI\Engine\Editor\Source\Include\DLL\sfml-system-d-2.dll;C:\Dev\Refactor\SpriteEngineUI\Engine\Editor\Source\Include\DLL\sfml-window-d-2.dll;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\Dev\Refactor\SpriteEngineUI\Engine\Build\Editor\CMakeFiles\generate.stamp</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">false</LinkObjects>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="C:\Dev\C++\SpriteEngineUI\Editor\Editor.cpp" />
+    <ClCompile Include="C:\Dev\Refactor\SpriteEngineUI\Engine\Editor\Source\Editor.cpp" />
+    <ClInclude Include="C:\Dev\Refactor\SpriteEngineUI\Engine\Editor\Source\Editor.h" />
+    <ClInclude Include="C:\Dev\Refactor\SpriteEngineUI\Engine\Editor\Source\FileDataMacros.h" />
+    <ClCompile Include="C:\Dev\Refactor\SpriteEngineUI\Engine\Editor\Source\Main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="C:\Dev\C++\SpriteEngineUI\Build\ZERO_CHECK.vcxproj">
-      <Project>{B9B24005-90C8-391B-9279-7A6C37C212FA}</Project>
+    <ProjectReference Include="C:\Dev\Refactor\SpriteEngineUI\Engine\Build\ZERO_CHECK.vcxproj">
+      <Project>{F6D07DC9-CF2F-3CC6-9CA3-4F1ADE963284}</Project>
       <Name>ZERO_CHECK</Name>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </ProjectReference>
-    <ProjectReference Include="C:\Dev\C++\SpriteEngineUI\Build\Core\Core.vcxproj">
-      <Project>{2B1B3711-85EF-32DA-BC84-9B39C254B750}</Project>
+    <ProjectReference Include="C:\Dev\Refactor\SpriteEngineUI\Engine\Build\Core\Core.vcxproj">
+      <Project>{33E5A277-2C0C-37F1-BBA2-F75D0041354A}</Project>
       <Name>Core</Name>
     </ProjectReference>
   </ItemGroup>

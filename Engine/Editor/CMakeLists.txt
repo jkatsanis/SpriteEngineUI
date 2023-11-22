@@ -1,20 +1,18 @@
 # Editor/CMakeLists.txt
 
-
-set(EDITOR_NAME Editor)
-set(LIB_FOLDER_NAME LIB)
-set(DLL_FOLDER_NAME DLL)
-
-set(PATH_LIBRARIES ${CMAKE_SOURCE_DIR}/${EDITOR_NAME}/Source/Include)
-
 # Define the executable
-add_executable(${EDITOR_NAME} 
-    Editor.cpp)
 
-# Link the Core library
+file(GLOB_RECURSE EDITOR_SOURCE_FILES
+    "Source/*.cpp"
+    "Source/*.h"
+)
+
+source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR} FILES ${EDITOR_SOURCE_FILES})
+
+add_executable(${EDITOR_NAME} ${EDITOR_SOURCE_FILES})
+
+# Link libraries
 target_link_libraries(${EDITOR_NAME} PRIVATE Core)
-
-# Link SFML libraries using keyword signature
 target_link_libraries(${EDITOR_NAME} PRIVATE
     ${PATH_LIBRARIES}/${LIB_FOLDER_NAME}/sfml-audio-d.lib
     ${PATH_LIBRARIES}/${LIB_FOLDER_NAME}/sfml-graphics-d.lib
@@ -24,7 +22,6 @@ target_link_libraries(${EDITOR_NAME} PRIVATE
 )
 
 # Set debug directory and copy dlls
-
 file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/Editor/Debug)
 
 configure_file(${PATH_LIBRARIES}/${DLL_FOLDER_NAME}/sfml-audio-d-2.dll ${CMAKE_BINARY_DIR}/${EDITOR_NAME}/Debug COPYONLY)
