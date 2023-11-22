@@ -5,21 +5,21 @@
 spe::Camera::Camera() 
 { 
 	this->m_ptr_sprite_repo = nullptr;
-	this->ptr_renderGameWindow_to_engine = nullptr;
+	this->ptr_Window = nullptr;
 	this->transform.SetPosition(spe::Vector2(0, 0));
 	this->m_camera_zoom = 1.0f;
 	this->camera_speed = 2000.0f;
 	this->m_zoom_changed = false;
 }
 
-spe::Camera::Camera(sf::RenderGameWindow* ptr, spe::SpriteRepository& repo)
+spe::Camera::Camera(sf::RenderWindow* ptr, spe::SpriteRepository& repo)
 {
 	spe::Vector2 defaultPos = this->getDefaultPosition();
 
 	this->m_ptr_sprite_repo = &repo;
 	this->m_camera_zoom = 1.0f;
 	this->transform.SetPosition(spe::Vector2(0, 0));
-	this->ptr_renderGameWindow_to_engine = ptr;
+	this->ptr_Window = ptr;
 	this->camera_view = sf::View(sf::Vector2f(defaultPos.x, defaultPos.y), sf::Vector2f(1920, 1080));
 }
 

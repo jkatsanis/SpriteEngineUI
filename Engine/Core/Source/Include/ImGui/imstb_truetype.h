@@ -187,7 +187,7 @@
 //         stb_truetype provides a point API for compatibility. However, true
 //         "per inch" conventions don't make much sense on computer displays
 //         since different monitors have different number of pixels per
-//         inch. For example, GameWindows traditionally uses a convention that
+//         inch. For example, Windows traditionally uses a convention that
 //         there are 96 pixels per inch, thus making 'inch' measurements have
 //         nothing to do with inches, and thus effectively defining a point to
 //         be 1.333 pixels. Additionally, the TrueType font data provides
@@ -291,7 +291,7 @@ GLuint ftex;
 
 void my_stbtt_initfont(void)
 {
-    fread(ttf_buffer, 1, 1 << 20, fopen("c:/GameWindows/fonts/times.ttf", "rb"));
+    fread(ttf_buffer, 1, 1 << 20, fopen("c:/windows/fonts/times.ttf", "rb"));
     stbtt_BakeFontBitmap(ttf_buffer, 0, 32.0, temp_bitmap, 512, 512, 32, 96, cdata); // no guarantee this fits!
     // can free ttf_buffer at this point
     glGenTextures(1, &ftex);
@@ -342,7 +342,7 @@ int main(int argc, char** argv)
     unsigned char* bitmap;
     int w, h, i, j, c = (argc > 1 ? atoi(argv[1]) : 'a'), s = (argc > 2 ? atoi(argv[2]) : 20);
 
-    fread(ttf_buffer, 1, 1 << 25, fopen(argc > 3 ? argv[3] : "c:/GameWindows/fonts/arialbd.ttf", "rb"));
+    fread(ttf_buffer, 1, 1 << 25, fopen(argc > 3 ? argv[3] : "c:/windows/fonts/arialbd.ttf", "rb"));
 
     stbtt_InitFont(&font, ttf_buffer, stbtt_GetFontOffsetForIndex(ttf_buffer, 0));
     bitmap = stbtt_GetCodepointBitmap(&font, 0, stbtt_ScaleForPixelHeight(&font, s), c, &w, &h, 0, 0);
@@ -384,7 +384,7 @@ int main(int arg, char** argv)
     float scale, xpos = 2; // leave a little padding in case the character extends left
     char* text = "Heljo World!"; // intentionally misspelled to show 'lj' brokenness
 
-    fread(buffer, 1, 1000000, fopen("c:/GameWindows/fonts/arialbd.ttf", "rb"));
+    fread(buffer, 1, 1000000, fopen("c:/windows/fonts/arialbd.ttf", "rb"));
     stbtt_InitFont(&font, buffer, 0);
 
     scale = stbtt_ScaleForPixelHeight(&font, 15);
@@ -783,7 +783,7 @@ extern "C" {
 
     STBTT_DEF int  stbtt_GetFontVMetricsOS2(const stbtt_fontinfo* info, int* typoAscent, int* typoDescent, int* typoLineGap);
     // analogous to GetFontVMetrics, but returns the "typographic" values from the OS/2
-    // table (specific to MS/GameWindows TTF files).
+    // table (specific to MS/Windows TTF files).
     //
     // Returns 1 on success (table present), 0 on failure.
 
@@ -1524,7 +1524,7 @@ STBTT_DEF int stbtt_FindGlyphIndex(const stbtt_fontinfo* info, int unicode_codep
         STBTT_assert(0); // @TODO: high-byte mapping for japanese/chinese/korean
         return 0;
     }
-    else if (format == 4) { // standard mapping for GameWindows fonts: binary search collection of ranges
+    else if (format == 4) { // standard mapping for windows fonts: binary search collection of ranges
         stbtt_uint16 segcount = ttUSHORT(data + index_map + 6) >> 1;
         stbtt_uint16 searchRange = ttUSHORT(data + index_map + 8) >> 1;
         stbtt_uint16 entrySelector = ttUSHORT(data + index_map + 10);

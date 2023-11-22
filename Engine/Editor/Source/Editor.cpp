@@ -12,5 +12,22 @@ spe::Editor::Editor()
 
 void spe::Editor::Update()
 {
-	this->m_Window.Draw();
+	this->UpdateComponents();
 }
+
+void spe::Editor::UpdateComponents()
+{
+	this->m_Window.Clear();
+
+	std::list<spe::Sprite*>& sprites = this->m_SpriteRepository.getSprites();
+
+	for (auto it = sprites.begin(); it != sprites.end(); ++it)
+	{
+		spe::Sprite* sprite = *it;
+
+		this->m_Window.Draw(sprite);
+	}
+
+	this->m_Window.Display();
+}
+

@@ -7,22 +7,24 @@
 
 #include "SpriteRepository.h"
 #include "RessourceHandler/Initializer.h"
+#include "Core/IApplication.h"
 
 #include <iostream>
 
 namespace spe
 {
-	class Editor
+	class Editor : public spe::IAppliaction
 	{
 	private:
 		spe::GameWindow m_Window;
 		spe::SpriteRepository m_SpriteRepository;
 
+		void UpdateComponents() override;
 
 	public:
 		Editor();
 
-		void Update();
+		void Update() override;
 		bool IsOpen() { return true; }
 	};
 }

@@ -18,7 +18,7 @@
 // requirements (this library is not recommended for use for editing large
 // texts, as its performance does not scale and it has limited undo).
 //
-// Non-trivial behaviors are modelled after GameWindows text controls.
+// Non-trivial behaviors are modelled after Windows text controls.
 //
 //
 // LICENSE
@@ -181,7 +181,7 @@
 //
 // You can encode other things, such as CONTROL or ALT, in additional bits, and
 // then test for their presence in e.g. STB_TEXTEDIT_K_WORDLEFT. For example,
-// my GameWindows implementations add an additional CONTROL bit, and an additional KEYDOWN
+// my Windows implementations add an additional CONTROL bit, and an additional KEYDOWN
 // bit. Then all of the STB_TEXTEDIT_K_ values bitwise-or in the KEYDOWN bit,
 // and I pass both WM_KEYDOWN and WM_CHAR events to the "key" function in the
 // API below. The control keys will only match WM_KEYDOWN events because of the
@@ -867,7 +867,7 @@ retry:
          int row_count = is_page ? state->row_count_per_page : 1;
 
          if (!is_page && state->single_line) {
-            // on GameWindows, up&down in single-line behave like left&right
+            // on windows, up&down in single-line behave like left&right
             key = STB_TEXTEDIT_K_RIGHT | (key & STB_TEXTEDIT_K_SHIFT);
             goto retry;
          }
@@ -934,7 +934,7 @@ retry:
          int row_count = is_page ? state->row_count_per_page : 1;
 
          if (!is_page && state->single_line) {
-            // on GameWindows, up&down become left&right
+            // on windows, up&down become left&right
             key = STB_TEXTEDIT_K_LEFT | (key & STB_TEXTEDIT_K_SHIFT);
             goto retry;
          }

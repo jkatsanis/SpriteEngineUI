@@ -1,5 +1,0 @@
-C:/Dev/Refactor/SpriteEngineUI/Engine/Build/CMakeFiles/ALL_BUILD.dir
-C:/Dev/Refactor/SpriteEngineUI/Engine/Build/CMakeFiles/ZERO_CHECK.dir
-C:/Dev/Refactor/SpriteEngineUI/Engine/Build/Core/CMakeFiles/Core.dir
-C:/Dev/Refactor/SpriteEngineUI/Engine/Build/Editor/CMakeFiles/Editor.dir
-C:/Dev/Refactor/SpriteEngineUI/Engine/Build/Template/CMakeFiles/Template.dir

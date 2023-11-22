@@ -17,7 +17,7 @@ namespace spe
 		void UpdateSpritePositionToParent(const spe::Vector2& position);
 
 	public:
-		bool position_changed;
+		bool position_changed; // TODO
 		spe::Vector2 texture_size;
 		spe::Vector2 position_to_parent;
 		spe::Sprite* m_attached_sprite;

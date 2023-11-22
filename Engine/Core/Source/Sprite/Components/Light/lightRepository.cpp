@@ -18,6 +18,7 @@ void spe::LightRepository::updateLightSource(spe::Sprite* sprite, spe::Camera* c
 
 	if (sprite->transform.position_changed || cam->hasZoomChanged())
 	{
+		sprite->transform.position_changed = false;
 		spe::LightRepository::s_m_update = true;
 
 		float zoom = cam->getZoom() - 1;

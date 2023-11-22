@@ -13,7 +13,7 @@ namespace spe
 	{
 	private:
 
-		sf::RenderGameWindow* ptr_renderGameWindow_to_engine;
+		sf::RenderWindow* ptr_Window;;
 		float m_camera_zoom;
 		spe::SpriteRepository* m_ptr_sprite_repo;
 		bool m_zoom_changed;
@@ -25,7 +25,7 @@ namespace spe
 		float camera_speed;
 
 		Camera();
-		Camera(sf::RenderGameWindow* ptr, spe::SpriteRepository& repository);
+		Camera(sf::RenderWindow* ptr, spe::SpriteRepository& repository);
 
 		bool hasZoomChanged() const { return this->m_zoom_changed; }
 		void setZoomFlag() { this->m_zoom_changed = false; }
