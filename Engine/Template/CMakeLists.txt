@@ -7,7 +7,7 @@ file(GLOB_RECURSE TEMPLATE_SOURCE_FILES
     "Source/*.cpp"
     "Source/*.h"
 )
-source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR} FILES ${EDITOR_SOURCE_FILES})
+source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR} FILES ${TEMPLATE_SOURCE_FILES})
 
 add_executable(${TEMPLATE_NAME} ${TEMPLATE_SOURCE_FILES})
 
@@ -32,3 +32,5 @@ configure_file(${DLL_LIBRARIES_TEMPLATE}/${DLL_FOLDER_NAME}/sfml-graphics-d-2.dl
 configure_file(${DLL_LIBRARIES_TEMPLATE}/${DLL_FOLDER_NAME}/sfml-network-d-2.dll ${CMAKE_BINARY_DIR}/${TEMPLATE_NAME}/Debug COPYONLY)
 configure_file(${DLL_LIBRARIES_TEMPLATE}/${DLL_FOLDER_NAME}/sfml-system-d-2.dll ${CMAKE_BINARY_DIR}/${TEMPLATE_NAME}/Debug COPYONLY)
 configure_file(${DLL_LIBRARIES_TEMPLATE}/${DLL_FOLDER_NAME}/sfml-window-d-2.dll ${CMAKE_BINARY_DIR}/${TEMPLATE_NAME}/Debug COPYONLY)
+
+# TODO Make release dir

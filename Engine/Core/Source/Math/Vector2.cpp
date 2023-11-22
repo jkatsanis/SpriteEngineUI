@@ -30,13 +30,13 @@ spe::Vector2::Vector2(const sf::Vector2f& rhs)
 	this->y = rhs.y;
 }
 
-bool spe::Vector2::operator==(const Vector2& rhs)
+bool spe::Vector2::operator==(const Vector2& rhs) const
 {
 	return(rhs.x == this->x
 		&& rhs.y == this->y);
 }
 
-bool spe::Vector2::operator!=(const Vector2& rhs)
+bool spe::Vector2::operator!=(const Vector2& rhs) const
 {
 	return(rhs.x != this->x
 		|| rhs.y != this->y);
@@ -47,17 +47,17 @@ spe::Vector2 spe::Vector2::operator+=(const spe::Vector2& rhs)
 	return spe::Vector2(this->x += rhs.x, this->y += rhs.y);
 }
 
-spe::Vector2 spe::Vector2::operator*(const float& rhs)
+spe::Vector2 spe::Vector2::operator*(const float& rhs) const
 {
 	return spe::Vector2(this->x * rhs, this->y * rhs);
 }
-
-spe::Vector2 spe::Vector2::operator-(const spe::Vector2& rhs)
+ 
+spe::Vector2 spe::Vector2::operator-(const spe::Vector2& rhs) const
 {
 	return spe::Vector2(this->x - rhs.x, this->y - rhs.y);
 }
 
-spe::Vector2 spe::Vector2::operator+(const spe::Vector2& rhs)
+spe::Vector2 spe::Vector2::operator+(const spe::Vector2& rhs) const
 {
 	return spe::Vector2(this->x + rhs.x, this->y + rhs.y);
 }
@@ -67,7 +67,7 @@ spe::Vector2 spe::Vector2::operator*=(const spe::Vector2& rhs)
 	return spe::Vector2(this->x *= rhs.x, this->y *= rhs.y);
 }
 
-spe::Vector2 spe::Vector2::operator/=(const spe::Vector2& rhs)
+spe::Vector2 spe::Vector2::operator/=(const spe::Vector2& rhs) 
 {
 	return spe::Vector2(this->x /= rhs.x, this->y /= rhs.y);
 }
@@ -76,7 +76,7 @@ spe::Vector2 spe::Vector2::operator/=(const float rhs)
 {
 	return spe::Vector2(this->x /= rhs, this->y /= rhs);
 }
-spe::Vector2 spe::Vector2::operator*(const spe::Vector2& rhs)
+spe::Vector2 spe::Vector2::operator*(const spe::Vector2& rhs) const
 {
 	return spe::Vector2(this->x * rhs.x, this->y * rhs.y);
 }

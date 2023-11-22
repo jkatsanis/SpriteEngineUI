@@ -77,15 +77,15 @@ Index of this file:
 // Its meaning needs to differ slightly depending on if we are using ScrollX/ScrollY flags.
 // Default value is ImVec2(0.0f, 0.0f).
 //   X
-//   - outer_size.x <= 0.0f  ->  Right-align from window/work-rect right-most edge. With -FLT_MIN or 0.0f will align exactly on right-most edge.
+//   - outer_size.x <= 0.0f  ->  Right-align from GameWindow/work-rect right-most edge. With -FLT_MIN or 0.0f will align exactly on right-most edge.
 //   - outer_size.x  > 0.0f  ->  Set Fixed width.
-//   Y with ScrollX/ScrollY disabled: we output table directly in current window
-//   - outer_size.y  < 0.0f  ->  Bottom-align (but will auto extend, unless _NoHostExtendY is set). Not meaningful is parent window can vertically scroll.
+//   Y with ScrollX/ScrollY disabled: we output table directly in current GameWindow
+//   - outer_size.y  < 0.0f  ->  Bottom-align (but will auto extend, unless _NoHostExtendY is set). Not meaningful is parent GameWindow can vertically scroll.
 //   - outer_size.y  = 0.0f  ->  No minimum height (but will auto extend, unless _NoHostExtendY is set)
 //   - outer_size.y  > 0.0f  ->  Set Minimum height (but will auto extend, unless _NoHostExtenY is set)
-//   Y with ScrollX/ScrollY enabled: using a child window for scrolling
-//   - outer_size.y  < 0.0f  ->  Bottom-align. Not meaningful is parent window can vertically scroll.
-//   - outer_size.y  = 0.0f  ->  Bottom-align, consistent with BeginChild(). Not recommended unless table is last item in parent window.
+//   Y with ScrollX/ScrollY enabled: using a child GameWindow for scrolling
+//   - outer_size.y  < 0.0f  ->  Bottom-align. Not meaningful is parent GameWindow can vertically scroll.
+//   - outer_size.y  = 0.0f  ->  Bottom-align, consistent with BeginChild(). Not recommended unless table is last item in parent GameWindow.
 //   - outer_size.y  > 0.0f  ->  Set Exact height. Recommended when using Scrolling on any axis.
 //-----------------------------------------------------------------------------
 // Outer size is also affected by the NoHostExtendX/NoHostExtendY flags.
@@ -261,11 +261,11 @@ static const float TABLE_RESIZE_SEPARATOR_HALF_THICKNESS = 4.0f;    // Extend ou
 static const float TABLE_RESIZE_SEPARATOR_FEEDBACK_TIMER = 0.06f;   // Delay/timer before making the hover feedback (color+cursor) visible because tables/columns tends to be more cramped.
 
 // Helper
-inline ImGuiTableFlags TableFixFlags(ImGuiTableFlags flags, ImGuiWindow* outer_window)
+inline ImGuiTableFlags TableFixFlags(ImGuiTableFlags flags, ImGuiGameWindow* outer_GameWindow)
 {
     // Adjust flags: set default sizing policy
     if ((flags & ImGuiTableFlags_SizingMask_) == 0)
-        flags |= ((flags & ImGuiTableFlags_ScrollX) || (outer_window->Flags & ImGuiWindowFlags_AlwaysAutoResize)) ? ImGuiTableFlags_SizingFixedFit : ImGuiTableFlags_SizingStretchSame;
+        flags |= ((flags & ImGuiTableFlags_ScrollX) || (outer_GameWindow->Flags & ImGuiGameWindowFlags_AlwaysAutoResize)) ? ImGuiTableFlags_SizingFixedFit : ImGuiTableFlags_SizingStretchSame;
 
     // Adjust flags: enable NoKeepColumnsVisible when using ImGuiTableFlags_SizingFixedSame
     if ((flags & ImGuiTableFlags_SizingMask_) == ImGuiTableFlags_SizingFixedSame)
@@ -287,8 +287,8 @@ inline ImGuiTableFlags TableFixFlags(ImGuiTableFlags flags, ImGuiWindow* outer_w
     if ((flags & (ImGuiTableFlags_Resizable | ImGuiTableFlags_Hideable | ImGuiTableFlags_Reorderable | ImGuiTableFlags_Sortable)) == 0)
         flags |= ImGuiTableFlags_NoSavedSettings;
 
-    // Inherit _NoSavedSettings from top-level window (child windows always have _NoSavedSettings set)
-    if (outer_window->RootWindow->Flags & ImGuiWindowFlags_NoSavedSettings)
+    // Inherit _NoSavedSettings from top-level GameWindow (child GameWindows always have _NoSavedSettings set)
+    if (outer_GameWindow->RootGameWindow->Flags & ImGuiGameWindowFlags_NoSavedSettings)
         flags |= ImGuiTableFlags_NoSavedSettings;
 
     return flags;
@@ -310,8 +310,8 @@ bool    ImGui::BeginTable(const char* str_id, int columns_count, ImGuiTableFlags
 bool    ImGui::BeginTableEx(const char* name, ImGuiID id, int columns_count, ImGuiTableFlags flags, const ImVec2& outer_size, float inner_width)
 {
     ImGuiContext& g = *GImGui;
-    ImGuiWindow* outer_window = GetCurrentWindow();
-    if (outer_window->SkipItems) // Consistent with other tables + beneficial side effect that assert on miscalling EndTable() will be more visible.
+    ImGuiGameWindow* outer_GameWindow = GetCurrentGameWindow();
+    if (outer_GameWindow->SkipItems) // Consistent with other tables + beneficial side effect that assert on miscalling EndTable() will be more visible.
         return false;
 
     // Sanity checks
@@ -320,11 +320,11 @@ bool    ImGui::BeginTableEx(const char* name, ImGuiID id, int columns_count, ImG
         IM_ASSERT(inner_width >= 0.0f);
 
     // If an outer size is specified ahead we will be able to early out when not visible. Exact clipping rules may evolve.
-    const bool use_child_window = (flags & (ImGuiTableFlags_ScrollX | ImGuiTableFlags_ScrollY)) != 0;
+    const bool use_child_GameWindow = (flags & (ImGuiTableFlags_ScrollX | ImGuiTableFlags_ScrollY)) != 0;
     const ImVec2 avail_size = GetContentRegionAvail();
-    ImVec2 actual_outer_size = CalcItemSize(outer_size, ImMax(avail_size.x, 1.0f), use_child_window ? ImMax(avail_size.y, 1.0f) : 0.0f);
-    ImRect outer_rect(outer_window->DC.CursorPos, outer_window->DC.CursorPos + actual_outer_size);
-    if (use_child_window && IsClippedEx(outer_rect, 0))
+    ImVec2 actual_outer_size = CalcItemSize(outer_size, ImMax(avail_size.x, 1.0f), use_child_GameWindow ? ImMax(avail_size.y, 1.0f) : 0.0f);
+    ImRect outer_rect(outer_GameWindow->DC.CursorPos, outer_GameWindow->DC.CursorPos + actual_outer_size);
+    if (use_child_GameWindow && IsClippedEx(outer_rect, 0))
     {
         ItemSize(outer_rect);
         return false;
@@ -349,14 +349,14 @@ bool    ImGui::BeginTableEx(const char* name, ImGuiID id, int columns_count, ImG
 
     // Fix flags
     table->IsDefaultSizingPolicy = (flags & ImGuiTableFlags_SizingMask_) == 0;
-    flags = TableFixFlags(flags, outer_window);
+    flags = TableFixFlags(flags, outer_GameWindow);
 
     // Initialize
     table->ID = id;
     table->Flags = flags;
     table->InstanceCurrent = (ImS16)instance_no;
     table->LastFrameActive = g.FrameCount;
-    table->OuterWindow = table->InnerWindow = outer_window;
+    table->OuterGameWindow = table->InnerGameWindow = outer_GameWindow;
     table->ColumnsCount = columns_count;
     table->IsLayoutLocked = false;
     table->InnerWidth = inner_width;
@@ -364,37 +364,37 @@ bool    ImGui::BeginTableEx(const char* name, ImGuiID id, int columns_count, ImG
     if (instance_no > 0 && table->InstanceDataExtra.Size < instance_no)
         table->InstanceDataExtra.push_back(ImGuiTableInstanceData());
 
-    // When not using a child window, WorkRect.Max will grow as we append contents.
-    if (use_child_window)
+    // When not using a child GameWindow, WorkRect.Max will grow as we append contents.
+    if (use_child_GameWindow)
     {
         // Ensure no vertical scrollbar appears if we only want horizontal one, to make flag consistent
-        // (we have no other way to disable vertical scrollbar of a window while keeping the horizontal one showing)
+        // (we have no other way to disable vertical scrollbar of a GameWindow while keeping the horizontal one showing)
         ImVec2 override_content_size(FLT_MAX, FLT_MAX);
         if ((flags & ImGuiTableFlags_ScrollX) && !(flags & ImGuiTableFlags_ScrollY))
             override_content_size.y = FLT_MIN;
 
         // Ensure specified width (when not specified, Stretched columns will act as if the width == OuterWidth and
         // never lead to any scrolling). We don't handle inner_width < 0.0f, we could potentially use it to right-align
-        // based on the right side of the child window work rect, which would require knowing ahead if we are going to
+        // based on the right side of the child GameWindow work rect, which would require knowing ahead if we are going to
         // have decoration taking horizontal spaces (typically a vertical scrollbar).
         if ((flags & ImGuiTableFlags_ScrollX) && inner_width > 0.0f)
             override_content_size.x = inner_width;
 
         if (override_content_size.x != FLT_MAX || override_content_size.y != FLT_MAX)
-            SetNextWindowContentSize(ImVec2(override_content_size.x != FLT_MAX ? override_content_size.x : 0.0f, override_content_size.y != FLT_MAX ? override_content_size.y : 0.0f));
+            SetNextGameWindowContentSize(ImVec2(override_content_size.x != FLT_MAX ? override_content_size.x : 0.0f, override_content_size.y != FLT_MAX ? override_content_size.y : 0.0f));
 
         // Reset scroll if we are reactivating it
         if ((table_last_flags & (ImGuiTableFlags_ScrollX | ImGuiTableFlags_ScrollY)) == 0)
-            SetNextWindowScroll(ImVec2(0.0f, 0.0f));
+            SetNextGameWindowScroll(ImVec2(0.0f, 0.0f));
 
-        // Create scrolling region (without border and zero window padding)
-        ImGuiWindowFlags child_flags = (flags & ImGuiTableFlags_ScrollX) ? ImGuiWindowFlags_HorizontalScrollbar : ImGuiWindowFlags_None;
+        // Create scrolling region (without border and zero GameWindow padding)
+        ImGuiGameWindowFlags child_flags = (flags & ImGuiTableFlags_ScrollX) ? ImGuiGameWindowFlags_HorizontalScrollbar : ImGuiGameWindowFlags_None;
         BeginChildEx(name, instance_id, outer_rect.GetSize(), false, child_flags);
-        table->InnerWindow = g.CurrentWindow;
-        table->WorkRect = table->InnerWindow->WorkRect;
-        table->OuterRect = table->InnerWindow->Rect();
-        table->InnerRect = table->InnerWindow->InnerRect;
-        IM_ASSERT(table->InnerWindow->WindowPadding.x == 0.0f && table->InnerWindow->WindowPadding.y == 0.0f && table->InnerWindow->WindowBorderSize == 0.0f);
+        table->InnerGameWindow = g.CurrentGameWindow;
+        table->WorkRect = table->InnerGameWindow->WorkRect;
+        table->OuterRect = table->InnerGameWindow->Rect();
+        table->InnerRect = table->InnerGameWindow->InnerRect;
+        IM_ASSERT(table->InnerGameWindow->GameWindowPadding.x == 0.0f && table->InnerGameWindow->GameWindowPadding.y == 0.0f && table->InnerGameWindow->GameWindowBorderSize == 0.0f);
     }
     else
     {
@@ -406,20 +406,20 @@ bool    ImGui::BeginTableEx(const char* name, ImGuiID id, int columns_count, ImG
     // Push a standardized ID for both child-using and not-child-using tables
     PushOverrideID(instance_id);
 
-    // Backup a copy of host window members we will modify
-    ImGuiWindow* inner_window = table->InnerWindow;
-    table->HostIndentX = inner_window->DC.Indent.x;
-    table->HostClipRect = inner_window->ClipRect;
-    table->HostSkipItems = inner_window->SkipItems;
-    temp_data->HostBackupWorkRect = inner_window->WorkRect;
-    temp_data->HostBackupParentWorkRect = inner_window->ParentWorkRect;
-    temp_data->HostBackupColumnsOffset = outer_window->DC.ColumnsOffset;
-    temp_data->HostBackupPrevLineSize = inner_window->DC.PrevLineSize;
-    temp_data->HostBackupCurrLineSize = inner_window->DC.CurrLineSize;
-    temp_data->HostBackupCursorMaxPos = inner_window->DC.CursorMaxPos;
-    temp_data->HostBackupItemWidth = outer_window->DC.ItemWidth;
-    temp_data->HostBackupItemWidthStackSize = outer_window->DC.ItemWidthStack.Size;
-    inner_window->DC.PrevLineSize = inner_window->DC.CurrLineSize = ImVec2(0.0f, 0.0f);
+    // Backup a copy of host GameWindow members we will modify
+    ImGuiGameWindow* inner_GameWindow = table->InnerGameWindow;
+    table->HostIndentX = inner_GameWindow->DC.Indent.x;
+    table->HostClipRect = inner_GameWindow->ClipRect;
+    table->HostSkipItems = inner_GameWindow->SkipItems;
+    temp_data->HostBackupWorkRect = inner_GameWindow->WorkRect;
+    temp_data->HostBackupParentWorkRect = inner_GameWindow->ParentWorkRect;
+    temp_data->HostBackupColumnsOffset = outer_GameWindow->DC.ColumnsOffset;
+    temp_data->HostBackupPrevLineSize = inner_GameWindow->DC.PrevLineSize;
+    temp_data->HostBackupCurrLineSize = inner_GameWindow->DC.CurrLineSize;
+    temp_data->HostBackupCursorMaxPos = inner_GameWindow->DC.CursorMaxPos;
+    temp_data->HostBackupItemWidth = outer_GameWindow->DC.ItemWidth;
+    temp_data->HostBackupItemWidthStackSize = outer_GameWindow->DC.ItemWidthStack.Size;
+    inner_GameWindow->DC.PrevLineSize = inner_GameWindow->DC.CurrLineSize = ImVec2(0.0f, 0.0f);
 
     // Padding and Spacing
     // - None               ........Content..... Pad .....Content........
@@ -444,10 +444,10 @@ bool    ImGui::BeginTableEx(const char* name, ImGuiID id, int columns_count, ImG
     table->CurrentRow = -1;
     table->RowBgColorCounter = 0;
     table->LastRowFlags = ImGuiTableRowFlags_None;
-    table->InnerClipRect = (inner_window == outer_window) ? table->WorkRect : inner_window->ClipRect;
+    table->InnerClipRect = (inner_GameWindow == outer_GameWindow) ? table->WorkRect : inner_GameWindow->ClipRect;
     table->InnerClipRect.ClipWith(table->WorkRect);     // We need this to honor inner_width
     table->InnerClipRect.ClipWithFull(table->HostClipRect);
-    table->InnerClipRect.Max.y = (flags & ImGuiTableFlags_NoHostExtendY) ? ImMin(table->InnerClipRect.Max.y, inner_window->WorkRect.Max.y) : inner_window->ClipRect.Max.y;
+    table->InnerClipRect.Max.y = (flags & ImGuiTableFlags_NoHostExtendY) ? ImMin(table->InnerClipRect.Max.y, inner_GameWindow->WorkRect.Max.y) : inner_GameWindow->ClipRect.Max.y;
 
     table->RowPosY1 = table->RowPosY2 = table->WorkRect.Min.y; // This is needed somehow
     table->RowTextBaseline = 0.0f; // This will be cleared again by TableBeginRow()
@@ -462,9 +462,9 @@ bool    ImGui::BeginTableEx(const char* name, ImGuiID id, int columns_count, ImG
 
     // Make table current
     g.CurrentTable = table;
-    outer_window->DC.CurrentTableIdx = table_idx;
-    if (inner_window != outer_window) // So EndChild() within the inner window can restore the table properly.
-        inner_window->DC.CurrentTableIdx = table_idx;
+    outer_GameWindow->DC.CurrentTableIdx = table_idx;
+    if (inner_GameWindow != outer_GameWindow) // So EndChild() within the inner GameWindow can restore the table properly.
+        inner_GameWindow->DC.CurrentTableIdx = table_idx;
 
     if ((table_last_flags & ImGuiTableFlags_Reorderable) && (flags & ImGuiTableFlags_Reorderable) == 0)
         table->IsResetDisplayOrderRequest = true;
@@ -548,7 +548,7 @@ bool    ImGui::BeginTableEx(const char* name, ImGuiID id, int columns_count, ImG
     // Disable output until user calls TableNextRow() or TableNextColumn() leading to the TableUpdateLayout() call..
     // This is not strictly necessary but will reduce cases were "out of table" output will be misleading to the user.
     // Because we cannot safely assert in EndTable() when no rows have been created, this seems like our best option.
-    inner_window->SkipItems = true;
+    inner_GameWindow->SkipItems = true;
 
     // Clear names
     // At this point the ->NameOffset field of each column will be invalid until TableUpdateLayout() or the first call to TableSetupColumn()
@@ -822,11 +822,11 @@ void ImGui::TableUpdateLayout(ImGuiTable* table)
     table->RightMostEnabledColumn = (ImGuiTableColumnIdx)prev_visible_column_idx;
     IM_ASSERT(table->LeftMostEnabledColumn >= 0 && table->RightMostEnabledColumn >= 0);
 
-    // [Part 2] Disable child window clipping while fitting columns. This is not strictly necessary but makes it possible
+    // [Part 2] Disable child GameWindow clipping while fitting columns. This is not strictly necessary but makes it possible
     // to avoid the column fitting having to wait until the first visible frame of the child container (may or not be a good thing).
     // FIXME-TABLE: for always auto-resizing columns may not want to do that all the time.
-    if (has_auto_fit_request && table->OuterWindow != table->InnerWindow)
-        table->InnerWindow->SkipItems = false;
+    if (has_auto_fit_request && table->OuterGameWindow != table->InnerGameWindow)
+        table->InnerGameWindow->SkipItems = false;
     if (has_auto_fit_request)
         table->IsSettingsDirty = true;
 
@@ -1010,12 +1010,12 @@ void ImGui::TableUpdateLayout(ImGuiTable* table)
         column->ClipRect.ClipWithFull(host_clip_rect);
 
         // Mark column as Clipped (not in sight)
-        // Note that scrolling tables (where inner_window != outer_window) handle Y clipped earlier in BeginTable() so IsVisibleY really only applies to non-scrolling tables.
-        // FIXME-TABLE: Because InnerClipRect.Max.y is conservatively ==outer_window->ClipRect.Max.y, we never can mark columns _Above_ the scroll line as not IsVisibleY.
+        // Note that scrolling tables (where inner_GameWindow != outer_GameWindow) handle Y clipped earlier in BeginTable() so IsVisibleY really only applies to non-scrolling tables.
+        // FIXME-TABLE: Because InnerClipRect.Max.y is conservatively ==outer_GameWindow->ClipRect.Max.y, we never can mark columns _Above_ the scroll line as not IsVisibleY.
         // Taking advantage of LastOuterHeight would yield good results there...
-        // FIXME-TABLE: Y clipping is disabled because it effectively means not submitting will reduce contents width which is fed to outer_window->DC.CursorMaxPos.x,
-        // and this may be used (e.g. typically by outer_window using AlwaysAutoResize or outer_window's horizontal scrollbar, but could be something else).
-        // Possible solution to preserve last known content width for clipped column. Test 'table_reported_size' fails when enabling Y clipping and window is resized small.
+        // FIXME-TABLE: Y clipping is disabled because it effectively means not submitting will reduce contents width which is fed to outer_GameWindow->DC.CursorMaxPos.x,
+        // and this may be used (e.g. typically by outer_GameWindow using AlwaysAutoResize or outer_GameWindow's horizontal scrollbar, but could be something else).
+        // Possible solution to preserve last known content width for clipped column. Test 'table_reported_size' fails when enabling Y clipping and GameWindow is resized small.
         column->IsVisibleX = (column->ClipRect.Max.x > column->ClipRect.Min.x);
         column->IsVisibleY = true; // (column->ClipRect.Max.y > column->ClipRect.Min.y);
         const bool is_visible = column->IsVisibleX; //&& column->IsVisibleY;
@@ -1054,7 +1054,7 @@ void ImGui::TableUpdateLayout(ImGuiTable* table)
         column->ContentMaxXFrozen = column->ContentMaxXUnfrozen = column->WorkMinX;
         column->ContentMaxXHeadersUsed = column->ContentMaxXHeadersIdeal = column->WorkMinX;
 
-        // Don't decrement auto-fit counters until container window got a chance to submit its items
+        // Don't decrement auto-fit counters until container GameWindow got a chance to submit its items
         if (table->HostSkipItems == false)
         {
             column->AutoFitQueue >>= 1;
@@ -1090,7 +1090,7 @@ void ImGui::TableUpdateLayout(ImGuiTable* table)
         table->OuterRect.Max.x = table->WorkRect.Max.x = unused_x1;
         table->InnerClipRect.Max.x = ImMin(table->InnerClipRect.Max.x, unused_x1);
     }
-    table->InnerWindow->ParentWorkRect = table->WorkRect;
+    table->InnerGameWindow->ParentWorkRect = table->WorkRect;
     table->BorderX1 = table->InnerClipRect.Min.x;// +((table->Flags & ImGuiTableFlags_BordersOuter) ? 0.0f : -1.0f);
     table->BorderX2 = table->InnerClipRect.Max.x;// +((table->Flags & ImGuiTableFlags_BordersOuter) ? 0.0f : +1.0f);
 
@@ -1117,11 +1117,11 @@ void ImGui::TableUpdateLayout(ImGuiTable* table)
         TableSortSpecsBuild(table);
 
     // Initial state
-    ImGuiWindow* inner_window = table->InnerWindow;
+    ImGuiGameWindow* inner_GameWindow = table->InnerGameWindow;
     if (table->Flags & ImGuiTableFlags_NoClip)
-        table->DrawSplitter->SetCurrentChannel(inner_window->DrawList, TABLE_DRAW_CHANNEL_NOCLIP);
+        table->DrawSplitter->SetCurrentChannel(inner_GameWindow->DrawList, TABLE_DRAW_CHANNEL_NOCLIP);
     else
-        inner_window->DrawList->PushClipRect(inner_window->ClipRect.Min, inner_window->ClipRect.Max, false);
+        inner_GameWindow->DrawList->PushClipRect(inner_GameWindow->ClipRect.Min, inner_GameWindow->ClipRect.Max, false);
 }
 
 // Process hit-testing on resizing borders. Actual size change will be applied in EndTable()
@@ -1205,11 +1205,11 @@ void    ImGui::EndTable()
         TableUpdateLayout(table);
 
     const ImGuiTableFlags flags = table->Flags;
-    ImGuiWindow* inner_window = table->InnerWindow;
-    ImGuiWindow* outer_window = table->OuterWindow;
+    ImGuiGameWindow* inner_GameWindow = table->InnerGameWindow;
+    ImGuiGameWindow* outer_GameWindow = table->OuterGameWindow;
     ImGuiTableTempData* temp_data = table->TempData;
-    IM_ASSERT(inner_window == g.CurrentWindow);
-    IM_ASSERT(outer_window == inner_window || outer_window == inner_window->ParentWindow);
+    IM_ASSERT(inner_GameWindow == g.CurrentGameWindow);
+    IM_ASSERT(outer_GameWindow == inner_GameWindow || outer_GameWindow == inner_GameWindow->ParentGameWindow);
 
     if (table->IsInsideRow)
         TableEndRow(table);
@@ -1221,36 +1221,36 @@ void    ImGui::EndTable()
 
     // Finalize table height
     ImGuiTableInstanceData* table_instance = TableGetInstanceData(table, table->InstanceCurrent);
-    inner_window->DC.PrevLineSize = temp_data->HostBackupPrevLineSize;
-    inner_window->DC.CurrLineSize = temp_data->HostBackupCurrLineSize;
-    inner_window->DC.CursorMaxPos = temp_data->HostBackupCursorMaxPos;
+    inner_GameWindow->DC.PrevLineSize = temp_data->HostBackupPrevLineSize;
+    inner_GameWindow->DC.CurrLineSize = temp_data->HostBackupCurrLineSize;
+    inner_GameWindow->DC.CursorMaxPos = temp_data->HostBackupCursorMaxPos;
     const float inner_content_max_y = table->RowPosY2;
-    IM_ASSERT(table->RowPosY2 == inner_window->DC.CursorPos.y);
-    if (inner_window != outer_window)
-        inner_window->DC.CursorMaxPos.y = inner_content_max_y;
+    IM_ASSERT(table->RowPosY2 == inner_GameWindow->DC.CursorPos.y);
+    if (inner_GameWindow != outer_GameWindow)
+        inner_GameWindow->DC.CursorMaxPos.y = inner_content_max_y;
     else if (!(flags & ImGuiTableFlags_NoHostExtendY))
         table->OuterRect.Max.y = table->InnerRect.Max.y = ImMax(table->OuterRect.Max.y, inner_content_max_y); // Patch OuterRect/InnerRect height
     table->WorkRect.Max.y = ImMax(table->WorkRect.Max.y, table->OuterRect.Max.y);
     table_instance->LastOuterHeight = table->OuterRect.GetHeight();
 
     // Setup inner scrolling range
-    // FIXME: This ideally should be done earlier, in BeginTable() SetNextWindowContentSize call, just like writing to inner_window->DC.CursorMaxPos.y,
+    // FIXME: This ideally should be done earlier, in BeginTable() SetNextGameWindowContentSize call, just like writing to inner_GameWindow->DC.CursorMaxPos.y,
     // but since the later is likely to be impossible to do we'd rather update both axises together.
     if (table->Flags & ImGuiTableFlags_ScrollX)
     {
         const float outer_padding_for_border = (table->Flags & ImGuiTableFlags_BordersOuterV) ? TABLE_BORDER_SIZE : 0.0f;
-        float max_pos_x = table->InnerWindow->DC.CursorMaxPos.x;
+        float max_pos_x = table->InnerGameWindow->DC.CursorMaxPos.x;
         if (table->RightMostEnabledColumn != -1)
             max_pos_x = ImMax(max_pos_x, table->Columns[table->RightMostEnabledColumn].WorkMaxX + table->CellPaddingX + table->OuterPaddingX - outer_padding_for_border);
         if (table->ResizedColumn != -1)
             max_pos_x = ImMax(max_pos_x, table->ResizeLockMinContentsX2);
-        table->InnerWindow->DC.CursorMaxPos.x = max_pos_x;
+        table->InnerGameWindow->DC.CursorMaxPos.x = max_pos_x;
     }
 
     // Pop clipping rect
     if (!(flags & ImGuiTableFlags_NoClip))
-        inner_window->DrawList->PopClipRect();
-    inner_window->ClipRect = inner_window->DrawList->_ClipRectStack.back();
+        inner_GameWindow->DrawList->PopClipRect();
+    inner_GameWindow->ClipRect = inner_GameWindow->DrawList->_ClipRectStack.back();
 
     // Draw borders
     if ((flags & ImGuiTableFlags_Borders) != 0)
@@ -1271,10 +1271,10 @@ void    ImGui::EndTable()
 
     // Flatten channels and merge draw calls
     ImDrawListSplitter* splitter = table->DrawSplitter;
-    splitter->SetCurrentChannel(inner_window->DrawList, 0);
+    splitter->SetCurrentChannel(inner_GameWindow->DrawList, 0);
     if ((table->Flags & ImGuiTableFlags_NoClip) == 0)
         TableMergeDrawChannels(table);
-    splitter->Merge(inner_window->DrawList);
+    splitter->Merge(inner_GameWindow->DrawList);
 
     // Update ColumnsAutoFitWidth to get us ahead for host using our size to auto-resize without waiting for next BeginTable()
     float auto_fit_width_for_fixed = 0.0f;
@@ -1296,19 +1296,19 @@ void    ImGui::EndTable()
     table->ColumnsAutoFitWidth = width_spacings + (table->CellPaddingX * 2.0f) * table->ColumnsEnabledCount + auto_fit_width_for_fixed + ImMax(auto_fit_width_for_stretched, auto_fit_width_for_stretched_min);
 
     // Update scroll
-    if ((table->Flags & ImGuiTableFlags_ScrollX) == 0 && inner_window != outer_window)
+    if ((table->Flags & ImGuiTableFlags_ScrollX) == 0 && inner_GameWindow != outer_GameWindow)
     {
-        inner_window->Scroll.x = 0.0f;
+        inner_GameWindow->Scroll.x = 0.0f;
     }
-    else if (table->LastResizedColumn != -1 && table->ResizedColumn == -1 && inner_window->ScrollbarX && table->InstanceInteracted == table->InstanceCurrent)
+    else if (table->LastResizedColumn != -1 && table->ResizedColumn == -1 && inner_GameWindow->ScrollbarX && table->InstanceInteracted == table->InstanceCurrent)
     {
         // When releasing a column being resized, scroll to keep the resulting column in sight
         const float neighbor_width_to_keep_visible = table->MinColumnWidth + table->CellPaddingX * 2.0f;
         ImGuiTableColumn* column = &table->Columns[table->LastResizedColumn];
         if (column->MaxX < table->InnerClipRect.Min.x)
-            SetScrollFromPosX(inner_window, column->MaxX - inner_window->Pos.x - neighbor_width_to_keep_visible, 1.0f);
+            SetScrollFromPosX(inner_GameWindow, column->MaxX - inner_GameWindow->Pos.x - neighbor_width_to_keep_visible, 1.0f);
         else if (column->MaxX > table->InnerClipRect.Max.x)
-            SetScrollFromPosX(inner_window, column->MaxX - inner_window->Pos.x + neighbor_width_to_keep_visible, 1.0f);
+            SetScrollFromPosX(inner_GameWindow, column->MaxX - inner_GameWindow->Pos.x + neighbor_width_to_keep_visible, 1.0f);
     }
 
     // Apply resizing/dragging at the end of the frame
@@ -1321,24 +1321,24 @@ void    ImGui::EndTable()
     }
 
     // Pop from id stack
-    IM_ASSERT_USER_ERROR(inner_window->IDStack.back() == table->ID + table->InstanceCurrent, "Mismatching PushID/PopID!");
-    IM_ASSERT_USER_ERROR(outer_window->DC.ItemWidthStack.Size >= temp_data->HostBackupItemWidthStackSize, "Too many PopItemWidth!");
+    IM_ASSERT_USER_ERROR(inner_GameWindow->IDStack.back() == table->ID + table->InstanceCurrent, "Mismatching PushID/PopID!");
+    IM_ASSERT_USER_ERROR(outer_GameWindow->DC.ItemWidthStack.Size >= temp_data->HostBackupItemWidthStackSize, "Too many PopItemWidth!");
     PopID();
 
-    // Restore window data that we modified
-    const ImVec2 backup_outer_max_pos = outer_window->DC.CursorMaxPos;
-    inner_window->WorkRect = temp_data->HostBackupWorkRect;
-    inner_window->ParentWorkRect = temp_data->HostBackupParentWorkRect;
-    inner_window->SkipItems = table->HostSkipItems;
-    outer_window->DC.CursorPos = table->OuterRect.Min;
-    outer_window->DC.ItemWidth = temp_data->HostBackupItemWidth;
-    outer_window->DC.ItemWidthStack.Size = temp_data->HostBackupItemWidthStackSize;
-    outer_window->DC.ColumnsOffset = temp_data->HostBackupColumnsOffset;
+    // Restore GameWindow data that we modified
+    const ImVec2 backup_outer_max_pos = outer_GameWindow->DC.CursorMaxPos;
+    inner_GameWindow->WorkRect = temp_data->HostBackupWorkRect;
+    inner_GameWindow->ParentWorkRect = temp_data->HostBackupParentWorkRect;
+    inner_GameWindow->SkipItems = table->HostSkipItems;
+    outer_GameWindow->DC.CursorPos = table->OuterRect.Min;
+    outer_GameWindow->DC.ItemWidth = temp_data->HostBackupItemWidth;
+    outer_GameWindow->DC.ItemWidthStack.Size = temp_data->HostBackupItemWidthStackSize;
+    outer_GameWindow->DC.ColumnsOffset = temp_data->HostBackupColumnsOffset;
 
-    // Layout in outer window
+    // Layout in outer GameWindow
     // (FIXME: To allow auto-fit and allow desirable effect of SameLine() we dissociate 'used' vs 'ideal' size by overriding
     // CursorPosPrevLine and CursorMaxPos manually. That should be a more general layout feature, see same problem e.g. #3414)
-    if (inner_window != outer_window)
+    if (inner_GameWindow != outer_GameWindow)
     {
         EndChild();
     }
@@ -1354,28 +1354,28 @@ void    ImGui::EndTable()
         // FIXME-TABLE: Could we remove this section?
         // ColumnsAutoFitWidth may be one frame ahead here since for Fixed+NoResize is calculated from latest contents
         IM_ASSERT((table->Flags & ImGuiTableFlags_ScrollX) == 0);
-        outer_window->DC.CursorMaxPos.x = ImMax(backup_outer_max_pos.x, table->OuterRect.Min.x + table->ColumnsAutoFitWidth);
+        outer_GameWindow->DC.CursorMaxPos.x = ImMax(backup_outer_max_pos.x, table->OuterRect.Min.x + table->ColumnsAutoFitWidth);
     }
     else if (temp_data->UserOuterSize.x <= 0.0f)
     {
-        const float decoration_size = (table->Flags & ImGuiTableFlags_ScrollX) ? inner_window->ScrollbarSizes.x : 0.0f;
-        outer_window->DC.IdealMaxPos.x = ImMax(outer_window->DC.IdealMaxPos.x, table->OuterRect.Min.x + table->ColumnsAutoFitWidth + decoration_size - temp_data->UserOuterSize.x);
-        outer_window->DC.CursorMaxPos.x = ImMax(backup_outer_max_pos.x, ImMin(table->OuterRect.Max.x, table->OuterRect.Min.x + table->ColumnsAutoFitWidth));
+        const float decoration_size = (table->Flags & ImGuiTableFlags_ScrollX) ? inner_GameWindow->ScrollbarSizes.x : 0.0f;
+        outer_GameWindow->DC.IdealMaxPos.x = ImMax(outer_GameWindow->DC.IdealMaxPos.x, table->OuterRect.Min.x + table->ColumnsAutoFitWidth + decoration_size - temp_data->UserOuterSize.x);
+        outer_GameWindow->DC.CursorMaxPos.x = ImMax(backup_outer_max_pos.x, ImMin(table->OuterRect.Max.x, table->OuterRect.Min.x + table->ColumnsAutoFitWidth));
     }
     else
     {
-        outer_window->DC.CursorMaxPos.x = ImMax(backup_outer_max_pos.x, table->OuterRect.Max.x);
+        outer_GameWindow->DC.CursorMaxPos.x = ImMax(backup_outer_max_pos.x, table->OuterRect.Max.x);
     }
     if (temp_data->UserOuterSize.y <= 0.0f)
     {
-        const float decoration_size = (table->Flags & ImGuiTableFlags_ScrollY) ? inner_window->ScrollbarSizes.y : 0.0f;
-        outer_window->DC.IdealMaxPos.y = ImMax(outer_window->DC.IdealMaxPos.y, inner_content_max_y + decoration_size - temp_data->UserOuterSize.y);
-        outer_window->DC.CursorMaxPos.y = ImMax(backup_outer_max_pos.y, ImMin(table->OuterRect.Max.y, inner_content_max_y));
+        const float decoration_size = (table->Flags & ImGuiTableFlags_ScrollY) ? inner_GameWindow->ScrollbarSizes.y : 0.0f;
+        outer_GameWindow->DC.IdealMaxPos.y = ImMax(outer_GameWindow->DC.IdealMaxPos.y, inner_content_max_y + decoration_size - temp_data->UserOuterSize.y);
+        outer_GameWindow->DC.CursorMaxPos.y = ImMax(backup_outer_max_pos.y, ImMin(table->OuterRect.Max.y, inner_content_max_y));
     }
     else
     {
         // OuterRect.Max.y may already have been pushed downward from the initial value (unless ImGuiTableFlags_NoHostExtendY is set)
-        outer_window->DC.CursorMaxPos.y = ImMax(backup_outer_max_pos.y, table->OuterRect.Max.y);
+        outer_GameWindow->DC.CursorMaxPos.y = ImMax(backup_outer_max_pos.y, table->OuterRect.Max.y);
     }
 
     // Save settings
@@ -1384,7 +1384,7 @@ void    ImGui::EndTable()
     table->IsInitializing = false;
 
     // Clear or restore current table, if any
-    IM_ASSERT(g.CurrentWindow == outer_window && g.CurrentTable == table);
+    IM_ASSERT(g.CurrentGameWindow == outer_GameWindow && g.CurrentTable == table);
     IM_ASSERT(g.TablesTempDataStacked > 0);
     temp_data = (--g.TablesTempDataStacked > 0) ? &g.TablesTempData[g.TablesTempDataStacked - 1] : NULL;
     g.CurrentTable = temp_data ? g.Tables.GetByIndex(temp_data->TableIndex) : NULL;
@@ -1393,7 +1393,7 @@ void    ImGui::EndTable()
         g.CurrentTable->TempData = temp_data;
         g.CurrentTable->DrawSplitter = &temp_data->DrawSplitter;
     }
-    outer_window->DC.CurrentTableIdx = g.CurrentTable ? g.Tables.GetIndex(g.CurrentTable) : -1;
+    outer_GameWindow->DC.CurrentTableIdx = g.CurrentTable ? g.Tables.GetIndex(g.CurrentTable) : -1;
 }
 
 // See "COLUMN SIZING POLICIES" comments at the top of this file
@@ -1476,9 +1476,9 @@ void ImGui::TableSetupScrollFreeze(int columns, int rows)
     IM_ASSERT(rows >= 0 && rows < 128); // Arbitrary limit
 
     table->FreezeColumnsRequest = (table->Flags & ImGuiTableFlags_ScrollX) ? (ImGuiTableColumnIdx)ImMin(columns, table->ColumnsCount) : 0;
-    table->FreezeColumnsCount = (table->InnerWindow->Scroll.x != 0.0f) ? table->FreezeColumnsRequest : 0;
+    table->FreezeColumnsCount = (table->InnerGameWindow->Scroll.x != 0.0f) ? table->FreezeColumnsRequest : 0;
     table->FreezeRowsRequest = (table->Flags & ImGuiTableFlags_ScrollY) ? (ImGuiTableColumnIdx)rows : 0;
-    table->FreezeRowsCount = (table->InnerWindow->Scroll.y != 0.0f) ? table->FreezeRowsRequest : 0;
+    table->FreezeRowsCount = (table->InnerGameWindow->Scroll.y != 0.0f) ? table->FreezeRowsRequest : 0;
     table->IsUnfrozenRows = (table->FreezeRowsCount == 0); // Make sure this is set before TableUpdateLayout() so ImGuiListClipper can benefit from it.b
 
     // Ensure frozen columns are ordered in their section. We still allow multiple frozen columns to be reordered.
@@ -1692,13 +1692,13 @@ void ImGui::TableNextRow(ImGuiTableRowFlags row_flags, float row_min_height)
     table->RowPosY2 = ImMax(table->RowPosY2, table->RowPosY1 + row_min_height);
 
     // Disable output until user calls TableNextColumn()
-    table->InnerWindow->SkipItems = true;
+    table->InnerGameWindow->SkipItems = true;
 }
 
 // [Internal] Called by TableNextRow()
 void ImGui::TableBeginRow(ImGuiTable* table)
 {
-    ImGuiWindow* window = table->InnerWindow;
+    ImGuiGameWindow* GameWindow = table->InnerGameWindow;
     IM_ASSERT(!table->IsInsideRow);
 
     // New row
@@ -1711,15 +1711,15 @@ void ImGui::TableBeginRow(ImGuiTable* table)
     // Begin frozen rows
     float next_y1 = table->RowPosY2;
     if (table->CurrentRow == 0 && table->FreezeRowsCount > 0)
-        next_y1 = window->DC.CursorPos.y = table->OuterRect.Min.y;
+        next_y1 = GameWindow->DC.CursorPos.y = table->OuterRect.Min.y;
 
     table->RowPosY1 = table->RowPosY2 = next_y1;
     table->RowTextBaseline = 0.0f;
-    table->RowIndentOffsetX = window->DC.Indent.x - table->HostIndentX; // Lock indent
-    window->DC.PrevLineTextBaseOffset = 0.0f;
-    window->DC.CurrLineSize = ImVec2(0.0f, 0.0f);
-    window->DC.IsSameLine = false;
-    window->DC.CursorMaxPos.y = next_y1;
+    table->RowIndentOffsetX = GameWindow->DC.Indent.x - table->HostIndentX; // Lock indent
+    GameWindow->DC.PrevLineTextBaseOffset = 0.0f;
+    GameWindow->DC.CurrLineSize = ImVec2(0.0f, 0.0f);
+    GameWindow->DC.IsSameLine = false;
+    GameWindow->DC.CursorMaxPos.y = next_y1;
 
     // Making the header BG color non-transparent will allow us to overlay it multiple times when handling smooth dragging.
     if (table->RowFlags & ImGuiTableRowFlags_Headers)
@@ -1734,8 +1734,8 @@ void ImGui::TableBeginRow(ImGuiTable* table)
 void ImGui::TableEndRow(ImGuiTable* table)
 {
     ImGuiContext& g = *GImGui;
-    ImGuiWindow* window = g.CurrentWindow;
-    IM_ASSERT(window == table->InnerWindow);
+    ImGuiGameWindow* GameWindow = g.CurrentGameWindow;
+    IM_ASSERT(GameWindow == table->InnerGameWindow);
     IM_ASSERT(table->IsInsideRow);
 
     if (table->CurrentColumn != -1)
@@ -1747,7 +1747,7 @@ void ImGui::TableEndRow(ImGuiTable* table)
 
     // Position cursor at the bottom of our row so it can be used for e.g. clipping calculation. However it is
     // likely that the next call to TableBeginCell() will reposition the cursor to take account of vertical padding.
-    window->DC.CursorPos.y = table->RowPosY2;
+    GameWindow->DC.CursorPos.y = table->RowPosY2;
 
     // Row background fill
     const float bg_y1 = table->RowPosY1;
@@ -1773,7 +1773,7 @@ void ImGui::TableEndRow(ImGuiTable* table)
         // Decide of top border color
         ImU32 border_col = 0;
         const float border_size = TABLE_BORDER_SIZE;
-        if (table->CurrentRow > 0 || table->InnerWindow == table->OuterWindow)
+        if (table->CurrentRow > 0 || table->InnerGameWindow == table->OuterGameWindow)
             if (table->Flags & ImGuiTableFlags_BordersInnerH)
                 border_col = (table->LastRowFlags & ImGuiTableRowFlags_Headers) ? table->BorderColorStrong : table->BorderColorLight;
 
@@ -1781,11 +1781,11 @@ void ImGui::TableEndRow(ImGuiTable* table)
         const bool draw_strong_bottom_border = unfreeze_rows_actual;
         if ((bg_col0 | bg_col1 | border_col) != 0 || draw_strong_bottom_border || draw_cell_bg_color)
         {
-            // In theory we could call SetWindowClipRectBeforeSetChannel() but since we know TableEndRow() is
+            // In theory we could call SetGameWindowClipRectBeforeSetChannel() but since we know TableEndRow() is
             // always followed by a change of clipping rectangle we perform the smallest overwrite possible here.
             if ((table->Flags & ImGuiTableFlags_NoClip) == 0)
-                window->DrawList->_CmdHeader.ClipRect = table->Bg0ClipRectForDrawCmd.ToVec4();
-            table->DrawSplitter->SetCurrentChannel(window->DrawList, TABLE_DRAW_CHANNEL_BG0);
+                GameWindow->DrawList->_CmdHeader.ClipRect = table->Bg0ClipRectForDrawCmd.ToVec4();
+            table->DrawSplitter->SetCurrentChannel(GameWindow->DrawList, TABLE_DRAW_CHANNEL_BG0);
         }
 
         // Draw row background
@@ -1795,9 +1795,9 @@ void ImGui::TableEndRow(ImGuiTable* table)
             ImRect row_rect(table->WorkRect.Min.x, bg_y1, table->WorkRect.Max.x, bg_y2);
             row_rect.ClipWith(table->BgClipRect);
             if (bg_col0 != 0 && row_rect.Min.y < row_rect.Max.y)
-                window->DrawList->AddRectFilled(row_rect.Min, row_rect.Max, bg_col0);
+                GameWindow->DrawList->AddRectFilled(row_rect.Min, row_rect.Max, bg_col0);
             if (bg_col1 != 0 && row_rect.Min.y < row_rect.Max.y)
-                window->DrawList->AddRectFilled(row_rect.Min, row_rect.Max, bg_col1);
+                GameWindow->DrawList->AddRectFilled(row_rect.Min, row_rect.Max, bg_col1);
         }
 
         // Draw cell background color
@@ -1813,17 +1813,17 @@ void ImGui::TableEndRow(ImGuiTable* table)
                 cell_bg_rect.ClipWith(table->BgClipRect);
                 cell_bg_rect.Min.x = ImMax(cell_bg_rect.Min.x, column->ClipRect.Min.x);     // So that first column after frozen one gets clipped when scrolling
                 cell_bg_rect.Max.x = ImMin(cell_bg_rect.Max.x, column->MaxX);
-                window->DrawList->AddRectFilled(cell_bg_rect.Min, cell_bg_rect.Max, cell_data->BgColor);
+                GameWindow->DrawList->AddRectFilled(cell_bg_rect.Min, cell_bg_rect.Max, cell_data->BgColor);
             }
         }
 
         // Draw top border
         if (border_col && bg_y1 >= table->BgClipRect.Min.y && bg_y1 < table->BgClipRect.Max.y)
-            window->DrawList->AddLine(ImVec2(table->BorderX1, bg_y1), ImVec2(table->BorderX2, bg_y1), border_col, border_size);
+            GameWindow->DrawList->AddLine(ImVec2(table->BorderX1, bg_y1), ImVec2(table->BorderX2, bg_y1), border_col, border_size);
 
         // Draw bottom border at the row unfreezing mark (always strong)
         if (draw_strong_bottom_border && bg_y2 >= table->BgClipRect.Min.y && bg_y2 < table->BgClipRect.Max.y)
-            window->DrawList->AddLine(ImVec2(table->BorderX1, bg_y2), ImVec2(table->BorderX2, bg_y2), table->BorderColorStrong, border_size);
+            GameWindow->DrawList->AddLine(ImVec2(table->BorderX1, bg_y2), ImVec2(table->BorderX2, bg_y2), table->BorderColorStrong, border_size);
     }
 
     // End frozen rows (when we are past the last frozen row line, teleport cursor and alter clipping rectangle)
@@ -1841,14 +1841,14 @@ void ImGui::TableEndRow(ImGuiTable* table)
         table->IsUnfrozenRows = true;
 
         // BgClipRect starts as table->InnerClipRect, reduce it now and make BgClipRectForDrawCmd == BgClipRect
-        float y0 = ImMax(table->RowPosY2 + 1, window->InnerClipRect.Min.y);
-        table->BgClipRect.Min.y = table->Bg2ClipRectForDrawCmd.Min.y = ImMin(y0, window->InnerClipRect.Max.y);
-        table->BgClipRect.Max.y = table->Bg2ClipRectForDrawCmd.Max.y = window->InnerClipRect.Max.y;
+        float y0 = ImMax(table->RowPosY2 + 1, GameWindow->InnerClipRect.Min.y);
+        table->BgClipRect.Min.y = table->Bg2ClipRectForDrawCmd.Min.y = ImMin(y0, GameWindow->InnerClipRect.Max.y);
+        table->BgClipRect.Max.y = table->Bg2ClipRectForDrawCmd.Max.y = GameWindow->InnerClipRect.Max.y;
         table->Bg2DrawChannelCurrent = table->Bg2DrawChannelUnfrozen;
         IM_ASSERT(table->Bg2ClipRectForDrawCmd.Min.y <= table->Bg2ClipRectForDrawCmd.Max.y);
 
         float row_height = table->RowPosY2 - table->RowPosY1;
-        table->RowPosY2 = window->DC.CursorPos.y = table->WorkRect.Min.y + table->RowPosY2 - table->OuterRect.Min.y;
+        table->RowPosY2 = GameWindow->DC.CursorPos.y = table->WorkRect.Min.y + table->RowPosY2 - table->OuterRect.Min.y;
         table->RowPosY1 = table->RowPosY2 - row_height;
         for (int column_n = 0; column_n < table->ColumnsCount; column_n++)
         {
@@ -1858,8 +1858,8 @@ void ImGui::TableEndRow(ImGuiTable* table)
         }
 
         // Update cliprect ahead of TableBeginCell() so clipper can access to new ClipRect->Min.y
-        SetWindowClipRectBeforeSetChannel(window, table->Columns[0].ClipRect);
-        table->DrawSplitter->SetCurrentChannel(window->DrawList, table->Columns[0].DrawChannelCurrent);
+        SetGameWindowClipRectBeforeSetChannel(GameWindow, table->Columns[0].ClipRect);
+        table->DrawSplitter->SetCurrentChannel(GameWindow->DrawList, table->Columns[0].DrawChannelCurrent);
     }
 
     if (!(table->RowFlags & ImGuiTableRowFlags_Headers))
@@ -1940,31 +1940,31 @@ bool ImGui::TableNextColumn()
 void ImGui::TableBeginCell(ImGuiTable* table, int column_n)
 {
     ImGuiTableColumn* column = &table->Columns[column_n];
-    ImGuiWindow* window = table->InnerWindow;
+    ImGuiGameWindow* GameWindow = table->InnerGameWindow;
     table->CurrentColumn = column_n;
 
     // Start position is roughly ~~ CellRect.Min + CellPadding + Indent
     float start_x = column->WorkMinX;
     if (column->Flags & ImGuiTableColumnFlags_IndentEnable)
-        start_x += table->RowIndentOffsetX; // ~~ += window.DC.Indent.x - table->HostIndentX, except we locked it for the row.
+        start_x += table->RowIndentOffsetX; // ~~ += GameWindow.DC.Indent.x - table->HostIndentX, except we locked it for the row.
 
-    window->DC.CursorPos.x = start_x;
-    window->DC.CursorPos.y = table->RowPosY1 + table->CellPaddingY;
-    window->DC.CursorMaxPos.x = window->DC.CursorPos.x;
-    window->DC.ColumnsOffset.x = start_x - window->Pos.x - window->DC.Indent.x; // FIXME-WORKRECT
-    window->DC.CurrLineTextBaseOffset = table->RowTextBaseline;
-    window->DC.NavLayerCurrent = (ImGuiNavLayer)column->NavLayerCurrent;
+    GameWindow->DC.CursorPos.x = start_x;
+    GameWindow->DC.CursorPos.y = table->RowPosY1 + table->CellPaddingY;
+    GameWindow->DC.CursorMaxPos.x = GameWindow->DC.CursorPos.x;
+    GameWindow->DC.ColumnsOffset.x = start_x - GameWindow->Pos.x - GameWindow->DC.Indent.x; // FIXME-WORKRECT
+    GameWindow->DC.CurrLineTextBaseOffset = table->RowTextBaseline;
+    GameWindow->DC.NavLayerCurrent = (ImGuiNavLayer)column->NavLayerCurrent;
 
-    window->WorkRect.Min.y = window->DC.CursorPos.y;
-    window->WorkRect.Min.x = column->WorkMinX;
-    window->WorkRect.Max.x = column->WorkMaxX;
-    window->DC.ItemWidth = column->ItemWidth;
+    GameWindow->WorkRect.Min.y = GameWindow->DC.CursorPos.y;
+    GameWindow->WorkRect.Min.x = column->WorkMinX;
+    GameWindow->WorkRect.Max.x = column->WorkMaxX;
+    GameWindow->DC.ItemWidth = column->ItemWidth;
 
     // To allow ImGuiListClipper to function we propagate our row height
     if (!column->IsEnabled)
-        window->DC.CursorPos.y = ImMax(window->DC.CursorPos.y, table->RowPosY2);
+        GameWindow->DC.CursorPos.y = ImMax(GameWindow->DC.CursorPos.y, table->RowPosY2);
 
-    window->SkipItems = column->IsSkipItems;
+    GameWindow->SkipItems = column->IsSkipItems;
     if (column->IsSkipItems)
     {
         ImGuiContext& g = *GImGui;
@@ -1975,21 +1975,21 @@ void ImGui::TableBeginCell(ImGuiTable* table, int column_n)
     if (table->Flags & ImGuiTableFlags_NoClip)
     {
         // FIXME: if we end up drawing all borders/bg in EndTable, could remove this and just assert that channel hasn't changed.
-        table->DrawSplitter->SetCurrentChannel(window->DrawList, TABLE_DRAW_CHANNEL_NOCLIP);
+        table->DrawSplitter->SetCurrentChannel(GameWindow->DrawList, TABLE_DRAW_CHANNEL_NOCLIP);
         //IM_ASSERT(table->DrawSplitter._Current == TABLE_DRAW_CHANNEL_NOCLIP);
     }
     else
     {
         // FIXME-TABLE: Could avoid this if draw channel is dummy channel?
-        SetWindowClipRectBeforeSetChannel(window, column->ClipRect);
-        table->DrawSplitter->SetCurrentChannel(window->DrawList, column->DrawChannelCurrent);
+        SetGameWindowClipRectBeforeSetChannel(GameWindow, column->ClipRect);
+        table->DrawSplitter->SetCurrentChannel(GameWindow->DrawList, column->DrawChannelCurrent);
     }
 
     // Logging
     ImGuiContext& g = *GImGui;
     if (g.LogEnabled && !column->IsSkipItems)
     {
-        LogRenderedText(&window->DC.CursorPos, "|");
+        LogRenderedText(&GameWindow->DC.CursorPos, "|");
         g.LogLinePosY = FLT_MAX;
     }
 }
@@ -1998,7 +1998,7 @@ void ImGui::TableBeginCell(ImGuiTable* table, int column_n)
 void ImGui::TableEndCell(ImGuiTable* table)
 {
     ImGuiTableColumn* column = &table->Columns[table->CurrentColumn];
-    ImGuiWindow* window = table->InnerWindow;
+    ImGuiGameWindow* GameWindow = table->InnerGameWindow;
 
     // Report maximum position so we can infer content size per column.
     float* p_max_pos_x;
@@ -2006,13 +2006,13 @@ void ImGui::TableEndCell(ImGuiTable* table)
         p_max_pos_x = &column->ContentMaxXHeadersUsed;  // Useful in case user submit contents in header row that is not a TableHeader() call
     else
         p_max_pos_x = table->IsUnfrozenRows ? &column->ContentMaxXUnfrozen : &column->ContentMaxXFrozen;
-    *p_max_pos_x = ImMax(*p_max_pos_x, window->DC.CursorMaxPos.x);
-    table->RowPosY2 = ImMax(table->RowPosY2, window->DC.CursorMaxPos.y + table->CellPaddingY);
-    column->ItemWidth = window->DC.ItemWidth;
+    *p_max_pos_x = ImMax(*p_max_pos_x, GameWindow->DC.CursorMaxPos.x);
+    table->RowPosY2 = ImMax(table->RowPosY2, GameWindow->DC.CursorMaxPos.y + table->CellPaddingY);
+    column->ItemWidth = GameWindow->DC.ItemWidth;
 
     // Propagate text baseline for the entire row
     // FIXME-TABLE: Here we propagate text baseline from the last line of the cell.. instead of the first one.
-    table->RowTextBaseline = ImMax(table->RowTextBaseline, window->DC.PrevLineTextBaseOffset);
+    table->RowTextBaseline = ImMax(table->RowTextBaseline, GameWindow->DC.PrevLineTextBaseOffset);
 }
 
 //-------------------------------------------------------------------------
@@ -2225,25 +2225,25 @@ void ImGui::TableUpdateColumnsWeightFromWidth(ImGuiTable* table)
 void ImGui::TablePushBackgroundChannel()
 {
     ImGuiContext& g = *GImGui;
-    ImGuiWindow* window = g.CurrentWindow;
+    ImGuiGameWindow* GameWindow = g.CurrentGameWindow;
     ImGuiTable* table = g.CurrentTable;
 
     // Optimization: avoid SetCurrentChannel() + PushClipRect()
-    table->HostBackupInnerClipRect = window->ClipRect;
-    SetWindowClipRectBeforeSetChannel(window, table->Bg2ClipRectForDrawCmd);
-    table->DrawSplitter->SetCurrentChannel(window->DrawList, table->Bg2DrawChannelCurrent);
+    table->HostBackupInnerClipRect = GameWindow->ClipRect;
+    SetGameWindowClipRectBeforeSetChannel(GameWindow, table->Bg2ClipRectForDrawCmd);
+    table->DrawSplitter->SetCurrentChannel(GameWindow->DrawList, table->Bg2DrawChannelCurrent);
 }
 
 void ImGui::TablePopBackgroundChannel()
 {
     ImGuiContext& g = *GImGui;
-    ImGuiWindow* window = g.CurrentWindow;
+    ImGuiGameWindow* GameWindow = g.CurrentGameWindow;
     ImGuiTable* table = g.CurrentTable;
     ImGuiTableColumn* column = &table->Columns[table->CurrentColumn];
 
     // Optimization: avoid PopClipRect() + SetCurrentChannel()
-    SetWindowClipRectBeforeSetChannel(window, table->HostBackupInnerClipRect);
-    table->DrawSplitter->SetCurrentChannel(window->DrawList, column->DrawChannelCurrent);
+    SetGameWindowClipRectBeforeSetChannel(GameWindow, table->HostBackupInnerClipRect);
+    table->DrawSplitter->SetCurrentChannel(GameWindow->DrawList, column->DrawChannelCurrent);
 }
 
 // Allocate draw channels. Called by TableUpdateLayout()
@@ -2269,7 +2269,7 @@ void ImGui::TableSetupDrawChannels(ImGuiTable* table)
     const int channels_for_bg = 1 + 1 * freeze_row_multiplier;
     const int channels_for_dummy = (table->ColumnsEnabledCount < table->ColumnsCount || table->VisibleMaskByIndex != table->EnabledMaskByIndex) ? +1 : 0;
     const int channels_total = channels_for_bg + (channels_for_row * freeze_row_multiplier) + channels_for_dummy;
-    table->DrawSplitter->Split(table->InnerWindow->DrawList, channels_total);
+    table->DrawSplitter->Split(table->InnerGameWindow->DrawList, channels_total);
     table->DummyDrawChannel = (ImGuiTableDrawChannelIdx)((channels_for_dummy > 0) ? channels_total - 1 : -1);
     table->Bg2DrawChannelCurrent = TABLE_DRAW_CHANNEL_BG2_FROZEN;
     table->Bg2DrawChannelUnfrozen = (ImGuiTableDrawChannelIdx)((table->FreezeRowsCount > 0) ? 2 + channels_for_row : TABLE_DRAW_CHANNEL_BG2_FROZEN);
@@ -2296,7 +2296,7 @@ void ImGui::TableSetupDrawChannels(ImGuiTable* table)
     // All our cell highlight are manually clipped with BgClipRect. When unfreezing it will be made smaller to fit scrolling rect.
     // (This technically isn't part of setting up draw channels, but is reasonably related to be done here)
     table->BgClipRect = table->InnerClipRect;
-    table->Bg0ClipRectForDrawCmd = table->OuterWindow->ClipRect;
+    table->Bg0ClipRectForDrawCmd = table->OuterGameWindow->ClipRect;
     table->Bg2ClipRectForDrawCmd = table->HostClipRect;
     IM_ASSERT(table->BgClipRect.Min.y <= table->BgClipRect.Max.y);
 }
@@ -2430,7 +2430,7 @@ void ImGui::TableMergeDrawChannels(ImGuiTable* table)
         remaining_mask.ClearBit(table->Bg2DrawChannelUnfrozen);
         IM_ASSERT(has_freeze_v == false || table->Bg2DrawChannelUnfrozen != TABLE_DRAW_CHANNEL_BG2_FROZEN);
         int remaining_count = splitter->_Count - (has_freeze_v ? LEADING_DRAW_CHANNELS + 1 : LEADING_DRAW_CHANNELS);
-        //ImRect host_rect = (table->InnerWindow == table->OuterWindow) ? table->InnerClipRect : table->HostClipRect;
+        //ImRect host_rect = (table->InnerGameWindow == table->OuterGameWindow) ? table->InnerClipRect : table->HostClipRect;
         ImRect host_rect = table->HostClipRect;
         for (int merge_group_n = 0; merge_group_n < IM_ARRAYSIZE(merge_groups); merge_group_n++)
         {
@@ -2442,10 +2442,10 @@ void ImGui::TableMergeDrawChannels(ImGuiTable* table)
                 // Extend outer-most clip limits to match those of host, so draw calls can be merged even if
                 // outer-most columns have some outer padding offsetting them from their parent ClipRect.
                 // The principal cases this is dealing with are:
-                // - On a same-window table (not scrolling = single group), all fitting columns ClipRect -> will extend and match host ClipRect -> will merge
+                // - On a same-GameWindow table (not scrolling = single group), all fitting columns ClipRect -> will extend and match host ClipRect -> will merge
                 // - Columns can use padding and have left-most ClipRect.Min.x and right-most ClipRect.Max.x != from host ClipRect -> will extend and match host ClipRect -> will merge
                 // FIXME-TABLE FIXME-WORKRECT: We are wasting a merge opportunity on tables without scrolling if column doesn't fit
-                // within host clip rect, solely because of the half-padding difference between window->WorkRect and window->InnerClipRect.
+                // within host clip rect, solely because of the half-padding difference between GameWindow->WorkRect and GameWindow->InnerClipRect.
                 if ((merge_group_n & 1) == 0 || !has_freeze_h)
                     merge_clip_rect.Min.x = ImMin(merge_clip_rect.Min.x, host_rect.Min.x);
                 if ((merge_group_n & 2) == 0 || !has_freeze_v)
@@ -2499,11 +2499,11 @@ void ImGui::TableMergeDrawChannels(ImGuiTable* table)
 // FIXME-TABLE: This is a mess, need to redesign how we render borders (as some are also done in TableEndRow)
 void ImGui::TableDrawBorders(ImGuiTable* table)
 {
-    ImGuiWindow* inner_window = table->InnerWindow;
-    if (!table->OuterWindow->ClipRect.Overlaps(table->OuterRect))
+    ImGuiGameWindow* inner_GameWindow = table->InnerGameWindow;
+    if (!table->OuterGameWindow->ClipRect.Overlaps(table->OuterRect))
         return;
 
-    ImDrawList* inner_drawlist = inner_window->DrawList;
+    ImDrawList* inner_drawlist = inner_GameWindow->DrawList;
     table->DrawSplitter->SetCurrentChannel(inner_drawlist, TABLE_DRAW_CHANNEL_BG0);
     inner_drawlist->PushClipRect(table->Bg0ClipRectForDrawCmd.Min, table->Bg0ClipRectForDrawCmd.Max, false);
 
@@ -2536,7 +2536,7 @@ void ImGui::TableDrawBorders(ImGuiTable* table)
             if (column->MaxX <= column->ClipRect.Min.x) // FIXME-TABLE FIXME-STYLE: Assume BorderSize==1, this is problematic if we want to increase the border size..
                 continue;
 
-            // Draw in outer window so right-most column won't be clipped
+            // Draw in outer GameWindow so right-most column won't be clipped
             // Always draw full height border when being resized/hovered, or on the delimitation of frozen column scrolling.
             ImU32 col;
             float draw_y2;
@@ -2561,9 +2561,9 @@ void ImGui::TableDrawBorders(ImGuiTable* table)
     if (table->Flags & ImGuiTableFlags_BordersOuter)
     {
         // Display outer border offset by 1 which is a simple way to display it without adding an extra draw call
-        // (Without the offset, in outer_window it would be rendered behind cells, because child windows are above their
-        // parent. In inner_window, it won't reach out over scrollbars. Another weird solution would be to display part
-        // of it in inner window, and the part that's over scrollbars in the outer window..)
+        // (Without the offset, in outer_GameWindow it would be rendered behind cells, because child GameWindows are above their
+        // parent. In inner_GameWindow, it won't reach out over scrollbars. Another weird solution would be to display part
+        // of it in inner GameWindow, and the part that's over scrollbars in the outer GameWindow..)
         // Either solution currently won't allow us to use a larger border size: the border would clipped.
         const ImRect outer_border = table->OuterRect;
         const ImU32 outer_col = table->BorderColorStrong;
@@ -2866,8 +2866,8 @@ void ImGui::TableHeadersRow()
 void ImGui::TableHeader(const char* label)
 {
     ImGuiContext& g = *GImGui;
-    ImGuiWindow* window = g.CurrentWindow;
-    if (window->SkipItems)
+    ImGuiGameWindow* GameWindow = g.CurrentGameWindow;
+    if (GameWindow->SkipItems)
         return;
 
     ImGuiTable* table = g.CurrentTable;
@@ -2881,7 +2881,7 @@ void ImGui::TableHeader(const char* label)
         label = "";
     const char* label_end = FindRenderedTextEnd(label);
     ImVec2 label_size = CalcTextSize(label, label_end, true);
-    ImVec2 label_pos = window->DC.CursorPos;
+    ImVec2 label_pos = GameWindow->DC.CursorPos;
 
     // If we already got a row height, there's use that.
     // FIXME-TABLE: Padding problem if the correct outer-padding CellBgRect strays off our ClipRect?
@@ -2910,7 +2910,7 @@ void ImGui::TableHeader(const char* label)
 
     // Keep header highlighted when context menu is open.
     const bool selected = (table->IsContextPopupOpen && table->ContextPopupColumn == column_n && table->InstanceInteracted == table->InstanceCurrent);
-    ImGuiID id = window->GetID(label);
+    ImGuiID id = GameWindow->GetID(label);
     ImRect bb(cell_r.Min.x, cell_r.Min.y, cell_r.Max.x, ImMax(cell_r.Max.y, cell_r.Min.y + label_height + g.Style.CellPadding.y * 2.0f));
     ItemSize(ImVec2(0.0f, label_height)); // Don't declare unclipped width, it'll be fed ContentMaxPosHeadersIdeal
     if (!ItemAdd(bb, id))
@@ -2939,7 +2939,7 @@ void ImGui::TableHeader(const char* label)
     RenderNavHighlight(bb, id, ImGuiNavHighlightFlags_TypeThin | ImGuiNavHighlightFlags_NoRounding);
     if (held)
         table->HeldHeaderColumn = (ImGuiTableColumnIdx)column_n;
-    window->DC.CursorPos.y -= g.Style.ItemSpacing.y * 0.5f;
+    GameWindow->DC.CursorPos.y -= g.Style.ItemSpacing.y * 0.5f;
 
     // Drag and drop to re-order columns.
     // FIXME-TABLE: Scroll request while reordering a column and it lands out of the scrolling zone.
@@ -2977,7 +2977,7 @@ void ImGui::TableHeader(const char* label)
                 PopStyleColor();
                 x += w_sort_text;
             }
-            RenderArrow(window->DrawList, ImVec2(x, y), GetColorU32(ImGuiCol_Text), column->SortDirection == ImGuiSortDirection_Ascending ? ImGuiDir_Up : ImGuiDir_Down, ARROW_SCALE);
+            RenderArrow(GameWindow->DrawList, ImVec2(x, y), GetColorU32(ImGuiCol_Text), column->SortDirection == ImGuiSortDirection_Ascending ? ImGuiDir_Up : ImGuiDir_Down, ARROW_SCALE);
         }
 
         // Handle clicking on column header to adjust Sort Order
@@ -2990,8 +2990,8 @@ void ImGui::TableHeader(const char* label)
 
     // Render clipped label. Clipping here ensure that in the majority of situations, all our header cells will
     // be merged into a single draw call.
-    //window->DrawList->AddCircleFilled(ImVec2(ellipsis_max, label_pos.y), 40, IM_COL32_WHITE);
-    RenderTextEllipsis(window->DrawList, label_pos, ImVec2(ellipsis_max, label_pos.y + label_height + g.Style.FramePadding.y), ellipsis_max, ellipsis_max, label, label_end, &label_size);
+    //GameWindow->DrawList->AddCircleFilled(ImVec2(ellipsis_max, label_pos.y), 40, IM_COL32_WHITE);
+    RenderTextEllipsis(GameWindow->DrawList, label_pos, ImVec2(ellipsis_max, label_pos.y + label_height + g.Style.FramePadding.y), ellipsis_max, ellipsis_max, label, label_end, &label_size);
 
     const bool text_clipped = label_size.x > (ellipsis_max - label_pos.x);
     if (text_clipped && hovered && g.HoveredIdNotActiveTimer > g.TooltipSlowDelay)
@@ -3034,19 +3034,19 @@ bool ImGui::TableBeginContextMenuPopup(ImGuiTable* table)
     if (!table->IsContextPopupOpen || table->InstanceCurrent != table->InstanceInteracted)
         return false;
     const ImGuiID context_menu_id = ImHashStr("##ContextMenu", 0, table->ID);
-    if (BeginPopupEx(context_menu_id, ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoSavedSettings))
+    if (BeginPopupEx(context_menu_id, ImGuiGameWindowFlags_AlwaysAutoResize | ImGuiGameWindowFlags_NoTitleBar | ImGuiGameWindowFlags_NoSavedSettings))
         return true;
     table->IsContextPopupOpen = false;
     return false;
 }
 
-// Output context menu into current window (generally a popup)
+// Output context menu into current GameWindow (generally a popup)
 // FIXME-TABLE: Ideally this should be writable by the user. Full programmatic access to that data?
 void ImGui::TableDrawContextMenu(ImGuiTable* table)
 {
     ImGuiContext& g = *GImGui;
-    ImGuiWindow* window = g.CurrentWindow;
-    if (window->SkipItems)
+    ImGuiGameWindow* GameWindow = g.CurrentGameWindow;
+    if (GameWindow->SkipItems)
         return;
 
     bool want_separator = false;
@@ -3347,7 +3347,7 @@ static void TableSettingsHandler_ClearAll(ImGuiContext* ctx, ImGuiSettingsHandle
     g.SettingsTables.clear();
 }
 
-// Apply to existing windows (if any)
+// Apply to existing GameWindows (if any)
 static void TableSettingsHandler_ApplyAll(ImGuiContext* ctx, ImGuiSettingsHandler*)
 {
     ImGuiContext& g = *ctx;
@@ -3543,7 +3543,7 @@ void ImGui::DebugNodeTable(ImGuiTable* table)
     char* p = buf;
     const char* buf_end = buf + IM_ARRAYSIZE(buf);
     const bool is_active = (table->LastFrameActive >= ImGui::GetFrameCount() - 2); // Note that fully clipped early out scrolling tables will appear as inactive here.
-    ImFormatString(p, buf_end - p, "Table 0x%08X (%d columns, in '%s')%s", table->ID, table->ColumnsCount, table->OuterWindow->Name, is_active ? "" : " *Inactive*");
+    ImFormatString(p, buf_end - p, "Table 0x%08X (%d columns, in '%s')%s", table->ID, table->ColumnsCount, table->OuterGameWindow->Name, is_active ? "" : " *Inactive*");
     if (!is_active) { PushStyleColor(ImGuiCol_Text, GetStyleColorVec4(ImGuiCol_TextDisabled)); }
     bool open = TreeNode(table, "%s", buf);
     if (!is_active) { PopStyleColor(); }
@@ -3633,7 +3633,7 @@ void ImGui::DebugNodeTableSettings(ImGuiTableSettings*) {}
 //-------------------------------------------------------------------------
 // FIXME: sizing is lossy when columns width is very small (default width may turn negative etc.)
 //-------------------------------------------------------------------------
-// - SetWindowClipRectBeforeSetChannel() [Internal]
+// - SetGameWindowClipRectBeforeSetChannel() [Internal]
 // - GetColumnIndex()
 // - GetColumnsCount()
 // - GetColumnOffset()
@@ -3655,24 +3655,24 @@ void ImGui::DebugNodeTableSettings(ImGuiTableSettings*) {}
 // they would meddle many times with the underlying ImDrawCmd.
 // Instead, we do a preemptive overwrite of clipping rectangle _without_ altering the command-buffer and let
 // the subsequent single call to SetCurrentChannel() does it things once.
-void ImGui::SetWindowClipRectBeforeSetChannel(ImGuiWindow* window, const ImRect& clip_rect)
+void ImGui::SetGameWindowClipRectBeforeSetChannel(ImGuiGameWindow* GameWindow, const ImRect& clip_rect)
 {
     ImVec4 clip_rect_vec4 = clip_rect.ToVec4();
-    window->ClipRect = clip_rect;
-    window->DrawList->_CmdHeader.ClipRect = clip_rect_vec4;
-    window->DrawList->_ClipRectStack.Data[window->DrawList->_ClipRectStack.Size - 1] = clip_rect_vec4;
+    GameWindow->ClipRect = clip_rect;
+    GameWindow->DrawList->_CmdHeader.ClipRect = clip_rect_vec4;
+    GameWindow->DrawList->_ClipRectStack.Data[GameWindow->DrawList->_ClipRectStack.Size - 1] = clip_rect_vec4;
 }
 
 int ImGui::GetColumnIndex()
 {
-    ImGuiWindow* window = GetCurrentWindowRead();
-    return window->DC.CurrentColumns ? window->DC.CurrentColumns->Current : 0;
+    ImGuiGameWindow* GameWindow = GetCurrentGameWindowRead();
+    return GameWindow->DC.CurrentColumns ? GameWindow->DC.CurrentColumns->Current : 0;
 }
 
 int ImGui::GetColumnsCount()
 {
-    ImGuiWindow* window = GetCurrentWindowRead();
-    return window->DC.CurrentColumns ? window->DC.CurrentColumns->Count : 1;
+    ImGuiGameWindow* GameWindow = GetCurrentGameWindowRead();
+    return GameWindow->DC.CurrentColumns ? GameWindow->DC.CurrentColumns->Count : 1;
 }
 
 float ImGui::GetColumnOffsetFromNorm(const ImGuiOldColumns* columns, float offset_norm)
@@ -3690,13 +3690,13 @@ static const float COLUMNS_HIT_RECT_HALF_WIDTH = 4.0f;
 static float GetDraggedColumnOffset(ImGuiOldColumns* columns, int column_index)
 {
     // Active (dragged) column always follow mouse. The reason we need this is that dragging a column to the right edge of an auto-resizing
-    // window creates a feedback loop because we store normalized positions. So while dragging we enforce absolute positioning.
+    // GameWindow creates a feedback loop because we store normalized positions. So while dragging we enforce absolute positioning.
     ImGuiContext& g = *GImGui;
-    ImGuiWindow* window = g.CurrentWindow;
+    ImGuiGameWindow* GameWindow = g.CurrentGameWindow;
     IM_ASSERT(column_index > 0); // We are not supposed to drag column 0.
     IM_ASSERT(g.ActiveId == columns->ID + ImGuiID(column_index));
 
-    float x = g.IO.MousePos.x - g.ActiveIdClickOffset.x + COLUMNS_HIT_RECT_HALF_WIDTH - window->Pos.x;
+    float x = g.IO.MousePos.x - g.ActiveIdClickOffset.x + COLUMNS_HIT_RECT_HALF_WIDTH - GameWindow->Pos.x;
     x = ImMax(x, ImGui::GetColumnOffset(column_index - 1) + g.Style.ColumnsMinSpacing);
     if ((columns->Flags & ImGuiOldColumnFlags_NoPreserveWidths))
         x = ImMin(x, ImGui::GetColumnOffset(column_index + 1) - g.Style.ColumnsMinSpacing);
@@ -3706,8 +3706,8 @@ static float GetDraggedColumnOffset(ImGuiOldColumns* columns, int column_index)
 
 float ImGui::GetColumnOffset(int column_index)
 {
-    ImGuiWindow* window = GetCurrentWindowRead();
-    ImGuiOldColumns* columns = window->DC.CurrentColumns;
+    ImGuiGameWindow* GameWindow = GetCurrentGameWindowRead();
+    ImGuiOldColumns* columns = GameWindow->DC.CurrentColumns;
     if (columns == NULL)
         return 0.0f;
 
@@ -3736,8 +3736,8 @@ static float GetColumnWidthEx(ImGuiOldColumns* columns, int column_index, bool b
 float ImGui::GetColumnWidth(int column_index)
 {
     ImGuiContext& g = *GImGui;
-    ImGuiWindow* window = g.CurrentWindow;
-    ImGuiOldColumns* columns = window->DC.CurrentColumns;
+    ImGuiGameWindow* GameWindow = g.CurrentGameWindow;
+    ImGuiOldColumns* columns = GameWindow->DC.CurrentColumns;
     if (columns == NULL)
         return GetContentRegionAvail().x;
 
@@ -3749,8 +3749,8 @@ float ImGui::GetColumnWidth(int column_index)
 void ImGui::SetColumnOffset(int column_index, float offset)
 {
     ImGuiContext& g = *GImGui;
-    ImGuiWindow* window = g.CurrentWindow;
-    ImGuiOldColumns* columns = window->DC.CurrentColumns;
+    ImGuiGameWindow* GameWindow = g.CurrentGameWindow;
+    ImGuiOldColumns* columns = GameWindow->DC.CurrentColumns;
     IM_ASSERT(columns != NULL);
 
     if (column_index < 0)
@@ -3760,7 +3760,7 @@ void ImGui::SetColumnOffset(int column_index, float offset)
     const bool preserve_width = !(columns->Flags & ImGuiOldColumnFlags_NoPreserveWidths) && (column_index < columns->Count - 1);
     const float width = preserve_width ? GetColumnWidthEx(columns, column_index, columns->IsBeingResized) : 0.0f;
 
-    if (!(columns->Flags & ImGuiOldColumnFlags_NoForceWithinWindow))
+    if (!(columns->Flags & ImGuiOldColumnFlags_NoForceWithinGameWindow))
         offset = ImMin(offset, columns->OffMaxX - g.Style.ColumnsMinSpacing * (columns->Count - column_index));
     columns->Columns[column_index].OffsetNorm = GetColumnNormFromOffset(columns, offset - columns->OffMinX);
 
@@ -3770,8 +3770,8 @@ void ImGui::SetColumnOffset(int column_index, float offset)
 
 void ImGui::SetColumnWidth(int column_index, float width)
 {
-    ImGuiWindow* window = GetCurrentWindowRead();
-    ImGuiOldColumns* columns = window->DC.CurrentColumns;
+    ImGuiGameWindow* GameWindow = GetCurrentGameWindowRead();
+    ImGuiOldColumns* columns = GameWindow->DC.CurrentColumns;
     IM_ASSERT(columns != NULL);
 
     if (column_index < 0)
@@ -3781,8 +3781,8 @@ void ImGui::SetColumnWidth(int column_index, float width)
 
 void ImGui::PushColumnClipRect(int column_index)
 {
-    ImGuiWindow* window = GetCurrentWindowRead();
-    ImGuiOldColumns* columns = window->DC.CurrentColumns;
+    ImGuiGameWindow* GameWindow = GetCurrentGameWindowRead();
+    ImGuiOldColumns* columns = GameWindow->DC.CurrentColumns;
     if (column_index < 0)
         column_index = columns->Current;
 
@@ -3793,50 +3793,50 @@ void ImGui::PushColumnClipRect(int column_index)
 // Get into the columns background draw command (which is generally the same draw command as before we called BeginColumns)
 void ImGui::PushColumnsBackground()
 {
-    ImGuiWindow* window = GetCurrentWindowRead();
-    ImGuiOldColumns* columns = window->DC.CurrentColumns;
+    ImGuiGameWindow* GameWindow = GetCurrentGameWindowRead();
+    ImGuiOldColumns* columns = GameWindow->DC.CurrentColumns;
     if (columns->Count == 1)
         return;
 
     // Optimization: avoid SetCurrentChannel() + PushClipRect()
-    columns->HostBackupClipRect = window->ClipRect;
-    SetWindowClipRectBeforeSetChannel(window, columns->HostInitialClipRect);
-    columns->Splitter.SetCurrentChannel(window->DrawList, 0);
+    columns->HostBackupClipRect = GameWindow->ClipRect;
+    SetGameWindowClipRectBeforeSetChannel(GameWindow, columns->HostInitialClipRect);
+    columns->Splitter.SetCurrentChannel(GameWindow->DrawList, 0);
 }
 
 void ImGui::PopColumnsBackground()
 {
-    ImGuiWindow* window = GetCurrentWindowRead();
-    ImGuiOldColumns* columns = window->DC.CurrentColumns;
+    ImGuiGameWindow* GameWindow = GetCurrentGameWindowRead();
+    ImGuiOldColumns* columns = GameWindow->DC.CurrentColumns;
     if (columns->Count == 1)
         return;
 
     // Optimization: avoid PopClipRect() + SetCurrentChannel()
-    SetWindowClipRectBeforeSetChannel(window, columns->HostBackupClipRect);
-    columns->Splitter.SetCurrentChannel(window->DrawList, columns->Current + 1);
+    SetGameWindowClipRectBeforeSetChannel(GameWindow, columns->HostBackupClipRect);
+    columns->Splitter.SetCurrentChannel(GameWindow->DrawList, columns->Current + 1);
 }
 
-ImGuiOldColumns* ImGui::FindOrCreateColumns(ImGuiWindow* window, ImGuiID id)
+ImGuiOldColumns* ImGui::FindOrCreateColumns(ImGuiGameWindow* GameWindow, ImGuiID id)
 {
-    // We have few columns per window so for now we don't need bother much with turning this into a faster lookup.
-    for (int n = 0; n < window->ColumnsStorage.Size; n++)
-        if (window->ColumnsStorage[n].ID == id)
-            return &window->ColumnsStorage[n];
+    // We have few columns per GameWindow so for now we don't need bother much with turning this into a faster lookup.
+    for (int n = 0; n < GameWindow->ColumnsStorage.Size; n++)
+        if (GameWindow->ColumnsStorage[n].ID == id)
+            return &GameWindow->ColumnsStorage[n];
 
-    window->ColumnsStorage.push_back(ImGuiOldColumns());
-    ImGuiOldColumns* columns = &window->ColumnsStorage.back();
+    GameWindow->ColumnsStorage.push_back(ImGuiOldColumns());
+    ImGuiOldColumns* columns = &GameWindow->ColumnsStorage.back();
     columns->ID = id;
     return columns;
 }
 
 ImGuiID ImGui::GetColumnsID(const char* str_id, int columns_count)
 {
-    ImGuiWindow* window = GetCurrentWindow();
+    ImGuiGameWindow* GameWindow = GetCurrentGameWindow();
 
     // Differentiate column ID with an arbitrary prefix for cases where users name their columns set the same as another widget.
     // In addition, when an identifier isn't explicitly provided we include the number of columns in the hash to make it uniquer.
     PushID(0x11223347 + (str_id ? 0 : columns_count));
-    ImGuiID id = window->GetID(str_id ? str_id : "columns");
+    ImGuiID id = GameWindow->GetID(str_id ? str_id : "columns");
     PopID();
 
     return id;
@@ -3845,35 +3845,35 @@ ImGuiID ImGui::GetColumnsID(const char* str_id, int columns_count)
 void ImGui::BeginColumns(const char* str_id, int columns_count, ImGuiOldColumnFlags flags)
 {
     ImGuiContext& g = *GImGui;
-    ImGuiWindow* window = GetCurrentWindow();
+    ImGuiGameWindow* GameWindow = GetCurrentGameWindow();
 
     IM_ASSERT(columns_count >= 1);
-    IM_ASSERT(window->DC.CurrentColumns == NULL);   // Nested columns are currently not supported
+    IM_ASSERT(GameWindow->DC.CurrentColumns == NULL);   // Nested columns are currently not supported
 
     // Acquire storage for the columns set
     ImGuiID id = GetColumnsID(str_id, columns_count);
-    ImGuiOldColumns* columns = FindOrCreateColumns(window, id);
+    ImGuiOldColumns* columns = FindOrCreateColumns(GameWindow, id);
     IM_ASSERT(columns->ID == id);
     columns->Current = 0;
     columns->Count = columns_count;
     columns->Flags = flags;
-    window->DC.CurrentColumns = columns;
+    GameWindow->DC.CurrentColumns = columns;
 
-    columns->HostCursorPosY = window->DC.CursorPos.y;
-    columns->HostCursorMaxPosX = window->DC.CursorMaxPos.x;
-    columns->HostInitialClipRect = window->ClipRect;
-    columns->HostBackupParentWorkRect = window->ParentWorkRect;
-    window->ParentWorkRect = window->WorkRect;
+    columns->HostCursorPosY = GameWindow->DC.CursorPos.y;
+    columns->HostCursorMaxPosX = GameWindow->DC.CursorMaxPos.x;
+    columns->HostInitialClipRect = GameWindow->ClipRect;
+    columns->HostBackupParentWorkRect = GameWindow->ParentWorkRect;
+    GameWindow->ParentWorkRect = GameWindow->WorkRect;
 
     // Set state for first column
     // We aim so that the right-most column will have the same clipping width as other after being clipped by parent ClipRect
     const float column_padding = g.Style.ItemSpacing.x;
-    const float half_clip_extend_x = ImFloor(ImMax(window->WindowPadding.x * 0.5f, window->WindowBorderSize));
-    const float max_1 = window->WorkRect.Max.x + column_padding - ImMax(column_padding - window->WindowPadding.x, 0.0f);
-    const float max_2 = window->WorkRect.Max.x + half_clip_extend_x;
-    columns->OffMinX = window->DC.Indent.x - column_padding + ImMax(column_padding - window->WindowPadding.x, 0.0f);
-    columns->OffMaxX = ImMax(ImMin(max_1, max_2) - window->Pos.x, columns->OffMinX + 1.0f);
-    columns->LineMinY = columns->LineMaxY = window->DC.CursorPos.y;
+    const float half_clip_extend_x = ImFloor(ImMax(GameWindow->GameWindowPadding.x * 0.5f, GameWindow->GameWindowBorderSize));
+    const float max_1 = GameWindow->WorkRect.Max.x + column_padding - ImMax(column_padding - GameWindow->GameWindowPadding.x, 0.0f);
+    const float max_2 = GameWindow->WorkRect.Max.x + half_clip_extend_x;
+    columns->OffMinX = GameWindow->DC.Indent.x - column_padding + ImMax(column_padding - GameWindow->GameWindowPadding.x, 0.0f);
+    columns->OffMaxX = ImMax(ImMin(max_1, max_2) - GameWindow->Pos.x, columns->OffMinX + 1.0f);
+    columns->LineMinY = columns->LineMaxY = GameWindow->DC.CursorPos.y;
 
     // Clear data if columns count changed
     if (columns->Columns.Size != 0 && columns->Columns.Size != columns_count + 1)
@@ -3896,16 +3896,16 @@ void ImGui::BeginColumns(const char* str_id, int columns_count, ImGuiOldColumnFl
     {
         // Compute clipping rectangle
         ImGuiOldColumnData* column = &columns->Columns[n];
-        float clip_x1 = IM_ROUND(window->Pos.x + GetColumnOffset(n));
-        float clip_x2 = IM_ROUND(window->Pos.x + GetColumnOffset(n + 1) - 1.0f);
+        float clip_x1 = IM_ROUND(GameWindow->Pos.x + GetColumnOffset(n));
+        float clip_x2 = IM_ROUND(GameWindow->Pos.x + GetColumnOffset(n + 1) - 1.0f);
         column->ClipRect = ImRect(clip_x1, -FLT_MAX, clip_x2, +FLT_MAX);
-        column->ClipRect.ClipWithFull(window->ClipRect);
+        column->ClipRect.ClipWithFull(GameWindow->ClipRect);
     }
 
     if (columns->Count > 1)
     {
-        columns->Splitter.Split(window->DrawList, 1 + columns->Count);
-        columns->Splitter.SetCurrentChannel(window->DrawList, 1);
+        columns->Splitter.Split(GameWindow->DrawList, 1 + columns->Count);
+        columns->Splitter.SetCurrentChannel(GameWindow->DrawList, 1);
         PushColumnClipRect(0);
     }
 
@@ -3914,23 +3914,23 @@ void ImGui::BeginColumns(const char* str_id, int columns_count, ImGuiOldColumnFl
     float offset_1 = GetColumnOffset(columns->Current + 1);
     float width = offset_1 - offset_0;
     PushItemWidth(width * 0.65f);
-    window->DC.ColumnsOffset.x = ImMax(column_padding - window->WindowPadding.x, 0.0f);
-    window->DC.CursorPos.x = IM_FLOOR(window->Pos.x + window->DC.Indent.x + window->DC.ColumnsOffset.x);
-    window->WorkRect.Max.x = window->Pos.x + offset_1 - column_padding;
+    GameWindow->DC.ColumnsOffset.x = ImMax(column_padding - GameWindow->GameWindowPadding.x, 0.0f);
+    GameWindow->DC.CursorPos.x = IM_FLOOR(GameWindow->Pos.x + GameWindow->DC.Indent.x + GameWindow->DC.ColumnsOffset.x);
+    GameWindow->WorkRect.Max.x = GameWindow->Pos.x + offset_1 - column_padding;
 }
 
 void ImGui::NextColumn()
 {
-    ImGuiWindow* window = GetCurrentWindow();
-    if (window->SkipItems || window->DC.CurrentColumns == NULL)
+    ImGuiGameWindow* GameWindow = GetCurrentGameWindow();
+    if (GameWindow->SkipItems || GameWindow->DC.CurrentColumns == NULL)
         return;
 
     ImGuiContext& g = *GImGui;
-    ImGuiOldColumns* columns = window->DC.CurrentColumns;
+    ImGuiOldColumns* columns = GameWindow->DC.CurrentColumns;
 
     if (columns->Count == 1)
     {
-        window->DC.CursorPos.x = IM_FLOOR(window->Pos.x + window->DC.Indent.x + window->DC.ColumnsOffset.x);
+        GameWindow->DC.CursorPos.x = IM_FLOOR(GameWindow->Pos.x + GameWindow->DC.Indent.x + GameWindow->DC.ColumnsOffset.x);
         IM_ASSERT(columns->Current == 0);
         return;
     }
@@ -3944,70 +3944,70 @@ void ImGui::NextColumn()
     // Optimization: avoid PopClipRect() + SetCurrentChannel() + PushClipRect()
     // (which would needlessly attempt to update commands in the wrong channel, then pop or overwrite them),
     ImGuiOldColumnData* column = &columns->Columns[columns->Current];
-    SetWindowClipRectBeforeSetChannel(window, column->ClipRect);
-    columns->Splitter.SetCurrentChannel(window->DrawList, columns->Current + 1);
+    SetGameWindowClipRectBeforeSetChannel(GameWindow, column->ClipRect);
+    columns->Splitter.SetCurrentChannel(GameWindow->DrawList, columns->Current + 1);
 
     const float column_padding = g.Style.ItemSpacing.x;
-    columns->LineMaxY = ImMax(columns->LineMaxY, window->DC.CursorPos.y);
+    columns->LineMaxY = ImMax(columns->LineMaxY, GameWindow->DC.CursorPos.y);
     if (columns->Current > 0)
     {
         // Columns 1+ ignore IndentX (by canceling it out)
         // FIXME-COLUMNS: Unnecessary, could be locked?
-        window->DC.ColumnsOffset.x = GetColumnOffset(columns->Current) - window->DC.Indent.x + column_padding;
+        GameWindow->DC.ColumnsOffset.x = GetColumnOffset(columns->Current) - GameWindow->DC.Indent.x + column_padding;
     }
     else
     {
         // New row/line: column 0 honor IndentX.
-        window->DC.ColumnsOffset.x = ImMax(column_padding - window->WindowPadding.x, 0.0f);
-        window->DC.IsSameLine = false;
+        GameWindow->DC.ColumnsOffset.x = ImMax(column_padding - GameWindow->GameWindowPadding.x, 0.0f);
+        GameWindow->DC.IsSameLine = false;
         columns->LineMinY = columns->LineMaxY;
     }
-    window->DC.CursorPos.x = IM_FLOOR(window->Pos.x + window->DC.Indent.x + window->DC.ColumnsOffset.x);
-    window->DC.CursorPos.y = columns->LineMinY;
-    window->DC.CurrLineSize = ImVec2(0.0f, 0.0f);
-    window->DC.CurrLineTextBaseOffset = 0.0f;
+    GameWindow->DC.CursorPos.x = IM_FLOOR(GameWindow->Pos.x + GameWindow->DC.Indent.x + GameWindow->DC.ColumnsOffset.x);
+    GameWindow->DC.CursorPos.y = columns->LineMinY;
+    GameWindow->DC.CurrLineSize = ImVec2(0.0f, 0.0f);
+    GameWindow->DC.CurrLineTextBaseOffset = 0.0f;
 
     // FIXME-COLUMNS: Share code with BeginColumns() - move code on columns setup.
     float offset_0 = GetColumnOffset(columns->Current);
     float offset_1 = GetColumnOffset(columns->Current + 1);
     float width = offset_1 - offset_0;
     PushItemWidth(width * 0.65f);
-    window->WorkRect.Max.x = window->Pos.x + offset_1 - column_padding;
+    GameWindow->WorkRect.Max.x = GameWindow->Pos.x + offset_1 - column_padding;
 }
 
 void ImGui::EndColumns()
 {
     ImGuiContext& g = *GImGui;
-    ImGuiWindow* window = GetCurrentWindow();
-    ImGuiOldColumns* columns = window->DC.CurrentColumns;
+    ImGuiGameWindow* GameWindow = GetCurrentGameWindow();
+    ImGuiOldColumns* columns = GameWindow->DC.CurrentColumns;
     IM_ASSERT(columns != NULL);
 
     PopItemWidth();
     if (columns->Count > 1)
     {
         PopClipRect();
-        columns->Splitter.Merge(window->DrawList);
+        columns->Splitter.Merge(GameWindow->DrawList);
     }
 
     const ImGuiOldColumnFlags flags = columns->Flags;
-    columns->LineMaxY = ImMax(columns->LineMaxY, window->DC.CursorPos.y);
-    window->DC.CursorPos.y = columns->LineMaxY;
+    columns->LineMaxY = ImMax(columns->LineMaxY, GameWindow->DC.CursorPos.y);
+    GameWindow->DC.CursorPos.y = columns->LineMaxY;
     if (!(flags & ImGuiOldColumnFlags_GrowParentContentsSize))
-        window->DC.CursorMaxPos.x = columns->HostCursorMaxPosX;  // Restore cursor max pos, as columns don't grow parent
+        GameWindow->DC.CursorMaxPos.x = columns->HostCursorMaxPosX;  // Restore cursor max pos, as columns don't grow parent
 
     // Draw columns borders and handle resize
     // The IsBeingResized flag ensure we preserve pre-resize columns width so back-and-forth are not lossy
     bool is_being_resized = false;
-    if (!(flags & ImGuiOldColumnFlags_NoBorder) && !window->SkipItems)
+    if (!(flags & ImGuiOldColumnFlags_NoBorder) && !GameWindow->SkipItems)
     {
         // We clip Y boundaries CPU side because very long triangles are mishandled by some GPU drivers.
-        const float y1 = ImMax(columns->HostCursorPosY, window->ClipRect.Min.y);
-        const float y2 = ImMin(window->DC.CursorPos.y, window->ClipRect.Max.y);
+        const float y1 = ImMax(columns->HostCursorPosY, GameWindow->ClipRect.Min.y);
+        const float y2 = ImMin(GameWindow->DC.CursorPos.y, GameWindow->ClipRect.Max.y);
         int dragging_column = -1;
         for (int n = 1; n < columns->Count; n++)
         {
             ImGuiOldColumnData* column = &columns->Columns[n];
-            float x = window->Pos.x + GetColumnOffset(n);
+            float x = GameWindow->Pos.x + GetColumnOffset(n);
             const ImGuiID column_id = columns->ID + ImGuiID(n);
             const float column_hit_hw = COLUMNS_HIT_RECT_HALF_WIDTH;
             const ImRect column_hit_rect(ImVec2(x - column_hit_hw, y1), ImVec2(x + column_hit_hw, y2));
@@ -4028,7 +4028,7 @@ void ImGui::EndColumns()
             // Draw column
             const ImU32 col = GetColorU32(held ? ImGuiCol_SeparatorActive : hovered ? ImGuiCol_SeparatorHovered : ImGuiCol_Separator);
             const float xi = IM_FLOOR(x);
-            window->DrawList->AddLine(ImVec2(xi, y1 + 1.0f), ImVec2(xi, y2), col);
+            GameWindow->DrawList->AddLine(ImVec2(xi, y1 + 1.0f), ImVec2(xi, y2), col);
         }
 
         // Apply dragging after drawing the column lines, so our rendered lines are in sync with how items were displayed during the frame.
@@ -4044,21 +4044,21 @@ void ImGui::EndColumns()
     }
     columns->IsBeingResized = is_being_resized;
 
-    window->WorkRect = window->ParentWorkRect;
-    window->ParentWorkRect = columns->HostBackupParentWorkRect;
-    window->DC.CurrentColumns = NULL;
-    window->DC.ColumnsOffset.x = 0.0f;
-    window->DC.CursorPos.x = IM_FLOOR(window->Pos.x + window->DC.Indent.x + window->DC.ColumnsOffset.x);
+    GameWindow->WorkRect = GameWindow->ParentWorkRect;
+    GameWindow->ParentWorkRect = columns->HostBackupParentWorkRect;
+    GameWindow->DC.CurrentColumns = NULL;
+    GameWindow->DC.ColumnsOffset.x = 0.0f;
+    GameWindow->DC.CursorPos.x = IM_FLOOR(GameWindow->Pos.x + GameWindow->DC.Indent.x + GameWindow->DC.ColumnsOffset.x);
 }
 
 void ImGui::Columns(int columns_count, const char* id, bool border)
 {
-    ImGuiWindow* window = GetCurrentWindow();
+    ImGuiGameWindow* GameWindow = GetCurrentGameWindow();
     IM_ASSERT(columns_count >= 1);
 
     ImGuiOldColumnFlags flags = (border ? 0 : ImGuiOldColumnFlags_NoBorder);
     //flags |= ImGuiOldColumnFlags_NoPreserveWidths; // NB: Legacy behavior
-    ImGuiOldColumns* columns = window->DC.CurrentColumns;
+    ImGuiOldColumns* columns = GameWindow->DC.CurrentColumns;
     if (columns != NULL && columns->Count == columns_count && columns->Flags == flags)
         return;
 

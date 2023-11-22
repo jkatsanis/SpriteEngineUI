@@ -6,7 +6,7 @@
 #include <fstream>
 #include <filesystem>
 
-#include <Windows.h>
+#include <GameWindows.h>
 
 namespace spe
 {

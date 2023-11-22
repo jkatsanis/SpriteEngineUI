@@ -1,9 +1,12 @@
 #pragma once
 
-#include "Window.h"
+#include "Core/GameWindow.h"
 #include "UtilityFunctions.h"
-#include "FileDataMacros.h"
+#include "RessourceHandler/FileDataMacros.h"
 
+
+#include "SpriteRepository.h"
+#include "RessourceHandler/Initializer.h"
 
 #include <iostream>
 
@@ -12,7 +15,9 @@ namespace spe
 	class Editor
 	{
 	private:
-		spe::Window m_Window;
+		spe::GameWindow m_Window;
+		spe::SpriteRepository m_SpriteRepository;
+
 
 	public:
 		Editor();

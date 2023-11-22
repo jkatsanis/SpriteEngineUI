@@ -4,7 +4,10 @@ int main()
 {
     spe::Editor editor;
 
-    editor.Update();
+    while (editor.IsOpen())
+    {
+        editor.Update();
+    }
 
     return 0;
 }

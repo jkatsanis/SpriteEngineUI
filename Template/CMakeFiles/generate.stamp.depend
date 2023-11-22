@@ -1,0 +1,7 @@
+# CMake generation dependency list for this directory.
+C:/Dev/Refactor/SpriteEngineUI/Engine/Template/CMakeLists.txt
+C:/Dev/Refactor/SpriteEngineUI/Engine/Template/Source/Include/DLL/sfml-audio-d-2.dll
+C:/Dev/Refactor/SpriteEngineUI/Engine/Template/Source/Include/DLL/sfml-graphics-d-2.dll
+C:/Dev/Refactor/SpriteEngineUI/Engine/Template/Source/Include/DLL/sfml-network-d-2.dll
+C:/Dev/Refactor/SpriteEngineUI/Engine/Template/Source/Include/DLL/sfml-system-d-2.dll
+C:/Dev/Refactor/SpriteEngineUI/Engine/Template/Source/Include/DLL/sfml-window-d-2.dll

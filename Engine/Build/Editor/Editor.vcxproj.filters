@@ -12,9 +12,6 @@
     <ClInclude Include="C:\Dev\Refactor\SpriteEngineUI\Engine\Editor\Source\Editor.h">
       <Filter>Source</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Dev\Refactor\SpriteEngineUI\Engine\Editor\Source\FileDataMacros.h">
-      <Filter>Source</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="C:\Dev\Refactor\SpriteEngineUI\Engine\Editor\CMakeLists.txt" />

@@ -5,7 +5,7 @@
 #include <SFML/Graphics/Rect.hpp>
 #include <SFML/System/Time.hpp>
 #include <SFML/System/Vector2.hpp>
-#include <SFML/Window/Joystick.hpp>
+#include <SFML/GameWindow/Joystick.hpp>
 
 #include "imgui-SFML_export.h"
 
@@ -19,36 +19,36 @@ namespace sf {
 class Event;
 class RenderTarget;
 class RenderTexture;
-class RenderWindow;
+class RenderGameWindow;
 class Sprite;
 class Texture;
-class Window;
+class GameWindow;
 }
 
 namespace ImGui {
 namespace SFML {
-IMGUI_SFML_NODISCARD IMGUI_SFML_API bool Init(sf::RenderWindow& window,
+IMGUI_SFML_NODISCARD IMGUI_SFML_API bool Init(sf::RenderGameWindow& GameWindow,
                                               bool loadDefaultFont = true);
-IMGUI_SFML_NODISCARD IMGUI_SFML_API bool Init(sf::Window& window, sf::RenderTarget& target,
+IMGUI_SFML_NODISCARD IMGUI_SFML_API bool Init(sf::GameWindow& GameWindow, sf::RenderTarget& target,
                                               bool loadDefaultFont = true);
-IMGUI_SFML_NODISCARD IMGUI_SFML_API bool Init(sf::Window& window, const sf::Vector2f& displaySize,
+IMGUI_SFML_NODISCARD IMGUI_SFML_API bool Init(sf::GameWindow& GameWindow, const sf::Vector2f& displaySize,
                                               bool loadDefaultFont = true);
 
-IMGUI_SFML_API void SetCurrentWindow(const sf::Window& window);
-IMGUI_SFML_API void ProcessEvent(const sf::Event& event); // DEPRECATED: use (window,
+IMGUI_SFML_API void SetCurrentGameWindow(const sf::GameWindow& GameWindow);
+IMGUI_SFML_API void ProcessEvent(const sf::Event& event); // DEPRECATED: use (GameWindow,
                                                           // event) overload
-IMGUI_SFML_API void ProcessEvent(const sf::Window& window, const sf::Event& event);
+IMGUI_SFML_API void ProcessEvent(const sf::GameWindow& GameWindow, const sf::Event& event);
 
-IMGUI_SFML_API void Update(sf::RenderWindow& window, sf::Time dt);
-IMGUI_SFML_API void Update(sf::Window& window, sf::RenderTarget& target, sf::Time dt);
+IMGUI_SFML_API void Update(sf::RenderGameWindow& GameWindow, sf::Time dt);
+IMGUI_SFML_API void Update(sf::GameWindow& GameWindow, sf::RenderTarget& target, sf::Time dt);
 IMGUI_SFML_API void Update(const sf::Vector2i& mousePos, const sf::Vector2f& displaySize,
                            sf::Time dt);
 
-IMGUI_SFML_API void Render(sf::RenderWindow& target);
+IMGUI_SFML_API void Render(sf::RenderGameWindow& target);
 IMGUI_SFML_API void Render(sf::RenderTarget& target);
 IMGUI_SFML_API void Render();
 
-IMGUI_SFML_API void Shutdown(const sf::Window& window);
+IMGUI_SFML_API void Shutdown(const sf::GameWindow& GameWindow);
 // Shuts down all ImGui contexts
 IMGUI_SFML_API void Shutdown();
 
@@ -126,7 +126,7 @@ IMGUI_SFML_API bool ImageButton(const sf::Sprite& sprite, const sf::Vector2f& si
                                 const sf::Color& tintColor = sf::Color::White);
 
 // Draw_list overloads. All positions are in relative coordinates (relative to top-left of the
-// current window)
+// current GameWindow)
 IMGUI_SFML_API void DrawLine(const sf::Vector2f& a, const sf::Vector2f& b, const sf::Color& col,
                              float thickness = 1.0f);
 IMGUI_SFML_API void DrawRect(const sf::FloatRect& rect, const sf::Color& color,

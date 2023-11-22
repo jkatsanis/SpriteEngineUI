@@ -86,7 +86,7 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>C:\Dev\Refactor\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source\Include\ImGui;C:\Dev\Refactor\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source\Include;C:\Dev\Refactor\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source;C:\Dev\Refactor\SpriteEngineUI\Engine\Core;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Dev\Refactor\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source\Sprite;C:\Dev\Refactor\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source\Include\ImGui;C:\Dev\Refactor\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source\Include;C:\Dev\Refactor\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
@@ -104,10 +104,10 @@
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_DEBUG;_WINDOWS;CMAKE_INTDIR=\"Debug\"</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\Dev\Refactor\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source\Include\ImGui;C:\Dev\Refactor\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source\Include;C:\Dev\Refactor\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source;C:\Dev\Refactor\SpriteEngineUI\Engine\Core;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Dev\Refactor\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source\Sprite;C:\Dev\Refactor\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source\Include\ImGui;C:\Dev\Refactor\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source\Include;C:\Dev\Refactor\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>C:\Dev\Refactor\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source\Include\ImGui;C:\Dev\Refactor\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source\Include;C:\Dev\Refactor\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source;C:\Dev\Refactor\SpriteEngineUI\Engine\Core;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Dev\Refactor\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source\Sprite;C:\Dev\Refactor\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source\Include\ImGui;C:\Dev\Refactor\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source\Include;C:\Dev\Refactor\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -130,7 +130,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>C:\Dev\Refactor\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source\Include\ImGui;C:\Dev\Refactor\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source\Include;C:\Dev\Refactor\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source;C:\Dev\Refactor\SpriteEngineUI\Engine\Core;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Dev\Refactor\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source\Sprite;C:\Dev\Refactor\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source\Include\ImGui;C:\Dev\Refactor\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source\Include;C:\Dev\Refactor\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <ExceptionHandling>Sync</ExceptionHandling>
       <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
@@ -148,10 +148,10 @@
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR=\"Release\"</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\Dev\Refactor\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source\Include\ImGui;C:\Dev\Refactor\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source\Include;C:\Dev\Refactor\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source;C:\Dev\Refactor\SpriteEngineUI\Engine\Core;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Dev\Refactor\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source\Sprite;C:\Dev\Refactor\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source\Include\ImGui;C:\Dev\Refactor\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source\Include;C:\Dev\Refactor\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>C:\Dev\Refactor\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source\Include\ImGui;C:\Dev\Refactor\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source\Include;C:\Dev\Refactor\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source;C:\Dev\Refactor\SpriteEngineUI\Engine\Core;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Dev\Refactor\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source\Sprite;C:\Dev\Refactor\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source\Include\ImGui;C:\Dev\Refactor\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source\Include;C:\Dev\Refactor\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -174,7 +174,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>C:\Dev\Refactor\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source\Include\ImGui;C:\Dev\Refactor\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source\Include;C:\Dev\Refactor\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source;C:\Dev\Refactor\SpriteEngineUI\Engine\Core;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Dev\Refactor\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source\Sprite;C:\Dev\Refactor\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source\Include\ImGui;C:\Dev\Refactor\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source\Include;C:\Dev\Refactor\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <ExceptionHandling>Sync</ExceptionHandling>
       <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
@@ -192,10 +192,10 @@
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR=\"MinSizeRel\"</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\Dev\Refactor\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source\Include\ImGui;C:\Dev\Refactor\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source\Include;C:\Dev\Refactor\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source;C:\Dev\Refactor\SpriteEngineUI\Engine\Core;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Dev\Refactor\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source\Sprite;C:\Dev\Refactor\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source\Include\ImGui;C:\Dev\Refactor\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source\Include;C:\Dev\Refactor\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>C:\Dev\Refactor\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source\Include\ImGui;C:\Dev\Refactor\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source\Include;C:\Dev\Refactor\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source;C:\Dev\Refactor\SpriteEngineUI\Engine\Core;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Dev\Refactor\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source\Sprite;C:\Dev\Refactor\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source\Include\ImGui;C:\Dev\Refactor\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source\Include;C:\Dev\Refactor\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -218,7 +218,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>C:\Dev\Refactor\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source\Include\ImGui;C:\Dev\Refactor\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source\Include;C:\Dev\Refactor\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source;C:\Dev\Refactor\SpriteEngineUI\Engine\Core;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Dev\Refactor\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source\Sprite;C:\Dev\Refactor\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source\Include\ImGui;C:\Dev\Refactor\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source\Include;C:\Dev\Refactor\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <ExceptionHandling>Sync</ExceptionHandling>
@@ -235,10 +235,10 @@
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR=\"RelWithDebInfo\"</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\Dev\Refactor\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source\Include\ImGui;C:\Dev\Refactor\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source\Include;C:\Dev\Refactor\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source;C:\Dev\Refactor\SpriteEngineUI\Engine\Core;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Dev\Refactor\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source\Sprite;C:\Dev\Refactor\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source\Include\ImGui;C:\Dev\Refactor\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source\Include;C:\Dev\Refactor\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>C:\Dev\Refactor\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source\Include\ImGui;C:\Dev\Refactor\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source\Include;C:\Dev\Refactor\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source;C:\Dev\Refactor\SpriteEngineUI\Engine\Core;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Dev\Refactor\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source\Sprite;C:\Dev\Refactor\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source\Include\ImGui;C:\Dev\Refactor\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source\Include;C:\Dev\Refactor\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>

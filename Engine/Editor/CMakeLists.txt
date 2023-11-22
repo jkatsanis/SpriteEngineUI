@@ -29,3 +29,5 @@ configure_file(${PATH_LIBRARIES}/${DLL_FOLDER_NAME}/sfml-graphics-d-2.dll ${CMAK
 configure_file(${PATH_LIBRARIES}/${DLL_FOLDER_NAME}/sfml-network-d-2.dll ${CMAKE_BINARY_DIR}/${EDITOR_NAME}/Debug COPYONLY)
 configure_file(${PATH_LIBRARIES}/${DLL_FOLDER_NAME}/sfml-system-d-2.dll ${CMAKE_BINARY_DIR}/${EDITOR_NAME}/Debug COPYONLY)
 configure_file(${PATH_LIBRARIES}/${DLL_FOLDER_NAME}/sfml-window-d-2.dll ${CMAKE_BINARY_DIR}/${EDITOR_NAME}/Debug COPYONLY)
+
+# TODO Make release dir

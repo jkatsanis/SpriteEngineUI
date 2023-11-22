@@ -18,16 +18,16 @@ namespace spe
 		Vector2(const spe::Vector2& rhs);
 		Vector2(const sf::Vector2f& rhs);
 
-		bool operator==(const Vector2& rhs);
-		bool operator!=(const Vector2& rhs);
+		bool operator==(const Vector2& rhs) const;
+		bool operator!=(const Vector2& rhs) const;
 		spe::Vector2 operator+=(const spe::Vector2& rhs);
-		spe::Vector2 operator*(const float& rhs);
-		spe::Vector2 operator-(const spe::Vector2& rhs);
-		spe::Vector2 operator+(const spe::Vector2& rhs);
+		spe::Vector2 operator*(const float& rhs) const;
+		spe::Vector2 operator-(const spe::Vector2& rhs) const;
+		spe::Vector2 operator+(const spe::Vector2& rhs) const;
 		spe::Vector2 operator*=(const spe::Vector2& rhs);
 		spe::Vector2 operator/=(const spe::Vector2& rhs);
 		spe::Vector2 operator/=(const float rhs);
-		spe::Vector2 operator*(const spe::Vector2& rhs);
+		spe::Vector2 operator*(const spe::Vector2& rhs) const;
 
 		friend std::ostream& operator<<(std::ostream& os, const spe::Vector2& rhs);
 

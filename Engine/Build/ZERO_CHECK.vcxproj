@@ -69,7 +69,7 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <Midl>
-      <AdditionalIncludeDirectories>C:\Dev\Refactor\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source\Include\ImGui;C:\Dev\Refactor\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source\Include;C:\Dev\Refactor\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Dev\Refactor\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source\Sprite;C:\Dev\Refactor\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source\Include\ImGui;C:\Dev\Refactor\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source\Include;C:\Dev\Refactor\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -79,7 +79,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <Midl>
-      <AdditionalIncludeDirectories>C:\Dev\Refactor\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source\Include\ImGui;C:\Dev\Refactor\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source\Include;C:\Dev\Refactor\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Dev\Refactor\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source\Sprite;C:\Dev\Refactor\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source\Include\ImGui;C:\Dev\Refactor\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source\Include;C:\Dev\Refactor\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -89,7 +89,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">
     <Midl>
-      <AdditionalIncludeDirectories>C:\Dev\Refactor\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source\Include\ImGui;C:\Dev\Refactor\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source\Include;C:\Dev\Refactor\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Dev\Refactor\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source\Sprite;C:\Dev\Refactor\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source\Include\ImGui;C:\Dev\Refactor\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source\Include;C:\Dev\Refactor\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -99,7 +99,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">
     <Midl>
-      <AdditionalIncludeDirectories>C:\Dev\Refactor\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source\Include\ImGui;C:\Dev\Refactor\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source\Include;C:\Dev\Refactor\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Dev\Refactor\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source\Sprite;C:\Dev\Refactor\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source\Include\ImGui;C:\Dev\Refactor\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source\Include;C:\Dev\Refactor\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>

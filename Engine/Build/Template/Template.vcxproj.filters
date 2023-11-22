@@ -2,15 +2,15 @@
 <Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="C:\Dev\Refactor\SpriteEngineUI\Engine\Template\Source\Game.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="C:\Dev\Refactor\SpriteEngineUI\Engine\Template\CMakeLists.txt" />
   </ItemGroup>
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{DC2E8200-8BC3-3BC2-AC3E-56EC1955FF3C}</UniqueIdentifier>
+    <Filter Include="Source">
+      <UniqueIdentifier>{BFDEC347-DB2C-39E3-BF41-2B1C6D2E6ECB}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
