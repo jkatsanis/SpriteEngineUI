@@ -13,6 +13,9 @@
     <ClCompile Include="C:\Dev\C++\SpriteEngineUI\Engine\Core\Source\Core\GameWindow.cpp">
       <Filter>Source\Core</Filter>
     </ClCompile>
+    <ClCompile Include="C:\Dev\C++\SpriteEngineUI\Engine\Core\Source\Core\Log.cpp">
+      <Filter>Source\Core</Filter>
+    </ClCompile>
     <ClCompile Include="C:\Dev\C++\SpriteEngineUI\Engine\Core\Source\Core\Time.cpp">
       <Filter>Source\Core</Filter>
     </ClCompile>
@@ -94,6 +97,9 @@
       <Filter>Source\Core</Filter>
     </ClInclude>
     <ClInclude Include="C:\Dev\C++\SpriteEngineUI\Engine\Core\Source\Core\IApplication.h">
+      <Filter>Source\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Dev\C++\SpriteEngineUI\Engine\Core\Source\Core\Log.h">
       <Filter>Source\Core</Filter>
     </ClInclude>
     <ClInclude Include="C:\Dev\C++\SpriteEngineUI\Engine\Core\Source\Core\Time.h">

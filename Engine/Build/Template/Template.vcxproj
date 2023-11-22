@@ -115,7 +115,7 @@
       <ProxyFileName>%(Filename)_p.c</ProxyFileName>
     </Midl>
     <Link>
-      <AdditionalDependencies>..\Core\Debug\Core.lib;C:\Dev\C++\SpriteEngineUI\Engine\Editor\Source\Include\LIB\sfml-audio-d.lib;C:\Dev\C++\SpriteEngineUI\Engine\Editor\Source\Include\LIB\sfml-graphics-d.lib;C:\Dev\C++\SpriteEngineUI\Engine\Editor\Source\Include\LIB\sfml-network-d.lib;C:\Dev\C++\SpriteEngineUI\Engine\Editor\Source\Include\LIB\sfml-system-d.lib;C:\Dev\C++\SpriteEngineUI\Engine\Editor\Source\Include\LIB\sfml-window-d.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;..\Core\Debug\Core.lib;C:\Dev\C++\SpriteEngineUI\Engine\Editor\Source\Include\LIB\sfml-audio-d.lib;C:\Dev\C++\SpriteEngineUI\Engine\Editor\Source\Include\LIB\sfml-graphics-d.lib;C:\Dev\C++\SpriteEngineUI\Engine\Editor\Source\Include\LIB\sfml-network-d.lib;C:\Dev\C++\SpriteEngineUI\Engine\Editor\Source\Include\LIB\sfml-system-d.lib;C:\Dev\C++\SpriteEngineUI\Engine\Editor\Source\Include\LIB\sfml-window-d.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -159,7 +159,7 @@
       <ProxyFileName>%(Filename)_p.c</ProxyFileName>
     </Midl>
     <Link>
-      <AdditionalDependencies>..\Core\Release\Core.lib;C:\Dev\C++\SpriteEngineUI\Engine\Editor\Source\Include\LIB\sfml-audio-d.lib;C:\Dev\C++\SpriteEngineUI\Engine\Editor\Source\Include\LIB\sfml-graphics-d.lib;C:\Dev\C++\SpriteEngineUI\Engine\Editor\Source\Include\LIB\sfml-network-d.lib;C:\Dev\C++\SpriteEngineUI\Engine\Editor\Source\Include\LIB\sfml-system-d.lib;C:\Dev\C++\SpriteEngineUI\Engine\Editor\Source\Include\LIB\sfml-window-d.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;..\Core\Release\Core.lib;C:\Dev\C++\SpriteEngineUI\Engine\Editor\Source\Include\LIB\sfml-audio.lib;C:\Dev\C++\SpriteEngineUI\Engine\Editor\Source\Include\LIB\sfml-graphics.lib;C:\Dev\C++\SpriteEngineUI\Engine\Editor\Source\Include\LIB\sfml-network.lib;C:\Dev\C++\SpriteEngineUI\Engine\Editor\Source\Include\LIB\sfml-system.lib;C:\Dev\C++\SpriteEngineUI\Engine\Editor\Source\Include\LIB\sfml-window.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
       <GenerateDebugInformation>false</GenerateDebugInformation>
@@ -203,7 +203,7 @@
       <ProxyFileName>%(Filename)_p.c</ProxyFileName>
     </Midl>
     <Link>
-      <AdditionalDependencies>..\Core\MinSizeRel\Core.lib;C:\Dev\C++\SpriteEngineUI\Engine\Editor\Source\Include\LIB\sfml-audio-d.lib;C:\Dev\C++\SpriteEngineUI\Engine\Editor\Source\Include\LIB\sfml-graphics-d.lib;C:\Dev\C++\SpriteEngineUI\Engine\Editor\Source\Include\LIB\sfml-network-d.lib;C:\Dev\C++\SpriteEngineUI\Engine\Editor\Source\Include\LIB\sfml-system-d.lib;C:\Dev\C++\SpriteEngineUI\Engine\Editor\Source\Include\LIB\sfml-window-d.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;..\Core\MinSizeRel\Core.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
       <GenerateDebugInformation>false</GenerateDebugInformation>
@@ -246,7 +246,7 @@
       <ProxyFileName>%(Filename)_p.c</ProxyFileName>
     </Midl>
     <Link>
-      <AdditionalDependencies>..\Core\RelWithDebInfo\Core.lib;C:\Dev\C++\SpriteEngineUI\Engine\Editor\Source\Include\LIB\sfml-audio-d.lib;C:\Dev\C++\SpriteEngineUI\Engine\Editor\Source\Include\LIB\sfml-graphics-d.lib;C:\Dev\C++\SpriteEngineUI\Engine\Editor\Source\Include\LIB\sfml-network-d.lib;C:\Dev\C++\SpriteEngineUI\Engine\Editor\Source\Include\LIB\sfml-system-d.lib;C:\Dev\C++\SpriteEngineUI\Engine\Editor\Source\Include\LIB\sfml-window-d.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;..\Core\RelWithDebInfo\Core.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -272,7 +272,7 @@ endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Dev\C++\SpriteEngineUI\Engine\Template\Source\Include\DLL\sfml-audio-d-2.dll;C:\Dev\C++\SpriteEngineUI\Engine\Template\Source\Include\DLL\sfml-graphics-d-2.dll;C:\Dev\C++\SpriteEngineUI\Engine\Template\Source\Include\DLL\sfml-network-d-2.dll;C:\Dev\C++\SpriteEngineUI\Engine\Template\Source\Include\DLL\sfml-system-d-2.dll;C:\Dev\C++\SpriteEngineUI\Engine\Template\Source\Include\DLL\sfml-window-d-2.dll;%(AdditionalInputs)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Dev\C++\SpriteEngineUI\Engine\Template\Source\Include\DLL\sfml-audio-2.dll;C:\Dev\C++\SpriteEngineUI\Engine\Template\Source\Include\DLL\sfml-audio-d-2.dll;C:\Dev\C++\SpriteEngineUI\Engine\Template\Source\Include\DLL\sfml-graphics-2.dll;C:\Dev\C++\SpriteEngineUI\Engine\Template\Source\Include\DLL\sfml-graphics-d-2.dll;C:\Dev\C++\SpriteEngineUI\Engine\Template\Source\Include\DLL\sfml-network-2.dll;C:\Dev\C++\SpriteEngineUI\Engine\Template\Source\Include\DLL\sfml-network-d-2.dll;C:\Dev\C++\SpriteEngineUI\Engine\Template\Source\Include\DLL\sfml-system-2.dll;C:\Dev\C++\SpriteEngineUI\Engine\Template\Source\Include\DLL\sfml-system-d-2.dll;C:\Dev\C++\SpriteEngineUI\Engine\Template\Source\Include\DLL\sfml-window-2.dll;C:\Dev\C++\SpriteEngineUI\Engine\Template\Source\Include\DLL\sfml-window-d-2.dll;%(AdditionalInputs)</AdditionalInputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Dev\C++\SpriteEngineUI\Engine\Build\Template\CMakeFiles\generate.stamp</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Building Custom Rule C:/Dev/C++/SpriteEngineUI/Engine/Template/CMakeLists.txt</Message>
@@ -285,7 +285,7 @@ endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Dev\C++\SpriteEngineUI\Engine\Template\Source\Include\DLL\sfml-audio-d-2.dll;C:\Dev\C++\SpriteEngineUI\Engine\Template\Source\Include\DLL\sfml-graphics-d-2.dll;C:\Dev\C++\SpriteEngineUI\Engine\Template\Source\Include\DLL\sfml-network-d-2.dll;C:\Dev\C++\SpriteEngineUI\Engine\Template\Source\Include\DLL\sfml-system-d-2.dll;C:\Dev\C++\SpriteEngineUI\Engine\Template\Source\Include\DLL\sfml-window-d-2.dll;%(AdditionalInputs)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Dev\C++\SpriteEngineUI\Engine\Template\Source\Include\DLL\sfml-audio-2.dll;C:\Dev\C++\SpriteEngineUI\Engine\Template\Source\Include\DLL\sfml-audio-d-2.dll;C:\Dev\C++\SpriteEngineUI\Engine\Template\Source\Include\DLL\sfml-graphics-2.dll;C:\Dev\C++\SpriteEngineUI\Engine\Template\Source\Include\DLL\sfml-graphics-d-2.dll;C:\Dev\C++\SpriteEngineUI\Engine\Template\Source\Include\DLL\sfml-network-2.dll;C:\Dev\C++\SpriteEngineUI\Engine\Template\Source\Include\DLL\sfml-network-d-2.dll;C:\Dev\C++\SpriteEngineUI\Engine\Template\Source\Include\DLL\sfml-system-2.dll;C:\Dev\C++\SpriteEngineUI\Engine\Template\Source\Include\DLL\sfml-system-d-2.dll;C:\Dev\C++\SpriteEngineUI\Engine\Template\Source\Include\DLL\sfml-window-2.dll;C:\Dev\C++\SpriteEngineUI\Engine\Template\Source\Include\DLL\sfml-window-d-2.dll;%(AdditionalInputs)</AdditionalInputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Dev\C++\SpriteEngineUI\Engine\Build\Template\CMakeFiles\generate.stamp</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
       <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">Building Custom Rule C:/Dev/C++/SpriteEngineUI/Engine/Template/CMakeLists.txt</Message>
@@ -298,7 +298,7 @@ endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\Dev\C++\SpriteEngineUI\Engine\Template\Source\Include\DLL\sfml-audio-d-2.dll;C:\Dev\C++\SpriteEngineUI\Engine\Template\Source\Include\DLL\sfml-graphics-d-2.dll;C:\Dev\C++\SpriteEngineUI\Engine\Template\Source\Include\DLL\sfml-network-d-2.dll;C:\Dev\C++\SpriteEngineUI\Engine\Template\Source\Include\DLL\sfml-system-d-2.dll;C:\Dev\C++\SpriteEngineUI\Engine\Template\Source\Include\DLL\sfml-window-d-2.dll;%(AdditionalInputs)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\Dev\C++\SpriteEngineUI\Engine\Template\Source\Include\DLL\sfml-audio-2.dll;C:\Dev\C++\SpriteEngineUI\Engine\Template\Source\Include\DLL\sfml-audio-d-2.dll;C:\Dev\C++\SpriteEngineUI\Engine\Template\Source\Include\DLL\sfml-graphics-2.dll;C:\Dev\C++\SpriteEngineUI\Engine\Template\Source\Include\DLL\sfml-graphics-d-2.dll;C:\Dev\C++\SpriteEngineUI\Engine\Template\Source\Include\DLL\sfml-network-2.dll;C:\Dev\C++\SpriteEngineUI\Engine\Template\Source\Include\DLL\sfml-network-d-2.dll;C:\Dev\C++\SpriteEngineUI\Engine\Template\Source\Include\DLL\sfml-system-2.dll;C:\Dev\C++\SpriteEngineUI\Engine\Template\Source\Include\DLL\sfml-system-d-2.dll;C:\Dev\C++\SpriteEngineUI\Engine\Template\Source\Include\DLL\sfml-window-2.dll;C:\Dev\C++\SpriteEngineUI\Engine\Template\Source\Include\DLL\sfml-window-d-2.dll;%(AdditionalInputs)</AdditionalInputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\Dev\C++\SpriteEngineUI\Engine\Build\Template\CMakeFiles\generate.stamp</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkObjects>
       <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">Building Custom Rule C:/Dev/C++/SpriteEngineUI/Engine/Template/CMakeLists.txt</Message>
@@ -311,7 +311,7 @@ endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\Dev\C++\SpriteEngineUI\Engine\Template\Source\Include\DLL\sfml-audio-d-2.dll;C:\Dev\C++\SpriteEngineUI\Engine\Template\Source\Include\DLL\sfml-graphics-d-2.dll;C:\Dev\C++\SpriteEngineUI\Engine\Template\Source\Include\DLL\sfml-network-d-2.dll;C:\Dev\C++\SpriteEngineUI\Engine\Template\Source\Include\DLL\sfml-system-d-2.dll;C:\Dev\C++\SpriteEngineUI\Engine\Template\Source\Include\DLL\sfml-window-d-2.dll;%(AdditionalInputs)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\Dev\C++\SpriteEngineUI\Engine\Template\Source\Include\DLL\sfml-audio-2.dll;C:\Dev\C++\SpriteEngineUI\Engine\Template\Source\Include\DLL\sfml-audio-d-2.dll;C:\Dev\C++\SpriteEngineUI\Engine\Template\Source\Include\DLL\sfml-graphics-2.dll;C:\Dev\C++\SpriteEngineUI\Engine\Template\Source\Include\DLL\sfml-graphics-d-2.dll;C:\Dev\C++\SpriteEngineUI\Engine\Template\Source\Include\DLL\sfml-network-2.dll;C:\Dev\C++\SpriteEngineUI\Engine\Template\Source\Include\DLL\sfml-network-d-2.dll;C:\Dev\C++\SpriteEngineUI\Engine\Template\Source\Include\DLL\sfml-system-2.dll;C:\Dev\C++\SpriteEngineUI\Engine\Template\Source\Include\DLL\sfml-system-d-2.dll;C:\Dev\C++\SpriteEngineUI\Engine\Template\Source\Include\DLL\sfml-window-2.dll;C:\Dev\C++\SpriteEngineUI\Engine\Template\Source\Include\DLL\sfml-window-d-2.dll;%(AdditionalInputs)</AdditionalInputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\Dev\C++\SpriteEngineUI\Engine\Build\Template\CMakeFiles\generate.stamp</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">false</LinkObjects>
     </CustomBuild>

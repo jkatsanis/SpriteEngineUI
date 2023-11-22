@@ -278,6 +278,8 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClCompile Include="C:\Dev\C++\SpriteEngineUI\Engine\Core\Source\Core\GameWindow.cpp" />
     <ClInclude Include="C:\Dev\C++\SpriteEngineUI\Engine\Core\Source\Core\GameWindow.h" />
     <ClInclude Include="C:\Dev\C++\SpriteEngineUI\Engine\Core\Source\Core\IApplication.h" />
+    <ClCompile Include="C:\Dev\C++\SpriteEngineUI\Engine\Core\Source\Core\Log.cpp" />
+    <ClInclude Include="C:\Dev\C++\SpriteEngineUI\Engine\Core\Source\Core\Log.h" />
     <ClCompile Include="C:\Dev\C++\SpriteEngineUI\Engine\Core\Source\Core\Time.cpp" />
     <ClInclude Include="C:\Dev\C++\SpriteEngineUI\Engine\Core\Source\Core\Time.h" />
     <ClInclude Include="C:\Dev\C++\SpriteEngineUI\Engine\Core\Source\Include\ImGui\ImGUISFML.h" />
