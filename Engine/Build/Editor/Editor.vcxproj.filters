@@ -36,6 +36,9 @@
     <ClInclude Include="C:\Dev\C++\SpriteEngineUI\Engine\Editor\Source\GUI\ProjectSelector\UIProjectSelector.h">
       <Filter>Source\GUI\ProjectSelector</Filter>
     </ClInclude>
+    <ClInclude Include="C:\Dev\C++\SpriteEngineUI\Engine\Editor\Source\GUI\UIModels.h">
+      <Filter>Source\GUI</Filter>
+    </ClInclude>
     <ClInclude Include="C:\Dev\C++\SpriteEngineUI\Engine\Editor\Source\GUI\UITopbar.h">
       <Filter>Source\GUI</Filter>
     </ClInclude>
