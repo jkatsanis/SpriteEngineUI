@@ -2,13 +2,12 @@
 
 #include <iostream>
 #include <Time.h>
-
+#include <Include/UtilityFunctions.h>
 #include <SFML/Graphics.hpp>
 
-#include "UtilityFunctions.h"
 #include "Core/EngineData.h"
 #include "Core/Time.h"
-#include "KeyFrame.h"
+#include "Sprite/Components/Animator/KeyFrame.h"
 #include "Sprite/SpriteRepository.h"
 
 namespace spe

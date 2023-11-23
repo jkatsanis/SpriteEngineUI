@@ -36,7 +36,6 @@ if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
   include("C:/Dev/C++/SpriteEngineUI/Engine/Build/Core/cmake_install.cmake")
   include("C:/Dev/C++/SpriteEngineUI/Engine/Build/Editor/cmake_install.cmake")
-  include("C:/Dev/C++/SpriteEngineUI/Engine/Build/Template/cmake_install.cmake")
 
 endif()
 

@@ -1,36 +1,58 @@
-# Template/CMakeLists.txt
+# Template Solution
 
-set(DLL_LIBRARIES_TEMPLATE ${CMAKE_SOURCE_DIR}/${TEMPLATE_NAME}/Source/Include)
+cmake_minimum_required(VERSION 3.10)
+
+get_filename_component(PROJECT_FOLDER ${CMAKE_CURRENT_SOURCE_DIR} NAME)
+
+project(${PROJECT_FOLDER})
+set(CMAKE_CXX_STANDARD 17)
 
 
-file(GLOB_RECURSE TEMPLATE_SOURCE_FILES
+file(GLOB_RECURSE GAME_SOURCES
     "Source/*.cpp"
     "Source/*.h"
 )
-source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR} FILES ${TEMPLATE_SOURCE_FILES})
 
-add_executable(${TEMPLATE_NAME} ${TEMPLATE_SOURCE_FILES})
+add_executable(${PROJECT_FOLDER} ${GAME_SOURCES})
 
-# Link the Core library
-target_link_libraries(${TEMPLATE_NAME} PRIVATE Core)
+file(READ "Engine\\Saves\\enginepath.txt" FILE_CONTENT)
+file(TO_CMAKE_PATH "${FILE_CONTENT}" FILE_CONTENT)
+string(STRIP "${FILE_CONTENT}" FILE_CONTENT)
+set(PATH_LIBRARIES "${FILE_CONTENT}/Core/Source/Include/LIB")
 
-# Link SFML libraries using keyword signature
-target_link_libraries(${TEMPLATE_NAME} PRIVATE
-    ${PATH_LIBRARIES}/${LIB_FOLDER_NAME}/sfml-audio-d.lib
-    ${PATH_LIBRARIES}/${LIB_FOLDER_NAME}/sfml-graphics-d.lib
-    ${PATH_LIBRARIES}/${LIB_FOLDER_NAME}/sfml-network-d.lib
-    ${PATH_LIBRARIES}/${LIB_FOLDER_NAME}/sfml-system-d.lib
-    ${PATH_LIBRARIES}/${LIB_FOLDER_NAME}/sfml-window-d.lib
+message("File content: ${FILE_CONTENT}")
+
+
+set(ADDITIONAL_INCLUDE_PATHS
+    Core
+    Core/Source
+    Core/Source/Include
+    Core/Source/Include/SFML
+    Core/Source/Includ/ImGui
 )
 
-# Set debug directory and copy dlls
+foreach(PATH ${ADDITIONAL_INCLUDE_PATHS})
+    list(APPEND FULL_PATHS "${FILE_CONTENT}/${PATH}")
+    message(${FULL_PATHS})
+endforeach()
 
-file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/${TEMPLATE_NAME}/Debug)
+include_directories(${FULL_PATHS})
 
-configure_file(${DLL_LIBRARIES_TEMPLATE}/${DLL_FOLDER_NAME}/sfml-audio-d-2.dll ${CMAKE_BINARY_DIR}/${TEMPLATE_NAME}/Debug COPYONLY)
-configure_file(${DLL_LIBRARIES_TEMPLATE}/${DLL_FOLDER_NAME}/sfml-graphics-d-2.dll ${CMAKE_BINARY_DIR}/${TEMPLATE_NAME}/Debug COPYONLY)
-configure_file(${DLL_LIBRARIES_TEMPLATE}/${DLL_FOLDER_NAME}/sfml-network-d-2.dll ${CMAKE_BINARY_DIR}/${TEMPLATE_NAME}/Debug COPYONLY)
-configure_file(${DLL_LIBRARIES_TEMPLATE}/${DLL_FOLDER_NAME}/sfml-system-d-2.dll ${CMAKE_BINARY_DIR}/${TEMPLATE_NAME}/Debug COPYONLY)
-configure_file(${DLL_LIBRARIES_TEMPLATE}/${DLL_FOLDER_NAME}/sfml-window-d-2.dll ${CMAKE_BINARY_DIR}/${TEMPLATE_NAME}/Debug COPYONLY)
+# Link libs
+target_link_libraries(${PROJECT_FOLDER} PRIVATE
+    opengl32.lib
+    $<$<CONFIG:Debug>:C:/Dev/C++/SpriteEngineUI/Engine/Build/Core/Debug/Core.lib>
 
-# TODO Make release dir
+    $<$<CONFIG:Debug>:${PATH_LIBRARIES}/sfml-audio-d.lib>
+    $<$<CONFIG:Debug>:${PATH_LIBRARIES}/sfml-graphics-d.lib>
+    $<$<CONFIG:Debug>:${PATH_LIBRARIES}/sfml-network-d.lib>
+    $<$<CONFIG:Debug>:${PATH_LIBRARIES}/sfml-system-d.lib>
+    $<$<CONFIG:Debug>:${PATH_LIBRARIES}/sfml-window-d.lib>
+    $<$<CONFIG:Release>:${PATH_LIBRARIES}/sfml-audio.lib>
+    $<$<CONFIG:Release>:${PATH_LIBRARIES}/sfml-graphics.lib>
+    $<$<CONFIG:Release>:${PATH_LIBRARIES}/sfml-network.lib>
+    $<$<CONFIG:Release>:${PATH_LIBRARIES}/sfml-system.lib>
+    $<$<CONFIG:Release>:${PATH_LIBRARIES}/sfml-window.lib>
+)
+
+

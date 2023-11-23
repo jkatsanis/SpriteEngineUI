@@ -1,8 +1,8 @@
 #pragma once
 
-#include "Component.h"
-
 #include <iostream>
+
+#include "Sprite/Components/Component.h"
 
 namespace spe
 {
@@ -13,7 +13,7 @@ namespace spe
 		void init() override;
 	public:
 		std::string path;
-		int32_t sorting_layer_index;
+		uint32_t sorting_layer_index;
 		bool effected_by_light;
 	
 		SpriteRenderer();

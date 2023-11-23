@@ -1,7 +1,7 @@
 #pragma once
 
-#include "Components/Component.h"
-#include "LightRepository.h"
+#include "Sprite/Components/Component.h"
+#include "Sprite/Components/Light/LightRepository.h"
 
 #define DEFAULT_LIGHT_RADIUS 100
 

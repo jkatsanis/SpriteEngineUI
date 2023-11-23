@@ -3,8 +3,8 @@
 #include <iostream>	
 #include <vector>
 
-#include "Animation.h"
-#include "Components/Component.h"
+#include "Sprite/Components/Animator/Animation.h"
+#include "Sprite/Components/Component.h"
 
 
 

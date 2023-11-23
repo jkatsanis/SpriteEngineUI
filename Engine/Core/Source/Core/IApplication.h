@@ -6,6 +6,7 @@ namespace spe
 	{
 	protected:
 		virtual void UpdateComponents() = 0;
+		virtual void Init() = 0;
 		IAppliaction() { };
 
 	public:

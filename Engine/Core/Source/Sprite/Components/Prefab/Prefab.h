@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Components/Component.h"
+#include "Sprite/Components/Component.h"
 
 #include <iostream>
 

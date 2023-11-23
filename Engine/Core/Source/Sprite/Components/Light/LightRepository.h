@@ -2,10 +2,10 @@
 
 #include <vector>
 #include <unordered_map>
-#include <SFML/Graphics.hpp>
 
-#include "LightSource.h"
+#include <Include/SFML/Graphics.hpp>
 
+#include "Sprite/Components/Light/LightSource.h"
 
 namespace spe
 {

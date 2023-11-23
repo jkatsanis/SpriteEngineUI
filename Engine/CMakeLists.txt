@@ -3,11 +3,9 @@ project(SpriteEngine)
 
 set(CORE_SOURCE_FOLDER_NAME Source)
 set(EDITOR_NAME Editor)
-set(TEMPLATE_NAME Template)
-set(LIB_FOLDER_NAME LIB)
-set(DLL_FOLDER_NAME DLL)
 
-set(PATH_LIBRARIES ${CMAKE_SOURCE_DIR}/${EDITOR_NAME}/Source/Include)
+set(PATH_LIBRARIES ${CMAKE_SOURCE_DIR}/Core/Source/Include/LIB)
+set(PATH_DLL_LIBRARIES ${CMAKE_SOURCE_DIR}/Editor/Source/Include/DLL)
 
 # Specify the C++ standard
 set(CMAKE_CXX_STANDARD 17)
@@ -23,8 +21,3 @@ include_directories($(CMAKE_SOURCE_DIR)/Core/${CORE_SOURCE_FOLDER_NAME})
 # Add the subprojects
 add_subdirectory(Core)
 add_subdirectory(Editor)
-
-# Adding this template here, so you can edit it in the vs studio sln, but when you createa  new project a new 
-# .sln will be created and this template will be linked to the Core librarby
-add_subdirectory(Template)
-

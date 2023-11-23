@@ -1,9 +1,9 @@
 #pragma once
 
-#include <SFML/Graphics.hpp>
+#include <Include/SFML/Graphics.hpp>
 
 #include "Math/Vector2.h"
-#include "Component.h"
+#include "Sprite/Components/Component.h"
 
 namespace spe
 {

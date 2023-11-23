@@ -5,8 +5,8 @@
 
 spe::SpriteRepository::SpriteRepository()
 {
-    this->highest_sprite_id = 0;
-    this->m_highestLayerIndex = 0;
+    this->m_HighestId = 0;
+    this->m_HighestLayer = 0;
     this->main_content_iniitialied = false;
     this->isFullScreened = nullptr;
 }
@@ -18,7 +18,7 @@ spe::SpriteRepository::~SpriteRepository()
 
 // Public functions
 
-spe::Sprite* const spe::SpriteRepository::getWithId(size_t idx)
+spe::Sprite* spe::SpriteRepository::GetById(uint32_t idx)
 {
     for (auto it = this->m_sprites.begin(); it != this->m_sprites.end(); ++it)
     {
@@ -32,17 +32,17 @@ spe::Sprite* const spe::SpriteRepository::getWithId(size_t idx)
 }
 
 
-void spe::SpriteRepository::delteWithId(size_t idx)
+void spe::SpriteRepository::DelteWithId(uint32_t idx)
 {
     std::vector<spe::Sprite*> childs_to_delete = std::vector<spe::Sprite*>(0);
-    spe::Sprite* ptr_delete = this->getWithId(idx);
+    spe::Sprite* ptr_delete = this->GetById((int32_t)idx);
     this->addChildsToDelete(childs_to_delete, ptr_delete);
 
-    this->eraseWithIdx(this->getListIndex(ptr_delete));
+    this->eraseWithIdx(this->GetListIndex(ptr_delete));
 
     for (int i = 0; i < childs_to_delete.size(); i++)
     {
-        this->eraseWithIdx(this->getListIndex(childs_to_delete[i]));
+        this->eraseWithIdx(this->GetListIndex(childs_to_delete[i]));
     }
     for (int i = 0; i < childs_to_delete.size(); i++)
     {
@@ -55,16 +55,16 @@ void spe::SpriteRepository::delteWithId(size_t idx)
     ptr_delete = nullptr;
 }
 
-void spe::SpriteRepository::deleteWithName(const std::string& name)
+void spe::SpriteRepository::DeleteWithName(const std::string& name)
 {
-    this->delteWithId(getIdWithName(name));
+    this->DelteWithId(getIdWithName(name));
 }
 
-void spe::SpriteRepository::add(spe::Sprite* ptr)
+void spe::SpriteRepository::Add(spe::Sprite* ptr)
 {
     // Validate properties
     // Set id
-    this->highest_sprite_id++;
+    this->m_HighestId++;
 
     // TODO: Validae properties here
     // ptr->validateProperties(this->highest_sprite_id, *this);
@@ -81,12 +81,12 @@ void spe::SpriteRepository::add(spe::Sprite* ptr)
     {
         for (size_t i = 0; i < ptr->ptr_childs.size(); i++)
         {
-            this->add(ptr->ptr_childs[i]);
+            this->Add(ptr->ptr_childs[i]);
         }    
     }
 }
 
-spe::Sprite* spe::SpriteRepository::getSpriteWithName(const std::string& name)
+spe::Sprite* spe::SpriteRepository::GetByName(const std::string& name)
 {
     for (auto it = this->m_sprites.begin(); it != this->m_sprites.end(); ++it)
     {
@@ -99,7 +99,7 @@ spe::Sprite* spe::SpriteRepository::getSpriteWithName(const std::string& name)
     throw std::out_of_range("Sprite with name was not found");
 }
 
-uint32_t spe::SpriteRepository::getListIndex(spe::Sprite* sprite)
+uint32_t spe::SpriteRepository::GetListIndex(spe::Sprite* sprite)
 {
     uint32_t idx = 0;
     for (auto it = this->m_sprites.begin(); it != this->m_sprites.end(); ++it)
@@ -114,19 +114,19 @@ uint32_t spe::SpriteRepository::getListIndex(spe::Sprite* sprite)
     throw std::out_of_range("Sprite was not found in the linked list");
 }
 
-void spe::SpriteRepository::updateHighestLayerIndex()
+void spe::SpriteRepository::UpdateLayerIndex()
 {
     for (auto it = this->m_sprites.begin(); it != this->m_sprites.end(); ++it)
     {
         spe::Sprite* sprite = *it;
-        if (sprite->sprite_renderer.sorting_layer_index > m_highestLayerIndex)
+        if (sprite->sprite_renderer.sorting_layer_index > this->m_HighestLayer)
         {
-            m_highestLayerIndex = sprite->sprite_renderer.sorting_layer_index;
+            this->m_HighestLayer = sprite->sprite_renderer.sorting_layer_index;
         }
     }
 }
 
-void spe::SpriteRepository::reloadTextures()
+void spe::SpriteRepository::ReloadTextures()
 {
     for (auto it = this->m_sprites.begin(); it != this->m_sprites.end(); ++it) 
     {
@@ -147,7 +147,7 @@ void spe::SpriteRepository::cleanUp()
 
 // Private functions
 
-size_t spe::SpriteRepository::getIdWithName(const std::string& name) const
+uint32_t spe::SpriteRepository::getIdWithName(const std::string& name) const
 {
     for (auto it = this->m_sprites.begin(); it != this->m_sprites.end(); ++it)
     {
@@ -181,9 +181,9 @@ void spe::SpriteRepository::eraseWithIdx(uint32_t idx)
 
 void spe::SpriteRepository::sortSpritesByLayer(spe::Sprite* spr)
 {
-    if (spr->sprite_renderer.sorting_layer_index >= this->m_highestLayerIndex)
+    if (spr->sprite_renderer.sorting_layer_index >= this->m_HighestLayer)
     {
-        this->m_highestLayerIndex = spr->sprite_renderer.sorting_layer_index;
+        this->m_HighestLayer = spr->sprite_renderer.sorting_layer_index;
         this->m_sprites.push_back(spr);
         return;
     }

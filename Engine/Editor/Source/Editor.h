@@ -5,10 +5,13 @@
 #include "RessourceHandler/FileDataMacros.h"
 
 
+#include "GUI/GUIRepository.h"
 #include "SpriteRepository.h"
 #include "RessourceHandler/Initializer.h"
 #include "Core/IApplication.h"
+#include "Core/SeceneHandler.h"
 
+#include <ImGUISFML.h>
 #include <iostream>
 
 namespace spe
@@ -17,14 +20,16 @@ namespace spe
 	{
 	private:
 		spe::GameWindow m_Window;
-		spe::SpriteRepository m_SpriteRepository;
+		spe::GUIRepository m_GUIRepository;
+		spe::SceneHandler m_SceneHandler;
 
 		void UpdateComponents() override;
-
+		void Init() override;
 	public:
 		Editor();
+		~Editor();
 
 		void Update() override;
-		bool IsOpen() { return true; }
+		bool IsOpen() { return m_Window.IsOpen(); }
 	};
 }

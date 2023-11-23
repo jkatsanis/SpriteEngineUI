@@ -1,8 +1,11 @@
 #include "initializer.h"
+#include "Core/SeceneHandler.h"
 
 // public static functions
 
-void spe::Initializer::initSprites(spe::SpriteRepository& spriteRepo, const std::string& path)
+#pragma region SPRITE
+
+void spe::Initializer::InitSprites(spe::SpriteRepository& spriteRepo, const std::string& path)
 {
 	//! INFO ! ALWAYS SCALE THINGS UP BY 1.5F!
 	std::fstream spriteFile;
@@ -25,26 +28,26 @@ void spe::Initializer::initSprites(spe::SpriteRepository& spriteRepo, const std:
 			Sprite* sprite = new Sprite();
 
 			//INITIIALIZING PROPS
-			spe::Initializer::initSprite(line, sprite);
+			spe::Initializer::InitSprite(line, sprite);
 
 			sprite->postInit();
 
 			//Pushing the sprite
-			spriteRepo.add(sprite);
+			spriteRepo.Add(sprite);
 		}
 	}
 
 	spriteFile.close();
 
 	// Algorithm to set childs of the sprite
-	std::list<spe::Sprite*>& sprites = spriteRepo.getSprites();
+	std::list<spe::Sprite*>& sprites = spriteRepo.GetSprites();
 
 	for (auto it = sprites.begin(); it != sprites.end(); ++it)
 	{
 		spe::Sprite* sprite = *it;
 		if (sprite->getParentId() > 0)
 		{
-			spe::Sprite* parent = spriteRepo.getWithId(sprite->getParentId());
+			spe::Sprite* parent = spriteRepo.GetById(sprite->getParentId());
 			if (parent != nullptr)
 			{
 				sprite->setParent(parent);
@@ -54,13 +57,90 @@ void spe::Initializer::initSprites(spe::SpriteRepository& spriteRepo, const std:
 	}
 }
 
-// private static functions
-
-void spe::Initializer::initSprite(const std::string& line, spe::Sprite* sprite)
+void spe::Initializer::InitAnimations(spe::SpriteRepository& repo, const std::string& path)
 {
-	//Splitting line
-	std::string delimiter = ";";
-	std::vector<std::string> propertys = spe::Utility::Split(line, DELTIMITER);
+	std::fstream animations;
+
+	animations.open(path);
+
+	if (animations.is_open())
+	{
+		std::string line;
+		int cnt = 0;
+		while (std::getline(animations, line))
+		{
+			cnt++;
+			if (cnt == 1) continue;
+			spe::Initializer::initAnimation(line, repo, -1);
+		}
+
+		animations.close();
+		return;
+	}
+	throw std::runtime_error("Animation file was not found");
+
+}
+
+void spe::Initializer::initAnimation(const std::string& path, spe::SpriteRepository& repo, int32_t idx)
+{
+	bool load_idx = (idx != -1);
+
+	std::fstream animationFileStream;
+
+	animationFileStream.open(path);
+
+	spe::Sprite* ptr_sprite = nullptr;
+	std::string animationName = "";
+
+	std::vector<spe::KeyFrame> frames = std::vector<spe::KeyFrame>(0);
+	bool loop = false;
+	if (animationFileStream.is_open())
+	{
+		std::string line;
+		int cnt = 0;
+		while (std::getline(animationFileStream, line))
+		{
+			cnt++;
+			if (cnt == 1)
+			{
+				animationName = line;
+				continue;
+			}
+			if (cnt == 2)
+			{
+				uint32_t to_load = idx;
+				if (!load_idx)
+				{
+					to_load = std::stoi(line);
+				}
+				ptr_sprite = repo.GetById(to_load);
+				continue;
+			}
+			if (cnt == 3)
+			{
+				loop = line == "True";
+				continue;
+			}
+			std::vector<std::string> propertys = spe::Utility::Split(line, DELIMITER);
+
+			frames.push_back(spe::KeyFrame(propertys[1], std::stof(propertys[0].c_str())));
+		}
+
+	}
+	else std::cout << "LOG: [ERROR] could not open animation data file!";
+
+	if (ptr_sprite != nullptr)
+	{
+		ptr_sprite->animator.createAnimation(animationName, path, frames);
+
+		spe::Animation& anim = ptr_sprite->animator.animations[animationName];
+		anim.Loop = loop;
+	}
+}
+
+void spe::Initializer::InitSprite(const std::string& line, spe::Sprite* sprite)
+{
+	std::vector<std::string> propertys = spe::Utility::Split(line, DELIMITER);
 
 	sprite->collider = spe::BoxCollider(sprite);
 	sprite->animator = spe::Animator(sprite);
@@ -144,4 +224,162 @@ void spe::Initializer::initSprite(const std::string& line, spe::Sprite* sprite)
 
 	sprite->light.setColor(spe::Vector3::toSFVector3(color));
 #pragma endregion
+}
+
+#pragma endregion
+
+#pragma region CAMERA
+
+void spe::Initializer::InitCamera(spe::Camera& camera, const std::string& path)
+{
+	std::fstream cameraFile;
+
+	//opening the file where all sprite data is
+	cameraFile.open(path, std::ios::in);
+	if (cameraFile.is_open())
+	{
+		std::string line;
+		int cnt = 0;
+		while (std::getline(cameraFile, line))
+		{
+			cnt++;
+			//First line is the header so we dont need to check for it
+			if (cnt == 1)
+			{
+				continue;
+			}
+
+			//Splitting line
+			std::string delimiter = ";";
+			std::vector<std::string> propertys = spe::Utility::Split(line, DELIMITER);
+
+			//INITIIALIZING PROPS
+			const spe::Vector2 position(std::stof(propertys[0].c_str()), std::stof(propertys[1].c_str()));
+		
+			camera.Transform.SetPosition(position);
+			camera.setZoom(std::stof(propertys[2].c_str()));
+			camera.camera_speed = std::stof(propertys[3].c_str());
+		}
+		cameraFile.close();
+	}
+}
+
+#pragma endregion
+
+#pragma region BACKGROUND
+
+void spe::Initializer::InitBackground(spe::Vector3& vec, const std::string& path)
+{
+	std::fstream backgroundFile;
+
+	//opening the file where all sprite data is
+	backgroundFile.open(path, std::ios::in);
+	if (backgroundFile.is_open())
+	{
+		std::string line;
+		int cnt = 0;
+		while (std::getline(backgroundFile, line))
+		{
+			cnt++;
+			//First line is the header so we dont need to check for it
+			if (cnt == 1)
+			{
+				continue;
+			}
+
+			//Splitting line
+			std::string delimiter = ";";
+			std::vector<std::string> propertys = spe::Utility::Split(line, DELIMITER);
+
+			//INITIIALIZING PROPS
+			vec.x = std::stof(propertys[0].c_str());
+			vec.y = std::stof(propertys[1].c_str());
+			vec.z = std::stof(propertys[2].c_str());
+		}
+		backgroundFile.close();
+	}
+}
+
+#pragma endregion
+
+void spe::Initializer::InitTags(spe::SpriteRepository& repo, const std::string& path)
+{
+	std::fstream tag_file;
+
+	tag_file.open(path, std::ios::in);
+	if (tag_file.is_open())
+	{
+		std::string line;
+		int cnt = 0;
+		while (std::getline(tag_file, line))
+		{
+			cnt++;
+			if (cnt == 1)
+			{
+				continue;
+			}
+			repo.Tags.push_back(line);
+		}
+		tag_file.close();
+		return;
+	}
+	throw std::runtime_error("No tags file");
+}
+
+void spe::Initializer::InitScenes(SceneHandler& handler, const std::string& path)
+{
+	std::fstream scene_file;
+
+	scene_file.open(path, std::ios::in);
+	if (scene_file.is_open())
+	{
+		std::string line;
+		int cnt = 0;
+		while (std::getline(scene_file, line))
+		{
+			cnt++;
+			if (cnt == 1)
+			{
+				continue;
+			}
+			const std::string new_path = "Engine\\Saves\\" + line;
+			if (std::filesystem::exists(new_path))
+			{
+				handler.TotalScenes.push_back(line);
+			}
+		}
+
+		scene_file.close();
+		return;
+	}
+	throw std::runtime_error("No scene file");
+}
+
+void spe::Initializer::IntiHighestSpriteID(spe::SpriteRepository& repo, const std::string& path)
+{
+	std::fstream indexFile;
+	int index = 0;
+
+	//opening the file where all sprite data is
+	indexFile.open(path, std::ios::in);
+
+	if (indexFile.is_open())
+	{
+		std::string line;
+		int cnt = 0;
+		while (std::getline(indexFile, line))
+		{
+			cnt++;
+			//First line is the header so we dont need to check for it
+			if (cnt == 1)
+			{
+				continue;
+			}
+
+			index = atoi(line.c_str());
+		}
+	}
+	indexFile.close();
+
+	repo.SetHighestId(index);
 }

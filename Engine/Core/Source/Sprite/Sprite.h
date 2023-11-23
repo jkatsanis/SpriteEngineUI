@@ -4,19 +4,17 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-#include <SFML/Graphics.hpp>
+#include <Include/SFML/Graphics.hpp>
+#include <Include/UtilityFunctions.h>
 
-
-#include "UtilityFunctions.h"
 #include "Math/Vector2.h"
-
-#include "Components/BoxCollider.h"
-#include "Components/PhysicsBody.h"
-#include "Components/SpriteRenderer.h"
-#include "Components/Transform.h"
-#include "Components/Light/Light.h"
-#include "Components/Prefab/Prefab.h"
-#include "Components/Animator/Animator.h"
+#include "Sprite/Components/BoxCollider.h"
+#include "Sprite/Components/PhysicsBody.h"
+#include "Sprite/Components/SpriteRenderer.h"
+#include "Sprite/Components/Transform.h"
+#include "Sprite/Components/Light/Light.h"
+#include "Sprite/Components/Prefab/Prefab.h"
+#include "Sprite/Components/Animator/Animator.h"
 
 #define INVALID_SPRITE_SYMBOLS 1
 

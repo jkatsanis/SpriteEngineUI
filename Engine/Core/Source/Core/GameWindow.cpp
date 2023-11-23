@@ -1,73 +1,108 @@
 #include "GameWindow.h"
 
+// Ctor
+
 spe::GameWindow::GameWindow()
 {
-	this->m_ptr_RenderGameWindow = nullptr;
+	this->m_IsOpen = false;
+	this->m_BackgroundColor = nullptr;
+	this->m_Camera = nullptr;
+	this->WindowEvent.type = sf::Event::GainedFocus;
+	this->m_ptr_Window = nullptr;
 }
 
 spe::GameWindow::GameWindow(const spe::Vector2& size, const std::string& name)
 {
-	this->m_ptr_RenderGameWindow = new sf::RenderWindow(sf::VideoMode((int)size.x, (int)size.y), name, sf::Style::Default);
+	this->m_BackgroundColor = nullptr;
+	this->m_Size = size;
+	this->m_Camera = nullptr;
+	this->WindowEvent.type = sf::Event::GainedFocus;
+	this->m_ptr_Window = new sf::RenderWindow(sf::VideoMode((int)size.x, (int)size.y), name, sf::Style::Default);
+	this->m_IsOpen = true;
+
+	ImGui::SFML::Init(*this->m_ptr_Window);
 }
+
+// Private
+
+void spe::GameWindow::UpdateCamera()
+{
+	if (this->m_Camera != nullptr)
+	{
+		this->m_Camera->camera_view.setSize(this->m_Size.x * this->m_Camera->getZoom(), this->m_Size.y * this->m_Camera->getZoom());
+		this->m_ptr_Window->setView(this->m_Camera->camera_view);
+	}
+}
+
+// Public
 
 void spe::GameWindow::PollEvents()
 {
-	bool eventChanged = false;
+	bool EventChanged = false;
+	Event.type = spe::Event::None;
 
-	while (this->m_ptr_RenderGameWindow->pollEvent(this->WindowEvent))
+	while (this->m_ptr_Window->pollEvent(this->WindowEvent))
 	{
 		ImGui::SFML::ProcessEvent(this->WindowEvent);
 
 		if (this->WindowEvent.type == sf::Event::Closed)
 		{
-			this->m_ptr_RenderGameWindow->close();
+			this->m_IsOpen = false;
+			this->m_ptr_Window->close();
 		}
-		if (!eventChanged)
+		if (!EventChanged)
 		{
 			if (this->WindowEvent.type == sf::Event::KeyReleased)
 			{
-				Event.type = spe::Event::Released;
-				eventChanged = true;
+				Event.type = spe::Event::KeyReleased;
+				EventChanged = true;
 			}
 			else if (this->WindowEvent.type == sf::Event::KeyPressed)
 			{
-				eventChanged = true;
-				Event.type = spe::Event::Pressed;
+				EventChanged = true;
+				Event.type = spe::Event::KeyPressed;
 			}
 			else
 			{
-				eventChanged = true;
+				EventChanged = true;
 				Event.type = spe::Event::None;
 			}
 			Event.key = static_cast<spe::KeyBoardCode>(static_cast<sf::Keyboard::Key>(this->WindowEvent.key.code));
 		}
 	}
-	ImGui::SFML::Update(*this->m_ptr_RenderGameWindow, spe::Time::s_delta_clock.restart());
+	ImGui::SFML::Update(*m_ptr_Window, Time::s_delta_clock.restart());
 }
 
 void spe::GameWindow::Draw(spe::Sprite* ptr)
 {
-	if (ptr->sprite_renderer.effected_by_light)
-	{
-		this->m_ptr_RenderGameWindow->draw(ptr->getSprite(), &spe::LightRepository::getShader());
-	}
-	else
-	{
-		this->m_ptr_RenderGameWindow->draw(ptr->getSprite());
-	}
+	this->m_ptr_Window->draw(ptr->getSprite());
 }
 
 void spe::GameWindow::Display()
 {
-	this->m_ptr_RenderGameWindow->display();
+	ImGui::SFML::Render(*this->m_ptr_Window);
+
+	this->UpdateCamera();
+	this->m_ptr_Window->display();
 }
 
 void spe::GameWindow::Clear()
 {
-	sf::Color backgroundColor = sf::Color(sf::Uint8(this->BackgroundColor.x),
-		sf::Uint8(this->BackgroundColor.y),
-		sf::Uint8(this->BackgroundColor.z));
+	sf::Color backgroundColor = sf::Color(0, 0, 0);
 
-	this->m_ptr_RenderGameWindow->clear(backgroundColor);
+	if (this->m_BackgroundColor != nullptr)
+	{
+		backgroundColor = sf::Color(sf::Uint8(this->m_BackgroundColor->x),
+			sf::Uint8(this->m_BackgroundColor->y),
+			sf::Uint8(this->m_BackgroundColor->z));
+	}
+	this->m_ptr_Window->clear(backgroundColor);
+}
+
+void spe::GameWindow::Shutdown()
+{
+	ImGui::SFML::Shutdown();
+	delete this->m_ptr_Window;
+	this->m_IsOpen = false;
 }
 

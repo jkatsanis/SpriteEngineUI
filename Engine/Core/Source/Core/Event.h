@@ -7,12 +7,13 @@ namespace spe
 	class Event
 	{
 	public:
-
 		enum Type
 		{
 			None = -1,
-			Released = 0,
-			Pressed
+			KeyReleased = 0,
+			KeyPressed,
+			MousePressedLeft,
+			MouseReleasedLeft,
 		};
 
 		spe::KeyBoardCode key;

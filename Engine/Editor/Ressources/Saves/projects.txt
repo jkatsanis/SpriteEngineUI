@@ -1,0 +1,5 @@
+name;absulutePathStr;date;relativePath
+Noone;C:\Dev\C++\Noone;2023/23/11 20:11:45;..\..\Noone
+uga;C:\Dev\C++\uga;2023/23/11 20:13:22;..\..\uga
+Smoke;C:\Dev\C++\Smoke;2023/23/11 20:17:01;..\..\Smoke
+

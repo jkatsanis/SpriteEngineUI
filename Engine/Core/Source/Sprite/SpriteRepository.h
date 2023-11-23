@@ -6,49 +6,53 @@
 #include <string>
 #include <stdexcept>
 
+#include "Core/Repository.h"
 #include "Math/Vector2.h"
 
 namespace spe
 {
     class Sprite;
-    class SpriteRepository
+    class SpriteRepository : public spe::Repository<spe::Sprite>
     {
     private:
         std::list<spe::Sprite*> m_sprites;
-        int32_t m_highestLayerIndex;
 
-        size_t getIdWithName(const std::string& name) const;
+        uint32_t getIdWithName(const std::string& name) const;
         void addChildsToDelete(std::vector<spe::Sprite*>& childs, spe::Sprite* parent);
         void eraseWithIdx(uint32_t id);
         void sortSpritesByLayer(spe::Sprite* spr);
 
     public:
-        uint32_t highest_sprite_id;
-
+        std::vector<std::string> Tags;
+      
         bool* isFullScreened;
         bool main_content_iniitialied;
 
         SpriteRepository();
         ~SpriteRepository();
 
-        size_t amount() const { return this->m_sprites.size(); }
-        spe::Sprite* const getWithId(size_t idx);
-        void delteWithId(size_t idx);
-        void deleteWithName(const std::string& name);
-        void add(spe::Sprite* ref);
-        spe::Sprite* getSpriteWithName(const std::string& name);
-        uint32_t getListIndex(spe::Sprite* sprite);
+        // Add / delete
+        void DelteWithId(uint32_t id);
+        void DeleteWithName(const std::string& name);
+        void Add(spe::Sprite* ref) override;
 
-        void updateHighestLayerIndex();
-        void reloadTextures();
+        // Utility
+        void UpdateLayerIndex() override;
+        void ReloadTextures();
         void cleanUp();
+        void SetHighestId(uint32_t id) { this->m_HighestId = id; }
 
-        std::list<spe::Sprite*>& getSprites() { return this->m_sprites; }
+        // getter
+        uint32_t GetListIndex(spe::Sprite* sprite);
+        std::list<spe::Sprite*>& GetSprites() { return this->m_sprites; }
+        uint32_t GetAmount() const override { return (uint32_t)this->m_sprites.size(); }
+        spe::Sprite* GetById(uint32_t idx) override;
+        spe::Sprite* GetByName(const std::string& name) override;
+        uint32_t GetHighestLayer() const { return this->m_HighestLayer; }
 
+    public:
         static void getAllChilds(std::vector<const spe::Sprite*>& childs, const spe::Sprite* parent);
         static spe::Sprite* getWithId(std::vector<spe::Sprite*>& collection, uint32_t id);
-
-        uint32_t getHighestLayerIndex() const { return this->m_highestLayerIndex; }
     };
 }
 

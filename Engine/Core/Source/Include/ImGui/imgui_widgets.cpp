@@ -27,6 +27,7 @@ Index of this file:
 // [SECTION] Widgets: Columns, BeginColumns, EndColumns, etc.
 
 */
+#pragma warning(disable : 4554) // Replace 4996 with the specific warning number you want to disable
 
 #if defined(_MSC_VER) && !defined(_CRT_SECURE_NO_WARNINGS)
 #define _CRT_SECURE_NO_WARNINGS
