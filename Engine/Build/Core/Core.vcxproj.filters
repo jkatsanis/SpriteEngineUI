@@ -85,6 +85,12 @@
     <ClCompile Include="C:\Dev\C++\SpriteEngineUI\Engine\Core\Source\Sprite\SpriteRepository.cpp">
       <Filter>Source\Sprite</Filter>
     </ClCompile>
+    <ClCompile Include="C:\Dev\C++\SpriteEngineUI\Engine\Core\Source\Utility\FileDialoge.cpp">
+      <Filter>Source\Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Dev\C++\SpriteEngineUI\Engine\Core\Source\Utility\Style.cpp">
+      <Filter>Source\Utility</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="C:\Dev\C++\SpriteEngineUI\Engine\Core\Source\Camera\Camera.h">
@@ -147,6 +153,12 @@
     <ClInclude Include="C:\Dev\C++\SpriteEngineUI\Engine\Core\Source\Include\UtilityFunctions.h">
       <Filter>Source\Include</Filter>
     </ClInclude>
+    <ClInclude Include="C:\Dev\C++\SpriteEngineUI\Engine\Core\Source\Include\dirent.h">
+      <Filter>Source\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Dev\C++\SpriteEngineUI\Engine\Core\Source\Include\icons.h">
+      <Filter>Source\Include</Filter>
+    </ClInclude>
     <ClInclude Include="C:\Dev\C++\SpriteEngineUI\Engine\Core\Source\Input\Keyboard.h">
       <Filter>Source\Input</Filter>
     </ClInclude>
@@ -204,6 +216,12 @@
     <ClInclude Include="C:\Dev\C++\SpriteEngineUI\Engine\Core\Source\Sprite\SpriteRepository.h">
       <Filter>Source\Sprite</Filter>
     </ClInclude>
+    <ClInclude Include="C:\Dev\C++\SpriteEngineUI\Engine\Core\Source\Utility\FileDialoge.h">
+      <Filter>Source\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Dev\C++\SpriteEngineUI\Engine\Core\Source\Utility\Style.h">
+      <Filter>Source\Utility</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="C:\Dev\C++\SpriteEngineUI\Engine\Core\CMakeLists.txt" />
@@ -247,6 +265,9 @@
     </Filter>
     <Filter Include="Source\Sprite\Components\Prefab">
       <UniqueIdentifier>{D508223A-1174-385F-89A4-2C67A6E54F72}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Utility">
+      <UniqueIdentifier>{2152F5FA-BC43-3F7D-BC93-FAEAB1981F25}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

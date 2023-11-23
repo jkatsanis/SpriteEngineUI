@@ -302,6 +302,8 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClInclude Include="C:\Dev\C++\SpriteEngineUI\Engine\Core\Source\Include\ImGui\imstb_truetype.h" />
     <ClCompile Include="C:\Dev\C++\SpriteEngineUI\Engine\Core\Source\Include\UtilityFunctions.cpp" />
     <ClInclude Include="C:\Dev\C++\SpriteEngineUI\Engine\Core\Source\Include\UtilityFunctions.h" />
+    <ClInclude Include="C:\Dev\C++\SpriteEngineUI\Engine\Core\Source\Include\dirent.h" />
+    <ClInclude Include="C:\Dev\C++\SpriteEngineUI\Engine\Core\Source\Include\icons.h" />
     <ClInclude Include="C:\Dev\C++\SpriteEngineUI\Engine\Core\Source\Input\Keyboard.h" />
     <ClCompile Include="C:\Dev\C++\SpriteEngineUI\Engine\Core\Source\Math\Vector2.cpp" />
     <ClInclude Include="C:\Dev\C++\SpriteEngineUI\Engine\Core\Source\Math\Vector2.h" />
@@ -336,6 +338,10 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClInclude Include="C:\Dev\C++\SpriteEngineUI\Engine\Core\Source\Sprite\Sprite.h" />
     <ClCompile Include="C:\Dev\C++\SpriteEngineUI\Engine\Core\Source\Sprite\SpriteRepository.cpp" />
     <ClInclude Include="C:\Dev\C++\SpriteEngineUI\Engine\Core\Source\Sprite\SpriteRepository.h" />
+    <ClCompile Include="C:\Dev\C++\SpriteEngineUI\Engine\Core\Source\Utility\FileDialoge.cpp" />
+    <ClInclude Include="C:\Dev\C++\SpriteEngineUI\Engine\Core\Source\Utility\FileDialoge.h" />
+    <ClCompile Include="C:\Dev\C++\SpriteEngineUI\Engine\Core\Source\Utility\Style.cpp" />
+    <ClInclude Include="C:\Dev\C++\SpriteEngineUI\Engine\Core\Source\Utility\Style.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="C:\Dev\C++\SpriteEngineUI\Engine\Build\ZERO_CHECK.vcxproj">

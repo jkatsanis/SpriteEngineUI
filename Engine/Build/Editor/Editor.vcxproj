@@ -319,9 +319,18 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
   <ItemGroup>
     <ClCompile Include="C:\Dev\C++\SpriteEngineUI\Engine\Editor\Source\Editor.cpp" />
     <ClInclude Include="C:\Dev\C++\SpriteEngineUI\Engine\Editor\Source\Editor.h" />
+    <ClInclude Include="C:\Dev\C++\SpriteEngineUI\Engine\Editor\Source\GUI\Color.h" />
     <ClCompile Include="C:\Dev\C++\SpriteEngineUI\Engine\Editor\Source\GUI\GUIRepository.cpp" />
     <ClInclude Include="C:\Dev\C++\SpriteEngineUI\Engine\Editor\Source\GUI\GUIRepository.h" />
+    <ClCompile Include="C:\Dev\C++\SpriteEngineUI\Engine\Editor\Source\GUI\ProjectSelector\UIProjectSelector.cpp" />
+    <ClInclude Include="C:\Dev\C++\SpriteEngineUI\Engine\Editor\Source\GUI\ProjectSelector\UIProjectSelector.h" />
+    <ClCompile Include="C:\Dev\C++\SpriteEngineUI\Engine\Editor\Source\GUI\UITopbar.cpp" />
+    <ClInclude Include="C:\Dev\C++\SpriteEngineUI\Engine\Editor\Source\GUI\UITopbar.h" />
+    <ClCompile Include="C:\Dev\C++\SpriteEngineUI\Engine\Editor\Source\GUI\UIWindow.cpp" />
+    <ClInclude Include="C:\Dev\C++\SpriteEngineUI\Engine\Editor\Source\GUI\UIWindow.h" />
     <ClCompile Include="C:\Dev\C++\SpriteEngineUI\Engine\Editor\Source\Main.cpp" />
+    <ClCompile Include="C:\Dev\C++\SpriteEngineUI\Engine\Editor\Source\Savesystem.cpp" />
+    <ClInclude Include="C:\Dev\C++\SpriteEngineUI\Engine\Editor\Source\Savesystem.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="C:\Dev\C++\SpriteEngineUI\Engine\Build\ZERO_CHECK.vcxproj">
