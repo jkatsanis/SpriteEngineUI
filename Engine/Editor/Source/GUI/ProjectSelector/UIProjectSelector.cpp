@@ -196,7 +196,7 @@ bool spe::UIProjectSelector::CheckIfprojectExists(const std::string& path)
 void spe::UIProjectSelector::CreateProject()
 {
 	char buffer[50];
-	strcpy(buffer, this->m_CreateProjectName.c_str());
+	strcpy_s(buffer, this->m_CreateProjectName.c_str());
 
 	const std::string fullpath = this->m_CreateFileDialoge.pathClicked + "\\" + std::string(buffer);
 	this->AddProject(fullpath, std::string(buffer));
@@ -219,7 +219,16 @@ void spe::UIProjectSelector::CreateProjectFiles(const std::string& path, const s
 {
 	// Run cmake for the user project
 	spe::Savesystem::SaveProjects(this->m_Projects);
+	std::string command = "cmake ..";
 
+	const std::string dir = spe::Utility::GetCurrentDir();
+	const std::string newdir = path + +"\\" + name + "\\Build";
+
+	spe::Utility::SetCurrentDir(newdir);
+
+	system(command.c_str());
+
+	spe::Utility::SetCurrentDir(dir);
 }
 
 void spe::UIProjectSelector::AddProject(const std::string& full_path, const std::string& name)
