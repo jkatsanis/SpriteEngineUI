@@ -15,6 +15,7 @@ namespace spe
 		std::string path;
 		uint32_t sorting_layer_index;
 		bool effected_by_light;
+		bool render;
 	
 		SpriteRenderer();
 		SpriteRenderer(const spe::SpriteRenderer& rhs);

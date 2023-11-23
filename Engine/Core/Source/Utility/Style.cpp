@@ -164,7 +164,7 @@ void spe::Style::Init()
 	config.GlyphRanges = ranges;
 
 	//Add the fonts (remember to fill in the correct path of your font
-	spe::Style::s_DefaultFont = io.Fonts->AddFontFromFileTTF(PATH_TO_RESSOURCES"\\Fonts\\Arial.ttf", spe::Style::s_FontSize);
+	spe::Style::s_DefaultFont = io.Fonts->AddFontFromFileTTF(PATH_TO_RESSOURCES"\\Fonts\\arial.ttf", spe::Style::s_FontSize);
 	spe::Style::s_SymbolFont = io.Fonts->AddFontFromFileTTF(PATH_TO_RESSOURCES"\\Fonts\\fontawesome-webfont.ttf", spe::Style::s_FontSize - 4, &config);
 
 	//This function is important else the program will crash with an assertion

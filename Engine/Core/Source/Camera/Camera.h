@@ -32,6 +32,6 @@ namespace spe
 		float getZoom() const { return this->m_camera_zoom; }
 		void setZoom(float zoom);
 		void reset();
-		void update();
+		void Update();
 	};
 }

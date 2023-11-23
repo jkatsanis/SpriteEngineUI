@@ -3,11 +3,10 @@
 #include <imgui_internal.h>
 
 #include "GUI/Color.h"
-#include "GUI/UIModels.h"
+#include "GUI/UIUtility/UIModels.h"
 #include "Core/GameWindow.h"
 #include "Utility/Style.h"
 #include "Utility/FileDialoge.h"
-#include "GUI/UIModels.h"
 #include "Core/Log.h"
 #include "Savesystem.h"
 

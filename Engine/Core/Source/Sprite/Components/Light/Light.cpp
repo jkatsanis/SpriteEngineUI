@@ -47,7 +47,7 @@ void spe::Light::enable()
 		return;
 	}
 	this->exist = true;
-	spe::LightRepository::add(this->ptr_attached_sprite->transform.getPosition(), this->m_radius, this->m_intensity, this->m_color);
+	spe::LightRepository::add(this->ptr_attached_sprite->transform.GetPosition(), this->m_radius, this->m_intensity, this->m_color);
 	this->m_light_index = spe::LightRepository::getIndex();
 }
 

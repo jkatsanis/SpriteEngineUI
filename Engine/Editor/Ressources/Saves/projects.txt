@@ -1,14 +1,5 @@
 name;absulutePathStr;date;relativePath
-called;C:\Dev\C++\called;2023/23/11 20:57:46;..\..\called
-Oga;C:\Dev\C++\Oga;2023/23/11 20:58:57;..\..\Oga
 MAybe;C:\Dev\C#\MAybe;2023/23/11 20:59:21;..\..\..\C#\MAybe
-Handsfup;C:\Dev\C++\Handsfup;2023/23/11 20:59:53;..\..\Handsfup
-gmpojkd;C:\Dev\C++\gmpojkd;2023/23/11 21:00:40;..\..\gmpojkd
-fds;C:\Dev\C++\fds;2023/23/11 21:01:25;..\..\fds
-ImIgh;C:\Dev\C++\ImIgh;2023/23/11 21:05:00;..\..\ImIgh
-Ohhhhh;C:\Dev\C++\Ohhhhh;2023/23/11 21:05:49;..\..\Ohhhhh
-ISeBlue;C:\Dev\C++\ISeBlue;2023/23/11 21:08:22;..\..\ISeBlue
-Vlone;C:\Dev\C++\Vlone;2023/23/11 21:08:55;..\..\Vlone
-Little;C:\Dev\C++\Little;2023/23/11 21:09:52;..\..\Little
 dsd;C:\Dev\C++\dsd;2023/23/11 21:11:05;..\..\dsd
+Create;C:\Dev\C++\Create;2023/23/11 21:35:36;..\..\Create
 

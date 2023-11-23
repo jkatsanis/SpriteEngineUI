@@ -120,6 +120,13 @@ namespace spe
 		/// <returns></returns>
 		int getId() const { return this->m_id; }
 
+		bool IsParent() const { return this->ptr_childs.size() > 0; }
+
+		bool ContainsChild(const spe::Sprite* child) const;
+
+		bool ContainsChild(const ImGuiTextFilter& name) const;
+
+
 		/// <summary>
 		/// Gets the path to the texture file
 		/// </summary>

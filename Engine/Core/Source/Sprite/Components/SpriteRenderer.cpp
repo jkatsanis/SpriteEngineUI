@@ -16,6 +16,7 @@ spe::SpriteRenderer::SpriteRenderer(const spe::SpriteRenderer& rhs)
 
 void spe::SpriteRenderer::init()
 {
+	this->render = true;
 	this->base_component = true;
 	this->effected_by_light = false;
 	this->path = "";

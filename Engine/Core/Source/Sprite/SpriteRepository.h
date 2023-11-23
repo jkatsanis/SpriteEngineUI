@@ -49,6 +49,7 @@ namespace spe
         spe::Sprite* GetById(uint32_t idx) override;
         spe::Sprite* GetByName(const std::string& name) override;
         uint32_t GetHighestLayer() const { return this->m_HighestLayer; }
+        uint32_t GetHighestId() const { return this->m_HighestId; }
 
     public:
         static void getAllChilds(std::vector<const spe::Sprite*>& childs, const spe::Sprite* parent);

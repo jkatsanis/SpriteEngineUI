@@ -40,8 +40,6 @@ namespace spe
 		/// </summary>
 		void setOrigin();
 
-		const spe::Vector2& getPosition() { return this->m_Position; }
-
 		/// <summary>
 		/// Sets the position
 		/// </summary>
@@ -52,6 +50,8 @@ namespace spe
 		/// Sets the rotation
 		/// </summary>
 		void setRotation(uint32_t angle);
+
+		const spe::Vector2& GetPosition() const { return this->m_Position; }
 
 		/// <summary>
 		/// Set's the scale, sets it even if the parameter passed is the same as the getScale();

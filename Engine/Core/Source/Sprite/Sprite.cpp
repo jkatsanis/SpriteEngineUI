@@ -17,7 +17,7 @@ spe::Sprite::Sprite(std::string name, spe::Vector2 spawnPosition, std::string pa
 
 spe::Sprite::Sprite(spe::Sprite& rhs)
 {
-	this->initVariables(rhs.name, rhs.transform.getPosition(), rhs.sprite_renderer.path);
+	this->initVariables(rhs.name, rhs.transform.GetPosition(), rhs.sprite_renderer.path);
 
 	this->collider = spe::BoxCollider(this, rhs.collider);
 	this->transform = spe::Transform(this, rhs.transform);
@@ -118,7 +118,7 @@ void spe::Sprite::setParent(spe::Sprite* parent)
 	this->parent = parent;
 
 	spe::Sprite* child = this;
-	spe::Vector2 distance = spe::Vector2(parent->transform.getPosition() - child->transform.getPosition());
+	spe::Vector2 distance = spe::Vector2(parent->transform.GetPosition() - child->transform.GetPosition());
 	child->transform.position_to_parent = distance;
 
 	parent->ptr_childs.push_back(this);
@@ -185,4 +185,43 @@ spe::Sprite* spe::Sprite::getNode()
 		return this;
 	}
 	return parent->getNode();
+}
+
+bool spe::Sprite::ContainsChild(const spe::Sprite* child) const
+{
+	if (child == nullptr)
+	{
+		return false;
+	}
+	bool contains = false;
+
+	for (int i = 0; i < this->ptr_childs.size(); i++)
+	{
+		const spe::Sprite* spr = this->ptr_childs[i];
+		if (child->m_id == spr->m_id)
+		{
+			return true;
+		}
+		if (!contains)
+		{
+			contains = spr->ContainsChild(child);
+		}
+	}
+	return contains;
+}
+
+bool spe::Sprite::ContainsChild(const ImGuiTextFilter& name) const
+{
+	bool contains = false;
+
+	for (int i = 0; i < this->ptr_childs.size(); i++)
+	{
+		const spe::Sprite* spr = this->ptr_childs[i];
+		if (name.PassFilter(spr->name.c_str()))
+		{
+			return true;
+		}
+		contains = spr->ContainsChild(name);
+	}
+	return contains;
 }

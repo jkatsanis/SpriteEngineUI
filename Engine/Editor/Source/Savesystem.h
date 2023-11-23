@@ -6,7 +6,7 @@
 #include "SpriteRepository.h"
 #include "GUI/GUIRepository.h"
 #include "Core/SeceneHandler.h"
-#include "GUI/UIModels.h"
+#include "GUI/UIUtility/UIModels.h"
 
 namespace spe
 {

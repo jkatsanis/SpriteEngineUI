@@ -10,8 +10,14 @@
     <ClCompile Include="C:\Dev\C++\SpriteEngineUI\Engine\Editor\Source\GUI\ProjectSelector\UIProjectSelector.cpp">
       <Filter>Source\GUI\ProjectSelector</Filter>
     </ClCompile>
+    <ClCompile Include="C:\Dev\C++\SpriteEngineUI\Engine\Editor\Source\GUI\Property\UIHierarchy.cpp">
+      <Filter>Source\GUI\Property</Filter>
+    </ClCompile>
     <ClCompile Include="C:\Dev\C++\SpriteEngineUI\Engine\Editor\Source\GUI\UITopbar.cpp">
       <Filter>Source\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Dev\C++\SpriteEngineUI\Engine\Editor\Source\GUI\UIUtility\UIUtility.cpp">
+      <Filter>Source\GUI\UIUtility</Filter>
     </ClCompile>
     <ClCompile Include="C:\Dev\C++\SpriteEngineUI\Engine\Editor\Source\GUI\UIWindow.cpp">
       <Filter>Source\GUI</Filter>
@@ -36,11 +42,20 @@
     <ClInclude Include="C:\Dev\C++\SpriteEngineUI\Engine\Editor\Source\GUI\ProjectSelector\UIProjectSelector.h">
       <Filter>Source\GUI\ProjectSelector</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Dev\C++\SpriteEngineUI\Engine\Editor\Source\GUI\UIModels.h">
-      <Filter>Source\GUI</Filter>
+    <ClInclude Include="C:\Dev\C++\SpriteEngineUI\Engine\Editor\Source\GUI\Property\UIBase.h">
+      <Filter>Source\GUI\Property</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Dev\C++\SpriteEngineUI\Engine\Editor\Source\GUI\Property\UIHierarchy.h">
+      <Filter>Source\GUI\Property</Filter>
     </ClInclude>
     <ClInclude Include="C:\Dev\C++\SpriteEngineUI\Engine\Editor\Source\GUI\UITopbar.h">
       <Filter>Source\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Dev\C++\SpriteEngineUI\Engine\Editor\Source\GUI\UIUtility\UIModels.h">
+      <Filter>Source\GUI\UIUtility</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Dev\C++\SpriteEngineUI\Engine\Editor\Source\GUI\UIUtility\UIUtility.h">
+      <Filter>Source\GUI\UIUtility</Filter>
     </ClInclude>
     <ClInclude Include="C:\Dev\C++\SpriteEngineUI\Engine\Editor\Source\GUI\UIWindow.h">
       <Filter>Source\GUI</Filter>
@@ -61,6 +76,12 @@
     </Filter>
     <Filter Include="Source\GUI\ProjectSelector">
       <UniqueIdentifier>{55DABAA4-15A6-30A7-A139-62375F85AF34}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\GUI\Property">
+      <UniqueIdentifier>{B866707E-39A4-3462-9101-B538B848F43A}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\GUI\UIUtility">
+      <UniqueIdentifier>{543E6D93-119B-369E-9815-62B9113D0EB8}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

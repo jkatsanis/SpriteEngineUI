@@ -4,6 +4,11 @@
 
 spe::GUIRepository::GUIRepository()
 {
+	this->sprited_hovered_in_hierarchy = nullptr;
+	this->sprite_in_inspector = nullptr;
+	this->child_to_parent = nullptr;
+	this->right_clicked_sprite = nullptr;
+
 	this->ptr_AssetWindowSize = nullptr;
 	this->ptr_HierarchyWindowSize = nullptr;
 	this->ptr_InspectorWindowSize = nullptr;

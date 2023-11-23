@@ -45,6 +45,32 @@ void spe::Utility::WriteFile(const std::string& content, const std::string& path
     
 }
 
+std::string spe::Utility::GetFileExtension(const std::string& file)
+{
+    for (int i = 0; i < file.size(); i++)
+    {
+        if (file[i] == '.')
+        {
+            bool isValid = true;
+            std::string extension = "";
+            for (int j = i + 1; j < file.size(); j++)
+            {
+                extension += file[j];
+                if (file[j] == '.')
+                {
+                    isValid = false;
+                    break;
+                }
+            }
+            if (isValid)
+            {
+                return extension;
+            }
+        }
+    }
+    return "folder";
+}
+
 std::string spe::Utility::GetDefaultDir()
 {
     spe::Log::LogString("Calling GetDefaultDir()..");

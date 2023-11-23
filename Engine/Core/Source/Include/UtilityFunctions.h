@@ -22,6 +22,8 @@ namespace spe
 		static std::vector<std::string> Split(const std::string& s, char delim);
 		static void WriteFile(const std::string& name, const std::string& path);
 
+		static std::string GetFileExtension(const std::string& file);
+
 		/// <summary>
 		/// Should only be used 1 time. 
 		/// </summary>

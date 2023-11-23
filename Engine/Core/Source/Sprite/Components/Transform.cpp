@@ -42,7 +42,7 @@ void spe::Transform::UpdateSpritePositionToParent(const spe::Vector2& position)
 {
 	if (this->m_attached_sprite != nullptr && this->m_attached_sprite->parent != nullptr)
 	{
-	    const spe::Vector2 distance = this->m_attached_sprite->parent->transform.getPosition() - position;
+	    const spe::Vector2 distance = this->m_attached_sprite->parent->transform.GetPosition() - position;
 		if (distance != this->position_to_parent)
 		{
 			this->position_to_parent = distance;
@@ -57,6 +57,11 @@ void spe::Transform::SetPosition(const spe::Vector2& position)
 	this->UpdateSpritePositionToParent(position);
 	this->m_Position = position;
 	this->position_changed = true;
+
+	if (this->m_attached_sprite != nullptr)
+	{
+		this->m_attached_sprite->getSprite().setPosition(sf::Vector2f(position.x + 960, position.y + 540));
+	}
 }
 
 void spe::Transform::setTextureSize(const spe::Vector2& scale)

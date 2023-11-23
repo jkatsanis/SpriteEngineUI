@@ -40,14 +40,14 @@ void spe::Camera::reset()
 	this->m_camera_zoom = 1.0f;
 }
 
-void spe::Camera::update()
+void spe::Camera::Update()
 {	
 	this->camera_view.setSize(1920 * this->m_camera_zoom, 1080 * this->m_camera_zoom);
 
 	spe::Vector2 defaultPos = this->getDefaultPosition();
 
-	defaultPos.x += Transform.getPosition().x;
-	defaultPos.y += Transform.getPosition().y;
+	defaultPos.x += Transform.GetPosition().x;
+	defaultPos.y += Transform.GetPosition().y;
 
 	this->camera_view.setCenter(sf::Vector2f(defaultPos.x, defaultPos.y));
 

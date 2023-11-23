@@ -23,8 +23,8 @@ void spe::LightRepository::updateLightSource(spe::Sprite* sprite, spe::Camera* c
 
 		float zoom = cam->getZoom() - 1;
 
-		const float a = ((sprite->transform.getPosition().y * -1) + 540) + 540 * zoom;
-		spe::Vector2 new_pos = spe::Vector2((sprite->transform.getPosition().x + 960) + 960 * zoom, a);
+		const float a = ((sprite->transform.GetPosition().y * -1) + 540) + 540 * zoom;
+		spe::Vector2 new_pos = spe::Vector2((sprite->transform.GetPosition().x + 960) + 960 * zoom, a);
 
 		source.position = new_pos;
 	}

@@ -6,7 +6,7 @@
 #include "Math/Vector2.h"
 #include "Camera/Camera.h"
 #include "Core/Repository.h"
-#include "UIModels.h"
+#include "UIUtility/UIModels.h"
 
 namespace spe
 {
@@ -21,8 +21,16 @@ namespace spe
 		const ImVec2* ptr_InspectorWindowSize;
 		const ImVec2* ptr_HierarchyWindowSize;
 
+		std::string DragAndDropPath;
+		std::string DragAndDropName;
+
+		spe::Sprite* child_to_parent;
+		spe::Sprite* right_clicked_sprite;
+		spe::Sprite* sprite_in_inspector;
+		spe::Sprite* sprited_hovered_in_hierarchy;
+
 		spe::Vector3 background_color;
-		spe::Camera camera;
+		spe::Camera Camera;
 
 		GUIRepository();
 

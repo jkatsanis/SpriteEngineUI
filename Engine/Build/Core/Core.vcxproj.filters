@@ -40,6 +40,9 @@
     <ClCompile Include="C:\Dev\C++\SpriteEngineUI\Engine\Core\Source\Include\UtilityFunctions.cpp">
       <Filter>Source\Include</Filter>
     </ClCompile>
+    <ClCompile Include="C:\Dev\C++\SpriteEngineUI\Engine\Core\Source\Input\Input.cpp">
+      <Filter>Source\Input</Filter>
+    </ClCompile>
     <ClCompile Include="C:\Dev\C++\SpriteEngineUI\Engine\Core\Source\Math\Vector2.cpp">
       <Filter>Source\Math</Filter>
     </ClCompile>
@@ -158,6 +161,9 @@
     </ClInclude>
     <ClInclude Include="C:\Dev\C++\SpriteEngineUI\Engine\Core\Source\Include\icons.h">
       <Filter>Source\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Dev\C++\SpriteEngineUI\Engine\Core\Source\Input\Input.h">
+      <Filter>Source\Input</Filter>
     </ClInclude>
     <ClInclude Include="C:\Dev\C++\SpriteEngineUI\Engine\Core\Source\Input\Keyboard.h">
       <Filter>Source\Input</Filter>

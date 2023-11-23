@@ -304,6 +304,8 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClInclude Include="C:\Dev\C++\SpriteEngineUI\Engine\Core\Source\Include\UtilityFunctions.h" />
     <ClInclude Include="C:\Dev\C++\SpriteEngineUI\Engine\Core\Source\Include\dirent.h" />
     <ClInclude Include="C:\Dev\C++\SpriteEngineUI\Engine\Core\Source\Include\icons.h" />
+    <ClCompile Include="C:\Dev\C++\SpriteEngineUI\Engine\Core\Source\Input\Input.cpp" />
+    <ClInclude Include="C:\Dev\C++\SpriteEngineUI\Engine\Core\Source\Input\Input.h" />
     <ClInclude Include="C:\Dev\C++\SpriteEngineUI\Engine\Core\Source\Input\Keyboard.h" />
     <ClCompile Include="C:\Dev\C++\SpriteEngineUI\Engine\Core\Source\Math\Vector2.cpp" />
     <ClInclude Include="C:\Dev\C++\SpriteEngineUI\Engine\Core\Source\Math\Vector2.h" />

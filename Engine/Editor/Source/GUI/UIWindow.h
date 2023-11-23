@@ -4,6 +4,7 @@
 
 #include "SpriteRepository.h"
 #include "GUIRepository.h"
+#include "Property/UIHierarchy.h"
 
 namespace spe
 {
@@ -11,6 +12,7 @@ namespace spe
 	{
 	private:
 		spe::UITopbar m_Topbar;
+		spe::UIHierarchy m_UIHierarchy;
 
 	public:
 
