@@ -20,3 +20,31 @@ void spe::SceneHandler::LoadScene(const std::string& name, spe::Camera& camera, 
 		}
 	}
 }
+
+
+void spe::SceneHandler::DeleteScene(const std::string& name)
+{
+	for (auto it = TotalScenes.begin(); it != TotalScenes.end(); ++it) {
+		// Found a scene to delete
+		if (*it == name) {
+			it = TotalScenes.erase(it); 
+
+			const std::string olddir = spe::Utility::GetCurrentDir();
+			spe::Utility::SetCurrentDir(spe::EngineData::s_PathUserProject);
+
+			const std::string path = PATH_TO_SAVE_FOLDER + std::string("\\") + name;
+
+			std::filesystem::remove_all(path);
+
+			spe::Utility::SetCurrentDir(olddir);
+			
+			return;
+		}
+	}
+}
+
+void spe::SceneHandler::CreateScene(const std::string& name)
+{
+	// Todo copy scene
+	throw std::runtime_error("No");
+}

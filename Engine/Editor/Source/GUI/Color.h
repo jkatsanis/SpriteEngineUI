@@ -24,3 +24,10 @@
 #define REAL_EDITOR_BUTTON_BG_COLOR ImVec4(55.0f / 255.0f, 55.0f / 255.0f, 55.0f / 255.0f, 0.5f)
 
 #pragma endregion
+
+#pragma region PROPERTY
+
+#define SPRITE_SELECTED_COLOR ImVec4(139.0f / 255.0f, 180.0f / 255.0f, 234.0f / 255.0f,1.0f)
+#define SPRITE_BACKGROUND_COLOR ImColor(30, 30, 30, 255)
+
+#pragma endregion

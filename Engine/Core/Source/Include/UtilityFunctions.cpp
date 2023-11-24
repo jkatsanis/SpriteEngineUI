@@ -1,5 +1,17 @@
 #include "UtilityFunctions.h"
 
+bool spe::Utility::Contains(const std::string& str, const std::vector<std::string>& arr)
+{
+    for (size_t i = 0; i < arr.size(); i++)
+    {
+        if (str == arr[i])
+        {
+            return true;
+        }
+    }
+    return false;
+}
+
 void spe::Utility::SetCurrentDir(const std::string& path)
 {
     if (!SetCurrentDirectoryA(path.c_str()))

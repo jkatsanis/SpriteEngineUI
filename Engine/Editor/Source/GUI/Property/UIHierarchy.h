@@ -37,10 +37,11 @@ namespace spe
 		spe::ResizeWindowData m_resize_window_data;
 		bool m_wait_one_frame;
 		ImGuiTextFilter m_search_sprite_filter;
-		uint8_t m_sprite_background_color_cnt;
+
 		bool m_found_hovering;
 		bool m_found_selected;
 		float m_child_select_timer;
+		uint8_t m_sprite_background_color_cnt;
 
 		void displayContextPopup();
 		bool displaySprites();
@@ -48,6 +49,7 @@ namespace spe
 		void displayChildToParent();
 		void displaySpriteSeperated(spe::Sprite* d, bool& any_hovered);
 
+		void setSelectedBackgroundColor(spe::Sprite* sprite, bool& pop_style);
 		void setSpriteAsChild();
 
 		void addSprite();
@@ -65,11 +67,6 @@ namespace spe
 		void drawUIRactangleWhenHovered(spe::Sprite* sprite);
 
 		void drawRenderSymbol(spe::Sprite* child);
-
-		/// <summary>
-		/// Dont forget to call PopStyleColor();
-		/// </summary>
-		void setSelectedBackgroundColor(spe::Sprite* sprite, bool& pop_style);
 
 		/// <summary>
 		/// Checks for specfic things which get hovered 

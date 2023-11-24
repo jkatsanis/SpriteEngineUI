@@ -5,6 +5,24 @@ void spe::UIUtility::UpdateCursor()
     spe::UIUtility::GUICursor = spe::Vector2(ImGui::GetMousePos().x, ImGui::GetMousePos().y);
 }
 
+void spe::UIUtility::SetWindowScreenMiddle(const ImVec2& ref)
+{
+    ImVec2 size = spe::Vector2::toImVec2(ref);
+    ImVec2 newPos = ImVec2(spe::Vector2::
+        toImVec2(spe::Vector2(spe::Vector2::SCREEN_MIDDLE.x - size.x / 2,
+            spe::Vector2::SCREEN_MIDDLE.y - size.y / 2)));
+
+    ImGui::SetWindowSize(size);
+    ImGui::SetWindowPos(newPos);
+}
+
+void spe::UIUtility::SameLine(float width)
+{
+    ImGui::SameLine();
+
+    ImGui::SetCursorPosY(ImGui::GetCursorPosY() + width);
+}
+
 bool spe::UIUtility::RenderCloseRectangle(float padding_left, const char* icon, const std::string& id, const std::string& content, float cursor_pos)
 {
     bool close = true;

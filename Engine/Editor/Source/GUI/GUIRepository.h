@@ -7,6 +7,7 @@
 #include "Camera/Camera.h"
 #include "Core/Repository.h"
 #include "UIUtility/UIModels.h"
+#include "UIUtility/UIModels.h"
 
 namespace spe
 {
@@ -20,6 +21,8 @@ namespace spe
 		spe::UIWindowData HierarchyData;
 		spe::UIWindowData InspectorData;
 		spe::UIWindowData AssetFolderData;
+
+		spe::EditorTools Tools;
 
 		std::string DragAndDropPath;
 		std::string DragAndDropName;

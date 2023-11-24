@@ -3,15 +3,52 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 
+#define DEFAULT_FLAGS ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoScrollbar
+
 namespace spe
 {
+	enum class EditorTools
+	{
+		None = -1,
+		PositionTool = 0,
+		ScaleTool = 1,
+	};
+	struct Tool
+	{
+		EditorTools tool;
+		bool background;
+		std::string icon;
+		std::string tool_name;
+
+		Tool(const EditorTools tool, const std::string& icon, const std::string& name)
+		{
+			this->tool_name = name;
+			this->background = false;
+			this->tool = tool;
+			this->icon = icon;
+		}
+
+		Tool()
+		{
+			this->tool_name = "";
+			this->background = false;
+			this->tool = spe::EditorTools::PositionTool;
+			this->icon = "";
+		}
+	};
 	struct UIWindowData {
 		bool Reload;
 		bool IsOpen;
 		ImVec2* ptr_Size;
 
-		UIWindowData() : ptr_Size(nullptr) { }
+		UIWindowData() : ptr_Size(nullptr), Reload(true), IsOpen(true) { }
 		UIWindowData(bool reload, bool open, ImVec2* size) : Reload(reload), IsOpen(open), ptr_Size(size) { }
+
+		void SetOpen()
+		{
+			Reload = true;
+			IsOpen = true;
+		}
 	};
 	struct ResizeWindowData
 	{

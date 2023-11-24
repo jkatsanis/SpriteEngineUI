@@ -17,6 +17,8 @@ namespace spe
 	public:
 		Utility() = delete;
 
+		bool Contains(const std::string& str, const std::vector<std::string>& arr);
+
 		static void SetCurrentDir(const std::string& path);
 		static std::string getUserProjectPathSeperatetFromEnginePath(const std::string& path);
 		static std::vector<std::string> Split(const std::string& s, char delim);

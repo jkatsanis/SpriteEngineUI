@@ -18,6 +18,8 @@ namespace spe
 
 		UIUtility() = delete;
 
+		static void SetWindowScreenMiddle(const ImVec2& ref);
+		static void SameLine(float width);
 		static bool RenderCloseRectangle(float padding_left, const char* icon, const std::string& id,
 			const std::string& content, float cursor_pos);
 		static void DrawRectangleInGUIWIndow(const ImVec2& size, const ImVec2& top_left, const ImColor& color);

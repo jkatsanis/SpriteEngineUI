@@ -16,6 +16,8 @@ spe::Editor::Editor()
 
 	spe::Style::Init();
 	spe::Style::RenderStyle();
+
+	spe::Input::setEvent(&this->m_Window.Event);
 }
 
 spe::Editor::~Editor()

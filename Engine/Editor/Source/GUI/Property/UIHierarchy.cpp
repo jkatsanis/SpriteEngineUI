@@ -26,12 +26,7 @@ void spe::UIHierarchy::Render()
 	}
 	
 	ImGui::SetNextWindowPos(ImVec2(0, 60));
-	ImGui::Begin("##ui-hierarchy", NULL,
-		ImGuiWindowFlags_NoResize
-		| ImGuiWindowFlags_NoCollapse
-		| ImGuiWindowFlags_NoMove
-		| ImGuiWindowFlags_NoTitleBar
-		| ImGuiWindowFlags_NoScrollbar);
+	ImGui::Begin("##ui-hierarchy", NULL, DEFAULT_FLAGS);
 
 	// Render Hierarchy
 	this->m_sprite_background_color_cnt = 1;
