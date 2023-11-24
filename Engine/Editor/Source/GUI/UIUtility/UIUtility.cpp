@@ -178,3 +178,4 @@ sf::Vector2f spe::UIUtility::WorldCursor = sf::Vector2f(0, 0);
 spe::Event* spe::UIUtility::s_m_ptr_Event = nullptr;
 sf::RenderWindow* spe::UIUtility::s_m_ptr_Window = nullptr;
 bool spe::UIUtility::s_IsAnyHovered = false;
+std::string spe::UIUtility::s_DefaultSprite = spe::EngineData::s_PathUserProject + "\\Engine\\Ressources\\Sprites\\Default.png";

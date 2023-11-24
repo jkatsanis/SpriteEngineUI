@@ -93,9 +93,6 @@ namespace spe
 		spe::InspectorState state;
 
 		void Render() override;
-
-	public:
-		static std::string getNamePathSplit(std::string path);
 	};
 }
 

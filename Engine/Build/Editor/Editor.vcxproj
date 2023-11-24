@@ -328,6 +328,8 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClInclude Include="C:\Dev\C++\SpriteEngineUI\Engine\Editor\Source\GUI\Property\Animations\UIAnimation.h" />
     <ClCompile Include="C:\Dev\C++\SpriteEngineUI\Engine\Editor\Source\GUI\Property\Animations\UIAnimationEditor.cpp" />
     <ClInclude Include="C:\Dev\C++\SpriteEngineUI\Engine\Editor\Source\GUI\Property\Animations\UIAnimationEditor.h" />
+    <ClCompile Include="C:\Dev\C++\SpriteEngineUI\Engine\Editor\Source\GUI\Property\Animations\UIAnimationKeyFrameAdder.cpp" />
+    <ClInclude Include="C:\Dev\C++\SpriteEngineUI\Engine\Editor\Source\GUI\Property\Animations\UIAnimationKeyFrameAdder.h" />
     <ClCompile Include="C:\Dev\C++\SpriteEngineUI\Engine\Editor\Source\GUI\Property\Inspector\UIInspector.cpp" />
     <ClInclude Include="C:\Dev\C++\SpriteEngineUI\Engine\Editor\Source\GUI\Property\Inspector\UIInspector.h" />
     <ClCompile Include="C:\Dev\C++\SpriteEngineUI\Engine\Editor\Source\GUI\Property\Inspector\UIInspectorBoxCollider.cpp" />

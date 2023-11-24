@@ -491,7 +491,7 @@ void spe::UIInspector::spriteRendererComponent()
 	this->renderComponentOptions(this->m_ptr_GUIRepo->sprite_in_inspector->sprite_renderer, "Sprite Renderer");
 	if (ImGui::TreeNode("Sprite Renderer"))
 	{
-		std::string input = spe::UIInspector::getNamePathSplit(this->m_ptr_GUIRepo->sprite_in_inspector->sprite_renderer.path);
+		std::string input = spe::Utility::GetNamePathSplit(this->m_ptr_GUIRepo->sprite_in_inspector->sprite_renderer.path);
 		this->m_sprite_name = this->m_ptr_GUIRepo->sprite_in_inspector->name;
 
 		float y = ImGui::GetCursorPos().y;
@@ -710,8 +710,6 @@ void spe::UIInspector::lightComponent()
 
 void spe::UIInspector::Render()
 {
-
-
 	if (spe::UIUtility::HandleCloseAndReloadWindow(this->m_ptr_GUIRepo->InspectorData, this->Hovered, INSPECTOR_DEFAULT_WINDOW_SIZE))
 	{
 		return;
@@ -752,16 +750,4 @@ void spe::UIInspector::Render()
 	ImGui::SetWindowFontScale(spe::Style::s_DefaultFontSize);
 	ImGui::SetWindowSize(this->m_Size);
 	ImGui::End();
-}
-
-
-//static functions
-
-std::string spe::UIInspector::getNamePathSplit(std::string path)
-{
-	std::vector<std::string> pick;
-
-	std::vector<std::string> splittetSring = spe::Utility::Split(path, '\\');
-
-	return splittetSring[splittetSring.size() - 1];
 }

@@ -16,6 +16,9 @@
     <ClCompile Include="C:\Dev\C++\SpriteEngineUI\Engine\Editor\Source\GUI\Property\Animations\UIAnimationEditor.cpp">
       <Filter>Source\GUI\Property\Animations</Filter>
     </ClCompile>
+    <ClCompile Include="C:\Dev\C++\SpriteEngineUI\Engine\Editor\Source\GUI\Property\Animations\UIAnimationKeyFrameAdder.cpp">
+      <Filter>Source\GUI\Property\Animations</Filter>
+    </ClCompile>
     <ClCompile Include="C:\Dev\C++\SpriteEngineUI\Engine\Editor\Source\GUI\Property\Inspector\UIInspector.cpp">
       <Filter>Source\GUI\Property\Inspector</Filter>
     </ClCompile>
@@ -61,6 +64,9 @@
       <Filter>Source\GUI\Property\Animations</Filter>
     </ClInclude>
     <ClInclude Include="C:\Dev\C++\SpriteEngineUI\Engine\Editor\Source\GUI\Property\Animations\UIAnimationEditor.h">
+      <Filter>Source\GUI\Property\Animations</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Dev\C++\SpriteEngineUI\Engine\Editor\Source\GUI\Property\Animations\UIAnimationKeyFrameAdder.h">
       <Filter>Source\GUI\Property\Animations</Filter>
     </ClInclude>
     <ClInclude Include="C:\Dev\C++\SpriteEngineUI\Engine\Editor\Source\GUI\Property\Inspector\UIInspector.h">

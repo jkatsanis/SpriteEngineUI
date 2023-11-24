@@ -34,7 +34,11 @@ namespace spe
 		spe::Sprite* sprite_in_inspector;
 		spe::Sprite* sprited_hovered_in_hierarchy;
 
+		/// <summary>
+		/// Usally ptrs to the events of the window class
+		/// </summary>
 		spe::Event* ptr_Event;
+		sf::Event* ptr_SFEvent;
 
 		spe::Vector3 background_color;
 		spe::Camera Camera;
@@ -50,7 +54,6 @@ namespace spe
 		uint32_t GetAmount() const override { return (uint32_t)this->m_Rectangles.size(); }
 		void Add(spe::Rectangle* rec) override;
 		void UpdateLayerIndex() override;
-		void SetEventPointer(spe::Event* ptr) { this->ptr_Event = ptr; }
 	};
 }
 

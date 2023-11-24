@@ -48,7 +48,8 @@ namespace spe
 		spe::KeyFrame& GetKeyFrameAtMs(const float ms);
 		int GetSize() const { return (int)this->m_Keyframes.size(); }
 		int GetFrameSize() { return int(this->m_Keyframes.size()); }
-		const std::vector<spe::KeyFrame> GetkeyFrames() const { return this->m_Keyframes; }
+		std::vector<spe::KeyFrame>& GetkeyFrames() { return this->m_Keyframes; }
+		const std::vector<spe::KeyFrame>& GetkeyFrames() const { return this->m_Keyframes; }
 		float GetAnimationTime() const;
 		float GetTimeTillFrame(size_t Frame);
 		const std::string& GetName() const { return this->m_Name; }

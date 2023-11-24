@@ -104,6 +104,15 @@ std::string spe::Utility::GetFileExtension(const std::string& file)
     return "folder";
 }
 
+std::string spe::Utility::GetNamePathSplit(std::string path)
+{
+    std::vector<std::string> pick;
+
+    std::vector<std::string> splittetSring = spe::Utility::Split(path, '\\');
+
+    return splittetSring[splittetSring.size() - 1];
+}
+
 std::string spe::Utility::GetDefaultDir()
 {
     spe::Log::LogString("Calling GetDefaultDir()..");

@@ -5,6 +5,7 @@
 #include "GUI/Property/UIBase.h"
 #include "GUI/UIUtility/UIUtility.h"
 #include "GUI/Color.h"
+#include "GUI/Property/Animations/UIAnimationKeyFrameAdder.h"
 
 #include "Sprite/Sprite.h"
 #include "Savesystem.h"
@@ -25,11 +26,9 @@ namespace spe
 		int m_key_frame_pos;
 		std::string m_key_frame_path;
 
-		sf::Event* m_ptr_event_engine;
 		float m_cursor_space;
 		int m_keyFramesToEdit;
-		spe::SpriteRepository* m_ptr_repo;
-		// spe::UIAnimationKeyFrameAdder keyFrameAdder;
+		spe::UIAnimationKeyFrameAdder m_FrameAdder;
 		 
 		void renderTimeLineRealTimePoint();
 		void zoomEditorTimeLine();
@@ -53,7 +52,6 @@ namespace spe
 		bool display;
 
 		void setAnim(spe::Animation* anim);
-		void setEvent(sf::Event* event) { this->m_ptr_event_engine = event; }
 		void resetAnim();
 
 		void Render() override;

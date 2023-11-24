@@ -10,8 +10,8 @@ void spe::UIAnimationEditor::Init()
 	this->display = false;
 	this->m_keyFrameSelected.keyFrameSelected = nullptr;
 	this->m_cursor_space = 30;
-	this->m_ptr_event_engine = nullptr;
-	this->m_ptr_repo = nullptr;
+
+	this->m_FrameAdder.SetRepos(this->m_ptr_Repo, this->m_ptr_GUIRepo);
 }
 
 void spe::UIAnimationEditor::setAnim(spe::Animation* anim)
@@ -41,7 +41,7 @@ void spe::UIAnimationEditor::closeWindow()
 		this->resetAnim();
 	}
 
-	// this->Hovered = this->keyFrameAdder.is_hovered;
+    this->Hovered = this->m_FrameAdder.Hovered;
 	if (!this->Hovered)
 	{
 		this->Hovered = spe::UIUtility::IsHovered(ImGui::GetWindowPos(), WINDOW_SIZE_ANIMATION_EDITOR);
@@ -203,11 +203,11 @@ void spe::UIAnimationEditor::renderTimeLineRealTimePoint()
 
 void spe::UIAnimationEditor::zoomEditorTimeLine()
 {
-	if (this->m_ptr_event_engine->type == sf::Event::MouseWheelScrolled)
+	if (this->m_ptr_GUIRepo->ptr_SFEvent->type == sf::Event::MouseWheelScrolled)
 	{
-		this->m_ptr_event_engine->type = sf::Event::GainedFocus;
+		this->m_ptr_GUIRepo->ptr_SFEvent->type = sf::Event::GainedFocus;
 
-		if (this->m_ptr_event_engine->mouseWheel.x < 0)
+		if (this->m_ptr_GUIRepo->ptr_SFEvent->mouseWheel.x < 0)
 		{
 			if (this->m_cursor_space == 0.5f)
 			{
@@ -300,12 +300,12 @@ void spe::UIAnimationEditor::addKeyFrame()
 	ImGui::SetCursorPos(ImVec2(ImGui::GetCursorPosX() + 2 + ImGui::GetScrollX(), ImGui::GetCursorPosY()));
 	if (ImGui::Button("Add KeyFrame"))
 	{
-		//if (this->m_ptr_GUIRepo->sprite_in_inspector != nullptr)
-		//{
-		//	this->keyFrameAdder.key_frame_path = this->m_ptr_GUIRepo->sprite_in_inspector->sprite_renderer.path;
-		//}
-		//this->keyFrameAdder.is_key_frame_menu_open = true;
-		//this->keyFrameAdder.setAnimation(this->m_anim);
+		if (this->m_ptr_GUIRepo->sprite_in_inspector != nullptr)
+		{
+			this->m_FrameAdder.key_frame_path = this->m_ptr_GUIRepo->sprite_in_inspector->sprite_renderer.path;
+		}
+		this->m_FrameAdder.is_key_frame_menu_open = true;
+		this->m_FrameAdder.setAnimation(this->m_anim);
 	}
 	ImGui::SameLine();
 	spe::Style::DisplaySmybolAsText(ICON_FA_PLUS);
@@ -383,8 +383,8 @@ void spe::UIAnimationEditor::Render()
 	this->closeWindow();
 
 
-	//if (this->keyFrameAdder.is_key_frame_menu_open)
-	//{
-	//	this->keyFrameAdder.update();
-	//}
+	if (this->m_FrameAdder.is_key_frame_menu_open)
+	{
+		this->m_FrameAdder.Render();
+	}
 }

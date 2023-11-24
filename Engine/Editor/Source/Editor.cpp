@@ -20,7 +20,9 @@ spe::Editor::Editor()
 	spe::UIUtility::SetEvent(&this->m_Window.Event);
 	spe::UIUtility::SetRenderWinodw(this->m_Window.GetRenderWindow());
 	spe::Input::setEvent(&this->m_Window.Event);
-	this->m_GUIRepository.SetEventPointer(&this->m_Window.Event);
+
+	this->m_GUIRepository.ptr_Event = &this->m_Window.Event;
+	this->m_GUIRepository.ptr_SFEvent = &this->m_Window.WindowEvent;
 }
 
 spe::Editor::~Editor()
@@ -72,6 +74,8 @@ void spe::Editor::UpdateComponents()
 	for (auto it = sprites.begin(); it != sprites.end(); ++it)
 	{
 		spe::Sprite* sprite = *it;
+
+		sprite->animator.update();
 
 		this->m_Window.Draw(sprite);
 	}

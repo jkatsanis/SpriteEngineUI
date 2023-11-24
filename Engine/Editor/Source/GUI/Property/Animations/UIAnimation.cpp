@@ -169,7 +169,7 @@ void spe::UIAnimation::displayAnimations()
 		if (ImGui::Selectable(anim.second.GetName().c_str(), false, ImGuiSelectableFlags_DontClosePopups,
 			ImVec2(ImGui::CalcTextSize(anim.second.GetName().c_str()).x, 0)))
 		{
-			// this->enterAnimation(anim.second);
+			this->enterAnimation(anim.second);
 		}
 
 		const std::string s = "#" + anim.second.GetName();
