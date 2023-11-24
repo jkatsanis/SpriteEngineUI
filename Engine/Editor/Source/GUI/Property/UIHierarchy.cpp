@@ -99,6 +99,10 @@ void spe::UIHierarchy::addSprite()
 
 void spe::UIHierarchy::deleteSprite()
 {
+	if (this->m_ptr_GUIRepo->AnimationData.IsOpen)
+	{
+		return;
+	}
 	if (this->m_ptr_GUIRepo->sprite_in_inspector == nullptr)
 	{
 		return;
@@ -131,6 +135,10 @@ void spe::UIHierarchy::cleanRepoSpritesUp(bool isAnyHovered)
 			this->m_ptr_GUIRepo->child_to_parent = nullptr;
 		}
 		else this->m_wait_one_frame = true;
+	}
+	if (this->m_ptr_GUIRepo->AnimationData.IsOpen)
+	{
+		return;
 	}
 	if (!this->m_found_selected && ImGui::IsMouseReleased(0) && this->Hovered)
 	{
@@ -328,6 +336,10 @@ void spe::UIHierarchy::setSpriteOnClick(spe::Sprite* sprite)
 		&& ImGui::IsMouseReleased(0))
 	{
 		this->m_found_selected = true;
+		if (this->m_ptr_GUIRepo->AnimationData.IsOpen)
+		{
+			return;
+		}
 		this->m_ptr_GUIRepo->sprite_in_inspector = sprite;
 	}
 }
@@ -354,7 +366,7 @@ void spe::UIHierarchy::drawUIRactangleWhenHovered(spe::Sprite* sprite)
 void spe::UIHierarchy::drawRenderSymbol(spe::Sprite* child)
 {
 	const ImVec2 cursor = ImGui::GetCursorPos();
-	ImGui::SetCursorPos(ImVec2(20, cursor.y - 5));
+	ImGui::SetCursorPos(ImVec2(17, cursor.y - 5));
 	const std::string icon = child->sprite_renderer.render ? ICON_FA_EYE : ICON_FA_EYE_SLASH;
 	const std::string name = icon + std::string("##") + std::to_string(child->getId());
 	if (spe::Style::DisplaySmybolAsButton(name.c_str()))

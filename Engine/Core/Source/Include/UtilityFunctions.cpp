@@ -1,5 +1,21 @@
 #include "UtilityFunctions.h"
 
+std::string spe::Utility::BoolToStr(bool b)
+{
+    return b ? "True" : "False";
+}
+
+void spe::Utility::CreateFileWithContent(const std::string& content, const std::string& pathAndName)
+{
+    std::ofstream file;
+
+    file.open(pathAndName, std::ios::out | std::ios::binary);
+
+    file << content;
+
+    file.close();
+}
+
 bool spe::Utility::Contains(const std::string& str, const std::vector<std::string>& arr)
 {
     for (size_t i = 0; i < arr.size(); i++)

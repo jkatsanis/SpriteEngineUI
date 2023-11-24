@@ -17,6 +17,9 @@ namespace spe
 	public:
 		Utility() = delete;
 
+		static std::string BoolToStr(bool b);
+		static void CreateFileWithContent(const std::string& content, const std::string& pathAndName);
+
 		bool Contains(const std::string& str, const std::vector<std::string>& arr);
 
 		static void SetCurrentDir(const std::string& path);

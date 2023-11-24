@@ -26,6 +26,7 @@ spe::Editor::Editor()
 spe::Editor::~Editor()
 {
 	this->m_Window.Shutdown();
+	this->m_SceneHandler.SpriteRepository.cleanUp();
 }
 
 // Private

@@ -28,6 +28,7 @@ namespace spe
 		float TotalTimePassed;
 		float TotalFramePassed;
 		bool Loop;
+		std::string PathToFile;
 
 		bool IsPlaying;
 

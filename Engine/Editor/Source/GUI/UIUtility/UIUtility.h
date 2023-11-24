@@ -47,5 +47,7 @@ namespace spe
 
 		static void SetEvent(spe::Event* evnt) { spe::UIUtility::s_m_ptr_Event = evnt; }
 		static void SetRenderWinodw(sf::RenderWindow* window) { spe::UIUtility::s_m_ptr_Window = window; }
+
+		static bool s_IsAnyHovered;
 	};
 }

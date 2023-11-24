@@ -1,4 +1,3 @@
 name;absulutePathStr;date;relativePath
-Kan;C:\Dev\C++\Kan;2023/24/11 07:01:31;..\..\Kan
-Hateteet;C:\Dev\C++\Hateteet;2023/24/11 09:39:05;..\..\Hateteet
+Han;C:\Dev\C++\Han;2023/24/11 21:08:04;..\..\Han
 

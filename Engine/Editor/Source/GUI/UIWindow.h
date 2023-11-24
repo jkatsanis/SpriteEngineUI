@@ -7,6 +7,7 @@
 #include "Property/UIHierarchy.h"
 #include "Core/SeceneHandler.h"
 #include "Property/Inspector/UIInspector.h"
+#include "Property/Animations/UIAnimation.h"
 
 namespace spe
 {
@@ -16,6 +17,7 @@ namespace spe
 		spe::UITopbar m_UITopbar;
 		spe::UIHierarchy m_UIHierarchy;
 		spe::UIInspector m_UIInspector;
+		spe::UIAnimation m_UIAnimation;
 
 	public:
 

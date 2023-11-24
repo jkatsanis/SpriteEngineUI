@@ -49,3 +49,24 @@ void spe::Savesystem::SaveProjects(const std::vector<spe::UserProjectInfo>& proj
 	}
 
 }
+
+
+void spe::Savesystem::CreateAnimationSaveFile(const spe::Sprite* ptr_sprite, const spe::Animation& animationToSave)
+{
+	std::string name = animationToSave.GetName();
+	std::string content =
+		animationToSave.GetName() + "\n" +
+		std::to_string(ptr_sprite->getId()) + "\n" +
+		spe::Utility::BoolToStr(animationToSave.Loop) + "\n";
+
+	const std::vector<spe::KeyFrame>& frames = animationToSave.GetkeyFrames();
+
+	for (const spe::KeyFrame& frame : frames)
+	{
+		content += std::to_string(frame.delay) + std::string(";") +
+			spe::Utility::getUserProjectPathSeperatetFromEnginePath(frame.path) + "\n";
+	}
+
+	std::string pathAndName = spe::EngineData::s_PathUserProject + "\\" + animationToSave.PathToFile;
+	spe::Utility::CreateFileWithContent(content, pathAndName);
+}

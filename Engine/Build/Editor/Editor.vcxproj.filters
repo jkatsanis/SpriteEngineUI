@@ -10,6 +10,9 @@
     <ClCompile Include="C:\Dev\C++\SpriteEngineUI\Engine\Editor\Source\GUI\ProjectSelector\UIProjectSelector.cpp">
       <Filter>Source\GUI\ProjectSelector</Filter>
     </ClCompile>
+    <ClCompile Include="C:\Dev\C++\SpriteEngineUI\Engine\Editor\Source\GUI\Property\Animations\UIAnimation.cpp">
+      <Filter>Source\GUI\Property\Animations</Filter>
+    </ClCompile>
     <ClCompile Include="C:\Dev\C++\SpriteEngineUI\Engine\Editor\Source\GUI\Property\Inspector\UIInspector.cpp">
       <Filter>Source\GUI\Property\Inspector</Filter>
     </ClCompile>
@@ -50,6 +53,9 @@
     </ClInclude>
     <ClInclude Include="C:\Dev\C++\SpriteEngineUI\Engine\Editor\Source\GUI\ProjectSelector\UIProjectSelector.h">
       <Filter>Source\GUI\ProjectSelector</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Dev\C++\SpriteEngineUI\Engine\Editor\Source\GUI\Property\Animations\UIAnimation.h">
+      <Filter>Source\GUI\Property\Animations</Filter>
     </ClInclude>
     <ClInclude Include="C:\Dev\C++\SpriteEngineUI\Engine\Editor\Source\GUI\Property\Inspector\UIInspector.h">
       <Filter>Source\GUI\Property\Inspector</Filter>
@@ -97,6 +103,9 @@
     </Filter>
     <Filter Include="Source\GUI\Property">
       <UniqueIdentifier>{B866707E-39A4-3462-9101-B538B848F43A}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\GUI\Property\Animations">
+      <UniqueIdentifier>{14FCA89E-E105-3D71-BCC8-F44EA18C5639}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source\GUI\Property\Inspector">
       <UniqueIdentifier>{A719A196-1689-3170-85CF-79F15ED103CA}</UniqueIdentifier>
