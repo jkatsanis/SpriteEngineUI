@@ -219,5 +219,5 @@ void spe::Style::RenderStyle()
 ImFont* spe::Style::s_DefaultFont = nullptr;
 ImFont* spe::Style::s_SymbolFont = nullptr;
 float spe::Style::s_FontSize = 20.0f;
-float spe::Style::s_DefaultFontSize = 0.8f;
+float spe::Style::s_DefaultFontSize = 0.9f;
 

@@ -328,7 +328,7 @@ void spe::UIHierarchy::drawbackgroundRectangle()
 
 	const ImVec2 temp = ImGui::GetCursorPos();
 	ImGui::SetCursorPosX(0);
-	ImGui::SetCursorPosY(ImGui::GetCursorPosY() + 73 - ImGui::GetScrollY());
+	ImGui::SetCursorPosY(ImGui::GetCursorPosY() + 80.5f - ImGui::GetScrollY());
 	spe::UIUtility::DrawRectangleInGUIWIndow(
 		ImVec2(this->m_window_size.x, 20), ImGui::GetCursorPos(), SPRITE_BACKGROUND_COLOR);
 	ImGui::SetCursorPos(temp);
@@ -353,7 +353,7 @@ void spe::UIHierarchy::drawUIRactangleWhenHovered(spe::Sprite* sprite)
 		const ImVec2 temp = ImGui::GetCursorPos();
 
 		ImGui::SetCursorPosX(0);
-		ImGui::SetCursorPosY(ImGui::GetCursorPosY() + 50);
+		ImGui::SetCursorPosY(ImGui::GetCursorPosY() + 55);
 		const ImVec2 cursor_pos = ImVec2(ImGui::GetCursorPosX(),
 			ImGui::GetCursorPosY() - ImGui::GetScrollY());
 		spe::UIUtility::DrawRectangleInGUIWIndow(ImVec2(this->m_window_size.x, 20),
