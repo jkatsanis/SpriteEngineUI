@@ -11,6 +11,9 @@ spe::GUIRepository::GUIRepository()
 
 	this->m_HighestLayer = 0;
 	this->m_HighestId = 0;
+
+	this->DragAndDropPath = " ";
+	this->DragAndDropName = " ";
 }
 
 // Public functions
