@@ -12,6 +12,7 @@
 #include "GUI/Color.h"
 #include "Savesystem.h"
 #include "Input/Input.h"
+#include "GUI/Property/Animations/UIAnimationEditor.h"
 
 #define WINDOW_SIZE_ANIMATION_CREATE ImVec2(500, 500)
 #define START_CNT_BG 1
@@ -22,7 +23,7 @@ namespace spe
 	{
 	private:
 		//Setting display to false and shit in its own class
-		// UIAnimationEditor m_UIAnimationEditor;
+		spe::UIAnimationEditor m_UIAnimationEditor;
 		std::string m_fileName;
 
 		spe::FileDialog m_animation_open_file_dialog;
@@ -36,7 +37,7 @@ namespace spe
 		void getFileNameInput();
 		void displayAnimations();
 		void addAnimationsToAnimator();
-		//void enterAnimation(spe::Animation& animation);
+		void enterAnimation(spe::Animation& animation);
 		void drawBackgroundBehinAnimation();
 		void renderAnimationUIOptions();
 

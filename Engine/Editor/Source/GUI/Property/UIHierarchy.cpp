@@ -346,6 +346,10 @@ void spe::UIHierarchy::setSpriteOnClick(spe::Sprite* sprite)
 
 void spe::UIHierarchy::drawUIRactangleWhenHovered(spe::Sprite* sprite)
 {
+	if (this->m_ptr_GUIRepo->AnimationData.IsOpen)
+	{
+		return;
+	}
 	if (ImGui::IsItemHovered(ImGuiHoveredFlags_AllowWhenOverlapped)
 		|| this->m_ptr_GUIRepo->sprited_hovered_in_hierarchy != nullptr
 		&& this->m_ptr_GUIRepo->sprited_hovered_in_hierarchy->getId() == sprite->getId())

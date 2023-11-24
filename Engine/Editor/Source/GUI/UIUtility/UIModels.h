@@ -3,11 +3,23 @@
 #include <ImGui/ImGUISFML.h>
 #include <SFML/Graphics.hpp>
 #include <iostream>
+#include <icons.h>
+
+#include "Components/Animator/KeyFrame.h"
+#include "Components/Animator/Animation.h"
+
+#include "Utility/Style.h"
 
 #define DEFAULT_FLAGS ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoScrollbar
 
 namespace spe
 {
+	struct KeyFrameSelected
+	{
+		int position;
+		const spe::KeyFrame* keyFrameSelected;
+		bool isClicked;
+	};
 	enum class EditorTools
 	{
 		None = -1,

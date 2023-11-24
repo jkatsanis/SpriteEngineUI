@@ -383,3 +383,8 @@ void spe::Initializer::IntiHighestSpriteID(spe::SpriteRepository& repo, const st
 
 	repo.SetHighestId(index);
 }
+
+void spe::Initializer::PostInitAnimation(spe::Sprite* sprite, const std::string& file_path, spe::SpriteRepository& repo)
+{
+	spe::Initializer::initAnimation(file_path, repo, sprite->getId());
+}

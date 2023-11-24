@@ -28,7 +28,6 @@ namespace spe
 		float TotalTimePassed;
 		float TotalFramePassed;
 		bool Loop;
-		std::string PathToFile;
 
 		bool IsPlaying;
 
@@ -53,6 +52,7 @@ namespace spe
 		float GetAnimationTime() const;
 		float GetTimeTillFrame(size_t Frame);
 		const std::string& GetName() const { return this->m_Name; }
+		const std::string GetPath() const { return this->m_PathToFile; }
 
 		/// <summary>
 		/// THIS METHOD DOES NOT SET THE KEYFRAME POSITION!!!

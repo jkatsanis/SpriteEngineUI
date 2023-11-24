@@ -10,6 +10,9 @@
 
 namespace spe
 {
+	/// <summary>
+	/// This class assumes your are in th engine dir
+	/// </summary>
 	class Savesystem
 	{
 	public:

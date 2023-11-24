@@ -11,6 +11,10 @@
 namespace spe
 {
 	class SceneHandler;
+
+	/// <summary>
+	/// This class assumes that the paths entered are from the user project
+	/// </summary>
 	class Initializer
 	{
 	public:
@@ -22,6 +26,8 @@ namespace spe
 		/// 
 	
 		// Sprite
+		static void PostInitAnimation(spe::Sprite* sprite, const std::string& file_path, spe::SpriteRepository& repo);
+
 		static void InitTags(spe::SpriteRepository& repo, const std::string& path);
 		static void InitScenes(spe::SceneHandler& handler, const std::string& path);
 		static void IntiHighestSpriteID(spe::SpriteRepository& repo, const std::string& path);

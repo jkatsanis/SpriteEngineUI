@@ -14,6 +14,8 @@ void spe::UIAnimation::Init()
 	this->m_background_counter = START_CNT_BG;
 
 	this->m_ptr_GUIRepo->AnimationData.IsOpen = false;
+
+	this->m_UIAnimationEditor.SetRepos(this->m_ptr_Repo, this->m_ptr_GUIRepo);
 }
 
 void spe::UIAnimation::Render()
@@ -23,11 +25,11 @@ void spe::UIAnimation::Render()
 		this->Hovered = false;
 		return;
 	}
-	//if (this->m_UIAnimationEditor.display)
-	//{
-	//	this->m_UIAnimationEditor.displayEditor();
-	//	this->Hovered = this->m_UIAnimationEditor.Hovered;
-	//}
+	if (this->m_UIAnimationEditor.display)
+	{
+		this->m_UIAnimationEditor.Render();
+		this->Hovered = this->m_UIAnimationEditor.Hovered;
+	}
 	else
 	{
 		this->m_background_counter = START_CNT_BG;
@@ -80,10 +82,18 @@ void spe::UIAnimation::getFileNameInput()
 
 	this->m_animation_open_file_dialog.update();
 
+	////////////////////
+	// Handling the open_file_dialog
 	if (this->m_animation_open_file_dialog.IsItemSelected())
 	{
 		spe::Sprite* sprite = this->m_ptr_GUIRepo->sprite_in_inspector;
-		// spe::Initializer::postInitAnimation(sprite, spe::UI::getUserProjectPathSeperatetFromEnginePath( this->m_animation_open_file_dialog.pathClicked ), *this->m_ptr_repo);
+
+		const std::string path = spe::Utility::GetCurrentDir();
+		// Loading the sprites from the user directory
+		spe::Utility::SetCurrentDir(spe::EngineData::s_PathUserProject);
+	    spe::Initializer::PostInitAnimation(sprite, spe::Utility::getUserProjectPathSeperatetFromEnginePath(this->m_animation_open_file_dialog.pathClicked ), *this->m_ptr_Repo);
+		spe::Utility::SetCurrentDir(path);
+
 		this->m_animation_open_file_dialog.disableWindow();
 	}
 
@@ -102,6 +112,8 @@ void spe::UIAnimation::getFileNameInput()
 
 	this->m_animation_create_file_dialog.update();
 	
+	////////////////////
+	// Handling the creat_file_dialog
 	if (this->m_animation_create_file_dialog.pathClicked == "")
 	{
 		return;
@@ -172,11 +184,11 @@ void spe::UIAnimation::displayAnimations()
 	}
 }
 
-//void spe::UIAnimation::enterAnimation(spe::Animation& animation)
-//{
-//	this->m_UIAnimationEditor.setAnim(&animation);
-//	this->m_UIAnimationEditor.displayEditor();
-//}
+void spe::UIAnimation::enterAnimation(spe::Animation& animation)
+{
+	this->m_UIAnimationEditor.setAnim(&animation);
+	this->m_UIAnimationEditor.Render();
+}
 
 void spe::UIAnimation::drawBackgroundBehinAnimation()
 {

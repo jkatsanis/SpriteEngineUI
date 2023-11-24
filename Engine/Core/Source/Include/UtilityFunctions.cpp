@@ -11,6 +11,11 @@ void spe::Utility::CreateFileWithContent(const std::string& content, const std::
 
     file.open(pathAndName, std::ios::out | std::ios::binary);
 
+    if (!file.is_open())
+    {
+        throw std::runtime_error("Couldn't open file to write to");
+    }
+
     file << content;
 
     file.close();

@@ -53,6 +53,10 @@ void spe::Savesystem::SaveProjects(const std::vector<spe::UserProjectInfo>& proj
 
 void spe::Savesystem::CreateAnimationSaveFile(const spe::Sprite* ptr_sprite, const spe::Animation& animationToSave)
 {
+	const std::string path = spe::Utility::GetCurrentDir();
+	// Loading the sprites from the user directory
+	spe::Utility::SetCurrentDir(spe::EngineData::s_PathUserProject);
+
 	std::string name = animationToSave.GetName();
 	std::string content =
 		animationToSave.GetName() + "\n" +
@@ -67,6 +71,8 @@ void spe::Savesystem::CreateAnimationSaveFile(const spe::Sprite* ptr_sprite, con
 			spe::Utility::getUserProjectPathSeperatetFromEnginePath(frame.path) + "\n";
 	}
 
-	std::string pathAndName = spe::EngineData::s_PathUserProject + "\\" + animationToSave.PathToFile;
+	std::string pathAndName = animationToSave.GetPath();
 	spe::Utility::CreateFileWithContent(content, pathAndName);
+
+	spe::Utility::SetCurrentDir(path); 
 }

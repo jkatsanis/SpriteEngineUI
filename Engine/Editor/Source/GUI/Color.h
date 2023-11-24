@@ -33,3 +33,4 @@
 #define COMPONENT_SELECTED_COLOR SPRITE_BACKGROUND_COLOR
 
 #pragma endregion
+
