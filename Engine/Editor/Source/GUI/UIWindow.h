@@ -6,6 +6,7 @@
 #include "GUIRepository.h"
 #include "Property/UIHierarchy.h"
 #include "Core/SeceneHandler.h"
+#include "Property/Inspector/UIInspector.h"
 
 namespace spe
 {
@@ -14,6 +15,7 @@ namespace spe
 	private:
 		spe::UITopbar m_UITopbar;
 		spe::UIHierarchy m_UIHierarchy;
+		spe::UIInspector m_UIInspector;
 
 	public:
 

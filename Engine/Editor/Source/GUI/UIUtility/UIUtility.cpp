@@ -1,8 +1,98 @@
 #include "UIUtility.h"
 
+// Private
+
+float spe::UIUtility::scaleChanger(spe::ScaleDott& dott, float default_size, float pos_o, bool x)
+{
+    if (spe::UIUtility::isCursorClickedOnRectangle(dott.ptr_scaling_rectangle->Shape))
+    {
+        dott.clicked = true;
+    }
+    if (dott.clicked && sf::Mouse::isButtonPressed(sf::Mouse::Left))
+    {
+        sf::Vector2f pos = (x)
+            ? sf::Vector2f(spe::UIUtility::getWorldCordinates().x, dott.ptr_scaling_rectangle->Shape.getPosition().y)
+            : sf::Vector2f(dott.ptr_scaling_rectangle->Shape.getPosition().x,spe::UIUtility::getWorldCordinates().y);
+
+        dott.ptr_scaling_rectangle->Shape.setPosition(pos);
+        float scale = INVALID_SCALE;
+        if (x)
+        {
+            pos.x -= 960;
+            scale = (pos.x - pos_o) / (default_size / 2);
+        }
+        else
+        {
+            pos.y -= 540;
+            scale = (pos.y + pos_o) / (default_size / 2);
+        }
+        return scale;
+    }
+    return INVALID_SCALE;
+}
+
+// Public
+
 void spe::UIUtility::UpdateCursor()
 {
     spe::UIUtility::GUICursor = spe::Vector2(ImGui::GetMousePos().x, ImGui::GetMousePos().y);
+}
+
+float spe::UIUtility::xScaleChanger(spe::ScaleDott& dott, float default_size, float pos_x)
+{
+    return spe::UIUtility::scaleChanger(dott, default_size, pos_x, true);
+}
+
+float spe::UIUtility::yScaleChanger(spe::ScaleDott& dott, float default_size, float pos_y)
+{
+    return spe::UIUtility::scaleChanger(dott, default_size, pos_y, false);
+}
+
+bool spe::UIUtility::isCursorClickedOnSprite(const spe::Sprite* check)
+{
+    throw std::runtime_error("ndf,klg");
+}
+
+spe::Vector2 spe::UIUtility::getWorldCordinates()
+{
+    const sf::Vector2i cursorPos = sf::Mouse::getPosition(*spe::UIUtility::s_m_ptr_Window);
+    const sf::Vector2f cursorWorldPos = spe::UIUtility::s_m_ptr_Window->mapPixelToCoords(cursorPos);
+
+    return spe::Vector2(cursorWorldPos.x, cursorWorldPos.y);
+}
+
+void spe::UIUtility::setCursorToWorldCoordinates(const spe::Vector2& vec)
+{
+    throw std::runtime_error("ndf,klg");
+}
+
+bool spe::UIUtility::isCursorClickedOnRectangle(const sf::RectangleShape& shape)
+{
+    if (spe::Event::MousePressedLeft != spe::UIUtility::s_m_ptr_Event->type)
+    {
+        return false;
+    }
+    sf::Vector2i cursorPos = sf::Mouse::getPosition(*spe::UIUtility::s_m_ptr_Window);
+    spe::UIUtility::WorldCursor = spe::UIUtility::s_m_ptr_Window->mapPixelToCoords(cursorPos);
+
+    float getPosX = shape.getPosition().x;
+    float getPosY = shape.getPosition().y;
+
+    float getTextureSizeX = shape.getSize().x;
+    float getTextureSizeY = shape.getSize().y;
+
+    float otherGetPosX = spe::UIUtility::WorldCursor.x;
+    float otherGetPosY = spe::UIUtility::WorldCursor.y;
+
+    bool collided = (getPosX + getTextureSizeX >= otherGetPosX
+        && getPosX <= otherGetPosX + CURSOR_HITBOX
+        && getPosY + getTextureSizeY >= otherGetPosY
+        && getPosY <= otherGetPosY + CURSOR_HITBOX);
+
+    if (collided)
+        spe::UIUtility::s_m_ptr_Event->type = spe::Event::None;
+
+    return collided;
 }
 
 void spe::UIUtility::SetWindowScreenMiddle(const ImVec2& ref)
@@ -84,3 +174,6 @@ bool spe::UIUtility::HandleCloseAndReloadWindow(spe::UIWindowData& data, bool& h
 // Static init
 
 spe::Vector2 spe::UIUtility::GUICursor = spe::Vector2(0, 0);
+sf::Vector2f spe::UIUtility::WorldCursor = sf::Vector2f(0, 0);
+spe::Event* spe::UIUtility::s_m_ptr_Event = nullptr;
+sf::RenderWindow* spe::UIUtility::s_m_ptr_Window = nullptr;

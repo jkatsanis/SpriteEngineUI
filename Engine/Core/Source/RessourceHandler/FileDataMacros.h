@@ -14,6 +14,9 @@
 #define PATH_TO_SAVE_FOLDER "Engine\\Saves"
 #define PATH_TO_SCENE_FOLDER "Engine\\Saves\\" + spe::EngineData::s_Scene
 
+
+#define PATH_TO_TRANSPARENT_PIC "Editor\\Ressources\\Sprites\\transparent.png"
+
 //////////
 /// SPRITE
 #define PATH_TO_SPRITES PATH_TO_SCENE_FOLDER + "\\sprites.txt"

@@ -8,6 +8,7 @@
 #include "Core/Repository.h"
 #include "UIUtility/UIModels.h"
 #include "UIUtility/UIModels.h"
+#include "Core/Event.h"
 
 namespace spe
 {
@@ -21,6 +22,7 @@ namespace spe
 		spe::UIWindowData HierarchyData;
 		spe::UIWindowData InspectorData;
 		spe::UIWindowData AssetFolderData;
+		spe::UIWindowData AnimationData;
 
 		spe::EditorTools Tools;
 
@@ -31,6 +33,8 @@ namespace spe
 		spe::Sprite* right_clicked_sprite;
 		spe::Sprite* sprite_in_inspector;
 		spe::Sprite* sprited_hovered_in_hierarchy;
+
+		spe::Event* ptr_Event;
 
 		spe::Vector3 background_color;
 		spe::Camera Camera;
@@ -46,6 +50,7 @@ namespace spe
 		uint32_t GetAmount() const override { return (uint32_t)this->m_Rectangles.size(); }
 		void Add(spe::Rectangle* rec) override;
 		void UpdateLayerIndex() override;
+		void SetEventPointer(spe::Event* ptr) { this->ptr_Event = ptr; }
 	};
 }
 

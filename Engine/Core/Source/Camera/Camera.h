@@ -19,7 +19,7 @@ namespace spe
 		spe::Vector2 getDefaultPosition();
 
 	public:
-		spe::Transform Transform;
+		spe::Vector2 Position;
 		sf::View camera_view;
 		float camera_speed;
 

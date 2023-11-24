@@ -54,13 +54,17 @@ void spe::Transform::UpdateSpritePositionToParent(const spe::Vector2& position)
 
 void spe::Transform::SetPosition(const spe::Vector2& position)
 {
+	if (this->m_Position == position)
+	{
+		this->position_changed = false;
+	}
 	this->UpdateSpritePositionToParent(position);
 	this->m_Position = position;
 	this->position_changed = true;
 
 	if (this->m_attached_sprite != nullptr)
 	{
-		this->m_attached_sprite->getSprite().setPosition(sf::Vector2f(position.x + 960, position.y + 540));
+		this->m_attached_sprite->getSprite().setPosition(sf::Vector2f(position.x + 960, 540 - position.y));
 	}
 }
 

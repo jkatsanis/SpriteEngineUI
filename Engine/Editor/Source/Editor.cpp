@@ -17,7 +17,10 @@ spe::Editor::Editor()
 	spe::Style::Init();
 	spe::Style::RenderStyle();
 
+	spe::UIUtility::SetEvent(&this->m_Window.Event);
+	spe::UIUtility::SetRenderWinodw(this->m_Window.GetRenderWindow());
 	spe::Input::setEvent(&this->m_Window.Event);
+	this->m_GUIRepository.SetEventPointer(&this->m_Window.Event);
 }
 
 spe::Editor::~Editor()
@@ -71,33 +74,16 @@ void spe::Editor::UpdateComponents()
 
 		this->m_Window.Draw(sprite);
 	}
-	const float moveSpeed = 500.0f;
 
-	if (spe::Input::onKeyHold(spe::KeyBoardCode::W))
-	{
-		spe::Vector2 pos = this->m_GUIRepository.Camera.Transform.GetPosition();
-		this->m_GUIRepository.Camera.Transform.SetPosition(spe::Vector2(0, 0));
-	}
+	this->m_GUIRepository.Render(this->m_Window.GetRenderWindow());
+	
+	const float moveSpeed = 500.0f;
 
 	// Check if the 'A' key is held
 	if (spe::Input::onKeyHold(spe::KeyBoardCode::A))
 	{
-		spe::Vector2 pos = this->m_GUIRepository.Camera.Transform.GetPosition();
-		this->m_GUIRepository.Camera.Transform.SetPosition(spe::Vector2(pos.x - moveSpeed * spe::Time::s_delta_time, pos.y));
-	}
-
-	// Check if the 'S' key is held
-	if (spe::Input::onKeyHold(spe::KeyBoardCode::S))
-	{
-		spe::Vector2 pos = this->m_GUIRepository.Camera.Transform.GetPosition();
-		this->m_GUIRepository.Camera.Transform.SetPosition(spe::Vector2(pos.x, pos.y - moveSpeed * spe::Time::s_delta_time));
-	}
-
-	// Check if the 'D' key is held
-	if (spe::Input::onKeyHold(spe::KeyBoardCode::D))
-	{
-		spe::Vector2 pos = this->m_GUIRepository.Camera.Transform.GetPosition();
-		this->m_GUIRepository.Camera.Transform.SetPosition(spe::Vector2(pos.x + moveSpeed * spe::Time::s_delta_time, pos.y));
+		spe::Vector2 pos = this->m_GUIRepository.Camera.Position;
+		this->m_GUIRepository.Camera.Position = spe::Vector2(pos.x - moveSpeed * spe::Time::s_delta_time, pos.y);
 	}
 
 	this->m_Window.Display();

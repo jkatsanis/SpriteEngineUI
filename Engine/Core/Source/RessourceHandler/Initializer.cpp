@@ -256,7 +256,7 @@ void spe::Initializer::InitCamera(spe::Camera& camera, const std::string& path)
 			//INITIIALIZING PROPS
 			const spe::Vector2 position(std::stof(propertys[0].c_str()), std::stof(propertys[1].c_str()));
 		
-			camera.Transform.SetPosition(position);
+			camera.Position = position;
 			camera.setZoom(std::stof(propertys[2].c_str()));
 			camera.camera_speed = std::stof(propertys[3].c_str());
 		}

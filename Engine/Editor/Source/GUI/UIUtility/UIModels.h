@@ -1,5 +1,6 @@
 #pragma once
 
+#include <ImGui/ImGUISFML.h>
 #include <SFML/Graphics.hpp>
 #include <iostream>
 
@@ -36,7 +37,8 @@ namespace spe
 			this->icon = "";
 		}
 	};
-	struct UIWindowData {
+	struct UIWindowData 
+	{
 		bool Reload;
 		bool IsOpen;
 		ImVec2* ptr_Size;
@@ -64,13 +66,22 @@ namespace spe
 		sf::Texture Texture;
 		bool Render;
 
-		Rectangle(const std::string& path_to_texture)
+		Rectangle(const sf::Vector2f& pos,
+			const sf::Vector2f& size, const sf::Color& outline_color,
+			float outline_thickness, const std::string& path_to_texture, const std::string& name)
 		{
 			this->SortingLayerIdx = 0;
 			this->Render = true;
 			this->ID = 0;
+			this->Name = name;
+
 			this->Texture.loadFromFile(path_to_texture);
+
 			this->Shape.setTexture(&this->Texture);
+			this->Shape.setPosition(pos);
+			this->Shape.setSize(size);
+			this->Shape.setOutlineColor(outline_color);
+			this->Shape.setOutlineThickness(outline_thickness);
 		}
 	};
 
@@ -95,5 +106,10 @@ namespace spe
 			this->relativePath = relativePath;
 
 		}
+	};
+	struct ScaleDott
+	{
+		spe::Rectangle* ptr_scaling_rectangle;
+		bool clicked;
 	};
 }

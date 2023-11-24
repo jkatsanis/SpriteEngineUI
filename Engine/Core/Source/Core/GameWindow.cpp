@@ -62,6 +62,22 @@ void spe::GameWindow::PollEvents()
 				EventChanged = true;
 				Event.type = spe::Event::KeyPressed;
 			}
+			else if (this->WindowEvent.type == sf::Event::MouseButtonPressed)
+			{
+				if (this->WindowEvent.mouseButton.button == sf::Mouse::Left)
+				{
+					Event.type = spe::Event::MousePressedLeft;
+					EventChanged = true;
+				}
+			}
+			else if (this->WindowEvent.type == sf::Event::MouseButtonReleased)
+			{
+				if (this->WindowEvent.mouseButton.button == sf::Mouse::Left)
+				{
+					Event.type = spe::Event::MouseReleasedLeft;
+					EventChanged = true;
+				}
+			}
 			else
 			{
 				EventChanged = true;

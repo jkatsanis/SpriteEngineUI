@@ -6,7 +6,7 @@ spe::Camera::Camera()
 { 
 	this->m_ptr_sprite_repo = nullptr;
 	this->ptr_Window = nullptr;
-	this->Transform.SetPosition(spe::Vector2(0, 0));
+	this->Position = spe::Vector2(0, 0);
 	this->m_camera_zoom = 1.0f;
 	this->camera_speed = 2000.0f;
 	this->m_zoom_changed = false;
@@ -18,7 +18,7 @@ spe::Camera::Camera(sf::RenderWindow* ptr, spe::SpriteRepository& repo)
 
 	this->m_ptr_sprite_repo = &repo;
 	this->m_camera_zoom = 1.0f;
-	this->Transform.SetPosition(spe::Vector2(0, 0));
+	this->Position = spe::Vector2(0, 0);
 	this->ptr_Window = ptr;
 	this->camera_view = sf::View(sf::Vector2f(defaultPos.x, defaultPos.y), sf::Vector2f(1920, 1080));
 }
@@ -36,7 +36,7 @@ void spe::Camera::setZoom(float zoom)
 
 void spe::Camera::reset()
 {
-	this->Transform.SetPosition(spe::Vector2(0, 0));
+	this->Position = spe::Vector2(0, 0);
 	this->m_camera_zoom = 1.0f;
 }
 
@@ -46,8 +46,8 @@ void spe::Camera::Update()
 
 	spe::Vector2 defaultPos = this->getDefaultPosition();
 
-	defaultPos.x += Transform.GetPosition().x;
-	defaultPos.y += Transform.GetPosition().y;
+	defaultPos.x += this->Position.x;
+	defaultPos.y += this->Position.y;
 
 	this->camera_view.setCenter(sf::Vector2f(defaultPos.x, defaultPos.y));
 

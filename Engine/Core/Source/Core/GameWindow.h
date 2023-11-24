@@ -37,6 +37,8 @@ namespace spe
 		void Clear();
 		void Shutdown();
 
+		sf::RenderWindow* GetRenderWindow() { return this->m_ptr_Window; }
+
 		void SetCamera(spe::Camera* camera) { this->m_Camera = camera; }
 		void SetBackgroundColor(spe::Vector3* bck) { this->m_BackgroundColor = bck; }
 	};
