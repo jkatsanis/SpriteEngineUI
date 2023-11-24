@@ -188,7 +188,7 @@ void spe::UITopbar::renderSceneAddPopup()
 
 		ImGui::PopStyleVar();
 
-		spe::UIUtility::SameLine;
+		spe::UIUtility::SameLine(0);
 
 		if (spe::Style::DisplaySmybolAsButton(ICON_FA_ARROW_RIGHT))
 		{
@@ -334,35 +334,16 @@ void spe::UITopbar::hotkeys()
 void spe::UITopbar::build()
 {
 	// TODO REwrite with CMAke
-	/*spe::Savesystem::SaveEverything(*this->m_ptr_Repo, *this->m_ptr_GUIRepo, *this->m_ptr_SceneHandler);
+	const std::string engine = spe::Utility::GetCurrentDir();
 
-	const std::string PATH = spe::EngineData::s_path_to_user_project + "\\" + spe::EngineData::s_name_of_user_project;
-	const std::filesystem::path TARGET_PATH = spe::EngineData::s_path_to_user_project + "\\" + spe::EngineData::s_name_of_user_project;
-	const std::filesystem::path FILES_IN_FOLDER[FILE_AMOUNT] =
-	{
-		PATH_TO_USER_DEBUG_FOLDER"Assets.exe",
-		PATH_TO_USER_DEBUG_FOLDER"sfml-audio-d-2.dll",
-		PATH_TO_USER_DEBUG_FOLDER"sfml-graphics-d-2.dll",
-		PATH_TO_USER_DEBUG_FOLDER"sfml-network-d-2.dll",
-		PATH_TO_USER_DEBUG_FOLDER"sfml-system-d-2.dll",
-		PATH_TO_USER_DEBUG_FOLDER"sfml-window-d-2.dll",
-	};
+	const std::string path = spe::EngineData::s_PathUserProject + "\\Build";
 
-	spe::flc::removeDir(PATH);
-	std::filesystem::create_directories(TARGET_PATH);
+	spe::Utility::SetCurrentDir(path);
+	
+	system("cmake --build . --config Release");
+	system("cmake --build . --config Debug");
 
-	for (int i = 0; i < FILE_AMOUNT; i++)
-	{
-		const auto fileTarget = TARGET_PATH / FILES_IN_FOLDER[i].filename();
-
-		if (std::filesystem::is_regular_file(FILES_IN_FOLDER[i]))
-		{
-			std::filesystem::copy_file(FILES_IN_FOLDER[i], fileTarget, std::filesystem::copy_options::overwrite_existing);
-		}
-	}
-
-	spe::flc::copyDir(spe::EngineData::s_path_to_user_project + "\\assets", PATH, "\\assets", { "\\src\\", ".cpp", ".h" });
-	spe::flc::copyDir(spe::EngineData::s_path_to_user_project + "\\engine", PATH, "\\engine", { "\\src\\", ".cpp", ".h" });*/
+	spe::Utility::SetCurrentDir(engine);
 }
 
 void spe::UITopbar::createScene()

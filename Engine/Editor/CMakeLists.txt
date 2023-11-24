@@ -13,6 +13,8 @@ add_executable(${EDITOR_NAME} ${EDITOR_SOURCE_FILES})
 
 include_directories($(CMAKE_CURRENT_SOURCE_DIR)/Source)
 
+message(${PATH_LIBRARIES})
+
 # Link libraries
 target_link_libraries(${EDITOR_NAME} PRIVATE
     opengl32.lib
@@ -22,9 +24,10 @@ target_link_libraries(${EDITOR_NAME} PRIVATE
     $<$<CONFIG:Debug>:${PATH_LIBRARIES}/sfml-network-d.lib>
     $<$<CONFIG:Debug>:${PATH_LIBRARIES}/sfml-system-d.lib>
     $<$<CONFIG:Debug>:${PATH_LIBRARIES}/sfml-window-d.lib>
+
     $<$<CONFIG:Release>:${PATH_LIBRARIES}/sfml-audio.lib>
-    $<$<CONFIG:Release>:${PATH_LIBRARIES}/$sfml-graphics.lib>
-    $<$<CONFIG:Release>:${PATH_LIBRARIES}/$sfml-network.lib>
+    $<$<CONFIG:Release>:${PATH_LIBRARIES}/sfml-graphics.lib>
+    $<$<CONFIG:Release>:${PATH_LIBRARIES}/sfml-network.lib>
     $<$<CONFIG:Release>:${PATH_LIBRARIES}/sfml-system.lib>
     $<$<CONFIG:Release>:${PATH_LIBRARIES}/sfml-window.lib>
 )

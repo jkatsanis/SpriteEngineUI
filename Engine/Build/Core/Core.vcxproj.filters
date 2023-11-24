@@ -23,22 +23,22 @@
       <Filter>Source\Core</Filter>
     </ClCompile>
     <ClCompile Include="C:\Dev\C++\SpriteEngineUI\Engine\Core\Source\Include\ImGui\imgui-SFML.cpp">
-      <Filter>Source\Core\Include\ImGui</Filter>
+      <Filter>Source\Include\ImGui</Filter>
     </ClCompile>
     <ClCompile Include="C:\Dev\C++\SpriteEngineUI\Engine\Core\Source\Include\ImGui\imgui.cpp">
-      <Filter>Source\Core\Include\ImGui</Filter>
+      <Filter>Source\Include\ImGui</Filter>
     </ClCompile>
     <ClCompile Include="C:\Dev\C++\SpriteEngineUI\Engine\Core\Source\Include\ImGui\imgui_draw.cpp">
-      <Filter>Source\Core\Include\ImGui</Filter>
+      <Filter>Source\Include\ImGui</Filter>
     </ClCompile>
     <ClCompile Include="C:\Dev\C++\SpriteEngineUI\Engine\Core\Source\Include\ImGui\imgui_tables.cpp">
-      <Filter>Source\Core\Include\ImGui</Filter>
+      <Filter>Source\Include\ImGui</Filter>
     </ClCompile>
     <ClCompile Include="C:\Dev\C++\SpriteEngineUI\Engine\Core\Source\Include\ImGui\imgui_widgets.cpp">
-      <Filter>Source\Core\Include\ImGui</Filter>
+      <Filter>Source\Include\ImGui</Filter>
     </ClCompile>
     <ClCompile Include="C:\Dev\C++\SpriteEngineUI\Engine\Core\Source\Include\UtilityFunctions.cpp">
-      <Filter>Source\Core\Include</Filter>
+      <Filter>Source\Include</Filter>
     </ClCompile>
     <ClCompile Include="C:\Dev\C++\SpriteEngineUI\Engine\Core\Source\Input\Input.cpp">
       <Filter>Source\Input</Filter>
@@ -124,43 +124,43 @@
       <Filter>Source\Core</Filter>
     </ClInclude>
     <ClInclude Include="C:\Dev\C++\SpriteEngineUI\Engine\Core\Source\Include\ImGui\ImGUISFML.h">
-      <Filter>Source\Core\Include\ImGui</Filter>
+      <Filter>Source\Include\ImGui</Filter>
     </ClInclude>
     <ClInclude Include="C:\Dev\C++\SpriteEngineUI\Engine\Core\Source\Include\ImGui\imconfig-SFML.h">
-      <Filter>Source\Core\Include\ImGui</Filter>
+      <Filter>Source\Include\ImGui</Filter>
     </ClInclude>
     <ClInclude Include="C:\Dev\C++\SpriteEngineUI\Engine\Core\Source\Include\ImGui\imconfig.h">
-      <Filter>Source\Core\Include\ImGui</Filter>
+      <Filter>Source\Include\ImGui</Filter>
     </ClInclude>
     <ClInclude Include="C:\Dev\C++\SpriteEngineUI\Engine\Core\Source\Include\ImGui\imgui-SFML.h">
-      <Filter>Source\Core\Include\ImGui</Filter>
+      <Filter>Source\Include\ImGui</Filter>
     </ClInclude>
     <ClInclude Include="C:\Dev\C++\SpriteEngineUI\Engine\Core\Source\Include\ImGui\imgui-SFML_export.h">
-      <Filter>Source\Core\Include\ImGui</Filter>
+      <Filter>Source\Include\ImGui</Filter>
     </ClInclude>
     <ClInclude Include="C:\Dev\C++\SpriteEngineUI\Engine\Core\Source\Include\ImGui\imgui.h">
-      <Filter>Source\Core\Include\ImGui</Filter>
+      <Filter>Source\Include\ImGui</Filter>
     </ClInclude>
     <ClInclude Include="C:\Dev\C++\SpriteEngineUI\Engine\Core\Source\Include\ImGui\imgui_internal.h">
-      <Filter>Source\Core\Include\ImGui</Filter>
+      <Filter>Source\Include\ImGui</Filter>
     </ClInclude>
     <ClInclude Include="C:\Dev\C++\SpriteEngineUI\Engine\Core\Source\Include\ImGui\imstb_rectpack.h">
-      <Filter>Source\Core\Include\ImGui</Filter>
+      <Filter>Source\Include\ImGui</Filter>
     </ClInclude>
     <ClInclude Include="C:\Dev\C++\SpriteEngineUI\Engine\Core\Source\Include\ImGui\imstb_textedit.h">
-      <Filter>Source\Core\Include\ImGui</Filter>
+      <Filter>Source\Include\ImGui</Filter>
     </ClInclude>
     <ClInclude Include="C:\Dev\C++\SpriteEngineUI\Engine\Core\Source\Include\ImGui\imstb_truetype.h">
-      <Filter>Source\Core\Include\ImGui</Filter>
+      <Filter>Source\Include\ImGui</Filter>
     </ClInclude>
     <ClInclude Include="C:\Dev\C++\SpriteEngineUI\Engine\Core\Source\Include\UtilityFunctions.h">
-      <Filter>Source\Core\Include</Filter>
+      <Filter>Source\Include</Filter>
     </ClInclude>
     <ClInclude Include="C:\Dev\C++\SpriteEngineUI\Engine\Core\Source\Include\dirent.h">
-      <Filter>Source\Core\Include</Filter>
+      <Filter>Source\Include</Filter>
     </ClInclude>
     <ClInclude Include="C:\Dev\C++\SpriteEngineUI\Engine\Core\Source\Include\icons.h">
-      <Filter>Source\Core\Include</Filter>
+      <Filter>Source\Include</Filter>
     </ClInclude>
     <ClInclude Include="C:\Dev\C++\SpriteEngineUI\Engine\Core\Source\Input\Input.h">
       <Filter>Source\Input</Filter>
@@ -242,6 +242,12 @@
     <Filter Include="Source\Core">
       <UniqueIdentifier>{DC0D35D0-ADB5-3A80-8522-DB85D5553364}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Include">
+      <UniqueIdentifier>{59C4FB90-5C41-3409-9207-042AF0CFFC9B}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Include\ImGui">
+      <UniqueIdentifier>{573F9EC9-9CD8-30DF-867F-FCCC1BD067B4}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Source\Input">
       <UniqueIdentifier>{2B2D165F-7B29-3772-AE7B-39C0252A56FE}</UniqueIdentifier>
     </Filter>
@@ -268,12 +274,6 @@
     </Filter>
     <Filter Include="Source\Utility">
       <UniqueIdentifier>{2152F5FA-BC43-3F7D-BC93-FAEAB1981F25}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\Core\Include">
-      <UniqueIdentifier>{59C4FB90-5C41-3409-9207-042AF0CFFC9B}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\Core\Include\ImGui">
-      <UniqueIdentifier>{573F9EC9-9CD8-30DF-867F-FCCC1BD067B4}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

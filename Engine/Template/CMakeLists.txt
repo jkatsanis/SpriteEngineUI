@@ -20,7 +20,9 @@ file(TO_CMAKE_PATH "${FILE_CONTENT}" FILE_CONTENT)
 string(STRIP "${FILE_CONTENT}" FILE_CONTENT)
 set(PATH_LIBRARIES "${FILE_CONTENT}/Core/Source/Include/LIB")
 
-message("File content: ${FILE_CONTENT}")
+
+set(CORE_LIBRAY_DEBUG "${FILE_CONTENT}/Build/Core/Debug/Core.lib")
+set(CORE_LIBRAY_RELEASE "${FILE_CONTENT}/Build/Core/Release/Core.lib")
 
 
 set(ADDITIONAL_INCLUDE_PATHS
@@ -41,18 +43,18 @@ include_directories(${FULL_PATHS})
 # Link libs
 target_link_libraries(${PROJECT_FOLDER} PRIVATE
     opengl32.lib
-    $<$<CONFIG:Debug>:C:/Dev/C++/SpriteEngineUI/Engine/Build/Core/Debug/Core.lib>
+    $<$<CONFIG:Debug>:${CORE_LIBRAY_DEBUG}>
+    $<$<CONFIG:Release>:${CORE_LIBRAY_RELEASE}>
 
     $<$<CONFIG:Debug>:${PATH_LIBRARIES}/sfml-audio-d.lib>
     $<$<CONFIG:Debug>:${PATH_LIBRARIES}/sfml-graphics-d.lib>
     $<$<CONFIG:Debug>:${PATH_LIBRARIES}/sfml-network-d.lib>
     $<$<CONFIG:Debug>:${PATH_LIBRARIES}/sfml-system-d.lib>
     $<$<CONFIG:Debug>:${PATH_LIBRARIES}/sfml-window-d.lib>
+    
     $<$<CONFIG:Release>:${PATH_LIBRARIES}/sfml-audio.lib>
     $<$<CONFIG:Release>:${PATH_LIBRARIES}/sfml-graphics.lib>
     $<$<CONFIG:Release>:${PATH_LIBRARIES}/sfml-network.lib>
     $<$<CONFIG:Release>:${PATH_LIBRARIES}/sfml-system.lib>
     $<$<CONFIG:Release>:${PATH_LIBRARIES}/sfml-window.lib>
 )
-
-
