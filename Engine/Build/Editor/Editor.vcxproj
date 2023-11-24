@@ -324,6 +324,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClInclude Include="C:\Dev\C++\SpriteEngineUI\Engine\Editor\Source\GUI\GUIRepository.h" />
     <ClCompile Include="C:\Dev\C++\SpriteEngineUI\Engine\Editor\Source\GUI\ProjectSelector\UIProjectSelector.cpp" />
     <ClInclude Include="C:\Dev\C++\SpriteEngineUI\Engine\Editor\Source\GUI\ProjectSelector\UIProjectSelector.h" />
+    <ClInclude Include="C:\Dev\C++\SpriteEngineUI\Engine\Editor\Source\GUI\Property\IUIBase.h" />
     <ClInclude Include="C:\Dev\C++\SpriteEngineUI\Engine\Editor\Source\GUI\Property\UIBase.h" />
     <ClCompile Include="C:\Dev\C++\SpriteEngineUI\Engine\Editor\Source\GUI\Property\UIHierarchy.cpp" />
     <ClInclude Include="C:\Dev\C++\SpriteEngineUI\Engine\Editor\Source\GUI\Property\UIHierarchy.h" />
