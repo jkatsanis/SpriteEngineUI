@@ -8,6 +8,7 @@
 #include "GUI/GUIRepository.h"
 #include "GUI/UIUtility/UIUtility.h"
 #include "Utility/Style.h"
+#include "GUI/UIUtility/UIModels.h"
 #include "Include/icons.h"
 
 #define SPRITE_SELECTED_COLOR ImVec4(139.0f / 255.0f, 180.0f / 255.0f, 234.0f / 255.0f,1.0f)
@@ -33,8 +34,8 @@ namespace spe
 	class UIHierarchy : public spe::IUIBase
 	{
 	private:
+		spe::ResizeWindowData m_resize_window_data;
 		bool m_wait_one_frame;
-		ImVec2 m_window_size;
 		ImGuiTextFilter m_search_sprite_filter;
 		uint8_t m_sprite_background_color_cnt;
 		bool m_found_hovering;
@@ -77,12 +78,11 @@ namespace spe
 
 		void copySprite();
 
+		/// <summary>
+		/// Gets called from base class
+		/// </summary>
 		void Init() override;
 	public:
-		bool is_hovered;
-
-		UIHierarchy();
-		UIHierarchy(spe::SpriteRepository& repo);
 		void Render() override;
 	};
 }

@@ -5,6 +5,19 @@
 
 namespace spe
 {
+	struct UIWindowData {
+		bool Reload;
+		bool IsOpen;
+		ImVec2* ptr_Size;
+
+		UIWindowData() : ptr_Size(nullptr) { }
+		UIWindowData(bool reload, bool open, ImVec2* size) : Reload(reload), IsOpen(open), ptr_Size(size) { }
+	};
+	struct ResizeWindowData
+	{
+		float additinal_add;
+		bool clicked_on_resize_button;
+	};
 	struct Rectangle
 	{
 		uint32_t SortingLayerIdx;

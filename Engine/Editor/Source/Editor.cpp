@@ -12,7 +12,7 @@ spe::Editor::Editor()
 	this->m_Window.SetCamera(&this->m_GUIRepository.Camera);
 	this->m_Window.SetBackgroundColor(&this->m_GUIRepository.background_color);
 
-	this->m_UIWindow.SetRepos(this->m_GUIRepository, this->m_SceneHandler.SpriteRepository);
+	this->m_UIWindow.SetRepos(this->m_GUIRepository, this->m_SceneHandler.SpriteRepository, this->m_SceneHandler);
 
 	spe::Style::Init();
 	spe::Style::RenderStyle();

@@ -17,9 +17,9 @@ namespace spe
 		std::vector <spe::Rectangle*> m_Rectangles;
 
 	public:
-		const ImVec2* ptr_AssetWindowSize;
-		const ImVec2* ptr_InspectorWindowSize;
-		const ImVec2* ptr_HierarchyWindowSize;
+		spe::UIWindowData HierarchyData;
+		spe::UIWindowData InspectorData;
+		spe::UIWindowData AssetFolderData;
 
 		std::string DragAndDropPath;
 		std::string DragAndDropName;

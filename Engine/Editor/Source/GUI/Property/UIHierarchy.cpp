@@ -2,19 +2,16 @@
 
 //Constructor
 
-spe::UIHierarchy::UIHierarchy()
-{
-	this->Init();
-}
-
 void spe::UIHierarchy::Init()
 {
 	this->m_child_select_timer = 0.0f;
 	this->m_found_hovering = false;
 	this->m_wait_one_frame = false;
-	this->is_hovered = false;
-	this->m_window_size = HIERARCHY_DEFAULT_WINDOW_SIZE;
+	this->Hovered = false;
+	this->m_Size = HIERARCHY_DEFAULT_WINDOW_SIZE;
 	this->m_sprite_background_color_cnt = 1;
+
+	this->m_ptr_GUIRepo->HierarchyData.ptr_Size = &this->m_Size;
 }
 
 //Public functions
@@ -23,14 +20,12 @@ void spe::UIHierarchy::Render()
 {
 	// Set window size if asset folder does not render
 
-	//if (spe::UIUtility::HandleCloseAndReloadWindow(
-	//	spe::UIInfo::s_is_hierarchy_open.is_open, spe::UIInfo::s_is_hierarchy_open.reload,
-	//	this->is_hovered,
-	//	this->m_window_size, HIERARCHY_DEFAULT_WINDOW_SIZE))
-	//{
-	//	return;
-	//}
-
+	if (spe::UIUtility::HandleCloseAndReloadWindow(this->m_ptr_GUIRepo->HierarchyData, this->Hovered, HIERARCHY_DEFAULT_WINDOW_SIZE))
+	{
+		return;
+	}
+	
+	ImGui::SetNextWindowPos(ImVec2(0, 60));
 	ImGui::Begin("##ui-hierarchy", NULL,
 		ImGuiWindowFlags_NoResize
 		| ImGuiWindowFlags_NoCollapse
@@ -49,23 +44,26 @@ void spe::UIHierarchy::Render()
 
 	this->renderCloseRectangle();
 	this->renderHierarchyOptions();
-	ImGui::Dummy(ImVec2(0, 10));
 	bool anyHovered = this->displaySprites();
+	this->displayContextPopup();
+	this->displayChildToParent();
+	this->setSpriteAsChild();
+	this->addPrefab();
 
 
 	// Cleaning up
 	this->cleanRepoSpritesUp(anyHovered);
 
-	this->is_hovered = spe::UIUtility::IsHovered(ImGui::GetWindowPos(), this->m_window_size);
+	this->Hovered = spe::UIUtility::IsHovered(ImGui::GetWindowPos(), this->m_Size);
 
-	ImGui::SetWindowSize(this->m_window_size);
+	ImGui::SetWindowSize(this->m_Size);
 	ImGui::SetWindowFontScale(spe::Style::s_DefaultFontSize);
 	ImGui::End();
 }
 
 void spe::UIHierarchy::displayContextPopup()
 {
-	if (ImGui::IsMouseReleased(1) && this->is_hovered)
+	if (ImGui::IsMouseReleased(1) && this->Hovered)
 	{
 		ImGui::OpenPopup(POPUP_NAME);
 	}
@@ -139,7 +137,7 @@ void spe::UIHierarchy::cleanRepoSpritesUp(bool isAnyHovered)
 		}
 		else this->m_wait_one_frame = true;
 	}
-	if (!this->m_found_selected && ImGui::IsMouseReleased(0) && this->is_hovered)
+	if (!this->m_found_selected && ImGui::IsMouseReleased(0) && this->Hovered)
 	{
 		this->m_ptr_GUIRepo->sprite_in_inspector = nullptr;
 	}
@@ -244,7 +242,7 @@ void spe::UIHierarchy::addPrefab()
 {
 	if (this->m_ptr_GUIRepo->DragAndDropName != " "
 		&& "." + spe::Utility::GetFileExtension(this->m_ptr_GUIRepo->DragAndDropName) == EXTENSION_PREFAB_FILE
-		&& ImGui::IsMouseReleased(0) && this->is_hovered)
+		&& ImGui::IsMouseReleased(0) && this->Hovered)
 	{
 		// TODO
 		// this->m_ptr_Repo->instanitatePrefab(this->m_ptr_Repo->asset_folder_data.drag_and_drop_path);
@@ -253,21 +251,14 @@ void spe::UIHierarchy::addPrefab()
 
 void spe::UIHierarchy::renderCloseRectangle()
 {
-	//spe::UIInfo::s_is_hierarchy_open.is_open = spe::UI::renderCloseRectangle(
-	//	FOLDER_SPRITE_HIERARCHY_PADDING, ICON_FA_FILE_CODE, "##close-rectangle-hierarchy", "Hierarchy", 0);
+	this->m_ptr_GUIRepo->HierarchyData.IsOpen = spe::UIUtility::RenderCloseRectangle(FOLDER_SPRITE_HIERARCHY_PADDING, ICON_FA_FILE_CODE, "##close-rectangle-hierarchy", "Hierarchy", 0);
 }
 
 void spe::UIHierarchy::renderHierarchyOptions()
 {
-	const ImVec2 tempCursor = ImGui::GetCursorPos();
-
-	this->resizeWindow();
-
-	ImGui::SetCursorPos(tempCursor);
-
 	ImGui::SetCursorPosY(ImGui::GetCursorPosY() - 5);
 	ImGui::SetCursorPosX(0);
-	ImGui::BeginChild("##hierarchy-options-container", ImVec2(this->m_window_size.x, 45));
+	ImGui::BeginChild("##hierarchy-options-container", ImVec2(this->m_Size.x, 45));
 
 	ImGui::SetCursorPos(ImVec2(0, ImGui::GetCursorPosY() + 10));
 	ImGui::PushStyleVar(ImGuiStyleVar_FrameRounding, 7.0f); // Set rounding to 5 pixels
@@ -277,44 +268,46 @@ void spe::UIHierarchy::renderHierarchyOptions()
 	this->m_search_sprite_filter.Draw("Search");
 	ImGui::PopStyleVar(2);
 
+	this->resizeWindow();
+
 	ImGui::EndChild();
 }
 
 void spe::UIHierarchy::resizeWindow()
 {
-	//bool pop_style = false;
-	//if (this->m_resize_window_data.clicked_on_resize_button)
-	//{
-	//	ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0, 0, 0, 1));
-	//	ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4(0, 0, 0, 1));
-	//	pop_style = true;
-	//}
-	//ImGui::SetCursorPos(ImVec2(this->m_window_size.x - 40, 0));
-	//spe::FontManager::displaySmybolAsButton(ICON_FA_ARROW_RIGHT);
-	//if (ImGui::IsItemHovered() && ImGui::IsMouseClicked(0))
-	//{
-	//	this->m_resize_window_data.additinal_add = (this->m_window_size.x - spe::UI::s_gui_cursor.position.x - 30) * -1;;
-	//	this->m_resize_window_data.clicked_on_resize_button = true;
-	//}
-	//if (this->m_resize_window_data.clicked_on_resize_button && ImGui::IsMouseDown(0))
-	//{
-	//	const float new_size = spe::UI::s_gui_cursor.position.x - this->m_resize_window_data.additinal_add + 30;
-	//	const float max_size_right = new_size + this->m_ptr_gui_repo->ptr_inspector_window_size->x;
+	bool pop_style = false;
+	if (this->m_resize_window_data.clicked_on_resize_button)
+	{
+		ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0, 0, 0, 1));
+		ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4(0, 0, 0, 1));
+		pop_style = true;
+	}
+	ImGui::SetCursorPos(ImVec2(this->m_Size.x - 40, 0));
+	spe::Style::DisplaySmybolAsButton(ICON_FA_ARROW_RIGHT);
+	if (ImGui::IsItemHovered() && ImGui::IsMouseClicked(0))
+	{
+		this->m_resize_window_data.additinal_add = (this->m_Size.x - spe::UIUtility::GUICursor.x - 30) * -1;;
+		this->m_resize_window_data.clicked_on_resize_button = true;
+	}
+	if (this->m_resize_window_data.clicked_on_resize_button && ImGui::IsMouseDown(0))
+	{
+		const float new_size = spe::UIUtility::GUICursor.x - this->m_resize_window_data.additinal_add + 30;
+		const float max_size_right = new_size +  200; // TODO
 
-	//	if (new_size > 245
-	//		&& max_size_right < 1920)
-	//	{
-	//		this->m_window_size.x = new_size;
-	//	}
-	//}
-	//else
-	//{
-	//	this->m_resize_window_data.clicked_on_resize_button = false;
-	//}
-	//if (pop_style)
-	//{
-	//	ImGui::PopStyleColor(2);
-	//}
+		if (new_size > 245
+			&& max_size_right < 1920)
+		{
+			this->m_Size.x = new_size;
+		}
+	}
+	else
+	{
+		this->m_resize_window_data.clicked_on_resize_button = false;
+	}
+	if (pop_style)
+	{
+		ImGui::PopStyleColor(2);
+	}
 }
 
 void spe::UIHierarchy::drawbackgroundRectangle()
@@ -330,7 +323,7 @@ void spe::UIHierarchy::drawbackgroundRectangle()
 	ImGui::SetCursorPosX(0);
 	ImGui::SetCursorPosY(ImGui::GetCursorPosY() + 80.5f - ImGui::GetScrollY());
 	spe::UIUtility::DrawRectangleInGUIWIndow(
-		ImVec2(this->m_window_size.x, 20), ImGui::GetCursorPos(), SPRITE_BACKGROUND_COLOR);
+		ImVec2(this->m_Size.x, 20), ImGui::GetCursorPos(), SPRITE_BACKGROUND_COLOR);
 	ImGui::SetCursorPos(temp);
 }
 
@@ -353,10 +346,10 @@ void spe::UIHierarchy::drawUIRactangleWhenHovered(spe::Sprite* sprite)
 		const ImVec2 temp = ImGui::GetCursorPos();
 
 		ImGui::SetCursorPosX(0);
-		ImGui::SetCursorPosY(ImGui::GetCursorPosY() + 55);
+		ImGui::SetCursorPosY(ImGui::GetCursorPosY() + 57);
 		const ImVec2 cursor_pos = ImVec2(ImGui::GetCursorPosX(),
 			ImGui::GetCursorPosY() - ImGui::GetScrollY());
-		spe::UIUtility::DrawRectangleInGUIWIndow(ImVec2(this->m_window_size.x, 20),
+		spe::UIUtility::DrawRectangleInGUIWIndow(ImVec2(this->m_Size.x, 20),
 			cursor_pos, ImColor(50.0f, 50.0f, 50.0f, 0.3f));
 
 		ImGui::SetCursorPos(temp);

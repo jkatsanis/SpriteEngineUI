@@ -175,8 +175,8 @@ void spe::SpriteRepository::eraseWithIdx(uint32_t idx)
     std::advance(it, idx);
     if (it != this->m_sprites.end()) {
         this->m_sprites.erase(it);
+        return;
     }
-    throw std::out_of_range("idx was out of range");
 }
 
 void spe::SpriteRepository::sortSpritesByLayer(spe::Sprite* spr)

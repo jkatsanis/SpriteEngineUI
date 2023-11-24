@@ -9,9 +9,6 @@ spe::GUIRepository::GUIRepository()
 	this->child_to_parent = nullptr;
 	this->right_clicked_sprite = nullptr;
 
-	this->ptr_AssetWindowSize = nullptr;
-	this->ptr_HierarchyWindowSize = nullptr;
-	this->ptr_InspectorWindowSize = nullptr;
 	this->m_HighestLayer = 0;
 	this->m_HighestId = 0;
 }
