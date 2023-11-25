@@ -330,6 +330,12 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClInclude Include="C:\Dev\C++\SpriteEngineUI\Engine\Editor\Source\GUI\Property\Animations\UIAnimationEditor.h" />
     <ClCompile Include="C:\Dev\C++\SpriteEngineUI\Engine\Editor\Source\GUI\Property\Animations\UIAnimationKeyFrameAdder.cpp" />
     <ClInclude Include="C:\Dev\C++\SpriteEngineUI\Engine\Editor\Source\GUI\Property\Animations\UIAnimationKeyFrameAdder.h" />
+    <ClCompile Include="C:\Dev\C++\SpriteEngineUI\Engine\Editor\Source\GUI\Property\AssetFolder\UIAssetFolder.cpp" />
+    <ClInclude Include="C:\Dev\C++\SpriteEngineUI\Engine\Editor\Source\GUI\Property\AssetFolder\UIAssetFolder.h" />
+    <ClCompile Include="C:\Dev\C++\SpriteEngineUI\Engine\Editor\Source\GUI\Property\AssetFolder\UIAssetTools.cpp" />
+    <ClInclude Include="C:\Dev\C++\SpriteEngineUI\Engine\Editor\Source\GUI\Property\AssetFolder\UIAssetTools.h" />
+    <ClCompile Include="C:\Dev\C++\SpriteEngineUI\Engine\Editor\Source\GUI\Property\AssetFolder\UIIconData.cpp" />
+    <ClInclude Include="C:\Dev\C++\SpriteEngineUI\Engine\Editor\Source\GUI\Property\AssetFolder\UIIconData.h" />
     <ClCompile Include="C:\Dev\C++\SpriteEngineUI\Engine\Editor\Source\GUI\Property\Inspector\UIInspector.cpp" />
     <ClInclude Include="C:\Dev\C++\SpriteEngineUI\Engine\Editor\Source\GUI\Property\Inspector\UIInspector.h" />
     <ClCompile Include="C:\Dev\C++\SpriteEngineUI\Engine\Editor\Source\GUI\Property\Inspector\UIInspectorBoxCollider.cpp" />

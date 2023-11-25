@@ -8,6 +8,7 @@
 #include "Core/SeceneHandler.h"
 #include "Property/Inspector/UIInspector.h"
 #include "Property/Animations/UIAnimation.h"
+#include "Property/AssetFolder/UIAssetFolder.h"
 
 namespace spe
 {
@@ -18,6 +19,7 @@ namespace spe
 		spe::UIHierarchy m_UIHierarchy;
 		spe::UIInspector m_UIInspector;
 		spe::UIAnimation m_UIAnimation;
+		spe::UIAssetFolder m_UIAssetFolder;
 
 	public:
 

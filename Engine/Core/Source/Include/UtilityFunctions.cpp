@@ -144,7 +144,7 @@ void spe::Utility::Delete(const std::string& path)
         throw std::runtime_error("There is no file!");
         return;
     }
-    std::filesystem::remove(path);
+    std::filesystem::remove_all(path);
 }
 
 std::string spe::Utility::GetDefaultDir()
@@ -170,6 +170,45 @@ std::string spe::Utility::GetCurrentDir()
     GetCurrentDirectoryA(MAX_PATH, NPath);
     std::string path(NPath);
     return path;
+}
+
+bool spe::Utility::IsStringValid(const std::string& path)
+{
+    int cnt = 0;
+    for (const char c : path)
+    {
+        if (c == '.' || c == '/' || c == '$')
+        {
+            cnt++;
+        }
+    }
+    return !(cnt == path.size());
+}
+
+bool spe::Utility::IsFolder(const std::string& path)
+{
+    for (const char c : path)
+    {
+        if (c == '.')
+        {
+            return false;
+        }
+    }
+    return true;
+}
+
+std::string spe::Utility::RemoveExtension(const std::string& file)
+{
+    std::string newFileName = "";
+    for (int i = 0; i < file.size(); i++)
+    {
+        if (file[i] == '.')
+        {
+            break;
+        }
+        newFileName.push_back(file[i]);
+    }
+    return newFileName;
 }
 
 std::string spe::Utility::CopyDir(const std::string& inputDir, const std::string& outputdir, const std::string& name)

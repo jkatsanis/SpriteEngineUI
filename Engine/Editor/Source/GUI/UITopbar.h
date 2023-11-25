@@ -46,7 +46,6 @@ namespace spe
 		void removeBackgroundFromButtons();
 		void buildProjectIntoFolder();
 		void hotkeys();
-		void build();
 		void renderWindowSelecter();
 		void renderMainMenuBar();
 		void renderToolSelector();

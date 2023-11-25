@@ -15,12 +15,6 @@ namespace spe
 	public:
 
 		/// <summary>
-		/// The path from the user project to the file for example
-		/// assets\\file
-		/// </summary>
-		std::string engine_path_to_file;
-
-		/// <summary>
 		/// Path from the user to the file
 		/// Example: assets\\prefabs\\hello.prfb
 		/// </summary>
@@ -44,7 +38,7 @@ namespace spe
 		/// </summary>
 		void reset() override;
 
-		void updateProps(const std::string& enginePath, const std::string& userPath, const std::string& pathToOldFile, const std::string fileName);
+		void updateProps(const std::string& userPath, const std::string& pathToOldFile, const std::string fileName);
 	};
 }
 

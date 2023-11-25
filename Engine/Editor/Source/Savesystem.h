@@ -32,5 +32,9 @@ namespace spe
 							const spe::SceneHandler& scene);
 
 		static void SaveProjects(const std::vector<spe::UserProjectInfo>& projects);
+
+		static std::string GetPropertyLineWithSeperator(const spe::Sprite* sprite);
+
+		static void CreateOrUpdatePrefabFile(const spe::Sprite* content, const std::string& pathToFile, const std::string& oldFilePath);
 	};
 }

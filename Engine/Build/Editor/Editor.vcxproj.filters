@@ -19,6 +19,15 @@
     <ClCompile Include="C:\Dev\C++\SpriteEngineUI\Engine\Editor\Source\GUI\Property\Animations\UIAnimationKeyFrameAdder.cpp">
       <Filter>Source\GUI\Property\Animations</Filter>
     </ClCompile>
+    <ClCompile Include="C:\Dev\C++\SpriteEngineUI\Engine\Editor\Source\GUI\Property\AssetFolder\UIAssetFolder.cpp">
+      <Filter>Source\GUI\Property\AssetFolder</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Dev\C++\SpriteEngineUI\Engine\Editor\Source\GUI\Property\AssetFolder\UIAssetTools.cpp">
+      <Filter>Source\GUI\Property\AssetFolder</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Dev\C++\SpriteEngineUI\Engine\Editor\Source\GUI\Property\AssetFolder\UIIconData.cpp">
+      <Filter>Source\GUI\Property\AssetFolder</Filter>
+    </ClCompile>
     <ClCompile Include="C:\Dev\C++\SpriteEngineUI\Engine\Editor\Source\GUI\Property\Inspector\UIInspector.cpp">
       <Filter>Source\GUI\Property\Inspector</Filter>
     </ClCompile>
@@ -69,6 +78,15 @@
     <ClInclude Include="C:\Dev\C++\SpriteEngineUI\Engine\Editor\Source\GUI\Property\Animations\UIAnimationKeyFrameAdder.h">
       <Filter>Source\GUI\Property\Animations</Filter>
     </ClInclude>
+    <ClInclude Include="C:\Dev\C++\SpriteEngineUI\Engine\Editor\Source\GUI\Property\AssetFolder\UIAssetFolder.h">
+      <Filter>Source\GUI\Property\AssetFolder</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Dev\C++\SpriteEngineUI\Engine\Editor\Source\GUI\Property\AssetFolder\UIAssetTools.h">
+      <Filter>Source\GUI\Property\AssetFolder</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Dev\C++\SpriteEngineUI\Engine\Editor\Source\GUI\Property\AssetFolder\UIIconData.h">
+      <Filter>Source\GUI\Property\AssetFolder</Filter>
+    </ClInclude>
     <ClInclude Include="C:\Dev\C++\SpriteEngineUI\Engine\Editor\Source\GUI\Property\Inspector\UIInspector.h">
       <Filter>Source\GUI\Property\Inspector</Filter>
     </ClInclude>
@@ -118,6 +136,9 @@
     </Filter>
     <Filter Include="Source\GUI\Property\Animations">
       <UniqueIdentifier>{14FCA89E-E105-3D71-BCC8-F44EA18C5639}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\GUI\Property\AssetFolder">
+      <UniqueIdentifier>{A74CB9BB-1644-358D-B394-D927D97E0FFA}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source\GUI\Property\Inspector">
       <UniqueIdentifier>{A719A196-1689-3170-85CF-79F15ED103CA}</UniqueIdentifier>

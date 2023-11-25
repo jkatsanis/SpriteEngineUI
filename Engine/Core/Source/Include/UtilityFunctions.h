@@ -39,6 +39,12 @@ namespace spe
 
 		static std::string GetCurrentDir();
 
+		static bool IsStringValid(const std::string& path);
+
+		static bool IsFolder(const std::string& path);
+
+		static std::string RemoveExtension(const std::string& file);
+
 		static std::string CopyDir(const std::string& inputDir, const std::string& outputdir, const std::string& name);
 
 	};

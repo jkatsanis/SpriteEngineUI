@@ -10,10 +10,10 @@
 #define EXTENSION_ANIMATION_FILE ".txt"
 ///////////////////// 
 
-#define TEMPLATE_NAME "Template"
 #define PATH_TO_SAVE_FOLDER "Engine\\Saves"
 #define PATH_TO_SCENE_FOLDER "Engine\\Saves\\" + spe::EngineData::s_Scene
 
+#define USER_FOLDER_NAME "Assets"
 
 //////////
 /// SPRITE

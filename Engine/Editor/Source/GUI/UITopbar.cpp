@@ -283,7 +283,7 @@ void spe::UITopbar::buildProjectIntoFolder()
 		}
 		if (ImGui::MenuItem("Build", "CTRL + B"))
 		{
-			this->build();
+			spe::EngineData::BuildProject();
 		}
 
 		ImGui::EndMenu();
@@ -327,23 +327,8 @@ void spe::UITopbar::hotkeys()
 	if (spe::Input::onKeyHold(spe::KeyBoardCode::LControl)
 		&& spe::Input::onKeyPress(spe::KeyBoardCode::B))
 	{
-		this->build();
+		spe::EngineData::BuildProject();
 	}
-}
-
-void spe::UITopbar::build()
-{
-	// TODO REwrite with CMAke
-	const std::string engine = spe::Utility::GetCurrentDir();
-
-	const std::string path = spe::EngineData::s_PathUserProject + "\\Build";
-
-	spe::Utility::SetCurrentDir(path);
-	
-	system("cmake --build . --config Release");
-	system("cmake --build . --config Debug");
-
-	spe::Utility::SetCurrentDir(engine);
 }
 
 void spe::UITopbar::createScene()
