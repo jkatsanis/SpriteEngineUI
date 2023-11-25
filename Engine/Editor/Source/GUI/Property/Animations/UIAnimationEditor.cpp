@@ -342,10 +342,15 @@ void spe::UIAnimationEditor::renameAnimation()
 		{
 			const char* name = s_renamed_pop_up_name.c_str();
 			const std::string std_name(name);
+			// Delete the old file
+			spe::Utility::Delete(this->m_anim->GetPath());
+
 			this->m_ptr_GUIRepo->sprite_in_inspector->animator.setName(std_name, this->m_anim->GetName());
 			// Getting the new animation becuase the old 1 got deleted
 			this->m_anim = &this->m_ptr_GUIRepo->sprite_in_inspector->animator.animations[std_name];
 			
+			spe::Savesystem::CreateAnimationSaveFile(this->m_ptr_GUIRepo->sprite_in_inspector, *this->m_anim, this->m_ptr_Repo);
+
 			s_renamed_pop_up_name = "";
 		}
 		

@@ -20,8 +20,9 @@ namespace spe
 		static std::string BoolToStr(bool b);
 		static void CreateFileWithContent(const std::string& content, const std::string& pathAndName);
 
-		bool Contains(const std::string& str, const std::vector<std::string>& arr);
-
+		static bool Contains(const std::string& str, const std::vector<std::string>& arr);
+		static std::string VectorToString(const std::vector<std::string>& vec, char del, const std::string& ext);
+		static std::string RenamePartOnPath(const std::string& path, const std::string& new_name, char del, const std::string& ext, uint32_t pos);
 		static void SetCurrentDir(const std::string& path);
 		static std::string getUserProjectPathSeperatetFromEnginePath(const std::string& path);
 		static std::vector<std::string> Split(const std::string& s, char delim);
@@ -29,6 +30,7 @@ namespace spe
 
 		static std::string GetFileExtension(const std::string& file);
 		static std::string GetNamePathSplit(std::string path);
+		static void Delete(const std::string& path);
 
 		/// <summary>
 		/// Should only be used 1 time. 

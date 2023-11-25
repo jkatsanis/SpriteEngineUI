@@ -19,7 +19,7 @@ namespace spe
 		Savesystem() = delete;
 
 		static void CreateAnimationSaveFile(const spe::Sprite* ptr_sprite, const spe::Animation& animationToSave, const spe::SpriteRepository* sprites);
-		static void CreateKnownAnimationFile(const spe::SpriteRepository* sprites);
+		static void UpdateKnownAnimationFile(const spe::SpriteRepository* sprites);
 
 		/// <summary>
 		/// Saves everything

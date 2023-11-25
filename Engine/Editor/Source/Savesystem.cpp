@@ -70,16 +70,26 @@ void spe::Savesystem::CreateAnimationSaveFile(const spe::Sprite* ptr_sprite, con
 	std::string pathAndName = animationToSave.GetPath();
 	spe::Utility::CreateFileWithContent(content, pathAndName);
 
-	spe::Savesystem::CreateKnownAnimationFile(sprites);
+	spe::Savesystem::UpdateKnownAnimationFile(sprites);
 }
 
-void spe::Savesystem::CreateKnownAnimationFile(const spe::SpriteRepository* repo)
+void spe::Savesystem::UpdateKnownAnimationFile(const spe::SpriteRepository* repo)
 {
 	const std::list<spe::Sprite*>& sprites = repo->GetSpritesC();
+
+	std::string content = "pathToAnimation\n";
 
 	for (auto it = sprites.begin(); it != sprites.end(); ++it)
 	{
 		spe::Sprite* sprite = *it;
 
+		for (const auto& anim : sprite->animator.animations)
+		{
+			const spe::Animation& tosave = anim.second;
+
+			content += tosave.GetPath() + "\n";
+		}
 	}
+
+	spe::Utility::CreateFileWithContent(content, PATH_TO_ANIMATIONS);
 }

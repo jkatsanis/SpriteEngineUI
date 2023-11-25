@@ -33,6 +33,29 @@ bool spe::Utility::Contains(const std::string& str, const std::vector<std::strin
     return false;
 }
 
+std::string spe::Utility::VectorToString(const std::vector<std::string>& vec, char del, const std::string& ext)
+{
+    std::string rs = "";
+
+    for (size_t i = 0; i < vec.size(); i++)
+    {
+        rs += vec[i];
+        if (i + 1 < vec.size())
+        {
+            rs += del;
+        }
+    }
+
+    return rs + ext;
+}
+
+std::string spe::Utility::RenamePartOnPath(const std::string& path, const std::string& new_name, char del, const std::string& ext, uint32_t pos)
+{
+    std::vector<std::string> parts = spe::Utility::Split(path, del);
+    parts[parts.size() - pos] = new_name;
+    return VectorToString(parts, del, ext);
+}
+
 void spe::Utility::SetCurrentDir(const std::string& path)
 {
     spe::Log::LogString("Setting dir..");
@@ -112,6 +135,16 @@ std::string spe::Utility::GetNamePathSplit(std::string path)
     std::vector<std::string> splittetSring = spe::Utility::Split(path, '\\');
 
     return splittetSring[splittetSring.size() - 1];
+}
+
+void spe::Utility::Delete(const std::string& path)
+{
+    if (!std::filesystem::exists(path))
+    {
+        throw std::runtime_error("There is no file!");
+        return;
+    }
+    std::filesystem::remove(path);
 }
 
 std::string spe::Utility::GetDefaultDir()

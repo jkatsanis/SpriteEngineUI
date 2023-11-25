@@ -49,16 +49,20 @@ spe::Animation::Animation(spe::Sprite* ptr_applied_sprite, const spe::Animation&
 {
 	this->ptr_AppliedSprite = ptr_applied_sprite;
 	this->InitCopyCtor(animation);
+
 	this->m_Name = name;
+
+	const std::string new_path = spe::Utility::RenamePartOnPath(this->m_PathToFile, this->m_Name, '\\', EXTENSION_ANIMATION_FILE, 1);
+	this->m_PathToFile = new_path;
 }
 
 
 void spe::Animation::InitCopyCtor(const spe::Animation& animation)
 {
-	this->ptr_AppliedSprite = ptr_AppliedSprite;
 	this->m_Name = animation.m_Name;
 	this->m_BasePath = this->ptr_AppliedSprite->sprite_renderer.path;
 	this->Loop = animation.Loop;
+	this->m_PathToFile = animation.m_PathToFile;
 
 	const std::vector<spe::KeyFrame>& keyframes = animation.GetkeyFrames();
 	for (size_t i = 0; i < keyframes.size(); i++)
@@ -196,7 +200,7 @@ void spe::Animation::AddKeyFrameAt(const int vecpos, const spe::KeyFrame& frame)
 {
 	if (this->IsPlaying)
 	{
-		const std::string error = "LOG: [WARNINING] Cant add keyframes while playing animation! " + frame.path;
+		const std::string error = "Cant add keyframes while playing animation! " + frame.path;
 		spe::Log::LogString(error);
 		return;
 	}
@@ -205,7 +209,7 @@ void spe::Animation::AddKeyFrameAt(const int vecpos, const spe::KeyFrame& frame)
 
 	if (!text.loadFromFile(frame.path))
 	{
-		const std::string error = "[ERROR] Cant read pixels from path " + frame.path;
+		const std::string error = "Cant read pixels from path " + frame.path;
 
 		spe::Log::LogString(error);
 		return;

@@ -131,7 +131,7 @@ void spe::Initializer::initAnimation(const std::string& path, spe::SpriteReposit
 	}
 	else
 	{
-		throw std::runtime_error("Couldnt open animation file!");
+		spe::Log::LogString("Couldnt open animation file!");
 	}
 
 	if (ptr_sprite != nullptr)

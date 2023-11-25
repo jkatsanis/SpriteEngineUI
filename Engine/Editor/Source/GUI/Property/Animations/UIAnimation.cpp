@@ -92,6 +92,8 @@ void spe::UIAnimation::getFileNameInput()
 		if (ext == EXTENSION_ANIMATION_FILE)
 		{
 			spe::Initializer::PostInitAnimation(sprite, this->m_animation_open_file_dialog.pathClicked, *this->m_ptr_Repo);
+			// Updating the file here because a new animation got added
+			spe::Savesystem::UpdateKnownAnimationFile(this->m_ptr_Repo);
 		}
 		else
 		{
@@ -183,6 +185,7 @@ void spe::UIAnimation::displayAnimations()
 			ImVec2(WINDOW_SIZE_ANIMATION_CREATE.x - 50, ImGui::GetCursorPosY() - 30)))
 		{
 			this->m_ptr_GUIRepo->sprite_in_inspector->animator.removeAnimation(anim.second.GetName());
+			spe::Savesystem::UpdateKnownAnimationFile(this->m_ptr_Repo);
 			break;
 		}
 	}
@@ -243,8 +246,7 @@ void spe::UIAnimation::addAnimationsToAnimator()
 		if (this->m_animationFile[0] != '\0')
 		{
 			const std::string& path = 
-				spe::Utility::getUserProjectPathSeperatetFromEnginePath(this->m_animation_create_file_dialog.pathClicked)
-				+ "\\"
+				this->m_animation_create_file_dialog.pathClicked
 				+ this->m_animationFile
 				+ EXTENSION_ANIMATION_FILE;
 			this->m_ptr_GUIRepo->sprite_in_inspector->animator.createAnimation(this->m_animationFile, path, { });
