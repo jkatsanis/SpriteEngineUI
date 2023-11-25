@@ -246,7 +246,7 @@ void spe::UIAnimation::addAnimationsToAnimator()
 			this->m_ptr_GUIRepo->sprite_in_inspector->animator.createAnimation(this->m_animationFile, path, { });
 		}
 		spe::Savesystem::CreateAnimationSaveFile
-			(this->m_ptr_GUIRepo->sprite_in_inspector, this->m_ptr_GUIRepo->sprite_in_inspector->animator.animations[this->m_animationFile]);
+			(this->m_ptr_GUIRepo->sprite_in_inspector, this->m_ptr_GUIRepo->sprite_in_inspector->animator.animations[this->m_animationFile], this->m_ptr_Repo);
 
 		this->m_animation_create_file_dialog.disableWindow();
 		this->m_animationFile[0] = '\0';

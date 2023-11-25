@@ -9,6 +9,7 @@
 #include "Core/Time.h"
 #include "Sprite/Components/Animator/KeyFrame.h"
 #include "Sprite/SpriteRepository.h"
+#include "Core/Log.h"
 
 namespace spe
 {

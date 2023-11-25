@@ -58,7 +58,6 @@ void spe::Editor::Init()
 
 	// Resetting the directory after loading the user-data
 	spe::Utility::SetCurrentDir(path);
-	std::cout << spe::Utility::GetCurrentDir();
 }
 
 void spe::Editor::UpdateUI()

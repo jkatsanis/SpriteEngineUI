@@ -122,9 +122,11 @@ void spe::Initializer::initAnimation(const std::string& path, spe::SpriteReposit
 
 			frames.push_back(spe::KeyFrame(propertys[1], std::stof(propertys[0].c_str())));
 		}
-
 	}
-	else std::cout << "LOG: [ERROR] could not open animation data file!";
+	else
+	{
+		throw std::runtime_error("Couldnt open animation file!");
+	}
 
 	if (ptr_sprite != nullptr)
 	{

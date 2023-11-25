@@ -66,10 +66,6 @@ void spe::SpriteRepository::Add(spe::Sprite* ptr)
     // Set id
     this->m_HighestId++;
 
-
-    // TODO: Validae properties here
-    // ptr->validateProperties(this->highest_sprite_id, *this);
-
     if (ptr->parent != nullptr)
     {
         ptr->setParentId(ptr->parent->getId());
@@ -77,9 +73,13 @@ void spe::SpriteRepository::Add(spe::Sprite* ptr)
 
     if (!this->main_content_iniitialied)
     {
-        // We do not sort the pointers yet because of GUI resaons
+        // We do not sort the pointers yet should be done after
         this->m_sprites.push_back(ptr);
         return;
+    }
+    else
+    {
+        this->ValidateAdd(ptr);
     }
 
     this->sortSpritesByLayer(ptr);
@@ -123,6 +123,7 @@ uint32_t spe::SpriteRepository::GetListIndex(spe::Sprite* sprite)
 
 void spe::SpriteRepository::UpdateLayerIndex()
 {
+    this->m_HighestLayer = this->m_sprites.front()->sprite_renderer.sorting_layer_index;
     for (auto it = this->m_sprites.begin(); it != this->m_sprites.end(); ++it)
     {
         spe::Sprite* sprite = *it;
@@ -207,7 +208,12 @@ void spe::SpriteRepository::sortSpritesByLayer(spe::Sprite* spr)
         }
         i++;
     }
+    throw std::logic_error("this should not happen jesus");
+}
 
+void spe::SpriteRepository::ValidateAdd(spe::Sprite* spr)
+{
+    spr->setId(this->m_HighestId);
 }
 
 // Static functions
@@ -221,11 +227,22 @@ void spe::SpriteRepository::SortSpritesByLayer()
     {
         this->sortSpritesByLayer(spr);
     }
+
+    this->m_HighestLayer = this->m_sprites.back()->sprite_renderer.sorting_layer_index;
 }
 
 void spe::SpriteRepository::SetSpriteSortingLayer(uint32_t layer, spe::Sprite* spr)
 {
+    uint32_t old = spr->sprite_renderer.sorting_layer_index;
     spr->sprite_renderer.sorting_layer_index = layer;
+
+    // Rare Case of chaning the highest layer#
+    if (old == this->m_HighestLayer
+        && layer < this->m_HighestLayer)
+    {      
+        this->UpdateLayerIndex();
+    }
+
     uint32_t idx = this->GetListIndex(spr);
     this->eraseWithIdx(idx);
     this->sortSpritesByLayer(spr);

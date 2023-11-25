@@ -55,7 +55,8 @@ void spe::Sprite::setSpriteTexture(const std::string& path)
 {
 	if (!this->m_texture->loadFromFile(path))
 	{
-		std::cout << "LOG: [ERROR] File was not found!";
+		const std::string error = "File " + path + " was not found!, Sprite.cpp 59";
+		spe::Log::LogString(error);
 	}
 	this->setSpriteTexture(*this->m_texture, path);
 }
@@ -64,7 +65,8 @@ void spe::Sprite::setSpriteTexture(const std::string& path, const spe::Vector2& 
 {
 	if (!this->m_texture->loadFromFile(path))
 	{
-		std::cout << "LOG: [ERROR] File was not found!";
+		const std::string error = "File " + path + " was not found!, Sprite.cpp 68";
+		spe::Log::LogString(error);
 	}
 	this->setSpriteTexture(*this->m_texture, path);
 	this->transform.setScale(scale, true);

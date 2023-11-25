@@ -315,7 +315,7 @@ void spe::UIAnimationEditor::saveAnimation()
 {
 	if (ImGui::Button("Save"))
 	{
-		spe::Savesystem::CreateAnimationSaveFile(this->m_ptr_GUIRepo->sprite_in_inspector, *this->m_anim);
+		spe::Savesystem::CreateAnimationSaveFile(this->m_ptr_GUIRepo->sprite_in_inspector, *this->m_anim, this->m_ptr_Repo);
 	}
 	spe::UIUtility::SameLine(2);
 	spe::Style::DisplaySmybolAsText(ICON_FA_SAVE);

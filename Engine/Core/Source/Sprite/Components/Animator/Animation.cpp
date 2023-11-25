@@ -196,7 +196,8 @@ void spe::Animation::AddKeyFrameAt(const int vecpos, const spe::KeyFrame& frame)
 {
 	if (this->IsPlaying)
 	{
-		std::cout << "LOG: [WARNINING] Cant add keyframes while playing animation! " << frame.path << std::endl;
+		const std::string error = "LOG: [WARNINING] Cant add keyframes while playing animation! " + frame.path;
+		spe::Log::LogString(error);
 		return;
 	}
 
@@ -204,7 +205,9 @@ void spe::Animation::AddKeyFrameAt(const int vecpos, const spe::KeyFrame& frame)
 
 	if (!text.loadFromFile(frame.path))
 	{
-		std::cout << "LOG: [ERROR] Cant read pixels from path " << frame.path << std::endl;
+		const std::string error = "[ERROR] Cant read pixels from path " + frame.path;
+
+		spe::Log::LogString(error);
 		return;
 	}
 

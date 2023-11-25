@@ -51,7 +51,7 @@ void spe::Savesystem::SaveProjects(const std::vector<spe::UserProjectInfo>& proj
 }
 
 
-void spe::Savesystem::CreateAnimationSaveFile(const spe::Sprite* ptr_sprite, const spe::Animation& animationToSave)
+void spe::Savesystem::CreateAnimationSaveFile(const spe::Sprite* ptr_sprite, const spe::Animation& animationToSave, const spe::SpriteRepository* sprites)
 {
 	const std::string path = spe::Utility::GetCurrentDir();
 	// Loading the sprites from the user directory
@@ -75,4 +75,23 @@ void spe::Savesystem::CreateAnimationSaveFile(const spe::Sprite* ptr_sprite, con
 	spe::Utility::CreateFileWithContent(content, pathAndName);
 
 	spe::Utility::SetCurrentDir(path); 
+
+	spe::Savesystem::CreateKnownAnimationFile(sprites);
+}
+
+void spe::Savesystem::CreateKnownAnimationFile(const spe::SpriteRepository* repo)
+{
+	const std::string path = spe::Utility::GetCurrentDir();
+	// Loading the sprites from the user directory
+	spe::Utility::SetCurrentDir(spe::EngineData::s_PathUserProject);
+
+	const std::list<spe::Sprite*>& sprites = repo->GetSpritesC();
+
+	for (auto it = sprites.begin(); it != sprites.end(); ++it)
+	{
+		spe::Sprite* sprite = *it;
+
+	}
+
+	spe::Utility::SetCurrentDir(path);
 }

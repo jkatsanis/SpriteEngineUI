@@ -21,7 +21,7 @@ namespace spe
         void addChildsToDelete(std::vector<spe::Sprite*>& childs, spe::Sprite* parent);
         void eraseWithIdx(uint32_t id);
         void sortSpritesByLayer(spe::Sprite* spr);
-
+        void ValidateAdd(spe::Sprite* spr);
     public:
         std::vector<std::string> Tags;
 
@@ -47,6 +47,7 @@ namespace spe
         // getter
         uint32_t GetListIndex(spe::Sprite* sprite);
         std::list<spe::Sprite*>& GetSprites() { return  this->m_sprites; }
+        const std::list<spe::Sprite*>& GetSpritesC() const { return  this->m_sprites; }
         uint32_t GetAmount() const override { return (uint32_t)this->m_sprites.size(); }
         spe::Sprite* GetById(uint32_t idx) override;
         spe::Sprite* GetByName(const std::string& name) override;
