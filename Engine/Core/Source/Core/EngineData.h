@@ -9,6 +9,7 @@ namespace spe
 	public:
 		EngineData() = delete;
 
+		static std::string s_PathOfEngine;
 		static std::string s_PathUserProject;
 		static std::string s_NameOfUser;
 		static std::string s_Scene;

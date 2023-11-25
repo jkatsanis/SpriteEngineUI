@@ -6,7 +6,7 @@ void spe::UIAnimation::Init()
 {
 	this->m_animationFile[0] = 0;
 	this->m_fileName = "";
-	const std::string pathToAssets = spe::EngineData::s_PathUserProject + "\\" + "Assets\\";
+	const std::string pathToAssets = "Assets\\";
 	this->m_animation_open_file_dialog = spe::FileDialog(pathToAssets, ICON_FA_PLUS, "Open Animation", ImVec2(500, 250), true, spe::Style::s_DefaultFontSize);
 	this->m_animation_create_file_dialog = spe::FileDialog(pathToAssets, ICON_FA_PLUS, "Create Animation", ImVec2(500, 250), false, spe::Style::s_DefaultFontSize);
 	this->m_animation_create_file_dialog.setFirstNode("assets");
@@ -87,12 +87,16 @@ void spe::UIAnimation::getFileNameInput()
 	if (this->m_animation_open_file_dialog.IsItemSelected())
 	{
 		spe::Sprite* sprite = this->m_ptr_GUIRepo->sprite_in_inspector;
-
-		const std::string path = spe::Utility::GetCurrentDir();
 		// Loading the sprites from the user directory
-		spe::Utility::SetCurrentDir(spe::EngineData::s_PathUserProject);
-	    spe::Initializer::PostInitAnimation(sprite, spe::Utility::getUserProjectPathSeperatetFromEnginePath(this->m_animation_open_file_dialog.pathClicked ), *this->m_ptr_Repo);
-		spe::Utility::SetCurrentDir(path);
+		const std::string ext = "." + spe::Utility::GetFileExtension(this->m_animation_open_file_dialog.pathClicked);
+		if (ext == EXTENSION_ANIMATION_FILE)
+		{
+			spe::Initializer::PostInitAnimation(sprite, this->m_animation_open_file_dialog.pathClicked, *this->m_ptr_Repo);
+		}
+		else
+		{
+			spe::Log::LogString("Animation was not in the right format!");
+		}
 
 		this->m_animation_open_file_dialog.disableWindow();
 	}

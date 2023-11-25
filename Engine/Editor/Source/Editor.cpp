@@ -5,6 +5,9 @@
 spe::Editor::Editor()
 {
 	this->m_Window = spe::GameWindow(spe::Vector2(1920, 1080), "SpriteEngine");
+	
+	// Loading the sprites from the user directory will be permaent here!
+	spe::Utility::SetCurrentDir(spe::EngineData::s_PathUserProject);
 
 	// Sprite/Background/Camera
 	this->Init();
@@ -30,6 +33,7 @@ spe::Editor::Editor()
 
 	this->m_SceneHandler.SpriteRepository.SortSpritesByLayer();
 
+	spe::Log::LogString("=");
 	spe::Log::LogString("Finished init...");
 }
 
@@ -43,21 +47,11 @@ spe::Editor::~Editor()
 
 void spe::Editor::Init()
 {
-	// Changing the dir, to 1 layer above, because here are all ressources
-	const std::string path = spe::Utility::GetCurrentDir();
-	spe::Utility::SetCurrentDir(path);
-
-	// Loading the sprites from the user directory
-	spe::Utility::SetCurrentDir(spe::EngineData::s_PathUserProject);
-
 	spe::Initializer::InitTags(this->m_SceneHandler.SpriteRepository, PATH_TO_TAG_FILE);
 	spe::Initializer::InitScenes(this->m_SceneHandler, PATH_TO_SCENE_FILE);
 
 	// Load the first scene in the file
 	this->m_SceneHandler.LoadScene(this->m_SceneHandler.TotalScenes[0], this->m_GUIRepository.Camera, this->m_GUIRepository.background_color);
-
-	// Resetting the directory after loading the user-data
-	spe::Utility::SetCurrentDir(path);
 }
 
 void spe::Editor::UpdateUI()

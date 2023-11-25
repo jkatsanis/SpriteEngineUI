@@ -80,6 +80,12 @@ void spe::Initializer::InitAnimations(spe::SpriteRepository& repo, const std::st
 
 void spe::Initializer::initAnimation(const std::string& path, spe::SpriteRepository& repo, int32_t idx)
 {
+	const std::string ext =  "." + spe::Utility::GetFileExtension(path);
+	if (ext != EXTENSION_ANIMATION_FILE)
+	{
+		throw std::runtime_error("Animation path file isnt ín the right format");
+		return;
+	}
 	bool load_idx = (idx != -1);
 
 	std::fstream animationFileStream;

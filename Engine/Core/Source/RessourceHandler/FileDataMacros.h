@@ -15,9 +15,6 @@
 #define PATH_TO_SCENE_FOLDER "Engine\\Saves\\" + spe::EngineData::s_Scene
 
 
-#define PATH_TO_TRANSPARENT_PIC "Editor\\Ressources\\Sprites\\transparent.png"
-#define PATH_TO_DEFAULT_SPRITE spe::EngineData::s_PathUserProject + "\\Engine\\Ressources\\Sprites\\Default.png"
-
 //////////
 /// SPRITE
 #define PATH_TO_SPRITES PATH_TO_SCENE_FOLDER + "\\sprites.txt"
@@ -30,9 +27,13 @@
 #define PATH_TO_TAG_FILE "Engine\\Saves\\tags.txt"
 #define PATH_TO_SCENE_FILE "Engine\\Saves\\scenes.scn"
 
+#define PATH_TO_DEFAULT_SPRITE "Engine\\Ressources\\Sprites\\Default.png"
+
 // This is only editor specify btw
 
 ///////////////
 // RESSOURCES
-#define PATH_TO_RESSOURCES "Editor\\Ressources"
-#define PATH_TO_KNOWN_PROJECTS PATH_TO_RESSOURCES"\\Saves\\projects.txt"
+#define PATH_TO_RESSOURCES spe::EngineData::s_PathOfEngine + "\\Editor\\Ressources"
+#define PATH_TO_KNOWN_PROJECTS PATH_TO_RESSOURCES + "\\Saves\\projects.txt"
+
+#define PATH_TO_TRANSPARENT_PIC PATH_TO_RESSOURCES + "\\Sprites\\transparent.png"

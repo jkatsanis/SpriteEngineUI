@@ -7,6 +7,9 @@ spe::UIProjectSelector::UIProjectSelector()
 	const std::string path = spe::Utility::GetDefaultDir();
 	spe::Utility::SetCurrentDir(path);
 
+	// Getting the directory where the editor/core is
+	spe::EngineData::s_PathOfEngine = spe::Utility::GetCurrentDir();
+
 	this->m_Window = spe::GameWindow(SELECTOR_WINDOW_SIZE, "SpriteEngine");
 	spe::Style::Init();
 	spe::Style::RenderStyle();

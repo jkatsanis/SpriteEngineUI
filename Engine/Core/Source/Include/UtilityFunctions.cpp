@@ -35,6 +35,7 @@ bool spe::Utility::Contains(const std::string& str, const std::vector<std::strin
 
 void spe::Utility::SetCurrentDir(const std::string& path)
 {
+    spe::Log::LogString("Setting dir..");
     if (!SetCurrentDirectoryA(path.c_str()))
     {
         throw std::runtime_error("Couldn't set directory");
