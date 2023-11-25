@@ -48,7 +48,7 @@ void spe::UIAssetFolder::Render()
         }
         this->resizeWindow();
 
-       // this->renderFolderHierarchy();
+        this->renderFolderHierarchy();
         this->renderCloseRectangle();
         this->renderContentBrowser();
 
@@ -181,8 +181,9 @@ void spe::UIAssetFolder::renderFolderHierarchyRecursiv(const char* path, const c
     }
     this->m_interacted = false;
 
-    if (!spe::FileDialog::checkIfADirHasSubItems(path, true))
+    if (!spe::FileDialog::checkIfADirHasSubItems(path, false))
     {
+        ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 3.5f );
         if (spe::Style::DisplaySymbolInMenuItemWithText(ICON_FA_FOLDER, name))
         {
             this->setCurrentPath(path, name);
@@ -191,12 +192,19 @@ void spe::UIAssetFolder::renderFolderHierarchyRecursiv(const char* path, const c
 
         return;
     }
-    if (spe::Style::DisplaySymbolInTreeNode(ICON_FA_FOLDER, name, openNextTreeNode))
+    const std::string newname = std::string("##") + name;
+
+    bool entered = false;
+
+    if (spe::Style::DisplaySymbolInTreeNode(ICON_FA_FOLDER, newname.c_str(), openNextTreeNode))
     {
-        if (ImGui::IsItemClicked())
+        ImGui::SetCursorPos(ImVec2(ImGui::GetCursorPosX() + 33, ImGui::GetCursorPosY() - 23));
+        if (ImGui::MenuItem(name))
         {
             this->setCurrentPath(path, name);
         }
+        entered = true;
+
         while ((entry = readdir(dir)) != NULL)
         {
             bool folder = true;
@@ -224,6 +232,16 @@ void spe::UIAssetFolder::renderFolderHierarchyRecursiv(const char* path, const c
         }
         ImGui::TreePop();
     }
+    if (!entered)
+    {
+        ImGui::SetCursorPos(ImVec2(ImGui::GetCursorPosX() + 52, ImGui::GetCursorPosY() - 23));
+        if (ImGui::MenuItem(name))
+        {
+            this->setCurrentPath(path, name);
+        }
+    }
+
+
     closedir(dir);
 }
 
