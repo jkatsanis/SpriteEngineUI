@@ -39,28 +39,17 @@ namespace spe
 		/// Updates the origin using the ´default size
 		/// </summary>
 		void setOrigin();
-
-		/// <summary>
-		/// Sets the position
-		/// </summary>
-		/// <param name="pos">The Positon</param>
 		void SetPosition(const spe::Vector2& pos);
-
-		/// <summary>
-		/// Sets the rotation
-		/// </summary>
 		void setRotation(uint32_t angle);
-
-		const spe::Vector2& GetPosition() const { return this->m_Position; }
-
 		/// <summary>
 		/// Set's the scale, sets it even if the parameter passed is the same as the getScale();
 		/// </summary>
 		/// <param name="setScaleForce">If you need to change the texture size even tho you have
 		/// then same scale u need to call this method.</param>
 		void setScale(const spe::Vector2& scale, bool set_scale_force = false);
-		spe::Vector2 const getScale() const { return this->m_scale; }
 
+		const spe::Vector2& GetPosition() const { return this->m_Position; }
+		spe::Vector2 const getScale() const { return this->m_scale; }
 		/// <summary>
 		/// Resets the transform
 		/// </summary>

@@ -129,42 +129,37 @@ void spe::UIInspector::renderOptions()
 
 void spe::UIInspector::resizeWindow()
 {
-	//bool pop_style = false;
-	//ImGui::SetCursorPosX(10);
-	//ImGui::SetCursorPosY(4);
-	//if (this->m_resize_window_data.clicked_on_resize_button)
-	//{
-	//	ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0, 0, 0, 1));
-	//	ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4(0, 0, 0, 1));
-	//	pop_style = true;
-	//}
-	//spe::Style::DisplaySmybolAsButton(ICON_FA_ARROW_LEFT);
-	//if (ImGui::IsItemHovered() && ImGui::IsMouseClicked(0))
-	//{
-	//	this->m_resize_window_data.clicked_on_resize_button = true;
-	//}
-	//if (this->m_resize_window_data.clicked_on_resize_button && ImGui::IsMouseDown(0))
-	//{	
-	//	float movedy = 0;
-	//	if (/*spe::UIUtility::GUICursor.changed*/ true)
-	//	{
-	//		spe::Vector2 moved = spe::UI::s_gui_cursor.last_pos - spe::UIUtility::GUICursor;
-	//		movedy = moved.x;
-	//	}
-	//	if (this->m_Size.x + movedy > 350
-	//		&& this->m_Size.x + movedy + this->m_ptr_GUIRepo->ptr_hierarchy_window_size->x < 1920)
-	//	{
-	//		this->m_Size.x += movedy;
-	//	}
-	//}
-	//else
-	//{
-	//	this->m_resize_window_data.clicked_on_resize_button = false;
-	//}
-	//if (pop_style)
-	//{
-	//	ImGui::PopStyleColor(2);
-	//}
+	bool pop_style = false;
+	ImGui::SetCursorPosX(10);
+	ImGui::SetCursorPosY(4);
+	if (this->m_resize_window_data.clicked_on_resize_button)
+	{
+		ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0, 0, 0, 1));
+		ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4(0, 0, 0, 1));
+		pop_style = true;
+	}
+	spe::Style::DisplaySmybolAsButton(ICON_FA_ARROW_LEFT);
+	if (ImGui::IsItemHovered() && ImGui::IsMouseClicked(0))
+	{
+		this->m_resize_window_data.clicked_on_resize_button = true;
+	}
+	if (this->m_resize_window_data.clicked_on_resize_button && ImGui::IsMouseDown(0))
+	{	
+		float moved = 1920 - spe::UIUtility::GUICursor.x;
+
+		if (moved > 350 && moved + this->m_ptr_GUIRepo->HierarchyData.ptr_Size->x < 1920)
+		{
+			this->m_Size.x = moved;
+		}
+	}
+	else
+	{
+		this->m_resize_window_data.clicked_on_resize_button = false;
+	}
+	if (pop_style)
+	{
+		ImGui::PopStyleColor(2);
+	}
 }
 
 void spe::UIInspector::renderBackgroundBehindComponent()
