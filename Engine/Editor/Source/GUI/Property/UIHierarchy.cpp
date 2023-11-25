@@ -89,10 +89,9 @@ void spe::UIHierarchy::addSprite()
 	{
 		const size_t vectorPos = this->m_ptr_Repo->GetAmount() + 1;
 		const std::string name = "Sprite " + std::to_string(vectorPos) + " ID " + std::to_string(this->m_ptr_Repo->GetHighestId() + 1);
+		spe::Sprite* sprite = new spe::Sprite(name, spe::Vector2(0, 0), PATH_TO_DEFAULT_SPRITE);
 
-		spe::Sprite* sprite = new spe::Sprite(name, spe::Vector2(0, 0), spe::UIUtility::s_DefaultSprite);
-
-		this->m_ptr_Repo->Add(sprite);
+		this->OnSpriteAdd(sprite);
 	}
 }
 
@@ -183,7 +182,7 @@ void spe::UIHierarchy::copySprite()
 
 	spe::Sprite* copy = new spe::Sprite(*to_copy);
 
-	this->m_ptr_Repo->Add(copy);
+	this->OnSpriteAdd(copy);
 }
 
 void spe::UIHierarchy::setMenuitemHovered(bool& any_hovered, spe::Sprite* sprite)
@@ -246,8 +245,8 @@ void spe::UIHierarchy::addPrefab()
 		&& "." + spe::Utility::GetFileExtension(this->m_ptr_GUIRepo->DragAndDropName) == EXTENSION_PREFAB_FILE
 		&& ImGui::IsMouseReleased(0) && this->Hovered)
 	{
-		// TODO
 		// this->m_ptr_Repo->instanitatePrefab(this->m_ptr_Repo->asset_folder_data.drag_and_drop_path);
+		// this->OnSpriteAdd() // Smth
 	}
 }
 
@@ -379,6 +378,12 @@ void spe::UIHierarchy::drawRenderSymbol(spe::Sprite* child)
 	ImGui::SetCursorPos(cursor);
 }
 
+void spe::UIHierarchy::OnSpriteAdd(spe::Sprite* spr)
+{
+	this->m_ptr_Repo->Add(spr);
+	this->m_ptr_GUIRepo->HierarchySprites.push_back(spr);
+}
+
 void spe::UIHierarchy::setSelectedBackgroundColor(spe::Sprite* sprite, bool& pop_style)
 {
 	if (this->m_ptr_GUIRepo->sprite_in_inspector != nullptr
@@ -394,12 +399,9 @@ bool spe::UIHierarchy::displaySprites()
 {
 	bool anyHoverd = false;
 
-	std::list<spe::Sprite*>& sprites = this->m_ptr_Repo->GetSprites();
-
-	for (auto it = sprites.begin(); it != sprites.end(); ++it)
+	for (size_t i = 0; i < this->m_ptr_GUIRepo->HierarchySprites.size(); i++)
 	{
-		spe::Sprite* sprite = *it;
-		this->displaySprites(sprite, anyHoverd);
+		this->displaySprites(this->m_ptr_GUIRepo->HierarchySprites[i], anyHoverd);
 
 	}
 

@@ -25,12 +25,9 @@ void spe::Initializer::InitSprites(spe::SpriteRepository& spriteRepo, const std:
 			}
 
 			//Creating empty sprite, then pushing it back
-			Sprite* sprite = new Sprite();
-
+			// 
 			//INITIIALIZING PROPS
-			spe::Initializer::InitSprite(line, sprite);
-
-			sprite->postInit();
+			spe::Sprite* sprite =  spe::Initializer::InitSprite(line);
 
 			//Pushing the sprite
 			spriteRepo.Add(sprite);
@@ -138,9 +135,13 @@ void spe::Initializer::initAnimation(const std::string& path, spe::SpriteReposit
 	}
 }
 
-void spe::Initializer::InitSprite(const std::string& line, spe::Sprite* sprite)
+spe::Sprite* spe::Initializer::InitSprite(const std::string& line)
 {
 	std::vector<std::string> propertys = spe::Utility::Split(line, DELIMITER);
+
+	const spe::Vector2 position = spe::Vector2(std::stof(propertys[2].c_str()), std::stof(propertys[3].c_str()));
+
+	spe::Sprite* sprite = new spe::Sprite(propertys[0], position, propertys[6]);
 
 	sprite->collider = spe::BoxCollider(sprite);
 	sprite->animator = spe::Animator(sprite);
@@ -150,11 +151,8 @@ void spe::Initializer::InitSprite(const std::string& line, spe::Sprite* sprite)
 	sprite->light = spe::Light(sprite);
 	sprite->parent = nullptr;
 
-	sprite->name = propertys[0];
-	const spe::Vector2 position = spe::Vector2(std::stof(propertys[2].c_str()), std::stof(propertys[3].c_str()));
-	sprite->transform.SetPosition(position);
-
-	sprite->setSpriteTexture(propertys[6], spe::Vector2(spe::Vector2(std::stof(propertys[4].c_str()), std::stof(propertys[5].c_str()))));
+	spe::Vector2 vec(std::stof(propertys[4].c_str()), std::stof(propertys[5].c_str()));
+	sprite->transform.setScale(vec, true);
 
 	sprite->transform.setRotation(atoi(propertys[7].c_str()));
 
@@ -224,6 +222,10 @@ void spe::Initializer::InitSprite(const std::string& line, spe::Sprite* sprite)
 
 	sprite->light.setColor(spe::Vector3::toSFVector3(color));
 #pragma endregion
+
+	sprite->transform.setOrigin();
+
+	return sprite;
 }
 
 #pragma endregion

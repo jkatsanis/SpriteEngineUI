@@ -34,6 +34,7 @@ void spe::Transform::init()
 	this->base_component = true;
 	this->m_attached_sprite = nullptr;
 	this->m_rotation = 0;
+	this->m_scale = spe::Vector2(1, 1);
 }
 
 // Private functions

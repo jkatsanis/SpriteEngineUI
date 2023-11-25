@@ -87,3 +87,12 @@ spe::Rectangle* spe::GUIRepository::GetByVecPos(uint32_t vec)
 	}
 	throw std::out_of_range("Vecpos was not found");
 }
+
+void spe::GUIRepository::InitHierarchySprites(std::list<spe::Sprite*>& sprites)
+{
+	for (auto it = sprites.begin(); it != sprites.end(); ++it)
+	{
+		spe::Sprite* sprite = *it;
+		this->HierarchySprites.push_back(sprite);
+	}
+}

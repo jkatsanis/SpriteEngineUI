@@ -16,6 +16,7 @@
 
 
 #define PATH_TO_TRANSPARENT_PIC "Editor\\Ressources\\Sprites\\transparent.png"
+#define PATH_TO_DEFAULT_SPRITE spe::EngineData::s_PathUserProject + "\\Engine\\Ressources\\Sprites\\Default.png"
 
 //////////
 /// SPRITE

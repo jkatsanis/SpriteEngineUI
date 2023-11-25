@@ -24,7 +24,7 @@ namespace spe
 
     public:
         std::vector<std::string> Tags;
-      
+
         bool* isFullScreened;
         bool main_content_iniitialied;
 
@@ -36,6 +36,8 @@ namespace spe
         void DeleteWithName(const std::string& name);
         void Add(spe::Sprite* ref) override;
 
+        void SortSpritesByLayer();
+
         // Utility
         void UpdateLayerIndex() override;
         void ReloadTextures();
@@ -44,12 +46,19 @@ namespace spe
 
         // getter
         uint32_t GetListIndex(spe::Sprite* sprite);
-        std::list<spe::Sprite*>& GetSprites() { return this->m_sprites; }
+        std::list<spe::Sprite*>& GetSprites() { return  this->m_sprites; }
         uint32_t GetAmount() const override { return (uint32_t)this->m_sprites.size(); }
         spe::Sprite* GetById(uint32_t idx) override;
         spe::Sprite* GetByName(const std::string& name) override;
         uint32_t GetHighestLayer() const { return this->m_HighestLayer; }
         uint32_t GetHighestId() const { return this->m_HighestId; }
+
+        /// <summary>
+        /// Kinda inefficent. Try not to use much
+        /// </summary>
+        /// <param name="layer"></param>
+        /// <param name="id"></param>
+        void SetSpriteSortingLayer(uint32_t layer, spe::Sprite* id);
 
     public:
         static void getAllChilds(std::vector<const spe::Sprite*>& childs, const spe::Sprite* parent);

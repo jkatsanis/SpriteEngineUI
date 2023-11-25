@@ -32,7 +32,7 @@ namespace spe
 		static void InitScenes(spe::SceneHandler& handler, const std::string& path);
 		static void IntiHighestSpriteID(spe::SpriteRepository& repo, const std::string& path);
 		static void InitBackground(spe::Vector3& vec, const std::string& path);
-		static void InitSprite(const std::string& line, spe::Sprite* sprite);
+		static spe::Sprite* InitSprite(const std::string& line);
 		static void InitSprites(spe::SpriteRepository& spriteRepo, const std::string& path);
 		static void InitAnimations(spe::SpriteRepository& repo, const std::string& path);
 		static void initAnimation(const std::string& path, spe::SpriteRepository& repo, int32_t idx);

@@ -34,6 +34,15 @@ namespace spe
 		spe::Sprite* sprite_in_inspector;
 		spe::Sprite* sprited_hovered_in_hierarchy;
 
+
+		/// <summary>
+		/// Apparently the data structure for sprites is a list and the sorting layer 
+		/// gets sorted automaticly but the user wants to see displayed the sprite linear
+		/// and when he creates anew sprite it shouldnt be sorted. This sorts the sprites whe na new 1 is added (ONLY EDITOR)
+		/// Specfif of course and displays them in the Hierarchy
+		/// </summary>
+		std::vector<spe::Sprite*> HierarchySprites;
+
 		/// <summary>
 		/// Usally ptrs to the events of the window class
 		/// </summary>
@@ -50,6 +59,8 @@ namespace spe
 		spe::Rectangle* GetByName(const std::string& name) override;
 		spe::Rectangle* GetById(uint32_t id) override;
 		spe::Rectangle* GetByVecPos(uint32_t vec);
+
+		void InitHierarchySprites(std::list<spe::Sprite*>& sprites);
 
 		uint32_t GetAmount() const override { return (uint32_t)this->m_Rectangles.size(); }
 		void Add(spe::Rectangle* rec) override;

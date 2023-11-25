@@ -49,6 +49,5 @@ namespace spe
 		static void SetRenderWinodw(sf::RenderWindow* window) { spe::UIUtility::s_m_ptr_Window = window; }
 
 		static bool s_IsAnyHovered;
-		static std::string s_DefaultSprite;
 	};
 }

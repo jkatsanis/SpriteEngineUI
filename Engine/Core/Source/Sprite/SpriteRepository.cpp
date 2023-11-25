@@ -66,16 +66,23 @@ void spe::SpriteRepository::Add(spe::Sprite* ptr)
     // Set id
     this->m_HighestId++;
 
+
     // TODO: Validae properties here
     // ptr->validateProperties(this->highest_sprite_id, *this);
-
-
-    this->sortSpritesByLayer(ptr);
 
     if (ptr->parent != nullptr)
     {
         ptr->setParentId(ptr->parent->getId());
     }
+
+    if (!this->main_content_iniitialied)
+    {
+        // We do not sort the pointers yet because of GUI resaons
+        this->m_sprites.push_back(ptr);
+        return;
+    }
+
+    this->sortSpritesByLayer(ptr);
 
     if (this->main_content_iniitialied)
     {
@@ -177,6 +184,7 @@ void spe::SpriteRepository::eraseWithIdx(uint32_t idx)
         this->m_sprites.erase(it);
         return;
     }
+    throw std::out_of_range("Cant delete");
 }
 
 void spe::SpriteRepository::sortSpritesByLayer(spe::Sprite* spr)
@@ -203,6 +211,25 @@ void spe::SpriteRepository::sortSpritesByLayer(spe::Sprite* spr)
 }
 
 // Static functions
+
+void spe::SpriteRepository::SortSpritesByLayer()
+{
+    std::vector<spe::Sprite*> sprites(this->m_sprites.begin(), this->m_sprites.end());
+    this->m_sprites.clear();
+
+    for (spe::Sprite* spr : sprites)
+    {
+        this->sortSpritesByLayer(spr);
+    }
+}
+
+void spe::SpriteRepository::SetSpriteSortingLayer(uint32_t layer, spe::Sprite* spr)
+{
+    spr->sprite_renderer.sorting_layer_index = layer;
+    uint32_t idx = this->GetListIndex(spr);
+    this->eraseWithIdx(idx);
+    this->sortSpritesByLayer(spr);
+}
 
 void spe::SpriteRepository::getAllChilds(std::vector<const spe::Sprite*>& childs, const spe::Sprite* parent)
 {

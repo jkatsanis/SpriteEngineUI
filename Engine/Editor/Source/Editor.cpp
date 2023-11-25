@@ -23,6 +23,14 @@ spe::Editor::Editor()
 
 	this->m_GUIRepository.ptr_Event = &this->m_Window.Event;
 	this->m_GUIRepository.ptr_SFEvent = &this->m_Window.WindowEvent;
+
+	this->m_GUIRepository.InitHierarchySprites(this->m_SceneHandler.SpriteRepository.GetSprites());
+
+	this->m_SceneHandler.SpriteRepository.main_content_iniitialied = true;
+
+	this->m_SceneHandler.SpriteRepository.SortSpritesByLayer();
+
+	spe::Log::LogString("Finished init...");
 }
 
 spe::Editor::~Editor()

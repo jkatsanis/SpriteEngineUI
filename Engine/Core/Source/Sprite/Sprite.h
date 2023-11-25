@@ -23,10 +23,12 @@ namespace spe
 	class Sprite
 	{
 	private:
-		int m_parent_id;
+		int32_t m_parent_id;
 		sf::Sprite m_sprite;
 		sf::Texture* m_texture;
-		int m_id;
+		int32_t m_id;
+
+		bool m_SetId;
 
 		void initVariables(std::string name, spe::Vector2 spawnPos, std::string path);
 	public:
@@ -56,9 +58,8 @@ namespace spe
 		//// ENGINE FUNCTIONS 
 		/////////////////////////////////////
 
-		void postInit();
-		void setParentId(const int id) { this->m_parent_id = id; }
-		void setId(const int id) { this->m_id = id; }
+		void setParentId(const int32_t id) { this->m_parent_id = id; }
+		void setId(const int32_t id);
 		sf::Sprite& getSprite() { return this->m_sprite; }
 		sf::Texture& getTexture() { return *this->m_texture; }
 

@@ -84,7 +84,13 @@ void spe::Animator::setName(const std::string& new_name, const std::string& old_
 	auto it = animations.find(old_name);
 	if (it != animations.end())
 	{
-		Animation& anim = it->second;
+		// The animation copy constructor handles the path renaming
+		Animation animation = spe::Animation(this->ptr_attached_sprite, it->second, new_name);
+
+		// Getting the old file to delete it
+		animations.erase(it);
+
+		animations[new_name] = animation;
 	}
 }
 

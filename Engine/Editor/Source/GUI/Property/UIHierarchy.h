@@ -68,6 +68,8 @@ namespace spe
 
 		void drawRenderSymbol(spe::Sprite* child);
 
+		void OnSpriteAdd(spe::Sprite* spr);
+
 		/// <summary>
 		/// Checks for specfic things which get hovered 
 		/// </summary>

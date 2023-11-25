@@ -7,7 +7,7 @@ void spe::UIAnimationKeyFrameAdder::Init()
 	this->m_key_frame_pos = 0;
 	this->is_hovered = false;
 	this->is_key_frame_menu_open = false;
-	this->key_frame_path = spe::UIUtility::s_DefaultSprite;
+	this->key_frame_path = PATH_TO_DEFAULT_SPRITE;
 }
 
 

@@ -524,7 +524,11 @@ void spe::UIInspector::spriteRendererComponent()
 		{
 			layerIndex = 0;
 		}
-		this->m_ptr_GUIRepo->sprite_in_inspector->sprite_renderer.sorting_layer_index = layerIndex;
+
+		if (layerIndex != this->m_ptr_GUIRepo->sprite_in_inspector->sprite_renderer.sorting_layer_index)
+		{
+			this->m_ptr_Repo->SetSpriteSortingLayer(layerIndex, this->m_ptr_GUIRepo->sprite_in_inspector);
+		}
 
 		ImGui::Dummy(ImVec2(0, 2));
 		ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 18);

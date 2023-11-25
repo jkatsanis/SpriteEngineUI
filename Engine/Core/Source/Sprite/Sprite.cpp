@@ -4,9 +4,10 @@
 
 spe::Sprite::Sprite()
 {
+	this->m_SetId = false;
 	this->name = "Unknown";
 	this->transform.SetPosition(spe::Vector2(0, 0));
-	this->m_texture = new sf::Texture();
+	this->m_texture = nullptr;
 }
 
 spe::Sprite::Sprite(std::string name, spe::Vector2 spawnPosition, std::string path)
@@ -86,9 +87,9 @@ spe::Vector2 spe::Sprite::getOrigininalPosition()
 	return spe::Vector2(x, y);
 }
 
-void spe::Sprite::postInit()
+void spe::Sprite::setId(const int32_t id)
 {
-	this->transform.setOrigin();
+	this->m_id = id;
 }
 
 void spe::Sprite::clearParentData()
@@ -144,36 +145,32 @@ void spe::Sprite::removeChild(const spe::Sprite* child)
 
 void spe::Sprite::initVariables(std::string name, spe::Vector2 spawnPos, std::string path)
 {
-	// ID's get set in the sprite repo!!
-	this->tag = "none";
-	this->m_texture = new sf::Texture();
 	this->transform = spe::Transform(this);
-	this->m_parent_id = -1;
-	this->m_id = -1;
-	this->parent = nullptr;
-	this->ptr_childs = std::vector<spe::Sprite*>(0);
-	this->name = name;
-	this->sprite_renderer.path = path;
-	this->transform.SetPosition(spawnPos);
-
-	this->sprite_renderer.sorting_layer_index = 0;
-
-	sf::Sprite sprite;
-
-	this->setSpriteTexture(path);
-
-	sprite.setTexture(*this->m_texture);
-
-	//Finally setting the sprite
-	this->m_sprite = sprite;
-
 	this->animator = spe::Animator(this);
 	this->collider = spe::BoxCollider(this);
 	this->physicsBody = spe::PhsysicsBody();
 	this->prefab = spe::Prefab(this);
 	this->light = spe::Light(this);
 
-	this->postInit();
+	// ID's get set in the sprite repo!!
+	this->tag = "none";
+	this->m_texture = new sf::Texture();
+	this->m_parent_id = -1;
+	this->m_id = -1;
+	this->parent = nullptr;
+	this->ptr_childs = std::vector<spe::Sprite*>(0);
+	this->name = name;
+	this->sprite_renderer.path = path;
+	this->m_SetId = false;
+
+	this->sprite_renderer.sorting_layer_index = 0;
+
+	this->transform.setOrigin();
+	this->transform.setScale(spe::Vector2(1, 1), true);
+	this->transform.setRotation(0);
+	this->transform.SetPosition(spawnPos);
+
+	this->setSpriteTexture(path);
 }
 
 //Static functions
