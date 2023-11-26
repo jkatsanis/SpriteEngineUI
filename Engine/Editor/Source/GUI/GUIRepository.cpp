@@ -14,11 +14,6 @@ spe::GUIRepository::GUIRepository()
 
 	this->DragAndDropPath = " ";
 	this->DragAndDropName = " ";
-
-	spe::Rectangle* rec = new spe::Rectangle(sf::Vector2f(0, 0), sf::Vector2f(1920, 1080), sf::Color(255, 255, 255), 3.5f,
-		PATH_TO_TRANSPARENT_PIC, "game-rec");
-
-	this->Add(rec);
 }
 
 // Public functions

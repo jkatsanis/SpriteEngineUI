@@ -20,6 +20,7 @@ namespace spe
 		spe::Vector2 m_Size;
 		spe::Vector3* m_BackgroundColor;
 		bool m_IsOpen;
+		sf::IntRect m_WindowBounds;
 
 		void UpdateCamera();
 
@@ -36,6 +37,8 @@ namespace spe
 		void Display();
 		void Clear();
 		void Shutdown();
+
+		bool ContainsCursor();
 
 		sf::RenderWindow* GetRenderWindow() { return this->m_ptr_Window; }
 

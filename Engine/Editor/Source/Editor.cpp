@@ -28,12 +28,12 @@ spe::Editor::Editor()
 	this->m_GUIRepository.ptr_SFEvent = &this->m_Window.WindowEvent;
 
 	this->m_GUIRepository.InitHierarchySprites(this->m_SceneHandler.SpriteRepository.GetSprites());
-
 	this->m_SceneHandler.SpriteRepository.main_content_iniitialied = true;
-
 	this->m_SceneHandler.SpriteRepository.SortSpritesByLayer();
 
-	spe::Log::LogString("=");
+	this->m_UIRealTimeEditor = spe::UIRealTimeEditor(&this->m_Window, this->m_SceneHandler.SpriteRepository, this->m_GUIRepository);
+
+	spe::Log::LogString("=============");
 	spe::Log::LogString("Finished init...");
 }
 
@@ -59,6 +59,12 @@ void spe::Editor::UpdateUI()
 	ImGui::PushFont(spe::Style::s_DefaultFont);
 	spe::UIUtility::UpdateCursor();
 	this->m_UIWindow.Update();
+
+	if (this->m_Window.ContainsCursor())
+	{
+		this->m_UIRealTimeEditor.update();
+	}
+
 	ImGui::PopFont();
 }
 

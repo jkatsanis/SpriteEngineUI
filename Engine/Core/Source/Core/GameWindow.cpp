@@ -20,6 +20,8 @@ spe::GameWindow::GameWindow(const spe::Vector2& size, const std::string& name)
 	this->m_ptr_Window = new sf::RenderWindow(sf::VideoMode((int)size.x, (int)size.y), name, sf::Style::Default);
 	this->m_IsOpen = true;
 
+	this->m_WindowBounds = sf::IntRect(0, 0, this->m_ptr_Window->getSize().x, this->m_ptr_Window->getSize().y);
+
 	ImGui::SFML::Init(*this->m_ptr_Window);
 }
 
@@ -121,4 +123,11 @@ void spe::GameWindow::Shutdown()
 	delete this->m_ptr_Window;
 	this->m_IsOpen = false;
 }
+
+bool spe::GameWindow::ContainsCursor()
+{
+	sf::Vector2i mousePosition = sf::Mouse::getPosition(*this->m_ptr_Window);
+	return this->m_WindowBounds.contains(mousePosition);
+}
+	
 

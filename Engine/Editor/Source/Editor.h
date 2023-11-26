@@ -12,6 +12,7 @@
 #include "Core/IApplication.h"
 #include "Core/SeceneHandler.h"
 #include "GUI/UIUtility/UIUtility.h"
+#include "GUI/RealTime/UIRealTimeEditor.h"
 
 #include "GUI/UIWindow.h"
 
@@ -27,6 +28,7 @@ namespace spe
 		spe::GUIRepository m_GUIRepository;
 		spe::SceneHandler m_SceneHandler;
 		spe::UIWindow m_UIWindow;
+		spe::UIRealTimeEditor m_UIRealTimeEditor;
 
 		void UpdateUI();
 		void UpdateComponents() override;

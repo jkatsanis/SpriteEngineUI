@@ -2,8 +2,6 @@
 
 // Constructor
 
-
-
 void spe::UITopbar::Init()
 {
 	this->m_display_engine_info = true;
@@ -29,6 +27,7 @@ void spe::UITopbar::Render()
 	this->hotkeys();
 	this->renderMainMenuBar();
 
+
 	ImGui::Begin("##tools-buttons", NULL, DEFAULT_FLAGS);
 	// Render
 	ImGui::SetCursorPos(ImVec2(0, 0));
@@ -48,7 +47,8 @@ void spe::UITopbar::Render()
 		this->Hovered = spe::UIUtility::IsHovered(ImVec2(0, 0), ImVec2(1920, 50));
 	}
 	ImGui::SetWindowFontScale(spe::Style::s_DefaultFontSize);
-	ImGui::SetWindowPos(ImVec2(1920 - 200 - 120, 56)); // Todo
+	
+	ImGui::SetWindowPos(ImVec2(1920 - this->m_ptr_GUIRepo->InspectorData.ptr_Size->x - 120, 56)); // Todo
 	ImGui::SetWindowSize(ImVec2(120, 30));
 	ImGui::End();
 }
@@ -348,14 +348,10 @@ void spe::UITopbar::playGameButton()
 	{
 		spe::Savesystem::SaveEverything(*this->m_ptr_Repo, *this->m_ptr_GUIRepo, *this->m_ptr_SceneHandler);
 
-		const std::string engine = spe::Utility::GetCurrentDir();
+		spe::EngineData::BuildProject();
 
-		spe::Utility::SetCurrentDir(spe::EngineData::s_PathUserProject);
-
-		const std::string path = "Build\\x64\\Debug\\" + spe::EngineData::s_NameOfUser + ".exe";
+		const std::string path = "Build\\Debug\\" + spe::EngineData::s_NameOfUser + ".exe";
 		system(path.c_str());
-
-		spe::Utility::SetCurrentDir(engine);
 	}
 }
 
