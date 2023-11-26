@@ -29,14 +29,9 @@ void spe::SceneHandler::DeleteScene(const std::string& name)
 		if (*it == name) {
 			it = TotalScenes.erase(it); 
 
-			const std::string olddir = spe::Utility::GetCurrentDir();
-			spe::Utility::SetCurrentDir(spe::EngineData::s_PathUserProject);
-
 			const std::string path = PATH_TO_SAVE_FOLDER + std::string("\\") + name;
 
 			std::filesystem::remove_all(path);
-
-			spe::Utility::SetCurrentDir(olddir);
 			
 			return;
 		}
@@ -45,6 +40,6 @@ void spe::SceneHandler::DeleteScene(const std::string& name)
 
 void spe::SceneHandler::CreateScene(const std::string& name)
 {
-	// Todo copy scene
-	throw std::runtime_error("No");
+	spe::Utility::CopyDir("Engine\\Saves\\Template", "Engine\\Saves", name);
+	this->TotalScenes.push_back(name);
 }

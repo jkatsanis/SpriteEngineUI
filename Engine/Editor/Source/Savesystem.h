@@ -21,6 +21,8 @@ namespace spe
 		static void CreateAnimationSaveFile(const spe::Sprite* ptr_sprite, const spe::Animation& animationToSave, const spe::SpriteRepository* sprites);
 		static void UpdateKnownAnimationFile(const spe::SpriteRepository* sprites);
 
+		static void UpdateSceneFile(const spe::SceneHandler& handler);
+
 		/// <summary>
 		/// Saves everything
 		/// </summary>

@@ -153,18 +153,15 @@ void spe::UITopbar::removeScene(const std::string& scene)
 	{
 		if (this->m_ptr_SceneHandler->TotalScenes.at(i) == scene)
 		{
-			idx = i;
-			break;
-		}
-	}
-	if (idx != -1)
-	{
-		this->m_ptr_SceneHandler->DeleteScene(scene);
-	}
+			this->m_ptr_SceneHandler->DeleteScene(scene);
 
-	if (this->m_ptr_SceneHandler->CurrentScene == scene)
-	{
-		this->m_ptr_SceneHandler->CurrentScene = this->m_ptr_SceneHandler->TotalScenes.at(0);
+			spe::Savesystem::UpdateSceneFile(*this->m_ptr_SceneHandler);
+
+			if (this->m_ptr_SceneHandler->CurrentScene == scene)
+			{
+				this->m_ptr_SceneHandler->CurrentScene = this->m_ptr_SceneHandler->TotalScenes.at(0);
+			}
+		}
 	}
 }
 
@@ -177,10 +174,22 @@ void spe::UITopbar::renderSceneAddPopup()
 
 	const static ImVec2 window_size = ImVec2(200, 75);
 
+
+
 	if (ImGui::Begin("##create-scene", NULL, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoScrollbar))
 	{
 		ImGui::Text("Add scene");
 		ImGui::Separator();
+
+		const ImVec2 cursor = ImGui::GetCursorPos();
+
+		ImGui::SetCursorPos(ImVec2(cursor.x + 170, cursor.y - 45));
+		if (ImGui::Button("x"))
+		{
+			this->m_add_scene_mode = false;
+		}
+
+		ImGui::SetCursorPos(cursor);
 
 		ImGui::SetNextItemWidth(150);
 		ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(0, 7));
@@ -188,7 +197,7 @@ void spe::UITopbar::renderSceneAddPopup()
 
 		ImGui::PopStyleVar();
 
-		spe::UIUtility::SameLine(0);
+		spe::UIUtility::SameLine(-10);
 
 		if (spe::Style::DisplaySmybolAsButton(ICON_FA_ARROW_RIGHT))
 		{
@@ -339,7 +348,14 @@ void spe::UITopbar::createScene()
 	{
 		return;
 	}
+	if (scene_name == "Template")
+	{
+		spe::Log::LogString("Cant create a scene with name 'Template'");
+		return;
+	}
 	this->m_ptr_SceneHandler->CreateScene(scene_name);
+
+	spe::Savesystem::UpdateSceneFile(*this->m_ptr_SceneHandler);
 }
 
 void spe::UITopbar::playGameButton()

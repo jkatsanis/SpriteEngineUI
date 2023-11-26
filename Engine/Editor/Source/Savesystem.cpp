@@ -234,3 +234,15 @@ void spe::Savesystem::UpdateKnownAnimationFile(const spe::SpriteRepository* repo
 
 	spe::Utility::CreateFileWithContent(content, PATH_TO_ANIMATIONS);
 }
+
+void spe::Savesystem::UpdateSceneFile(const spe::SceneHandler& handler)
+{
+	std::string content = "Scenes\n";
+
+	for (size_t i = 0; i < handler.TotalScenes.size(); i++)
+	{
+		content += handler.TotalScenes[i] + "\n";
+	}
+	const std::string path = PATH_TO_SCENE_FILE;
+	spe::Utility::CreateFileWithContent(content, path);
+}

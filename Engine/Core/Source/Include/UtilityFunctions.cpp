@@ -217,7 +217,7 @@ std::string spe::Utility::CopyDir(const std::string& inputDir, const std::string
 
     system(mkdir.c_str());
 
-    std::string copy = "xcopy \"" + inputDir + "\" \"" + outputdir + "\\" + std::string(name.c_str()) + "\" /E";
+    std::string copy = "xcopy \"" + inputDir + "\" \"" + outputdir + "\\" + std::string(name.c_str()) + "\" /E /I";
 
     system(copy.c_str());
 

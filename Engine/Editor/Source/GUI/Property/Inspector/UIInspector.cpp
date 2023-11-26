@@ -144,12 +144,17 @@ void spe::UIInspector::resizeWindow()
 		this->m_resize_window_data.clicked_on_resize_button = true;
 	}
 	if (this->m_resize_window_data.clicked_on_resize_button && ImGui::IsMouseDown(0))
-	{	
-		float moved = 1920 - spe::UIUtility::GUICursor.Position.x;
-
-		if (moved > 350 && moved + this->m_ptr_GUIRepo->HierarchyData.ptr_Size->x < 1920)
+	{
+		float movedy = 0;
+		if (spe::UIUtility::GUICursor.PositionChanged)
 		{
-			this->m_Size.x = moved;
+			spe::Vector2 moved = spe::UIUtility::GUICursor.LastPosition - spe::UIUtility::GUICursor.Position;
+			movedy = moved.x;
+		}
+		if (this->m_Size.x + movedy > 350
+			&& this->m_Size.x + movedy + this->m_ptr_GUIRepo->HierarchyData.ptr_Size->x < 1920)
+		{
+			this->m_Size.x += movedy;
 		}
 	}
 	else
