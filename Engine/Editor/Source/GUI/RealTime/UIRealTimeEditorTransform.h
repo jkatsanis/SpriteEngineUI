@@ -13,8 +13,6 @@ namespace spe
 		spe::GameWindow* m_ptr_Window;
 		spe::Vector2 m_cursorWorldPos;
 
-		spe::Vector2 orgn;
-
 		spe::Sprite* m_clickedSprite;
 		int m_clickedSpriteId;
 

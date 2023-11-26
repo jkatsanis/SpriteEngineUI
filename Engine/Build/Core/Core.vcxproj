@@ -327,7 +327,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClInclude Include="C:\Dev\C++\SpriteEngineUI\Engine\Core\Source\Sprite\Components\Light\LightRepository.h" />
     <ClCompile Include="C:\Dev\C++\SpriteEngineUI\Engine\Core\Source\Sprite\Components\Light\LightSource.cpp" />
     <ClInclude Include="C:\Dev\C++\SpriteEngineUI\Engine\Core\Source\Sprite\Components\Light\LightSource.h" />
-    <ClCompile Include="C:\Dev\C++\SpriteEngineUI\Engine\Core\Source\Sprite\Components\Light\lightRepository.cpp" />
+    <ClCompile Include="..\..\Core\Source\Sprite\Components\Light\LightRepository.cpp" />
     <ClCompile Include="C:\Dev\C++\SpriteEngineUI\Engine\Core\Source\Sprite\Components\PhysicsBody.cpp" />
     <ClInclude Include="C:\Dev\C++\SpriteEngineUI\Engine\Core\Source\Sprite\Components\PhysicsBody.h" />
     <ClCompile Include="C:\Dev\C++\SpriteEngineUI\Engine\Core\Source\Sprite\Components\Prefab\Prefab.cpp" />

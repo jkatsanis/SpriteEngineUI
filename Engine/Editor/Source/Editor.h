@@ -5,7 +5,6 @@
 #include "RessourceHandler/FileDataMacros.h"
 #include "Input/Input.h"
 
-
 #include "GUI/GUIRepository.h"
 #include "SpriteRepository.h"
 #include "RessourceHandler/Initializer.h"
@@ -15,6 +14,7 @@
 #include "GUI/RealTime/UIRealTimeEditor.h"
 
 #include "GUI/UIWindow.h"
+
 
 #include <ImGUISFML.h>
 #include <iostream>

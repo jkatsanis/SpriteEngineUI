@@ -22,9 +22,12 @@ void spe::UIWindow::Update()
 	}
 }
 
-void spe::UIWindow::SetRepos(spe::GUIRepository& gui, spe::SpriteRepository& sprite, spe::SceneHandler& scene)
+void spe::UIWindow::SetRepos(spe::GUIRepository& gui, spe::SpriteRepository& sprite, spe::SceneHandler& scene, spe::LightRepository& light)
 {
 	this->m_UIHierarchy.SetRepos(&sprite, &gui);
+
+	this->m_UIHierarchy.SetLightRepository(light);
+
 	this->m_UITopbar.SetRepos(&sprite, &gui);
 	this->m_UIInspector.SetRepos(&sprite, &gui);
 	this->m_UIAnimation.SetRepos(&sprite, &gui);

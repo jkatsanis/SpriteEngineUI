@@ -27,8 +27,6 @@ void spe::UIRealTimeEditorTransform::moveComponent()
 	spe::Vector2 newPosition = spe::Vector2(x - m, y - my);
 
 	this->m_clickedSprite->transform.SetPosition(newPosition);
-
-
 }
 
 bool spe::UIRealTimeEditorTransform::checkClick(spe::Sprite* const sprite)
@@ -98,8 +96,6 @@ spe::Sprite* spe::UIRealTimeEditorTransform::checkIfMouseClickedOnSprite()
 		}
 		this->m_clickedSprite = this->m_ptr_Repo->GetByName(name);
 		this->m_ptr_GUIRepo->sprite_in_inspector = this->m_clickedSprite;
-
-		orgn = this->m_clickedSprite->getSprite().getOrigin();
 
 		return this->m_clickedSprite;
 	}

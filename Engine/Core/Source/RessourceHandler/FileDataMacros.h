@@ -36,5 +36,5 @@
 // RESSOURCES
 #define PATH_TO_RESSOURCES spe::EngineData::s_PathOfEngine + "\\Editor\\Ressources"
 #define PATH_TO_KNOWN_PROJECTS PATH_TO_RESSOURCES + "\\Saves\\projects.txt"
-
 #define PATH_TO_TRANSPARENT_PIC PATH_TO_RESSOURCES + "\\Sprites\\transparent.png"
+#define PATH_TO_LIGHT_SHADER PATH_TO_RESSOURCES + "\\Shaders\\circulaer_gradient.frag"

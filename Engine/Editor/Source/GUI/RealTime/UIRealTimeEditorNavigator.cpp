@@ -19,9 +19,6 @@ void spe::UIRealTimeEditorNavigator::Render()
 {
 	this->setChangedPosition();
 
-	//Camera update (updating every frame)
-	this->m_ptr_GUIRepo->Camera.Update();
-
 	if (spe::UIUtility::s_IsAnyHovered) return;
 
 	this->navigateRightClick();

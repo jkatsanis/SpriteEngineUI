@@ -91,9 +91,20 @@ void spe::GameWindow::PollEvents()
 	ImGui::SFML::Update(*m_ptr_Window, Time::s_delta_clock.restart());
 }
 
-void spe::GameWindow::Draw(spe::Sprite* ptr)
+void spe::GameWindow::Draw(spe::Sprite* ptr, const sf::Shader* shader)
 {
-	this->m_ptr_Window->draw(ptr->getSprite());
+	if (!ptr->sprite_renderer.render)
+	{
+		return;
+	}
+	if (shader != nullptr && ptr->sprite_renderer.effected_by_light)
+	{
+		this->m_ptr_Window->draw(ptr->getSprite(), shader);
+	}
+	else 
+	{
+		this->m_ptr_Window->draw(ptr->getSprite());
+	}
 }
 
 void spe::GameWindow::Display()

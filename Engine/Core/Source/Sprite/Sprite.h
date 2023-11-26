@@ -30,7 +30,7 @@ namespace spe
 
 		bool m_SetId;
 
-		void initVariables(std::string name, spe::Vector2 spawnPos, std::string path);
+		void initVariables(std::string name, spe::Vector2 spawnPos, std::string path, spe::LightRepository& lightrep);
 	public:
 		// General info
 		std::string name;
@@ -50,7 +50,7 @@ namespace spe
 		spe::Sprite* parent;
 
 		Sprite();
-		Sprite(std::string name, spe::Vector2 spawnPosition, std::string path);
+		Sprite(std::string name, spe::Vector2 spawnPosition, std::string path, spe::LightRepository& lightrepo);
 		Sprite(spe::Sprite& rhs);
 		~Sprite();
 

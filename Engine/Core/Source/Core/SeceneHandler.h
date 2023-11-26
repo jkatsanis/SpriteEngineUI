@@ -15,6 +15,7 @@ namespace spe
 		std::vector<std::string> TotalScenes;
 		std::string CurrentScene;
 
+		spe::LightRepository LightRepository;
 		spe::SpriteRepository SpriteRepository;
 
 		void DeleteScene(const std::string& name);

@@ -15,7 +15,7 @@ spe::Editor::Editor()
 	this->m_Window.SetCamera(&this->m_GUIRepository.Camera);
 	this->m_Window.SetBackgroundColor(&this->m_GUIRepository.background_color);
 
-	this->m_UIWindow.SetRepos(this->m_GUIRepository, this->m_SceneHandler.SpriteRepository, this->m_SceneHandler);
+	this->m_UIWindow.SetRepos(this->m_GUIRepository, this->m_SceneHandler.SpriteRepository, this->m_SceneHandler, this->m_SceneHandler.LightRepository);
 
 	spe::Style::Init();
 	spe::Style::RenderStyle();
@@ -84,20 +84,12 @@ void spe::Editor::UpdateComponents()
 
 		sprite->animator.update();
 
-		this->m_Window.Draw(sprite);
+		this->m_Window.Draw(sprite, &this->m_SceneHandler.LightRepository.getShader());
+		this->m_SceneHandler.LightRepository.updateLightSource(sprite, &this->m_GUIRepository.Camera);
 	}
+	this->m_SceneHandler.LightRepository.updateArrays();
 
 	this->m_GUIRepository.Render(this->m_Window.GetRenderWindow());
-	
-	const float moveSpeed = 500.0f;
-
-	// Check if the 'A' key is held
-	if (spe::Input::onKeyHold(spe::KeyBoardCode::A))
-	{
-		spe::Vector2 pos = this->m_GUIRepository.Camera.Position;
-		this->m_GUIRepository.Camera.Position = spe::Vector2(pos.x - moveSpeed * spe::Time::s_delta_time, pos.y);
-	}
-
 	this->m_Window.Display();
 }
 
@@ -107,6 +99,6 @@ void spe::Editor::Update()
 {
 	spe::Time::update();
 	this->UpdateComponents();
-	this->m_GUIRepository.Camera.Update();
+	this->m_GUIRepository.Camera.Update(&this->m_SceneHandler.LightRepository);
 }
 

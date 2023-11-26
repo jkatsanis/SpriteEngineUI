@@ -44,6 +44,8 @@ namespace spe
 		float m_child_select_timer;
 		uint8_t m_sprite_background_color_cnt;
 
+		spe::LightRepository* m_ptr_LightRepo;
+
 		void displayContextPopup();
 		bool displaySprites();
 		void displaySprites(spe::Sprite* parent, bool& any_hovered);
@@ -84,6 +86,8 @@ namespace spe
 		void Init() override;
 	public:
 		void Render() override;
+
+		void SetLightRepository(spe::LightRepository& light) { this->m_ptr_LightRepo = &light; }
 	};
 }
 

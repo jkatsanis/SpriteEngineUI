@@ -40,7 +40,7 @@ void spe::Camera::reset()
 	this->m_camera_zoom = 1.0f;
 }
 
-void spe::Camera::Update()
+void spe::Camera::Update(spe::LightRepository* lightrepo)
 {	
 	this->camera_view.setSize(1920 * this->m_camera_zoom, 1080 * this->m_camera_zoom);
 
@@ -51,7 +51,7 @@ void spe::Camera::Update()
 
 	this->camera_view.setCenter(sf::Vector2f(defaultPos.x, defaultPos.y));
 
-	sf::Shader& shader = spe::LightRepository::getShader();
+	sf::Shader& shader = lightrepo->getShader();
 
 	sf::Vector2f a = sf::Vector2f(defaultPos.x - 960, defaultPos.y - 540);
 	shader.setUniform("cameraPosition", a);

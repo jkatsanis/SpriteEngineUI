@@ -5,13 +5,16 @@
 
 #define DEFAULT_LIGHT_RADIUS 100
 
+#define THROW_IF_NO_LIGHT_REPO if (this->m_ptr_LighRepository == nullptr) \
+							   {\
+									throw std::runtime_error("You are a dumbas you dont have a light repo ptr");\
+							   }
 namespace spe
 {
 	class Sprite;
 	class Light : public spe::Component
 	{
 	private:
-		void init() override;
 		uint32_t m_light_index;
 		float m_radius;
 		bool m_radius_changed;
@@ -21,13 +24,15 @@ namespace spe
 		float m_intensity;
 		bool m_intensity_changed;
 
+
+		void init() override;
 	public:
 		Sprite* ptr_attached_sprite;
+		spe::LightRepository* m_ptr_LighRepository;
 
 		Light();
-		Light(Sprite* ptr_sprite);
+		Light(Sprite* ptr_sprite, spe::LightRepository* ptr);
 		Light(Sprite* ptr_sprite, const spe::Light& rhs);
-
 	
 		uint32_t getLightIndex() const { return this->m_light_index; }
 		void deleteLight();

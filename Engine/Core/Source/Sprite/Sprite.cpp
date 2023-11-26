@@ -10,20 +10,21 @@ spe::Sprite::Sprite()
 	this->m_texture = nullptr;
 }
 
-spe::Sprite::Sprite(std::string name, spe::Vector2 spawnPosition, std::string path)
+spe::Sprite::Sprite(std::string name, spe::Vector2 spawnPosition, std::string path, spe::LightRepository& lightrep)
 	: name(name)
 {
-	this->initVariables(name, spawnPosition, path);
+	this->initVariables(name, spawnPosition, path, lightrep);
 }
 
 spe::Sprite::Sprite(spe::Sprite& rhs)
 {
-	this->initVariables(rhs.name, rhs.transform.GetPosition(), rhs.sprite_renderer.path);
+	this->initVariables(rhs.name, rhs.transform.GetPosition(), rhs.sprite_renderer.path, *rhs.light.m_ptr_LighRepository);
 
 	this->collider = spe::BoxCollider(this, rhs.collider);
 	this->transform = spe::Transform(this, rhs.transform);
 	this->animator = spe::Animator(this, rhs.animator);
 	this->physicsBody = spe::PhsysicsBody(rhs.physicsBody);
+	this->light = spe::Light(this, rhs.light);
 
 	this->tag = rhs.tag;
 
@@ -137,14 +138,14 @@ void spe::Sprite::removeChild(const spe::Sprite* child)
 
 //Private functions
 
-void spe::Sprite::initVariables(std::string name, spe::Vector2 spawnPos, std::string path)
+void spe::Sprite::initVariables(std::string name, spe::Vector2 spawnPos, std::string path, spe::LightRepository& lightrep)
 {
 	this->transform = spe::Transform(this);
 	this->animator = spe::Animator(this);
 	this->collider = spe::BoxCollider(this);
 	this->physicsBody = spe::PhsysicsBody();
 	this->prefab = spe::Prefab(this);
-	this->light = spe::Light(this);
+	this->light = spe::Light(this, &lightrep);
 
 	// ID's get set in the sprite repo!!
 	this->tag = "none";

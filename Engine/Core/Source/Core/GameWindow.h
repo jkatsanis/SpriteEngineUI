@@ -33,7 +33,7 @@ namespace spe
 
 		void PollEvents();
 		bool IsOpen() const { return this->m_IsOpen; }
-		void Draw(spe::Sprite* ptr);
+		void Draw(spe::Sprite* ptr, const sf::Shader* shader);
 		void Display();
 		void Clear();
 		void Shutdown();

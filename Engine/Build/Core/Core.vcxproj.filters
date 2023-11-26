@@ -67,7 +67,7 @@
     <ClCompile Include="C:\Dev\C++\SpriteEngineUI\Engine\Core\Source\Sprite\Components\Light\LightSource.cpp">
       <Filter>Source\Sprite\Components\Light</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Dev\C++\SpriteEngineUI\Engine\Core\Source\Sprite\Components\Light\lightRepository.cpp">
+    <ClCompile Include="..\..\Core\Source\Sprite\Components\Light\LightRepository.cpp">
       <Filter>Source\Sprite\Components\Light</Filter>
     </ClCompile>
     <ClCompile Include="C:\Dev\C++\SpriteEngineUI\Engine\Core\Source\Sprite\Components\PhysicsBody.cpp">

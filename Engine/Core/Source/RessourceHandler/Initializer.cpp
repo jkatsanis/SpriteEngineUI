@@ -5,7 +5,7 @@
 
 #pragma region SPRITE
 
-void spe::Initializer::InitSprites(spe::SpriteRepository& spriteRepo, const std::string& path)
+void spe::Initializer::InitSprites(spe::SpriteRepository& spriteRepo, const std::string& path, spe::LightRepository& lightrepo)
 {
 	//! INFO ! ALWAYS SCALE THINGS UP BY 1.5F!
 	std::fstream spriteFile;
@@ -27,7 +27,7 @@ void spe::Initializer::InitSprites(spe::SpriteRepository& spriteRepo, const std:
 			//Creating empty sprite, then pushing it back
 			// 
 			//INITIIALIZING PROPS
-			spe::Sprite* sprite =  spe::Initializer::InitSprite(line);
+			spe::Sprite* sprite =  spe::Initializer::InitSprite(line, lightrepo);
 
 			//Pushing the sprite
 			spriteRepo.Add(sprite);
@@ -197,21 +197,13 @@ void spe::Initializer::InitAnimation(const std::string& path, spe::SpriteReposit
 	}
 }
 
-spe::Sprite* spe::Initializer::InitSprite(const std::string& line)
+spe::Sprite* spe::Initializer::InitSprite(const std::string& line, spe::LightRepository& lightrepo)
 {
 	std::vector<std::string> propertys = spe::Utility::Split(line, DELIMITER);
 
 	const spe::Vector2 position = spe::Vector2(std::stof(propertys[2].c_str()), std::stof(propertys[3].c_str()));
 
-	spe::Sprite* sprite = new spe::Sprite(propertys[0], position, propertys[6]);
-
-	sprite->collider = spe::BoxCollider(sprite);
-	sprite->animator = spe::Animator(sprite);
-	sprite->transform = spe::Transform(sprite, sprite->transform);
-	sprite->physicsBody = spe::PhsysicsBody();
-	sprite->prefab = spe::Prefab(sprite);
-	sprite->light = spe::Light(sprite);
-	sprite->parent = nullptr;
+	spe::Sprite* sprite = new spe::Sprite(propertys[0], position, propertys[6], lightrepo);
 
 	spe::Vector2 vec(std::stof(propertys[4].c_str()), std::stof(propertys[5].c_str()));
 	sprite->transform.setScale(vec, true);
@@ -366,7 +358,7 @@ void spe::Initializer::InitBackground(spe::Vector3& vec, const std::string& path
 
 #pragma endregion
 
-spe::Sprite* spe::Initializer::InitPrefab(const std::string& path)
+spe::Sprite* spe::Initializer::InitPrefab(const std::string& path, spe::LightRepository& repo)
 {
 	std::fstream stream = std::fstream(path);
 
@@ -391,7 +383,7 @@ spe::Sprite* spe::Initializer::InitPrefab(const std::string& path)
 			// S stands for sprite
 			if (properties[0] == "S")
 			{
-				spe::Sprite* child = spe::Initializer::InitSprite(properties[1]);
+				spe::Sprite* child = spe::Initializer::InitSprite(properties[1], repo);
 				current_sprite = child;
 				mini_repo.push_back(child);
 			}

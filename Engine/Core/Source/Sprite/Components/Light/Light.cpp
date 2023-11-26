@@ -18,10 +18,11 @@ spe::Light::Light()
 	this->init();
 }
 
-spe::Light::Light(Sprite* ptr_attached_sprite)
+spe::Light::Light(Sprite* ptr_attached_sprite, spe::LightRepository* ptr)
 {
 	this->init();
 	this->ptr_attached_sprite = ptr_attached_sprite;
+	this->m_ptr_LighRepository = ptr;
 }
 
 spe::Light::Light(Sprite* ptr_sprite, const spe::Light& rhs)
@@ -30,25 +31,27 @@ spe::Light::Light(Sprite* ptr_sprite, const spe::Light& rhs)
 	this->m_color = rhs.getColor();
 	this->m_radius = rhs.getRadius();
 	this->m_intensity = rhs.getIntensity();
+	this->m_ptr_LighRepository = rhs.m_ptr_LighRepository;
 }
 
 // Public methods
 
 void spe::Light::deleteLight()
 {
-	spe::LightRepository::remove(this->m_light_index);
+	THROW_IF_NO_LIGHT_REPO
 	this->m_light_index = 0;
 }
 
 void spe::Light::enable()
 {
+	THROW_IF_NO_LIGHT_REPO
 	if (this->exist)
 	{
 		return;
 	}
 	this->exist = true;
-	spe::LightRepository::add(this->ptr_attached_sprite->transform.GetPosition(), this->m_radius, this->m_intensity, this->m_color);
-	this->m_light_index = spe::LightRepository::getIndex();
+	this->m_ptr_LighRepository->add(this->ptr_attached_sprite->transform.GetPosition(), this->m_radius, this->m_intensity, this->m_color);
+	this->m_light_index = this->m_ptr_LighRepository->getIndex();
 }
 
 void spe::Light::reset()

@@ -11,7 +11,7 @@ void spe::SceneHandler::LoadScene(const std::string& name, spe::Camera& camera, 
 
 			spe::EngineData::s_Scene = name;
 			this->CurrentScene = str;
-			spe::Initializer::InitSprites(this->SpriteRepository, PATH_TO_SPRITES);
+			spe::Initializer::InitSprites(this->SpriteRepository, PATH_TO_SPRITES, this->LightRepository);
 			spe::Initializer::InitAnimations(this->SpriteRepository, PATH_TO_ANIMATIONS);
 			spe::Initializer::IntiHighestSpriteID(this->SpriteRepository, PATH_TO_HIGHEST_INDEX);
 

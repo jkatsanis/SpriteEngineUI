@@ -89,7 +89,7 @@ void spe::UIHierarchy::addSprite()
 	{
 		const size_t vectorPos = this->m_ptr_Repo->GetAmount() + 1;
 		const std::string name = "Sprite " + std::to_string(vectorPos) + " ID " + std::to_string(this->m_ptr_Repo->GetHighestId() + 1);
-		spe::Sprite* sprite = new spe::Sprite(name, spe::Vector2(0, 0), PATH_TO_DEFAULT_SPRITE);
+		spe::Sprite* sprite = new spe::Sprite(name, spe::Vector2(0, 0), PATH_TO_DEFAULT_SPRITE, *this->m_ptr_LightRepo);
 
 		this->OnSpriteAdd(sprite);
 	}
@@ -245,7 +245,7 @@ void spe::UIHierarchy::addPrefab()
 		&& "." + spe::Utility::GetFileExtension(this->m_ptr_GUIRepo->DragAndDropName) == EXTENSION_PREFAB_FILE
 		&& ImGui::IsMouseReleased(0) && this->Hovered)
 	{
-		spe::Sprite* sprite = spe::Initializer::InitPrefab(this->m_ptr_GUIRepo->DragAndDropPath);
+		spe::Sprite* sprite = spe::Initializer::InitPrefab(this->m_ptr_GUIRepo->DragAndDropPath, *this->m_ptr_LightRepo);
 		this->OnSpriteAdd(sprite);
 	}
 }

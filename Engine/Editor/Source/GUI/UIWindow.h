@@ -25,6 +25,6 @@ namespace spe
 
 		void Update();
 
-		void SetRepos(spe::GUIRepository& gui, spe::SpriteRepository& sprite, spe::SceneHandler& scene);
+		void SetRepos(spe::GUIRepository& gui, spe::SpriteRepository& sprite, spe::SceneHandler& scene, spe::LightRepository& light);
 	};
 }
