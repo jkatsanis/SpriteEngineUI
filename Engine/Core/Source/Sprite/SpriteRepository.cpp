@@ -106,6 +106,19 @@ spe::Sprite* spe::SpriteRepository::GetByName(const std::string& name)
     throw std::out_of_range("Sprite with name was not found");
 }
 
+bool spe::SpriteRepository::ExistWithId(uint32_t id)
+{
+    for (auto it = this->m_sprites.begin(); it != this->m_sprites.end(); ++it)
+    {
+        spe::Sprite* sprite = *it;
+        if (sprite->getId() == id)
+        {
+            return true;
+        }
+    }
+    return false;
+}
+
 uint32_t spe::SpriteRepository::GetListIndex(spe::Sprite* sprite)
 {
     uint32_t idx = 0;
@@ -153,7 +166,12 @@ void spe::SpriteRepository::cleanUp()
     this->m_sprites.clear();
 
     this->m_HighestLayer = 0;
-    this->m_HighestId = 0;
+}
+
+void spe::SpriteRepository::SetHighestId(uint32_t id)
+{
+    this->m_HighestId = id;
+    spe::Log::LogString("Settind highest id...");
 }
 
 // Private functions
@@ -232,6 +250,10 @@ void spe::SpriteRepository::ValidateAdd(spe::Sprite* spr)
 
 void spe::SpriteRepository::SortSpritesByLayer()
 {
+    if (this->m_sprites.size() == 0)
+    {
+        return;
+    }
     std::vector<spe::Sprite*> sprites(this->m_sprites.begin(), this->m_sprites.end());
     this->m_sprites.clear();
 

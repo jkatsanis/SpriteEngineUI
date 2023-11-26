@@ -246,6 +246,13 @@ void spe::UIHierarchy::addPrefab()
 		&& ImGui::IsMouseReleased(0) && this->Hovered)
 	{
 		spe::Sprite* sprite = spe::Initializer::InitPrefab(this->m_ptr_GUIRepo->DragAndDropPath, *this->m_ptr_LightRepo);
+
+		if (sprite == nullptr)
+		{
+			spe::Log::LogString("Prefab was not in the right format for some reason");
+			return;
+		}
+
 		this->OnSpriteAdd(sprite);
 	}
 }

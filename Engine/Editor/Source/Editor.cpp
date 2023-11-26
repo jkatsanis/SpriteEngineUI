@@ -49,6 +49,7 @@ void spe::Editor::Init()
 {
 	spe::Initializer::InitTags(this->m_SceneHandler.SpriteRepository, PATH_TO_TAG_FILE);
 	spe::Initializer::InitScenes(this->m_SceneHandler, PATH_TO_SCENE_FILE);
+	spe::Initializer::IntiHighestSpriteID(this->m_SceneHandler.SpriteRepository, PATH_TO_HIGHEST_INDEX);
 
 	// Load the first scene in the file
 	this->m_SceneHandler.LoadScene(this->m_SceneHandler.TotalScenes[0], this->m_GUIRepository.Camera, this->m_GUIRepository.background_color);
@@ -83,9 +84,9 @@ void spe::Editor::UpdateComponents()
 		spe::Sprite* sprite = *it;
 
 		sprite->animator.update();
+		this->m_SceneHandler.LightRepository.updateLightSource(sprite, &this->m_GUIRepository.Camera);
 
 		this->m_Window.Draw(sprite, &this->m_SceneHandler.LightRepository.getShader());
-		this->m_SceneHandler.LightRepository.updateLightSource(sprite, &this->m_GUIRepository.Camera);
 	}
 	this->m_SceneHandler.LightRepository.updateArrays();
 

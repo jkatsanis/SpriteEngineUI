@@ -11,7 +11,7 @@
 
 namespace spe
 {
-    class Sprite;
+    class Sprite;           // The sprite id wont reset over scenes
     class SpriteRepository : public spe::Repository<spe::Sprite>
     {
     private:
@@ -42,9 +42,10 @@ namespace spe
         void UpdateLayerIndex() override;
         void ReloadTextures();
         void cleanUp();
-        void SetHighestId(uint32_t id) { this->m_HighestId = id; }
+        void SetHighestId(uint32_t id);
 
         // getter
+        bool ExistWithId(uint32_t id);
         uint32_t GetListIndex(spe::Sprite* sprite);
         std::list<spe::Sprite*>& GetSprites() { return  this->m_sprites; }
         const std::list<spe::Sprite*>& GetSpritesC() const { return  this->m_sprites; }

@@ -57,7 +57,7 @@ namespace spe
 
 		//When the box collider component is open we want to display the rectangle as a box collider and not as a rectangle
 		float m_window_size_width;
-		const char* m_current_component_selected;
+		std::string m_current_component_selected;
 		char* m_input_name;
 
 		float m_light_radius;

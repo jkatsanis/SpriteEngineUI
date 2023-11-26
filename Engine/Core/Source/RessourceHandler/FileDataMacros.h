@@ -23,8 +23,8 @@
 #define PATH_TO_ANIMATIONS PATH_TO_SCENE_FOLDER + "\\animations.txt"
 #define PATH_TO_CAMERA PATH_TO_SCENE_FOLDER + "\\camera.txt"
 #define PATH_TO_BACKGROUND PATH_TO_SCENE_FOLDER + "\\background.txt"
-#define PATH_TO_HIGHEST_INDEX PATH_TO_SCENE_FOLDER + "\\index.txt"
 
+#define PATH_TO_HIGHEST_INDEX "Engine\\Saves\\index.txt"
 #define PATH_TO_TAG_FILE "Engine\\Saves\\tags.txt"
 #define PATH_TO_SCENE_FILE "Engine\\Saves\\scenes.scn"
 

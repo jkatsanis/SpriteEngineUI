@@ -32,6 +32,15 @@ spe::Light::Light(Sprite* ptr_sprite, const spe::Light& rhs)
 	this->m_radius = rhs.getRadius();
 	this->m_intensity = rhs.getIntensity();
 	this->m_ptr_LighRepository = rhs.m_ptr_LighRepository;
+
+	this->ptr_attached_sprite = ptr_sprite;
+
+	if (this->exist)
+	{
+		this->exist = false;
+		this->enable();
+	}
+
 }
 
 // Public methods

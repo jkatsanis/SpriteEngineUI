@@ -12,6 +12,7 @@ spe::SpriteRenderer::SpriteRenderer(const spe::SpriteRenderer& rhs)
 	this->effected_by_light = rhs.effected_by_light;
 	this->path = rhs.path;
 	this->sorting_layer_index = rhs.sorting_layer_index;
+	this->effected_by_light = rhs.effected_by_light;
 }
 
 void spe::SpriteRenderer::init()

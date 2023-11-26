@@ -24,6 +24,7 @@ spe::Sprite::Sprite(spe::Sprite& rhs)
 	this->transform = spe::Transform(this, rhs.transform);
 	this->animator = spe::Animator(this, rhs.animator);
 	this->physicsBody = spe::PhsysicsBody(rhs.physicsBody);
+	this->sprite_renderer = spe::SpriteRenderer(rhs.sprite_renderer);
 	this->light = spe::Light(this, rhs.light);
 
 	this->tag = rhs.tag;
@@ -41,6 +42,8 @@ spe::Sprite::~Sprite()
 {
 	this->clearAllChilds();
 	this->clearParentData();
+
+	this->light.deleteLight();
 
 	delete this->m_texture;
 	this->m_texture = nullptr;

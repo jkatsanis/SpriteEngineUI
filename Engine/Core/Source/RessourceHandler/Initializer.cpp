@@ -170,7 +170,8 @@ void spe::Initializer::InitAnimation(const std::string& path, spe::SpriteReposit
 			if (cnt == 2)
 			{
 				uint32_t to_load = std::stoi(line);
-				ptr_sprite = repo.GetById(to_load);
+			
+
 				continue;
 			}
 			if (cnt == 3)
