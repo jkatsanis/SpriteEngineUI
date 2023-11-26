@@ -17,25 +17,16 @@ void spe::UIRealTimeEditorTransform::moveComponent()
 	float m = x - this->m_clickedSprite->transform.GetPosition().x;
 	float my = y - this->m_clickedSprite->transform.GetPosition().y;
 
-	if (spe::UIUtility::WorldCursor.PositionChanged)
+	if (spe::UIUtility::GUICursor.PositionChanged)
 	{
-		spe::Vector2 moved = spe::UIUtility::WorldCursor.LastPosition - spe::UIUtility::WorldCursor.Position;
-
-		spe::Vector2 pos = this->m_ptr_GUIRepo->sprite_in_inspector->transform.GetPosition();
-
-		pos.x += (moved.x / this->m_ptr_GUIRepo->Camera.getZoom()) * -1;
-
-		spe::Vector2 s = spe::Vector2(spe::UIUtility::WorldCursor.Position.x - 960, spe::UIUtility::WorldCursor.Position.y * -1 + 540);
-
-		// Calculate position where clicked
-		spe::Vector2 orgn = this->m_ptr_GUIRepo->sprite_in_inspector->getSprite().getOrigin();
-
-		spe::Vector2 uga = s - orgn;
-
-		s += uga;
-
-		this->m_ptr_GUIRepo->sprite_in_inspector->transform.SetPosition(s);
+		spe::Vector2 moved = spe::UIUtility::GUICursor.LastPosition - spe::UIUtility::GUICursor.Position;
+		m += moved.x * this->m_ptr_GUIRepo->Camera.getZoom();
+		my -= moved.y * this->m_ptr_GUIRepo->Camera.getZoom();
 	}
+
+	spe::Vector2 newPosition = spe::Vector2(x - m, y - my);
+
+	this->m_clickedSprite->transform.SetPosition(newPosition);
 
 
 }
@@ -107,6 +98,9 @@ spe::Sprite* spe::UIRealTimeEditorTransform::checkIfMouseClickedOnSprite()
 		}
 		this->m_clickedSprite = this->m_ptr_Repo->GetByName(name);
 		this->m_ptr_GUIRepo->sprite_in_inspector = this->m_clickedSprite;
+
+		orgn = this->m_clickedSprite->getSprite().getOrigin();
+
 		return this->m_clickedSprite;
 	}
 
