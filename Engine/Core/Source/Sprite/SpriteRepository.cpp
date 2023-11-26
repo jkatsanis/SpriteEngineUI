@@ -213,7 +213,16 @@ void spe::SpriteRepository::sortSpritesByLayer(spe::Sprite* spr)
 
 void spe::SpriteRepository::ValidateAdd(spe::Sprite* spr)
 {
-    spr->setId(this->m_HighestId);
+    for (auto it = this->m_sprites.begin(); it != this->m_sprites.end(); ++it)
+    {
+        spe::Sprite* element = *it;
+        if (element->name == spr->name)
+        {
+            spr->name += "(D)";
+        }
+    }
+            
+   spr->setId(this->m_HighestId);
 }
 
 // Static functions

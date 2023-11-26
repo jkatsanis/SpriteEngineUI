@@ -245,8 +245,8 @@ void spe::UIHierarchy::addPrefab()
 		&& "." + spe::Utility::GetFileExtension(this->m_ptr_GUIRepo->DragAndDropName) == EXTENSION_PREFAB_FILE
 		&& ImGui::IsMouseReleased(0) && this->Hovered)
 	{
-		// this->m_ptr_Repo->instanitatePrefab(this->m_ptr_Repo->asset_folder_data.drag_and_drop_path);
-		// this->OnSpriteAdd() // Smth
+		spe::Sprite* sprite = spe::Initializer::InitPrefab(this->m_ptr_GUIRepo->DragAndDropPath);
+		this->OnSpriteAdd(sprite);
 	}
 }
 

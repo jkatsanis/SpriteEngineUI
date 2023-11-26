@@ -318,6 +318,35 @@ void spe::UIInspector::setCompontents()
 	}
 }
 
+void spe::UIInspector::renameSprite()
+{
+	static float s_TimeToUpdate = 0.0f;
+
+	s_TimeToUpdate += spe::Time::s_delta_time;
+
+	if (s_TimeToUpdate > 0.25f)
+	{
+		s_TimeToUpdate = 0.0f;
+
+		std::list<spe::Sprite*>& sprites = this->m_ptr_Repo->GetSprites();
+
+		for (auto it = sprites.begin(); it != sprites.end(); ++it)
+		{
+			const spe::Sprite* sprite_1 = *it;
+
+			for (auto it_2 = sprites.begin(); it_2 != sprites.end(); ++it_2)
+			{
+				 spe::Sprite* sprite_2 = *it_2;
+
+				if (sprite_2->name == sprite_1->name && sprite_2->getId() != sprite_1->getId())
+				{
+					sprite_2->name += "(D)";
+				}
+			}
+		}
+	}
+}
+
 void spe::UIInspector::componentSelector()
 {
 	const ImVec2 temp = ImGui::GetCursorPos();
@@ -726,6 +755,8 @@ void spe::UIInspector::Render()
 
 	// Left arrow
 	this->renderOptions();
+
+	this->renameSprite();
 
 	//Setting it here transparent because if we go down and out box collider is actually getting used it will update to green automatic
 	if (this->m_ptr_GUIRepo->sprite_in_inspector != nullptr)

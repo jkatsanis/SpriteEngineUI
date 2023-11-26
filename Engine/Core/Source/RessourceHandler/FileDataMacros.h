@@ -4,6 +4,7 @@
 /////////////////////
 // ENGINE (NAMES) 
 #define DELIMITER ';'
+#define PREFAB_DELIMITER '|'
 #define EXTENSION_PREFAB_FILE ".prfb"
 #define EXTENSION_SAVE_FILE ".txt"
 #define EXTENSION_SCENE_SAVE_FILE ".scn"

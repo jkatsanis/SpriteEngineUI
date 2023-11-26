@@ -160,14 +160,17 @@ void spe::Savesystem::CreateOrUpdatePrefabFile(const spe::Sprite* content, const
 
 	std::string fileContent = "name;vecpos;transformPosX;transformPosY;ScaleX;ScaleY;filepath;boxColliderWidthLeftOrRightX;boxColliderWidthLeftOrRighY;boxColliderHeightUpOrDownX;boxColliderHeightUpOrDownY;boxColliderExists;solid;sortingLayer;gravity;mass;physicsBodyExists;id;parentId;nextPosX;nextPosY;lastPosX;lastPosY;listPos;highestChild;positionToParentX;positionToParentY;animatorExists;prefabExist;loadInMemory;pathToPrefab\n";
 
-	fileContent += "S;"+ spe::Savesystem::GetPropertyLineWithSeperator(content) + "\n";
+	std::string s;
+	s.push_back(PREFAB_DELIMITER);
+
+	fileContent += "S" + s + spe::Savesystem::GetPropertyLineWithSeperator(content) + "\n";
 
 
 	// Animation of parent
 	for (auto& animation : content->animator.animations)
 	{
 		const auto& value = animation.second;
-		fileContent += "A;" + value.GetPath() + "\n";
+		fileContent += "A" + s + value.GetPath() + "\n";
 	}
 
 	std::vector<const spe::Sprite*> childs;
@@ -177,13 +180,12 @@ void spe::Savesystem::CreateOrUpdatePrefabFile(const spe::Sprite* content, const
 	// Initing childs
 	for (size_t i = 0; i < childs.size(); i++)
 	{
-		fileContent += "S;" + spe::Savesystem::GetPropertyLineWithSeperator(childs[i]) + "\n";
+		fileContent += "S" + s + spe::Savesystem::GetPropertyLineWithSeperator(childs[i]) + "\n";
 		for (auto& animation : childs[i]->animator.animations)
 		{
 			const auto& value = animation.second;
-			fileContent += "A;" + value.GetPath() + "\n";
+			fileContent += "A" + s + value.GetPath() + "\n";
 		}
-
 	}
 	
 	spe::Utility::CreateFileWithContent(fileContent, pathToFile);

@@ -78,6 +78,7 @@ namespace spe
 
 		void displayDefaultInspectorView();
 	
+		void renameSprite();
 		void componentSelector();
 		void setCompontents();
 		void drawRectangleOverCurrentObject();

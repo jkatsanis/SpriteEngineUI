@@ -372,9 +372,10 @@ spe::Sprite* spe::Initializer::InitPrefab(const std::string& path)
 
 	if (stream.is_open())
 	{
-		spe::Sprite* parent = nullptr;
+		spe::Sprite* current_sprite = nullptr;
 
-		std::vector<spe::Sprite*> child_repo;
+		std::vector<spe::Sprite*> mini_repo;
+
 		std::string line = "";
 		uint8_t cnt = 0;
 		while (getline(stream, line))
@@ -385,28 +386,30 @@ spe::Sprite* spe::Initializer::InitPrefab(const std::string& path)
 			{
 				continue;
 			}
-			if (cnt == 2)
+			const std::vector<std::string> properties = spe::Utility::Split(line, PREFAB_DELIMITER);
+			
+			// S stands for sprite
+			if (properties[0] == "S")
 			{
-				// initing the parent, 2nd line
-				parent = spe::Initializer::InitSprite(line);
-				continue;
+				spe::Sprite* child = spe::Initializer::InitSprite(properties[1]);
+				current_sprite = child;
+				mini_repo.push_back(child);
 			}
 
-			spe::Sprite* child = spe::Initializer::InitSprite(line);
-			child_repo.push_back(child);
-
+			// A stands for animation
+			if (properties[0] == "A")
+			{
+				spe::Initializer::InitAnimation(properties[1], current_sprite);
+			}
 		}
-		parent->parent = nullptr;
-		parent->setParentId(-1);
-		child_repo.push_back(parent);
 
 		// Parent algorithm to set childs
-		for (int i = 0; i < child_repo.size(); i++)
+		for (int i = 0; i < mini_repo.size(); i++)
 		{
-			spe::Sprite* const sprite = child_repo[i];
+			spe::Sprite* const sprite = mini_repo[i];
 			if (sprite->getParentId() > 0)
 			{
-				spe::Sprite* parent = spe::SpriteRepository::getWithId(child_repo, sprite->getParentId());
+				spe::Sprite* parent = spe::SpriteRepository::getWithId(mini_repo, sprite->getParentId());
 				if (parent != nullptr)
 				{
 					sprite->parent = parent;
@@ -415,9 +418,8 @@ spe::Sprite* spe::Initializer::InitPrefab(const std::string& path)
 			}
 		}
 
-		// Initializing the animations
-
-		return parent;
+		spe::Sprite* node = mini_repo[0]->getNode();
+		return node;
 	}
 	
 	throw std::runtime_error("Couldn't open prefab file :(");
