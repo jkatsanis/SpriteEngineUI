@@ -91,7 +91,6 @@ namespace spe
 		void Init() override;
 
 	public:
-		bool is_hovered;
 		spe::InspectorState state;
 
 		void Render() override;

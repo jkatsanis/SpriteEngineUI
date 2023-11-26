@@ -35,12 +35,12 @@ void spe::UIInspectorBoxCollider::renderScaleDotts(spe::Sprite* sprite, spe::Rec
 		: sprite->transform.getScale().y;
 
 
-	const float left = sprite->getOrigininalPosition().x;
-	const float right = sprite->getOrigininalPosition().x + sprite->transform.getDefaultTextureSize().x * scale_x;
-	const float middle_y = (sprite->getOrigininalPosition().y + (sprite->transform.getDefaultTextureSize().y * scale_y) / 2) ;
-	const float bottom = sprite->getOrigininalPosition().y + sprite->transform.getDefaultTextureSize().y * scale_y;
-	const float middle_x = sprite->getOrigininalPosition().x + (sprite->transform.getDefaultTextureSize().x * scale_x) / 2;
-	const float top = sprite->getOrigininalPosition().y;
+	const float left = sprite->transform.getOrigininalPosition().x;
+	const float right = sprite->transform.getOrigininalPosition().x + sprite->transform.getDefaultTextureSize().x * scale_x;
+	const float middle_y = (sprite->transform.getOrigininalPosition().y + (sprite->transform.getDefaultTextureSize().y * scale_y) / 2) ;
+	const float bottom = sprite->transform.getOrigininalPosition().y + sprite->transform.getDefaultTextureSize().y * scale_y;
+	const float middle_x = sprite->transform.getOrigininalPosition().x + (sprite->transform.getDefaultTextureSize().x * scale_x) / 2;
+	const float top = sprite->transform.getOrigininalPosition().y;
 
 	const sf::Vector2f pos_width_y = sf::Vector2f(right + sprite->collider.box_collider_width.y, middle_y);
 	const sf::Vector2f pos_width_x = sf::Vector2f(left - DEFAULT_DOTT_SCALE + sprite->collider.box_collider_width.x, middle_y);
@@ -253,7 +253,7 @@ void spe::UIInspectorBoxCollider::drawBoxCollider(spe::Sprite* sprite, spe::Rect
 	sf::RectangleShape* ptr_shape = &ptr_rectangle->Shape;
 
 	ptr_shape->setSize(size);
-	ptr_shape->setPosition(sf::Vector2f(sprite->getOrigininalPosition().x + sprite->collider.box_collider_width.x, sprite->getOrigininalPosition().y + sprite->collider.box_collider_height.x));
+	ptr_shape->setPosition(sf::Vector2f(sprite->transform.getOrigininalPosition().x + sprite->collider.box_collider_width.x, sprite->transform.getOrigininalPosition().y + sprite->collider.box_collider_height.x));
 
 	ptr_rectangle->Render = true;
 

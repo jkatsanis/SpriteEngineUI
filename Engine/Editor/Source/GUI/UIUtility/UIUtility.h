@@ -8,6 +8,8 @@
 #include "GUI/UIUtility/UIModels.h"
 #include "Utility/Style.h"
 #include "Core/Event.h"
+#include "GUI/UIUtility/UITransform.h"
+#include "Sprite/Sprite.h"
 
 #define INVALID_SCALE 1.11f
 #define CURSOR_HITBOX 20
@@ -22,8 +24,8 @@ namespace spe
 
 		static float scaleChanger(spe::ScaleDott& dott, float default_size, float pos_o, bool x);
 	public:
-		static spe::Vector2 GUICursor;
-		static sf::Vector2f WorldCursor;
+		static spe::UITransform GUICursor;
+		static spe::UITransform WorldCursor;
 
 		UIUtility() = delete;
 

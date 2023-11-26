@@ -118,12 +118,12 @@ void spe::UIAssetFolder::resizeWindow()
     spe::Style::DisplaySmybolAsButton(ICON_FA_ARROW_UP);
     if (ImGui::IsItemHovered() && ImGui::IsMouseClicked(0))
     {
-        this->m_resize_window_data.additinal_add = 1080 - spe::UIUtility::GUICursor.y - this->m_Size.y;
+        this->m_resize_window_data.additinal_add = 1080 - spe::UIUtility::GUICursor.Position.y - this->m_Size.y;
         this->m_resize_window_data.clicked_on_resize_button = true;
     }
     if (this->m_resize_window_data.clicked_on_resize_button && ImGui::IsMouseDown(0))
     {
-        const float new_size = 1080 - spe::UIUtility::GUICursor.y - this->m_resize_window_data.additinal_add;
+        const float new_size = 1080 - spe::UIUtility::GUICursor.Position.y - this->m_resize_window_data.additinal_add;
         if (new_size > 150
             && new_size < 1031)
         {

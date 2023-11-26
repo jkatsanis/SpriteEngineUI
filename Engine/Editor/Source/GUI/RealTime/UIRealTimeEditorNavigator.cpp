@@ -40,8 +40,6 @@ void spe::UIRealTimeEditorNavigator::navigateRightClick()
 	{
 		sf::Vector2i mousePos = sf::Mouse::getPosition(*this->m_ptr_Window->GetRenderWindow());
 
-		std::cout << mousePos.x << std::endl;
-
 		if (this->m_cursor.PositionChanged)
 		{
 			spe::Vector2 moved = this->m_cursor.LastPosition - this->m_cursor.Position;

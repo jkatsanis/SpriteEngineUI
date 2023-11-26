@@ -207,7 +207,7 @@ spe::Sprite* spe::Initializer::InitSprite(const std::string& line)
 
 	sprite->collider = spe::BoxCollider(sprite);
 	sprite->animator = spe::Animator(sprite);
-	sprite->transform = spe::Transform(sprite);
+	sprite->transform = spe::Transform(sprite, sprite->transform);
 	sprite->physicsBody = spe::PhsysicsBody();
 	sprite->prefab = spe::Prefab(sprite);
 	sprite->light = spe::Light(sprite);

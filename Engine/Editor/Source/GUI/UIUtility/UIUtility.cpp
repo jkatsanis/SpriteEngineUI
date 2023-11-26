@@ -35,7 +35,11 @@ float spe::UIUtility::scaleChanger(spe::ScaleDott& dott, float default_size, flo
 
 void spe::UIUtility::UpdateCursor()
 {
-    spe::UIUtility::GUICursor = spe::Vector2(ImGui::GetMousePos().x, ImGui::GetMousePos().y);
+    spe::UIUtility::WorldCursor.Position = spe::UIUtility::getWorldCordinates();
+    spe::UIUtility::WorldCursor.SetLastPosition();
+
+    spe::UIUtility::GUICursor.Position = spe::Vector2(ImGui::GetMousePos().x, ImGui::GetMousePos().y);
+    spe::UIUtility::GUICursor.SetLastPosition();
 }
 
 float spe::UIUtility::xScaleChanger(spe::ScaleDott& dott, float default_size, float pos_x)
@@ -50,7 +54,23 @@ float spe::UIUtility::yScaleChanger(spe::ScaleDott& dott, float default_size, fl
 
 bool spe::UIUtility::isCursorClickedOnSprite(const spe::Sprite* check)
 {
-    throw std::runtime_error("ndf,klg");
+    if (!sf::Mouse::isButtonPressed(sf::Mouse::Left))
+    {
+        return false;
+    }
+    sf::Vector2i cursorPos = sf::Mouse::getPosition(*spe::UIUtility::s_m_ptr_Window);
+    spe::UIUtility::WorldCursor.Position = spe::UIUtility::s_m_ptr_Window->mapPixelToCoords(cursorPos);
+
+    float getPosX = check->transform.getOrigininalPosition().x;
+    float getPosY = check->transform.getOrigininalPosition().y;
+
+    float otherGetPosX = spe::UIUtility::WorldCursor.Position.x;
+    float otherGetPosY = spe::UIUtility::WorldCursor.Position.y;
+
+    return (getPosX + check->transform.texture_size.x >= otherGetPosX
+        && getPosX <= otherGetPosX + CURSOR_HITBOX
+        && getPosY + check->transform.texture_size.y >= otherGetPosY
+        && getPosY <= otherGetPosY + CURSOR_HITBOX);
 }
 
 spe::Vector2 spe::UIUtility::getWorldCordinates()
@@ -72,8 +92,6 @@ bool spe::UIUtility::isCursorClickedOnRectangle(const sf::RectangleShape& shape)
     {
         return false;
     }
-    sf::Vector2i cursorPos = sf::Mouse::getPosition(*spe::UIUtility::s_m_ptr_Window);
-    spe::UIUtility::WorldCursor = spe::UIUtility::s_m_ptr_Window->mapPixelToCoords(cursorPos);
 
     float getPosX = shape.getPosition().x;
     float getPosY = shape.getPosition().y;
@@ -81,8 +99,8 @@ bool spe::UIUtility::isCursorClickedOnRectangle(const sf::RectangleShape& shape)
     float getTextureSizeX = shape.getSize().x;
     float getTextureSizeY = shape.getSize().y;
 
-    float otherGetPosX = spe::UIUtility::WorldCursor.x;
-    float otherGetPosY = spe::UIUtility::WorldCursor.y;
+    float otherGetPosX = spe::UIUtility::WorldCursor.Position.x;
+    float otherGetPosY = spe::UIUtility::WorldCursor.Position.y;
 
     bool collided = (getPosX + getTextureSizeX >= otherGetPosX
         && getPosX <= otherGetPosX + CURSOR_HITBOX
@@ -148,7 +166,7 @@ void spe::UIUtility::DrawRectangleInGUIWIndow(const ImVec2& size, const ImVec2& 
 
 bool spe::UIUtility::IsHovered(const ImVec2& windowPos, const ImVec2& windowSize)
 {
-    ImVec2 mousePos = ImVec2(spe::UIUtility::GUICursor.x, spe::UIUtility::GUICursor.y);
+    ImVec2 mousePos = ImVec2(spe::UIUtility::GUICursor.Position.x, spe::UIUtility::GUICursor.Position.y);
 
     return mousePos.x >= windowPos.x && mousePos.x <= windowPos.x + windowSize.x &&
         mousePos.y >= windowPos.y && mousePos.y <= windowPos.y + windowSize.y;
@@ -172,9 +190,10 @@ bool spe::UIUtility::HandleCloseAndReloadWindow(spe::UIWindowData& data, bool& h
 }
 
 // Static init
+    
+spe::UITransform spe::UIUtility::GUICursor;;
+spe::UITransform spe::UIUtility::WorldCursor;
 
-spe::Vector2 spe::UIUtility::GUICursor = spe::Vector2(0, 0);
-sf::Vector2f spe::UIUtility::WorldCursor = sf::Vector2f(0, 0);
 spe::Event* spe::UIUtility::s_m_ptr_Event = nullptr;
 sf::RenderWindow* spe::UIUtility::s_m_ptr_Window = nullptr;
 bool spe::UIUtility::s_IsAnyHovered = false;

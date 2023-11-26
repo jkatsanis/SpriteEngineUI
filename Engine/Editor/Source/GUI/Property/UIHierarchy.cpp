@@ -287,12 +287,12 @@ void spe::UIHierarchy::resizeWindow()
 	spe::Style::DisplaySmybolAsButton(ICON_FA_ARROW_RIGHT);
 	if (ImGui::IsItemHovered() && ImGui::IsMouseClicked(0))
 	{
-		this->m_resize_window_data.additinal_add = (this->m_Size.x - spe::UIUtility::GUICursor.x - 30) * -1;;
+		this->m_resize_window_data.additinal_add = (this->m_Size.x - spe::UIUtility::GUICursor.Position.x - 30) * -1;;
 		this->m_resize_window_data.clicked_on_resize_button = true;
 	}
 	if (this->m_resize_window_data.clicked_on_resize_button && ImGui::IsMouseDown(0))
 	{
-		const float new_size = spe::UIUtility::GUICursor.x - this->m_resize_window_data.additinal_add + 30;
+		const float new_size = spe::UIUtility::GUICursor.Position.x - this->m_resize_window_data.additinal_add + 30;
 		const float max_size_right = new_size + this->m_ptr_GUIRepo->InspectorData.ptr_Size->x;
 
 		if (new_size > 245

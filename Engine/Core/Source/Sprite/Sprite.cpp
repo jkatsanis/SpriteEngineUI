@@ -81,14 +81,6 @@ void spe::Sprite::setSpriteTexture(const sf::Texture& texture, const std::string
 	this->transform.setOrigin();
 }
 
-spe::Vector2 spe::Sprite::getOrigininalPosition()
-{
-	float x = this->m_sprite.getPosition().x - this->transform.texture_size.x / 2;
-	float y = this->m_sprite.getPosition().y - this->transform.texture_size.y / 2;
-
-	return spe::Vector2(x, y);
-}
-
 void spe::Sprite::setId(const int32_t id)
 {
 	this->m_id = id;

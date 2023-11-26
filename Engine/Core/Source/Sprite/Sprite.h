@@ -105,12 +105,6 @@ namespace spe
 		void setSpriteTexture(const std::string& path, const spe::Vector2& sclae);
 
 		/// <summary>
-		/// Gets the original position as a Cartesian coordinate system point (vector).
-		/// </summary>
-		/// <returns>The position as a vector</returns>
-		spe::Vector2 getOrigininalPosition();
-
-		/// <summary>
 		/// Gets the absulute parent
 		/// </summary>
 		spe::Sprite* getNode();

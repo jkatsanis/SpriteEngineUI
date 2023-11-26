@@ -1,6 +1,7 @@
 #pragma once
 
 #include "GUI/RealTime/UIRealTimeEditorNavigator.h"
+#include "GUI/RealTime/UIRealTimeEditorTransform.h"
 #include "Core/GameWindow.h"
 
 namespace spe
@@ -9,7 +10,7 @@ namespace spe
 	{
 	private:
 		spe::UIRealTimeEditorNavigator m_navigator;
-		//spe::UIRealTimeEditorTransform m_transformChanger;
+		spe::UIRealTimeEditorTransform m_transformChanger;
 
 	public: 
 

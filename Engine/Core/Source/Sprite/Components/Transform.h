@@ -50,6 +50,14 @@ namespace spe
 
 		const spe::Vector2& GetPosition() const { return this->m_Position; }
 		spe::Vector2 const getScale() const { return this->m_scale; }
+
+		/// <summary>
+		/// Gets the original position as a Cartesian coordinate system point (vector).
+		/// </summary>
+		/// <returns>The position as a vector</returns>
+		spe::Vector2 getOrigininalPosition() const;
+
+
 		/// <summary>
 		/// Resets the transform
 		/// </summary>

@@ -53,7 +53,7 @@ void spe::UIInspector::renderComponentOptions(spe::Component& component, const s
 	if (spe::Style::DisplaySmybolAsButton(button_name.c_str()))
 	{
 		ImGui::OpenPopup(button_name.c_str());
-		this->m_pop_up_cursor_pos = ImVec2(spe::UIUtility::GUICursor.x - 150, spe::UIUtility::GUICursor.y + 20);
+		this->m_pop_up_cursor_pos = ImVec2(spe::UIUtility::GUICursor.Position.x - 150, spe::UIUtility::GUICursor.Position.y + 20);
 	}
 
 	ImGui::SetWindowFontScale(spe::Style::s_DefaultFontSize + 0.2f);
@@ -110,7 +110,7 @@ void spe::UIInspector::drawRectangleOverCurrentObject()
 	sf::RectangleShape* ptr_shape = &this->m_ptr_sprite_over_rectangle->Shape;
 	
 	ptr_shape->setSize(sf::Vector2f(this->m_ptr_GUIRepo->sprite_in_inspector->transform.texture_size.x, this->m_ptr_GUIRepo->sprite_in_inspector->transform.texture_size.y));
-	ptr_shape->setPosition(this->m_ptr_GUIRepo->sprite_in_inspector->getOrigininalPosition().x, this->m_ptr_GUIRepo->sprite_in_inspector->getOrigininalPosition().y);
+	ptr_shape->setPosition(this->m_ptr_GUIRepo->sprite_in_inspector->transform.getOrigininalPosition().x, this->m_ptr_GUIRepo->sprite_in_inspector->transform.getOrigininalPosition().y);
 }
 
 void spe::UIInspector::renderOptions()
@@ -145,7 +145,7 @@ void spe::UIInspector::resizeWindow()
 	}
 	if (this->m_resize_window_data.clicked_on_resize_button && ImGui::IsMouseDown(0))
 	{	
-		float moved = 1920 - spe::UIUtility::GUICursor.x;
+		float moved = 1920 - spe::UIUtility::GUICursor.Position.x;
 
 		if (moved > 350 && moved + this->m_ptr_GUIRepo->HierarchyData.ptr_Size->x < 1920)
 		{
@@ -223,7 +223,7 @@ void spe::UIInspector::gameEngineViewSetting()
 	if (spe::Style::DisplaySmybolAsButton(button_name.c_str()))
 	{
 		ImGui::OpenPopup(button_name.c_str());
-		this->m_pop_up_cursor_pos = ImVec2(spe::UIUtility::GUICursor.x - 150, spe::UIUtility::GUICursor.y + 20);
+		this->m_pop_up_cursor_pos = ImVec2(spe::UIUtility::GUICursor.Position.x - 150, spe::UIUtility::GUICursor.Position.y + 20);
 	}
 
 	ImGui::SetWindowFontScale(spe::Style::s_DefaultFontSize + 0.2f);
@@ -747,7 +747,7 @@ void spe::UIInspector::Render()
 		return;
 	}
 
-	this->is_hovered = false;
+	this->Hovered = false;
 	ImGui::Begin("##sprite-inspector", NULL, DEFAULT_FLAGS);
 
 	// Close rectangle
@@ -776,10 +776,11 @@ void spe::UIInspector::Render()
 
 	const ImVec2 window_pos = ImVec2(INSPECTOR_WINDOW_POS.x + INSPECTOR_DEFAULT_WINDOW_SIZE.x - this->m_Size.x, INSPECTOR_WINDOW_POS.y);
 
-	if (!this->is_hovered)
+	if (!this->Hovered)
 	{
-		this->is_hovered = spe::UIUtility::IsHovered(window_pos, INSPECTOR_DEFAULT_WINDOW_SIZE);
+		this->Hovered = spe::UIUtility::IsHovered(window_pos, INSPECTOR_DEFAULT_WINDOW_SIZE);
 	}
+
 	ImGui::SetWindowPos(ImVec2(INSPECTOR_WINDOW_POS.x + INSPECTOR_DEFAULT_WINDOW_SIZE.x - this->m_Size.x, INSPECTOR_WINDOW_POS.y));
 	ImGui::SetWindowFontScale(spe::Style::s_DefaultFontSize);
 	ImGui::SetWindowSize(this->m_Size);

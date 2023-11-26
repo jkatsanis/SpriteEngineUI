@@ -135,6 +135,14 @@ void spe::Transform::setScale(const spe::Vector2& scale, bool b)
 	this->setOrigin();
 }
 
+spe::Vector2 spe::Transform::getOrigininalPosition() const
+{
+	float x = this->m_attached_sprite->getSprite().getPosition().x - this->texture_size.x / 2;
+	float y = this->m_attached_sprite->getSprite().getPosition().y - this->texture_size.y / 2;
+
+	return spe::Vector2(x, y);
+}
+
 void spe::Transform::reset()
 {
 	this->m_Position = spe::Vector2(0, 0);
