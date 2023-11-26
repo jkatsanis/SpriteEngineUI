@@ -40,8 +40,17 @@
     <ClCompile Include="C:\Dev\C++\SpriteEngineUI\Engine\Editor\Source\GUI\Property\UIHierarchy.cpp">
       <Filter>Source\GUI\Property</Filter>
     </ClCompile>
+    <ClCompile Include="C:\Dev\C++\SpriteEngineUI\Engine\Editor\Source\GUI\RealTime\UIRealTimeEditor.cpp">
+      <Filter>Source\GUI\RealTime</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Dev\C++\SpriteEngineUI\Engine\Editor\Source\GUI\RealTime\UIRealTimeEditorNavigator.cpp">
+      <Filter>Source\GUI\RealTime</Filter>
+    </ClCompile>
     <ClCompile Include="C:\Dev\C++\SpriteEngineUI\Engine\Editor\Source\GUI\UITopbar.cpp">
       <Filter>Source\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Dev\C++\SpriteEngineUI\Engine\Editor\Source\GUI\UIUtility\UITransform.cpp">
+      <Filter>Source\GUI\UIUtility</Filter>
     </ClCompile>
     <ClCompile Include="C:\Dev\C++\SpriteEngineUI\Engine\Editor\Source\GUI\UIUtility\UIUtility.cpp">
       <Filter>Source\GUI\UIUtility</Filter>
@@ -102,10 +111,19 @@
     <ClInclude Include="C:\Dev\C++\SpriteEngineUI\Engine\Editor\Source\GUI\Property\UIHierarchy.h">
       <Filter>Source\GUI\Property</Filter>
     </ClInclude>
+    <ClInclude Include="C:\Dev\C++\SpriteEngineUI\Engine\Editor\Source\GUI\RealTime\UIRealTimeEditor.h">
+      <Filter>Source\GUI\RealTime</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Dev\C++\SpriteEngineUI\Engine\Editor\Source\GUI\RealTime\UIRealTimeEditorNavigator.h">
+      <Filter>Source\GUI\RealTime</Filter>
+    </ClInclude>
     <ClInclude Include="C:\Dev\C++\SpriteEngineUI\Engine\Editor\Source\GUI\UITopbar.h">
       <Filter>Source\GUI</Filter>
     </ClInclude>
     <ClInclude Include="C:\Dev\C++\SpriteEngineUI\Engine\Editor\Source\GUI\UIUtility\UIModels.h">
+      <Filter>Source\GUI\UIUtility</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Dev\C++\SpriteEngineUI\Engine\Editor\Source\GUI\UIUtility\UITransform.h">
       <Filter>Source\GUI\UIUtility</Filter>
     </ClInclude>
     <ClInclude Include="C:\Dev\C++\SpriteEngineUI\Engine\Editor\Source\GUI\UIUtility\UIUtility.h">
@@ -142,6 +160,9 @@
     </Filter>
     <Filter Include="Source\GUI\Property\Inspector">
       <UniqueIdentifier>{A719A196-1689-3170-85CF-79F15ED103CA}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\GUI\RealTime">
+      <UniqueIdentifier>{3CA482B0-C4F4-383C-8B7A-5E2D0C2DC308}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source\GUI\UIUtility">
       <UniqueIdentifier>{543E6D93-119B-369E-9815-62B9113D0EB8}</UniqueIdentifier>
