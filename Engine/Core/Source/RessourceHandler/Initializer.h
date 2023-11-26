@@ -20,13 +20,12 @@ namespace spe
 	public:
 		Initializer() = delete;
 
+
 		/// <summary>
-		/// This functions assumes you are in the user projuect path. Use setcurrentdir if you in the engine lol
+		/// inits the prefab. Returns a new sprite on the heap. Can be pushed back to the sprite
+		/// repoistory
 		/// </summary>
-		/// 
-	
-		// Sprite
-		static void PostInitAnimation(spe::Sprite* sprite, const std::string& file_path, spe::SpriteRepository& repo);
+		static spe::Sprite* InitPrefab(const std::string& path);
 
 		static void InitTags(spe::SpriteRepository& repo, const std::string& path);
 		static void InitScenes(spe::SceneHandler& handler, const std::string& path);
@@ -34,9 +33,12 @@ namespace spe
 		static void InitBackground(spe::Vector3& vec, const std::string& path);
 		static spe::Sprite* InitSprite(const std::string& line);
 		static void InitSprites(spe::SpriteRepository& spriteRepo, const std::string& path);
-		static void InitAnimations(spe::SpriteRepository& repo, const std::string& path);
-		static void initAnimation(const std::string& path, spe::SpriteRepository& repo, int32_t idx);
 		static void InitCamera(spe::Camera& camera, const std::string& path);
+
+
+		static void InitAnimations(spe::SpriteRepository& repo, const std::string& path);
+		static void InitAnimation(const std::string& path, spe::Sprite* spr);
+		static void InitAnimation(const std::string& path, spe::SpriteRepository& repo);
 	};
 }
 

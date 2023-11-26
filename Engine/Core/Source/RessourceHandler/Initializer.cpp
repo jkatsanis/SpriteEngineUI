@@ -68,7 +68,7 @@ void spe::Initializer::InitAnimations(spe::SpriteRepository& repo, const std::st
 		{
 			cnt++;
 			if (cnt == 1) continue;
-			spe::Initializer::initAnimation(line, repo, -1);
+			spe::Initializer::InitAnimation(line, repo);
 		}
 
 		animations.close();
@@ -78,7 +78,66 @@ void spe::Initializer::InitAnimations(spe::SpriteRepository& repo, const std::st
 
 }
 
-void spe::Initializer::initAnimation(const std::string& path, spe::SpriteRepository& repo, int32_t idx)
+void spe::Initializer::InitAnimation(const std::string& path, spe::Sprite* spr)
+{
+	const std::string ext = "." + spe::Utility::GetFileExtension(path);
+	if (ext != EXTENSION_ANIMATION_FILE)
+	{
+		throw std::runtime_error("Animation path file isnt ín the right format");
+		return;
+	}
+
+	std::fstream animationFileStream;
+
+	animationFileStream.open(path);
+
+	spe::Sprite* ptr_sprite = spr;
+	std::string animationName = "";
+
+	std::vector<spe::KeyFrame> frames = std::vector<spe::KeyFrame>(0);
+	bool loop = false;
+	if (animationFileStream.is_open())
+	{
+		std::string line;
+		int cnt = 0;
+		while (std::getline(animationFileStream, line))
+		{
+			cnt++;
+			if (cnt == 1)
+			{
+				animationName = line;
+				continue;
+			}
+			if (cnt == 2)
+			{
+				// Skipping the sprite get line
+				continue;
+			}
+			if (cnt == 3)
+			{
+				loop = line == "True";
+				continue;
+			}
+			std::vector<std::string> propertys = spe::Utility::Split(line, DELIMITER);
+
+			frames.push_back(spe::KeyFrame(propertys[1], std::stof(propertys[0].c_str())));
+		}
+	}
+	else
+	{
+		spe::Log::LogString("Couldnt open animation file!");
+	}
+
+	if (ptr_sprite != nullptr)
+	{
+		ptr_sprite->animator.createAnimation(animationName, path, frames);
+
+		spe::Animation& anim = ptr_sprite->animator.animations[animationName];
+		anim.Loop = loop;
+	}
+}
+
+void spe::Initializer::InitAnimation(const std::string& path, spe::SpriteRepository& repo)
 {
 	const std::string ext =  "." + spe::Utility::GetFileExtension(path);
 	if (ext != EXTENSION_ANIMATION_FILE)
@@ -86,7 +145,6 @@ void spe::Initializer::initAnimation(const std::string& path, spe::SpriteReposit
 		throw std::runtime_error("Animation path file isnt ín the right format");
 		return;
 	}
-	bool load_idx = (idx != -1);
 
 	std::fstream animationFileStream;
 
@@ -111,11 +169,7 @@ void spe::Initializer::initAnimation(const std::string& path, spe::SpriteReposit
 			}
 			if (cnt == 2)
 			{
-				uint32_t to_load = idx;
-				if (!load_idx)
-				{
-					to_load = std::stoi(line);
-				}
+				uint32_t to_load = std::stoi(line);
 				ptr_sprite = repo.GetById(to_load);
 				continue;
 			}
@@ -312,6 +366,64 @@ void spe::Initializer::InitBackground(spe::Vector3& vec, const std::string& path
 
 #pragma endregion
 
+spe::Sprite* spe::Initializer::InitPrefab(const std::string& path)
+{
+	std::fstream stream = std::fstream(path);
+
+	if (stream.is_open())
+	{
+		spe::Sprite* parent = nullptr;
+
+		std::vector<spe::Sprite*> child_repo;
+		std::string line = "";
+		uint8_t cnt = 0;
+		while (getline(stream, line))
+		{
+			cnt++;
+			//First line is the header so we dont need to check for it
+			if (cnt == 1)
+			{
+				continue;
+			}
+			if (cnt == 2)
+			{
+				// initing the parent, 2nd line
+				parent = spe::Initializer::InitSprite(line);
+				continue;
+			}
+
+			spe::Sprite* child = spe::Initializer::InitSprite(line);
+			child_repo.push_back(child);
+
+		}
+		parent->parent = nullptr;
+		parent->setParentId(-1);
+		child_repo.push_back(parent);
+
+		// Parent algorithm to set childs
+		for (int i = 0; i < child_repo.size(); i++)
+		{
+			spe::Sprite* const sprite = child_repo[i];
+			if (sprite->getParentId() > 0)
+			{
+				spe::Sprite* parent = spe::SpriteRepository::getWithId(child_repo, sprite->getParentId());
+				if (parent != nullptr)
+				{
+					sprite->parent = parent;
+					parent->ptr_childs.push_back(sprite);
+				}
+			}
+		}
+
+		// Initializing the animations
+
+		return parent;
+	}
+	
+	throw std::runtime_error("Couldn't open prefab file :(");
+	return nullptr;
+}
+
 void spe::Initializer::InitTags(spe::SpriteRepository& repo, const std::string& path)
 {
 	std::fstream tag_file;
@@ -392,9 +504,4 @@ void spe::Initializer::IntiHighestSpriteID(spe::SpriteRepository& repo, const st
 	indexFile.close();
 
 	repo.SetHighestId(index);
-}
-
-void spe::Initializer::PostInitAnimation(spe::Sprite* sprite, const std::string& file_path, spe::SpriteRepository& repo)
-{
-	spe::Initializer::initAnimation(file_path, repo, sprite->getId());
 }

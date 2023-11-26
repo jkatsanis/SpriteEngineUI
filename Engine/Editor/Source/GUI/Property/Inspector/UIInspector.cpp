@@ -647,8 +647,12 @@ void spe::UIInspector::prefabComponent()
 		ImGui::SetCursorPos(ImVec2(x + 120, y + 35));
 		if (spe::Style::DisplaySmybolAsButton(ICON_FA_RETWEET))
 		{
-			// TODO: Update prefab
-			// this->m_ptr_GUIRepo->sprite_in_inspector->prefab.updateFile();
+			// TODO: Delete prefab component when the file is moved (user dumb haha)
+			this->m_ptr_GUIRepo->sprite_in_inspector->prefab.UpdateName();
+			const spe::Prefab& prefab = this->m_ptr_GUIRepo->sprite_in_inspector->prefab;
+			spe::Savesystem::CreateOrUpdatePrefabFile(this->m_ptr_GUIRepo->sprite_in_inspector,
+				prefab.user_path_to_file, prefab.path_to_old_file);
+
 		}
 		ImGui::SetCursorPos(ImVec2(x, y + 80));
 		ImGui::Text("Load in memory ");

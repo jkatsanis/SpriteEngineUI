@@ -152,33 +152,40 @@ std::string spe::Savesystem::GetPropertyLineWithSeperator(const spe::Sprite* spr
 void spe::Savesystem::CreateOrUpdatePrefabFile(const spe::Sprite* content, const std::string& pathToFile, const std::string& oldFilePath)
 {
 	//Getting filelocation as: \\assets
-	std::string fileContent = "";
-
-	fileContent += "name;vecpos;transformPosX;transformPosY;ScaleX;ScaleY;filepath;boxColliderWidthLeftOrRightX;boxColliderWidthLeftOrRighY;boxColliderHeightUpOrDownX;boxColliderHeightUpOrDownY;boxColliderExists;solid;sortingLayer;gravity;mass;physicsBodyExists;id;parentId;nextPosX;nextPosY;lastPosX;lastPosY;listPos;highestChild;positionToParentX;positionToParentY;animatorExists;prefabExist;loadInMemory;pathToPrefab\n";
-
-	fileContent += spe::Savesystem::GetPropertyLineWithSeperator(content) + "\n";
 
 	if (pathToFile != oldFilePath && oldFilePath != "")
 	{
 		spe::Utility::Delete(oldFilePath);
 	}
 
+	std::string fileContent = "name;vecpos;transformPosX;transformPosY;ScaleX;ScaleY;filepath;boxColliderWidthLeftOrRightX;boxColliderWidthLeftOrRighY;boxColliderHeightUpOrDownX;boxColliderHeightUpOrDownY;boxColliderExists;solid;sortingLayer;gravity;mass;physicsBodyExists;id;parentId;nextPosX;nextPosY;lastPosX;lastPosY;listPos;highestChild;positionToParentX;positionToParentY;animatorExists;prefabExist;loadInMemory;pathToPrefab\n";
+
+	fileContent += "S;"+ spe::Savesystem::GetPropertyLineWithSeperator(content) + "\n";
+
+
+	// Animation of parent
+	for (auto& animation : content->animator.animations)
+	{
+		const auto& value = animation.second;
+		fileContent += "A;" + value.GetPath() + "\n";
+	}
+
 	std::vector<const spe::Sprite*> childs;
 
 	spe::SpriteRepository::getAllChilds(childs, content);
 
+	// Initing childs
 	for (size_t i = 0; i < childs.size(); i++)
 	{
-		fileContent += spe::Savesystem::GetPropertyLineWithSeperator(childs[i]) + "\n";
+		fileContent += "S;" + spe::Savesystem::GetPropertyLineWithSeperator(childs[i]) + "\n";
+		for (auto& animation : childs[i]->animator.animations)
+		{
+			const auto& value = animation.second;
+			fileContent += "A;" + value.GetPath() + "\n";
+		}
+
 	}
 	
-	for (auto& animation : content->animator.animations)
-	{
-		const auto& value = animation.second;
-		fileContent += value.GetPath() + "\n";
-	}
-
-
 	spe::Utility::CreateFileWithContent(fileContent, pathToFile);
 }
 

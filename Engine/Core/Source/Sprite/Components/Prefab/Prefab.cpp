@@ -43,3 +43,20 @@ void spe::Prefab::updateProps(const std::string& userPath, const std::string& pa
 	this->file_name = fileName;
 	this->path_to_old_file = pathToOldFile;
 }
+
+void spe::Prefab::UpdateName()
+{
+	this->path_to_old_file = this->user_path_to_file;
+	std::string newPath = "";
+
+	size_t erase = this->user_path_to_file.size() - file_name.size();
+
+	for (int i = 0; i < erase + 1; i++)
+	{
+		newPath.push_back(this->user_path_to_file[i]);
+	}
+	newPath.pop_back();
+
+	newPath += this->m_ptr_attachedSprite->name + EXTENSION_PREFAB_FILE;
+	this->user_path_to_file = newPath;
+}

@@ -91,7 +91,7 @@ void spe::UIAnimation::getFileNameInput()
 		const std::string ext = "." + spe::Utility::GetFileExtension(this->m_animation_open_file_dialog.pathClicked);
 		if (ext == EXTENSION_ANIMATION_FILE)
 		{
-			spe::Initializer::PostInitAnimation(sprite, this->m_animation_open_file_dialog.pathClicked, *this->m_ptr_Repo);
+			spe::Initializer::InitAnimation(this->m_animation_open_file_dialog.pathClicked, sprite);
 			// Updating the file here because a new animation got added
 			spe::Savesystem::UpdateKnownAnimationFile(this->m_ptr_Repo);
 		}
@@ -163,6 +163,10 @@ void spe::UIAnimation::getFileNameInput()
 void spe::UIAnimation::displayAnimations()
 {
 	ImGui::Dummy(ImVec2(0, 5)); 
+	static float s_ExistCheckCounter = 0.0f;
+
+	s_ExistCheckCounter += spe::Time::s_delta_time;
+
 	for (auto& anim : this->m_ptr_GUIRepo->sprite_in_inspector->animator.animations)
 	{
 		const std::string& key = anim.first;
@@ -176,14 +180,26 @@ void spe::UIAnimation::displayAnimations()
 			ImVec2(ImGui::CalcTextSize(anim.second.GetName().c_str()).x, 0)))
 		{
 			this->enterAnimation(anim.second);
+			break;
 		}
 
 		const std::string s = "#" + anim.second.GetName();
 		const std::string deleteButton = ICON_FA_TRASH "##" + anim.second.GetName();
 
-		if (spe::Style::DisplaySmybolAsButton(deleteButton.c_str(),
-			ImVec2(WINDOW_SIZE_ANIMATION_CREATE.x - 50, ImGui::GetCursorPosY() - 30)))
+		bool file_exist = true;
+		if (s_ExistCheckCounter >= 0.2f)
 		{
+			file_exist = std::filesystem::exists(anim.second.GetPath());
+			s_ExistCheckCounter = 0.0f;
+		}
+		if (spe::Style::DisplaySmybolAsButton(deleteButton.c_str(),
+			ImVec2(WINDOW_SIZE_ANIMATION_CREATE.x - 50, ImGui::GetCursorPosY() - 30))
+			|| !file_exist)
+		{
+			if (!file_exist)
+			{
+				spe::Log::LogString("Animation file doesnt exist -> deleting from list..");
+			}
 			this->m_ptr_GUIRepo->sprite_in_inspector->animator.removeAnimation(anim.second.GetName());
 			spe::Savesystem::UpdateKnownAnimationFile(this->m_ptr_Repo);
 			break;

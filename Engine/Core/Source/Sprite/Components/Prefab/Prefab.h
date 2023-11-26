@@ -29,7 +29,8 @@ namespace spe
 		std::string file_name;
 
 		bool load_in_memory;
-
+	
+		void UpdateName();
 		Prefab();
 		Prefab(spe::Sprite* m_attached);
 		
