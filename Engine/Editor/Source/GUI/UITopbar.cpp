@@ -240,9 +240,11 @@ void spe::UITopbar::switchScene(const std::string& scene)
 		const ImVec2 CURSOR_POS = ImGui::GetCursorPos();
 		if (ImGui::Button("Save"))
 		{
-			spe::Savesystem::SaveEverything(*this->m_ptr_Repo, *this->m_ptr_GUIRepo, *this->m_ptr_SceneHandler);
-			
-			this->m_ptr_SceneHandler->CurrentScene = scene;
+			spe::Savesystem::SaveEverything(*this->m_ptr_Repo, this->m_ptr_GUIRepo->Camera, this->m_ptr_GUIRepo->background_color, *this->m_ptr_SceneHandler);
+
+			this->m_ptr_SceneHandler->LoadScene(scene, this->m_ptr_GUIRepo->Camera, this->m_ptr_GUIRepo->background_color);
+			this->m_ptr_GUIRepo->CleanUp();
+			this->m_ptr_GUIRepo->InitHierarchySprites(this->m_ptr_Repo->GetSprites());
 			this->m_switch_scene_name = "";
 		}
 		ImGui::SameLine();
@@ -288,7 +290,7 @@ void spe::UITopbar::buildProjectIntoFolder()
 		this->Hovered = true;
 		if (ImGui::MenuItem("Save", "CTRL + S"))
 		{
-			spe::Savesystem::SaveEverything(*this->m_ptr_Repo, *this->m_ptr_GUIRepo, *this->m_ptr_SceneHandler);
+			spe::Savesystem::SaveEverything(*this->m_ptr_Repo, this->m_ptr_GUIRepo->Camera, this->m_ptr_GUIRepo->background_color, *this->m_ptr_SceneHandler);
 		}
 		if (ImGui::MenuItem("Build", "CTRL + B"))
 		{
@@ -330,7 +332,7 @@ void spe::UITopbar::hotkeys()
 	if (spe::Input::onKeyHold(spe::KeyBoardCode::LControl)
 		&& spe::Input::onKeyPress(spe::KeyBoardCode::S))
 	{
-		spe::Savesystem::SaveEverything(*this->m_ptr_Repo, *this->m_ptr_GUIRepo, *this->m_ptr_SceneHandler);
+		spe::Savesystem::SaveEverything(*this->m_ptr_Repo, this->m_ptr_GUIRepo->Camera, this->m_ptr_GUIRepo->background_color, *this->m_ptr_SceneHandler);
 	}
 
 	if (spe::Input::onKeyHold(spe::KeyBoardCode::LControl)
@@ -362,7 +364,7 @@ void spe::UITopbar::playGameButton()
 {
 	if (spe::Style::DisplaySmybolAsButton(ICON_FA_PLAY) || spe::Input::onKeyRelease(spe::KeyBoardCode::F5))
 	{
-		spe::Savesystem::SaveEverything(*this->m_ptr_Repo, *this->m_ptr_GUIRepo, *this->m_ptr_SceneHandler);
+		spe::Savesystem::SaveEverything(*this->m_ptr_Repo, this->m_ptr_GUIRepo->Camera, this->m_ptr_GUIRepo->background_color, *this->m_ptr_SceneHandler);
 
 		spe::EngineData::BuildProject();
 

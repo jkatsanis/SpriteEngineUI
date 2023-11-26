@@ -19,9 +19,14 @@ namespace spe
 		Savesystem() = delete;
 
 		static void CreateAnimationSaveFile(const spe::Sprite* ptr_sprite, const spe::Animation& animationToSave, const spe::SpriteRepository* sprites);
-		static void UpdateKnownAnimationFile(const spe::SpriteRepository* sprites);
 
+		static void UpdateKnownAnimationFile(const spe::SpriteRepository* sprites);
 		static void UpdateSceneFile(const spe::SceneHandler& handler);
+		static void UpdateSpriteFile(const spe::SpriteRepository& repo);
+		static void UpdateBackgroundFile(const spe::Vector3& bg);
+		static void UpdateHighestIndexFile(uint32_t idx);
+		static void UpdateCameraFile(const spe::Camera& camera);
+		static void UpdateTagsFile(const spe::SpriteRepository& repo);
 
 		/// <summary>
 		/// Saves everything
@@ -30,7 +35,8 @@ namespace spe
 		/// <param name="gui">Camera, background</param>
 		/// <param name="scene">The scenes</param>
 		static void SaveEverything(const spe::SpriteRepository& sprites,
-							const spe::GUIRepository& gui,
+							const spe::Camera& gui,
+							const spe::Vector3& bg,
 							const spe::SceneHandler& scene);
 
 		static void SaveProjects(const std::vector<spe::UserProjectInfo>& projects);

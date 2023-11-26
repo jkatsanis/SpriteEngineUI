@@ -5,10 +5,18 @@
 
 // Public 
 
-void spe::Savesystem::SaveEverything(const spe::SpriteRepository& sprites, const spe::GUIRepository& gui, const spe::SceneHandler& scene)
+void spe::Savesystem::SaveEverything(const spe::SpriteRepository& repo, const spe::Camera& gui,
+	const spe::Vector3& bg, const spe::SceneHandler& scene)
 {
-
+	spe::Savesystem::UpdateSceneFile(scene);
+	spe::Savesystem::UpdateKnownAnimationFile(&repo);
+	spe::Savesystem::UpdateCameraFile(gui);
+	spe::Savesystem::UpdateBackgroundFile(bg);
+	spe::Savesystem::UpdateSpriteFile(repo);
+	spe::Savesystem::UpdateTagsFile(repo);
+	spe::Savesystem::UpdateHighestIndexFile(repo.GetHighestId());
 }
+
 
 void spe::Savesystem::SaveProjects(const std::vector<spe::UserProjectInfo>& projects)
 {
@@ -192,15 +200,15 @@ void spe::Savesystem::CreateOrUpdatePrefabFile(const spe::Sprite* content, const
 }
 
 
-void spe::Savesystem::CreateAnimationSaveFile(const spe::Sprite* ptr_sprite, const spe::Animation& animationToSave, const spe::SpriteRepository* sprites)
+void spe::Savesystem::CreateAnimationSaveFile(const spe::Sprite* ptr_sprite, const spe::Animation& anim, const spe::SpriteRepository* sprites)
 {
-	std::string name = animationToSave.GetName();
+	std::string name = anim.GetName();
 	std::string content =
-		animationToSave.GetName() + "\n" +
+		anim.GetName() + "\n" +
 		std::to_string(ptr_sprite->getId()) + "\n" +
-		spe::Utility::BoolToStr(animationToSave.Loop) + "\n";
+		spe::Utility::BoolToStr(anim.Loop) + "\n";
 
-	const std::vector<spe::KeyFrame>& frames = animationToSave.GetkeyFrames();
+	const std::vector<spe::KeyFrame>& frames = anim.GetkeyFrames();
 
 	for (const spe::KeyFrame& frame : frames)
 	{
@@ -208,7 +216,7 @@ void spe::Savesystem::CreateAnimationSaveFile(const spe::Sprite* ptr_sprite, con
 			spe::Utility::getUserProjectPathSeperatetFromEnginePath(frame.path) + "\n";
 	}
 
-	std::string pathAndName = animationToSave.GetPath();
+	std::string pathAndName = anim.GetPath();
 	spe::Utility::CreateFileWithContent(content, pathAndName);
 
 	spe::Savesystem::UpdateKnownAnimationFile(sprites);
@@ -246,3 +254,99 @@ void spe::Savesystem::UpdateSceneFile(const spe::SceneHandler& handler)
 	const std::string path = PATH_TO_SCENE_FILE;
 	spe::Utility::CreateFileWithContent(content, path);
 }
+
+void spe::Savesystem::UpdateSpriteFile(const spe::SpriteRepository& repo)
+{
+	std::fstream spriteFile;
+	spriteFile.open(PATH_TO_SPRITES, std::ios::out);
+
+	if (spriteFile.is_open())
+	{
+		spriteFile << "name;vecpos;transformPosX;transformPosY;ScaleX;ScaleY;rotation;filepath;boxColliderWidthLeftOrRightX;boxColliderWidthLeftOrRighY;boxColliderHeightUpOrDownX;boxColliderHeightUpOrDownY;boxColliderExists;solid;sortingLayer;gravity;mass;physicsBodyExists;id;parentId;nextPosX;nextPosY;lastPosX;lastPosY;listPos;highestChild;positionToParentX;positionToParentY;animatorExists;prefabExist;loadInMemory;pathToPrefab;tag;lightExist;lightRadius;lightIntensity;render" << "\n";
+		const std::list<spe::Sprite*>& sprites = repo.GetSpritesC();
+
+		for (auto it = sprites.begin(); it != sprites.end(); ++it)
+		{
+			spe::Sprite* sprite = *it;
+
+			std::string line = spe::Savesystem::GetPropertyLineWithSeperator(sprite);
+
+			spriteFile << line << "\n";
+
+		}
+		spriteFile.close();
+	}
+}
+
+void spe::Savesystem::UpdateBackgroundFile(const spe::Vector3& bg)
+{
+	std::fstream backgroundFile;
+
+	backgroundFile.open(PATH_TO_BACKGROUND, std::ios::out);
+
+	if (backgroundFile.is_open())
+	{
+		backgroundFile << "Red;Blue;Green" << "\n";
+
+		std::string line = std::to_string(bg.x) + ";" + std::to_string(bg.y) + ";" + std::to_string(bg.z);
+
+		backgroundFile << line << "\n";
+
+		backgroundFile.close();
+	}
+}
+
+void spe::Savesystem::UpdateHighestIndexFile(uint32_t idx)
+{
+	std::fstream indexFile;
+
+	indexFile.open(PATH_TO_HIGHEST_INDEX, std::ios::out);
+	if (indexFile.is_open())
+	{
+		indexFile << "highestIndex" << "\n";
+
+		indexFile << idx << "\n";
+
+		indexFile.close();
+	}
+}
+
+void spe::Savesystem::UpdateCameraFile(const spe::Camera& camera)
+{
+	std::fstream backgroundFile;
+
+	backgroundFile.open(PATH_TO_CAMERA, std::ios::out);
+
+	if (backgroundFile.is_open())
+	{
+		backgroundFile << "TransformPoxX;TransformPosY;Zoom;Speed" << "\n";
+
+		std::string line = std::to_string(camera.Position.x) + ";" +
+			std::to_string(camera.Position.y) + ";" +
+			std::to_string(camera.getZoom()) + ";" +
+			std::to_string(camera.camera_speed);
+
+		backgroundFile << line << "\n";
+
+		backgroundFile.close();
+	}
+}
+
+void spe::Savesystem::UpdateTagsFile(const spe::SpriteRepository& repo)
+{
+	std::fstream tag_file;
+	tag_file.open(PATH_TO_TAG_FILE, std::ios::out);
+
+	if (tag_file.is_open())
+	{
+		tag_file << "Tags" << "\n";
+
+		for (int i = 0; i < repo.Tags.size(); i++)
+		{
+			tag_file << repo.Tags[i] << "\n";
+		}
+
+		tag_file.close();
+	}
+}
+

@@ -7,6 +7,8 @@ void spe::SceneHandler::LoadScene(const std::string& name, spe::Camera& camera, 
 		// Found a scene to load
 		if (str == name)
 		{
+			this->SpriteRepository.cleanUp();
+
 			std::string crnt = spe::Utility::GetCurrentDir();
 
 			spe::EngineData::s_Scene = name;

@@ -60,6 +60,7 @@ namespace spe
 		spe::Rectangle* GetById(uint32_t id) override;
 		spe::Rectangle* GetByVecPos(uint32_t vec);
 
+		void CleanUp();
 		void InitHierarchySprites(std::list<spe::Sprite*>& sprites);
 
 		uint32_t GetAmount() const override { return (uint32_t)this->m_Rectangles.size(); }

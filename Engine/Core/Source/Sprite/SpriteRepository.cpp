@@ -151,6 +151,9 @@ void spe::SpriteRepository::cleanUp()
         delete element;
     }
     this->m_sprites.clear();
+
+    this->m_HighestLayer = 0;
+    this->m_HighestId = 0;
 }
 
 // Private functions
