@@ -41,14 +41,23 @@ void spe::Transform::init()
 
 void spe::Transform::UpdateSpritePositionToParent(const spe::Vector2& position)
 {
-	if (this->m_attached_sprite != nullptr && this->m_attached_sprite->parent != nullptr)
+	if (this->m_attached_sprite == nullptr)
 	{
-	    const spe::Vector2 distance = this->m_attached_sprite->parent->transform.GetPosition() - position;
-		if (distance != this->position_to_parent)
-		{
-			this->position_to_parent = distance;
-		}
+		return;
 	}
+	for (spe::Sprite* spr : this->m_attached_sprite->ptr_childs)
+	{
+		spe::Vector2 distance = this->m_Position - position;
+
+		std::cout << distance << std::endl;
+
+		distance.x *= -1;
+		distance.y *= -1;
+
+		spe::Vector2 newpos = spr->transform.GetPosition() +distance;
+		spr->transform.SetPosition(newpos);
+	}
+
 }
 
 // Public functions

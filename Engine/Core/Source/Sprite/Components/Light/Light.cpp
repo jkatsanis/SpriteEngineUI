@@ -39,7 +39,11 @@ spe::Light::Light(Sprite* ptr_sprite, const spe::Light& rhs)
 void spe::Light::deleteLight()
 {
 	THROW_IF_NO_LIGHT_REPO
-	this->m_light_index = 0;
+	if (this->exist)
+	{
+		this->m_ptr_LighRepository->remove(this->m_light_index);
+		this->m_light_index = 0;
+	}
 }
 
 void spe::Light::enable()
