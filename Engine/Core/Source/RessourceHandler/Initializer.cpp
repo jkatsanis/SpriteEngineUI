@@ -13,6 +13,8 @@ void spe::Initializer::InitSprites(spe::SpriteRepository& spriteRepo, const std:
 	spriteFile.open(path, std::ios::in);
 	if (spriteFile.is_open())
 	{
+		spe::Sprite* current_sprite = nullptr;
+
 		std::string line;
 		int cnt = 0;
 		while (std::getline(spriteFile, line))
@@ -25,12 +27,22 @@ void spe::Initializer::InitSprites(spe::SpriteRepository& spriteRepo, const std:
 			}
 
 			//Creating empty sprite, then pushing it back
-			// 
-			//INITIIALIZING PROPS
-			spe::Sprite* sprite =  spe::Initializer::InitSprite(line, lightrepo);
 
-			//Pushing the sprite
-			spriteRepo.Add(sprite);
+			const std::vector<std::string> properties = spe::Utility::Split(line, PREFAB_DELIMITER);
+
+			// S stands for sprite
+			if (properties[0] == "S")
+			{
+				spe::Sprite* child = spe::Initializer::InitSprite(properties[1], lightrepo);
+				current_sprite = child;
+				spriteRepo.Add(child);
+			}
+
+			// A stands for animation
+			if (properties[0] == "A")
+			{
+				spe::Initializer::InitAnimation(properties[1], current_sprite);
+			}
 		}
 	}
 
@@ -54,29 +66,6 @@ void spe::Initializer::InitSprites(spe::SpriteRepository& spriteRepo, const std:
 	}
 }
 
-void spe::Initializer::InitAnimations(spe::SpriteRepository& repo, const std::string& path)
-{
-	std::fstream animations;
-
-	animations.open(path);
-
-	if (animations.is_open())
-	{
-		std::string line;
-		int cnt = 0;
-		while (std::getline(animations, line))
-		{
-			cnt++;
-			if (cnt == 1) continue;
-			spe::Initializer::InitAnimation(line, repo);
-		}
-
-		animations.close();
-		return;
-	}
-	throw std::runtime_error("Animation file was not found");
-
-}
 
 void spe::Initializer::InitAnimation(const std::string& path, spe::Sprite* spr)
 {

@@ -13,7 +13,6 @@ void spe::SceneHandler::LoadScene(const std::string& name, spe::Camera& camera, 
 			this->CurrentScene = str;
 
 			spe::Initializer::InitSprites(this->SpriteRepository, PATH_TO_SPRITES, this->LightRepository);
-			spe::Initializer::InitAnimations(this->SpriteRepository, PATH_TO_ANIMATIONS);
 
 			spe::Initializer::InitCamera(camera, PATH_TO_CAMERA);
 			spe::Initializer::InitBackground(bg, PATH_TO_BACKGROUND);

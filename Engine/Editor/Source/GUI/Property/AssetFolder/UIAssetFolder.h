@@ -34,7 +34,7 @@
 #define ASSET_FOLDER_DEFAULT_WINDOW_SIZE ImVec2(1280 + 250, 400)
 
 namespace spe
-{		
+{
 	class UIAssetFolder : public spe::IUIBase
 	{
 	private:
@@ -52,6 +52,8 @@ namespace spe
 		bool m_hovered_over_item;
 		bool m_dragging_item;
 		bool m_interacted;
+
+		std::unordered_map<std::string, DIR*> m_AlreadyOpenedPaths;
 
 		void getAllFilesInDir(const char* path, const char* name);
 		void setDragAndDrop(std::string path, std::string name);
@@ -76,4 +78,3 @@ namespace spe
 		void Render() override;
 	};
 }
-

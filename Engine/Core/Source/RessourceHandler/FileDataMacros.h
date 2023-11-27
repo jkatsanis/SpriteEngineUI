@@ -20,7 +20,6 @@
 /// SPRITE
 #define PATH_TO_SPRITES PATH_TO_SCENE_FOLDER + "\\sprites.txt"
 // This macro points to a animation file the sprite can havem and in this file there are path of animations to actually load
-#define PATH_TO_ANIMATIONS PATH_TO_SCENE_FOLDER + "\\animations.txt"
 #define PATH_TO_CAMERA PATH_TO_SCENE_FOLDER + "\\camera.txt"
 #define PATH_TO_BACKGROUND PATH_TO_SCENE_FOLDER + "\\background.txt"
 

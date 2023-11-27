@@ -36,7 +36,6 @@ namespace spe
 		static void InitCamera(spe::Camera& camera, const std::string& path);
 
 
-		static void InitAnimations(spe::SpriteRepository& repo, const std::string& path);
 		static void InitAnimation(const std::string& path, spe::Sprite* spr);
 		static void InitAnimation(const std::string& path, spe::SpriteRepository& repo);
 	};

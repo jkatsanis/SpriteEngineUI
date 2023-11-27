@@ -17,6 +17,9 @@ void spe::UIAssetFolder::Init()
     this->m_is_asset_folder_tree_node_open = true;
 
     this->m_ptr_GUIRepo->AssetFolderData.ptr_Size = &this->m_Size;
+
+    DIR* d = opendir("Assets");
+    this->m_AlreadyOpenedPaths["Assets"] = d;
 }
  
 //Public functions
@@ -174,6 +177,7 @@ void spe::UIAssetFolder::renderCloseRectangle()
 
 void spe::UIAssetFolder::renderFolderHierarchyRecursiv(const char* path, const char* name, bool openNextTreeNode)
 {
+    return;
     struct dirent* entry;
     DIR* dir = opendir(path);
     if (dir == NULL) {
@@ -355,8 +359,11 @@ void spe::UIAssetFolder::getAllFilesInDir(const char* path, const char* name)
 {
     uint8_t cnt = 0;
 
-    struct dirent* entry;
+
     DIR* dir = opendir(path);
+
+
+    struct dirent* entry;
     if (dir == NULL) {
         return;
     }
@@ -387,7 +394,6 @@ void spe::UIAssetFolder::getAllFilesInDir(const char* path, const char* name)
         }
     }
 
-    closedir(dir);
 }
 
 void spe::UIAssetFolder::goBackToBeforeFolder()

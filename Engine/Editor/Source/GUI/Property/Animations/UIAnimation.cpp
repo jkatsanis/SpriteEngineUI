@@ -93,7 +93,6 @@ void spe::UIAnimation::getFileNameInput()
 		{
 			spe::Initializer::InitAnimation(this->m_animation_open_file_dialog.pathClicked, sprite);
 			// Updating the file here because a new animation got added
-			spe::Savesystem::UpdateKnownAnimationFile(this->m_ptr_Repo);
 		}
 		else
 		{
@@ -201,7 +200,6 @@ void spe::UIAnimation::displayAnimations()
 				spe::Log::LogString("Animation file doesnt exist -> deleting from list..");
 			}
 			this->m_ptr_GUIRepo->sprite_in_inspector->animator.removeAnimation(anim.second.GetName());
-			spe::Savesystem::UpdateKnownAnimationFile(this->m_ptr_Repo);
 			break;
 		}
 	}

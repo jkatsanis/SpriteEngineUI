@@ -9,7 +9,6 @@ void spe::Savesystem::SaveEverything(const spe::SpriteRepository& repo, const sp
 	const spe::Vector3& bg, const spe::SceneHandler& scene)
 {
 	spe::Savesystem::UpdateSceneFile(scene);
-	spe::Savesystem::UpdateKnownAnimationFile(&repo);
 	spe::Savesystem::UpdateCameraFile(gui);
 	spe::Savesystem::UpdateBackgroundFile(bg);
 	spe::Savesystem::UpdateSpriteFile(repo);
@@ -48,7 +47,8 @@ void spe::Savesystem::SaveProjects(const std::vector<spe::UserProjectInfo>& proj
 
 		if (!corePath.is_open())
 		{
-			throw std::runtime_error("Couldn't open corepath file of user project");
+			// Removing the project from the list
+			spe::Utility::Delete(project.AbsulutePath);
 		}
 
 		const std::string pathCore = spe::Utility::GetCurrentDir();
@@ -218,29 +218,6 @@ void spe::Savesystem::CreateAnimationSaveFile(const spe::Sprite* ptr_sprite, con
 
 	std::string pathAndName = anim.GetPath();
 	spe::Utility::CreateFileWithContent(content, pathAndName);
-
-	spe::Savesystem::UpdateKnownAnimationFile(sprites);
-}
-
-void spe::Savesystem::UpdateKnownAnimationFile(const spe::SpriteRepository* repo)
-{
-	const std::list<spe::Sprite*>& sprites = repo->GetSpritesC();
-
-	std::string content = "pathToAnimation\n";
-
-	for (auto it = sprites.begin(); it != sprites.end(); ++it)
-	{
-		spe::Sprite* sprite = *it;
-
-		for (const auto& anim : sprite->animator.animations)
-		{
-			const spe::Animation& tosave = anim.second;
-
-			content += tosave.GetPath() + "\n";
-		}
-	}
-
-	spe::Utility::CreateFileWithContent(content, PATH_TO_ANIMATIONS);
 }
 
 void spe::Savesystem::UpdateSceneFile(const spe::SceneHandler& handler)
@@ -269,9 +246,19 @@ void spe::Savesystem::UpdateSpriteFile(const spe::SpriteRepository& repo)
 		{
 			spe::Sprite* sprite = *it;
 
-			std::string line = spe::Savesystem::GetPropertyLineWithSeperator(sprite);
+			std::string s;
+			s.push_back(PREFAB_DELIMITER);
+
+			std::string line = "S" + s + spe::Savesystem::GetPropertyLineWithSeperator(sprite);
 
 			spriteFile << line << "\n";
+
+			for (const auto& anim : sprite->animator.animations)
+			{
+				std::string animline = "A" + s + anim.second.GetPath();
+
+				spriteFile << animline << "\n";
+			}
 
 		}
 		spriteFile.close();
