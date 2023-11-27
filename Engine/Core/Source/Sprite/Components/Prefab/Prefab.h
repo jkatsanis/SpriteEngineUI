@@ -30,14 +30,17 @@ namespace spe
 
 		bool load_in_memory;
 	
-		void UpdateName();
 		Prefab();
 		Prefab(spe::Sprite* m_attached);
+		Prefab(spe::Sprite* m_attached, const spe::Prefab& rhs);
 		
 		/// <summary>
 		/// Resets the data and deletes the FILE!
 		/// </summary>
 		void reset() override;
+
+		void UpdatePath();
+		void UpdateName();
 
 		void updateProps(const std::string& userPath, const std::string& pathToOldFile, const std::string fileName);
 	};

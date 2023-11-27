@@ -49,8 +49,6 @@ void spe::Transform::UpdateSpritePositionToParent(const spe::Vector2& position)
 	{
 		spe::Vector2 distance = this->m_Position - position;
 
-		std::cout << distance << std::endl;
-
 		distance.x *= -1;
 		distance.y *= -1;
 

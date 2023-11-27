@@ -255,7 +255,7 @@ void spe::UIAnimation::addAnimationsToAnimator()
 			// Found a aniamtion with this name, which already exists
 			if (anim.first == this->m_animationFile)
 			{
-				std::cout << "LOG [ERROR] Cant create anoter file with the same name!";
+				spe::Log::LogString(" Cant create anoter file with the same name!");
 				return;
 			}
 		}

@@ -26,6 +26,7 @@ spe::Sprite::Sprite(spe::Sprite& rhs)
 	this->physicsBody = spe::PhsysicsBody(rhs.physicsBody);
 	this->sprite_renderer = spe::SpriteRenderer(rhs.sprite_renderer);
 	this->light = spe::Light(this, rhs.light);
+	this->prefab = spe::Prefab(this, rhs.prefab);
 
 	this->tag = rhs.tag;
 

@@ -252,6 +252,9 @@ spe::Sprite* spe::Initializer::InitSprite(const std::string& line, spe::LightRep
 # pragma region Prefab
 	sprite->prefab.exist = propertys[29] == "True";
 	sprite->prefab.load_in_memory = propertys[30] == "True";
+	sprite->prefab.user_path_to_file = propertys[31];
+	sprite->prefab.UpdateName();
+	sprite->prefab.UpdatePath();
 #pragma endregion
 
 #pragma region General

@@ -682,7 +682,7 @@ void spe::UIInspector::prefabComponent()
 		if (spe::Style::DisplaySmybolAsButton(ICON_FA_RETWEET))
 		{
 			// TODO: Delete prefab component when the file is moved (user dumb haha)
-			this->m_ptr_GUIRepo->sprite_in_inspector->prefab.UpdateName();
+			this->m_ptr_GUIRepo->sprite_in_inspector->prefab.UpdatePath();
 			const spe::Prefab& prefab = this->m_ptr_GUIRepo->sprite_in_inspector->prefab;
 			spe::Savesystem::CreateOrUpdatePrefabFile(this->m_ptr_GUIRepo->sprite_in_inspector,
 				prefab.user_path_to_file, prefab.path_to_old_file);

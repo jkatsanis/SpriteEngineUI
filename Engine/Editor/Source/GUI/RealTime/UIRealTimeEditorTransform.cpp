@@ -55,9 +55,7 @@ spe::Sprite* spe::UIRealTimeEditorTransform::checkIfMouseClickedOnSprite()
 	std::string name = "";
 	std::vector<spe::Sprite*> spr;
 
-
 	std::list<spe::Sprite*>& sprites = this->m_ptr_Repo->GetSprites();
-
 
 	for (auto it = sprites.begin(); it != sprites.end(); ++it)
 	{

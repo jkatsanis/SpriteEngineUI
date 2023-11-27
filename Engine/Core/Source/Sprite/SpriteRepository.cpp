@@ -38,10 +38,16 @@ void spe::SpriteRepository::DelteWithId(uint32_t idx)
     spe::Sprite* ptr_delete = this->GetById((int32_t)idx);
     this->addChildsToDelete(childs_to_delete, ptr_delete);
 
+    uint32_t highest_layer = ptr_delete->sprite_renderer.sorting_layer_index;
+
     this->eraseWithIdx(this->GetListIndex(ptr_delete));
 
     for (int i = 0; i < childs_to_delete.size(); i++)
     {
+        if (childs_to_delete[i]->sprite_renderer.sorting_layer_index > highest_layer)
+        {
+            highest_layer = childs_to_delete[i]->sprite_renderer.sorting_layer_index;
+        }
         this->eraseWithIdx(this->GetListIndex(childs_to_delete[i]));
     }
     for (int i = 0; i < childs_to_delete.size(); i++)
@@ -49,6 +55,13 @@ void spe::SpriteRepository::DelteWithId(uint32_t idx)
         delete childs_to_delete[i];
         childs_to_delete[i] = nullptr;
     }
+
+    // Rare Case of chaning the highest layer#
+    if (highest_layer == this->m_HighestLayer)
+    {
+        this->UpdateLayerIndex();
+    }
+
 
     // Destructor call
     delete ptr_delete;
