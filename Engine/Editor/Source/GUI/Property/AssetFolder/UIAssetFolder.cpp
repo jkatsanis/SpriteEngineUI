@@ -164,7 +164,7 @@ void spe::UIAssetFolder::renderFolderHierarchy()
 {
     ImGui::SetCursorPos(ImVec2(FOLDER_HIERARCHY_PADDING, FOLDER_HIERARCHY_PADDING));
     ImGui::BeginChild("##folder-hierarchy", ImVec2(UIASSET_FOLDER_WIDTH, this->m_Size.y), false);
-    this->renderFolderHierarchyRecursiv("Assets", "assets", this->m_is_asset_folder_tree_node_open);
+    this->renderFolderHierarchyRecursiv("assets", "assets", this->m_is_asset_folder_tree_node_open);
     this->m_is_asset_folder_tree_node_open = false;
     ImGui::EndChild();
 }
@@ -177,7 +177,6 @@ void spe::UIAssetFolder::renderCloseRectangle()
 
 void spe::UIAssetFolder::renderFolderHierarchyRecursiv(const char* path, const char* name, bool openNextTreeNode)
 {
-    return;
     struct dirent* entry;
     DIR* dir = opendir(path);
     if (dir == NULL) {
