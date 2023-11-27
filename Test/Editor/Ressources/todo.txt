@@ -1,0 +1,9 @@
+Drag and drop pics from 3rd party
+open pics
+update animation
+Rename stuff
+spriterenderer copy ctor xd
+
+! IMORTANT
+Save the animations like prefabs
+Performance issues content browser
