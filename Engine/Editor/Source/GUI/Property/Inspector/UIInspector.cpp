@@ -366,6 +366,15 @@ void spe::UIInspector::componentSelector()
 	{
 		this->m_ptr_GUIRepo->sprite_in_inspector->name = std::string(input_buffer);
 	}
+
+	const ImVec2 temp2 = ImGui::GetCursorPos();
+	ImGui::SetCursorPos(ImVec2(10, 50));
+
+	const std::string text = "ID:" + std::to_string(this->m_ptr_GUIRepo->sprite_in_inspector->getId());
+	ImGui::Text(text.c_str());
+
+	ImGui::SetCursorPos(temp2);
+
 	this->m_tag_selector.Render();
 	this->Hovered = this->m_tag_selector.Hovered;
 	ImGui::SetCursorPos(temp);
