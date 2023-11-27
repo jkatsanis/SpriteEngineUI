@@ -277,7 +277,7 @@ void spe::UIInspectorBoxCollider::initScaleDottsUI(spe::GUIRepository& repo)
 		const std::string name = "scale-dott-box-collider " + std::to_string(i);
 
 		spe::Rectangle* rec = new spe::Rectangle(sf::Vector2f(0, 0),
-			size, sf::Color(255, 255, 255), 2.0f, PATH_TO_TRANSPARENT_PIC, name);
+			size, sf::Color(255, 0, 0), 2.0f, PATH_TO_TRANSPARENT_PIC, name);
 
 		repo.Add(rec);
 		this->m_box_collider_scale_dotts[i].ptr_scaling_rectangle = repo.GetByName(name);

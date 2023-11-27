@@ -214,7 +214,11 @@ void spe::UIRealTimeEditorTransform::Render()
 			this->m_currentCursorPos = spe::UIUtility::getWorldCordinates();
 		}
 	}
-	else
+	else 
+	{
+		this->unrenderDolls();
+	}
+	if (this->m_ptr_GUIRepo->sprite_in_inspector == nullptr)
 	{
 		this->unrenderDolls();
 	}

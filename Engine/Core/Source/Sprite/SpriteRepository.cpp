@@ -319,5 +319,5 @@ spe::Sprite* spe::SpriteRepository::getWithId(std::vector<spe::Sprite*>& collect
             return sprite;
         }
     }
-    throw std::out_of_range("ID was not found in the collection");
+    return nullptr;
 }

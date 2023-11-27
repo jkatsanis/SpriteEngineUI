@@ -784,6 +784,7 @@ void spe::UIInspector::Render()
 	{
 		// Handle it if no sprite is selected
 		this->displayDefaultInspectorView();
+		this->m_collider.leaveEditMode();
 		this->m_ptr_sprite_over_rectangle->Render = false;
 		this->m_ptr_collider_rectangle->Render = false;
 	}
