@@ -149,6 +149,10 @@ uint32_t spe::SpriteRepository::GetListIndex(spe::Sprite* sprite)
 
 void spe::SpriteRepository::UpdateLayerIndex()
 {
+    if (this->m_sprites.size() == 0)
+    {
+        return;
+    }
     this->m_HighestLayer = this->m_sprites.front()->sprite_renderer.sorting_layer_index;
     for (auto it = this->m_sprites.begin(); it != this->m_sprites.end(); ++it)
     {
