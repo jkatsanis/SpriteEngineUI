@@ -55,7 +55,6 @@ namespace spe
 		void switchScene(const std::string& scene);
 		void displayEngineInfo();
 
-
 	public:
 
 		void Render() override;

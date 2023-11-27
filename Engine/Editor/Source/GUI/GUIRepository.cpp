@@ -14,6 +14,8 @@ spe::GUIRepository::GUIRepository()
 
 	this->DragAndDropPath = " ";
 	this->DragAndDropName = " ";
+
+	this->Tools = spe::EditorTools::PositionTool;
 }
 
 // Public functions

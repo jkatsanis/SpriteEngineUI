@@ -48,8 +48,14 @@ void spe::UITopbar::Render()
 	}
 	ImGui::SetWindowFontScale(spe::Style::s_DefaultFontSize);
 	
-	ImGui::SetWindowPos(ImVec2(1920 - this->m_ptr_GUIRepo->InspectorData.ptr_Size->x - 120, 56)); // Todo
+	ImGui::SetWindowPos(ImVec2(1920 - this->m_ptr_GUIRepo->InspectorData.ptr_Size->x - 120, 56));
 	ImGui::SetWindowSize(ImVec2(120, 30));
+
+
+	if (!this->Hovered)
+	{
+		this->Hovered = spe::UIUtility::IsHovered(ImGui::GetWindowPos(), ImVec2(120, 30));
+	}
 	ImGui::End();
 }
 
@@ -376,7 +382,9 @@ void spe::UITopbar::playGameButton()
 
 void spe::UITopbar::toolSelector()
 {
-	ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 28);
+	const float x = ImGui::GetCursorPosX() + 28;
+
+	ImGui::SetCursorPosX(x);
 	for (int i = 0; i < TOOLS_AMOUNT; i++)
 	{
 		if (this->m_tools[i].background)

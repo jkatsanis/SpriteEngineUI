@@ -4,6 +4,24 @@
 
 void spe::UIRealTimeEditorTransform::Init()
 {
+	for (size_t i = 0; i < SCALE_DOTTS; i++)
+	{
+		this->m_scale_dotts[i] = spe::ScaleDott();
+	}
+
+	const sf::Vector2f size = sf::Vector2f(DEFAULT_DOTT_SCALE, DEFAULT_DOTT_SCALE);
+
+	for (int i = 0; i < SCALE_DOTTS; i++)
+	{
+		const std::string name = "scale-dott-scale " + std::to_string(i);
+		spe::Rectangle* rec = new spe::Rectangle(sf::Vector2f(0, 0),
+			size, sf::Color(255, 255, 255), 2.0f, PATH_TO_TRANSPARENT_PIC, name);
+		this->m_ptr_GUIRepo->Add(rec);
+		this->m_scale_dotts[i].ptr_scaling_rectangle = this->m_ptr_GUIRepo->GetByName(name);
+		this->m_scale_dotts[i].clicked = false;
+	}
+
+	// this->unrenderDolls();
 }
 
 // Private
@@ -75,8 +93,6 @@ spe::Sprite* spe::UIRealTimeEditorTransform::checkIfMouseClickedOnSprite()
 		}
 	}
 
-	this->m_ptr_Window->Event.type = spe::Event::None;
-
 	for (spe::Sprite* sp : spr)
 	{
 		if (sp->sprite_renderer.sorting_layer_index >= highest)
@@ -101,32 +117,133 @@ spe::Sprite* spe::UIRealTimeEditorTransform::checkIfMouseClickedOnSprite()
 	return nullptr;
 }
 
+#pragma region SCALE
+
+void spe::UIRealTimeEditorTransform::renderDolls()
+{
+	for (int i = 0; i < SCALE_DOTTS; i++)
+	{
+		this->m_scale_dotts[i].ptr_scaling_rectangle->Render = true;
+	}
+}
+
+void spe::UIRealTimeEditorTransform::unrenderDolls()
+{
+	for (int i = 0; i < SCALE_DOTTS; i++)
+	{
+		this->m_scale_dotts[i].ptr_scaling_rectangle->Render = false;
+	}
+}
+
+void spe::UIRealTimeEditorTransform::scaleChanger(spe::Sprite* focusedSprite)
+{
+	float scale_x = spe::UIUtility::xScaleChanger(this->m_scale_dotts[0], focusedSprite->transform.getDefaultTextureSize().x,
+		focusedSprite->transform.GetPosition().x);
+	if (scale_x != INVALID_SCALE)
+		focusedSprite->transform.setScale(spe::Vector2(scale_x, focusedSprite->transform.getScale().y));
+
+	float scale_y = spe::UIUtility::yScaleChanger(this->m_scale_dotts[1], focusedSprite->transform.getDefaultTextureSize().y,
+		focusedSprite->transform.GetPosition().y);
+	if (scale_y != INVALID_SCALE)
+		focusedSprite->transform.setScale(spe::Vector2(focusedSprite->transform.getScale().x, scale_y));
+}
+
+
+void spe::UIRealTimeEditorTransform::reset()
+{
+	if (!sf::Mouse::isButtonPressed(sf::Mouse::Left))
+	{
+		this->m_ptr_Window->Event.type = spe::Event::None;
+		for (int i = 0; i < SCALE_DOTTS; i++)
+		{
+			this->m_scale_dotts[i].clicked = false;
+		}
+	}
+}
+
+void spe::UIRealTimeEditorTransform::getPos(const spe::Sprite* focusedSprite, sf::Vector2f pos[])
+{
+	spe::Vector2 originalPos = focusedSprite->transform.getOrigininalPosition();
+	spe::Vector2 textureSize = focusedSprite->transform.texture_size;
+
+	if (focusedSprite->transform.getScale().x < 0)
+	{
+		pos[0] = sf::Vector2f(originalPos.x, originalPos.y + textureSize.y / 2);
+	}
+	else
+	{
+		pos[0] = sf::Vector2f(originalPos.x + textureSize.x, originalPos.y + textureSize.y / 2);
+	}
+	if (focusedSprite->transform.getScale().y < 0)
+	{
+		textureSize.y = 0;
+	}
+	pos[1] = sf::Vector2f(originalPos.x + textureSize.x / 2 - DEFAULT_DOTT_SCALE / 2, originalPos.y + textureSize.y);
+}
+
+void spe::UIRealTimeEditorTransform::setPos(const sf::Vector2f pos[])
+{
+	for (int i = 0; i < SCALE_DOTTS; i++)
+	{
+		if (!this->m_scale_dotts[i].clicked)
+		{
+			this->m_scale_dotts[i].ptr_scaling_rectangle->Shape.setPosition(pos[i]);
+		}
+	}
+}
+
+#pragma endregion
+
 // Public
 
 void spe::UIRealTimeEditorTransform::Render()
 {
-	// Transform
-	if (!spe::UIUtility::s_IsAnyHovered)
+	if (this->m_ptr_GUIRepo->Tools == spe::EditorTools::ScaleTool)
 	{
-		// Check if we click on a sprite in the editor
-		this->m_clickedSprite = this->checkIfMouseClickedOnSprite();
-
-		this->m_cursorWorldPos = spe::UIUtility::getWorldCordinates();
-
-		if (this->m_clickedSprite != nullptr)
+		this->renderDolls();
+		// Scale
+		spe::Sprite* focusedSprite = this->m_ptr_GUIRepo->sprite_in_inspector;
+		if (focusedSprite != nullptr)
 		{
-			this->m_clickedSprite = this->m_ptr_GUIRepo->sprite_in_inspector;
-			this->moveComponent();
+			sf::Vector2f pos[SCALE_DOTTS];
+			this->getPos(focusedSprite, pos);
+			this->setPos(pos);
+			this->scaleChanger(focusedSprite);
+			this->reset();
+
+			this->m_currentCursorPos = spe::UIUtility::getWorldCordinates();
+		}
+	}
+	else
+	{
+		this->unrenderDolls();
+	}
+
+	if (this->m_ptr_GUIRepo->Tools == spe::EditorTools::PositionTool)
+	{
+		// Transform
+		if (!spe::UIUtility::s_IsAnyHovered)
+		{
+			// Check if we click on a sprite in the editor
+			this->m_clickedSprite = this->checkIfMouseClickedOnSprite();
+
+			this->m_cursorWorldPos = spe::UIUtility::getWorldCordinates();
+
+			if (this->m_clickedSprite != nullptr)
+			{
+				this->m_clickedSprite = this->m_ptr_GUIRepo->sprite_in_inspector;
+				this->moveComponent();
+			}
+			else
+			{
+				this->m_clickedSprite = nullptr;
+				this->m_realeasedCursorOnSprite = false;
+			}
 		}
 		else
 		{
 			this->m_clickedSprite = nullptr;
 			this->m_realeasedCursorOnSprite = false;
 		}
-	}
-	else
-	{
-		this->m_clickedSprite = nullptr;
-		this->m_realeasedCursorOnSprite = false;
 	}
 }
