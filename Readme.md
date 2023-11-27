@@ -40,9 +40,12 @@ Welcome to Sprite Engine, a user-friendly **2D Game Engine** designed for solo d
 - **Cleaner Design**
 - **Box Collider Rotation**
 
+## How to build
 
-## Quick overview 
-The engine calls the `update` and `start` methods of the `Game` class only once. If you create a new script, you need to invoke the `update` method from the script within the `Game` class. If you wish to share instances, simply pass them in the `update` methods or set a pointer to them in the `start` method. To access a sprite, call `this->config.ptr_sprites->getSpriteWithName("name");` This method returns a pointer to the sprite in the `SpriteRepository`. You can now perform various operations with the sprite. Please be aware that the engine still has many bugs.
+- Navigate to the engine directory `cd Engine`
+- Create a Build directory `mkdir Build`
+- Navigatge in the Build dir `cd Build`
+- Make sure to have CMake installed and run this command `cmake ..`
 
 ## Getting Started
 
@@ -61,6 +64,9 @@ Watch an introduction to the engine on [YouTube](https://www.youtube.com/watch?v
    *Tip:* Pressing `build` or `STRG + B` in the engine will automatically build the .exe into a folder, avoiding manual resource/DLL handling.
 
 2. **How Do I Script My Sprites?**
+
+    The engine calls the `update` and `start` methods of the `Game` class only once. If you create a new script, you need to invoke the `update` method from the script within the `Game` class. If you wish to share instances, simply pass them in the `update` methods or set a pointer to them in the `start` method. To access a sprite, call `this->config.ptr_sprites->getSpriteWithName("name");` This method returns a pointer to the sprite in the `SpriteRepository`. You can now perform various operations with the sprite. Please be aware that the engine still has many bugs.
+
    - Ensure you've built the Assets project manually using Visual Studio (Buildsystem is coming).
    - Right-click the hierarchy window and select **New -> Sprite**.
    - In the game engine, right-click on the asset folder and choose **New -> C++ Script** to create a script with **update** and **start** functions.
