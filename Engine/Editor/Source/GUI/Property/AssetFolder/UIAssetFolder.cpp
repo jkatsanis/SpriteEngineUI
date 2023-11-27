@@ -359,9 +359,7 @@ void spe::UIAssetFolder::getAllFilesInDir(const char* path, const char* name)
 {
     uint8_t cnt = 0;
 
-
     DIR* dir = opendir(path);
-
 
     struct dirent* entry;
     if (dir == NULL) {
@@ -393,6 +391,8 @@ void spe::UIAssetFolder::getAllFilesInDir(const char* path, const char* name)
             this->renderFilesWithChildWindow(name, newPath, std_name, isFolder, id, cnt);
         }
     }
+
+    closedir(dir);
 
 }
 
