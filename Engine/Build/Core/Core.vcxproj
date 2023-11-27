@@ -1,0 +1,359 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <PreferredToolArchitecture>x64</PreferredToolArchitecture>
+  </PropertyGroup>
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="MinSizeRel|x64">
+      <Configuration>MinSizeRel</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="RelWithDebInfo|x64">
+      <Configuration>RelWithDebInfo</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{7D02DB65-AA41-3373-B70D-914989A10AE1}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <WindowsTargetPlatformVersion>10.0.22000.0</WindowsTargetPlatformVersion>
+    <Platform>x64</Platform>
+    <ProjectName>Core</ProjectName>
+    <VCProjectUpgraderObjectName>NoUpgrade</VCProjectUpgraderObjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Dev\SpriteEngineUI\Engine\Build\Core\Debug\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Core.dir\Debug\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Core</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.lib</TargetExt>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Dev\SpriteEngineUI\Engine\Build\Core\Release\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Core.dir\Release\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Core</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.lib</TargetExt>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\Dev\SpriteEngineUI\Engine\Build\Core\MinSizeRel\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">Core.dir\MinSizeRel\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">Core</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">.lib</TargetExt>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\Dev\SpriteEngineUI\Engine\Build\Core\RelWithDebInfo\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">Core.dir\RelWithDebInfo\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">Core</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">.lib</TargetExt>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>C:\Dev\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source\Sprite;C:\Dev\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source\Include\ImGui;C:\Dev\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source\Include;C:\Dev\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <Optimization>Disabled</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;CMAKE_INTDIR="Debug"</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_DEBUG;_WINDOWS;CMAKE_INTDIR=\"Debug\"</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Dev\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source\Sprite;C:\Dev\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source\Include\ImGui;C:\Dev\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source\Include;C:\Dev\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>C:\Dev\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source\Sprite;C:\Dev\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source\Include\ImGui;C:\Dev\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source\Include;C:\Dev\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Lib>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>C:\Dev\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source\Sprite;C:\Dev\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source\Include\ImGui;C:\Dev\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source\Include;C:\Dev\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR="Release"</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR=\"Release\"</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Dev\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source\Sprite;C:\Dev\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source\Include\ImGui;C:\Dev\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source\Include;C:\Dev\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>C:\Dev\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source\Sprite;C:\Dev\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source\Include\ImGui;C:\Dev\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source\Include;C:\Dev\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Lib>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>C:\Dev\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source\Sprite;C:\Dev\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source\Include\ImGui;C:\Dev\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source\Include;C:\Dev\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <Optimization>MinSpace</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR="MinSizeRel"</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR=\"MinSizeRel\"</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Dev\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source\Sprite;C:\Dev\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source\Include\ImGui;C:\Dev\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source\Include;C:\Dev\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>C:\Dev\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source\Sprite;C:\Dev\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source\Include\ImGui;C:\Dev\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source\Include;C:\Dev\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Lib>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>C:\Dev\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source\Sprite;C:\Dev\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source\Include\ImGui;C:\Dev\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source\Include;C:\Dev\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR="RelWithDebInfo"</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR=\"RelWithDebInfo\"</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Dev\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source\Sprite;C:\Dev\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source\Include\ImGui;C:\Dev\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source\Include;C:\Dev\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>C:\Dev\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source\Sprite;C:\Dev\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source\Include\ImGui;C:\Dev\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source\Include;C:\Dev\SpriteEngineUI\Engine\$(CMAKE_SOURCE_DIR)\Core\Source;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Lib>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Dev\SpriteEngineUI\Engine\Core\CMakeLists.txt">
+      <UseUtf8Encoding>Always</UseUtf8Encoding>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Building Custom Rule C:/Dev/SpriteEngineUI/Engine/Core/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Dev/SpriteEngineUI/Engine -BC:/Dev/SpriteEngineUI/Engine/Build --check-stamp-file C:/Dev/SpriteEngineUI/Engine/Build/Core/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Dev\SpriteEngineUI\Engine\Build\Core\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Building Custom Rule C:/Dev/SpriteEngineUI/Engine/Core/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Dev/SpriteEngineUI/Engine -BC:/Dev/SpriteEngineUI/Engine/Build --check-stamp-file C:/Dev/SpriteEngineUI/Engine/Build/Core/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Dev\SpriteEngineUI\Engine\Build\Core\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">Building Custom Rule C:/Dev/SpriteEngineUI/Engine/Core/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Dev/SpriteEngineUI/Engine -BC:/Dev/SpriteEngineUI/Engine/Build --check-stamp-file C:/Dev/SpriteEngineUI/Engine/Build/Core/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\Dev\SpriteEngineUI\Engine\Build\Core\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">Building Custom Rule C:/Dev/SpriteEngineUI/Engine/Core/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Dev/SpriteEngineUI/Engine -BC:/Dev/SpriteEngineUI/Engine/Build --check-stamp-file C:/Dev/SpriteEngineUI/Engine/Build/Core/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\Dev\SpriteEngineUI\Engine\Build\Core\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="C:\Dev\SpriteEngineUI\Engine\Core\Source\Camera\Camera.cpp" />
+    <ClInclude Include="C:\Dev\SpriteEngineUI\Engine\Core\Source\Camera\Camera.h" />
+    <ClCompile Include="C:\Dev\SpriteEngineUI\Engine\Core\Source\Core\EngineData.cpp" />
+    <ClInclude Include="C:\Dev\SpriteEngineUI\Engine\Core\Source\Core\EngineData.h" />
+    <ClCompile Include="C:\Dev\SpriteEngineUI\Engine\Core\Source\Core\Event.cpp" />
+    <ClInclude Include="C:\Dev\SpriteEngineUI\Engine\Core\Source\Core\Event.h" />
+    <ClCompile Include="C:\Dev\SpriteEngineUI\Engine\Core\Source\Core\GameWindow.cpp" />
+    <ClInclude Include="C:\Dev\SpriteEngineUI\Engine\Core\Source\Core\GameWindow.h" />
+    <ClInclude Include="C:\Dev\SpriteEngineUI\Engine\Core\Source\Core\IApplication.h" />
+    <ClCompile Include="C:\Dev\SpriteEngineUI\Engine\Core\Source\Core\Log.cpp" />
+    <ClInclude Include="C:\Dev\SpriteEngineUI\Engine\Core\Source\Core\Log.h" />
+    <ClInclude Include="C:\Dev\SpriteEngineUI\Engine\Core\Source\Core\Repository.h" />
+    <ClCompile Include="C:\Dev\SpriteEngineUI\Engine\Core\Source\Core\SeceneHandler.cpp" />
+    <ClInclude Include="C:\Dev\SpriteEngineUI\Engine\Core\Source\Core\SeceneHandler.h" />
+    <ClCompile Include="C:\Dev\SpriteEngineUI\Engine\Core\Source\Core\Time.cpp" />
+    <ClInclude Include="C:\Dev\SpriteEngineUI\Engine\Core\Source\Core\Time.h" />
+    <ClInclude Include="C:\Dev\SpriteEngineUI\Engine\Core\Source\Include\ImGui\ImGUISFML.h" />
+    <ClInclude Include="C:\Dev\SpriteEngineUI\Engine\Core\Source\Include\ImGui\imconfig-SFML.h" />
+    <ClInclude Include="C:\Dev\SpriteEngineUI\Engine\Core\Source\Include\ImGui\imconfig.h" />
+    <ClCompile Include="C:\Dev\SpriteEngineUI\Engine\Core\Source\Include\ImGui\imgui-SFML.cpp" />
+    <ClInclude Include="C:\Dev\SpriteEngineUI\Engine\Core\Source\Include\ImGui\imgui-SFML.h" />
+    <ClInclude Include="C:\Dev\SpriteEngineUI\Engine\Core\Source\Include\ImGui\imgui-SFML_export.h" />
+    <ClCompile Include="C:\Dev\SpriteEngineUI\Engine\Core\Source\Include\ImGui\imgui.cpp" />
+    <ClInclude Include="C:\Dev\SpriteEngineUI\Engine\Core\Source\Include\ImGui\imgui.h" />
+    <ClCompile Include="C:\Dev\SpriteEngineUI\Engine\Core\Source\Include\ImGui\imgui_draw.cpp" />
+    <ClInclude Include="C:\Dev\SpriteEngineUI\Engine\Core\Source\Include\ImGui\imgui_internal.h" />
+    <ClCompile Include="C:\Dev\SpriteEngineUI\Engine\Core\Source\Include\ImGui\imgui_tables.cpp" />
+    <ClCompile Include="C:\Dev\SpriteEngineUI\Engine\Core\Source\Include\ImGui\imgui_widgets.cpp" />
+    <ClInclude Include="C:\Dev\SpriteEngineUI\Engine\Core\Source\Include\ImGui\imstb_rectpack.h" />
+    <ClInclude Include="C:\Dev\SpriteEngineUI\Engine\Core\Source\Include\ImGui\imstb_textedit.h" />
+    <ClInclude Include="C:\Dev\SpriteEngineUI\Engine\Core\Source\Include\ImGui\imstb_truetype.h" />
+    <ClCompile Include="C:\Dev\SpriteEngineUI\Engine\Core\Source\Include\UtilityFunctions.cpp" />
+    <ClInclude Include="C:\Dev\SpriteEngineUI\Engine\Core\Source\Include\UtilityFunctions.h" />
+    <ClInclude Include="C:\Dev\SpriteEngineUI\Engine\Core\Source\Include\dirent.h" />
+    <ClInclude Include="C:\Dev\SpriteEngineUI\Engine\Core\Source\Include\icons.h" />
+    <ClCompile Include="C:\Dev\SpriteEngineUI\Engine\Core\Source\Input\Input.cpp" />
+    <ClInclude Include="C:\Dev\SpriteEngineUI\Engine\Core\Source\Input\Input.h" />
+    <ClInclude Include="C:\Dev\SpriteEngineUI\Engine\Core\Source\Input\Keyboard.h" />
+    <ClCompile Include="C:\Dev\SpriteEngineUI\Engine\Core\Source\Math\Vector2.cpp" />
+    <ClInclude Include="C:\Dev\SpriteEngineUI\Engine\Core\Source\Math\Vector2.h" />
+    <ClCompile Include="C:\Dev\SpriteEngineUI\Engine\Core\Source\Math\Vector3.cpp" />
+    <ClInclude Include="C:\Dev\SpriteEngineUI\Engine\Core\Source\Math\Vector3.h" />
+    <ClInclude Include="C:\Dev\SpriteEngineUI\Engine\Core\Source\RessourceHandler\FileDataMacros.h" />
+    <ClCompile Include="C:\Dev\SpriteEngineUI\Engine\Core\Source\RessourceHandler\Initializer.cpp" />
+    <ClInclude Include="C:\Dev\SpriteEngineUI\Engine\Core\Source\RessourceHandler\Initializer.h" />
+    <ClCompile Include="C:\Dev\SpriteEngineUI\Engine\Core\Source\Sprite\Components\Animator\Animation.cpp" />
+    <ClInclude Include="C:\Dev\SpriteEngineUI\Engine\Core\Source\Sprite\Components\Animator\Animation.h" />
+    <ClCompile Include="C:\Dev\SpriteEngineUI\Engine\Core\Source\Sprite\Components\Animator\Animator.cpp" />
+    <ClInclude Include="C:\Dev\SpriteEngineUI\Engine\Core\Source\Sprite\Components\Animator\Animator.h" />
+    <ClInclude Include="C:\Dev\SpriteEngineUI\Engine\Core\Source\Sprite\Components\Animator\KeyFrame.h" />
+    <ClCompile Include="C:\Dev\SpriteEngineUI\Engine\Core\Source\Sprite\Components\BoxCollider.cpp" />
+    <ClInclude Include="C:\Dev\SpriteEngineUI\Engine\Core\Source\Sprite\Components\BoxCollider.h" />
+    <ClInclude Include="C:\Dev\SpriteEngineUI\Engine\Core\Source\Sprite\Components\Component.h" />
+    <ClCompile Include="C:\Dev\SpriteEngineUI\Engine\Core\Source\Sprite\Components\Light\Light.cpp" />
+    <ClInclude Include="C:\Dev\SpriteEngineUI\Engine\Core\Source\Sprite\Components\Light\Light.h" />
+    <ClCompile Include="C:\Dev\SpriteEngineUI\Engine\Core\Source\Sprite\Components\Light\LightRepository.cpp" />
+    <ClInclude Include="C:\Dev\SpriteEngineUI\Engine\Core\Source\Sprite\Components\Light\LightRepository.h" />
+    <ClCompile Include="C:\Dev\SpriteEngineUI\Engine\Core\Source\Sprite\Components\Light\LightSource.cpp" />
+    <ClInclude Include="C:\Dev\SpriteEngineUI\Engine\Core\Source\Sprite\Components\Light\LightSource.h" />
+    <ClCompile Include="C:\Dev\SpriteEngineUI\Engine\Core\Source\Sprite\Components\PhysicsBody.cpp" />
+    <ClInclude Include="C:\Dev\SpriteEngineUI\Engine\Core\Source\Sprite\Components\PhysicsBody.h" />
+    <ClCompile Include="C:\Dev\SpriteEngineUI\Engine\Core\Source\Sprite\Components\Prefab\Prefab.cpp" />
+    <ClInclude Include="C:\Dev\SpriteEngineUI\Engine\Core\Source\Sprite\Components\Prefab\Prefab.h" />
+    <ClCompile Include="C:\Dev\SpriteEngineUI\Engine\Core\Source\Sprite\Components\SpriteRenderer.cpp" />
+    <ClInclude Include="C:\Dev\SpriteEngineUI\Engine\Core\Source\Sprite\Components\SpriteRenderer.h" />
+    <ClCompile Include="C:\Dev\SpriteEngineUI\Engine\Core\Source\Sprite\Components\Transform.cpp" />
+    <ClInclude Include="C:\Dev\SpriteEngineUI\Engine\Core\Source\Sprite\Components\Transform.h" />
+    <ClCompile Include="C:\Dev\SpriteEngineUI\Engine\Core\Source\Sprite\Sprite.cpp" />
+    <ClInclude Include="C:\Dev\SpriteEngineUI\Engine\Core\Source\Sprite\Sprite.h" />
+    <ClCompile Include="C:\Dev\SpriteEngineUI\Engine\Core\Source\Sprite\SpriteRepository.cpp" />
+    <ClInclude Include="C:\Dev\SpriteEngineUI\Engine\Core\Source\Sprite\SpriteRepository.h" />
+    <ClCompile Include="C:\Dev\SpriteEngineUI\Engine\Core\Source\Utility\FileDialoge.cpp" />
+    <ClInclude Include="C:\Dev\SpriteEngineUI\Engine\Core\Source\Utility\FileDialoge.h" />
+    <ClCompile Include="C:\Dev\SpriteEngineUI\Engine\Core\Source\Utility\Style.cpp" />
+    <ClInclude Include="C:\Dev\SpriteEngineUI\Engine\Core\Source\Utility\Style.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="C:\Dev\SpriteEngineUI\Engine\Build\ZERO_CHECK.vcxproj">
+      <Project>{3091B1E9-74B1-37A9-80E4-6724F5F53C18}</Project>
+      <Name>ZERO_CHECK</Name>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

@@ -1,0 +1,279 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="C:\Dev\SpriteEngineUI\Engine\Core\Source\Camera\Camera.cpp">
+      <Filter>Source\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Dev\SpriteEngineUI\Engine\Core\Source\Core\EngineData.cpp">
+      <Filter>Source\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Dev\SpriteEngineUI\Engine\Core\Source\Core\Event.cpp">
+      <Filter>Source\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Dev\SpriteEngineUI\Engine\Core\Source\Core\GameWindow.cpp">
+      <Filter>Source\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Dev\SpriteEngineUI\Engine\Core\Source\Core\Log.cpp">
+      <Filter>Source\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Dev\SpriteEngineUI\Engine\Core\Source\Core\SeceneHandler.cpp">
+      <Filter>Source\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Dev\SpriteEngineUI\Engine\Core\Source\Core\Time.cpp">
+      <Filter>Source\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Dev\SpriteEngineUI\Engine\Core\Source\Include\ImGui\imgui-SFML.cpp">
+      <Filter>Source\Include\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Dev\SpriteEngineUI\Engine\Core\Source\Include\ImGui\imgui.cpp">
+      <Filter>Source\Include\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Dev\SpriteEngineUI\Engine\Core\Source\Include\ImGui\imgui_draw.cpp">
+      <Filter>Source\Include\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Dev\SpriteEngineUI\Engine\Core\Source\Include\ImGui\imgui_tables.cpp">
+      <Filter>Source\Include\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Dev\SpriteEngineUI\Engine\Core\Source\Include\ImGui\imgui_widgets.cpp">
+      <Filter>Source\Include\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Dev\SpriteEngineUI\Engine\Core\Source\Include\UtilityFunctions.cpp">
+      <Filter>Source\Include</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Dev\SpriteEngineUI\Engine\Core\Source\Input\Input.cpp">
+      <Filter>Source\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Dev\SpriteEngineUI\Engine\Core\Source\Math\Vector2.cpp">
+      <Filter>Source\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Dev\SpriteEngineUI\Engine\Core\Source\Math\Vector3.cpp">
+      <Filter>Source\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Dev\SpriteEngineUI\Engine\Core\Source\RessourceHandler\Initializer.cpp">
+      <Filter>Source\RessourceHandler</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Dev\SpriteEngineUI\Engine\Core\Source\Sprite\Components\Animator\Animation.cpp">
+      <Filter>Source\Sprite\Components\Animator</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Dev\SpriteEngineUI\Engine\Core\Source\Sprite\Components\Animator\Animator.cpp">
+      <Filter>Source\Sprite\Components\Animator</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Dev\SpriteEngineUI\Engine\Core\Source\Sprite\Components\BoxCollider.cpp">
+      <Filter>Source\Sprite\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Dev\SpriteEngineUI\Engine\Core\Source\Sprite\Components\Light\Light.cpp">
+      <Filter>Source\Sprite\Components\Light</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Dev\SpriteEngineUI\Engine\Core\Source\Sprite\Components\Light\LightRepository.cpp">
+      <Filter>Source\Sprite\Components\Light</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Dev\SpriteEngineUI\Engine\Core\Source\Sprite\Components\Light\LightSource.cpp">
+      <Filter>Source\Sprite\Components\Light</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Dev\SpriteEngineUI\Engine\Core\Source\Sprite\Components\PhysicsBody.cpp">
+      <Filter>Source\Sprite\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Dev\SpriteEngineUI\Engine\Core\Source\Sprite\Components\Prefab\Prefab.cpp">
+      <Filter>Source\Sprite\Components\Prefab</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Dev\SpriteEngineUI\Engine\Core\Source\Sprite\Components\SpriteRenderer.cpp">
+      <Filter>Source\Sprite\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Dev\SpriteEngineUI\Engine\Core\Source\Sprite\Components\Transform.cpp">
+      <Filter>Source\Sprite\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Dev\SpriteEngineUI\Engine\Core\Source\Sprite\Sprite.cpp">
+      <Filter>Source\Sprite</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Dev\SpriteEngineUI\Engine\Core\Source\Sprite\SpriteRepository.cpp">
+      <Filter>Source\Sprite</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Dev\SpriteEngineUI\Engine\Core\Source\Utility\FileDialoge.cpp">
+      <Filter>Source\Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Dev\SpriteEngineUI\Engine\Core\Source\Utility\Style.cpp">
+      <Filter>Source\Utility</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="C:\Dev\SpriteEngineUI\Engine\Core\Source\Camera\Camera.h">
+      <Filter>Source\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Dev\SpriteEngineUI\Engine\Core\Source\Core\EngineData.h">
+      <Filter>Source\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Dev\SpriteEngineUI\Engine\Core\Source\Core\Event.h">
+      <Filter>Source\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Dev\SpriteEngineUI\Engine\Core\Source\Core\GameWindow.h">
+      <Filter>Source\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Dev\SpriteEngineUI\Engine\Core\Source\Core\IApplication.h">
+      <Filter>Source\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Dev\SpriteEngineUI\Engine\Core\Source\Core\Log.h">
+      <Filter>Source\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Dev\SpriteEngineUI\Engine\Core\Source\Core\Repository.h">
+      <Filter>Source\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Dev\SpriteEngineUI\Engine\Core\Source\Core\SeceneHandler.h">
+      <Filter>Source\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Dev\SpriteEngineUI\Engine\Core\Source\Core\Time.h">
+      <Filter>Source\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Dev\SpriteEngineUI\Engine\Core\Source\Include\ImGui\ImGUISFML.h">
+      <Filter>Source\Include\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Dev\SpriteEngineUI\Engine\Core\Source\Include\ImGui\imconfig-SFML.h">
+      <Filter>Source\Include\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Dev\SpriteEngineUI\Engine\Core\Source\Include\ImGui\imconfig.h">
+      <Filter>Source\Include\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Dev\SpriteEngineUI\Engine\Core\Source\Include\ImGui\imgui-SFML.h">
+      <Filter>Source\Include\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Dev\SpriteEngineUI\Engine\Core\Source\Include\ImGui\imgui-SFML_export.h">
+      <Filter>Source\Include\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Dev\SpriteEngineUI\Engine\Core\Source\Include\ImGui\imgui.h">
+      <Filter>Source\Include\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Dev\SpriteEngineUI\Engine\Core\Source\Include\ImGui\imgui_internal.h">
+      <Filter>Source\Include\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Dev\SpriteEngineUI\Engine\Core\Source\Include\ImGui\imstb_rectpack.h">
+      <Filter>Source\Include\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Dev\SpriteEngineUI\Engine\Core\Source\Include\ImGui\imstb_textedit.h">
+      <Filter>Source\Include\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Dev\SpriteEngineUI\Engine\Core\Source\Include\ImGui\imstb_truetype.h">
+      <Filter>Source\Include\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Dev\SpriteEngineUI\Engine\Core\Source\Include\UtilityFunctions.h">
+      <Filter>Source\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Dev\SpriteEngineUI\Engine\Core\Source\Include\dirent.h">
+      <Filter>Source\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Dev\SpriteEngineUI\Engine\Core\Source\Include\icons.h">
+      <Filter>Source\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Dev\SpriteEngineUI\Engine\Core\Source\Input\Input.h">
+      <Filter>Source\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Dev\SpriteEngineUI\Engine\Core\Source\Input\Keyboard.h">
+      <Filter>Source\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Dev\SpriteEngineUI\Engine\Core\Source\Math\Vector2.h">
+      <Filter>Source\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Dev\SpriteEngineUI\Engine\Core\Source\Math\Vector3.h">
+      <Filter>Source\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Dev\SpriteEngineUI\Engine\Core\Source\RessourceHandler\FileDataMacros.h">
+      <Filter>Source\RessourceHandler</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Dev\SpriteEngineUI\Engine\Core\Source\RessourceHandler\Initializer.h">
+      <Filter>Source\RessourceHandler</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Dev\SpriteEngineUI\Engine\Core\Source\Sprite\Components\Animator\Animation.h">
+      <Filter>Source\Sprite\Components\Animator</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Dev\SpriteEngineUI\Engine\Core\Source\Sprite\Components\Animator\Animator.h">
+      <Filter>Source\Sprite\Components\Animator</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Dev\SpriteEngineUI\Engine\Core\Source\Sprite\Components\Animator\KeyFrame.h">
+      <Filter>Source\Sprite\Components\Animator</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Dev\SpriteEngineUI\Engine\Core\Source\Sprite\Components\BoxCollider.h">
+      <Filter>Source\Sprite\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Dev\SpriteEngineUI\Engine\Core\Source\Sprite\Components\Component.h">
+      <Filter>Source\Sprite\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Dev\SpriteEngineUI\Engine\Core\Source\Sprite\Components\Light\Light.h">
+      <Filter>Source\Sprite\Components\Light</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Dev\SpriteEngineUI\Engine\Core\Source\Sprite\Components\Light\LightRepository.h">
+      <Filter>Source\Sprite\Components\Light</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Dev\SpriteEngineUI\Engine\Core\Source\Sprite\Components\Light\LightSource.h">
+      <Filter>Source\Sprite\Components\Light</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Dev\SpriteEngineUI\Engine\Core\Source\Sprite\Components\PhysicsBody.h">
+      <Filter>Source\Sprite\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Dev\SpriteEngineUI\Engine\Core\Source\Sprite\Components\Prefab\Prefab.h">
+      <Filter>Source\Sprite\Components\Prefab</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Dev\SpriteEngineUI\Engine\Core\Source\Sprite\Components\SpriteRenderer.h">
+      <Filter>Source\Sprite\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Dev\SpriteEngineUI\Engine\Core\Source\Sprite\Components\Transform.h">
+      <Filter>Source\Sprite\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Dev\SpriteEngineUI\Engine\Core\Source\Sprite\Sprite.h">
+      <Filter>Source\Sprite</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Dev\SpriteEngineUI\Engine\Core\Source\Sprite\SpriteRepository.h">
+      <Filter>Source\Sprite</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Dev\SpriteEngineUI\Engine\Core\Source\Utility\FileDialoge.h">
+      <Filter>Source\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Dev\SpriteEngineUI\Engine\Core\Source\Utility\Style.h">
+      <Filter>Source\Utility</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Dev\SpriteEngineUI\Engine\Core\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Source">
+      <UniqueIdentifier>{13022736-B10B-3AA9-883A-694C1D0C08D1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Camera">
+      <UniqueIdentifier>{B1E1C1F4-F6DC-35F8-8E80-E0CB4BDD502F}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Core">
+      <UniqueIdentifier>{2138D2B1-EED1-305C-B727-24676FCE55F5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Include">
+      <UniqueIdentifier>{7ED6F844-2C58-3031-AA87-00C3CE7A16F0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Include\ImGui">
+      <UniqueIdentifier>{32DDBF1F-0EAD-373D-B201-5DA7BBE48E4B}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Input">
+      <UniqueIdentifier>{AEEA6114-03B9-3D30-BC95-0CB2ABB2155C}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Math">
+      <UniqueIdentifier>{B6B8DB3A-E1A7-307F-96F6-88AF1D4E78A6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\RessourceHandler">
+      <UniqueIdentifier>{A5A47AD0-4F09-3B71-9D70-6FDF9E83DE81}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Sprite">
+      <UniqueIdentifier>{A08637EB-300B-34EC-AA08-8A1F97891F49}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Sprite\Components">
+      <UniqueIdentifier>{C3AA82C7-5F41-3E79-BE48-5B41B7EBC720}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Sprite\Components\Animator">
+      <UniqueIdentifier>{3AF71E10-755F-3EB0-82AE-94853ACC615C}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Sprite\Components\Light">
+      <UniqueIdentifier>{7DCDBA75-88DE-31CA-8EBF-696FC737AA64}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Sprite\Components\Prefab">
+      <UniqueIdentifier>{7707ECB7-BEB9-3188-90CC-32FCD76D323F}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Utility">
+      <UniqueIdentifier>{F3BA5B03-BCBD-3DB9-9E11-E461C000DF4A}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
