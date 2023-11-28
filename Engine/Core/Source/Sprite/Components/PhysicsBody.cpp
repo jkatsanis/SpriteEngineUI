@@ -34,3 +34,7 @@ void spe::PhsysicsBody::reset()
 	this->gravity = 0.0f;
 }
 
+void spe::PhsysicsBody::Update()
+{
+}
+

@@ -5,15 +5,16 @@
 
 namespace spe
 {
-    LightRepository::LightRepository()
-        : m_index(0), m_update(true)
+    void LightRepository::Init(const std::string& shader)
     {
-        if (!m_light_shader.loadFromFile(PATH_TO_LIGHT_SHADER, sf::Shader::Fragment))
+        this->m_update = true;
+        this->m_index = 0;
+        if (!m_light_shader.loadFromFile(shader, sf::Shader::Fragment))
         {
-            std::cout << "LOG [ERROR] Could not load light shader" << std::endl;
+            spe::Log::LogString("Could not load light shader");
         }
-        m_index = 0;
     }
+
 
     void LightRepository::updateLightSource(spe::Sprite* sprite, spe::Camera* cam)
     {

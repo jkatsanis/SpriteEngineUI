@@ -1,5 +1,10 @@
 #include "SeceneHandler.h"
 
+void spe::SceneHandler::Init(const std::string& shader)
+{
+	this->LightRepository.Init(shader);
+}
+
 void spe::SceneHandler::LoadScene(const std::string& name, spe::Camera& camera, spe::Vector3& bg)
 {
 	for (const std::string& str : this->TotalScenes)
@@ -19,7 +24,6 @@ void spe::SceneHandler::LoadScene(const std::string& name, spe::Camera& camera, 
 		}
 	}
 }
-
 
 void spe::SceneHandler::DeleteScene(const std::string& name)
 {

@@ -11,6 +11,7 @@ namespace spe
 	public:
 		EngineData() = delete;
 
+		static void BuildProjectFiles();
 		static void BuildProject();
 
 		static std::string s_PathOfEngine;

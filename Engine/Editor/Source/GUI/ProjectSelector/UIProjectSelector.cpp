@@ -4,7 +4,7 @@
 
 spe::UIProjectSelector::UIProjectSelector()
 {
-	const std::string path = spe::Utility::GetDefaultDir();
+	const std::string path = spe::Utility::GetDefaultDir(2);
 	spe::Utility::SetCurrentDir(path);
 
 	// Getting the directory where the editor/core is
@@ -248,6 +248,8 @@ void spe::UIProjectSelector::AddProject(const std::string& full_path, const std:
 	gmtime_s(&timeinfo, &in_time_t);
 	std::strftime(buffer, sizeof(buffer), "%Y/%d/%m %X", &timeinfo);
 	std::string date(buffer);
+
+	
 
 	this->m_Projects.push_back(spe::UserProjectInfo(name, full_path, date, relative_path.string()));
 }

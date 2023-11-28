@@ -18,6 +18,8 @@ namespace spe
 		spe::LightRepository LightRepository;
 		spe::SpriteRepository SpriteRepository;
 
+		void Init(const std::string& shader);
+
 		void DeleteScene(const std::string& name);
 		void CreateScene(const std::string& name);
 		void LoadScene(const std::string& name, spe::Camera& camera, spe::Vector3& b);

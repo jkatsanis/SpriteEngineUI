@@ -147,7 +147,7 @@ void spe::Utility::Delete(const std::string& path)
     std::filesystem::remove_all(path);
 }
 
-std::string spe::Utility::GetDefaultDir()
+std::string spe::Utility::GetDefaultDir(uint32_t depth)
 {
     spe::Log::LogString("Calling GetDefaultDir()..");
     char NPath[MAX_PATH];
@@ -157,9 +157,9 @@ std::string spe::Utility::GetDefaultDir()
 
     std::string projectString = "";
 
-    for (size_t i = 0; i < parts.size() - 2; i++)
+    for (size_t i = 0; i < parts.size() - depth; i++)
     {
-        projectString += (i == parts.size() - 3) ? parts[i] : parts[i] + "\\";
+        projectString += (i == parts.size() - depth - 1) ? parts[i] : parts[i] + "\\";
     }
     return projectString;
 }

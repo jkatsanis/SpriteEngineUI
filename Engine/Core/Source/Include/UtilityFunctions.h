@@ -35,7 +35,7 @@ namespace spe
 		/// <summary>
 		/// Should only be used 1 time. 
 		/// </summary>
-		static std::string GetDefaultDir();
+		static std::string GetDefaultDir(uint32_t depth);
 
 		static std::string GetCurrentDir();
 

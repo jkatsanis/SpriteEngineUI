@@ -15,6 +15,7 @@ namespace spe
 
 		void init() override;
 		void UpdateSpritePositionToParent(const spe::Vector2& position);
+		spe::Vector2 HandleCollisions(const spe::Vector2& pos);
 
 	public:
 		bool position_changed; // TODO
@@ -40,6 +41,7 @@ namespace spe
 		/// </summary>
 		void setOrigin();
 		void SetPosition(const spe::Vector2& pos);
+
 		void setRotation(uint32_t angle);
 		/// <summary>
 		/// Set's the scale, sets it even if the parameter passed is the same as the getScale();
@@ -56,7 +58,6 @@ namespace spe
 		/// </summary>
 		/// <returns>The position as a vector</returns>
 		spe::Vector2 getOrigininalPosition() const;
-
 
 		/// <summary>
 		/// Resets the transform

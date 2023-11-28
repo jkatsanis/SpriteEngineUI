@@ -58,6 +58,62 @@ void spe::Transform::UpdateSpritePositionToParent(const spe::Vector2& position)
 
 }
 
+spe::Vector2 spe::Transform::HandleCollisions(const spe::Vector2& position)
+{
+	spe::Vector2 new_position(position);
+
+	if (this->m_attached_sprite == nullptr || !this->m_attached_sprite->collider.exist || !this->m_attached_sprite->collider.collided)
+	{
+		// No collision check
+		return new_position;
+	}
+
+	const float current_y = this->m_attached_sprite->transform.m_Position.y;
+	const float current_x = this->m_attached_sprite->transform.m_Position.x;
+
+	// Down	
+	if (this->m_attached_sprite->collider.down)
+	{
+		if (position.y < this->m_Position.y
+			&& this->m_attached_sprite->physicsBody.velocity.y <= 0)
+		{
+			new_position.y = current_y;
+		}
+	}
+
+	// Up	
+	if (this->m_attached_sprite->collider.up)
+	{
+		if (position.y > this->m_Position.y
+			&& this->m_attached_sprite->physicsBody.velocity.y >= 0)
+		{
+			new_position.y = current_y;
+		}
+	}
+
+	// Left	
+	if (this->m_attached_sprite->collider.left)
+	{
+		if (position.x < this->m_Position.x
+			&& this->m_attached_sprite->physicsBody.velocity.x <= 0)
+		{
+			new_position.x = current_x;
+		}
+	}
+
+	// Right	
+	if (this->m_attached_sprite->collider.right)
+	{
+		if (position.x > this->m_Position.x
+			&& this->m_attached_sprite->physicsBody.velocity.x >= 0)
+		{
+			new_position.x = current_x;
+		}
+	}
+	return new_position;
+	//this->m_attached_sprite->collider.resetPositions();
+}
+
 // Public functions
 
 void spe::Transform::SetPosition(const spe::Vector2& position)
@@ -65,14 +121,18 @@ void spe::Transform::SetPosition(const spe::Vector2& position)
 	if (this->m_Position == position)
 	{
 		this->position_changed = false;
+		return;
 	}
-	this->UpdateSpritePositionToParent(position);
-	this->m_Position = position;
+
+	const spe::Vector2 new_pos = this->HandleCollisions(position);
+
+	this->UpdateSpritePositionToParent(new_pos);
+	this->m_Position = new_pos;
 	this->position_changed = true;
 
 	if (this->m_attached_sprite != nullptr)
 	{
-		this->m_attached_sprite->getSprite().setPosition(sf::Vector2f(position.x + 960, 540 - position.y));
+		this->m_attached_sprite->getSprite().setPosition(sf::Vector2f(new_pos.x + 960, 540 - new_pos.y));
 	}
 }
 

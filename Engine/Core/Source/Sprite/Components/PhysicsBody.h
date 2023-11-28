@@ -18,5 +18,6 @@ namespace spe
 		PhsysicsBody(const spe::PhsysicsBody& rhs);
 
 		void reset() override;
+		void Update();
 	};
 }
