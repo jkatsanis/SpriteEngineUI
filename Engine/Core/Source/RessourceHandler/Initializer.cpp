@@ -56,6 +56,12 @@ void spe::Initializer::InitSprites(spe::SpriteRepository& spriteRepo, const std:
 		spe::Sprite* sprite = *it;
 		if (sprite->getParentId() > 0)
 		{
+			if (!spriteRepo.ExistWithId(sprite->getParentId()))
+			{
+				spe::Log::LogString("Sprite parent not found!");
+				sprite->clearParentData();
+				continue;
+			}
 			spe::Sprite* parent = spriteRepo.GetById(sprite->getParentId());
 			if (parent != nullptr)
 			{

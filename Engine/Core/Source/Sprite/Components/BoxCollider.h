@@ -24,6 +24,7 @@ namespace spe
 		void init() override;
 		bool CheckCollision(spe::BoxCollider& other);
 		void CheckCollisionPosition(spe::BoxCollider& other);
+		void ResetPosition();
 
 	public:
 		bool is_solid;

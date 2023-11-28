@@ -1,0 +1,3 @@
+name;vecpos;transformPosX;transformPosY;ScaleX;ScaleY;filepath;boxColliderWidthLeftOrRightX;boxColliderWidthLeftOrRighY;boxColliderHeightUpOrDownX;boxColliderHeightUpOrDownY;boxColliderExists;solid;sortingLayer;gravity;mass;physicsBodyExists;id;parentId;nextPosX;nextPosY;lastPosX;lastPosY;listPos;highestChild;positionToParentX;positionToParentY;animatorExists;prefabExist;loadInMemory;pathToPrefab
+S|Player;0;-111.053764;-454.087097;4.000000;4.000000;Assets\Sprites\Player\player.png;0;0.000000;0.000000;0.000000;0.000000;False;False;6;0.000000;0.000000;False;35;69;0;0;0;0;listpos;childCount;99.493782;56.423157;True;True;False;Assets\\Player.prfb;none;False;100.000000;200.000000;True;1.000000;1.000000;1.000000;True
+A|Assets\Sprites\Player\Animations\run_v2\runv2.txt

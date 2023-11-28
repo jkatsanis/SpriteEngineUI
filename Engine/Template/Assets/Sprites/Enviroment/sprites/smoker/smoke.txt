@@ -1,0 +1,6 @@
+smoke
+29
+True
+0.000000;assets\enviroment\sprites\smoker\smoke_1.png
+15.000000;assets\enviroment\sprites\smoker\smoke_2.png
+15.000000;assets\enviroment\sprites\smoker\smoke_1.png

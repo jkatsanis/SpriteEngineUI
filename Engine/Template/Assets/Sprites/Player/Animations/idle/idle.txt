@@ -1,0 +1,5 @@
+idle
+50
+True
+30.000000;assets\Sprites\Player\Animations\idle\idle_1.png
+30.000000;assets\Sprites\Player\Animations\idle\idle_2.png

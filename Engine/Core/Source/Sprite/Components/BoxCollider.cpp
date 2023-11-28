@@ -74,11 +74,6 @@ bool spe::BoxCollider::CheckCollision(spe::BoxCollider& other)
 
     if (isHorizontalOverlapLeft && isHorizontalOverlapRight && isVerticalOverlapTop && isVerticalOverlapBottom) {
         // Your code here
-   
-
-
-    
-        std::cout << "Coll";
         other.collided = true;
         other.collided_in_frame = true;
         this->collided = true;
@@ -145,6 +140,16 @@ void spe::BoxCollider::CheckCollisionPosition(spe::BoxCollider& other)
     this->up = true;
     return;
 }
+
+void spe::BoxCollider::ResetPosition()
+{
+    this->collided_sprite_map.clear();
+    this->collided = false;
+    this->right = false;
+    this->left = false;
+    this->down = false;
+    this->up = false;
+}
  
 // Public functions
 
@@ -197,7 +202,7 @@ void spe::BoxCollider::Update(spe::SpriteRepository& tocheck)
 
     if (!sprite->collider.collided_in_frame)
     {
-        sprite->collider.reset();
+        sprite->collider.ResetPosition();
     }
     if (!sprite->collider.m_got_down)
     {

@@ -9,9 +9,13 @@ set(CMAKE_CXX_STANDARD 17)
 
 
 file(GLOB_RECURSE GAME_SOURCES
-    "Source/*.cpp"
-    "Source/*.h"
+    "Engine/Source/*.cpp"
+    "Engine/Source/*.h"
+    "Assets/*.h"
+    "Assets/*.cpp"
 )
+
+source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR} FILES ${GAME_SOURCES})
 
 add_executable(${PROJECT_FOLDER} ${GAME_SOURCES})
 
@@ -35,10 +39,10 @@ set(ADDITIONAL_INCLUDE_PATHS
 
 foreach(PATH ${ADDITIONAL_INCLUDE_PATHS})
     list(APPEND FULL_PATHS "${FILE_CONTENT}/${PATH}")
-    message(${FULL_PATHS})
 endforeach()
 
 include_directories(${FULL_PATHS})
+include_directories(Assets)
 
 # Link libs
 target_link_libraries(${PROJECT_FOLDER} PRIVATE
