@@ -9,16 +9,12 @@ Welcome to Sprite Engine, a user-friendly **2D Game Engine** designed for solo d
 4. [Enhancements](#enhancements)
 5. [Quick overview](#quick-overview)
 6. [Getting Started](#getting-started)
-    - [Create a Project](#1-create-a-project)
-    - [How Do I Script My Sprites?](#2-how-do-i-script-my-sprites)
-    - [How do the sprites get managed?](#3-how-do-the-sprites-get-managed)
 7. [The Engine](#the-engine)
-    - [Picture of the Engine](#picture-of-the-engine)
-    - [How does the SpriteRepository work?](#how-does-the-spriterepository-work)
 
 ## Tools Used
 - **SFML**
 - **Dear ImGui**
+- **CMake (Love to TheCherno)**
 - **Rene**
 
 ## Features
@@ -33,6 +29,7 @@ Welcome to Sprite Engine, a user-friendly **2D Game Engine** designed for solo d
 - **Automatic Project Builder**
 - **Lighting**
 - **Prefabs**
+- **Simulation in editor**
 
 ## Enhancements
 - **Sound Manager**
@@ -62,7 +59,7 @@ Watch an introduction to the engine on [YouTube](https://www.youtube.com/watch?v
    - All files from the **template** folder will be copied to the selected project location.
    - The project folder takes the user-selected name, while the **.sln** and **.exe** files have different names.
 
-   *Tip:* Pressing `build` or `STRG + B` in the engine will automatically build the .exe into a folder, avoiding manual resource/DLL handling.
+   *Tip:* Pressing `build` or `CTRL + B` in the engine will automatically build the .exe into a folder, avoiding manual resource/DLL handling.
 
 2. **How Do I Script My Sprites?**
 
@@ -74,7 +71,7 @@ Watch an introduction to the engine on [YouTube](https://www.youtube.com/watch?v
    - Create a new **Sprite ptr** in your class:
 
      ```C++
-     class Game : public s2d::Base
+     class Game : public spe::IScript
      {
      private:
          Sprite* m_sprite;
@@ -97,7 +94,7 @@ Watch an introduction to the engine on [YouTube](https://www.youtube.com/watch?v
      {
          if(Input::onKeyHold(KeyBoardCode::A))
          {
-             this->m_sprite.transform.position.x -= 700 * Time::deltaTime;
+             this->m_sprite.transform.setPosition(spe::Vector(x, y))
          }
      }
      ```
@@ -128,6 +125,9 @@ Watch an introduction to the engine on [YouTube](https://www.youtube.com/watch?v
 
 **Picture of the Engine**
 ![Engine](Github/Game.PNG)
+
+This game is currently being developed, github link: 
+[DasynceSE](https://github.com/jkatsanis/DasynceSE.git)
 
 **How does the SpriteRepository work?**
 ![SpriteRepository](Github/repoplan.png)
