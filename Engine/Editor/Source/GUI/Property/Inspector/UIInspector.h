@@ -77,6 +77,8 @@ namespace spe
 		void lightComponent();
 
 		void displayDefaultInspectorView();
+
+		void inputXY(const char* label, float& inputX, float& inputY, float x, float y);
 	
 		void renameSprite();
 		void componentSelector();

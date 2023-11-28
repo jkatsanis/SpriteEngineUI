@@ -171,6 +171,9 @@ void spe::Sprite::initVariables(std::string name, spe::Vector2 spawnPos, std::st
 	this->transform.SetPosition(spawnPos);
 
 	this->setSpriteTexture(path);
+
+	this->getSprite().setPosition(sf::Vector2f(spawnPos.x + 960, 540 - spawnPos.y));
+
 }
 
 //Static functions

@@ -195,6 +195,7 @@ void spe::UIInspector::displayDefaultInspectorView()
 	ImGui::SetCursorPos(temp);
 }
 
+
 void spe::UIInspector::backgroundSetting()
 {
 	this->renderBackgroundBehindComponent();
@@ -455,35 +456,36 @@ void spe::UIInspector::setupComponents()
 	this->setCompontents();
 }
 
+void spe::UIInspector::inputXY(const char* label, float& inputX, float& inputY, float x, float y)
+{
+	static float s_inputWidth = 80;
+
+	ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 15);
+	ImGui::Text(label);
+	ImGui::SetCursorPos(ImVec2(x + 90, y + 13));
+	ImGui::Text("X");
+	ImGui::PushItemWidth(s_inputWidth);
+	ImGui::SetCursorPos(ImVec2(x + 120, y + 8));
+
+	std::string x_inputId = std::string("##x") + std::string(label);
+
+	ImGui::InputFloat(x_inputId.c_str(), &inputX, 0, 0, "%g");
+	ImGui::PopItemWidth();
+
+	x += 120;
+	ImGui::SetCursorPos(ImVec2(x + 90, y + 13));
+	ImGui::Text("Y");
+	ImGui::PushItemWidth(s_inputWidth);
+	ImGui::SetCursorPos(ImVec2(x + 120, y + 8));
+
+	std::string y_inputId = std::string("##y") + std::string(label);
+
+	ImGui::InputFloat(y_inputId.c_str(), &inputY, 0, 0, "%g");
+	ImGui::PopItemWidth();
+}
+
 void spe::UIInspector::transformComponent()
 {
-	auto inputXY = [](const char* label, float& inputX, float& inputY, float x, float y)
-	{	
-		static float s_inputWidth = 80;
-
-		ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 15);
-		ImGui::Text(label);
-		ImGui::SetCursorPos(ImVec2(x + 90, y + 13));
-		ImGui::Text("X");
-		ImGui::PushItemWidth(s_inputWidth);
-		ImGui::SetCursorPos(ImVec2(x + 120, y + 8));
-
-		std::string x_inputId = std::string("##x") + std::string(label);
-
-		ImGui::InputFloat(x_inputId.c_str(), &inputX, 0, 0, "%g");
-		ImGui::PopItemWidth();
-
-		x += 120;
-		ImGui::SetCursorPos(ImVec2(x + 90, y + 13));
-		ImGui::Text("Y");
-		ImGui::PushItemWidth(s_inputWidth);
-		ImGui::SetCursorPos(ImVec2(x + 120, y + 8));
-
-		std::string y_inputId = std::string("##y") + std::string(label);
-
-		ImGui::InputFloat(y_inputId.c_str(), &inputY, 0, 0, "%g");
-		ImGui::PopItemWidth();
-	};
 	spe::Vector2 tempPos = this->m_ptr_GUIRepo->sprite_in_inspector->transform.GetPosition();
 	this->renderBackgroundBehindComponent();
 	this->renderComponentOptions(this->m_ptr_GUIRepo->sprite_in_inspector->transform, "Transform");
@@ -617,13 +619,15 @@ void spe::UIInspector::physicsBodyComponent()
 
 	this->renderBackgroundBehindComponent();
 	this->renderComponentOptions(this->m_ptr_GUIRepo->sprite_in_inspector->physicsBody, "PhysicsBody");
+
 	if (ImGui::TreeNode("PhysicsBody"))
 	{
-		ImGui::Dummy(ImVec2(0, 5));
+		ImGui::Dummy(ImVec2(0, 8));
 
 		float x = ImGui::GetCursorPosX();
 		float y = ImGui::GetCursorPosY();
 
+		ImGui::SetCursorPosX(55);
 		ImGui::Text("Gravity");
 		ImGui::PushItemWidth(55);
 		ImGui::SetCursorPos(ImVec2(x += 125, y -= 6.0f));
@@ -633,12 +637,22 @@ void spe::UIInspector::physicsBodyComponent()
 
 		ImGui::Dummy(ImVec2(0, 5));
 
-		ImGui::SetCursorPosX(x - 122);
+		ImGui::SetCursorPosX(55);
 		ImGui::Text("Mass");
 		ImGui::PushItemWidth(55);
 		ImGui::SetCursorPos(ImVec2(x, y += 45.0f));
 		ImGui::InputFloat("##mass", &this->m_ptr_GUIRepo->sprite_in_inspector->physicsBody.mass, 0, 0, "%g");
 		ImGui::PopItemWidth();
+
+		if (this->m_ptr_GUIRepo->SimulatePhysics)
+		{
+			spe::Vector2 velocity = this->m_ptr_GUIRepo->sprite_in_inspector->physicsBody.velocity;
+
+			ImGui::SetCursorPosX(40);
+			ImGui::SetCursorPosY(ImGui::GetCursorPosY() + 10);
+			inputXY("Velocity", velocity.x, velocity.y, 40, ImGui::GetCursorPosY() - 10);
+			this->m_ptr_GUIRepo->sprite_in_inspector->physicsBody.velocity = velocity;
+		}
 
 		ImGui::TreePop();
 	}	
