@@ -375,8 +375,18 @@ void spe::UITopbar::playGameButton()
 
 		spe::EngineData::BuildProject();
 
-		const std::string path = "Build\\Debug\\" + spe::EngineData::s_NameOfUser + ".exe";
-		system(path.c_str());
+		const std::string current1 = spe::Utility::GetCurrentDir();
+
+		const std::string path = "Build";
+		const std::string exe = "Debug\\" + spe::EngineData::s_NameOfUser + ".exe";
+		const std::string current = spe::Utility::GetCurrentDir();
+
+		spe::Utility::SetCurrentDir(path);
+
+		// Need to go in the path of the user because the way of the user project is setup (Bad design ik ik)
+		system(exe.c_str());
+
+		spe::Utility::SetCurrentDir(current);
 	}
 }
 

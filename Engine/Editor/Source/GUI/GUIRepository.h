@@ -18,6 +18,8 @@ namespace spe
 	private:
 		std::vector <spe::Rectangle*> m_Rectangles;
 
+		void AddChildsToDelete(std::vector<spe::Sprite*>& spr, spe::Sprite* parent);
+		void EraseSpriteWithId(uint32_t id);
 	public:
 		spe::UIWindowData HierarchyData;
 		spe::UIWindowData InspectorData;
@@ -55,6 +57,7 @@ namespace spe
 		GUIRepository();
 
 		void Render(sf::RenderWindow* ptr_render_window);
+		void EraseSpriteWithName(const std::string& name);
 
 		spe::Rectangle* GetByName(const std::string& name) override;
 		spe::Rectangle* GetById(uint32_t id) override;

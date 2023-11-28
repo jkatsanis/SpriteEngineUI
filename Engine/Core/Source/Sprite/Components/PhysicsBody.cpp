@@ -1,5 +1,7 @@
 #include "physicsBody.h"
 
+#include "Sprite/Sprite.h"
+
 // Constructor / Destructor
 
 spe::PhsysicsBody::PhsysicsBody()
@@ -7,8 +9,15 @@ spe::PhsysicsBody::PhsysicsBody()
 	this->init();
 }
 
-spe::PhsysicsBody::PhsysicsBody(const spe::PhsysicsBody& rhs)
+spe::PhsysicsBody::PhsysicsBody(spe::Sprite* spr)
 {
+	this->init();
+	this->ptr_Sprite = spr;
+}
+
+spe::PhsysicsBody::PhsysicsBody(spe::Sprite* spr, const spe::PhsysicsBody& rhs)
+{
+	this->ptr_Sprite = spr;
 	this->velocity = rhs.velocity;
 	this->mass = rhs.mass;
 	this->exist = rhs.exist;
@@ -36,5 +45,16 @@ void spe::PhsysicsBody::reset()
 
 void spe::PhsysicsBody::Update()
 {
+	if (!this->exist || this->ptr_Sprite == nullptr) return;
+
+	//ALl Physic calcutions will happen here!
+	spe::Vector2 dir = this->velocity * spe::Time::s_delta_time;
+	dir += this->ptr_Sprite->transform.GetPosition();
+
+	this->ptr_Sprite->transform.SetPosition(dir);
+
+
+	this->velocity.y -= this->gravity;
+
 }
 

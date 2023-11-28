@@ -7,9 +7,7 @@
 
 spe::BoxCollider::BoxCollider()
 {
-    this->can_collide = false;
-    this->is_solid = false;
-    this->ptr_sprite = nullptr;
+    this->init();
 }
 
 spe::BoxCollider::BoxCollider(spe::Sprite* sprite, spe::BoxCollider& rhs)
@@ -35,6 +33,17 @@ void spe::BoxCollider::init()
     this->can_collide = false;
     this->is_solid = false;
     this->exist = false;
+
+    this->left = false;
+    this->right = false;
+    this->up = false;
+    this->down = false;
+    this->collided = false;
+
+    this->m_got_down = false;
+    this->m_got_left = false;
+    this->m_got_right = false;
+    this->m_got_up = false;
 }
 
 bool spe::BoxCollider::CheckCollision(spe::BoxCollider& other)
@@ -51,11 +60,25 @@ bool spe::BoxCollider::CheckCollision(spe::BoxCollider& other)
     float otherGetPosX = other.ptr_sprite->transform.getOrigininalPosition().x;
     float otherGetPosY = other.ptr_sprite->transform.getOrigininalPosition().y;
 
-    if (getPosX + ptr_attached_sprite->transform.texture_size.x + this->box_collider_width.y >= otherGetPosX + other.box_collider_width.x
-        && getPosX + this->box_collider_width.x <= otherGetPosX + other.box_collider_width.y + other.ptr_sprite->transform.texture_size.x
-        && getPosY + ptr_attached_sprite->transform.texture_size.y + this->box_collider_height.y >= otherGetPosY + other.box_collider_height.x
-        && getPosY + this->box_collider_height.x <= otherGetPosY + other.box_collider_height.y + other.ptr_sprite->transform.texture_size.y)
-    {
+    bool isHorizontalOverlapLeft =
+        getPosX + ptr_attached_sprite->transform.texture_size.x + this->box_collider_width.y >= otherGetPosX + other.box_collider_width.x;
+
+    bool isHorizontalOverlapRight =
+        getPosX + this->box_collider_width.x <= otherGetPosX + other.box_collider_width.y + other.ptr_sprite->transform.texture_size.x;
+
+    bool isVerticalOverlapTop =
+        getPosY + ptr_attached_sprite->transform.texture_size.y + this->box_collider_height.y >= otherGetPosY + other.box_collider_height.x;
+
+    bool isVerticalOverlapBottom =
+        getPosY + this->box_collider_height.x <= otherGetPosY + other.box_collider_height.y + other.ptr_sprite->transform.texture_size.y;
+
+    if (isHorizontalOverlapLeft && isHorizontalOverlapRight && isVerticalOverlapTop && isVerticalOverlapBottom) {
+        // Your code here
+   
+
+
+    
+        std::cout << "Coll";
         other.collided = true;
         other.collided_in_frame = true;
         this->collided = true;

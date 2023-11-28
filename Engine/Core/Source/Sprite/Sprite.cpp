@@ -23,7 +23,7 @@ spe::Sprite::Sprite(spe::Sprite& rhs)
 	this->collider = spe::BoxCollider(this, rhs.collider);
 	this->transform = spe::Transform(this, rhs.transform);
 	this->animator = spe::Animator(this, rhs.animator);
-	this->physicsBody = spe::PhsysicsBody(rhs.physicsBody);
+	this->physicsBody = spe::PhsysicsBody(this, rhs.physicsBody);
 	this->sprite_renderer = spe::SpriteRenderer(rhs.sprite_renderer);
 	this->light = spe::Light(this, rhs.light);
 	this->prefab = spe::Prefab(this, rhs.prefab);
@@ -144,10 +144,11 @@ void spe::Sprite::removeChild(const spe::Sprite* child)
 
 void spe::Sprite::initVariables(std::string name, spe::Vector2 spawnPos, std::string path, spe::LightRepository& lightrep)
 {
+	// Components
 	this->transform = spe::Transform(this);
 	this->animator = spe::Animator(this);
 	this->collider = spe::BoxCollider(this);
-	this->physicsBody = spe::PhsysicsBody();
+	this->physicsBody = spe::PhsysicsBody(this);
 	this->prefab = spe::Prefab(this);
 	this->light = spe::Light(this, &lightrep);
 

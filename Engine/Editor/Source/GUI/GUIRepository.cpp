@@ -1,5 +1,7 @@
 #include "guiRepository.h"
 
+#include "Sprite.h"
+
 // Constrcutor
 
 spe::GUIRepository::GUIRepository()
@@ -49,6 +51,30 @@ void spe::GUIRepository::Render(sf::RenderWindow* ptr_render_window)
 			{
 				ptr_render_window->draw(this->m_Rectangles[j]->Shape);
 			}
+		}
+	}
+}
+
+void spe::GUIRepository::EraseSpriteWithName(const std::string& name)
+{
+	for (size_t i = 0; i < this->HierarchySprites.size(); i++)
+	{
+		if (name == this->HierarchySprites[i]->name)
+		{
+			spe::Sprite* ptr_delete = HierarchySprites[i];
+
+			this->HierarchySprites.erase(this->HierarchySprites.begin() + i);
+
+			std::vector<spe::Sprite*> childs_to_delete = std::vector<spe::Sprite*>(0);
+
+			this->AddChildsToDelete(childs_to_delete, ptr_delete);
+
+			for (size_t i = 0; i < childs_to_delete.size(); i++)
+			{
+				this->EraseSpriteWithId(childs_to_delete[i]->getId());
+			}
+
+			return;
 		}
 	}
 }
@@ -104,5 +130,28 @@ void spe::GUIRepository::InitHierarchySprites(std::list<spe::Sprite*>& sprites)
 	{
 		spe::Sprite* sprite = *it;
 		this->HierarchySprites.push_back(sprite);
+	}
+}
+
+// Private
+
+void spe::GUIRepository::AddChildsToDelete(std::vector<Sprite*>& ids, Sprite* parent) 
+{
+	for (int i = 0; i < parent->ptr_childs.size(); i++)
+	{
+		ids.push_back(parent->ptr_childs[i]);
+		AddChildsToDelete(ids, parent->ptr_childs[i]);
+	}
+}
+
+void spe::GUIRepository::EraseSpriteWithId(uint32_t id)
+{
+	for (int i = 0; i < this->HierarchySprites.size(); i++)
+	{
+		if (this->HierarchySprites[i]->getId() == id)
+		{
+			this->HierarchySprites.erase(this->HierarchySprites.begin() + i);
+			return;
+		}
 	}
 }

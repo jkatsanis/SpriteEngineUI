@@ -115,8 +115,12 @@ void spe::UIHierarchy::deleteSprite()
 
 	this->m_ptr_GUIRepo->sprite_in_inspector = nullptr;
 
+	this->m_ptr_GUIRepo->EraseSpriteWithName(this->m_ptr_GUIRepo->sprited_hovered_in_hierarchy->name);
+
+
 	this->m_ptr_Repo->DeleteWithName(this->m_ptr_GUIRepo->sprited_hovered_in_hierarchy->name);
 	this->m_ptr_GUIRepo->sprited_hovered_in_hierarchy = nullptr;
+
 }
 
 void spe::UIHierarchy::cleanRepoSpritesUp(bool isAnyHovered)
