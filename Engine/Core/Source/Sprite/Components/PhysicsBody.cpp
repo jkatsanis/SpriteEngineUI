@@ -54,6 +54,11 @@ void spe::PhsysicsBody::Update()
 	this->ptr_Sprite->transform.SetPosition(dir);
 
 
+	if (this->ptr_Sprite->collider.down && this->velocity.y <= 0)
+	{
+		this->velocity.y = 0.0f;
+	}
+
 	this->velocity.y -= this->gravity;
 
 }

@@ -18,6 +18,9 @@ namespace spe
 		static std::string s_PathUserProject;
 		static std::string s_NameOfUser;
 		static std::string s_Scene;
+
+		static bool s_BuildDebug;
+		static bool s_BuildRelease;
 	};
 }
 

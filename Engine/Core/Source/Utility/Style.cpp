@@ -104,10 +104,10 @@ bool spe::Style::DisplaySymbolInTreeNode(const char* symbol, std::string name, b
 	return ImGui::TreeNodeEx(name.c_str(), ImGuiTreeNodeFlags_OpenOnArrow);
 }
 
-bool spe::Style::DisplaySymbolInMenuItemWithText(const char* symbol, std::string name)
+bool spe::Style::DisplaySymbolInMenuItemWithText(const char* symbol, std::string name, uint32_t dist)
 {
 	const ImVec2 cursor = ImVec2(ImGui::GetCursorPos().x, ImGui::GetCursorPosY());
-	ImGui::SetCursorPos(ImVec2(cursor.x + 30, cursor.y));
+	ImGui::SetCursorPos(ImVec2(cursor.x + dist, cursor.y));
 	spe::Style::DisplaySmybolAsText(symbol);
 	ImGui::SetCursorPos(cursor);
 

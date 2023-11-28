@@ -8,6 +8,8 @@
 void spe::Savesystem::SaveEverything(const spe::SpriteRepository& repo, const spe::Camera& gui,
 	const spe::Vector3& bg, const spe::SceneHandler& scene)
 {
+	ALERT_IF_CANT_SAVE;
+
 	spe::Savesystem::UpdateSceneFile(scene);
 	spe::Savesystem::UpdateCameraFile(gui);
 	spe::Savesystem::UpdateBackgroundFile(bg);
@@ -337,3 +339,4 @@ void spe::Savesystem::UpdateTagsFile(const spe::SpriteRepository& repo)
 	}
 }
 
+bool spe::Savesystem::s_CanSave = true;

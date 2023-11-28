@@ -61,14 +61,14 @@ void spe::UIInspector::renderComponentOptions(spe::Component& component, const s
 	ImGui::SetNextWindowPos(this->m_pop_up_cursor_pos);
 	if (ImGui::BeginPopup(button_name.c_str()))
 	{
-		if (spe::Style::DisplaySymbolInMenuItemWithText(ICON_FA_RETWEET, "Reset"))
+		if (spe::Style::DisplaySymbolInMenuItemWithText(ICON_FA_RETWEET, "Reset", 30))
 		{
 			component.reset();
 			component.exist = true;
 		}
 		if (!component.base_component)
 		{
-			if (spe::Style::DisplaySymbolInMenuItemWithText(ICON_FA_TRASH, "Delete"))
+			if (spe::Style::DisplaySymbolInMenuItemWithText(ICON_FA_TRASH, "Delete", 30))
 			{
 				spe::Light* childPtr = dynamic_cast<Light*>(&component);
 				if (childPtr) {
@@ -236,7 +236,7 @@ void spe::UIInspector::gameEngineViewSetting()
 	ImGui::SetNextWindowPos(this->m_pop_up_cursor_pos);
 	if (ImGui::BeginPopup(button_name.c_str()))
 	{
-		if (spe::Style::DisplaySymbolInMenuItemWithText(ICON_FA_RETWEET, "Reset"))
+		if (spe::Style::DisplaySymbolInMenuItemWithText(ICON_FA_RETWEET, "Reset", 30))
 		{
 			this->m_ptr_GUIRepo->Camera.reset();
 		}

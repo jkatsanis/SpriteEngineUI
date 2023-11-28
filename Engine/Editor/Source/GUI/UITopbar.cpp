@@ -33,6 +33,7 @@ void spe::UITopbar::Render()
 	ImGui::SetCursorPos(ImVec2(0, 0));
 	this->playGameButton();
 	this->toolSelector();
+	this->SimulateButton();
 
 	if (ImGui::IsMouseReleased(0))
 	{
@@ -68,9 +69,12 @@ void spe::UITopbar::renderMainMenuBar()
 
 	if (ImGui::BeginMainMenuBar())
 	{
+		spe::Style::RenderStyle();
+
 		this->buildProjectIntoFolder();
 		this->renderWindowSelecter();
 		this->renderToolSelector();
+		this->ProjectSettings();
 		this->renderSceneSelector();
 		this->displayEngineInfo();
 
@@ -180,8 +184,6 @@ void spe::UITopbar::renderSceneAddPopup()
 
 	const static ImVec2 window_size = ImVec2(200, 75);
 
-
-
 	if (ImGui::Begin("##create-scene", NULL, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoScrollbar))
 	{
 		ImGui::Text("Add scene");
@@ -252,6 +254,7 @@ void spe::UITopbar::switchScene(const std::string& scene)
 			this->m_ptr_GUIRepo->CleanUp();
 			this->m_ptr_GUIRepo->InitHierarchySprites(this->m_ptr_Repo->GetSprites());
 			this->m_ptr_Repo->SortSpritesByLayer();
+
 			this->m_switch_scene_name = "";
 		}
 		ImGui::SameLine();
@@ -287,7 +290,71 @@ void spe::UITopbar::displayEngineInfo()
 	ImGui::SetCursorPosX(1650 - ImGui::CalcTextSize(info_text.c_str()).x);
 	ImGui::Text(info_text.c_str());
 
+	this->SimulateButton();
+
 	ImGui::PopStyleColor();
+}
+
+void spe::UITopbar::ProjectSettings()
+{
+	if (ImGui::BeginMenu("Project"))
+	{
+		ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(0, 4));
+
+		ImGui::Text("Build   debug");
+		spe::UIUtility::SameLine(-1);
+		ImGui::Checkbox("##debug", &spe::EngineData::s_BuildDebug);
+		ImGui::Dummy(ImVec2(0, 2));
+
+		ImGui::Text("Build release");
+		spe::UIUtility::SameLine(-1);
+		ImGui::Checkbox("##release", &spe::EngineData::s_BuildRelease);
+		ImGui::Dummy(ImVec2(0, 5));
+
+		ImGui::PopStyleVar();
+
+		ImGui::EndMenu();
+	}
+}
+
+void spe::UITopbar::SimulateButton()
+{
+	ImGui::SameLine();
+
+	ImGui::SetCursorPosX(550);
+	ImGui::SetCursorPosY(22);
+	
+	ImGui::SetWindowFontScale(0.75f);
+	ImGui::Text("Warning: Will save the current state, and wont save anything in the simulation");
+	ImGui::SetWindowFontScale(spe::Style::s_DefaultFontSize);
+
+	ImGui::SameLine();
+	ImGui::SetCursorPosX(700);
+
+	if (!this->m_ptr_GUIRepo->SimulatePhysics)
+	{
+		if (spe::Style::DisplaySymbolInMenuItemWithText(ICON_FA_PLAY, "Simulate physics", 5))
+		{
+			spe::Savesystem::SaveEverything(*this->m_ptr_Repo, this->m_ptr_GUIRepo->Camera, this->m_ptr_GUIRepo->background_color, *this->m_ptr_SceneHandler);
+			this->m_ptr_GUIRepo->SimulatePhysics = true;
+			spe::Savesystem::s_CanSave = false;
+		}
+	}
+	else
+	{
+		if (spe::Style::DisplaySymbolInMenuItemWithText(ICON_FA_SQUARE, "Simulate physics##2", 5))
+		{
+			spe::Savesystem::s_CanSave = true;
+
+			this->m_ptr_GUIRepo->SimulatePhysics = false;
+
+			this->m_ptr_SceneHandler->LoadScene(this->m_ptr_SceneHandler->CurrentScene, this->m_ptr_GUIRepo->Camera, this->m_ptr_GUIRepo->background_color);
+
+			this->m_ptr_GUIRepo->CleanUp();
+			this->m_ptr_GUIRepo->InitHierarchySprites(this->m_ptr_Repo->GetSprites());
+			this->m_ptr_Repo->SortSpritesByLayer();
+		}
+	}
 }
 
 void spe::UITopbar::buildProjectIntoFolder()

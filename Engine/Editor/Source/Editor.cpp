@@ -88,6 +88,13 @@ void spe::Editor::UpdateComponents()
 		spe::Sprite* sprite = *it;
 
 		sprite->animator.update();
+
+		if (this->m_GUIRepository.SimulatePhysics)
+		{
+			sprite->collider.Update(this->m_SceneHandler.SpriteRepository);
+			sprite->physicsBody.Update();
+		}
+
 		this->m_SceneHandler.LightRepository.updateLightSource(sprite, &this->m_GUIRepository.Camera);
 
 		this->m_Window.Draw(sprite, &this->m_SceneHandler.LightRepository.getShader());

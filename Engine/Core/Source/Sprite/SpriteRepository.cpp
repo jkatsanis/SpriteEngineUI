@@ -246,6 +246,11 @@ void spe::SpriteRepository::sortSpritesByLayer(spe::Sprite* spr)
         }
         i++;
     }
+    if (i == 0)
+    {
+        this->m_sprites.push_back(spr);
+        return;
+    }
     throw std::logic_error("this should not happen jesus");
 }
 

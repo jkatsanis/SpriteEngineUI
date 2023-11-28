@@ -17,6 +17,8 @@ spe::GUIRepository::GUIRepository()
 	this->DragAndDropPath = " ";
 	this->DragAndDropName = " ";
 
+	this->SimulatePhysics = false;
+
 	this->Tools = spe::EditorTools::PositionTool;
 }
 
@@ -122,6 +124,8 @@ void spe::GUIRepository::CleanUp()
 	this->sprited_hovered_in_hierarchy = nullptr;
 	this->sprite_in_inspector = nullptr;
 	this->child_to_parent = nullptr;
+	this->m_HighestLayer = 0;
+	this->m_HighestId = 0;
 }
 
 void spe::GUIRepository::InitHierarchySprites(std::list<spe::Sprite*>& sprites)

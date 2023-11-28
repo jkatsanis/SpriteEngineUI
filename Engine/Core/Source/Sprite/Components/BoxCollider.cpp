@@ -82,7 +82,6 @@ bool spe::BoxCollider::CheckCollision(spe::BoxCollider& other)
         if (this->is_solid && other.is_solid)
         {
             this->CheckCollisionPosition(other);
-            other.CheckCollisionPosition(*this);
         }
         return true;
     }
@@ -111,6 +110,9 @@ void spe::BoxCollider::CheckCollisionPosition(spe::BoxCollider& other)
     if (this_right >= other_left
         && this_right <= other_left + range)
     {
+        other.m_got_left = true;
+        other.left = true,
+
         this->m_got_right = true;
         this->right = true;
         return;
@@ -122,6 +124,9 @@ void spe::BoxCollider::CheckCollisionPosition(spe::BoxCollider& other)
     if (this_left <= other_right
         && this_left + range >= other_right)
     {
+        other.m_got_right = true;
+        other.right = true,
+
         this->m_got_left = true;
         this->left = true;
         return;
@@ -131,10 +136,16 @@ void spe::BoxCollider::CheckCollisionPosition(spe::BoxCollider& other)
     if (this_bottom >= other_top
         && this_bottom <= other_top + range)
     {
+        other.m_got_up = true;
+        other.up = true,
+
         this->m_got_down = true;
         this->down = true;
         return;
     }
+
+    other.m_got_down = true;
+    other.down = true;
 
     this->m_got_up = true;
     this->up = true;

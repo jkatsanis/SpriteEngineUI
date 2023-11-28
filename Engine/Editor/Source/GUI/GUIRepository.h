@@ -40,8 +40,7 @@ namespace spe
 		/// <summary>
 		/// Apparently the data structure for sprites is a list and the sorting layer 
 		/// gets sorted automaticly but the user wants to see displayed the sprite linear
-		/// and when he creates anew sprite it shouldnt be sorted. This sorts the sprites whe na new 1 is added (ONLY EDITOR)
-		/// Specfif of course and displays them in the Hierarchy
+		/// and when he creates anew sprite it shouldnt be sorted.
 		/// </summary>
 		std::vector<spe::Sprite*> HierarchySprites;
 
@@ -53,6 +52,8 @@ namespace spe
 
 		spe::Vector3 background_color;
 		spe::Camera Camera;
+
+		bool SimulatePhysics;
 
 		GUIRepository();
 

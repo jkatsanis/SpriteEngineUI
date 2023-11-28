@@ -174,7 +174,7 @@ void spe::FileDialog::openFile(const char* dir_path)
             if (!spe::FileDialog::checkIfADirHasSubItems(path, this->m_show_files))
             {
                 ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 5);
-                spe::Style::DisplaySymbolInMenuItemWithText(ICON_FA_FOLDER, entry->d_name);
+                spe::Style::DisplaySymbolInMenuItemWithText(ICON_FA_FOLDER, entry->d_name, 30);
             }
 
             else if (spe::Style::DisplaySymbolInTreeNode(ICON_FA_FOLDER, entry->d_name, false))
@@ -189,7 +189,7 @@ void spe::FileDialog::openFile(const char* dir_path)
         {
             ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 5);
 
-            spe::Style::DisplaySymbolInMenuItemWithText(ICON_FA_FILE, entry->d_name);
+            spe::Style::DisplaySymbolInMenuItemWithText(ICON_FA_FILE, entry->d_name, 30);
         }
     }
 

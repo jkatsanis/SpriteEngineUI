@@ -8,6 +8,12 @@
 #include "Core/SeceneHandler.h"
 #include "GUI/UIUtility/UIModels.h"
 
+#define ALERT_IF_CANT_SAVE if(!spe::Savesystem::s_CanSave) \
+						   { \
+								spe::Log::LogString("Can't save while in no-save mode"); \
+								return; \
+							} \
+
 namespace spe
 {
 	/// <summary>
@@ -43,5 +49,7 @@ namespace spe
 		static std::string GetPropertyLineWithSeperator(const spe::Sprite* sprite);
 
 		static void CreateOrUpdatePrefabFile(const spe::Sprite* content, const std::string& pathToFile, const std::string& oldFilePath);
+
+		static bool s_CanSave;
 	};
 }

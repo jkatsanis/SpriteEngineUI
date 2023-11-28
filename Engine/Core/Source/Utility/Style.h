@@ -20,7 +20,7 @@ namespace spe
 		static bool DisplaySmybolAsButton(const char* symbol, float defaultFontSize);
 		static bool DisplaySmybolAsButton(const char* symbol, ImVec2 cursorPos);
 		static bool DisplaySymbolInTreeNode(const char* symbol, std::string name, bool openNode);
-		static bool DisplaySymbolInMenuItemWithText(const char* symbol, std::string name);
+		static bool DisplaySymbolInMenuItemWithText(const char* symbol, std::string name, uint32_t dist);
 
 		static ImFont* s_DefaultFont;
 		static ImFont* s_SymbolFont;

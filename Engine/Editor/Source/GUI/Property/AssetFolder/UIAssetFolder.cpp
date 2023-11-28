@@ -187,7 +187,7 @@ void spe::UIAssetFolder::renderFolderHierarchyRecursiv(const char* path, const c
     if (!spe::FileDialog::checkIfADirHasSubItems(path, false))
     {
         ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 3.5f );
-        if (spe::Style::DisplaySymbolInMenuItemWithText(ICON_FA_FOLDER, name))
+        if (spe::Style::DisplaySymbolInMenuItemWithText(ICON_FA_FOLDER, name, 30))
         {
             this->setCurrentPath(path, name);
         }
