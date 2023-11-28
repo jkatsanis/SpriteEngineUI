@@ -14,7 +14,7 @@ Welcome to Sprite Engine, a user-friendly **2D Game Engine** designed for solo d
 ## Tools Used
 - **SFML**
 - **Dear ImGui**
-- **CMake (Love to TheCherno)**
+- **CMake**
 - **Rene**
 
 ## Features
