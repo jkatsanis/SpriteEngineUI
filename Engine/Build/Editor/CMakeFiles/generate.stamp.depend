@@ -1,0 +1,12 @@
+# CMake generation dependency list for this directory.
+C:/Dev/C++/SpriteEngineUI/Engine/Editor/CMakeLists.txt
+C:/Dev/C++/SpriteEngineUI/Engine/Editor/Source/Include/DLL/sfml-audio-2.dll
+C:/Dev/C++/SpriteEngineUI/Engine/Editor/Source/Include/DLL/sfml-audio-d-2.dll
+C:/Dev/C++/SpriteEngineUI/Engine/Editor/Source/Include/DLL/sfml-graphics-2.dll
+C:/Dev/C++/SpriteEngineUI/Engine/Editor/Source/Include/DLL/sfml-graphics-d-2.dll
+C:/Dev/C++/SpriteEngineUI/Engine/Editor/Source/Include/DLL/sfml-network-2.dll
+C:/Dev/C++/SpriteEngineUI/Engine/Editor/Source/Include/DLL/sfml-network-d-2.dll
+C:/Dev/C++/SpriteEngineUI/Engine/Editor/Source/Include/DLL/sfml-system-2.dll
+C:/Dev/C++/SpriteEngineUI/Engine/Editor/Source/Include/DLL/sfml-system-d-2.dll
+C:/Dev/C++/SpriteEngineUI/Engine/Editor/Source/Include/DLL/sfml-window-2.dll
+C:/Dev/C++/SpriteEngineUI/Engine/Editor/Source/Include/DLL/sfml-window-d-2.dll

@@ -40,6 +40,7 @@ Welcome to Sprite Engine, a user-friendly **2D Game Engine** designed for solo d
 ## How to build
 
 - Navigate to the engine directory `cd Engine`
+- Delete the older Build directory please
 - Create a Build directory `mkdir Build`
 - Navigatge in the Build dir `cd Build`
 - Make sure to have CMake installed and run this command `cmake ..`
