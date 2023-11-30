@@ -47,7 +47,7 @@ void spe::Savesystem::SaveProjects(const std::vector<spe::UserProjectInfo>& proj
 
 		corePath.open(path);
 
-		if (!corePath.is_open())
+		if (!corePath.is_open() && std::filesystem::exists(project.AbsulutePath))
 		{
 			// Removing the project from the list
 			spe::Utility::Delete(project.AbsulutePath);

@@ -240,7 +240,7 @@ void spe::UIProjectSelector::AddProject(const std::string& full_path, const std:
 	std::filesystem::path relative_path = std::filesystem::relative(full_path, current_path);
 
 	char buffer[80];
-	struct tm  timeinfo;
+	struct tm timeinfo;
 
 	auto now = std::chrono::system_clock::now();
 	auto in_time_t = std::chrono::system_clock::to_time_t(now);
@@ -248,8 +248,6 @@ void spe::UIProjectSelector::AddProject(const std::string& full_path, const std:
 	gmtime_s(&timeinfo, &in_time_t);
 	std::strftime(buffer, sizeof(buffer), "%Y/%d/%m %X", &timeinfo);
 	std::string date(buffer);
-
-	
 
 	this->m_Projects.push_back(spe::UserProjectInfo(name, full_path, date, relative_path.string()));
 }
