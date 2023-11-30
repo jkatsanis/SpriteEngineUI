@@ -63,6 +63,8 @@ target_link_libraries(${PROJECT_FOLDER} PRIVATE
     $<$<CONFIG:Release>:${PATH_LIBRARIES}/sfml-window.lib>
 )
 
+file(MAKE_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/Build)
+
 file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/Engine/Ressources/Release
      DESTINATION ${CMAKE_CURRENT_SOURCE_DIR}/Build)
 	 
