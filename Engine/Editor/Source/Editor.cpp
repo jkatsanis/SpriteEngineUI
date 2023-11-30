@@ -30,7 +30,6 @@ spe::Editor::Editor()
 	this->m_GUIRepository.ptr_SFEvent = &this->m_Window.WindowEvent;
 
 	this->m_GUIRepository.InitHierarchySprites(this->m_SceneHandler.SpriteRepository.GetSprites());
-	this->m_SceneHandler.SpriteRepository.main_content_iniitialied = true;
 	this->m_SceneHandler.SpriteRepository.SortSpritesByLayer();
 
 	this->m_UIRealTimeEditor = spe::UIRealTimeEditor(&this->m_Window, this->m_SceneHandler.SpriteRepository, this->m_GUIRepository);

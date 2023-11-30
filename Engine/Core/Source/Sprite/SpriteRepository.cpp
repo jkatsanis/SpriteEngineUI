@@ -181,7 +181,7 @@ void spe::SpriteRepository::cleanUp()
         delete element;
     }
     this->m_sprites.clear();
-
+    this->main_content_iniitialied = false;
     this->m_HighestLayer = 0;
 }
 
