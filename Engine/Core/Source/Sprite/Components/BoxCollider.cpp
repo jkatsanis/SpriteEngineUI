@@ -233,3 +233,18 @@ void spe::BoxCollider::Update(spe::SpriteRepository& tocheck)
     }
 }
 
+// User utility
+
+spe::Sprite* spe::BoxCollider::CollidedWithTag(const std::string& tag)
+{
+    for (const auto& pair : this->collided_sprite_map)
+    {
+        if (pair.second->tag == tag)
+        {
+            return pair.second;
+        }
+    }
+
+    return nullptr;
+}
+

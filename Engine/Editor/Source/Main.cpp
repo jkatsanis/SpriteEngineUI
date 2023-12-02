@@ -1,7 +1,7 @@
 #include "Editor.h"
 #include "GUI/ProjectSelector/UIProjectSelector.h"
 
-int main() 
+int main()
 {
 
     // Sets the engine data to load the game 

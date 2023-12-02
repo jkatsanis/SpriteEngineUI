@@ -254,7 +254,6 @@ void spe::UITopbar::switchScene(const std::string& scene)
 			this->m_ptr_GUIRepo->CleanUp();
 			this->m_ptr_GUIRepo->InitHierarchySprites(this->m_ptr_Repo->GetSprites());
 			this->m_ptr_Repo->SortSpritesByLayer();
-
 			this->m_switch_scene_name = "";
 		}
 		ImGui::SameLine();

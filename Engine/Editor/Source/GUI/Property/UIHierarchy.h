@@ -57,6 +57,7 @@ namespace spe
 
 		void addSprite();
 		void deleteSprite();
+		void Unparent();
 		void cleanRepoSpritesUp(bool any_hovered);
 		void setMenuitemHovered(bool& any_hovered, spe::Sprite* sprite);
 

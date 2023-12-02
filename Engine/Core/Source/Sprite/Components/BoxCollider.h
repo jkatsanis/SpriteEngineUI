@@ -52,6 +52,15 @@ namespace spe
 	
 		void reset() override;
 		void Update(spe::SpriteRepository& tocheck);
+
+		// User utility
+
+		/// <summary>
+		/// Iterates over the collided sprites map to find if it collided with a ceratain tag (kinda inefficent)
+		/// </summary>
+		/// <param name="tag">To search for</param>
+		/// <returns>True if the sprite collides with the provided tag</returns>
+		spe::Sprite* CollidedWithTag(const std::string& tag);
 	};
 }
 

@@ -80,7 +80,7 @@ void spe::UITagSelector::renderPopup()
 	if (ImGui::IsKeyReleased(ImGuiKey_Enter))
 	{
 		this->m_ptr_Repo->Tags.push_back(std::string(this->m_tag_name));
-
+		this->Hovered = false;
 		this->m_open_name_popup = '\0';
 		this->m_open_name_popup = false;
 	}

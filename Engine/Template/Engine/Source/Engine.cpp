@@ -11,6 +11,10 @@ spe::Engine::Engine()
 	this->m_Window.SetCamera(&this->m_Camera);
 	this->m_Window.SetBackgroundColor(&this->m_BackgroundColor);
 
+	this->m_Game.EngineConfig = spe::EngineConfig(&this->m_SceneHandler, &this->m_Camera, &this->m_BackgroundColor);
+
+	spe::Input::setEvent(&this->m_Window.Event);
+
 	this->m_Game.Start();
 }
 
@@ -44,7 +48,9 @@ void spe::Engine::UpdateComponents()
 
 	// Updating the user here
 
+	ImGui::Begin("user-window");
 	this->m_Game.Update();
+	ImGui::End();
 
 	std::list<spe::Sprite*>& sprites = this->m_SceneHandler.SpriteRepository.GetSprites();
 
@@ -54,8 +60,9 @@ void spe::Engine::UpdateComponents()
 	{
 		spe::Sprite* sprite = *it;
 
-		sprite->physicsBody.Update();
+		sprite->animator.update();
 		sprite->collider.Update(this->m_SceneHandler.SpriteRepository);
+		sprite->physicsBody.Update();
 
 		this->m_SceneHandler.LightRepository.updateLightSource(sprite, &this->m_Camera);
 		this->m_Window.Draw(sprite, &this->m_SceneHandler.LightRepository.getShader());
@@ -70,6 +77,10 @@ void spe::Engine::UpdateComponents()
 void spe::Engine::Update()
 {
 	spe::Time::update();
+	if (spe::Time::s_time_passed <= 0.5f)
+	{
+		return;
+	}
 	this->UpdateComponents();
 	this->m_Camera.Update(&this->m_SceneHandler.LightRepository);
 }

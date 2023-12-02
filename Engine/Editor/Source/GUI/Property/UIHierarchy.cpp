@@ -79,6 +79,10 @@ void spe::UIHierarchy::displayContextPopup()
 		{
 			this->copySprite();
 		}
+		if (ImGui::MenuItem("Unparent"))
+		{
+			this->Unparent();
+		}
 		ImGui::EndPopup();
 	}
 }
@@ -117,10 +121,15 @@ void spe::UIHierarchy::deleteSprite()
 
 	this->m_ptr_GUIRepo->EraseSpriteWithName(this->m_ptr_GUIRepo->sprited_hovered_in_hierarchy->name);
 
-
 	this->m_ptr_Repo->DeleteWithName(this->m_ptr_GUIRepo->sprited_hovered_in_hierarchy->name);
 	this->m_ptr_GUIRepo->sprited_hovered_in_hierarchy = nullptr;
 
+}
+
+void spe::UIHierarchy::Unparent()
+{
+	this->m_ptr_GUIRepo->sprited_hovered_in_hierarchy->clearParentData();
+	this->m_ptr_GUIRepo->sprited_hovered_in_hierarchy = nullptr;
 }
 
 void spe::UIHierarchy::cleanRepoSpritesUp(bool isAnyHovered)

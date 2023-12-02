@@ -42,7 +42,8 @@ foreach(PATH ${ADDITIONAL_INCLUDE_PATHS})
 endforeach()
 
 include_directories(${FULL_PATHS})
-include_directories(Assets)
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/Assets)
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/Engine)
 
 # Link libs
 target_link_libraries(${PROJECT_FOLDER} PRIVATE
