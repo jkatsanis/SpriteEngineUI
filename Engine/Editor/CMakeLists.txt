@@ -49,3 +49,8 @@ configure_file(${PATH_DLL_LIBRARIES}/sfml-network-2.dll ${CMAKE_BINARY_DIR}/${ED
 configure_file(${PATH_DLL_LIBRARIES}/sfml-system-2.dll ${CMAKE_BINARY_DIR}/${EDITOR_NAME}/Release COPYONLY)
 configure_file(${PATH_DLL_LIBRARIES}/sfml-window-2.dll ${CMAKE_BINARY_DIR}/${EDITOR_NAME}/Release COPYONLY)
 
+if(MSVC)
+    target_compile_options(${EDITOR_NAME} PRIVATE /W4)
+endif()
+
+

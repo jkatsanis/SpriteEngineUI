@@ -26,15 +26,15 @@ namespace spe
         uint32_t idx = sprite->light.getLightIndex();
         spe::LightSource& source = m_light_sources[idx];
 
-        if (sprite->transform.position_changed || cam->hasZoomChanged())
+        if (sprite->transform.position_changed || cam->HasZoomChanged())
         {
             sprite->transform.position_changed = false;
             m_update = true;
 
-            float zoom = cam->getZoom() - 1;
+            float zoom = cam->GetZoom() - 1;
 
-            const float a = ((sprite->transform.GetPosition().y * -1) + 540) + 540 * zoom;
-            spe::Vector2 new_pos = spe::Vector2((sprite->transform.GetPosition().x + 960) + 960 * zoom, a);
+            const float a = ((sprite->transform.GetPosition().Y * -1) + 540) + 540 * zoom;
+            spe::Vector2 new_pos = spe::Vector2((sprite->transform.GetPosition().X + 960) + 960 * zoom, a);
 
             source.position = new_pos;
         }
@@ -75,8 +75,8 @@ namespace spe
     {
         float zoom = 1;
 
-        const float a = ((pos.y * -1) + 540) + 540 * zoom;
-        spe::Vector2 new_pos = spe::Vector2((pos.x + 960) + 960 * zoom, a);
+        const float a = ((pos.Y * -1) + 540) + 540 * zoom;
+        spe::Vector2 new_pos = spe::Vector2((pos.X + 960) + 960 * zoom, a);
 
         m_index++;
         m_light_sources[m_index] = spe::LightSource(new_pos, radius, intensity, color);

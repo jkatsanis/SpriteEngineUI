@@ -132,7 +132,7 @@ void spe::Initializer::InitAnimation(const std::string& path, spe::Sprite* spr)
 	}
 }
 
-void spe::Initializer::InitAnimation(const std::string& path, spe::SpriteRepository& repo)
+void spe::Initializer::InitAnimation(const std::string& path)
 {
 	const std::string ext =  "." + spe::Utility::GetFileExtension(path);
 	if (ext != EXTENSION_ANIMATION_FILE)
@@ -163,9 +163,7 @@ void spe::Initializer::InitAnimation(const std::string& path, spe::SpriteReposit
 				continue;
 			}
 			if (cnt == 2)
-			{
-				uint32_t to_load = std::stoi(line);
-			
+			{			
 
 				continue;
 			}
@@ -207,11 +205,11 @@ spe::Sprite* spe::Initializer::InitSprite(const std::string& line, spe::LightRep
 	sprite->transform.setRotation(atoi(propertys[7].c_str()));
 
 # pragma region Collider
-	sprite->collider.box_collider_width.x = std::stof(propertys[8].c_str());
-	sprite->collider.box_collider_width.y = std::stof(propertys[9].c_str());
+	sprite->collider.box_collider_width.X = std::stof(propertys[8].c_str());
+	sprite->collider.box_collider_width.Y = std::stof(propertys[9].c_str());
 
-	sprite->collider.box_collider_height.x = std::stof(propertys[10].c_str());
-	sprite->collider.box_collider_height.y = std::stof(propertys[11].c_str());
+	sprite->collider.box_collider_height.X = std::stof(propertys[10].c_str());
+	sprite->collider.box_collider_height.Y = std::stof(propertys[11].c_str());
 	sprite->collider.exist = propertys[12] == "True";
 	sprite->collider.is_solid = propertys[13] == "True";
 
@@ -238,8 +236,8 @@ spe::Sprite* spe::Initializer::InitSprite(const std::string& line, spe::LightRep
 #pragma endregion
 
 # pragma region Position to parent x, and y
-	sprite->transform.position_to_parent.x = std::stof(propertys[26]);
-	sprite->transform.position_to_parent.y = std::stof(propertys[27]);
+	sprite->transform.position_to_parent.X = std::stof(propertys[26]);
+	sprite->transform.position_to_parent.Y = std::stof(propertys[27]);
 
 	sprite->animator.exist = propertys[28] == "True";
 #pragma endregion
@@ -269,11 +267,11 @@ spe::Sprite* spe::Initializer::InitSprite(const std::string& line, spe::LightRep
 
 	spe::Vector3 color;
 
-	color.x = std::stof(propertys[37]);
-	color.y = std::stof(propertys[38]);
-	color.z = std::stof(propertys[39]);
+	color.X = std::stof(propertys[37]);
+	color.Y = std::stof(propertys[38]);
+	color.Z = std::stof(propertys[39]);
 
-	sprite->light.setColor(spe::Vector3::toSFVector3(color));
+	sprite->light.setColor(spe::Vector3::ToSFVector3(color));
 #pragma endregion
 
 	sprite->transform.setOrigin();
@@ -312,8 +310,8 @@ void spe::Initializer::InitCamera(spe::Camera& camera, const std::string& path)
 			const spe::Vector2 position(std::stof(propertys[0].c_str()), std::stof(propertys[1].c_str()));
 		
 			camera.Position = position;
-			camera.setZoom(std::stof(propertys[2].c_str()));
-			camera.camera_speed = std::stof(propertys[3].c_str());
+			camera.SetZoom(std::stof(propertys[2].c_str()));
+			camera.CameraSpeed = std::stof(propertys[3].c_str());
 		}
 		cameraFile.close();
 	}
@@ -347,9 +345,9 @@ void spe::Initializer::InitBackground(spe::Vector3& vec, const std::string& path
 			std::vector<std::string> propertys = spe::Utility::Split(line, DELIMITER);
 
 			//INITIIALIZING PROPS
-			vec.x = std::stof(propertys[0].c_str());
-			vec.y = std::stof(propertys[1].c_str());
-			vec.z = std::stof(propertys[2].c_str());
+			vec.X = std::stof(propertys[0].c_str());
+			vec.Y = std::stof(propertys[1].c_str());
+			vec.Z = std::stof(propertys[2].c_str());
 		}
 		backgroundFile.close();
 	}

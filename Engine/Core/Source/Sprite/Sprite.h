@@ -30,7 +30,7 @@ namespace spe
 
 		bool m_SetId;
 
-		void initVariables(std::string name, spe::Vector2 spawnPos, std::string path, spe::LightRepository& lightrep);
+		void initVariables(spe::Vector2 spawnPos, std::string path, spe::LightRepository& lightrep);
 	public:
 		// General info
 		std::string name;
@@ -113,7 +113,7 @@ namespace spe
 		/// Get's the id of the current sprite
 		/// </summary>
 		/// <returns></returns>
-		int getId() const { return this->m_id; }
+		int32_t getId() const { return this->m_id; }
 
 		bool IsParent() const { return this->ptr_childs.size() > 0; }
 

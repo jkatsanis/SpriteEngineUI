@@ -36,7 +36,6 @@ namespace spe
 
 		static bool isCursorClickedOnSprite(const spe::Sprite* check);
 		static spe::Vector2 getWorldCordinates();
-		static void setCursorToWorldCoordinates(const spe::Vector2& vec);
 		static bool isCursorClickedOnRectangle(const sf::RectangleShape& shape);
 
 		static void SetWindowScreenMiddle(const ImVec2& ref);

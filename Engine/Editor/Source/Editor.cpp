@@ -24,7 +24,7 @@ spe::Editor::Editor()
 
 	spe::UIUtility::SetEvent(&this->m_Window.Event);
 	spe::UIUtility::SetRenderWinodw(this->m_Window.GetRenderWindow());
-	spe::Input::setEvent(&this->m_Window.Event);
+	spe::Input::SetEvent(&this->m_Window.Event);
 
 	this->m_GUIRepository.ptr_Event = &this->m_Window.Event;
 	this->m_GUIRepository.ptr_SFEvent = &this->m_Window.WindowEvent;
@@ -108,7 +108,7 @@ void spe::Editor::UpdateComponents()
 
 void spe::Editor::Update()
 {
-	spe::Time::update();
+	spe::Time::Update();
 	this->UpdateComponents();
 	this->m_GUIRepository.Camera.Update(&this->m_SceneHandler.LightRepository);
 }

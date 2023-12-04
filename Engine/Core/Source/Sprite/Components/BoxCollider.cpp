@@ -14,10 +14,10 @@ spe::BoxCollider::BoxCollider(spe::Sprite* sprite, spe::BoxCollider& rhs)
 {
     this->init();
     this->ptr_sprite = sprite;
-    this->box_collider_height = this->box_collider_height;
-    this->box_collider_width = this->box_collider_width;
-    this->exist = this->exist;
-    this->is_solid = this->is_solid;
+    this->box_collider_height = rhs.box_collider_height;
+    this->box_collider_width = rhs.box_collider_width;
+    this->exist = rhs.exist;
+    this->is_solid = rhs.is_solid;
 }
 
 spe::BoxCollider::BoxCollider(spe::Sprite* ptr_sprite)
@@ -54,23 +54,23 @@ bool spe::BoxCollider::CheckCollision(spe::BoxCollider& other)
         return false;
     }
 
-    float getPosX = ptr_attached_sprite->transform.getOrigininalPosition().x;
-    float getPosY = ptr_attached_sprite->transform.getOrigininalPosition().y;
+    float getPosX = ptr_attached_sprite->transform.getOrigininalPosition().X;
+    float getPosY = ptr_attached_sprite->transform.getOrigininalPosition().Y;
 
-    float otherGetPosX = other.ptr_sprite->transform.getOrigininalPosition().x;
-    float otherGetPosY = other.ptr_sprite->transform.getOrigininalPosition().y;
+    float otherGetPosX = other.ptr_sprite->transform.getOrigininalPosition().X;
+    float otherGetPosY = other.ptr_sprite->transform.getOrigininalPosition().Y;
 
     bool isHorizontalOverlapLeft =
-        getPosX + ptr_attached_sprite->transform.texture_size.x + this->box_collider_width.y >= otherGetPosX + other.box_collider_width.x;
+        getPosX + ptr_attached_sprite->transform.texture_size.X + this->box_collider_width.Y >= otherGetPosX + other.box_collider_width.X;
 
     bool isHorizontalOverlapRight =
-        getPosX + this->box_collider_width.x <= otherGetPosX + other.box_collider_width.y + other.ptr_sprite->transform.texture_size.x;
+        getPosX + this->box_collider_width.X <= otherGetPosX + other.box_collider_width.Y + other.ptr_sprite->transform.texture_size.X;
 
     bool isVerticalOverlapTop =
-        getPosY + ptr_attached_sprite->transform.texture_size.y + this->box_collider_height.y >= otherGetPosY + other.box_collider_height.x;
+        getPosY + ptr_attached_sprite->transform.texture_size.Y + this->box_collider_height.Y >= otherGetPosY + other.box_collider_height.X;
 
     bool isVerticalOverlapBottom =
-        getPosY + this->box_collider_height.x <= otherGetPosY + other.box_collider_height.y + other.ptr_sprite->transform.texture_size.y;
+        getPosY + this->box_collider_height.X <= otherGetPosY + other.box_collider_height.Y + other.ptr_sprite->transform.texture_size.Y;
 
     if (isHorizontalOverlapLeft && isHorizontalOverlapRight && isVerticalOverlapTop && isVerticalOverlapBottom) {
         // Your code here
@@ -93,18 +93,16 @@ void spe::BoxCollider::CheckCollisionPosition(spe::BoxCollider& other)
     const short range = 10;
 
     // OTHER
-    const float other_right = other.ptr_sprite->transform.getOrigininalPosition().x + other.ptr_sprite->transform.texture_size.x + other.box_collider_width.y;
-    const float other_left = other.ptr_sprite->transform.getOrigininalPosition().x + other.box_collider_width.x;
+    const float other_right = other.ptr_sprite->transform.getOrigininalPosition().X + other.ptr_sprite->transform.texture_size.X + other.box_collider_width.Y;
+    const float other_left = other.ptr_sprite->transform.getOrigininalPosition().X + other.box_collider_width.X;
 
-    const float other_bottom = other.ptr_sprite->transform.getOrigininalPosition().y + other.ptr_sprite->transform.texture_size.y + other.box_collider_height.y;
-    const float other_top = other.ptr_sprite->transform.getOrigininalPosition().y + other.box_collider_height.x;
+    const float other_top = other.ptr_sprite->transform.getOrigininalPosition().Y + other.box_collider_height.X;
 
     // THIS    
-    const float this_bottom = this->ptr_sprite->transform.getOrigininalPosition().y + this->ptr_sprite->transform.texture_size.y + this->box_collider_height.y;
-    const float this_top = this->ptr_sprite->transform.getOrigininalPosition().y + this->box_collider_height.x;
+    const float this_bottom = this->ptr_sprite->transform.getOrigininalPosition().Y + this->ptr_sprite->transform.texture_size.Y + this->box_collider_height.Y;
 
-    const float this_right = this->ptr_sprite->transform.getOrigininalPosition().x + this->ptr_sprite->transform.texture_size.x + this->ptr_sprite->collider.box_collider_width.y;
-    const float this_left = this->ptr_sprite->transform.getOrigininalPosition().x + this->box_collider_width.x;
+    const float this_right = this->ptr_sprite->transform.getOrigininalPosition().X + this->ptr_sprite->transform.texture_size.X + this->ptr_sprite->collider.box_collider_width.Y;
+    const float this_left = this->ptr_sprite->transform.getOrigininalPosition().X + this->box_collider_width.X;
 
     // Right
     if (this_right >= other_left

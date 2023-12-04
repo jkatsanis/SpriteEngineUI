@@ -4,16 +4,20 @@
 
 spe::FileDialog::FileDialog()
 {
+    this->m_show_files = true;
+    this->m_is_open = false;
     this->m_closeWindow = false;
     this->m_displayTitle = true;
     this->pathClicked = "";
     this->itemClicked = "";
     this->windowFocus = true;
     this->m_FontScale = 1;
+    this->disableWindow();
 }
 
 spe::FileDialog::FileDialog(std::string path, std::string icon, std::string title, ImVec2 windowSize, bool show_file, float fontscale)
 {
+    this->m_closeWindow = false;
     this->m_firstNodeText = path;
     this->m_path = path;
     this->m_windowSize = windowSize;
@@ -26,6 +30,7 @@ spe::FileDialog::FileDialog(std::string path, std::string icon, std::string titl
     this->m_is_open = false;
     this->m_show_files = show_file;
     this->m_FontScale = fontscale;
+    this->disableWindow();
 }
 
 // Public methods
@@ -243,7 +248,6 @@ bool spe::FileDialog::checkIfADirHasSubItems(const std::string& dirPath, bool sh
 
     // Read each entry in the directory
     dirent* entry;
-    int cnt = 0;
     while ((entry = readdir(dir)) != NULL)
     {
         if (!show_files)

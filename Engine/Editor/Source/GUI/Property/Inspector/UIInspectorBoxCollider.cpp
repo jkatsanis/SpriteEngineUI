@@ -24,29 +24,29 @@ void spe::UIInspectorBoxCollider::reset()
 	}
 }
 
-void spe::UIInspectorBoxCollider::renderScaleDotts(spe::Sprite* sprite, spe::Rectangle* ptr_box_collider_rec)
+void spe::UIInspectorBoxCollider::renderScaleDotts(spe::Sprite* sprite)
 {
-	const float scale_x = (sprite->transform.getScale().x < 0)
-		? sprite->transform.getScale().x * -1
-		: sprite->transform.getScale().x;
+	const float scale_x = (sprite->transform.getScale().X < 0)
+		? sprite->transform.getScale().X * -1
+		: sprite->transform.getScale().X;
 
-	const float scale_y = (sprite->transform.getScale().y < 0)
-		? sprite->transform.getScale().y * -1
-		: sprite->transform.getScale().y;
+	const float scale_y = (sprite->transform.getScale().Y < 0)
+		? sprite->transform.getScale().Y * -1
+		: sprite->transform.getScale().Y;
 
 
-	const float left = sprite->transform.getOrigininalPosition().x;
-	const float right = sprite->transform.getOrigininalPosition().x + sprite->transform.getDefaultTextureSize().x * scale_x;
-	const float middle_y = (sprite->transform.getOrigininalPosition().y + (sprite->transform.getDefaultTextureSize().y * scale_y) / 2) ;
-	const float bottom = sprite->transform.getOrigininalPosition().y + sprite->transform.getDefaultTextureSize().y * scale_y;
-	const float middle_x = sprite->transform.getOrigininalPosition().x + (sprite->transform.getDefaultTextureSize().x * scale_x) / 2;
-	const float top = sprite->transform.getOrigininalPosition().y;
+	const float left = sprite->transform.getOrigininalPosition().X;
+	const float right = sprite->transform.getOrigininalPosition().X + sprite->transform.getDefaultTextureSize().X * scale_x;
+	const float middle_y = (sprite->transform.getOrigininalPosition().Y + (sprite->transform.getDefaultTextureSize().Y * scale_y) / 2) ;
+	const float bottom = sprite->transform.getOrigininalPosition().Y + sprite->transform.getDefaultTextureSize().Y * scale_y;
+	const float middle_x = sprite->transform.getOrigininalPosition().X + (sprite->transform.getDefaultTextureSize().X * scale_x) / 2;
+	const float top = sprite->transform.getOrigininalPosition().Y;
 
-	const sf::Vector2f pos_width_y = sf::Vector2f(right + sprite->collider.box_collider_width.y, middle_y);
-	const sf::Vector2f pos_width_x = sf::Vector2f(left - DEFAULT_DOTT_SCALE + sprite->collider.box_collider_width.x, middle_y);
+	const sf::Vector2f pos_width_y = sf::Vector2f(right + sprite->collider.box_collider_width.Y, middle_y);
+	const sf::Vector2f pos_width_x = sf::Vector2f(left - DEFAULT_DOTT_SCALE + sprite->collider.box_collider_width.X, middle_y);
 		
-	const sf::Vector2f pos_height_x = sf::Vector2f(middle_x - DEFAULT_DOTT_SCALE, top + sprite->collider.box_collider_height.x - DEFAULT_DOTT_SCALE);
-	const sf::Vector2f pos_height_y = sf::Vector2f(middle_x - DEFAULT_DOTT_SCALE, top + sprite->collider.box_collider_height.y + sprite->transform.getDefaultTextureSize().y * scale_y);
+	const sf::Vector2f pos_height_x = sf::Vector2f(middle_x - DEFAULT_DOTT_SCALE, top + sprite->collider.box_collider_height.X - DEFAULT_DOTT_SCALE);
+	const sf::Vector2f pos_height_y = sf::Vector2f(middle_x - DEFAULT_DOTT_SCALE, top + sprite->collider.box_collider_height.Y + sprite->transform.getDefaultTextureSize().Y * scale_y);
 
 	this->m_box_collider_scale_dotts[0].ptr_scaling_rectangle->Shape.setPosition(pos_width_y);
 	this->m_box_collider_scale_dotts[1].ptr_scaling_rectangle->Shape.setPosition(pos_width_x);
@@ -58,11 +58,11 @@ void spe::UIInspectorBoxCollider::renderScaleDotts(spe::Sprite* sprite, spe::Rec
 	const sf::Vector2f temp_scale_dott_pos_two = this->m_box_collider_scale_dotts[2].ptr_scaling_rectangle->Shape.getPosition();
 	const sf::Vector2f temp_scale_dott_pos_three = this->m_box_collider_scale_dotts[3].ptr_scaling_rectangle->Shape.getPosition();
 
-	const float new_scale_width_y = spe::UIUtility::xScaleChanger(this->m_box_collider_scale_dotts[0], sprite->transform.getDefaultTextureSize().x,0);
-	const float new_scale_width_x = spe::UIUtility::xScaleChanger(this->m_box_collider_scale_dotts[1], sprite->transform.getDefaultTextureSize().x, 0);
+	const float new_scale_width_y = spe::UIUtility::xScaleChanger(this->m_box_collider_scale_dotts[0], sprite->transform.getDefaultTextureSize().X,0);
+	const float new_scale_width_x = spe::UIUtility::xScaleChanger(this->m_box_collider_scale_dotts[1], sprite->transform.getDefaultTextureSize().X, 0);
 
-	const float new_scale_height_x = spe::UIUtility::yScaleChanger(this->m_box_collider_scale_dotts[2], sprite->transform.getDefaultTextureSize().x, 0);
-	const float new_scale_height_y = spe::UIUtility::yScaleChanger(this->m_box_collider_scale_dotts[3], sprite->transform.getDefaultTextureSize().x, 0);
+	const float new_scale_height_x = spe::UIUtility::yScaleChanger(this->m_box_collider_scale_dotts[2], sprite->transform.getDefaultTextureSize().X, 0);
+	const float new_scale_height_y = spe::UIUtility::yScaleChanger(this->m_box_collider_scale_dotts[3], sprite->transform.getDefaultTextureSize().X, 0);
 
 
 	bool must_return = false;
@@ -113,14 +113,14 @@ void spe::UIInspectorBoxCollider::renderScaleDotts(spe::Sprite* sprite, spe::Rec
 	{
 		const float scale_dott_pos_x = this->m_box_collider_scale_dotts[0].ptr_scaling_rectangle->Shape.getPosition().x; 
 		const float width = scale_dott_pos_x - right;
-		sprite->collider.box_collider_width.y = width;
+		sprite->collider.box_collider_width.Y = width;
 	}
 	if (new_scale_width_x != INVALID_SCALE)
 	{
 		const float scale_dott_pos_x = this->m_box_collider_scale_dotts[1].ptr_scaling_rectangle->Shape.getPosition().x;
 		const float width = scale_dott_pos_x - left + DEFAULT_DOTT_SCALE;
 
-		sprite->collider.box_collider_width.x = width;
+		sprite->collider.box_collider_width.X = width;
 	}
 
 	// Height
@@ -128,13 +128,13 @@ void spe::UIInspectorBoxCollider::renderScaleDotts(spe::Sprite* sprite, spe::Rec
 	{
 		const float scale_dott_pos_y = this->m_box_collider_scale_dotts[2].ptr_scaling_rectangle->Shape.getPosition().y;
 		const float width = scale_dott_pos_y - top + DEFAULT_DOTT_SCALE;
-		sprite->collider.box_collider_height.x = width;
+		sprite->collider.box_collider_height.X = width;
 	}
 	if (new_scale_height_y != INVALID_SCALE)
 	{
 		const float scale_dott_pos_y = this->m_box_collider_scale_dotts[3].ptr_scaling_rectangle->Shape.getPosition().y;
 		const float width = scale_dott_pos_y - bottom;
-		sprite->collider.box_collider_height.y = width;
+		sprite->collider.box_collider_height.Y = width;
 	}
 
 	this->reset();
@@ -184,20 +184,20 @@ void spe::UIInspectorBoxCollider::width(float x, float y, spe::Sprite* sprite)
 		ImGui::Text("L");
 
 		ImGui::SetCursorPos(ImVec2(x += 30, y));
-		ImGui::SliderFloat("##WidthL", &sprite->collider.box_collider_width.x, -500, 500);
+		ImGui::SliderFloat("##WidthL", &sprite->collider.box_collider_width.X, -500, 500);
 		ImGui::SameLine();
 
 		ImGui::SetCursorPosY(ImGui::GetCursorPosY() - 7);
 		if (spe::Style::DisplaySmybolAsButton(ICON_FA_RETWEET, spe::Style::s_DefaultFontSize + 0.02f))
 		{
-			sprite->collider.box_collider_width.x = 0;
+			sprite->collider.box_collider_width.X = 0;
 		}
 
 		ImGui::SetCursorPos(ImVec2(x -= 28.4f, y += 40));
 		ImGui::Text("R");
 
 		ImGui::SetCursorPos(ImVec2(x += 29, y));
-		ImGui::SliderFloat("##WidthR", &sprite->collider.box_collider_width.y, -500, 500);
+		ImGui::SliderFloat("##WidthR", &sprite->collider.box_collider_width.Y, -500, 500);
 		ImGui::SameLine();
 
 		// If we wouldn use the ## the name would still be just retweet. But now it has a different 
@@ -206,7 +206,7 @@ void spe::UIInspectorBoxCollider::width(float x, float y, spe::Sprite* sprite)
 		ImGui::SetCursorPosY(ImGui::GetCursorPosY() - 7);
 		if (spe::Style::DisplaySmybolAsButton(ICON_FA_RETWEET "##", spe::Style::s_DefaultFontSize + 0.02f))
 		{
-			sprite->collider.box_collider_width.y = 0;
+			sprite->collider.box_collider_width.Y = 0;
 		}
 		ImGui::TreePop();
 	}
@@ -224,22 +224,22 @@ void spe::UIInspectorBoxCollider::height(spe::Sprite* sprite)
 		ImGui::Text("U");
 
 		ImGui::SetCursorPos(ImVec2(x += 30, y));
-		ImGui::SliderFloat("##up", &sprite->collider.box_collider_height.x, -500, 500);
+		ImGui::SliderFloat("##up", &sprite->collider.box_collider_height.X, -500, 500);
 		ImGui::SameLine();
 		if (spe::Style::DisplaySmybolAsButton(ICON_FA_RETWEET))
 		{
-			sprite->collider.box_collider_height.x = 0;
+			sprite->collider.box_collider_height.X = 0;
 		}
 
 		ImGui::SetCursorPos(ImVec2(x -= 28.4f, y += 40));
 		ImGui::Text("D");
 
 		ImGui::SetCursorPos(ImVec2(x += 28, y));
-		ImGui::SliderFloat("##down", &sprite->collider.box_collider_height.y, -500, 500);
+		ImGui::SliderFloat("##down", &sprite->collider.box_collider_height.Y, -500, 500);
 		ImGui::SameLine();
 		if (spe::Style::DisplaySmybolAsButton(ICON_FA_RETWEET "##"))
 		{
-			sprite->collider.box_collider_height.y = 0;
+			sprite->collider.box_collider_height.Y = 0;
 		}
 		ImGui::TreePop();
 	}
@@ -247,20 +247,20 @@ void spe::UIInspectorBoxCollider::height(spe::Sprite* sprite)
 
 void spe::UIInspectorBoxCollider::drawBoxCollider(spe::Sprite* sprite, spe::Rectangle* ptr_rectangle)
 {
-	const sf::Vector2f size = sf::Vector2f(sprite->transform.texture_size.x + (-sprite->collider.box_collider_width.x + sprite->collider.box_collider_width.y),
-		sprite->transform.texture_size.y + (-sprite->collider.box_collider_height.x + sprite->collider.box_collider_height.y));
+	const sf::Vector2f size = sf::Vector2f(sprite->transform.texture_size.X + (-sprite->collider.box_collider_width.X + sprite->collider.box_collider_width.Y),
+		sprite->transform.texture_size.Y + (-sprite->collider.box_collider_height.X + sprite->collider.box_collider_height.Y));
 
 	sf::RectangleShape* ptr_shape = &ptr_rectangle->Shape;
 
 	ptr_shape->setSize(size);
-	ptr_shape->setPosition(sf::Vector2f(sprite->transform.getOrigininalPosition().x + sprite->collider.box_collider_width.x, sprite->transform.getOrigininalPosition().y + sprite->collider.box_collider_height.x));
+	ptr_shape->setPosition(sf::Vector2f(sprite->transform.getOrigininalPosition().X + sprite->collider.box_collider_width.X, sprite->transform.getOrigininalPosition().Y + sprite->collider.box_collider_height.X));
 
 	ptr_rectangle->Render = true;
 
 	if (this->m_edit_mode)
 	{
 		this->renderDotts();
-		this->renderScaleDotts(sprite, ptr_rectangle);
+		this->renderScaleDotts(sprite);
 	}
 	else
 	{

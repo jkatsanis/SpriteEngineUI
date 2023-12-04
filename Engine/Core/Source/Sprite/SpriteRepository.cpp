@@ -23,7 +23,7 @@ spe::Sprite* spe::SpriteRepository::GetById(uint32_t idx)
     for (auto it = this->m_sprites.begin(); it != this->m_sprites.end(); ++it)
     {
         spe::Sprite* element = *it;
-        if (element->getId() == idx)
+        if ((uint32_t)element->getId() == idx)
         {
             return element;
         }
@@ -124,7 +124,7 @@ bool spe::SpriteRepository::ExistWithId(uint32_t id)
     for (auto it = this->m_sprites.begin(); it != this->m_sprites.end(); ++it)
     {
         spe::Sprite* sprite = *it;
-        if (sprite->getId() == id)
+        if ((uint32_t)sprite->getId() == id)
         {
             return true;
         }
@@ -319,7 +319,7 @@ spe::Sprite* spe::SpriteRepository::getWithId(std::vector<spe::Sprite*>& collect
     for (uint32_t i = 0; i < collection.size(); i++)
     {
         spe::Sprite* const sprite = collection[i];
-        if (sprite->getId() == id)
+        if ((uint32_t)sprite->getId() == id)
         {
             return sprite;
         }

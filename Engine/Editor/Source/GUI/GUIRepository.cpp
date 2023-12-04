@@ -6,6 +6,8 @@
 
 spe::GUIRepository::GUIRepository()
 {
+	this->ptr_Event = nullptr;
+	this->ptr_SFEvent = nullptr;
 	this->sprited_hovered_in_hierarchy = nullptr;
 	this->sprite_in_inspector = nullptr;
 	this->child_to_parent = nullptr;
@@ -71,9 +73,9 @@ void spe::GUIRepository::EraseSpriteWithName(const std::string& name)
 
 			this->AddChildsToDelete(childs_to_delete, ptr_delete);
 
-			for (size_t i = 0; i < childs_to_delete.size(); i++)
+			for (size_t j = 0; j < childs_to_delete.size(); j++)
 			{
-				this->EraseSpriteWithId(childs_to_delete[i]->getId());
+				this->EraseSpriteWithId(childs_to_delete[j]->getId());
 			}
 
 			return;
@@ -151,7 +153,7 @@ void spe::GUIRepository::EraseSpriteWithId(uint32_t id)
 {
 	for (int i = 0; i < this->HierarchySprites.size(); i++)
 	{
-		if (this->HierarchySprites[i]->getId() == id)
+		if ((uint32_t)this->HierarchySprites[i]->getId() == id)
 		{
 			this->HierarchySprites.erase(this->HierarchySprites.begin() + i);
 			return;

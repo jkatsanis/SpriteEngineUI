@@ -4,6 +4,9 @@
 
 spe::Sprite::Sprite()
 {
+	this->m_id = 0;
+	this->m_parent_id = 0;
+	this->parent = nullptr;
 	this->m_SetId = false;
 	this->name = "Unknown";
 	this->transform.SetPosition(spe::Vector2(0, 0));
@@ -13,12 +16,12 @@ spe::Sprite::Sprite()
 spe::Sprite::Sprite(std::string name, spe::Vector2 spawnPosition, std::string path, spe::LightRepository& lightrep)
 	: name(name)
 {
-	this->initVariables(name, spawnPosition, path, lightrep);
+	this->initVariables(spawnPosition, path, lightrep);
 }
 
 spe::Sprite::Sprite(spe::Sprite& rhs)
 {
-	this->initVariables(rhs.name, rhs.transform.GetPosition(), rhs.sprite_renderer.path, *rhs.light.m_ptr_LighRepository);
+	this->initVariables(rhs.transform.GetPosition(), rhs.sprite_renderer.path, *rhs.light.m_ptr_LighRepository);
 
 	this->collider = spe::BoxCollider(this, rhs.collider);
 	this->transform = spe::Transform(this, rhs.transform);
@@ -27,6 +30,7 @@ spe::Sprite::Sprite(spe::Sprite& rhs)
 	this->sprite_renderer = spe::SpriteRenderer(rhs.sprite_renderer);
 	this->light = spe::Light(this, rhs.light);
 	this->prefab = spe::Prefab(this, rhs.prefab);
+	this->name = rhs.name;
 
 	this->tag = rhs.tag;
 
@@ -101,9 +105,9 @@ void spe::Sprite::clearParentData()
 	this->m_parent_id = 0;
 }
 
-void spe::Sprite::setParent(spe::Sprite* parent)
+void spe::Sprite::setParent(spe::Sprite* spriteParent)
 {
-	if (parent == nullptr)
+	if (spriteParent == nullptr)
 	{
 		return;
 	}
@@ -114,14 +118,14 @@ void spe::Sprite::setParent(spe::Sprite* parent)
 		this->parent->removeChild(this);
 		this->parent = nullptr;
 	}
-	this->m_parent_id = parent->getId();
-	this->parent = parent;
+	this->m_parent_id = spriteParent->getId();
+	this->parent = spriteParent;
 
 	spe::Sprite* child = this;
-	spe::Vector2 distance = spe::Vector2(parent->transform.GetPosition() - child->transform.GetPosition());
+	spe::Vector2 distance = spe::Vector2(spriteParent->transform.GetPosition() - child->transform.GetPosition());
 	child->transform.position_to_parent = distance;
 
-	parent->ptr_childs.push_back(this);
+	spriteParent->ptr_childs.push_back(this);
 }
 
 void spe::Sprite::removeChild(const spe::Sprite* child)
@@ -142,7 +146,7 @@ void spe::Sprite::removeChild(const spe::Sprite* child)
 
 //Private functions
 
-void spe::Sprite::initVariables(std::string name, spe::Vector2 spawnPos, std::string path, spe::LightRepository& lightrep)
+void spe::Sprite::initVariables(spe::Vector2 spawnPos, std::string path, spe::LightRepository& lightrep)
 {
 	// Components
 	this->transform = spe::Transform(this);
@@ -172,7 +176,7 @@ void spe::Sprite::initVariables(std::string name, spe::Vector2 spawnPos, std::st
 
 	this->setSpriteTexture(path);
 
-	this->getSprite().setPosition(sf::Vector2f(spawnPos.x + 960, 540 - spawnPos.y));
+	this->getSprite().setPosition(sf::Vector2f(spawnPos.X + 960, 540 - spawnPos.Y));
 
 }
 
@@ -210,18 +214,18 @@ bool spe::Sprite::ContainsChild(const spe::Sprite* child) const
 	return contains;
 }
 
-bool spe::Sprite::ContainsChild(const ImGuiTextFilter& name) const
+bool spe::Sprite::ContainsChild(const ImGuiTextFilter& namefilter) const
 {
 	bool contains = false;
 
 	for (int i = 0; i < this->ptr_childs.size(); i++)
 	{
 		const spe::Sprite* spr = this->ptr_childs[i];
-		if (name.PassFilter(spr->name.c_str()))
+		if (namefilter.PassFilter(spr->name.c_str()))
 		{
 			return true;
 		}
-		contains = spr->ContainsChild(name);
+		contains = spr->ContainsChild(namefilter);
 	}
 	return contains;
 }

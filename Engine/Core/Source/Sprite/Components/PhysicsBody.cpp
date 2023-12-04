@@ -48,18 +48,18 @@ void spe::PhsysicsBody::Update()
 	if (!this->exist || this->ptr_Sprite == nullptr) return;
 
 	//ALl Physic calcutions will happen here!
-	spe::Vector2 dir = this->velocity * spe::Time::s_delta_time;
+	spe::Vector2 dir = this->velocity * spe::Time::s_DeltaTime;
 	dir += this->ptr_Sprite->transform.GetPosition();
 
 	this->ptr_Sprite->transform.SetPosition(dir);
 
 
-	if (this->ptr_Sprite->collider.down && this->velocity.y <= 0)
+	if (this->ptr_Sprite->collider.down && this->velocity.Y <= 0)
 	{
-		this->velocity.y = 0.0f;
+		this->velocity.Y = 0.0f;
 	}
 
-	this->velocity.y -= this->gravity;
+	this->velocity.Y -= this->gravity;
 
 }
 

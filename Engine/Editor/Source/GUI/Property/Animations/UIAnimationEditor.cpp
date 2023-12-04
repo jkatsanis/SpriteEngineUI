@@ -191,7 +191,6 @@ void spe::UIAnimationEditor::renderTimeLineRealTimePoint()
 	const ImVec2 cursor_pos = ImGui::GetCursorPos();
 	ImGui::SetCursorPosX(100);
 	const float y = ImGui::GetCursorPosY() + 5;
-	bool b = false;
 	for (float i = 0; i < this->m_anim->TotalTimePassed * 100; i += 0.5f)
 	{	
 		ImGui::SetCursorPos(ImVec2(100 + ((int)i + 1.0f) * this->m_cursor_space, y));
@@ -315,7 +314,7 @@ void spe::UIAnimationEditor::saveAnimation()
 {
 	if (ImGui::Button("Save"))
 	{
-		spe::Savesystem::CreateAnimationSaveFile(this->m_ptr_GUIRepo->sprite_in_inspector, *this->m_anim, this->m_ptr_Repo);
+		spe::Savesystem::CreateAnimationSaveFile(this->m_ptr_GUIRepo->sprite_in_inspector, *this->m_anim);
 	}
 	spe::UIUtility::SameLine(2);
 	spe::Style::DisplaySmybolAsText(ICON_FA_SAVE);
@@ -349,7 +348,7 @@ void spe::UIAnimationEditor::renameAnimation()
 			// Getting the new animation becuase the old 1 got deleted
 			this->m_anim = &this->m_ptr_GUIRepo->sprite_in_inspector->animator.animations[std_name];
 			
-			spe::Savesystem::CreateAnimationSaveFile(this->m_ptr_GUIRepo->sprite_in_inspector, *this->m_anim, this->m_ptr_Repo);
+			spe::Savesystem::CreateAnimationSaveFile(this->m_ptr_GUIRepo->sprite_in_inspector, *this->m_anim);
 
 			s_renamed_pop_up_name = "";
 		}

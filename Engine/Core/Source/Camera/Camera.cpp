@@ -4,62 +4,62 @@
 
 spe::Camera::Camera() 
 { 
-	this->m_ptr_sprite_repo = nullptr;
-	this->ptr_Window = nullptr;
+	this->m_ptr_Repo = nullptr;
+	this->m_ptr_Window = nullptr;
 	this->Position = spe::Vector2(0, 0);
-	this->m_camera_zoom = 1.0f;
-	this->camera_speed = 2000.0f;
-	this->m_zoom_changed = false;
+	this->m_CameraZoom = 1.0f;
+	this->CameraSpeed = 2000.0f;
+	this->m_ZoomChanged = false;
 }
 
 spe::Camera::Camera(sf::RenderWindow* ptr, spe::SpriteRepository& repo)
 {
-	spe::Vector2 defaultPos = this->getDefaultPosition();
+	spe::Vector2 defaultPos = this->GetDefaultPosition();
 
-	this->m_ptr_sprite_repo = &repo;
-	this->m_camera_zoom = 1.0f;
+	this->m_ptr_Repo = &repo;
+	this->m_CameraZoom = 1.0f;
 	this->Position = spe::Vector2(0, 0);
-	this->ptr_Window = ptr;
-	this->camera_view = sf::View(sf::Vector2f(defaultPos.x, defaultPos.y), sf::Vector2f(1920, 1080));
+	this->m_ptr_Window = ptr;
+	this->CameraView = sf::View(sf::Vector2f(defaultPos.X, defaultPos.Y), sf::Vector2f(1920, 1080));
 }
 
-void spe::Camera::setZoom(float zoom)
+void spe::Camera::SetZoom(float zoom) noexcept
 {
-	if (zoom == this->m_camera_zoom)
+	if (zoom == this->m_CameraZoom)
 	{
 		return;
 	}
 	// need to update the light shader here !! 
-	this->m_camera_zoom = zoom;
-	this->m_zoom_changed = true;
+	this->m_CameraZoom = zoom;
+	this->m_ZoomChanged = true;
 }
-
-void spe::Camera::reset()
+ 
+void spe::Camera::Reset() noexcept
 {
 	this->Position = spe::Vector2(0, 0);
-	this->m_camera_zoom = 1.0f;
+	this->m_CameraZoom = 1.0f;
 }
 
 void spe::Camera::Update(spe::LightRepository* lightrepo)
 {	
-	this->camera_view.setSize(1920 * this->m_camera_zoom, 1080 * this->m_camera_zoom);
+	this->CameraView.setSize(1920 * this->m_CameraZoom, 1080 * this->m_CameraZoom);
 
-	spe::Vector2 defaultPos = this->getDefaultPosition();
+	spe::Vector2 defaultPos = this->GetDefaultPosition();
 
-	defaultPos.x += this->Position.x;
-	defaultPos.y += this->Position.y;
+	defaultPos.X += this->Position.X;
+	defaultPos.Y += this->Position.Y;
 
-	this->camera_view.setCenter(sf::Vector2f(defaultPos.x, defaultPos.y));
+	this->CameraView.setCenter(sf::Vector2f(defaultPos.X, defaultPos.Y));
 
 	sf::Shader& shader = lightrepo->getShader();
 
-	sf::Vector2f a = sf::Vector2f(defaultPos.x - 960, defaultPos.y - 540);
+	sf::Vector2f a = sf::Vector2f(defaultPos.X - 960, defaultPos.Y - 540);
 	shader.setUniform("cameraPosition", a);
-	shader.setUniform("cameraZoom", this->m_camera_zoom);
+	shader.setUniform("cameraZoom", this->m_CameraZoom);
 	// std::cout << this->camera_zoom << std::endl;
 }
 
-spe::Vector2 spe::Camera::getDefaultPosition()
+spe::Vector2 spe::Camera::GetDefaultPosition() noexcept
 {
 	return spe::Vector2(960, 540);
 }

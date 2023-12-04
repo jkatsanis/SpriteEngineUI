@@ -41,7 +41,7 @@ void spe::UIRealTimeEditorNavigator::navigateRightClick()
 		{
 			spe::Vector2 moved = this->m_cursor.LastPosition - this->m_cursor.Position;
 
-			moved = moved * this->m_ptr_GUIRepo->Camera.getZoom();
+			moved = moved * this->m_ptr_GUIRepo->Camera.GetZoom();
 
 			this->m_ptr_GUIRepo->Camera.Position += moved;
 		}
@@ -53,19 +53,19 @@ void spe::UIRealTimeEditorNavigator::navigateScrollWheel()
 	if (this->m_ptr_Window->WindowEvent.type == sf::Event::MouseWheelScrolled)
 	{
 		this->m_ptr_Window->WindowEvent.type = sf::Event::GainedFocus;
-		const float zoom = this->m_ptr_GUIRepo->Camera.getZoom();
+		const float zoom = this->m_ptr_GUIRepo->Camera.GetZoom();
 		if (this->m_ptr_Window->WindowEvent.mouseWheel.x < 0)
 		{
 			if (zoom + this->m_scroll_speed < 4)
 			{
-				this->m_ptr_GUIRepo->Camera.setZoom(zoom + this->m_scroll_speed * 30);
+				this->m_ptr_GUIRepo->Camera.SetZoom(zoom + this->m_scroll_speed * 30);
 			}
 		}
 		else
 		{
 			if (zoom - this->m_scroll_speed > 0.04)
 			{
-				this->m_ptr_GUIRepo->Camera.setZoom(zoom - this->m_scroll_speed * 30);
+				this->m_ptr_GUIRepo->Camera.SetZoom(zoom - this->m_scroll_speed * 30);
 			}
 		}
 	}
@@ -73,7 +73,7 @@ void spe::UIRealTimeEditorNavigator::navigateScrollWheel()
 
 void spe::UIRealTimeEditorNavigator::calculateScrollWheelSpeed()
 {
-	sf::Vector2f size = this->m_ptr_GUIRepo->Camera.camera_view.getSize();
+	sf::Vector2f size = this->m_ptr_GUIRepo->Camera.CameraView.getSize();
 
 	if (size.x > 1500)
 	{
@@ -103,43 +103,43 @@ void spe::UIRealTimeEditorNavigator::setChangedPosition()
 
 void spe::UIRealTimeEditorNavigator::navigateArrows()
 {
-	const float camera_speed = this->m_ptr_GUIRepo->Camera.camera_speed;
-	if (spe::Input::onKeyHold(spe::KeyBoardCode::Right))
+	const float camera_speed = this->m_ptr_GUIRepo->Camera.CameraSpeed;
+	if (spe::Input::OnKeyHold(spe::KeyBoardCode::Right))
 	{
-		this->m_ptr_GUIRepo->Camera.Position.x += camera_speed * spe::Time::s_delta_time;
+		this->m_ptr_GUIRepo->Camera.Position.X += camera_speed * spe::Time::s_DeltaTime;
 	}
-	if (spe::Input::onKeyHold(spe::KeyBoardCode::Left))
+	if (spe::Input::OnKeyHold(spe::KeyBoardCode::Left))
 	{
-		this->m_ptr_GUIRepo->Camera.Position.x -= camera_speed * spe::Time::s_delta_time;
+		this->m_ptr_GUIRepo->Camera.Position.X -= camera_speed * spe::Time::s_DeltaTime;
 	}
-	if (spe::Input::onKeyHold(spe::KeyBoardCode::Up))
+	if (spe::Input::OnKeyHold(spe::KeyBoardCode::Up))
 	{
-		this->m_ptr_GUIRepo->Camera.Position.y -= camera_speed * spe::Time::s_delta_time;
+		this->m_ptr_GUIRepo->Camera.Position.Y -= camera_speed * spe::Time::s_DeltaTime;
 	}
-	if (spe::Input::onKeyHold(spe::KeyBoardCode::Down))
+	if (spe::Input::OnKeyHold(spe::KeyBoardCode::Down))
 	{
-		this->m_ptr_GUIRepo->Camera.Position.y += camera_speed * spe::Time::s_delta_time;
+		this->m_ptr_GUIRepo->Camera.Position.Y += camera_speed * spe::Time::s_DeltaTime;
 	}
 }
 
 void spe::UIRealTimeEditorNavigator::navigateKeys()
 {
-	const float camera_speed = this->m_ptr_GUIRepo->Camera.camera_speed;
+	const float camera_speed = this->m_ptr_GUIRepo->Camera.CameraSpeed;
 
-	if (spe::Input::onKeyHold(spe::KeyBoardCode::D))
+	if (spe::Input::OnKeyHold(spe::KeyBoardCode::D))
 	{
-		this->m_ptr_GUIRepo->Camera.Position.x += camera_speed * spe::Time::s_delta_time;
+		this->m_ptr_GUIRepo->Camera.Position.X += camera_speed * spe::Time::s_DeltaTime;
 	}
-	if (spe::Input::onKeyHold(spe::KeyBoardCode::A))
+	if (spe::Input::OnKeyHold(spe::KeyBoardCode::A))
 	{
-		this->m_ptr_GUIRepo->Camera.Position.x -= camera_speed * spe::Time::s_delta_time;
+		this->m_ptr_GUIRepo->Camera.Position.X -= camera_speed * spe::Time::s_DeltaTime;
 	}
-	if (spe::Input::onKeyHold(spe::KeyBoardCode::W))
+	if (spe::Input::OnKeyHold(spe::KeyBoardCode::W))
 	{
-		this->m_ptr_GUIRepo->Camera.Position.y -= camera_speed * spe::Time::s_delta_time;
+		this->m_ptr_GUIRepo->Camera.Position.Y -= camera_speed * spe::Time::s_DeltaTime;
 	}
-	if (spe::Input::onKeyHold(spe::KeyBoardCode::S) && !spe::Input::onKeyHold(spe::KeyBoardCode::LControl))
+	if (spe::Input::OnKeyHold(spe::KeyBoardCode::S) && !spe::Input::OnKeyHold(spe::KeyBoardCode::LControl))
 	{
-		this->m_ptr_GUIRepo->Camera.Position.y += camera_speed * spe::Time::s_delta_time;
+		this->m_ptr_GUIRepo->Camera.Position.Y += camera_speed * spe::Time::s_DeltaTime;
 	}
 }

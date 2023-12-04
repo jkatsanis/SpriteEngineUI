@@ -21,6 +21,7 @@
 // 3. This notice may not be removed or altered from any source distribution.
 //
 ////////////////////////////////////////////////////////////
+#pragma warning(disable: 26495)
 
 #ifndef SFML_GLYPH_HPP
 #define SFML_GLYPH_HPP
@@ -79,3 +80,4 @@ public:
 /// \see sf::Font
 ///
 ////////////////////////////////////////////////////////////
+#pragma warning(default: 26495)

@@ -55,7 +55,7 @@ namespace spe
 
 		std::unordered_map<std::string, DIR*> m_AlreadyOpenedPaths;
 
-		void getAllFilesInDir(const char* path, const char* name);
+		void getAllFilesInDir(const char* path);
 		void setDragAndDrop(std::string path, std::string name);
 		void beginColumns();
 		void goBackToBeforeFolder();

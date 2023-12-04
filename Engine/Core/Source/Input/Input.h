@@ -10,16 +10,16 @@ namespace spe
 	class Input
 	{
 	private:
-		static spe::Event* event;
+		static spe::Event* Event;
 
 	public:
 		Input() = delete;
 
 		
-		static bool onKeyRelease(spe::KeyBoardCode key);
-		static bool onKeyPress(spe::KeyBoardCode key);
-		static bool onKeyHold(spe::KeyBoardCode key);
+		static bool OnKeyRelease(spe::KeyBoardCode key);
+		static bool OnKeyPress(spe::KeyBoardCode key);
+		static bool OnKeyHold(spe::KeyBoardCode key);
 
-		static void setEvent(spe::Event* event);
+		static void SetEvent(spe::Event* event) noexcept;
 	};
 }

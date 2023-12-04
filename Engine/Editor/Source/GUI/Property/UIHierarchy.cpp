@@ -164,7 +164,7 @@ void spe::UIHierarchy::setHovering(spe::Sprite* sprite, bool& anyHovered)
 		this->m_found_hovering = true;
 		if (ImGui::IsMouseDown(0) && this->m_ptr_GUIRepo->child_to_parent == nullptr && this->m_ptr_GUIRepo->DragAndDropPath == " ")
 		{
-			this->m_child_select_timer += spe::Time::s_delta_time;
+			this->m_child_select_timer += spe::Time::s_DeltaTime;
 
 			if (this->m_child_select_timer > TIME_TO_CAN_SELECT_CHILD)
 			{
@@ -307,12 +307,12 @@ void spe::UIHierarchy::resizeWindow()
 	spe::Style::DisplaySmybolAsButton(ICON_FA_ARROW_RIGHT);
 	if (ImGui::IsItemHovered() && ImGui::IsMouseClicked(0))
 	{
-		this->m_resize_window_data.additinal_add = (this->m_Size.x - spe::UIUtility::GUICursor.Position.x - 30) * -1;;
+		this->m_resize_window_data.additinal_add = (this->m_Size.x - spe::UIUtility::GUICursor.Position.X - 30) * -1;;
 		this->m_resize_window_data.clicked_on_resize_button = true;
 	}
 	if (this->m_resize_window_data.clicked_on_resize_button && ImGui::IsMouseDown(0))
 	{
-		const float new_size = spe::UIUtility::GUICursor.Position.x - this->m_resize_window_data.additinal_add + 30;
+		const float new_size = spe::UIUtility::GUICursor.Position.X - this->m_resize_window_data.additinal_add + 30;
 		const float max_size_right = new_size + this->m_ptr_GUIRepo->InspectorData.ptr_Size->x;
 
 		if (new_size > 245

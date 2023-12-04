@@ -86,7 +86,6 @@ void spe::UIAnimationKeyFrameAdder::addKeyFrameToAnimation()
 	}
 	
 	float delay = 0;
-	spe::KeyFrame* changeAfter = nullptr;
 	std::vector<spe::KeyFrame>& ref = this->m_animation->GetkeyFrames();
 	int size = (int)ref.size();
 	int vecpos = 0;
@@ -144,7 +143,6 @@ void spe::UIAnimationKeyFrameAdder::addKeyFrameToAnimation()
 
 	if (!invalid)
 	{
-		float rmDelay = ref[vecpos].delay - this->m_key_frame_pos;
 		ref[vecpos].delay = (this->m_key_frame_pos - delay) * -1;
 	}
 

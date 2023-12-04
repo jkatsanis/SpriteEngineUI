@@ -29,17 +29,17 @@ void spe::UIRealTimeEditorTransform::Init()
 void spe::UIRealTimeEditorTransform::moveComponent()
 {
 	if (this->m_clickedSprite == nullptr) return;
-	float x = this->m_cursorWorldPos.x - 960;
-	float y = -(this->m_cursorWorldPos.y - 540);
+	float x = this->m_cursorWorldPos.X - 960;
+	float y = -(this->m_cursorWorldPos.Y - 540);
 
-	float m = x - this->m_clickedSprite->transform.GetPosition().x;
-	float my = y - this->m_clickedSprite->transform.GetPosition().y;
+	float m = x - this->m_clickedSprite->transform.GetPosition().X;
+	float my = y - this->m_clickedSprite->transform.GetPosition().Y;
 
 	if (spe::UIUtility::GUICursor.PositionChanged)
 	{
 		spe::Vector2 moved = spe::UIUtility::GUICursor.LastPosition - spe::UIUtility::GUICursor.Position;
-		m += moved.x * this->m_ptr_GUIRepo->Camera.getZoom();
-		my -= moved.y * this->m_ptr_GUIRepo->Camera.getZoom();
+		m += moved.X * this->m_ptr_GUIRepo->Camera.GetZoom();
+		my -= moved.Y * this->m_ptr_GUIRepo->Camera.GetZoom();
 	}
 
 	spe::Vector2 newPosition = spe::Vector2(x - m, y - my);
@@ -51,14 +51,14 @@ bool spe::UIRealTimeEditorTransform::checkClick(spe::Sprite* const sprite)
 {
 	bool collied = spe::UIUtility::isCursorClickedOnSprite(sprite);
 
-	if (collied && this->m_ptr_Window->Event.type == spe::Event::Type::MousePressedLeft)
+	if (collied && this->m_ptr_Window->Event.Type == spe::Event::Type::MousePressedLeft)
 	{
 		this->m_clickedSpriteId = sprite->getId();
 
 		this->m_realeasedCursorOnSprite = true;
 		return true;
 	}
-	if (this->m_ptr_Window->Event.type == spe::Event::MouseReleasedLeft)
+	if (this->m_ptr_Window->Event.Type == spe::Event::MouseReleasedLeft)
 	{
 		this->m_realeasedCursorOnSprite = false;
 		return false;
@@ -137,15 +137,15 @@ void spe::UIRealTimeEditorTransform::unrenderDolls()
 
 void spe::UIRealTimeEditorTransform::scaleChanger(spe::Sprite* focusedSprite)
 {
-	float scale_x = spe::UIUtility::xScaleChanger(this->m_scale_dotts[0], focusedSprite->transform.getDefaultTextureSize().x,
-		focusedSprite->transform.GetPosition().x);
+	float scale_x = spe::UIUtility::xScaleChanger(this->m_scale_dotts[0], focusedSprite->transform.getDefaultTextureSize().X,
+		focusedSprite->transform.GetPosition().X);
 	if (scale_x != INVALID_SCALE)
-		focusedSprite->transform.setScale(spe::Vector2(scale_x, focusedSprite->transform.getScale().y));
+		focusedSprite->transform.setScale(spe::Vector2(scale_x, focusedSprite->transform.getScale().Y));
 
-	float scale_y = spe::UIUtility::yScaleChanger(this->m_scale_dotts[1], focusedSprite->transform.getDefaultTextureSize().y,
-		focusedSprite->transform.GetPosition().y);
+	float scale_y = spe::UIUtility::yScaleChanger(this->m_scale_dotts[1], focusedSprite->transform.getDefaultTextureSize().Y,
+		focusedSprite->transform.GetPosition().Y);
 	if (scale_y != INVALID_SCALE)
-		focusedSprite->transform.setScale(spe::Vector2(focusedSprite->transform.getScale().x, scale_y));
+		focusedSprite->transform.setScale(spe::Vector2(focusedSprite->transform.getScale().X, scale_y));
 }
 
 
@@ -153,7 +153,7 @@ void spe::UIRealTimeEditorTransform::reset()
 {
 	if (!sf::Mouse::isButtonPressed(sf::Mouse::Left))
 	{
-		this->m_ptr_Window->Event.type = spe::Event::None;
+		this->m_ptr_Window->Event.Type = spe::Event::None;
 		for (int i = 0; i < SCALE_DOTTS; i++)
 		{
 			this->m_scale_dotts[i].clicked = false;
@@ -166,19 +166,19 @@ void spe::UIRealTimeEditorTransform::getPos(const spe::Sprite* focusedSprite, sf
 	spe::Vector2 originalPos = focusedSprite->transform.getOrigininalPosition();
 	spe::Vector2 textureSize = focusedSprite->transform.texture_size;
 
-	if (focusedSprite->transform.getScale().x < 0)
+	if (focusedSprite->transform.getScale().X < 0)
 	{
-		pos[0] = sf::Vector2f(originalPos.x, originalPos.y + textureSize.y / 2);
+		pos[0] = sf::Vector2f(originalPos.X, originalPos.Y + textureSize.Y / 2);
 	}
 	else
 	{
-		pos[0] = sf::Vector2f(originalPos.x + textureSize.x, originalPos.y + textureSize.y / 2);
+		pos[0] = sf::Vector2f(originalPos.X + textureSize.X, originalPos.Y + textureSize.Y / 2);
 	}
-	if (focusedSprite->transform.getScale().y < 0)
+	if (focusedSprite->transform.getScale().Y < 0)
 	{
-		textureSize.y = 0;
+		textureSize.Y = 0;
 	}
-	pos[1] = sf::Vector2f(originalPos.x + textureSize.x / 2 - DEFAULT_DOTT_SCALE / 2, originalPos.y + textureSize.y);
+	pos[1] = sf::Vector2f(originalPos.X + textureSize.X / 2 - DEFAULT_DOTT_SCALE / 2, originalPos.Y + textureSize.Y);
 }
 
 void spe::UIRealTimeEditorTransform::setPos(const sf::Vector2f pos[])

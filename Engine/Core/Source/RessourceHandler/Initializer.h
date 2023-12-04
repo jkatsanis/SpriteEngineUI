@@ -37,7 +37,7 @@ namespace spe
 
 
 		static void InitAnimation(const std::string& path, spe::Sprite* spr);
-		static void InitAnimation(const std::string& path, spe::SpriteRepository& repo);
+		static void InitAnimation(const std::string& path);
 	};
 }
 

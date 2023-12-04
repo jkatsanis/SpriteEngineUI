@@ -32,7 +32,7 @@ namespace spe
 		GameWindow(const spe::Vector2& size, const std::string& name);
 
 		void PollEvents();
-		bool IsOpen() const { return this->m_IsOpen; }
+		bool IsOpen() const noexcept { return this->m_IsOpen; }
 		void Draw(spe::Sprite* ptr, const sf::Shader* shader);
 		void Display();
 		void Clear();
@@ -40,9 +40,9 @@ namespace spe
 
 		bool ContainsCursor();
 
-		sf::RenderWindow* GetRenderWindow() { return this->m_ptr_Window; }
+		sf::RenderWindow* GetRenderWindow() noexcept{ return this->m_ptr_Window; }
 
-		void SetCamera(spe::Camera* camera) { this->m_Camera = camera; }
-		void SetBackgroundColor(spe::Vector3* bck) { this->m_BackgroundColor = bck; }
+		void SetCamera(spe::Camera* camera) noexcept { this->m_Camera = camera; }
+		void SetBackgroundColor(spe::Vector3* bck) noexcept { this->m_BackgroundColor = bck; }
 	};
 }

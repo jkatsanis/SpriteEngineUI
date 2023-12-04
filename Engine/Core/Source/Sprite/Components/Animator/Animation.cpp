@@ -113,8 +113,8 @@ void spe::Animation::Play()
 
 void spe::Animation::Update()
 {
-	this->TimePassed += Time::s_delta_time;
-	this->TotalTimePassed += Time::s_delta_time;
+	this->TimePassed += Time::s_DeltaTime;
+	this->TotalTimePassed += Time::s_DeltaTime;
 	if (this->m_Keyframes.size() == 0)
 	{
 		return;

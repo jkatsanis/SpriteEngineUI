@@ -1,5 +1,3 @@
 name;absulutePathStr;date;relativePath
-Sauga;C:\Dev\C#\Sauga;2023/28/11 23:23:38;..\..\..\C#\Sauga
-Yoii;C:\Dev\You\Yoii;2023/28/11 23:25:57;..\..\..\You\Yoii
-DasynceSE;C:\Dev\C++\DasynceSE;2023/30/11 18:54:15;..\..\DasynceSE
+DasynceSE;C:\Dev\C++\DasynceSE;2023/04/12 07:39:21;..\..\DasynceSE
 

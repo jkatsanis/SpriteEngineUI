@@ -17,7 +17,7 @@ spe::GameWindow::GameWindow(const spe::Vector2& size, const std::string& name)
 	this->m_Size = size;
 	this->m_Camera = nullptr;
 	this->WindowEvent.type = sf::Event::GainedFocus;
-	this->m_ptr_Window = new sf::RenderWindow(sf::VideoMode((int)size.x, (int)size.y), name, sf::Style::Default);
+	this->m_ptr_Window = new sf::RenderWindow(sf::VideoMode((int)size.X, (int)size.Y), name, sf::Style::Default);
 	this->m_IsOpen = true;
 
 	this->m_WindowBounds = sf::IntRect(0, 0, this->m_ptr_Window->getSize().x, this->m_ptr_Window->getSize().y);
@@ -31,8 +31,8 @@ void spe::GameWindow::UpdateCamera()
 {
 	if (this->m_Camera != nullptr)
 	{
-		this->m_Camera->camera_view.setSize(this->m_Size.x * this->m_Camera->getZoom(), this->m_Size.y * this->m_Camera->getZoom());
-		this->m_ptr_Window->setView(this->m_Camera->camera_view);
+		this->m_Camera->CameraView.setSize(this->m_Size.X * this->m_Camera->GetZoom(), this->m_Size.Y * this->m_Camera->GetZoom());
+		this->m_ptr_Window->setView(this->m_Camera->CameraView);
 	}
 }
 
@@ -41,7 +41,7 @@ void spe::GameWindow::UpdateCamera()
 void spe::GameWindow::PollEvents()
 {
 	bool EventChanged = false;
-	Event.type = spe::Event::None;
+	Event.Type = spe::Event::None;
 
 	while (this->m_ptr_Window->pollEvent(this->WindowEvent))
 	{
@@ -56,19 +56,19 @@ void spe::GameWindow::PollEvents()
 		{
 			if (this->WindowEvent.type == sf::Event::KeyReleased)
 			{
-				Event.type = spe::Event::KeyReleased;
+				Event.Type = spe::Event::KeyReleased;
 				EventChanged = true;
 			}
 			else if (this->WindowEvent.type == sf::Event::KeyPressed)
 			{
 				EventChanged = true;
-				Event.type = spe::Event::KeyPressed;
+				Event.Type = spe::Event::KeyPressed;
 			}
 			else if (this->WindowEvent.type == sf::Event::MouseButtonPressed)
 			{
 				if (this->WindowEvent.mouseButton.button == sf::Mouse::Left)
 				{
-					Event.type = spe::Event::MousePressedLeft;
+					Event.Type = spe::Event::MousePressedLeft;
 					EventChanged = true;
 				}
 			}
@@ -76,19 +76,19 @@ void spe::GameWindow::PollEvents()
 			{
 				if (this->WindowEvent.mouseButton.button == sf::Mouse::Left)
 				{
-					Event.type = spe::Event::MouseReleasedLeft;
+					Event.Type = spe::Event::MouseReleasedLeft;
 					EventChanged = true;
 				}
 			}
 			else
 			{
 				EventChanged = true;
-				Event.type = spe::Event::None;
+				Event.Type = spe::Event::None;
 			}
-			Event.key = static_cast<spe::KeyBoardCode>(static_cast<sf::Keyboard::Key>(this->WindowEvent.key.code));
+			Event.Key = static_cast<spe::KeyBoardCode>(static_cast<sf::Keyboard::Key>(this->WindowEvent.key.code));
 		}
 	}
-	ImGui::SFML::Update(*m_ptr_Window, Time::s_delta_clock.restart());
+	ImGui::SFML::Update(*m_ptr_Window, Time::s_DeltaClock.restart());
 }
 
 void spe::GameWindow::Draw(spe::Sprite* ptr, const sf::Shader* shader)
@@ -121,9 +121,9 @@ void spe::GameWindow::Clear()
 
 	if (this->m_BackgroundColor != nullptr)
 	{
-		backgroundColor = sf::Color(sf::Uint8(this->m_BackgroundColor->x),
-			sf::Uint8(this->m_BackgroundColor->y),
-			sf::Uint8(this->m_BackgroundColor->z));
+		backgroundColor = sf::Color(sf::Uint8(this->m_BackgroundColor->X),
+			sf::Uint8(this->m_BackgroundColor->Y),
+			sf::Uint8(this->m_BackgroundColor->Z));
 	}
 	this->m_ptr_Window->clear(backgroundColor);
 }

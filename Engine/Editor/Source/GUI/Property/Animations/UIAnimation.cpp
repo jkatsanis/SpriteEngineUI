@@ -132,7 +132,7 @@ void spe::UIAnimation::getFileNameInput()
 		ImGui::SetCursorPos(closeCursorPos);
 
 		// Clicked at the "x", stop displaying the file dialoge
-		if (ImGui::Button("x") || spe::Input::onKeyPress(spe::KeyBoardCode::Escape))
+		if (ImGui::Button("x") || spe::Input::OnKeyPress(spe::KeyBoardCode::Escape))
 		{
 			this->m_animationFile[0] = '\0';
 			this->m_animation_create_file_dialog.disableWindow();
@@ -164,7 +164,7 @@ void spe::UIAnimation::displayAnimations()
 	ImGui::Dummy(ImVec2(0, 5)); 
 	static float s_ExistCheckCounter = 0.0f;
 
-	s_ExistCheckCounter += spe::Time::s_delta_time;
+	s_ExistCheckCounter += spe::Time::s_DeltaTime;
 
 	for (auto& anim : this->m_ptr_GUIRepo->sprite_in_inspector->animator.animations)
 	{
@@ -266,7 +266,7 @@ void spe::UIAnimation::addAnimationsToAnimator()
 			this->m_ptr_GUIRepo->sprite_in_inspector->animator.createAnimation(this->m_animationFile, path, { });
 		}
 		spe::Savesystem::CreateAnimationSaveFile
-			(this->m_ptr_GUIRepo->sprite_in_inspector, this->m_ptr_GUIRepo->sprite_in_inspector->animator.animations[this->m_animationFile], this->m_ptr_Repo);
+			(this->m_ptr_GUIRepo->sprite_in_inspector, this->m_ptr_GUIRepo->sprite_in_inspector->animator.animations[this->m_animationFile]);
 
 		this->m_animation_create_file_dialog.disableWindow();
 		this->m_animationFile[0] = '\0';

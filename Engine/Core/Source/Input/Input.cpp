@@ -1,26 +1,25 @@
 #include "Input.h"
 
-bool spe::Input::onKeyRelease(spe::KeyBoardCode key)
+bool spe::Input::OnKeyRelease(spe::KeyBoardCode key)
 {
-	return spe::Input::event->type == spe::Event::KeyReleased && spe::Input::event->key == key;
+	return spe::Input::Event->Type == spe::Event::KeyReleased && spe::Input::Event->Key == key;
 }
 
-bool spe::Input::onKeyPress(spe::KeyBoardCode key)
+bool spe::Input::OnKeyPress(spe::KeyBoardCode key)
 {
-	return spe::Input::event->type == spe::Event::KeyPressed && spe::Input::event->key == key;
+	return spe::Input::Event->Type == spe::Event::KeyPressed && spe::Input::Event->Key == key;
 }
 
-bool spe::Input::onKeyHold(spe::KeyBoardCode key)
+bool spe::Input::OnKeyHold(spe::KeyBoardCode key)
 {
 	sf::Keyboard::Key keyd = static_cast<sf::Keyboard::Key>(static_cast<spe::KeyBoardCode>(key));
 
 	return sf::Keyboard::isKeyPressed(keyd);
 }
 
-void spe::Input::setEvent(spe::Event* event)
+void spe::Input::SetEvent(spe::Event* evnt) noexcept
 {
-	spe::Input::event = event;
+	spe::Input::Event = evnt;
 }
 
-
-spe::Event* spe::Input::event = nullptr;
+spe::Event* spe::Input::Event = nullptr;

@@ -158,7 +158,6 @@ void spe::UITopbar::removeScene(const std::string& scene)
 	{
 		return;
 	}
-	size_t idx = -1;
 	for (size_t i = 0; i < this->m_ptr_SceneHandler->TotalScenes.size(); i++)
 	{
 		if (this->m_ptr_SceneHandler->TotalScenes.at(i) == scene)
@@ -289,7 +288,7 @@ void spe::UITopbar::displayEngineInfo()
 	ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(0.5f, 0.5f, 0.5f, 1.0f));
 	ImGui::Text(scene_text.c_str());
 
-	const std::string info_text = "FPS: " + std::to_string(spe::Time::s_fps);
+	const std::string info_text = "FPS: " + std::to_string(spe::Time::s_FPS);
 	ImGui::SetCursorPosX(1650 - ImGui::CalcTextSize(info_text.c_str()).x);
 	ImGui::Text(info_text.c_str());
 
@@ -406,14 +405,14 @@ void spe::UITopbar::renderWindowSelecter()
 
 void spe::UITopbar::hotkeys()
 {
-	if (spe::Input::onKeyHold(spe::KeyBoardCode::LControl)
-		&& spe::Input::onKeyPress(spe::KeyBoardCode::S))
+	if (spe::Input::OnKeyHold(spe::KeyBoardCode::LControl)
+		&& spe::Input::OnKeyPress(spe::KeyBoardCode::S))
 	{
 		spe::Savesystem::SaveEverything(*this->m_ptr_Repo, this->m_ptr_GUIRepo->Camera, this->m_ptr_GUIRepo->background_color, *this->m_ptr_SceneHandler);
 	}
 
-	if (spe::Input::onKeyHold(spe::KeyBoardCode::LControl)
-		&& spe::Input::onKeyPress(spe::KeyBoardCode::B))
+	if (spe::Input::OnKeyHold(spe::KeyBoardCode::LControl)
+		&& spe::Input::OnKeyPress(spe::KeyBoardCode::B))
 	{
 		spe::EngineData::BuildProject();
 	}
@@ -439,7 +438,7 @@ void spe::UITopbar::createScene()
 
 void spe::UITopbar::playGameButton()
 {
-	if (spe::Style::DisplaySmybolAsButton(ICON_FA_PLAY) || spe::Input::onKeyRelease(spe::KeyBoardCode::F5))
+	if (spe::Style::DisplaySmybolAsButton(ICON_FA_PLAY) || spe::Input::OnKeyRelease(spe::KeyBoardCode::F5))
 	{
 		spe::Savesystem::SaveEverything(*this->m_ptr_Repo, this->m_ptr_GUIRepo->Camera, this->m_ptr_GUIRepo->background_color, *this->m_ptr_SceneHandler);
 

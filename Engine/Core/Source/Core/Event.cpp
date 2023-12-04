@@ -2,6 +2,6 @@
 
 spe::Event::Event()
 {
-	type = spe::Event::None;
+	Type = spe::Event::None;
 }
 

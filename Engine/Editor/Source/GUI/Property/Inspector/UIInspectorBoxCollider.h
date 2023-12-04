@@ -23,7 +23,7 @@ namespace spe
 		/// <summary>
 		///  Hardcoded to much shit
 		/// </summary>
-		void renderScaleDotts(spe::Sprite* sprite, spe::Rectangle* ptr_box_collider_rec);
+		void renderScaleDotts(spe::Sprite* sprite);
 		void renderDotts();
 		void unrenderDotts();
 		void reset();

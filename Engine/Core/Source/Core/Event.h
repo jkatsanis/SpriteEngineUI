@@ -16,8 +16,8 @@ namespace spe
 			MouseReleasedLeft,
 		};
 
-		spe::KeyBoardCode key;
-		Type type;
+		spe::KeyBoardCode Key;
+		Type Type;
 
 		Event();
 
