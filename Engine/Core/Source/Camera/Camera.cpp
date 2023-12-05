@@ -51,7 +51,7 @@ void spe::Camera::Update(spe::LightRepository* lightrepo)
 
 	this->CameraView.setCenter(sf::Vector2f(defaultPos.X, defaultPos.Y));
 
-	sf::Shader& shader = lightrepo->getShader();
+	sf::Shader& shader = lightrepo->GetShader();
 
 	sf::Vector2f a = sf::Vector2f(defaultPos.X - 960, defaultPos.Y - 540);
 	shader.setUniform("cameraPosition", a);

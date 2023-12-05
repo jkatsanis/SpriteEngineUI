@@ -200,28 +200,28 @@ spe::Sprite* spe::Initializer::InitSprite(const std::string& line, spe::LightRep
 	spe::Sprite* sprite = new spe::Sprite(propertys[0], position, propertys[6], lightrepo);
 
 	spe::Vector2 vec(std::stof(propertys[4].c_str()), std::stof(propertys[5].c_str()));
-	sprite->Transform.setScale(vec, true);
+	sprite->Transform.SetScale(vec, true);
 
-	sprite->Transform.setRotation(atoi(propertys[7].c_str()));
+	sprite->Transform.SetRotation(atoi(propertys[7].c_str()));
 
 # pragma region Collider
-	sprite->Collider.box_collider_width.X = std::stof(propertys[8].c_str());
-	sprite->Collider.box_collider_width.Y = std::stof(propertys[9].c_str());
+	sprite->Collider.Width.X = std::stof(propertys[8].c_str());
+	sprite->Collider.Width.Y = std::stof(propertys[9].c_str());
 
-	sprite->Collider.box_collider_height.X = std::stof(propertys[10].c_str());
-	sprite->Collider.box_collider_height.Y = std::stof(propertys[11].c_str());
+	sprite->Collider.Height.X = std::stof(propertys[10].c_str());
+	sprite->Collider.Height.Y = std::stof(propertys[11].c_str());
 	sprite->Collider.exist = propertys[12] == "True";
-	sprite->Collider.is_solid = propertys[13] == "True";
+	sprite->Collider.IsSolid = propertys[13] == "True";
 
 #pragma endregion
 # pragma region Sorting Layer
-	sprite->SpriteRenderer.sorting_layer_index = atoi(propertys[14].c_str());
+	sprite->SpriteRenderer.SortinLayerIdx = atoi(propertys[14].c_str());
 
 
 #pragma endregion
 # pragma region PhysicsBody
-	sprite->Physicsbody.gravity = std::stof(propertys[15].c_str());
-	sprite->Physicsbody.mass = std::stof(propertys[16].c_str());
+	sprite->Physicsbody.Gravity = std::stof(propertys[15].c_str());
+	sprite->Physicsbody.Mass = std::stof(propertys[16].c_str());
 	sprite->Physicsbody.exist = propertys[17] == "True";
 
 #pragma endregion
@@ -236,16 +236,16 @@ spe::Sprite* spe::Initializer::InitSprite(const std::string& line, spe::LightRep
 #pragma endregion
 
 # pragma region Position to parent x, and y
-	sprite->Transform.position_to_parent.X = std::stof(propertys[26]);
-	sprite->Transform.position_to_parent.Y = std::stof(propertys[27]);
+	sprite->Transform.PositionToParent.X = std::stof(propertys[26]);
+	sprite->Transform.PositionToParent.Y = std::stof(propertys[27]);
 
 	sprite->Animator.exist = propertys[28] == "True";
 #pragma endregion
 
 # pragma region Prefab
 	sprite->Prefab.exist = propertys[29] == "True";
-	sprite->Prefab.load_in_memory = propertys[30] == "True";
-	sprite->Prefab.user_path_to_file = propertys[31];
+	sprite->Prefab.LoadInMemory = propertys[30] == "True";
+	sprite->Prefab.PathToFile = propertys[31];
 	sprite->Prefab.UpdateName();
 	sprite->Prefab.UpdatePath();
 #pragma endregion
@@ -256,14 +256,14 @@ spe::Sprite* spe::Initializer::InitSprite(const std::string& line, spe::LightRep
 
 
 #pragma region Light
-	sprite->Light.setRadius(std::stof(propertys[34]));
-	sprite->Light.setIntensity(std::stof(propertys[35]));
+	sprite->Light.SetRadius(std::stof(propertys[34]));
+	sprite->Light.SetIntensity(std::stof(propertys[35]));
 	if (propertys[33] == "True")
 	{
-		sprite->Light.enable();
+		sprite->Light.Enable();
 	}
 
-	sprite->SpriteRenderer.effected_by_light = propertys[36] == "True";
+	sprite->SpriteRenderer.EffectedByLight = propertys[36] == "True";
 
 	spe::Vector3 color;
 
@@ -271,10 +271,10 @@ spe::Sprite* spe::Initializer::InitSprite(const std::string& line, spe::LightRep
 	color.Y = std::stof(propertys[38]);
 	color.Z = std::stof(propertys[39]);
 
-	sprite->Light.setColor(spe::Vector3::ToSFVector3(color));
+	sprite->Light.SetColor(spe::Vector3::ToSFVector3(color));
 #pragma endregion
 
-	sprite->Transform.setOrigin();
+	sprite->Transform.SetOrigin();
 
 	return sprite;
 }

@@ -38,15 +38,15 @@ void spe::SpriteRepository::DelteWithId(uint32_t idx)
     spe::Sprite* ptr_delete = this->GetById((int32_t)idx);
     this->AddChildsToDelete(childs_to_delete, ptr_delete);
 
-    uint32_t highest_layer = ptr_delete->SpriteRenderer.sorting_layer_index;
+    uint32_t highest_layer = ptr_delete->SpriteRenderer.SortinLayerIdx;
 
     this->EraseWithIdx(this->GetListIndex(ptr_delete));
 
     for (int i = 0; i < childs_to_delete.size(); i++)
     {
-        if (childs_to_delete[i]->SpriteRenderer.sorting_layer_index > highest_layer)
+        if (childs_to_delete[i]->SpriteRenderer.SortinLayerIdx > highest_layer)
         {
-            highest_layer = childs_to_delete[i]->SpriteRenderer.sorting_layer_index;
+            highest_layer = childs_to_delete[i]->SpriteRenderer.SortinLayerIdx;
         }
         this->EraseWithIdx(this->GetListIndex(childs_to_delete[i]));
     }
@@ -153,13 +153,13 @@ void spe::SpriteRepository::UpdateLayerIndex()
     {
         return;
     }
-    this->m_HighestLayer = this->m_Sprites.front()->SpriteRenderer.sorting_layer_index;
+    this->m_HighestLayer = this->m_Sprites.front()->SpriteRenderer.SortinLayerIdx;
     for (auto it = this->m_Sprites.begin(); it != this->m_Sprites.end(); ++it)
     {
         spe::Sprite* sprite = *it;
-        if (sprite->SpriteRenderer.sorting_layer_index > this->m_HighestLayer)
+        if (sprite->SpriteRenderer.SortinLayerIdx > this->m_HighestLayer)
         {
-            this->m_HighestLayer = sprite->SpriteRenderer.sorting_layer_index;
+            this->m_HighestLayer = sprite->SpriteRenderer.SortinLayerIdx;
         }
     }
 }
@@ -169,7 +169,7 @@ void spe::SpriteRepository::ReloadTextures()
     for (auto it = this->m_Sprites.begin(); it != this->m_Sprites.end(); ++it) 
     {
         spe::Sprite* element = *it;
-        element->SetSpriteTexture(element->SpriteRenderer.path);
+        element->SetSpriteTexture(element->SpriteRenderer.Path);
     }
 }
 
@@ -228,9 +228,9 @@ void spe::SpriteRepository::EraseWithIdx(uint32_t idx)
 
 void spe::SpriteRepository::SortSpritesByLayer(spe::Sprite* spr)
 {
-    if (spr->SpriteRenderer.sorting_layer_index >= this->m_HighestLayer)
+    if (spr->SpriteRenderer.SortinLayerIdx >= this->m_HighestLayer)
     {
-        this->m_HighestLayer = spr->SpriteRenderer.sorting_layer_index;
+        this->m_HighestLayer = spr->SpriteRenderer.SortinLayerIdx;
         this->m_Sprites.push_back(spr);
         return;
     }
@@ -239,7 +239,7 @@ void spe::SpriteRepository::SortSpritesByLayer(spe::Sprite* spr)
     {
         const spe::Sprite* read = *it;
 
-        if (read->SpriteRenderer.sorting_layer_index > spr->SpriteRenderer.sorting_layer_index)
+        if (read->SpriteRenderer.SortinLayerIdx > spr->SpriteRenderer.SortinLayerIdx)
         {
             this->m_Sprites.insert(it, spr);
             return;
@@ -284,13 +284,13 @@ void spe::SpriteRepository::SortSpritesByLayer()
         this->SortSpritesByLayer(spr);
     }
 
-    this->m_HighestLayer = this->m_Sprites.back()->SpriteRenderer.sorting_layer_index;
+    this->m_HighestLayer = this->m_Sprites.back()->SpriteRenderer.SortinLayerIdx;
 }
 
 void spe::SpriteRepository::SetSpriteSortingLayer(uint32_t layer, spe::Sprite* spr)
 {
-    uint32_t old = spr->SpriteRenderer.sorting_layer_index;
-    spr->SpriteRenderer.sorting_layer_index = layer;
+    uint32_t old = spr->SpriteRenderer.SortinLayerIdx;
+    spr->SpriteRenderer.SortinLayerIdx = layer;
 
     // Rare Case of chaning the highest layer#
     if (old == this->m_HighestLayer

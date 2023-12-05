@@ -9,8 +9,8 @@ void spe::UIAnimation::Init()
 	const std::string pathToAssets = "Assets\\";
 	this->m_animation_open_file_dialog = spe::FileDialog(pathToAssets, ICON_FA_PLUS, "Open Animation", ImVec2(500, 250), true, spe::Style::s_DefaultFontSize);
 	this->m_animation_create_file_dialog = spe::FileDialog(pathToAssets, ICON_FA_PLUS, "Create Animation", ImVec2(500, 250), false, spe::Style::s_DefaultFontSize);
-	this->m_animation_create_file_dialog.setFirstNode("assets");
-	this->m_animation_open_file_dialog.setFirstNode("assets");
+	this->m_animation_create_file_dialog.SetFirstNode("assets");
+	this->m_animation_open_file_dialog.SetFirstNode("assets");
 	this->m_background_counter = START_CNT_BG;
 
 	this->m_ptr_GUIRepo->AnimationData.IsOpen = false;
@@ -75,12 +75,12 @@ void spe::UIAnimation::getFileNameInput()
 	ImGui::SetCursorPos(open_pos);
 	if (spe::Style::DisplaySmybolAsButton(ICON_FA_PLUS))
 	{
-		this->m_animation_open_file_dialog.enableWindow("Open animation");
+		this->m_animation_open_file_dialog.EnableWindow("Open animation");
 	}
 
 	ImGui::SetCursorPos(pos);
 
-	this->m_animation_open_file_dialog.update();
+	this->m_animation_open_file_dialog.Update();
 
 	////////////////////
 	// Handling the open_file_dialog
@@ -88,10 +88,10 @@ void spe::UIAnimation::getFileNameInput()
 	{
 		spe::Sprite* sprite = this->m_ptr_GUIRepo->sprite_in_inspector;
 		// Loading the sprites from the user directory
-		const std::string ext = "." + spe::Utility::GetFileExtension(this->m_animation_open_file_dialog.pathClicked);
+		const std::string ext = "." + spe::Utility::GetFileExtension(this->m_animation_open_file_dialog.PathClicked);
 		if (ext == EXTENSION_ANIMATION_FILE)
 		{
-			spe::Initializer::InitAnimation(this->m_animation_open_file_dialog.pathClicked, sprite);
+			spe::Initializer::InitAnimation(this->m_animation_open_file_dialog.PathClicked, sprite);
 			// Updating the file here because a new animation got added
 		}
 		else
@@ -99,14 +99,14 @@ void spe::UIAnimation::getFileNameInput()
 			spe::Log::LogString("Animation was not in the right format!");
 		}
 
-		this->m_animation_open_file_dialog.disableWindow();
+		this->m_animation_open_file_dialog.DisableWindow();
 	}
 
 	const std::string icon_2 = ICON_FA_PLUS + std::string("##ADD");
 	// Open popup
 	if (spe::Style::DisplaySmybolAsButton(icon_2.c_str()))
 	{
-		this->m_animation_create_file_dialog.enableWindow();
+		this->m_animation_create_file_dialog.EnableWindow();
 	}
 
 	ImGui::SameLine();
@@ -115,11 +115,11 @@ void spe::UIAnimation::getFileNameInput()
 
 	ImGui::Text("Add animation");
 
-	this->m_animation_create_file_dialog.update();
+	this->m_animation_create_file_dialog.Update();
 	
 	////////////////////
 	// Handling the creat_file_dialog
-	if (this->m_animation_create_file_dialog.pathClicked == "")
+	if (this->m_animation_create_file_dialog.PathClicked == "")
 	{
 		return;
 	}
@@ -135,7 +135,7 @@ void spe::UIAnimation::getFileNameInput()
 		if (ImGui::Button("x") || spe::Input::OnKeyPress(spe::KeyBoardCode::Escape))
 		{
 			this->m_animationFile[0] = '\0';
-			this->m_animation_create_file_dialog.disableWindow();
+			this->m_animation_create_file_dialog.DisableWindow();
 		}
 		ImGui::SetCursorPos(old);
 
@@ -144,7 +144,7 @@ void spe::UIAnimation::getFileNameInput()
 		{
 			this->Hovered = true;
 		}
-		const std::string path = spe::Utility::getUserProjectPathSeperatetFromEnginePath(this->m_animation_create_file_dialog.pathClicked);
+		const std::string path = spe::Utility::getUserProjectPathSeperatetFromEnginePath(this->m_animation_create_file_dialog.PathClicked);
 		std::string createAnimtionAt = "Create animation file at: " + path;
 		ImGui::Text(createAnimtionAt.c_str());
 		ImGui::Text("Press Enter when u are done giving it a name");
@@ -246,7 +246,7 @@ void spe::UIAnimation::renderAnimationUIOptions()
 
 void spe::UIAnimation::addAnimationsToAnimator()
 {
-	if (this->m_animation_create_file_dialog.pathClicked != "" && ImGui::IsKeyReleased(ImGuiKey_Enter))
+	if (this->m_animation_create_file_dialog.PathClicked != "" && ImGui::IsKeyReleased(ImGuiKey_Enter))
 	{
 		for (std::pair<std::string, spe::Animation> anim : this->m_ptr_GUIRepo->sprite_in_inspector->Animator.Animations)
 		{
@@ -260,7 +260,7 @@ void spe::UIAnimation::addAnimationsToAnimator()
 		if (this->m_animationFile[0] != '\0')
 		{
 			const std::string& path = 
-				this->m_animation_create_file_dialog.pathClicked
+				this->m_animation_create_file_dialog.PathClicked
 				+ this->m_animationFile
 				+ EXTENSION_ANIMATION_FILE;
 			this->m_ptr_GUIRepo->sprite_in_inspector->Animator.CreateAnimation(this->m_animationFile, path, { });
@@ -268,7 +268,7 @@ void spe::UIAnimation::addAnimationsToAnimator()
 		spe::Savesystem::CreateAnimationSaveFile
 			(this->m_ptr_GUIRepo->sprite_in_inspector, this->m_ptr_GUIRepo->sprite_in_inspector->Animator.Animations[this->m_animationFile]);
 
-		this->m_animation_create_file_dialog.disableWindow();
+		this->m_animation_create_file_dialog.DisableWindow();
 		this->m_animationFile[0] = '\0';
 	}
 }

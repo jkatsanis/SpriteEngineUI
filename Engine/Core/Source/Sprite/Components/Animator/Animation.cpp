@@ -17,7 +17,7 @@ spe::Animation::Animation()
 spe::Animation::Animation(Sprite* ptr_appliedSprite, const std::string& name, const std::string fileLocation, const std::vector<spe::KeyFrame>& frames)
 {
 	this->TotalFramePassed = 0.0f;
-	this->m_BasePath = ptr_appliedSprite->SpriteRenderer.path;
+	this->m_BasePath = ptr_appliedSprite->SpriteRenderer.Path;
 	this->m_PathToFile = fileLocation;
 	this->TimePassed = 2.0f;
 	this->CurrentFrame = -1;
@@ -60,7 +60,7 @@ spe::Animation::Animation(spe::Sprite* ptr_applied_sprite, const spe::Animation&
 void spe::Animation::InitCopyCtor(const spe::Animation& animation)
 {
 	this->m_Name = animation.m_Name;
-	this->m_BasePath = this->ptr_AppliedSprite->SpriteRenderer.path;
+	this->m_BasePath = this->ptr_AppliedSprite->SpriteRenderer.Path;
 	this->Loop = animation.Loop;
 	this->m_PathToFile = animation.m_PathToFile;
 
@@ -103,7 +103,7 @@ void spe::Animation::DeleteKeyFrame(const int pos)
 
 void spe::Animation::Play()
 {
-	this->m_BasePath = this->ptr_AppliedSprite->SpriteRenderer.path;
+	this->m_BasePath = this->ptr_AppliedSprite->SpriteRenderer.Path;
 	this->TimePassed = 0.0f;
 	this->TotalFramePassed = 0;
 	this->TotalTimePassed = 0.0f;
@@ -131,7 +131,7 @@ void spe::Animation::Update()
 			if(this->Loop)
 			{
 				// Hard coding the path bc skill issue
-				this->ptr_AppliedSprite->SpriteRenderer.path = this->m_BasePath;
+				this->ptr_AppliedSprite->SpriteRenderer.Path = this->m_BasePath;
 				this->Play();
 			}
 			else
@@ -215,7 +215,7 @@ void spe::Animation::AddKeyFrameAt(const int vecpos, const spe::KeyFrame& frame)
 		return;
 	}
 
-	this->m_BasePath = this->ptr_AppliedSprite->SpriteRenderer.path;
+	this->m_BasePath = this->ptr_AppliedSprite->SpriteRenderer.Path;
 	this->m_Keyframes.insert(this->m_Keyframes.begin() + vecpos, frame);
 	this->m_Textures.insert(this->m_Textures.begin() + vecpos, text);
 }

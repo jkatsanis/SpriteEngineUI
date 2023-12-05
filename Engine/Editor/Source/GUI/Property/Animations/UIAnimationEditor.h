@@ -22,17 +22,17 @@ namespace spe
 		const float SMALL_INCREMENT = 0.5f;
 		const float LARGE_INCREMENT = 2;
 
-		char m_keyFramePathDataHolder[100];
-		int m_key_frame_pos;
-		std::string m_key_frame_path;
+		char m_KeyFramePath[100];
+		int m_KeyFramePos;
+		std::string m_KeyFramePath;
 
-		float m_cursor_space;
-		int m_keyFramesToEdit;
+		float m_CursorSpace;
+		int m_KeyFramesToEdit;
 		spe::UIAnimationKeyFrameAdder m_FrameAdder;
 		 
-		void renderTimeLineRealTimePoint();
-		void zoomEditorTimeLine();
-		void renderKeyFrames();
+		void RenderTimeLineRealTimePoint();
+		void ZoomEditorTimeLine();
+		void RenderKeyFrames();
 		void addKeyFrame();
 		void beginWindow();
 		void closeWindow();

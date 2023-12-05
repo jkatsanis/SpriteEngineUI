@@ -67,46 +67,46 @@ std::string spe::Savesystem::GetPropertyLineWithSeperator(const spe::Sprite* spr
 	std::string line;
 	const std::string transformPosX = std::to_string(sprite->Transform.GetPosition().X);
 	const std::string transformPosY = std::to_string(sprite->Transform.GetPosition().Y);
-	const std::string scaleX = std::to_string(sprite->Transform.getScale().X);
-	const std::string scaleY = std::to_string(sprite->Transform.getScale().Y);
-	const std::string spritePath = sprite->SpriteRenderer.path;
+	const std::string scaleX = std::to_string(sprite->Transform.GetScale().X);
+	const std::string scaleY = std::to_string(sprite->Transform.GetScale().Y);
+	const std::string spritePath = sprite->SpriteRenderer.Path;
 
-	const std::string boxColliderWidthLeftOrRightX = std::to_string(sprite->Collider.box_collider_width.X);
-	const std::string boxColliderWidthLeftOrRightY = std::to_string(sprite->Collider.box_collider_width.Y);
+	const std::string boxColliderWidthLeftOrRightX = std::to_string(sprite->Collider.Width.X);
+	const std::string boxColliderWidthLeftOrRightY = std::to_string(sprite->Collider.Width.Y);
 
-	const std::string boxColliderHeightUpOrDownX = std::to_string(sprite->Collider.box_collider_height.X);
-	const std::string boxColliderHeightUpOrDownY = std::to_string(sprite->Collider.box_collider_height.Y);
+	const std::string boxColliderHeightUpOrDownX = std::to_string(sprite->Collider.Height.X);
+	const std::string boxColliderHeightUpOrDownY = std::to_string(sprite->Collider.Height.Y);
 
 	const std::string colliderExists = spe::Utility::BoolToStr(sprite->Collider.exist);
-	const std::string isSolid = spe::Utility::BoolToStr(sprite->Collider.is_solid);
-	const std::string sortingLayer = std::to_string(sprite->SpriteRenderer.sorting_layer_index);
-	const std::string gravity = std::to_string(sprite->Physicsbody.gravity);
-	const std::string mass = std::to_string(sprite->Physicsbody.mass);
+	const std::string isSolid = spe::Utility::BoolToStr(sprite->Collider.IsSolid);
+	const std::string sortingLayer = std::to_string(sprite->SpriteRenderer.SortinLayerIdx);
+	const std::string gravity = std::to_string(sprite->Physicsbody.Gravity);
+	const std::string mass = std::to_string(sprite->Physicsbody.Mass);
 	const std::string bodyExist = spe::Utility::BoolToStr(sprite->Physicsbody.exist);
 	const std::string id = std::to_string(sprite->GetId());
 	const std::string parentId = std::to_string(sprite->GetParentId());
 
-	const std::string positionToParentX = std::to_string(sprite->Transform.position_to_parent.X);
-	const std::string positionToParentY = std::to_string(sprite->Transform.position_to_parent.Y);
+	const std::string positionToParentX = std::to_string(sprite->Transform.PositionToParent.X);
+	const std::string positionToParentY = std::to_string(sprite->Transform.PositionToParent.Y);
 
 	const std::string animatorExist = spe::Utility::BoolToStr(sprite->Animator.exist);
 
 	const std::string prefabExist = spe::Utility::BoolToStr(sprite->Prefab.exist);
-	const std::string loadInMemory = spe::Utility::BoolToStr(sprite->Prefab.load_in_memory);
-	const std::string pathToPrefab = sprite->Prefab.user_path_to_file;
-	const std::string rotation = std::to_string(sprite->Transform.getRotation());
+	const std::string loadInMemory = spe::Utility::BoolToStr(sprite->Prefab.LoadInMemory);
+	const std::string pathToPrefab = sprite->Prefab.PathToFile;
+	const std::string rotation = std::to_string(sprite->Transform.GetRotation());
 	const std::string tag = sprite->Tag;
 
 	const std::string lightExist = spe::Utility::BoolToStr(sprite->Light.exist);
-	const std::string light_radiues = std::to_string(sprite->Light.getRadius());
-	const std::string light_intensy = std::to_string(sprite->Light.getIntensity());
-	const std::string effected_by_light = spe::Utility::BoolToStr(sprite->SpriteRenderer.effected_by_light);
+	const std::string light_radiues = std::to_string(sprite->Light.GetRadius());
+	const std::string light_intensy = std::to_string(sprite->Light.GetIntensity());
+	const std::string effected_by_light = spe::Utility::BoolToStr(sprite->SpriteRenderer.EffectedByLight);
 
-	const std::string light_color_r = std::to_string(sprite->Light.getColor().x);
-	const std::string light_color_g = std::to_string(sprite->Light.getColor().y);
-	const std::string light_color_b = std::to_string(sprite->Light.getColor().z);
+	const std::string light_color_r = std::to_string(sprite->Light.GetColor().x);
+	const std::string light_color_g = std::to_string(sprite->Light.GetColor().y);
+	const std::string light_color_b = std::to_string(sprite->Light.GetColor().z);
 
-	const std::string render = spe::Utility::BoolToStr(sprite->SpriteRenderer.render);
+	const std::string render = spe::Utility::BoolToStr(sprite->SpriteRenderer.Render);
 
 	//Name, vec, transform path, rotation
 	line = sprite->Name + ";" + "0" + ";" + transformPosX + ";" + transformPosY + ";" + scaleX + ";" + scaleY + ";" + spritePath + ";" + rotation;

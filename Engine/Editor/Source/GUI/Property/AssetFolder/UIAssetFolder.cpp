@@ -154,7 +154,7 @@ void spe::UIAssetFolder::addPrefab()
     {
         const std::string pathToFile = this->m_current_path + "\\" + this->m_ptr_GUIRepo->child_to_parent->Name + EXTENSION_PREFAB_FILE;
         
-        this->m_ptr_GUIRepo->child_to_parent->Prefab.updateProps(pathToFile, pathToFile, this->m_ptr_GUIRepo->child_to_parent->Name + EXTENSION_PREFAB_FILE);
+        this->m_ptr_GUIRepo->child_to_parent->Prefab.UpdateProps(pathToFile, pathToFile, this->m_ptr_GUIRepo->child_to_parent->Name + EXTENSION_PREFAB_FILE);
 
         spe::Savesystem::CreateOrUpdatePrefabFile(this->m_ptr_GUIRepo->child_to_parent, pathToFile, pathToFile);
     }
@@ -184,7 +184,7 @@ void spe::UIAssetFolder::renderFolderHierarchyRecursiv(const char* path, const c
     }
     this->m_interacted = false;
 
-    if (!spe::FileDialog::checkIfADirHasSubItems(path, false))
+    if (!spe::FileDialog::CheckIfADirHasSubItems(path, false))
     {
         ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 3.5f );
         if (spe::Style::DisplaySymbolInMenuItemWithText(ICON_FA_FOLDER, name, 30))

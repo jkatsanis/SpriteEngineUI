@@ -12,9 +12,9 @@ namespace spe
 	private:
 		void init() override;
 	public:
-		float mass;
-		float gravity;
-		spe::Vector2 velocity;
+		float Mass;
+		float Gravity;
+		spe::Vector2 Velocity;
 		spe::Sprite* ptr_Sprite;
 
 		PhsysicsBody();

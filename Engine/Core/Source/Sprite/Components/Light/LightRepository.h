@@ -2,11 +2,9 @@
 
 #include <vector>
 #include <unordered_map>
-
 #include <Include/SFML/Graphics.hpp>
 
 #include "Sprite/Components/Light/LightSource.h"
-
 #include "RessourceHandler/FileDataMacros.h"
 
 namespace spe
@@ -16,26 +14,26 @@ namespace spe
     class LightRepository 
     {
     private:
-        std::unordered_map<uint32_t, spe::LightSource> m_light_sources;
-        sf::Shader m_light_shader; // Only 1 shader, (circle-ish)
-        uint32_t m_index;
-        bool m_update;
+        std::unordered_map<uint32_t, spe::LightSource> m_LightSources;
+        sf::Shader m_LightShader; // Only 1 shader, (circle-ish)
+        uint32_t m_Index;
+        bool m_Update;
 
-        sf::Vector2f* getPositionArray();
+        sf::Vector2f* GetPositionArray();
 
     public:
         void Init(const std::string& shader);
-        void updateArrays();
+        void UpdateArrays();
 
-        void updateLightSource(spe::Sprite* sprite, spe::Camera* cam);
-        void updateSprite(spe::Sprite* sprite, spe::Camera* cam);
+        void UpdateLightSource(spe::Sprite* sprite, spe::Camera* cam);
+        void UpdateSprite(spe::Sprite* sprite, spe::Camera* cam);
 
-        void add(const spe::Vector2& pos, float radius, float intensity, const sf::Vector3f& color);
-        void remove(uint32_t index);
+        void Add(const spe::Vector2& pos, float radius, float intensity, const sf::Vector3f& color);
+        void Remove(uint32_t index);
 
-        void moveLightSource(uint32_t idx, const spe::Vector2& pos);
+        void MoveLightSource(uint32_t idx, const spe::Vector2& pos);
 
-        uint32_t getIndex() const { return m_index; }
-        sf::Shader& getShader() { return m_light_shader; }
+        uint32_t GetIndex() const noexcept{ return m_Index; }
+        sf::Shader& GetShader() noexcept { return m_LightShader; }
     };
 }

@@ -9,27 +9,27 @@ spe::SpriteRenderer::SpriteRenderer()
 
 spe::SpriteRenderer::SpriteRenderer(const spe::SpriteRenderer& rhs)
 {
-	this->effected_by_light = rhs.effected_by_light;
-	this->path = rhs.path;
-	this->sorting_layer_index = rhs.sorting_layer_index;
-	this->effected_by_light = rhs.effected_by_light;
+	this->EffectedByLight = rhs.EffectedByLight;
+	this->Path = rhs.Path;
+	this->SortinLayerIdx = rhs.SortinLayerIdx;
+	this->EffectedByLight = rhs.EffectedByLight;
 }
 
 void spe::SpriteRenderer::init()
 {
-	this->render = true;
+	this->Render = true;
 	this->base_component = true;
-	this->effected_by_light = false;
-	this->path = "";
+	this->EffectedByLight = false;
+	this->Path = "";
 	this->exist = true;
-	this->sorting_layer_index = 0;
+	this->SortinLayerIdx = 0;
 }
 
 // Public functions
 
 void spe::SpriteRenderer::reset()
 {
-	this->path = "defaultpath";
+	this->Path = "defaultpath";
 	this->exist = true;
-	this->sorting_layer_index = 0;
+	this->SortinLayerIdx = 0;
 }

@@ -11,41 +11,41 @@ spe::Transform::Transform()
 spe::Transform::Transform(spe::Sprite* attached)
 {
 	this->init();
-	this->m_attached_sprite = attached;
+	this->ptr_Sprite = attached;
 }
 
 spe::Transform::Transform(spe::Sprite* attachedSprite, spe::Transform& transform)
 {
 	this->init();
-	this->m_attached_sprite = attachedSprite;
+	this->ptr_Sprite = attachedSprite;
 	this->m_Position = transform.m_Position;
-	this->m_rotation = transform.m_rotation;
-	this->m_scale = transform.m_scale;
-	this->texture_size = transform.texture_size;
-	this->position_to_parent = transform.position_to_parent;
+	this->m_Rotation = transform.m_Rotation;
+	this->m_Scale = transform.m_Scale;
+	this->TextureSize = transform.TextureSize;
+	this->PositionToParent = transform.PositionToParent;
 
-	this->setScale(this->m_scale, true);
-	this->setOrigin();
-	this->setTextureSize(this->m_scale);
+	this->SetScale(this->m_Scale, true);
+	this->SetOrigin();
+	this->SetTextureSize(this->m_Scale);
 }
 
 void spe::Transform::init()
 {
 	this->base_component = true;
-	this->m_attached_sprite = nullptr;
-	this->m_rotation = 0;
-	this->m_scale = spe::Vector2(1, 1);
+	this->ptr_Sprite = nullptr;
+	this->m_Rotation = 0;
+	this->m_Scale = spe::Vector2(1, 1);
 }
 
 // Private functions
 
 void spe::Transform::UpdateSpritePositionToParent(const spe::Vector2& position)
 {
-	if (this->m_attached_sprite == nullptr)
+	if (this->ptr_Sprite == nullptr)
 	{
 		return;
 	}
-	for (spe::Sprite* spr : this->m_attached_sprite->ptr_Childs)
+	for (spe::Sprite* spr : this->ptr_Sprite->ptr_Childs)
 	{
 		spe::Vector2 distance = this->m_Position - position;
 
@@ -62,50 +62,50 @@ spe::Vector2 spe::Transform::HandleCollisions(const spe::Vector2& position)
 {
 	spe::Vector2 new_position(position);
 
-	if (this->m_attached_sprite == nullptr || !this->m_attached_sprite->Collider.exist || !this->m_attached_sprite->Collider.collided)
+	if (this->ptr_Sprite == nullptr || !this->ptr_Sprite->Collider.exist || !this->ptr_Sprite->Collider.Collided)
 	{
 		// No collision check
 		return new_position;
 	}
 
-	const float current_y = this->m_attached_sprite->Transform.m_Position.Y;
-	const float current_x = this->m_attached_sprite->Transform.m_Position.X;
+	const float current_y = this->ptr_Sprite->Transform.m_Position.Y;
+	const float current_x = this->ptr_Sprite->Transform.m_Position.X;
 
 	// Down	
-	if (this->m_attached_sprite->Collider.down)
+	if (this->ptr_Sprite->Collider.Down)
 	{
 		if (position.Y < this->m_Position.Y
-			&& this->m_attached_sprite->Physicsbody.velocity.Y <= 0)
+			&& this->ptr_Sprite->Physicsbody.Velocity.Y <= 0)
 		{
 			new_position.Y = current_y;
 		}
 	}
 
 	// Up	
-	if (this->m_attached_sprite->Collider.up)
+	if (this->ptr_Sprite->Collider.Up)
 	{
 		if (position.Y > this->m_Position.Y
-			&& this->m_attached_sprite->Physicsbody.velocity.Y >= 0)
+			&& this->ptr_Sprite->Physicsbody.Velocity.Y >= 0)
 		{
 			new_position.Y = current_y;
 		}
 	}
 
 	// Left	
-	if (this->m_attached_sprite->Collider.left)
+	if (this->ptr_Sprite->Collider.Left)
 	{
 		if (position.X < this->m_Position.X
-			&& this->m_attached_sprite->Physicsbody.velocity.X <= 0)
+			&& this->ptr_Sprite->Physicsbody.Velocity.X <= 0)
 		{
 			new_position.X = current_x;
 		}
 	}
 
 	// Right	
-	if (this->m_attached_sprite->Collider.right)
+	if (this->ptr_Sprite->Collider.Right)
 	{
 		if (position.X > this->m_Position.X
-			&& this->m_attached_sprite->Physicsbody.velocity.X >= 0)
+			&& this->ptr_Sprite->Physicsbody.Velocity.X >= 0)
 		{
 			new_position.X = current_x;
 		}
@@ -120,7 +120,7 @@ void spe::Transform::SetPosition(const spe::Vector2& position)
 {
 	if (this->m_Position == position)
 	{
-		this->position_changed = false;
+		this->PositionChanged = false;
 		return;
 	}
 
@@ -128,15 +128,15 @@ void spe::Transform::SetPosition(const spe::Vector2& position)
 
 	this->UpdateSpritePositionToParent(new_pos);
 	this->m_Position = new_pos;
-	this->position_changed = true;
+	this->PositionChanged = true;
 
-	if (this->m_attached_sprite != nullptr)
+	if (this->ptr_Sprite != nullptr)
 	{
-		this->m_attached_sprite->GetSprite().setPosition(sf::Vector2f(new_pos.X + 960, 540 - new_pos.Y));
+		this->ptr_Sprite->GetSprite().setPosition(sf::Vector2f(new_pos.X + 960, 540 - new_pos.Y));
 	}
 }
 
-void spe::Transform::setTextureSize(const spe::Vector2& scale)
+void spe::Transform::SetTextureSize(const spe::Vector2& scale)
 {
 	spe::Vector2 multiply = scale;
 
@@ -149,63 +149,63 @@ void spe::Transform::setTextureSize(const spe::Vector2& scale)
 		multiply.Y = multiply.Y * -1;
 	}
 
-	sf::IntRect textureRect = this->m_attached_sprite->GetSprite().getTextureRect();
-	this->texture_size = spe::Vector2(textureRect.width * multiply.X, textureRect.height * multiply.Y);
-	this->setOrigin();
+	sf::IntRect textureRect = this->ptr_Sprite->GetSprite().getTextureRect();
+	this->TextureSize = spe::Vector2(textureRect.width * multiply.X, textureRect.height * multiply.Y);
+	this->SetOrigin();
 }
 
-void spe::Transform::calculateScaleXByWorldPosition(const float posX)
+void spe::Transform::CalculateScaleXByWorldPosition(const float posX)
 {
-	float scaleX = posX / this->texture_size.X;
+	float scaleX = posX / this->TextureSize.X;
 
-	this->setScale(spe::Vector2(scaleX, this->m_scale.Y));
+	this->SetScale(spe::Vector2(scaleX, this->m_Scale.Y));
 }
 
-spe::Vector2 spe::Transform::getDefaultTextureSize() const
+spe::Vector2 spe::Transform::GetDefaultTextureSize() const noexcept
 {
-	spe::Vector2 scale = this->m_scale;
+	spe::Vector2 scale = this->m_Scale;
 
-	if (this->m_scale.X < 0)
+	if (this->m_Scale.X < 0)
 	{
 		scale.X = scale.X * -1;
 	}
-	if (this->m_scale.Y < 0)
+	if (this->m_Scale.Y < 0)
 	{
 		scale.Y = scale.Y * -1;
 	}
-	return spe::Vector2(this->texture_size.X / scale.X, this->texture_size.Y / scale.Y);
+	return spe::Vector2(this->TextureSize.X / scale.X, this->TextureSize.Y / scale.Y);
 }
 
-void spe::Transform::setRotation(uint32_t angle)
+void spe::Transform::SetRotation(uint32_t angle)
 {
-	this->m_rotation = angle % 360;
-	this->m_attached_sprite->GetSprite().setRotation((float)this->m_rotation);
+	this->m_Rotation = angle % 360;
+	this->ptr_Sprite->GetSprite().setRotation((float)this->m_Rotation);
 }
 
-void spe::Transform::setOrigin()
+void spe::Transform::SetOrigin()
 {
-	sf::Sprite& spr = this->m_attached_sprite->GetSprite();
-	spr.setOrigin(sf::Vector2f(this->getDefaultTextureSize().X / 2, this->getDefaultTextureSize().Y / 2));
+	sf::Sprite& spr = this->ptr_Sprite->GetSprite();
+	spr.setOrigin(sf::Vector2f(this->GetDefaultTextureSize().X / 2, this->GetDefaultTextureSize().Y / 2));
 }
 
-void spe::Transform::setScale(const spe::Vector2& scale, bool b)
+void spe::Transform::SetScale(const spe::Vector2& scale, bool b)
 {
-	if (this->m_scale == scale && !b)
+	if (this->m_Scale == scale && !b)
 	{
 		return;
 	}
 
-	this->setTextureSize(scale);
+	this->SetTextureSize(scale);
 
-	this->m_scale = scale;
-	this->m_attached_sprite->GetSprite().setScale(scale.X, scale.Y);
-	this->setOrigin();
+	this->m_Scale = scale;
+	this->ptr_Sprite->GetSprite().setScale(scale.X, scale.Y);
+	this->SetOrigin();
 }
 
-spe::Vector2 spe::Transform::getOrigininalPosition() const
+spe::Vector2 spe::Transform::GetOrigininalPosition() const
 {
-	float x = this->m_attached_sprite->GetSprite().getPosition().x - this->texture_size.X / 2;
-	float y = this->m_attached_sprite->GetSprite().getPosition().y - this->texture_size.Y / 2;
+	float x = this->ptr_Sprite->GetSprite().getPosition().x - this->TextureSize.X / 2;
+	float y = this->ptr_Sprite->GetSprite().getPosition().y - this->TextureSize.Y / 2;
 
 	return spe::Vector2(x, y);
 }
@@ -213,6 +213,6 @@ spe::Vector2 spe::Transform::getOrigininalPosition() const
 void spe::Transform::reset()
 {
 	this->m_Position = spe::Vector2(0, 0);
-	this->setScale(spe::Vector2(1, 1));
+	this->SetScale(spe::Vector2(1, 1));
 }
 

@@ -21,7 +21,7 @@ spe::Sprite::Sprite(std::string name, spe::Vector2 spawnPosition, std::string pa
 
 spe::Sprite::Sprite(spe::Sprite& rhs)
 {
-	this->InitVariables(rhs.Transform.GetPosition(), rhs.SpriteRenderer.path, *rhs.Light.m_ptr_LighRepository);
+	this->InitVariables(rhs.Transform.GetPosition(), rhs.SpriteRenderer.Path, *rhs.Light.m_ptr_LighRepository);
 
 	this->Collider = spe::BoxCollider(this, rhs.Collider);
 	this->Transform = spe::Transform(this, rhs.Transform);
@@ -48,7 +48,7 @@ spe::Sprite::~Sprite()
 	this->ClearAllChilds();
 	this->ClearParentData();
 
-	this->Light.deleteLight();
+	this->Light.DeleteLight();
 
 	delete this->m_Texture;
 	this->m_Texture = nullptr;
@@ -78,16 +78,16 @@ void spe::Sprite::SetSpriteTexture(const std::string& path, const spe::Vector2& 
 		spe::Log::LogString(error);
 	}
 	this->SetSpriteTexture(*this->m_Texture, path);
-	this->Transform.setScale(scale, true);
+	this->Transform.SetScale(scale, true);
 }
 
 void spe::Sprite::SetSpriteTexture(const sf::Texture& texture, const std::string& path)
 {
 	this->m_Sprite.setTexture(texture, true);
-	this->Transform.setScale(this->Transform.getScale(), true);
-	this->SpriteRenderer.path = path;
+	this->Transform.SetScale(this->Transform.GetScale(), true);
+	this->SpriteRenderer.Path = path;
 
-	this->Transform.setOrigin();
+	this->Transform.SetOrigin();
 }
 
 void spe::Sprite::SetId(const int32_t id) noexcept
@@ -123,7 +123,7 @@ void spe::Sprite::SetParent(spe::Sprite* spriteParent)
 
 	spe::Sprite* child = this;
 	spe::Vector2 distance = spe::Vector2(spriteParent->Transform.GetPosition() - child->Transform.GetPosition());
-	child->Transform.position_to_parent = distance;
+	child->Transform.PositionToParent = distance;
 
 	spriteParent->ptr_Childs.push_back(this);
 }
@@ -164,14 +164,14 @@ void spe::Sprite::InitVariables(spe::Vector2 spawnPos, std::string path, spe::Li
 	this->ptr_Parent = nullptr;
 	this->ptr_Childs = std::vector<spe::Sprite*>(0);
 	this->Name = Name;
-	this->SpriteRenderer.path = path;
+	this->SpriteRenderer.Path = path;
 	this->m_SetId = false;
 
-	this->SpriteRenderer.sorting_layer_index = 0;
+	this->SpriteRenderer.SortinLayerIdx = 0;
 
-	this->Transform.setOrigin();
-	this->Transform.setScale(spe::Vector2(1, 1), true);
-	this->Transform.setRotation(0);
+	this->Transform.SetOrigin();
+	this->Transform.SetScale(spe::Vector2(1, 1), true);
+	this->Transform.SetRotation(0);
 	this->Transform.SetPosition(spawnPos);
 
 	this->SetSpriteTexture(path);

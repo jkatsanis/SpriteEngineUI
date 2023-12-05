@@ -93,11 +93,11 @@ void spe::GameWindow::PollEvents()
 
 void spe::GameWindow::Draw(spe::Sprite* ptr, const sf::Shader* shader)
 {
-	if (!ptr->SpriteRenderer.render)
+	if (!ptr->SpriteRenderer.Render)
 	{
 		return;
 	}
-	if (shader != nullptr && ptr->SpriteRenderer.effected_by_light)
+	if (shader != nullptr && ptr->SpriteRenderer.EffectedByLight)
 	{
 		this->m_ptr_Window->draw(ptr->GetSprite(), shader);
 	}

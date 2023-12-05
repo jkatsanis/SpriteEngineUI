@@ -392,11 +392,11 @@ void spe::UIHierarchy::drawRenderSymbol(spe::Sprite* child)
 {
 	const ImVec2 cursor = ImGui::GetCursorPos();
 	ImGui::SetCursorPos(ImVec2(17, cursor.y - 5));
-	const std::string icon = child->SpriteRenderer.render ? ICON_FA_EYE : ICON_FA_EYE_SLASH;
+	const std::string icon = child->SpriteRenderer.Render ? ICON_FA_EYE : ICON_FA_EYE_SLASH;
 	const std::string name = icon + std::string("##") + std::to_string(child->GetId());
 	if (spe::Style::DisplaySmybolAsButton(name.c_str()))
 	{
-		child->SpriteRenderer.render = !child->SpriteRenderer.render;
+		child->SpriteRenderer.Render = !child->SpriteRenderer.Render;
 	}
 	ImGui::SetCursorPos(cursor);
 }

@@ -94,11 +94,11 @@ void spe::Editor::UpdateComponents()
 			sprite->Physicsbody.Update();
 		}
 
-		this->m_SceneHandler.LightRepository.updateLightSource(sprite, &this->m_GUIRepository.Camera);
+		this->m_SceneHandler.LightRepository.UpdateLightSource(sprite, &this->m_GUIRepository.Camera);
 
-		this->m_Window.Draw(sprite, &this->m_SceneHandler.LightRepository.getShader());
+		this->m_Window.Draw(sprite, &this->m_SceneHandler.LightRepository.GetShader());
 	}
-	this->m_SceneHandler.LightRepository.updateArrays();
+	this->m_SceneHandler.LightRepository.UpdateArrays();
 
 	this->m_GUIRepository.Render(this->m_Window.GetRenderWindow());
 	this->m_Window.Display();

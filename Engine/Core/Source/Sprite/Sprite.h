@@ -124,6 +124,6 @@ namespace spe
 		/// <summary>
 		/// Gets the path to the texture file
 		/// </summary>
-		const std::string& getPathOfTextureFile() const { return this->SpriteRenderer.path; }
+		const std::string& getPathOfTextureFile() const { return this->SpriteRenderer.Path; }
 	};
 }

@@ -4,54 +4,54 @@
 
 spe::FileDialog::FileDialog()
 {
-    this->m_show_files = true;
-    this->m_is_open = false;
-    this->m_closeWindow = false;
-    this->m_displayTitle = true;
-    this->pathClicked = "";
-    this->itemClicked = "";
-    this->windowFocus = true;
+    this->m_ShowFiles = true;
+    this->m_IsOpen = false;
+    this->m_CloseWindow = false;
+    this->m_DisplayTitle = true;
+    this->PathClicked = "";
+    this->ItemClicked = "";
+    this->WindowFocus = true;
     this->m_FontScale = 1;
-    this->disableWindow();
+    this->DisableWindow();
 }
 
 spe::FileDialog::FileDialog(std::string path, std::string icon, std::string title, ImVec2 windowSize, bool show_file, float fontscale)
 {
-    this->m_closeWindow = false;
-    this->m_firstNodeText = path;
-    this->m_path = path;
-    this->m_windowSize = windowSize;
-    this->m_title = title;
-    this->m_displayTitle = true;
-    this->pathClicked = "";
-    this->itemClicked = "";
-    this->m_icon = icon;
-    this->windowFocus = true;
-    this->m_is_open = false;
-    this->m_show_files = show_file;
+    this->m_CloseWindow = false;
+    this->m_FirstNodeText = path;
+    this->m_Path = path;
+    this->m_WindowSize = windowSize;
+    this->m_Title = title;
+    this->m_DisplayTitle = true;
+    this->PathClicked = "";
+    this->ItemClicked = "";
+    this->m_Icon = icon;
+    this->WindowFocus = true;
+    this->m_IsOpen = false;
+    this->m_ShowFiles = show_file;
     this->m_FontScale = fontscale;
-    this->disableWindow();
+    this->DisableWindow();
 }
 
 // Public methods
 
-void spe::FileDialog::disableWindow()
+void spe::FileDialog::DisableWindow()
 {
-    this->pathClicked = "";
-    this->windowFocus = true;
-    this->m_displayTitle = true;
-    this->itemClicked = "";
-    this->m_closeWindow = true;
+    this->PathClicked = "";
+    this->WindowFocus = true;
+    this->m_DisplayTitle = true;
+    this->ItemClicked = "";
+    this->m_CloseWindow = true;
 }
 
-void spe::FileDialog::displayNodes()
+void spe::FileDialog::DisplayNodes()
 {
-    if (this->m_closeWindow)
+    if (this->m_CloseWindow)
         return;
     ImGui::Begin("##FileDialoge", NULL, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoCollapse);
     ImGui::SetWindowFontScale(this->m_FontScale);
 
-    this->m_displayTitle = true;
+    this->m_DisplayTitle = true;
     auto displayTitle = [](const std::string& title)
     {
         const float PADDING_Y = 5;
@@ -62,78 +62,78 @@ void spe::FileDialog::displayNodes()
     };
 
 
-    std::string name = "x" + std::string("##") + this->m_path;
+    std::string name = "x" + std::string("##") + this->m_Path;
     ImVec2 old = ImGui::GetCursorPos();
-    ImVec2 closeCursorPos = ImVec2(ImGui::GetCursorPosX() + this->m_windowSize.x - 60, ImGui::GetCursorPosY() - 5);
+    ImVec2 closeCursorPos = ImVec2(ImGui::GetCursorPosX() + this->m_WindowSize.x - 60, ImGui::GetCursorPosY() - 5);
     ImGui::SetCursorPos(closeCursorPos);
 
     // Clicked at the "x", stop displaying the file dialoge
     if (ImGui::Button(name.c_str()))
     {
-        this->disableWindow();
+        this->DisableWindow();
     }
 
     ImGui::SetCursorPos(old);
 
-    if (this->m_displayTitle)
+    if (this->m_DisplayTitle)
     {
-        displayTitle(this->m_title);
-        this->m_displayTitle = false;
+        displayTitle(this->m_Title);
+        this->m_DisplayTitle = false;
 
-        const std::string BUTTON_NAME = this->m_icon + "##" + this->m_path;
+        const std::string BUTTON_NAME = this->m_Icon + "##" + this->m_Path;
 
         // clicked on the icon of the right
-        if (this->displaySymbol(BUTTON_NAME, this->m_windowSize.x))
+        if (this->DisplaySymbol(BUTTON_NAME, this->m_WindowSize.x))
         {
-            this->pathClicked = this->m_path;
+            this->PathClicked = this->m_Path;
         }
-        if (spe::Style::DisplaySymbolInTreeNode(ICON_FA_FOLDER, this->m_firstNodeText, true))
+        if (spe::Style::DisplaySymbolInTreeNode(ICON_FA_FOLDER, this->m_FirstNodeText, true))
         {
-            this->openFile(this->m_path.c_str());
+            this->OpenFile(this->m_Path.c_str());
             ImGui::TreePop();
         }
     }
     ImGui::SetWindowFontScale(this->m_FontScale);
 
-    ImGui::SetWindowSize(this->m_windowSize);
+    ImGui::SetWindowSize(this->m_WindowSize);
     ImGui::End();
 }
 
-void spe::FileDialog::enableWindow()
+void spe::FileDialog::EnableWindow()
 {
-    this->windowFocus = true;
-    this->m_closeWindow = false;
-    this->m_is_open = true;
+    this->WindowFocus = true;
+    this->m_CloseWindow = false;
+    this->m_IsOpen = true;
 }
 
 
-void spe::FileDialog::enableWindow(const std::string& title)
+void spe::FileDialog::EnableWindow(const std::string& title)
 {
-    this->enableWindow();
-    this->m_title = title;
+    this->EnableWindow();
+    this->m_Title = title;
 }
-void spe::FileDialog::update()
+void spe::FileDialog::Update()
 {
-    if (this->m_is_open)
+    if (this->m_IsOpen)
     {
-        if (this->pathClicked == ""
-            && !this->isWindowClosed())
+        if (this->PathClicked == ""
+            && !this->IsWindowClosed())
         {
-            this->enableWindow();
-            this->displayNodes();
+            this->EnableWindow();
+            this->DisplayNodes();
         }
     }
 }
 
 bool spe::FileDialog::IsItemSelected()
 {
-    return this->pathClicked != "";
+    return this->PathClicked != "";
 }
 
 
 // private methods
 
-void spe::FileDialog::openFile(const char* dir_path)
+void spe::FileDialog::OpenFile(const char* dir_path)
 {
     DIR* dir = opendir(dir_path);
     if (dir == NULL)
@@ -159,16 +159,16 @@ void spe::FileDialog::openFile(const char* dir_path)
         // If the entry is a directory, recursively traverse it
 
         // clicked on the icon of the right
-        const std::string BUTTON_NAME = this->m_icon + "##" + path;
+        const std::string BUTTON_NAME = this->m_Icon + "##" + path;
 
         // TODO: May be wrong and need some work
         if(entry->d_type == DT_DIR && entry->d_name[0] != '.'
-            || this->m_show_files)
+            || this->m_ShowFiles)
         {
-            if (this->displaySymbol(BUTTON_NAME, this->m_windowSize.x))
+            if (this->DisplaySymbol(BUTTON_NAME, this->m_WindowSize.x))
             {
-                this->pathClicked = path;
-                this->itemClicked = entry->d_name;
+                this->PathClicked = path;
+                this->ItemClicked = entry->d_name;
             }
         }
 
@@ -176,7 +176,7 @@ void spe::FileDialog::openFile(const char* dir_path)
 
         if (entry->d_type == DT_DIR && entry->d_name[0] != '.')
         {
-            if (!spe::FileDialog::checkIfADirHasSubItems(path, this->m_show_files))
+            if (!spe::FileDialog::CheckIfADirHasSubItems(path, this->m_ShowFiles))
             {
                 ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 5);
                 spe::Style::DisplaySymbolInMenuItemWithText(ICON_FA_FOLDER, entry->d_name, 30);
@@ -185,12 +185,12 @@ void spe::FileDialog::openFile(const char* dir_path)
             else if (spe::Style::DisplaySymbolInTreeNode(ICON_FA_FOLDER, entry->d_name, false))
             {
                 path += "\\";
-                openFile(path.c_str());
+                OpenFile(path.c_str());
                 ImGui::TreePop();
             }
 
         }
-        else if (m_show_files)
+        else if (m_ShowFiles)
         {
             ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 5);
 
@@ -200,12 +200,12 @@ void spe::FileDialog::openFile(const char* dir_path)
 
     // Close the directory
     closedir(dir);
-    this->m_displayTitle = true;
+    this->m_DisplayTitle = true;
 }
 
 // static methods
 
-bool spe::FileDialog::displaySymbol(const std::string& icon, float windowSizeX)
+bool spe::FileDialog::DisplaySymbol(const std::string& icon, float windowSizeX)
 {
 
     bool clicked = false;
@@ -221,7 +221,7 @@ bool spe::FileDialog::displaySymbol(const std::string& icon, float windowSizeX)
 }
 
 
-std::string spe::FileDialog::getEmptyStringBetween(const std::string& content, const std::string& name, float padding)
+std::string spe::FileDialog::GetEmptyStringBetween(const std::string& content, const std::string& name, float padding)
 {
     std::string empty = "";
 
@@ -239,7 +239,7 @@ std::string spe::FileDialog::getEmptyStringBetween(const std::string& content, c
     return empty;
 }
 
-bool spe::FileDialog::checkIfADirHasSubItems(const std::string& dirPath, bool show_files)
+bool spe::FileDialog::CheckIfADirHasSubItems(const std::string& dirPath, bool show_files)
 {
     bool value = false;
     DIR* dir = opendir(dirPath.c_str());

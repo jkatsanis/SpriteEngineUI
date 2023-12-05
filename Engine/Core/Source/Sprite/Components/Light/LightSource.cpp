@@ -1,8 +1,8 @@
 #include "lightSource.h"
 
-spe::LightSource::LightSource() : position(), radius(0.0f), light_intensities(0.0f), color() {
+spe::LightSource::LightSource() : Position(), Radius(0.0f), LightIntensity(0.0f), Color() {
 }
 
 spe::LightSource::LightSource(const spe::Vector2& pos, float radius, float intensiti, const sf::Vector3f& color)
-    : position(pos), radius(radius), light_intensities(intensiti), color(color) {
+    : Position(pos), Radius(radius), LightIntensity(intensiti), Color(color) {
 }

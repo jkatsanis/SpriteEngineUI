@@ -301,7 +301,7 @@ void spe::UIAnimationEditor::addKeyFrame()
 	{
 		if (this->m_ptr_GUIRepo->sprite_in_inspector != nullptr)
 		{
-			this->m_FrameAdder.key_frame_path = this->m_ptr_GUIRepo->sprite_in_inspector->SpriteRenderer.path;
+			this->m_FrameAdder.key_frame_path = this->m_ptr_GUIRepo->sprite_in_inspector->SpriteRenderer.Path;
 		}
 		this->m_FrameAdder.is_key_frame_menu_open = true;
 		this->m_FrameAdder.setAnimation(this->m_anim);

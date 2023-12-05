@@ -95,10 +95,10 @@ spe::Sprite* spe::UIRealTimeEditorTransform::checkIfMouseClickedOnSprite()
 
 	for (spe::Sprite* sp : spr)
 	{
-		if (sp->SpriteRenderer.sorting_layer_index >= highest)
+		if (sp->SpriteRenderer.SortinLayerIdx >= highest)
 		{
 			name = sp->Name;
-			highest = sp->SpriteRenderer.sorting_layer_index;
+			highest = sp->SpriteRenderer.SortinLayerIdx;
 		}
 	}
 
@@ -137,15 +137,15 @@ void spe::UIRealTimeEditorTransform::unrenderDolls()
 
 void spe::UIRealTimeEditorTransform::scaleChanger(spe::Sprite* focusedSprite)
 {
-	float scale_x = spe::UIUtility::xScaleChanger(this->m_scale_dotts[0], focusedSprite->Transform.getDefaultTextureSize().X,
+	float scale_x = spe::UIUtility::xScaleChanger(this->m_scale_dotts[0], focusedSprite->Transform.GetDefaultTextureSize().X,
 		focusedSprite->Transform.GetPosition().X);
 	if (scale_x != INVALID_SCALE)
-		focusedSprite->Transform.setScale(spe::Vector2(scale_x, focusedSprite->Transform.getScale().Y));
+		focusedSprite->Transform.SetScale(spe::Vector2(scale_x, focusedSprite->Transform.GetScale().Y));
 
-	float scale_y = spe::UIUtility::yScaleChanger(this->m_scale_dotts[1], focusedSprite->Transform.getDefaultTextureSize().Y,
+	float scale_y = spe::UIUtility::yScaleChanger(this->m_scale_dotts[1], focusedSprite->Transform.GetDefaultTextureSize().Y,
 		focusedSprite->Transform.GetPosition().Y);
 	if (scale_y != INVALID_SCALE)
-		focusedSprite->Transform.setScale(spe::Vector2(focusedSprite->Transform.getScale().X, scale_y));
+		focusedSprite->Transform.SetScale(spe::Vector2(focusedSprite->Transform.GetScale().X, scale_y));
 }
 
 
@@ -163,10 +163,10 @@ void spe::UIRealTimeEditorTransform::reset()
 
 void spe::UIRealTimeEditorTransform::getPos(const spe::Sprite* focusedSprite, sf::Vector2f pos[])
 {
-	spe::Vector2 originalPos = focusedSprite->Transform.getOrigininalPosition();
-	spe::Vector2 textureSize = focusedSprite->Transform.texture_size;
+	spe::Vector2 originalPos = focusedSprite->Transform.GetOrigininalPosition();
+	spe::Vector2 textureSize = focusedSprite->Transform.TextureSize;
 
-	if (focusedSprite->Transform.getScale().X < 0)
+	if (focusedSprite->Transform.GetScale().X < 0)
 	{
 		pos[0] = sf::Vector2f(originalPos.X, originalPos.Y + textureSize.Y / 2);
 	}
@@ -174,7 +174,7 @@ void spe::UIRealTimeEditorTransform::getPos(const spe::Sprite* focusedSprite, sf
 	{
 		pos[0] = sf::Vector2f(originalPos.X + textureSize.X, originalPos.Y + textureSize.Y / 2);
 	}
-	if (focusedSprite->Transform.getScale().Y < 0)
+	if (focusedSprite->Transform.GetScale().Y < 0)
 	{
 		textureSize.Y = 0;
 	}

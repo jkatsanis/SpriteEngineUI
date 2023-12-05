@@ -79,11 +79,11 @@ void spe::UIProjectSelector::RenderFileDialogAndButtons()
 
 	if (ImGui::Button("Create"))
 	{
-		this->m_CreateFileDialoge.enableWindow();
+		this->m_CreateFileDialoge.EnableWindow();
 	}
-	if (this->m_CreateFileDialoge.itemClicked == "")
+	if (this->m_CreateFileDialoge.ItemClicked == "")
 	{
-		this->m_CreateFileDialoge.displayNodes();
+		this->m_CreateFileDialoge.DisplayNodes();
 	}
 	else
 	{
@@ -95,18 +95,18 @@ void spe::UIProjectSelector::RenderFileDialogAndButtons()
 
 	if (ImGui::Button("Open"))
 	{
-		this->m_OpenFileDialog.enableWindow();
+		this->m_OpenFileDialog.EnableWindow();
 	}
-	if (this->m_OpenFileDialog.itemClicked == "")
+	if (this->m_OpenFileDialog.ItemClicked == "")
 	{
-		this->m_OpenFileDialog.displayNodes();
+		this->m_OpenFileDialog.DisplayNodes();
 	}
 	else
 	{
 		if (!this->TryToOpenProject())
 		{
 			spe::Log::LogString("Failed to open project");
-			this->m_OpenFileDialog.disableWindow();
+			this->m_OpenFileDialog.DisableWindow();
 		}
 	}
 
@@ -117,13 +117,13 @@ void spe::UIProjectSelector::RenderFileDialogAndButtons()
 
 void spe::UIProjectSelector::CreatePopupToCreateProject()
 {
-	const std::string CREATE_PROJECT_AT = "Create project at - " + this->m_CreateFileDialoge.pathClicked;
+	const std::string CREATE_PROJECT_AT = "Create project at - " + this->m_CreateFileDialoge.PathClicked;
 	const float WINDOW_SIZE_X = ImGui::CalcTextSize(CREATE_PROJECT_AT.c_str()).x + 150;
-	const std::string BUTTON_NAME = "x" + std::string("##") + this->m_CreateFileDialoge.pathClicked;
+	const std::string BUTTON_NAME = "x" + std::string("##") + this->m_CreateFileDialoge.PathClicked;
 
 	// Setting the focus from the file dialoge to false, since we render a new important pop up 
 	// over it, there should be the focus
-	this->m_CreateFileDialoge.windowFocus = false;
+	this->m_CreateFileDialoge.WindowFocus = false;
 
 	ImGui::SetNextWindowFocus();
 	ImGui::Begin("##CreateFinalStep", NULL, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoScrollbar);
@@ -139,7 +139,7 @@ void spe::UIProjectSelector::CreatePopupToCreateProject()
 	ImGui::SetCursorPos(cursorPos);
 	if (ImGui::Button(BUTTON_NAME.c_str()))
 	{
-		this->m_CreateFileDialoge.disableWindow();
+		this->m_CreateFileDialoge.DisableWindow();
 	}
 
 	ImGui::PushStyleColor(ImGuiCol_Button, SELECTOR_LEFT_BUTTONS_COLOR);
@@ -159,21 +159,21 @@ void spe::UIProjectSelector::CreatePopupToCreateProject()
 	ImGui::SetCursorPosX(x += WINDOW_SIZE_X - 210);
 	if (ImGui::Button("Cancel"))
 	{
-		this->m_CreateFileDialoge.disableWindow();
+		this->m_CreateFileDialoge.DisableWindow();
 	}
 
 	ImGui::SetCursorPosY(y);
 	ImGui::SetCursorPosX(x += 100);
 	if (ImGui::Button("Create"))
 	{
-		this->m_FullProjectPath = this->m_CreateFileDialoge.pathClicked + "\\" + this->m_CreateProjectName.data();
+		this->m_FullProjectPath = this->m_CreateFileDialoge.PathClicked + "\\" + this->m_CreateProjectName.data();
 		if (!this->CheckIfprojectExists(this->m_FullProjectPath))
 		{
 			this->CreateProject();
 		}
 		else
 		{
-			this->m_CreateFileDialoge.disableWindow();
+			this->m_CreateFileDialoge.DisableWindow();
 			std::cout << "LOG: There is already a project with that name!";
 		}
 	}
@@ -201,21 +201,21 @@ void spe::UIProjectSelector::CreateProject()
 	char buffer[50];
 	strcpy_s(buffer, this->m_CreateProjectName.c_str());
 
-	const std::string fullpath = this->m_CreateFileDialoge.pathClicked + "\\" + std::string(buffer);
+	const std::string fullpath = this->m_CreateFileDialoge.PathClicked + "\\" + std::string(buffer);
 	this->AddProject(fullpath, std::string(buffer));
 
-	const std::string path = this->m_CreateFileDialoge.pathClicked + "\\";
+	const std::string path = this->m_CreateFileDialoge.PathClicked + "\\";
 	const std::string tryToOpenPath = spe::Utility::CopyDir("Template", path, this->m_CreateProjectName);
 
 	// Running the script assumes that CMake is installed
-	this->CreateProjectFiles(this->m_CreateFileDialoge.pathClicked, buffer);
+	this->CreateProjectFiles(this->m_CreateFileDialoge.PathClicked, buffer);
 
 	// Setting the project we just selected to be displayed in the selector list
-	this->m_CreateFileDialoge.pathClicked = tryToOpenPath + "\\";
-	this->m_CreateFileDialoge.itemClicked = this->m_CreateProjectName.data();
+	this->m_CreateFileDialoge.PathClicked = tryToOpenPath + "\\";
+	this->m_CreateFileDialoge.ItemClicked = this->m_CreateProjectName.data();
 
 	this->m_CreateProjectName = "";
-	this->m_CreateFileDialoge.disableWindow();
+	this->m_CreateFileDialoge.DisableWindow();
 }
 
 void spe::UIProjectSelector::CreateProjectFiles(const std::string& path, const std::string& name)
@@ -254,7 +254,7 @@ void spe::UIProjectSelector::AddProject(const std::string& full_path, const std:
 
 bool spe::UIProjectSelector::TryToOpenProject()
 {
-	const std::string path = this->m_OpenFileDialog.pathClicked;
+	const std::string path = this->m_OpenFileDialog.PathClicked;
 	if (!this->CheckIfprojectExists(path))
 	{
 		std::string pathToVerify = path + "\\Engine\\Saves\\verify.vsn";
@@ -265,11 +265,11 @@ bool spe::UIProjectSelector::TryToOpenProject()
 			return false;
 		}
 
-		std::string name = this->m_OpenFileDialog.itemClicked;
+		std::string name = this->m_OpenFileDialog.ItemClicked;
 
-		this->AddProject(this->m_OpenFileDialog.pathClicked, name);
+		this->AddProject(this->m_OpenFileDialog.PathClicked, name);
 
-		this->m_OpenFileDialog.disableWindow();
+		this->m_OpenFileDialog.DisableWindow();
 		return true;
 	}
 	
@@ -343,8 +343,8 @@ void spe::UIProjectSelector::RenderProjectData()
 			{
 				// from left to first sep its 
 
-				std::string emptyBetweenNameAndCreation = spe::FileDialog::getEmptyStringBetween("Project Name", filterName, paddingBetweenInfo);
-				std::string emptyBetweenCreationAndPath = spe::FileDialog::getEmptyStringBetween("Last Opened   ", this->m_Projects[i].lastOpened, paddingBetweenInfo);
+				std::string emptyBetweenNameAndCreation = spe::FileDialog::GetEmptyStringBetween("Project Name", filterName, paddingBetweenInfo);
+				std::string emptyBetweenCreationAndPath = spe::FileDialog::GetEmptyStringBetween("Last Opened   ", this->m_Projects[i].lastOpened, paddingBetweenInfo);
 
 				std::string fullData = filterName + emptyBetweenNameAndCreation + this->m_Projects[i].lastOpened + emptyBetweenCreationAndPath + this->m_Projects[i].AbsulutePath;
 

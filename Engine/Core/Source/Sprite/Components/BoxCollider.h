@@ -13,36 +13,36 @@ namespace spe
 	class BoxCollider : public spe::Component
 	{
 	private:
-		int m_start = -5;
+		int m_Start = -5;
 		int m_end = 5;
 
-		bool m_got_left;
-		bool m_got_right;
-		bool m_got_up;
-		bool m_got_down;
+		bool m_GotLeft;
+		bool m_GotRight;
+		bool m_GotUp;
+		bool m_GotDown;
 
 		void init() override;
 		bool CheckCollision(spe::BoxCollider& other);
-		void CheckCollisionPosition(spe::BoxCollider& other);
-		void ResetPosition();
+		void CheckCollisionPosition(spe::BoxCollider& other) noexcept;
+		void ResetPosition() noexcept;
 
 	public:
-		bool is_solid;
-		bool can_collide;
-		bool collided_in_frame;
-		std::unordered_map<uint32_t, spe::Sprite*> collided_sprite_map;
+		bool IsSolid;
+		bool CanCollide;
+		bool CollidedInFrame;
+		std::unordered_map<uint32_t, spe::Sprite*> CollidedSprites;
 
-		bool left;
-		bool right;
-		bool up;
-		bool down;
-		bool collided;
+		bool Left;
+		bool Right;
+		bool Up;
+		bool Down;
+		bool Collided;
 
 		//Deleting the pointer in gameEngine.cpp!
-		spe::Sprite* ptr_sprite;
+		spe::Sprite* ptr_Sprite;
 
-		Vector2 box_collider_width;
-		Vector2 box_collider_height;
+		Vector2 Width;
+		Vector2 Height;
 
 		BoxCollider();
 		BoxCollider(spe::Sprite* sprite, spe::BoxCollider& rhs);

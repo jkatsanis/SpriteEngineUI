@@ -72,7 +72,7 @@ void spe::UIInspector::renderComponentOptions(spe::Component& component, const s
 			{
 				spe::Light* childPtr = dynamic_cast<Light*>(&component);
 				if (childPtr) {
-					childPtr->deleteLight();
+					childPtr->DeleteLight();
 				}
 
 				component.reset();
@@ -109,8 +109,8 @@ void spe::UIInspector::drawRectangleOverCurrentObject()
 
 	sf::RectangleShape* ptr_shape = &this->m_ptr_sprite_over_rectangle->Shape;
 	
-	ptr_shape->setSize(sf::Vector2f(this->m_ptr_GUIRepo->sprite_in_inspector->Transform.texture_size.X, this->m_ptr_GUIRepo->sprite_in_inspector->Transform.texture_size.Y));
-	ptr_shape->setPosition(this->m_ptr_GUIRepo->sprite_in_inspector->Transform.getOrigininalPosition().X, this->m_ptr_GUIRepo->sprite_in_inspector->Transform.getOrigininalPosition().Y);
+	ptr_shape->setSize(sf::Vector2f(this->m_ptr_GUIRepo->sprite_in_inspector->Transform.TextureSize.X, this->m_ptr_GUIRepo->sprite_in_inspector->Transform.TextureSize.Y));
+	ptr_shape->setPosition(this->m_ptr_GUIRepo->sprite_in_inspector->Transform.GetOrigininalPosition().X, this->m_ptr_GUIRepo->sprite_in_inspector->Transform.GetOrigininalPosition().Y);
 }
 
 void spe::UIInspector::renderOptions()
@@ -319,7 +319,7 @@ void spe::UIInspector::setCompontents()
 	}
 	if (this->m_current_component_selected == "Light Source")
 	{
-		this->m_ptr_GUIRepo->sprite_in_inspector->Light.enable();
+		this->m_ptr_GUIRepo->sprite_in_inspector->Light.Enable();
 		this->m_current_component_selected = " ";
 	}
 }
@@ -499,13 +499,13 @@ void spe::UIInspector::transformComponent()
 
 		y += 45;
 
-		spe::Vector2 temp_scale = this->m_ptr_GUIRepo->sprite_in_inspector->Transform.getScale();
+		spe::Vector2 temp_scale = this->m_ptr_GUIRepo->sprite_in_inspector->Transform.GetScale();
 
 		ImGui::Dummy(ImVec2(0, 10));
 		inputXY("Scale", temp_scale.X, temp_scale.Y, x, y);
 		y += 45;
 
-		int rotation = this->m_ptr_GUIRepo->sprite_in_inspector->Transform.getRotation();
+		int rotation = this->m_ptr_GUIRepo->sprite_in_inspector->Transform.GetRotation();
 		ImGui::SetCursorPos(ImVec2(x, y + 10));
 		ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 15);
 		ImGui::Text("Rotation");
@@ -517,8 +517,8 @@ void spe::UIInspector::transformComponent()
 		ImGui::Dummy(ImVec2(0, 10));
 		ImGui::SetCursorPos(ImVec2(x, y + 50));
 
-		this->m_ptr_GUIRepo->sprite_in_inspector->Transform.setScale(temp_scale);
-		this->m_ptr_GUIRepo->sprite_in_inspector->Transform.setRotation(rotation);
+		this->m_ptr_GUIRepo->sprite_in_inspector->Transform.SetScale(temp_scale);
+		this->m_ptr_GUIRepo->sprite_in_inspector->Transform.SetRotation(rotation);
 		this->m_ptr_GUIRepo->sprite_in_inspector->Transform.SetPosition(tempPos);
 
 		ImGui::TreePop();
@@ -531,7 +531,7 @@ void spe::UIInspector::spriteRendererComponent()
 	this->renderComponentOptions(this->m_ptr_GUIRepo->sprite_in_inspector->SpriteRenderer, "Sprite Renderer");
 	if (ImGui::TreeNode("Sprite Renderer"))
 	{
-		std::string input = spe::Utility::GetNamePathSplit(this->m_ptr_GUIRepo->sprite_in_inspector->SpriteRenderer.path);
+		std::string input = spe::Utility::GetNamePathSplit(this->m_ptr_GUIRepo->sprite_in_inspector->SpriteRenderer.Path);
 		this->m_sprite_name = this->m_ptr_GUIRepo->sprite_in_inspector->Name;
 
 		float y = ImGui::GetCursorPos().y;
@@ -556,7 +556,7 @@ void spe::UIInspector::spriteRendererComponent()
 		ImGui::Text("Sorting Layer");
 		ImGui::SameLine();
 		ImGui::PushItemWidth(42.0f);
-		int32_t layerIndex = this->m_ptr_GUIRepo->sprite_in_inspector->SpriteRenderer.sorting_layer_index;
+		int32_t layerIndex = this->m_ptr_GUIRepo->sprite_in_inspector->SpriteRenderer.SortinLayerIdx;
 		ImGui::InputInt("##Sorting Layer", &layerIndex, 0, 0);
 		ImGui::PopItemWidth();
 
@@ -565,7 +565,7 @@ void spe::UIInspector::spriteRendererComponent()
 			layerIndex = 0;
 		}
 
-		if ((uint32_t)layerIndex != this->m_ptr_GUIRepo->sprite_in_inspector->SpriteRenderer.sorting_layer_index)
+		if ((uint32_t)layerIndex != this->m_ptr_GUIRepo->sprite_in_inspector->SpriteRenderer.SortinLayerIdx)
 		{
 			this->m_ptr_Repo->SetSpriteSortingLayer(layerIndex, this->m_ptr_GUIRepo->sprite_in_inspector);
 		}
@@ -574,7 +574,7 @@ void spe::UIInspector::spriteRendererComponent()
 		ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 18);
 		ImGui::Text("Effected by light");
 		spe::UIUtility::SameLine(0);
-		ImGui::Checkbox("##light-checkbox", &this->m_ptr_GUIRepo->sprite_in_inspector->SpriteRenderer.effected_by_light);
+		ImGui::Checkbox("##light-checkbox", &this->m_ptr_GUIRepo->sprite_in_inspector->SpriteRenderer.EffectedByLight);
 		ImGui::Dummy(ImVec2(0, 7));
 		ImGui::TreePop();
 	}
@@ -631,7 +631,7 @@ void spe::UIInspector::physicsBodyComponent()
 		ImGui::Text("Gravity");
 		ImGui::PushItemWidth(55);
 		ImGui::SetCursorPos(ImVec2(x += 125, y -= 6.0f));
-		ImGui::InputFloat("##gravity", &this->m_ptr_GUIRepo->sprite_in_inspector->Physicsbody.gravity, 0, 0, "%g");
+		ImGui::InputFloat("##gravity", &this->m_ptr_GUIRepo->sprite_in_inspector->Physicsbody.Gravity, 0, 0, "%g");
 		ImGui::SetWindowFontScale(spe::Style::s_DefaultFontSize);
 		ImGui::PopItemWidth();
 
@@ -641,17 +641,17 @@ void spe::UIInspector::physicsBodyComponent()
 		ImGui::Text("Mass");
 		ImGui::PushItemWidth(55);
 		ImGui::SetCursorPos(ImVec2(x, y += 45.0f));
-		ImGui::InputFloat("##mass", &this->m_ptr_GUIRepo->sprite_in_inspector->Physicsbody.mass, 0, 0, "%g");
+		ImGui::InputFloat("##mass", &this->m_ptr_GUIRepo->sprite_in_inspector->Physicsbody.Mass, 0, 0, "%g");
 		ImGui::PopItemWidth();
 
 		if (this->m_ptr_GUIRepo->SimulatePhysics)
 		{
-			spe::Vector2 velocity = this->m_ptr_GUIRepo->sprite_in_inspector->Physicsbody.velocity;
+			spe::Vector2 velocity = this->m_ptr_GUIRepo->sprite_in_inspector->Physicsbody.Velocity;
 
 			ImGui::SetCursorPosX(40);
 			ImGui::SetCursorPosY(ImGui::GetCursorPosY() + 10);
 			inputXY("Velocity", velocity.X, velocity.Y, 40, ImGui::GetCursorPosY() - 10);
-			this->m_ptr_GUIRepo->sprite_in_inspector->Physicsbody.velocity = velocity;
+			this->m_ptr_GUIRepo->sprite_in_inspector->Physicsbody.Velocity = velocity;
 		}
 
 		ImGui::TreePop();
@@ -696,7 +696,7 @@ void spe::UIInspector::prefabComponent()
 	if (ImGui::TreeNode("Prefab"))
 	{
 		ImGui::SetCursorPos(ImVec2(x += 45, y += 40));
-		const std::string fileLocation = "File location: " + this->m_ptr_GUIRepo->sprite_in_inspector->Prefab.user_path_to_file;
+		const std::string fileLocation = "File location: " + this->m_ptr_GUIRepo->sprite_in_inspector->Prefab.PathToFile;
 		ImGui::Text(fileLocation.c_str());
 
 		ImGui::SetCursorPos(ImVec2(x, y + 40));
@@ -708,21 +708,21 @@ void spe::UIInspector::prefabComponent()
 			this->m_ptr_GUIRepo->sprite_in_inspector->Prefab.UpdatePath();
 			const spe::Prefab& prefab = this->m_ptr_GUIRepo->sprite_in_inspector->Prefab;
 			spe::Savesystem::CreateOrUpdatePrefabFile(this->m_ptr_GUIRepo->sprite_in_inspector,
-				prefab.user_path_to_file, prefab.path_to_old_file);
+				prefab.PathToFile, prefab.PathToOldFile);
 
 		}
 		ImGui::SetCursorPos(ImVec2(x, y + 80));
 		ImGui::Text("Load in memory ");
 		ImGui::SetCursorPos(ImVec2(x + 170, y + 75));
-		ImGui::Checkbox("##LoadInMemory", &this->m_ptr_GUIRepo->sprite_in_inspector->Prefab.load_in_memory);
+		ImGui::Checkbox("##LoadInMemory", &this->m_ptr_GUIRepo->sprite_in_inspector->Prefab.LoadInMemory);
 		ImGui::TreePop();
 	}	
 }
 
 void spe::UIInspector::lightComponent()
 {
-	this->m_light_radius = this->m_ptr_GUIRepo->sprite_in_inspector->Light.getRadius();
-	this->m_light_intensity = this->m_ptr_GUIRepo->sprite_in_inspector->Light.getIntensity();
+	this->m_light_radius = this->m_ptr_GUIRepo->sprite_in_inspector->Light.GetRadius();
+	this->m_light_intensity = this->m_ptr_GUIRepo->sprite_in_inspector->Light.GetIntensity();
 
 
 	this->renderBackgroundBehindComponent();
@@ -741,7 +741,7 @@ void spe::UIInspector::lightComponent()
 		ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 47);
 		ImGui::InputFloat("##light-radius", &this->m_light_radius, 0, 0, "%g");
 
-		this->m_ptr_GUIRepo->sprite_in_inspector->Light.setRadius(this->m_light_radius);
+		this->m_ptr_GUIRepo->sprite_in_inspector->Light.SetRadius(this->m_light_radius);
 
 		ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 14.5f);
 		ImGui::Text("Intensity: ");
@@ -750,15 +750,15 @@ void spe::UIInspector::lightComponent()
 		ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 38);
 		ImGui::InputFloat("##light-intensity", &this->m_light_intensity, 0, 0, "%g");
 
-		this->m_ptr_GUIRepo->sprite_in_inspector->Light.setIntensity(this->m_light_intensity);
+		this->m_ptr_GUIRepo->sprite_in_inspector->Light.SetIntensity(this->m_light_intensity);
 
 		
 		ImGui::Text("Color: ");
-		const sf::Vector3f& clr = this->m_ptr_GUIRepo->sprite_in_inspector->Light.getColor();
+		const sf::Vector3f& clr = this->m_ptr_GUIRepo->sprite_in_inspector->Light.GetColor();
 		ImVec4 clear_color = ImVec4(clr.x, clr.y, clr.z, 1.0f);
 		ImGui::ColorEdit3("##light-Color", (float*)&clear_color);
 
-		this->m_ptr_GUIRepo->sprite_in_inspector->Light.setColor(sf::Vector3f(clear_color.x, clear_color.y, clear_color.z));
+		this->m_ptr_GUIRepo->sprite_in_inspector->Light.SetColor(sf::Vector3f(clear_color.x, clear_color.y, clear_color.z));
 
 		ImGui::TreePop();
 	}

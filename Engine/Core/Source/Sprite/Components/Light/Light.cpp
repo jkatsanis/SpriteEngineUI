@@ -5,12 +5,12 @@
 
 void spe::Light::init()
 {
-	this->m_intensity = 200;
-	this->m_color = sf::Vector3f(1, 1, 1);
-	this->m_radius = DEFAULT_LIGHT_RADIUS;
+	this->m_Intensity = 200;
+	this->m_Color = sf::Vector3f(1, 1, 1);
+	this->m_Radius = DEFAULT_LIGHT_RADIUS;
 	this->exist = false;
 	this->base_component = false;
-	this->m_radius_changed = false;
+	this->m_RadiusChanged = false;
 }
 
 spe::Light::Light()
@@ -28,9 +28,9 @@ spe::Light::Light(Sprite* ptr_attached_sprite, spe::LightRepository* ptr)
 spe::Light::Light(Sprite* ptr_sprite, const spe::Light& rhs)
 {
 	this->exist = rhs.exist;
-	this->m_color = rhs.getColor();
-	this->m_radius = rhs.getRadius();
-	this->m_intensity = rhs.getIntensity();
+	this->m_Color = rhs.GetColor();
+	this->m_Radius = rhs.GetRadius();
+	this->m_Intensity = rhs.GetIntensity();
 	this->m_ptr_LighRepository = rhs.m_ptr_LighRepository;
 
 	this->ptr_attached_sprite = ptr_sprite;
@@ -38,24 +38,24 @@ spe::Light::Light(Sprite* ptr_sprite, const spe::Light& rhs)
 	if (this->exist)
 	{
 		this->exist = false;
-		this->enable();
+		this->Enable();
 	}
 
 }
 
 // Public methods
 
-void spe::Light::deleteLight()
+void spe::Light::DeleteLight()
 {
 	THROW_IF_NO_LIGHT_REPO
 	if (this->exist)
 	{
-		this->m_ptr_LighRepository->remove(this->m_light_index);
-		this->m_light_index = 0;
+		this->m_ptr_LighRepository->Remove(this->m_LightIndex);
+		this->m_LightIndex = 0;
 	}
 }
 
-void spe::Light::enable()
+void spe::Light::Enable()
 {
 	THROW_IF_NO_LIGHT_REPO
 	if (this->exist)
@@ -63,43 +63,43 @@ void spe::Light::enable()
 		return;
 	}
 	this->exist = true;
-	this->m_ptr_LighRepository->add(this->ptr_attached_sprite->Transform.GetPosition(), this->m_radius, this->m_intensity, this->m_color);
-	this->m_light_index = this->m_ptr_LighRepository->getIndex();
+	this->m_ptr_LighRepository->Add(this->ptr_attached_sprite->Transform.GetPosition(), this->m_Radius, this->m_Intensity, this->m_Color);
+	this->m_LightIndex = this->m_ptr_LighRepository->GetIndex();
 }
 
 void spe::Light::reset()
 {
-	this->m_radius = DEFAULT_LIGHT_RADIUS;
+	this->m_Radius = DEFAULT_LIGHT_RADIUS;
 }
 
-void spe::Light::setColor(const sf::Vector3f& color)
+void spe::Light::SetColor(const sf::Vector3f& color) noexcept
 {
-	if (this->m_color == color)
+	if (this->m_Color == color)
 	{
 		return;
 	}
-	this->m_color = color;
-	this->m_color_changed = true;
+	this->m_Color = color;
+	this->m_ColorChanged = true;
 }
 
 
-void spe::Light::setIntensity(float intense)
+void spe::Light::SetIntensity(float intense) noexcept
 {
-	if (this->m_intensity == intense)
+	if (this->m_Intensity == intense)
 	{
 		return;
 	}
-	this->m_intensity = intense;
-	this->m_intensity_changed = true;
+	this->m_Intensity = intense;
+	this->m_IntensityChanged = true;
 }
 
-void spe::Light::setRadius(float radius)
+void spe::Light::SetRadius(float radius) noexcept
 {
-	if (radius == this->m_radius)
+	if (radius == this->m_Radius)
 	{
 		return;
 	}
-	this->m_radius = radius;
-	this->m_radius_changed = true;
+	this->m_Radius = radius;
+	this->m_RadiusChanged = true;
 }
 
