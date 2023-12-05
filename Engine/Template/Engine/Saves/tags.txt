@@ -1,4 +1,1 @@
 Tags
-none
-Floor
-Player

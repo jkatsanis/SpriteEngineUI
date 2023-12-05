@@ -3,13 +3,8 @@
 // Included from the editor-src
 #include <Source/SpriteEngine.h>
 
-#include "Player/PlayerController.h"
-
 class Game : public spe::IScript
 {		
-private:
-	PlayerController m_PlayerController;
-
 public:
 	spe::EngineConfig EngineConfig;
 	

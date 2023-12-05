@@ -4,6 +4,7 @@
 #include "RessourceHandler/Initializer.h"
 #include "Core/IApplication.h"
 #include "Core/SeceneHandler.h"
+#include "Utility/Style.h"
 
 #include "Scripts/Game.h"
 

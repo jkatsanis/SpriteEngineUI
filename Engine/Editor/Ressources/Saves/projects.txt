@@ -1,3 +1,5 @@
 name;absulutePathStr;date;relativePath
 DasynceSE;C:\Dev\C++\DasynceSE;2023/04/12 07:39:21;..\..\DasynceSE
+made;C:\Dev\C++\made;2023/05/12 15:19:55;..\..\made
+Saig;C:\Dev\C++\Saig;2023/05/12 15:22:45;..\..\Saig
 
