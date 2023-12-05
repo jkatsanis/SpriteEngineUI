@@ -31,7 +31,7 @@ void spe::UITagSelector::RenderSelector()
 	ImGui::SetCursorPos(ImVec2(ImGui::GetWindowContentRegionMax().x - 120, 40));
 
 	ImGui::SetNextItemWidth(110);
-	const char* tag = this->m_ptr_GUIRepo->sprite_in_inspector->Tag.c_str();
+	const char* tag = this->m_ptr_GUIRepo->InspectorSprite->Tag.c_str();
 	if (ImGui::BeginCombo("##dropdown-tags", tag))
 	{
 		for (int i = 0; i < items.size(); i++) 
@@ -42,7 +42,7 @@ void spe::UITagSelector::RenderSelector()
 			if (ImGui::Selectable(items[i].c_str(), isSelected))
 			{
 				selectedItem = i;
-				this->m_ptr_GUIRepo->sprite_in_inspector->Tag = items[i];
+				this->m_ptr_GUIRepo->InspectorSprite->Tag = items[i];
 			}
 			if (isSelected)
 			{

@@ -8,10 +8,10 @@ spe::GUIRepository::GUIRepository()
 {
 	this->ptr_Event = nullptr;
 	this->ptr_SFEvent = nullptr;
-	this->sprited_hovered_in_hierarchy = nullptr;
-	this->sprite_in_inspector = nullptr;
-	this->child_to_parent = nullptr;
-	this->right_clicked_sprite = nullptr;
+	this->HierarchyHoveredSprite = nullptr;
+	this->InspectorSprite = nullptr;
+	this->ChildToParent = nullptr;
+	this->RightClickedSprite = nullptr;
 
 	this->m_HighestLayer = 0;
 	this->m_HighestId = 0;
@@ -123,9 +123,9 @@ spe::Rectangle* spe::GUIRepository::GetByVecPos(uint32_t vec)
 void spe::GUIRepository::CleanUp()
 {
 	this->HierarchySprites.clear();
-	this->sprited_hovered_in_hierarchy = nullptr;
-	this->sprite_in_inspector = nullptr;
-	this->child_to_parent = nullptr;
+	this->HierarchyHoveredSprite = nullptr;
+	this->InspectorSprite = nullptr;
+	this->ChildToParent = nullptr;
 	this->m_HighestId = 0;
 }
 

@@ -150,13 +150,13 @@ void spe::UIAssetFolder::AddPrefab()
     {
         return;
     }
-    if (this->m_ptr_GUIRepo->child_to_parent != nullptr && ImGui::IsMouseReleased(0) && this->Hovered)
+    if (this->m_ptr_GUIRepo->ChildToParent != nullptr && ImGui::IsMouseReleased(0) && this->Hovered)
     {
-        const std::string pathToFile = this->m_CurrentPath + "\\" + this->m_ptr_GUIRepo->child_to_parent->Name + EXTENSION_PREFAB_FILE;
+        const std::string pathToFile = this->m_CurrentPath + "\\" + this->m_ptr_GUIRepo->ChildToParent->Name + EXTENSION_PREFAB_FILE;
         
-        this->m_ptr_GUIRepo->child_to_parent->Prefab.UpdateProps(pathToFile, pathToFile, this->m_ptr_GUIRepo->child_to_parent->Name + EXTENSION_PREFAB_FILE);
+        this->m_ptr_GUIRepo->ChildToParent->Prefab.UpdateProps(pathToFile, pathToFile, this->m_ptr_GUIRepo->ChildToParent->Name + EXTENSION_PREFAB_FILE);
 
-        spe::Savesystem::CreateOrUpdatePrefabFile(this->m_ptr_GUIRepo->child_to_parent, pathToFile, pathToFile);
+        spe::Savesystem::CreateOrUpdatePrefabFile(this->m_ptr_GUIRepo->ChildToParent, pathToFile, pathToFile);
     }
 }
 
@@ -446,7 +446,7 @@ void spe::UIAssetFolder::GoBackToBeforeFolder()
 void spe::UIAssetFolder::SetDragAndDrop(std::string path, std::string name)
 {
     //Check if we hover over the menu item used later on for drag and drop
-    if (this->m_ptr_GUIRepo->child_to_parent != nullptr)
+    if (this->m_ptr_GUIRepo->ChildToParent != nullptr)
     {
         return;
     }

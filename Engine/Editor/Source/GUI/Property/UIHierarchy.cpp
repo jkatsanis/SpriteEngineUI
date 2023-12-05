@@ -105,45 +105,45 @@ void spe::UIHierarchy::DeleteSprite()
 	{
 		return;
 	}
-	if (this->m_ptr_GUIRepo->sprite_in_inspector == nullptr)
+	if (this->m_ptr_GUIRepo->InspectorSprite == nullptr)
 	{
 		return;
 	}
-	if (this->m_ptr_GUIRepo->sprite_in_inspector != nullptr)
+	if (this->m_ptr_GUIRepo->InspectorSprite != nullptr)
 	{
-		if (this->m_ptr_GUIRepo->sprited_hovered_in_hierarchy->GetId() == this->m_ptr_GUIRepo->sprite_in_inspector->GetId())
+		if (this->m_ptr_GUIRepo->HierarchyHoveredSprite->GetId() == this->m_ptr_GUIRepo->InspectorSprite->GetId())
 		{
-			this->m_ptr_GUIRepo->sprite_in_inspector = nullptr;
+			this->m_ptr_GUIRepo->InspectorSprite = nullptr;
 		}
 	}
 
-	this->m_ptr_GUIRepo->sprite_in_inspector = nullptr;
+	this->m_ptr_GUIRepo->InspectorSprite = nullptr;
 
-	this->m_ptr_GUIRepo->EraseSpriteWithName(this->m_ptr_GUIRepo->sprited_hovered_in_hierarchy->Name);
+	this->m_ptr_GUIRepo->EraseSpriteWithName(this->m_ptr_GUIRepo->HierarchyHoveredSprite->Name);
 
-	this->m_ptr_Repo->DeleteWithName(this->m_ptr_GUIRepo->sprited_hovered_in_hierarchy->Name);
-	this->m_ptr_GUIRepo->sprited_hovered_in_hierarchy = nullptr;
+	this->m_ptr_Repo->DeleteWithName(this->m_ptr_GUIRepo->HierarchyHoveredSprite->Name);
+	this->m_ptr_GUIRepo->HierarchyHoveredSprite = nullptr;
 
 }
 
 void spe::UIHierarchy::Unparent()
 {
-	this->m_ptr_GUIRepo->sprited_hovered_in_hierarchy->ClearParentData();
-	this->m_ptr_GUIRepo->sprited_hovered_in_hierarchy = nullptr;
+	this->m_ptr_GUIRepo->HierarchyHoveredSprite->ClearParentData();
+	this->m_ptr_GUIRepo->HierarchyHoveredSprite = nullptr;
 }
 
 void spe::UIHierarchy::CleanRepoSpritesUp(bool isAnyHovered)
 {
-	if (!isAnyHovered && !ImGui::IsPopupOpen(POPUP_NAME) && this->m_ptr_GUIRepo->child_to_parent == nullptr)
+	if (!isAnyHovered && !ImGui::IsPopupOpen(POPUP_NAME) && this->m_ptr_GUIRepo->ChildToParent == nullptr)
 	{
-		this->m_ptr_GUIRepo->sprited_hovered_in_hierarchy = nullptr;
+		this->m_ptr_GUIRepo->HierarchyHoveredSprite = nullptr;
 	}
 	if (!ImGui::IsMouseDown(0) || this->m_WaitFrame)
 	{
 		if (this->m_WaitFrame)
 		{
 			this->m_WaitFrame = false;
-			this->m_ptr_GUIRepo->child_to_parent = nullptr;
+			this->m_ptr_GUIRepo->ChildToParent = nullptr;
 		}
 		else this->m_WaitFrame = true;
 	}
@@ -153,7 +153,7 @@ void spe::UIHierarchy::CleanRepoSpritesUp(bool isAnyHovered)
 	}
 	if (!this->m_FoundSelected && ImGui::IsMouseReleased(0) && this->Hovered)
 	{
-		this->m_ptr_GUIRepo->sprite_in_inspector = nullptr;
+		this->m_ptr_GUIRepo->InspectorSprite = nullptr;
 	}
 }
 
@@ -162,13 +162,13 @@ void spe::UIHierarchy::SetHovering(spe::Sprite* sprite, bool& anyHovered)
 	if (ImGui::IsItemHovered(ImGuiHoveredFlags_AllowWhenOverlapped))
 	{
 		this->m_FoundHovering = true;
-		if (ImGui::IsMouseDown(0) && this->m_ptr_GUIRepo->child_to_parent == nullptr && this->m_ptr_GUIRepo->DragAndDropPath == " ")
+		if (ImGui::IsMouseDown(0) && this->m_ptr_GUIRepo->ChildToParent == nullptr && this->m_ptr_GUIRepo->DragAndDropPath == " ")
 		{
 			this->m_ChildSelectTimer += spe::Time::s_DeltaTime;
 
 			if (this->m_ChildSelectTimer > TIME_TO_CAN_SELECT_CHILD)
 			{
-				this->m_ptr_GUIRepo->child_to_parent = sprite;
+				this->m_ptr_GUIRepo->ChildToParent = sprite;
 			}
 		}
 		else
@@ -176,22 +176,22 @@ void spe::UIHierarchy::SetHovering(spe::Sprite* sprite, bool& anyHovered)
 			this->m_ChildSelectTimer = 0.0f;
 		}
 		anyHovered = true;
-		this->m_ptr_GUIRepo->sprited_hovered_in_hierarchy = sprite;
+		this->m_ptr_GUIRepo->HierarchyHoveredSprite = sprite;
 	}
 	else if (!this->m_FoundHovering && !ImGui::IsPopupOpen(POPUP_NAME))
 	{
-		this->m_ptr_GUIRepo->sprited_hovered_in_hierarchy = nullptr;
+		this->m_ptr_GUIRepo->HierarchyHoveredSprite = nullptr;
 	}
 }
 
 void spe::UIHierarchy::CopySprite()
 {
-	if (this->m_ptr_GUIRepo->sprited_hovered_in_hierarchy == nullptr)
+	if (this->m_ptr_GUIRepo->HierarchyHoveredSprite == nullptr)
 	{
 		return;
 	}
 
-	spe::Sprite* to_copy = this->m_ptr_GUIRepo->sprited_hovered_in_hierarchy;
+	spe::Sprite* to_copy = this->m_ptr_GUIRepo->HierarchyHoveredSprite;
 
 	spe::Sprite* copy = new spe::Sprite(*to_copy);
 
@@ -361,7 +361,7 @@ void spe::UIHierarchy::SetSpriteOnClick(spe::Sprite* sprite)
 		{
 			return;
 		}
-		this->m_ptr_GUIRepo->sprite_in_inspector = sprite;
+		this->m_ptr_GUIRepo->InspectorSprite = sprite;
 	}
 }
 
@@ -372,8 +372,8 @@ void spe::UIHierarchy::DrawUIRactangleWhenHovered(spe::Sprite* sprite)
 		return;
 	}
 	if (ImGui::IsItemHovered(ImGuiHoveredFlags_AllowWhenOverlapped)
-		|| this->m_ptr_GUIRepo->sprited_hovered_in_hierarchy != nullptr
-		&& this->m_ptr_GUIRepo->sprited_hovered_in_hierarchy->GetId() == sprite->GetId())
+		|| this->m_ptr_GUIRepo->HierarchyHoveredSprite != nullptr
+		&& this->m_ptr_GUIRepo->HierarchyHoveredSprite->GetId() == sprite->GetId())
 	{
 		const ImVec2 temp = ImGui::GetCursorPos();
 
@@ -409,8 +409,8 @@ void spe::UIHierarchy::OnSpriteAdd(spe::Sprite* spr)
 
 void spe::UIHierarchy::SetSelectedBackgroundColor(spe::Sprite* sprite, bool& pop_style)
 {
-	if (this->m_ptr_GUIRepo->sprite_in_inspector != nullptr
-		&& this->m_ptr_GUIRepo->sprite_in_inspector->GetId() == sprite->GetId())
+	if (this->m_ptr_GUIRepo->InspectorSprite != nullptr
+		&& this->m_ptr_GUIRepo->InspectorSprite->GetId() == sprite->GetId())
 	{
 		// Set color in Hirarchy
 		pop_style = true;
@@ -457,7 +457,7 @@ void spe::UIHierarchy::DisplaySpriteSeperated(spe::Sprite* parent, bool& any_hov
 		{
 			name += " (Prefab)";
 		}
-		const bool contains_child = (parent->ContainsChild(this->m_SearchFilter) && this->m_SearchFilter.CountGrep != 0) || parent->ContainsChild(this->m_ptr_GUIRepo->sprite_in_inspector);
+		const bool contains_child = (parent->ContainsChild(this->m_SearchFilter) && this->m_SearchFilter.CountGrep != 0) || parent->ContainsChild(this->m_ptr_GUIRepo->InspectorSprite);
 		if (this->m_SearchFilter.PassFilter(name.c_str()) || contains_child)
 		{
 			bool entered_node = false;
@@ -521,28 +521,28 @@ void spe::UIHierarchy::DisplaySpriteSeperated(spe::Sprite* parent, bool& any_hov
 
 void spe::UIHierarchy::DisplayChildToParent()
 {
-	if (this->m_ptr_GUIRepo->child_to_parent == nullptr)
+	if (this->m_ptr_GUIRepo->ChildToParent == nullptr)
 	{
 		return;
 	}
 
 	const ImVec2 window_pos = ImGui::GetMousePos();
 	ImGui::Begin("##DragChild", NULL, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoTitleBar);
-	ImGui::Text(this->m_ptr_GUIRepo->child_to_parent->Name.c_str());
+	ImGui::Text(this->m_ptr_GUIRepo->ChildToParent->Name.c_str());
 	ImGui::SetWindowPos(ImVec2(window_pos.x - 15, window_pos.y - 15));
 	ImGui::End();
 }
 
 void spe::UIHierarchy::SetSpriteAsChild()
 {
-	if (ImGui::IsMouseReleased(0) && this->m_ptr_GUIRepo->sprited_hovered_in_hierarchy != nullptr
-		&& this->m_ptr_GUIRepo->child_to_parent != nullptr
-		&& this->m_ptr_GUIRepo->child_to_parent->Name != this->m_ptr_GUIRepo->sprited_hovered_in_hierarchy->Name
+	if (ImGui::IsMouseReleased(0) && this->m_ptr_GUIRepo->HierarchyHoveredSprite != nullptr
+		&& this->m_ptr_GUIRepo->ChildToParent != nullptr
+		&& this->m_ptr_GUIRepo->ChildToParent->Name != this->m_ptr_GUIRepo->HierarchyHoveredSprite->Name
 		//&& !this->m_ptr_GUIRepo->sprited_hovered_in_hierarchy->containsChild(this->m_ptr_GUIRepo->child_to_parent)
-		&& !this->m_ptr_GUIRepo->child_to_parent->ContainsChild(this->m_ptr_GUIRepo->sprited_hovered_in_hierarchy))
+		&& !this->m_ptr_GUIRepo->ChildToParent->ContainsChild(this->m_ptr_GUIRepo->HierarchyHoveredSprite))
 
 	{
-		this->m_ptr_GUIRepo->child_to_parent->SetParent(this->m_ptr_GUIRepo->sprited_hovered_in_hierarchy);
-		this->m_ptr_GUIRepo->child_to_parent = nullptr;
+		this->m_ptr_GUIRepo->ChildToParent->SetParent(this->m_ptr_GUIRepo->HierarchyHoveredSprite);
+		this->m_ptr_GUIRepo->ChildToParent = nullptr;
 	}
 }

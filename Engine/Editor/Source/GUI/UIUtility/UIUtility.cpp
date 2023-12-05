@@ -4,15 +4,15 @@
 
 float spe::UIUtility::scaleChanger(spe::ScaleDott& dott, float default_size, float pos_o, bool x)
 {
-    if (spe::UIUtility::isCursorClickedOnRectangle(dott.ptr_ScalingRec->Shape))
+    if (spe::UIUtility::IsCursorClickedOnRectangle(dott.ptr_ScalingRec->Shape))
     {
         dott.Clicked = true;
     }
     if (dott.Clicked && sf::Mouse::isButtonPressed(sf::Mouse::Left))
     {
         sf::Vector2f pos = (x)
-            ? sf::Vector2f(spe::UIUtility::getWorldCordinates().X, dott.ptr_ScalingRec->Shape.getPosition().y)
-            : sf::Vector2f(dott.ptr_ScalingRec->Shape.getPosition().x,spe::UIUtility::getWorldCordinates().Y);
+            ? sf::Vector2f(spe::UIUtility::GetWorldCordinates().X, dott.ptr_ScalingRec->Shape.getPosition().y)
+            : sf::Vector2f(dott.ptr_ScalingRec->Shape.getPosition().x,spe::UIUtility::GetWorldCordinates().Y);
 
         dott.ptr_ScalingRec->Shape.setPosition(pos);
         float scale = INVALID_SCALE;
@@ -35,7 +35,7 @@ float spe::UIUtility::scaleChanger(spe::ScaleDott& dott, float default_size, flo
 
 void spe::UIUtility::UpdateCursor()
 {
-    spe::UIUtility::WorldCursor.Position = spe::UIUtility::getWorldCordinates();
+    spe::UIUtility::WorldCursor.Position = spe::UIUtility::GetWorldCordinates();
     spe::UIUtility::WorldCursor.SetLastPosition();
 
     spe::UIUtility::GUICursor.Position = spe::Vector2(ImGui::GetMousePos().x, ImGui::GetMousePos().y);
@@ -52,7 +52,7 @@ float spe::UIUtility::yScaleChanger(spe::ScaleDott& dott, float default_size, fl
     return spe::UIUtility::scaleChanger(dott, default_size, pos_y, false);
 }
 
-bool spe::UIUtility::isCursorClickedOnSprite(const spe::Sprite* check)
+bool spe::UIUtility::IsCursorClickedOnSprite(const spe::Sprite* check)
 {
     if (!sf::Mouse::isButtonPressed(sf::Mouse::Left))
     {
@@ -73,7 +73,7 @@ bool spe::UIUtility::isCursorClickedOnSprite(const spe::Sprite* check)
         && getPosY <= otherGetPosY + CURSOR_HITBOX);
 }
 
-spe::Vector2 spe::UIUtility::getWorldCordinates()
+spe::Vector2 spe::UIUtility::GetWorldCordinates()
 {
     const sf::Vector2i cursorPos = sf::Mouse::getPosition(*spe::UIUtility::s_m_ptr_Window);
     const sf::Vector2f cursorWorldPos = spe::UIUtility::s_m_ptr_Window->mapPixelToCoords(cursorPos);
@@ -81,7 +81,7 @@ spe::Vector2 spe::UIUtility::getWorldCordinates()
     return spe::Vector2(cursorWorldPos.x, cursorWorldPos.y);
 }
 
-bool spe::UIUtility::isCursorClickedOnRectangle(const sf::RectangleShape& shape)
+bool spe::UIUtility::IsCursorClickedOnRectangle(const sf::RectangleShape& shape)
 {
     if (spe::Event::MousePressedLeft != spe::UIUtility::s_m_ptr_Event->Type)
     {

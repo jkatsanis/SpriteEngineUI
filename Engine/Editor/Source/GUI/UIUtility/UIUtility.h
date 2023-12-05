@@ -34,9 +34,9 @@ namespace spe
 		static float xScaleChanger(spe::ScaleDott& dott, float default_size, float pos_x);
 		static float yScaleChanger(spe::ScaleDott& dott, float default_size, float pos_y);
 
-		static bool isCursorClickedOnSprite(const spe::Sprite* check);
-		static spe::Vector2 getWorldCordinates();
-		static bool isCursorClickedOnRectangle(const sf::RectangleShape& shape);
+		static bool IsCursorClickedOnSprite(const spe::Sprite* check);
+		static spe::Vector2 GetWorldCordinates();
+		static bool IsCursorClickedOnRectangle(const sf::RectangleShape& shape);
 
 		static void SetWindowScreenMiddle(const ImVec2& ref);
 		static void SameLine(float width);

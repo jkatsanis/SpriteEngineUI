@@ -299,9 +299,9 @@ void spe::UIAnimationEditor::AddKeyFrame()
 	ImGui::SetCursorPos(ImVec2(ImGui::GetCursorPosX() + 2 + ImGui::GetScrollX(), ImGui::GetCursorPosY()));
 	if (ImGui::Button("Add KeyFrame"))
 	{
-		if (this->m_ptr_GUIRepo->sprite_in_inspector != nullptr)
+		if (this->m_ptr_GUIRepo->InspectorSprite != nullptr)
 		{
-			this->m_FrameAdder.KeyFramePath = this->m_ptr_GUIRepo->sprite_in_inspector->SpriteRenderer.Path;
+			this->m_FrameAdder.KeyFramePath = this->m_ptr_GUIRepo->InspectorSprite->SpriteRenderer.Path;
 		}
 		this->m_FrameAdder.IsKeyFrameMenuOpen = true;
 		this->m_FrameAdder.SetAnimation(this->m_ptr_Anim);
@@ -314,7 +314,7 @@ void spe::UIAnimationEditor::SaveAnimation()
 {
 	if (ImGui::Button("Save"))
 	{
-		spe::Savesystem::CreateAnimationSaveFile(this->m_ptr_GUIRepo->sprite_in_inspector, *this->m_ptr_Anim);
+		spe::Savesystem::CreateAnimationSaveFile(this->m_ptr_GUIRepo->InspectorSprite, *this->m_ptr_Anim);
 	}
 	spe::UIUtility::SameLine(2);
 	spe::Style::DisplaySmybolAsText(ICON_FA_SAVE);
@@ -344,11 +344,11 @@ void spe::UIAnimationEditor::RenameAnimation()
 			// Delete the old file
 			spe::Utility::Delete(this->m_ptr_Anim->GetPath());
 
-			this->m_ptr_GUIRepo->sprite_in_inspector->Animator.SetName(std_name, this->m_ptr_Anim->GetName());
+			this->m_ptr_GUIRepo->InspectorSprite->Animator.SetName(std_name, this->m_ptr_Anim->GetName());
 			// Getting the new animation becuase the old 1 got deleted
-			this->m_ptr_Anim = &this->m_ptr_GUIRepo->sprite_in_inspector->Animator.Animations[std_name];
+			this->m_ptr_Anim = &this->m_ptr_GUIRepo->InspectorSprite->Animator.Animations[std_name];
 			
-			spe::Savesystem::CreateAnimationSaveFile(this->m_ptr_GUIRepo->sprite_in_inspector, *this->m_ptr_Anim);
+			spe::Savesystem::CreateAnimationSaveFile(this->m_ptr_GUIRepo->InspectorSprite, *this->m_ptr_Anim);
 
 			s_renamed_pop_up_name = "";
 		}
@@ -366,7 +366,7 @@ void spe::UIAnimationEditor::RenameAnimation()
 
 void spe::UIAnimationEditor::Render()
 {
-	if (this->m_ptr_GUIRepo->sprite_in_inspector == nullptr)
+	if (this->m_ptr_GUIRepo->InspectorSprite == nullptr)
 	{
 		return;
 	}

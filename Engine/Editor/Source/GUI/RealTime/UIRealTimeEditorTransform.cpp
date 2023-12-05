@@ -49,7 +49,7 @@ void spe::UIRealTimeEditorTransform::MoveComponent()
 
 bool spe::UIRealTimeEditorTransform::CheckClick(spe::Sprite* const sprite)
 {
-	bool collied = spe::UIUtility::isCursorClickedOnSprite(sprite);
+	bool collied = spe::UIUtility::IsCursorClickedOnSprite(sprite);
 
 	if (collied && this->m_ptr_Window->Event.Type == spe::Event::Type::MousePressedLeft)
 	{
@@ -109,7 +109,7 @@ spe::Sprite* spe::UIRealTimeEditorTransform::CheckIfMouseClickedOnSprite()
 			return nullptr;
 		}
 		this->m_ptr_ClickedSprite = this->m_ptr_Repo->GetByName(name);
-		this->m_ptr_GUIRepo->sprite_in_inspector = this->m_ptr_ClickedSprite;
+		this->m_ptr_GUIRepo->InspectorSprite = this->m_ptr_ClickedSprite;
 
 		return this->m_ptr_ClickedSprite;
 	}
@@ -202,7 +202,7 @@ void spe::UIRealTimeEditorTransform::Render()
 	{
 		this->RenderDolls();
 		// Scale
-		spe::Sprite* focusedSprite = this->m_ptr_GUIRepo->sprite_in_inspector;
+		spe::Sprite* focusedSprite = this->m_ptr_GUIRepo->InspectorSprite;
 		if (focusedSprite != nullptr)
 		{
 			sf::Vector2f pos[SCALE_DOTTS];
@@ -211,14 +211,14 @@ void spe::UIRealTimeEditorTransform::Render()
 			this->ScaleChanger(focusedSprite);
 			this->Reset();
 
-			this->m_CurrentCursorPos = spe::UIUtility::getWorldCordinates();
+			this->m_CurrentCursorPos = spe::UIUtility::GetWorldCordinates();
 		}
 	}
 	else 
 	{
 		this->RnrenderDolls();
 	}
-	if (this->m_ptr_GUIRepo->sprite_in_inspector == nullptr)
+	if (this->m_ptr_GUIRepo->InspectorSprite == nullptr)
 	{
 		this->RnrenderDolls();
 	}
@@ -231,11 +231,11 @@ void spe::UIRealTimeEditorTransform::Render()
 			// Check if we click on a sprite in the editor
 			this->m_ptr_ClickedSprite = this->CheckIfMouseClickedOnSprite();
 
-			this->m_CursorWorldPos = spe::UIUtility::getWorldCordinates();
+			this->m_CursorWorldPos = spe::UIUtility::GetWorldCordinates();
 
 			if (this->m_ptr_ClickedSprite != nullptr)
 			{
-				this->m_ptr_ClickedSprite = this->m_ptr_GUIRepo->sprite_in_inspector;
+				this->m_ptr_ClickedSprite = this->m_ptr_GUIRepo->InspectorSprite;
 				this->MoveComponent();
 			}
 			else

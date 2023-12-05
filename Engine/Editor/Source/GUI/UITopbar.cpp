@@ -4,18 +4,18 @@
 
 void spe::UITopbar::Init()
 {
-	this->m_display_engine_info = true;
-	this->m_switch_scene_name = "";
-	this->m_new_scene_name[0] = '\0';
-	this->m_add_scene_mode = false;
-	this->m_editor_tools = spe::EditorTools::PositionTool;
+	this->m_DisplayInfo = true;
+	this->m_SwitchSceneName = "";
+	this->m_NewSceneName[0] = '\0';
+	this->m_AddSceneMode = false;
+	this->m_EditorTools = spe::EditorTools::PositionTool;
 	this->Hovered = false;
 
-	this->m_tools[0] = spe::Tool(spe::EditorTools::PositionTool, ICON_FA_ARROWS, "Position");
-	this->m_tools[1] = spe::Tool(spe::EditorTools::ScaleTool, ICON_FA_PLUS, "Scaling");
+	this->m_Tools[0] = spe::Tool(spe::EditorTools::PositionTool, ICON_FA_ARROWS, "Position");
+	this->m_Tools[1] = spe::Tool(spe::EditorTools::ScaleTool, ICON_FA_PLUS, "Scaling");
 
-	this->m_tools[0].Background = true;
-	this->m_clicked_on_btn = true;
+	this->m_Tools[0].Background = true;
+	this->m_ClickedOnBtn = true;
 }
 
 // Public functions
@@ -24,22 +24,22 @@ void spe::UITopbar::Render()
 {
 	this->Hovered = false;
 
-	this->hotkeys();
-	this->renderMainMenuBar();
+	this->Hotkeys();
+	this->RenderMainMenuBar();
 
 
 	ImGui::Begin("##tools-buttons", NULL, DEFAULT_FLAGS);
 	// Render
 	ImGui::SetCursorPos(ImVec2(0, 0));
-	this->playGameButton();
-	this->toolSelector();
+	this->PlayGameButton();
+	this->ToolSelector();
 	this->SimulateButton();
 
 	if (ImGui::IsMouseReleased(0))
 	{
-		if (this->m_update_event_to_set)
+		if (this->m_UpdateEventToSet)
 		{
-			this->m_update_event_to_set = false;
+			this->m_UpdateEventToSet = false;
 		}
 	}
 
@@ -62,7 +62,7 @@ void spe::UITopbar::Render()
 
 // Private functions
 
-void spe::UITopbar::renderMainMenuBar()
+void spe::UITopbar::RenderMainMenuBar()
 {
 	ImGui::PushStyleColor(ImGuiCol_WindowBg, ImVec4(0.1019f, .1019f, .1019f, 1.0f));
 	ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(0, WINDOW_SIZE_Y_TOOL_BUTTONS));
@@ -71,12 +71,12 @@ void spe::UITopbar::renderMainMenuBar()
 	{
 		spe::Style::RenderStyle();
 
-		this->buildProjectIntoFolder();
-		this->renderWindowSelecter();
-		this->renderToolSelector();
+		this->BuildProjectIntoFolder();
+		this->RenderWindowSelecter();
+		this->RenderToolSelector();
 		this->ProjectSettings();
-		this->renderSceneSelector();
-		this->displayEngineInfo();
+		this->RenderSceneSelector();
+		this->DisplayEngineInfo();
 
 		ImGui::SetWindowFontScale(spe::Style::s_DefaultFontSize);
 		ImGui::EndMainMenuBar();
@@ -85,7 +85,7 @@ void spe::UITopbar::renderMainMenuBar()
 	ImGui::PopStyleColor();
 }
 
-void spe::UITopbar::renderToolSelector()
+void spe::UITopbar::RenderToolSelector()
 {
 	if (ImGui::BeginMenu("Tools"))
 	{
@@ -93,19 +93,19 @@ void spe::UITopbar::renderToolSelector()
 
 		for (int i = 0; i < TOOLS_AMOUNT; i++)
 		{
-			if (ImGui::MenuItem(this->m_tools[i].Name.c_str()))
+			if (ImGui::MenuItem(this->m_Tools[i].Name.c_str()))
 			{
-				this->m_editor_tools = this->m_tools[i].tool;
-				this->m_ptr_GUIRepo->Tools = this->m_editor_tools;
-				this->removeBackgroundFromButtons();
-				this->m_tools[i].Background = true;
+				this->m_EditorTools = this->m_Tools[i].tool;
+				this->m_ptr_GUIRepo->Tools = this->m_EditorTools;
+				this->RemoveBackgroundFromButtons();
+				this->m_Tools[i].Background = true;
 			}
 		}
 		ImGui::EndMenu();
 	}
 }
 
-void spe::UITopbar::renderSceneSelector()
+void spe::UITopbar::RenderSceneSelector()
 {
 	if (ImGui::BeginMenu("Scenes"))
 	{
@@ -128,31 +128,31 @@ void spe::UITopbar::renderSceneSelector()
 			std::string identy = "##" + name;
 			if (spe::Style::DisplaySymbolAsButtonWithWidthAndCursorPos(ICON_FA_TRASH, cursor, ImVec2(30, 30), identy))
 			{
-				this->removeScene(name);
+				this->RemoveScene(name);
 			}
 			cursor.x += 27;
 			cursor.y += 1.5f;
 			identy += "symbol";
 			if (spe::Style::DisplaySymbolAsButtonWithWidthAndCursorPos(ICON_FA_EDIT, cursor, ImVec2(30, 30), identy))
 			{
-				this->m_switch_scene_name = name;
+				this->m_SwitchSceneName = name;
 			}
 			ImGui::Dummy(ImVec2(0, 5));
 		}
 		ImGui::Separator();
 		if (ImGui::MenuItem("Add scene"))
 		{
-			this->m_add_scene_mode = true;
+			this->m_AddSceneMode = true;
 		}
 
 		ImGui::EndMenu();
 	}
 
-	this->switchScene(this->m_switch_scene_name);
-	this->renderSceneAddPopup();
+	this->SwitchScene(this->m_SwitchSceneName);
+	this->RenderSceneAddPopup();
 }
 
-void spe::UITopbar::removeScene(const std::string& scene)
+void spe::UITopbar::RemoveScene(const std::string& scene)
 {
 	if (this->m_ptr_SceneHandler->TotalScenes.size() <= 1)
 	{
@@ -174,9 +174,9 @@ void spe::UITopbar::removeScene(const std::string& scene)
 	}
 }
 
-void spe::UITopbar::renderSceneAddPopup()
+void spe::UITopbar::RenderSceneAddPopup()
 {
-	if (!this->m_add_scene_mode)
+	if (!this->m_AddSceneMode)
 	{
 		return;
 	}
@@ -193,14 +193,14 @@ void spe::UITopbar::renderSceneAddPopup()
 		ImGui::SetCursorPos(ImVec2(cursor.x + 170, cursor.y - 45));
 		if (ImGui::Button("x"))
 		{
-			this->m_add_scene_mode = false;
+			this->m_AddSceneMode = false;
 		}
 
 		ImGui::SetCursorPos(cursor);
 
 		ImGui::SetNextItemWidth(150);
 		ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(0, 7));
-		ImGui::InputTextWithHint("##add-scene", "<name>", this->m_new_scene_name, CHAR_MAX);
+		ImGui::InputTextWithHint("##add-scene", "<name>", this->m_NewSceneName, CHAR_MAX);
 
 		ImGui::PopStyleVar();
 
@@ -208,7 +208,7 @@ void spe::UITopbar::renderSceneAddPopup()
 
 		if (spe::Style::DisplaySmybolAsButton(ICON_FA_ARROW_RIGHT))
 		{
-			this->createScene();
+			this->CreateScene();
 		}
 
 		ImGui::SetWindowSize(window_size);
@@ -221,19 +221,19 @@ void spe::UITopbar::renderSceneAddPopup()
 	}
 	if (ImGui::IsKeyReleased(ImGuiKey_Escape))
 	{
-		this->m_add_scene_mode = false;
-		this->m_new_scene_name[0] = '\0';
+		this->m_AddSceneMode = false;
+		this->m_NewSceneName[0] = '\0';
 	}
 
-	if (this->m_add_scene_mode && ImGui::IsKeyReleased(ImGuiKey_Enter))
+	if (this->m_AddSceneMode && ImGui::IsKeyReleased(ImGuiKey_Enter))
 	{
-		this->createScene();
+		this->CreateScene();
 	}
 }
 
-void spe::UITopbar::switchScene(const std::string& scene)
+void spe::UITopbar::SwitchScene(const std::string& scene)
 {
-	if (this->m_switch_scene_name == "")
+	if (this->m_SwitchSceneName == "")
 	{
 		return;
 	}
@@ -247,27 +247,27 @@ void spe::UITopbar::switchScene(const std::string& scene)
 		const ImVec2 CURSOR_POS = ImGui::GetCursorPos();
 		if (ImGui::Button("Save"))
 		{
-			spe::Savesystem::SaveEverything(*this->m_ptr_Repo, this->m_ptr_GUIRepo->Camera, this->m_ptr_GUIRepo->background_color, *this->m_ptr_SceneHandler);
+			spe::Savesystem::SaveEverything(*this->m_ptr_Repo, this->m_ptr_GUIRepo->Camera, this->m_ptr_GUIRepo->BackgroundColor, *this->m_ptr_SceneHandler);
 
-			this->m_ptr_SceneHandler->LoadScene(scene, this->m_ptr_GUIRepo->Camera, this->m_ptr_GUIRepo->background_color);
+			this->m_ptr_SceneHandler->LoadScene(scene, this->m_ptr_GUIRepo->Camera, this->m_ptr_GUIRepo->BackgroundColor);
 			this->m_ptr_GUIRepo->CleanUp();
 			this->m_ptr_GUIRepo->InitHierarchySprites(this->m_ptr_Repo->GetSprites());
 			this->m_ptr_Repo->SortSpritesByLayer();
-			this->m_switch_scene_name = "";
+			this->m_SwitchSceneName = "";
 		}
 		ImGui::SameLine();
 		if (ImGui::Button("Don't save"))
 		{
-			this->m_ptr_SceneHandler->LoadScene(scene, this->m_ptr_GUIRepo->Camera, this->m_ptr_GUIRepo->background_color);
+			this->m_ptr_SceneHandler->LoadScene(scene, this->m_ptr_GUIRepo->Camera, this->m_ptr_GUIRepo->BackgroundColor);
 			this->m_ptr_GUIRepo->CleanUp();
 			this->m_ptr_GUIRepo->InitHierarchySprites(this->m_ptr_Repo->GetSprites());
 			this->m_ptr_Repo->SortSpritesByLayer();
 
-			this->m_switch_scene_name = "";
+			this->m_SwitchSceneName = "";
 		}
 		if (ImGui::IsKeyReleased(ImGuiKey_Escape))
 		{
-			this->m_switch_scene_name = "";
+			this->m_SwitchSceneName = "";
 		}
 
 		spe::UIUtility::SetWindowScreenMiddle(ImVec2(200, 50));
@@ -276,9 +276,9 @@ void spe::UITopbar::switchScene(const std::string& scene)
 	}
 }
 
-void spe::UITopbar::displayEngineInfo()
+void spe::UITopbar::DisplayEngineInfo()
 {
-	if (!this->m_display_engine_info)
+	if (!this->m_DisplayInfo)
 	{
 		return;
 	}
@@ -337,7 +337,7 @@ void spe::UITopbar::SimulateButton()
 	{
 		if (spe::Style::DisplaySymbolInMenuItemWithText(ICON_FA_PLAY, "Simulate physics", 5))
 		{
-			spe::Savesystem::SaveEverything(*this->m_ptr_Repo, this->m_ptr_GUIRepo->Camera, this->m_ptr_GUIRepo->background_color, *this->m_ptr_SceneHandler);
+			spe::Savesystem::SaveEverything(*this->m_ptr_Repo, this->m_ptr_GUIRepo->Camera, this->m_ptr_GUIRepo->BackgroundColor, *this->m_ptr_SceneHandler);
 			this->m_ptr_GUIRepo->SimulatePhysics = true;
 			spe::Savesystem::s_CanSave = false;
 		}
@@ -350,7 +350,7 @@ void spe::UITopbar::SimulateButton()
 
 			this->m_ptr_GUIRepo->SimulatePhysics = false;
 
-			this->m_ptr_SceneHandler->LoadScene(this->m_ptr_SceneHandler->CurrentScene, this->m_ptr_GUIRepo->Camera, this->m_ptr_GUIRepo->background_color);
+			this->m_ptr_SceneHandler->LoadScene(this->m_ptr_SceneHandler->CurrentScene, this->m_ptr_GUIRepo->Camera, this->m_ptr_GUIRepo->BackgroundColor);
 
 			this->m_ptr_GUIRepo->CleanUp();
 			this->m_ptr_GUIRepo->InitHierarchySprites(this->m_ptr_Repo->GetSprites());
@@ -359,14 +359,14 @@ void spe::UITopbar::SimulateButton()
 	}
 }
 
-void spe::UITopbar::buildProjectIntoFolder()
+void spe::UITopbar::BuildProjectIntoFolder()
 {
 	if (ImGui::BeginMenu("File"))
 	{
 		this->Hovered = true;
 		if (ImGui::MenuItem("Save", "CTRL + S"))
 		{
-			spe::Savesystem::SaveEverything(*this->m_ptr_Repo, this->m_ptr_GUIRepo->Camera, this->m_ptr_GUIRepo->background_color, *this->m_ptr_SceneHandler);
+			spe::Savesystem::SaveEverything(*this->m_ptr_Repo, this->m_ptr_GUIRepo->Camera, this->m_ptr_GUIRepo->BackgroundColor, *this->m_ptr_SceneHandler);
 		}
 		if (ImGui::MenuItem("Build", "CTRL + B"))
 		{
@@ -377,7 +377,7 @@ void spe::UITopbar::buildProjectIntoFolder()
 	}
 }
 
-void spe::UITopbar::renderWindowSelecter()
+void spe::UITopbar::RenderWindowSelecter()
 {
 	// Hard coded windows
 	if (ImGui::BeginMenu("Window"))
@@ -397,18 +397,18 @@ void spe::UITopbar::renderWindowSelecter()
 		}
 		if (ImGui::MenuItem("Engine info"))
 		{
-			this->m_display_engine_info = !this->m_display_engine_info;
+			this->m_DisplayInfo = !this->m_DisplayInfo;
 		}
 		ImGui::EndMenu();
 	}
 }
 
-void spe::UITopbar::hotkeys()
+void spe::UITopbar::Hotkeys()
 {
 	if (spe::Input::OnKeyHold(spe::KeyBoardCode::LControl)
 		&& spe::Input::OnKeyPress(spe::KeyBoardCode::S))
 	{
-		spe::Savesystem::SaveEverything(*this->m_ptr_Repo, this->m_ptr_GUIRepo->Camera, this->m_ptr_GUIRepo->background_color, *this->m_ptr_SceneHandler);
+		spe::Savesystem::SaveEverything(*this->m_ptr_Repo, this->m_ptr_GUIRepo->Camera, this->m_ptr_GUIRepo->BackgroundColor, *this->m_ptr_SceneHandler);
 	}
 
 	if (spe::Input::OnKeyHold(spe::KeyBoardCode::LControl)
@@ -418,10 +418,10 @@ void spe::UITopbar::hotkeys()
 	}
 }
 
-void spe::UITopbar::createScene()
+void spe::UITopbar::CreateScene()
 {
-	this->m_add_scene_mode = false;
-	const std::string scene_name = std::string(this->m_new_scene_name);
+	this->m_AddSceneMode = false;
+	const std::string scene_name = std::string(this->m_NewSceneName);
 	if (scene_name == "")
 	{
 		return;
@@ -436,11 +436,11 @@ void spe::UITopbar::createScene()
 	spe::Savesystem::UpdateSceneFile(*this->m_ptr_SceneHandler);
 }
 
-void spe::UITopbar::playGameButton()
+void spe::UITopbar::PlayGameButton()
 {
 	if (spe::Style::DisplaySmybolAsButton(ICON_FA_PLAY) || spe::Input::OnKeyRelease(spe::KeyBoardCode::F5))
 	{
-		spe::Savesystem::SaveEverything(*this->m_ptr_Repo, this->m_ptr_GUIRepo->Camera, this->m_ptr_GUIRepo->background_color, *this->m_ptr_SceneHandler);
+		spe::Savesystem::SaveEverything(*this->m_ptr_Repo, this->m_ptr_GUIRepo->Camera, this->m_ptr_GUIRepo->BackgroundColor, *this->m_ptr_SceneHandler);
 
 		spe::EngineData::BuildProject();
 
@@ -459,44 +459,44 @@ void spe::UITopbar::playGameButton()
 	}
 }
 
-void spe::UITopbar::toolSelector()
+void spe::UITopbar::ToolSelector()
 {
 	const float x = ImGui::GetCursorPosX() + 28;
 
 	ImGui::SetCursorPosX(x);
 	for (int i = 0; i < TOOLS_AMOUNT; i++)
 	{
-		if (this->m_tools[i].Background)
+		if (this->m_Tools[i].Background)
 		{
 			ImGui::PushStyleColor(ImGuiCol_Button, REAL_EDITOR_BUTTON_BG_COLOR);
 		}
 		ImGui::SetCursorPosY(0);
-		if (spe::Style::DisplaySmybolAsButton(this->m_tools[i].Icon.c_str())) {}
+		if (spe::Style::DisplaySmybolAsButton(this->m_Tools[i].Icon.c_str())) {}
 		if (ImGui::IsItemClicked(ImGuiMouseButton_Left))
 		{
-			this->m_clicked_on_btn = true;
-			this->m_editor_tools = this->m_tools[i].tool;
-			this->m_ptr_GUIRepo->Tools = this->m_editor_tools;
-			this->m_update_event_to_set = true;
+			this->m_ClickedOnBtn = true;
+			this->m_EditorTools = this->m_Tools[i].tool;
+			this->m_ptr_GUIRepo->Tools = this->m_EditorTools;
+			this->m_UpdateEventToSet = true;
 		}
-		if (this->m_tools[i].Background)
+		if (this->m_Tools[i].Background)
 		{
 			ImGui::PopStyleColor();
 		}
-		if (this->m_clicked_on_btn)
+		if (this->m_ClickedOnBtn)
 		{
-			this->removeBackgroundFromButtons();
-			this->m_clicked_on_btn = false;
-			this->m_tools[i].Background = true;
+			this->RemoveBackgroundFromButtons();
+			this->m_ClickedOnBtn = false;
+			this->m_Tools[i].Background = true;
 		}
 		ImGui::SameLine();
 	}
 }
 
-void spe::UITopbar::removeBackgroundFromButtons()
+void spe::UITopbar::RemoveBackgroundFromButtons()
 {
 	for (int i = 0; i < TOOLS_AMOUNT; i++)
 	{
-		this->m_tools[i].Background = false;
+		this->m_Tools[i].Background = false;
 	}
 }

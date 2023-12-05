@@ -20,7 +20,7 @@ void spe::UIAnimation::Init()
 
 void spe::UIAnimation::Render()
 {
-	if (!this->m_ptr_GUIRepo->AnimationData.IsOpen || this->m_ptr_GUIRepo->sprite_in_inspector == nullptr)
+	if (!this->m_ptr_GUIRepo->AnimationData.IsOpen || this->m_ptr_GUIRepo->InspectorSprite == nullptr)
 	{
 		this->Hovered = false;
 		return;
@@ -86,7 +86,7 @@ void spe::UIAnimation::GetFileNameInput()
 	// Handling the open_file_dialog
 	if (this->m_OpenFileDialoge.IsItemSelected())
 	{
-		spe::Sprite* sprite = this->m_ptr_GUIRepo->sprite_in_inspector;
+		spe::Sprite* sprite = this->m_ptr_GUIRepo->InspectorSprite;
 		// Loading the sprites from the user directory
 		const std::string ext = "." + spe::Utility::GetFileExtension(this->m_OpenFileDialoge.PathClicked);
 		if (ext == EXTENSION_ANIMATION_FILE)
@@ -166,7 +166,7 @@ void spe::UIAnimation::DisplayAnimations()
 
 	s_ExistCheckCounter += spe::Time::s_DeltaTime;
 
-	for (auto& anim : this->m_ptr_GUIRepo->sprite_in_inspector->Animator.Animations)
+	for (auto& anim : this->m_ptr_GUIRepo->InspectorSprite->Animator.Animations)
 	{
 		const std::string& key = anim.first;
 
@@ -199,7 +199,7 @@ void spe::UIAnimation::DisplayAnimations()
 			{
 				spe::Log::LogString("Animation file doesnt exist -> deleting from list..");
 			}
-			this->m_ptr_GUIRepo->sprite_in_inspector->Animator.RemoveAnimation(anim.second.GetName());
+			this->m_ptr_GUIRepo->InspectorSprite->Animator.RemoveAnimation(anim.second.GetName());
 			break;
 		}
 	}
@@ -248,7 +248,7 @@ void spe::UIAnimation::AddAnimationsToAnimator()
 {
 	if (this->m_CreateFileDialoge.PathClicked != "" && ImGui::IsKeyReleased(ImGuiKey_Enter))
 	{
-		for (std::pair<std::string, spe::Animation> anim : this->m_ptr_GUIRepo->sprite_in_inspector->Animator.Animations)
+		for (std::pair<std::string, spe::Animation> anim : this->m_ptr_GUIRepo->InspectorSprite->Animator.Animations)
 		{
 			// Found a aniamtion with this name, which already exists
 			if (anim.first == this->m_AnimationFile)
@@ -263,10 +263,10 @@ void spe::UIAnimation::AddAnimationsToAnimator()
 				this->m_CreateFileDialoge.PathClicked
 				+ this->m_AnimationFile
 				+ EXTENSION_ANIMATION_FILE;
-			this->m_ptr_GUIRepo->sprite_in_inspector->Animator.CreateAnimation(this->m_AnimationFile, path, { });
+			this->m_ptr_GUIRepo->InspectorSprite->Animator.CreateAnimation(this->m_AnimationFile, path, { });
 		}
 		spe::Savesystem::CreateAnimationSaveFile
-			(this->m_ptr_GUIRepo->sprite_in_inspector, this->m_ptr_GUIRepo->sprite_in_inspector->Animator.Animations[this->m_AnimationFile]);
+			(this->m_ptr_GUIRepo->InspectorSprite, this->m_ptr_GUIRepo->InspectorSprite->Animator.Animations[this->m_AnimationFile]);
 
 		this->m_CreateFileDialoge.DisableWindow();
 		this->m_AnimationFile[0] = '\0';

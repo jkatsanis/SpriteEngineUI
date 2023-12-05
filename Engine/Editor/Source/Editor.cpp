@@ -15,7 +15,7 @@ spe::Editor::Editor()
 	this->Init();
 
 	this->m_Window.SetCamera(&this->m_GUIRepository.Camera);
-	this->m_Window.SetBackgroundColor(&this->m_GUIRepository.background_color);
+	this->m_Window.SetBackgroundColor(&this->m_GUIRepository.BackgroundColor);
 
 	this->m_UIWindow.SetRepos(this->m_GUIRepository, this->m_SceneHandler.SpriteRepository, this->m_SceneHandler, this->m_SceneHandler.LightRepository);
 
@@ -55,7 +55,7 @@ void spe::Editor::Init()
 	spe::Initializer::IntiHighestSpriteID(this->m_SceneHandler.SpriteRepository, PATH_TO_HIGHEST_INDEX);
 
 	// Load the first scene in the file
-	this->m_SceneHandler.LoadScene(this->m_SceneHandler.TotalScenes[0], this->m_GUIRepository.Camera, this->m_GUIRepository.background_color);
+	this->m_SceneHandler.LoadScene(this->m_SceneHandler.TotalScenes[0], this->m_GUIRepository.Camera, this->m_GUIRepository.BackgroundColor);
 }
 
 void spe::Editor::UpdateUI()
