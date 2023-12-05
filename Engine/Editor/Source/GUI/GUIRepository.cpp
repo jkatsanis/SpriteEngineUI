@@ -63,7 +63,7 @@ void spe::GUIRepository::EraseSpriteWithName(const std::string& name)
 {
 	for (size_t i = 0; i < this->HierarchySprites.size(); i++)
 	{
-		if (name == this->HierarchySprites[i]->name)
+		if (name == this->HierarchySprites[i]->Name)
 		{
 			spe::Sprite* ptr_delete = HierarchySprites[i];
 
@@ -75,7 +75,7 @@ void spe::GUIRepository::EraseSpriteWithName(const std::string& name)
 
 			for (size_t j = 0; j < childs_to_delete.size(); j++)
 			{
-				this->EraseSpriteWithId(childs_to_delete[j]->getId());
+				this->EraseSpriteWithId(childs_to_delete[j]->GetId());
 			}
 
 			return;
@@ -142,10 +142,10 @@ void spe::GUIRepository::InitHierarchySprites(std::list<spe::Sprite*>& sprites)
 
 void spe::GUIRepository::AddChildsToDelete(std::vector<Sprite*>& ids, Sprite* parent) 
 {
-	for (int i = 0; i < parent->ptr_childs.size(); i++)
+	for (int i = 0; i < parent->ptr_Childs.size(); i++)
 	{
-		ids.push_back(parent->ptr_childs[i]);
-		AddChildsToDelete(ids, parent->ptr_childs[i]);
+		ids.push_back(parent->ptr_Childs[i]);
+		AddChildsToDelete(ids, parent->ptr_Childs[i]);
 	}
 }
 
@@ -153,7 +153,7 @@ void spe::GUIRepository::EraseSpriteWithId(uint32_t id)
 {
 	for (int i = 0; i < this->HierarchySprites.size(); i++)
 	{
-		if ((uint32_t)this->HierarchySprites[i]->getId() == id)
+		if ((uint32_t)this->HierarchySprites[i]->GetId() == id)
 		{
 			this->HierarchySprites.erase(this->HierarchySprites.begin() + i);
 			return;

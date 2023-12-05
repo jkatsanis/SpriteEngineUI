@@ -63,7 +63,7 @@ void spe::Light::enable()
 		return;
 	}
 	this->exist = true;
-	this->m_ptr_LighRepository->add(this->ptr_attached_sprite->transform.GetPosition(), this->m_radius, this->m_intensity, this->m_color);
+	this->m_ptr_LighRepository->add(this->ptr_attached_sprite->Transform.GetPosition(), this->m_radius, this->m_intensity, this->m_color);
 	this->m_light_index = this->m_ptr_LighRepository->getIndex();
 }
 

@@ -70,7 +70,7 @@ void spe::Prefab::UpdatePath()
 	}
 	newPath.pop_back();
 
-	newPath += this->m_ptr_attachedSprite->name + EXTENSION_PREFAB_FILE;
+	newPath += this->m_ptr_attachedSprite->Name + EXTENSION_PREFAB_FILE;
 	this->user_path_to_file = newPath;
 }
 

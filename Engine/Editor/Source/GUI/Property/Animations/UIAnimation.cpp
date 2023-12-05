@@ -166,7 +166,7 @@ void spe::UIAnimation::displayAnimations()
 
 	s_ExistCheckCounter += spe::Time::s_DeltaTime;
 
-	for (auto& anim : this->m_ptr_GUIRepo->sprite_in_inspector->animator.animations)
+	for (auto& anim : this->m_ptr_GUIRepo->sprite_in_inspector->Animator.Animations)
 	{
 		const std::string& key = anim.first;
 
@@ -199,7 +199,7 @@ void spe::UIAnimation::displayAnimations()
 			{
 				spe::Log::LogString("Animation file doesnt exist -> deleting from list..");
 			}
-			this->m_ptr_GUIRepo->sprite_in_inspector->animator.removeAnimation(anim.second.GetName());
+			this->m_ptr_GUIRepo->sprite_in_inspector->Animator.RemoveAnimation(anim.second.GetName());
 			break;
 		}
 	}
@@ -248,7 +248,7 @@ void spe::UIAnimation::addAnimationsToAnimator()
 {
 	if (this->m_animation_create_file_dialog.pathClicked != "" && ImGui::IsKeyReleased(ImGuiKey_Enter))
 	{
-		for (std::pair<std::string, spe::Animation> anim : this->m_ptr_GUIRepo->sprite_in_inspector->animator.animations)
+		for (std::pair<std::string, spe::Animation> anim : this->m_ptr_GUIRepo->sprite_in_inspector->Animator.Animations)
 		{
 			// Found a aniamtion with this name, which already exists
 			if (anim.first == this->m_animationFile)
@@ -263,10 +263,10 @@ void spe::UIAnimation::addAnimationsToAnimator()
 				this->m_animation_create_file_dialog.pathClicked
 				+ this->m_animationFile
 				+ EXTENSION_ANIMATION_FILE;
-			this->m_ptr_GUIRepo->sprite_in_inspector->animator.createAnimation(this->m_animationFile, path, { });
+			this->m_ptr_GUIRepo->sprite_in_inspector->Animator.CreateAnimation(this->m_animationFile, path, { });
 		}
 		spe::Savesystem::CreateAnimationSaveFile
-			(this->m_ptr_GUIRepo->sprite_in_inspector, this->m_ptr_GUIRepo->sprite_in_inspector->animator.animations[this->m_animationFile]);
+			(this->m_ptr_GUIRepo->sprite_in_inspector, this->m_ptr_GUIRepo->sprite_in_inspector->Animator.Animations[this->m_animationFile]);
 
 		this->m_animation_create_file_dialog.disableWindow();
 		this->m_animationFile[0] = '\0';

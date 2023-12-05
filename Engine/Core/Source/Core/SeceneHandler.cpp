@@ -22,7 +22,7 @@ void spe::SceneHandler::LoadScene(const std::string& name, spe::Camera& camera, 
 			spe::Initializer::InitCamera(camera, PATH_TO_CAMERA);
 			spe::Initializer::InitBackground(bg, PATH_TO_BACKGROUND);
 
-			this->SpriteRepository.main_content_iniitialied = true;
+			this->SpriteRepository.Initialized = true;
 		}
 	}
 }

@@ -18,52 +18,52 @@ namespace spe
 
     void LightRepository::updateLightSource(spe::Sprite* sprite, spe::Camera* cam)
     {
-        if (!sprite->light.exist)
+        if (!sprite->Light.exist)
         {
             return;
         }
 
-        uint32_t idx = sprite->light.getLightIndex();
+        uint32_t idx = sprite->Light.getLightIndex();
         spe::LightSource& source = m_light_sources[idx];
 
-        if (sprite->transform.position_changed || cam->HasZoomChanged())
+        if (sprite->Transform.position_changed || cam->HasZoomChanged())
         {
-            sprite->transform.position_changed = false;
+            sprite->Transform.position_changed = false;
             m_update = true;
 
             float zoom = cam->GetZoom() - 1;
 
-            const float a = ((sprite->transform.GetPosition().Y * -1) + 540) + 540 * zoom;
-            spe::Vector2 new_pos = spe::Vector2((sprite->transform.GetPosition().X + 960) + 960 * zoom, a);
+            const float a = ((sprite->Transform.GetPosition().Y * -1) + 540) + 540 * zoom;
+            spe::Vector2 new_pos = spe::Vector2((sprite->Transform.GetPosition().X + 960) + 960 * zoom, a);
 
             source.position = new_pos;
         }
-        if (sprite->light.hasRadiusChanged())
+        if (sprite->Light.hasRadiusChanged())
         {
             m_update = true;
 
-            sprite->light.setRadiosChangeFlagFalse();
-            source.radius = sprite->light.getRadius();
+            sprite->Light.setRadiosChangeFlagFalse();
+            source.radius = sprite->Light.getRadius();
         }
-        if (sprite->light.hasIntensityChanged())
+        if (sprite->Light.hasIntensityChanged())
         {
             m_update = true;
 
-            sprite->light.setIntensityChangeFlagFalse();
-            source.light_intensities = sprite->light.getIntensity();
+            sprite->Light.setIntensityChangeFlagFalse();
+            source.light_intensities = sprite->Light.getIntensity();
         }
-        if (sprite->light.hasColorChanged())
+        if (sprite->Light.hasColorChanged())
         {
             m_update = true;
 
-            sprite->light.setColorChangeFlag();
-            source.color = sprite->light.getColor();
+            sprite->Light.setColorChangeFlag();
+            source.color = sprite->Light.getColor();
         }
     }
 
     void LightRepository::updateSprite(spe::Sprite* sprite, spe::Camera* cam)
     {
-        if (!sprite->light.exist)
+        if (!sprite->Light.exist)
         {
             return;
         }

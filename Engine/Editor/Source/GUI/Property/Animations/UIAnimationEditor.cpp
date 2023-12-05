@@ -37,7 +37,7 @@ void spe::UIAnimationEditor::closeWindow()
 	//Close button
 	if (ImGui::Button("x"))
 	{
-		this->m_anim->ptr_AppliedSprite->animator.stop(this->m_anim->GetName());
+		this->m_anim->ptr_AppliedSprite->Animator.Stop(this->m_anim->GetName());
 		this->resetAnim();
 	}
 
@@ -69,14 +69,14 @@ void spe::UIAnimationEditor::editorTimeLine()
 	{
 		if (spe::Style::DisplaySmybolAsButton(ICON_FA_PLAY))
 		{
-			this->m_anim->ptr_AppliedSprite->animator.play(this->m_anim->GetName());
+			this->m_anim->ptr_AppliedSprite->Animator.Play(this->m_anim->GetName());
 		}
 	}
 	else
 	{
 		if (spe::Style::DisplaySmybolAsButton(ICON_FA_SQUARE))
 		{
-			this->m_anim->ptr_AppliedSprite->animator.stop(this->m_anim->GetName());
+			this->m_anim->ptr_AppliedSprite->Animator.Stop(this->m_anim->GetName());
 		}
 	}
 
@@ -301,7 +301,7 @@ void spe::UIAnimationEditor::addKeyFrame()
 	{
 		if (this->m_ptr_GUIRepo->sprite_in_inspector != nullptr)
 		{
-			this->m_FrameAdder.key_frame_path = this->m_ptr_GUIRepo->sprite_in_inspector->sprite_renderer.path;
+			this->m_FrameAdder.key_frame_path = this->m_ptr_GUIRepo->sprite_in_inspector->SpriteRenderer.path;
 		}
 		this->m_FrameAdder.is_key_frame_menu_open = true;
 		this->m_FrameAdder.setAnimation(this->m_anim);
@@ -344,9 +344,9 @@ void spe::UIAnimationEditor::renameAnimation()
 			// Delete the old file
 			spe::Utility::Delete(this->m_anim->GetPath());
 
-			this->m_ptr_GUIRepo->sprite_in_inspector->animator.setName(std_name, this->m_anim->GetName());
+			this->m_ptr_GUIRepo->sprite_in_inspector->Animator.SetName(std_name, this->m_anim->GetName());
 			// Getting the new animation becuase the old 1 got deleted
-			this->m_anim = &this->m_ptr_GUIRepo->sprite_in_inspector->animator.animations[std_name];
+			this->m_anim = &this->m_ptr_GUIRepo->sprite_in_inspector->Animator.Animations[std_name];
 			
 			spe::Savesystem::CreateAnimationSaveFile(this->m_ptr_GUIRepo->sprite_in_inspector, *this->m_anim);
 

@@ -61,15 +61,15 @@ bool spe::UIUtility::isCursorClickedOnSprite(const spe::Sprite* check)
     sf::Vector2i cursorPos = sf::Mouse::getPosition(*spe::UIUtility::s_m_ptr_Window);
     spe::UIUtility::WorldCursor.Position = spe::UIUtility::s_m_ptr_Window->mapPixelToCoords(cursorPos);
 
-    float getPosX = check->transform.getOrigininalPosition().X;
-    float getPosY = check->transform.getOrigininalPosition().Y;
+    float getPosX = check->Transform.getOrigininalPosition().X;
+    float getPosY = check->Transform.getOrigininalPosition().Y;
 
     float otherGetPosX = spe::UIUtility::WorldCursor.Position.X;
     float otherGetPosY = spe::UIUtility::WorldCursor.Position.Y;
 
-    return (getPosX + check->transform.texture_size.X >= otherGetPosX
+    return (getPosX + check->Transform.texture_size.X >= otherGetPosX
         && getPosX <= otherGetPosX + CURSOR_HITBOX
-        && getPosY + check->transform.texture_size.Y >= otherGetPosY
+        && getPosY + check->Transform.texture_size.Y >= otherGetPosY
         && getPosY <= otherGetPosY + CURSOR_HITBOX);
 }
 

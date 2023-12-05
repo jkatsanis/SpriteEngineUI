@@ -152,9 +152,9 @@ void spe::UIAssetFolder::addPrefab()
     }
     if (this->m_ptr_GUIRepo->child_to_parent != nullptr && ImGui::IsMouseReleased(0) && this->Hovered)
     {
-        const std::string pathToFile = this->m_current_path + "\\" + this->m_ptr_GUIRepo->child_to_parent->name + EXTENSION_PREFAB_FILE;
+        const std::string pathToFile = this->m_current_path + "\\" + this->m_ptr_GUIRepo->child_to_parent->Name + EXTENSION_PREFAB_FILE;
         
-        this->m_ptr_GUIRepo->child_to_parent->prefab.updateProps(pathToFile, pathToFile, this->m_ptr_GUIRepo->child_to_parent->name + EXTENSION_PREFAB_FILE);
+        this->m_ptr_GUIRepo->child_to_parent->Prefab.updateProps(pathToFile, pathToFile, this->m_ptr_GUIRepo->child_to_parent->Name + EXTENSION_PREFAB_FILE);
 
         spe::Savesystem::CreateOrUpdatePrefabFile(this->m_ptr_GUIRepo->child_to_parent, pathToFile, pathToFile);
     }

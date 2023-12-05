@@ -111,7 +111,7 @@ void spe::UIHierarchy::deleteSprite()
 	}
 	if (this->m_ptr_GUIRepo->sprite_in_inspector != nullptr)
 	{
-		if (this->m_ptr_GUIRepo->sprited_hovered_in_hierarchy->getId() == this->m_ptr_GUIRepo->sprite_in_inspector->getId())
+		if (this->m_ptr_GUIRepo->sprited_hovered_in_hierarchy->GetId() == this->m_ptr_GUIRepo->sprite_in_inspector->GetId())
 		{
 			this->m_ptr_GUIRepo->sprite_in_inspector = nullptr;
 		}
@@ -119,16 +119,16 @@ void spe::UIHierarchy::deleteSprite()
 
 	this->m_ptr_GUIRepo->sprite_in_inspector = nullptr;
 
-	this->m_ptr_GUIRepo->EraseSpriteWithName(this->m_ptr_GUIRepo->sprited_hovered_in_hierarchy->name);
+	this->m_ptr_GUIRepo->EraseSpriteWithName(this->m_ptr_GUIRepo->sprited_hovered_in_hierarchy->Name);
 
-	this->m_ptr_Repo->DeleteWithName(this->m_ptr_GUIRepo->sprited_hovered_in_hierarchy->name);
+	this->m_ptr_Repo->DeleteWithName(this->m_ptr_GUIRepo->sprited_hovered_in_hierarchy->Name);
 	this->m_ptr_GUIRepo->sprited_hovered_in_hierarchy = nullptr;
 
 }
 
 void spe::UIHierarchy::Unparent()
 {
-	this->m_ptr_GUIRepo->sprited_hovered_in_hierarchy->clearParentData();
+	this->m_ptr_GUIRepo->sprited_hovered_in_hierarchy->ClearParentData();
 	this->m_ptr_GUIRepo->sprited_hovered_in_hierarchy = nullptr;
 }
 
@@ -206,25 +206,25 @@ void spe::UIHierarchy::setMenuitemHovered(bool& any_hovered, spe::Sprite* sprite
 	{
 		go_in = sprite->ContainsChild(this->m_search_sprite_filter) && this->m_search_sprite_filter.CountGrep != 0;
 	}
-	if (this->m_search_sprite_filter.PassFilter(sprite->name.c_str())
+	if (this->m_search_sprite_filter.PassFilter(sprite->Name.c_str())
 		|| go_in)
 	{
 		bool pop_style = false;
 		this->setSelectedBackgroundColor(sprite, pop_style);
 
-		std::string name = sprite->name;
-		if (sprite->prefab.exist)
+		std::string name = sprite->Name;
+		if (sprite->Prefab.exist)
 		{
 			name += " (Prefab)";
 		}
 
 		float add = 0;
-		if (sprite->parent != nullptr && !sprite->IsParent())
+		if (sprite->ptr_Parent != nullptr && !sprite->IsParent())
 		{
 			add = ADD_WHEN_SPRITE_HAS_PARENT;
 		}
 		float add_when_alone = 0;
-		if (sprite->parent == nullptr && !sprite->IsParent())
+		if (sprite->ptr_Parent == nullptr && !sprite->IsParent())
 		{
 			add_when_alone = 15;
 		}
@@ -373,7 +373,7 @@ void spe::UIHierarchy::drawUIRactangleWhenHovered(spe::Sprite* sprite)
 	}
 	if (ImGui::IsItemHovered(ImGuiHoveredFlags_AllowWhenOverlapped)
 		|| this->m_ptr_GUIRepo->sprited_hovered_in_hierarchy != nullptr
-		&& this->m_ptr_GUIRepo->sprited_hovered_in_hierarchy->getId() == sprite->getId())
+		&& this->m_ptr_GUIRepo->sprited_hovered_in_hierarchy->GetId() == sprite->GetId())
 	{
 		const ImVec2 temp = ImGui::GetCursorPos();
 
@@ -392,11 +392,11 @@ void spe::UIHierarchy::drawRenderSymbol(spe::Sprite* child)
 {
 	const ImVec2 cursor = ImGui::GetCursorPos();
 	ImGui::SetCursorPos(ImVec2(17, cursor.y - 5));
-	const std::string icon = child->sprite_renderer.render ? ICON_FA_EYE : ICON_FA_EYE_SLASH;
-	const std::string name = icon + std::string("##") + std::to_string(child->getId());
+	const std::string icon = child->SpriteRenderer.render ? ICON_FA_EYE : ICON_FA_EYE_SLASH;
+	const std::string name = icon + std::string("##") + std::to_string(child->GetId());
 	if (spe::Style::DisplaySmybolAsButton(name.c_str()))
 	{
-		child->sprite_renderer.render = !child->sprite_renderer.render;
+		child->SpriteRenderer.render = !child->SpriteRenderer.render;
 	}
 	ImGui::SetCursorPos(cursor);
 }
@@ -410,7 +410,7 @@ void spe::UIHierarchy::OnSpriteAdd(spe::Sprite* spr)
 void spe::UIHierarchy::setSelectedBackgroundColor(spe::Sprite* sprite, bool& pop_style)
 {
 	if (this->m_ptr_GUIRepo->sprite_in_inspector != nullptr
-		&& this->m_ptr_GUIRepo->sprite_in_inspector->getId() == sprite->getId())
+		&& this->m_ptr_GUIRepo->sprite_in_inspector->GetId() == sprite->GetId())
 	{
 		// Set color in Hirarchy
 		pop_style = true;
@@ -433,7 +433,7 @@ bool spe::UIHierarchy::displaySprites()
 
 void spe::UIHierarchy::displaySprites(spe::Sprite* parent, bool& any_hovered)
 {
-	if (parent->parent != nullptr)
+	if (parent->ptr_Parent != nullptr)
 	{
 		return;
 	}
@@ -452,8 +452,8 @@ void spe::UIHierarchy::displaySpriteSeperated(spe::Sprite* parent, bool& any_hov
 {
 	if (parent->IsParent())
 	{
-		std::string name = parent->name;
-		if (parent->prefab.exist)
+		std::string name = parent->Name;
+		if (parent->Prefab.exist)
 		{
 			name += " (Prefab)";
 		}
@@ -490,9 +490,9 @@ void spe::UIHierarchy::displaySpriteSeperated(spe::Sprite* parent, bool& any_hov
 				this->drawUIRactangleWhenHovered(parent);
 				this->setHovering(parent, any_hovered);
 
-				for (size_t i = 0; i < parent->ptr_childs.size(); i++)
+				for (size_t i = 0; i < parent->ptr_Childs.size(); i++)
 				{
-					spe::Sprite* child = parent->ptr_childs[i];
+					spe::Sprite* child = parent->ptr_Childs[i];
 					this->displaySpriteSeperated(child, any_hovered);
 				}
 				ImGui::TreePop();
@@ -528,7 +528,7 @@ void spe::UIHierarchy::displayChildToParent()
 
 	const ImVec2 window_pos = ImGui::GetMousePos();
 	ImGui::Begin("##DragChild", NULL, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoTitleBar);
-	ImGui::Text(this->m_ptr_GUIRepo->child_to_parent->name.c_str());
+	ImGui::Text(this->m_ptr_GUIRepo->child_to_parent->Name.c_str());
 	ImGui::SetWindowPos(ImVec2(window_pos.x - 15, window_pos.y - 15));
 	ImGui::End();
 }
@@ -537,12 +537,12 @@ void spe::UIHierarchy::setSpriteAsChild()
 {
 	if (ImGui::IsMouseReleased(0) && this->m_ptr_GUIRepo->sprited_hovered_in_hierarchy != nullptr
 		&& this->m_ptr_GUIRepo->child_to_parent != nullptr
-		&& this->m_ptr_GUIRepo->child_to_parent->name != this->m_ptr_GUIRepo->sprited_hovered_in_hierarchy->name
+		&& this->m_ptr_GUIRepo->child_to_parent->Name != this->m_ptr_GUIRepo->sprited_hovered_in_hierarchy->Name
 		//&& !this->m_ptr_GUIRepo->sprited_hovered_in_hierarchy->containsChild(this->m_ptr_GUIRepo->child_to_parent)
 		&& !this->m_ptr_GUIRepo->child_to_parent->ContainsChild(this->m_ptr_GUIRepo->sprited_hovered_in_hierarchy))
 
 	{
-		this->m_ptr_GUIRepo->child_to_parent->setParent(this->m_ptr_GUIRepo->sprited_hovered_in_hierarchy);
+		this->m_ptr_GUIRepo->child_to_parent->SetParent(this->m_ptr_GUIRepo->sprited_hovered_in_hierarchy);
 		this->m_ptr_GUIRepo->child_to_parent = nullptr;
 	}
 }

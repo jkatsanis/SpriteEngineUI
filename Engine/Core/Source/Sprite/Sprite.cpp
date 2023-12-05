@@ -4,54 +4,54 @@
 
 spe::Sprite::Sprite()
 {
-	this->m_id = 0;
-	this->m_parent_id = 0;
-	this->parent = nullptr;
+	this->m_ID = 0;
+	this->m_ParentID = 0;
+	this->ptr_Parent = nullptr;
 	this->m_SetId = false;
-	this->name = "Unknown";
-	this->transform.SetPosition(spe::Vector2(0, 0));
-	this->m_texture = nullptr;
+	this->Name = "Unknown";
+	this->Transform.SetPosition(spe::Vector2(0, 0));
+	this->m_Texture = nullptr;
 }
 
 spe::Sprite::Sprite(std::string name, spe::Vector2 spawnPosition, std::string path, spe::LightRepository& lightrep)
-	: name(name)
+	: Name(name)
 {
-	this->initVariables(spawnPosition, path, lightrep);
+	this->InitVariables(spawnPosition, path, lightrep);
 }
 
 spe::Sprite::Sprite(spe::Sprite& rhs)
 {
-	this->initVariables(rhs.transform.GetPosition(), rhs.sprite_renderer.path, *rhs.light.m_ptr_LighRepository);
+	this->InitVariables(rhs.Transform.GetPosition(), rhs.SpriteRenderer.path, *rhs.Light.m_ptr_LighRepository);
 
-	this->collider = spe::BoxCollider(this, rhs.collider);
-	this->transform = spe::Transform(this, rhs.transform);
-	this->animator = spe::Animator(this, rhs.animator);
-	this->physicsBody = spe::PhsysicsBody(this, rhs.physicsBody);
-	this->sprite_renderer = spe::SpriteRenderer(rhs.sprite_renderer);
-	this->light = spe::Light(this, rhs.light);
-	this->prefab = spe::Prefab(this, rhs.prefab);
-	this->name = rhs.name;
+	this->Collider = spe::BoxCollider(this, rhs.Collider);
+	this->Transform = spe::Transform(this, rhs.Transform);
+	this->Animator = spe::Animator(this, rhs.Animator);
+	this->Physicsbody = spe::PhsysicsBody(this, rhs.Physicsbody);
+	this->SpriteRenderer = spe::SpriteRenderer(rhs.SpriteRenderer);
+	this->Light = spe::Light(this, rhs.Light);
+	this->Prefab = spe::Prefab(this, rhs.Prefab);
+	this->Name = rhs.Name;
 
-	this->tag = rhs.tag;
+	this->Tag = rhs.Tag;
 
 	// Initing the childs
-	for (size_t i = 0; i < rhs.ptr_childs.size(); i++)
+	for (size_t i = 0; i < rhs.ptr_Childs.size(); i++)
 	{
-		spe::Sprite* copy_child = new spe::Sprite(*rhs.ptr_childs[i]);
-		copy_child->parent = this;
-		this->ptr_childs.push_back(copy_child);
+		spe::Sprite* copy_child = new spe::Sprite(*rhs.ptr_Childs[i]);
+		copy_child->ptr_Parent = this;
+		this->ptr_Childs.push_back(copy_child);
 	}
 }
 
 spe::Sprite::~Sprite()
 {
-	this->clearAllChilds();
-	this->clearParentData();
+	this->ClearAllChilds();
+	this->ClearParentData();
 
-	this->light.deleteLight();
+	this->Light.deleteLight();
 
-	delete this->m_texture;
-	this->m_texture = nullptr;
+	delete this->m_Texture;
+	this->m_Texture = nullptr;
 }
 
 //Public functions
@@ -60,52 +60,52 @@ spe::Sprite::~Sprite()
 //// USER FUNCTIONS 
 /////////////////////////////////////
 
-void spe::Sprite::setSpriteTexture(const std::string& path)
+void spe::Sprite::SetSpriteTexture(const std::string& path)
 {
-	if (!this->m_texture->loadFromFile(path))
+	if (!this->m_Texture->loadFromFile(path))
 	{
 		const std::string error = "File " + path + " was not found!, Sprite.cpp 59";
 		spe::Log::LogString(error);
 	}
-	this->setSpriteTexture(*this->m_texture, path);
+	this->SetSpriteTexture(*this->m_Texture, path);
 }
 
-void spe::Sprite::setSpriteTexture(const std::string& path, const spe::Vector2& scale)
+void spe::Sprite::SetSpriteTexture(const std::string& path, const spe::Vector2& scale)
 {
-	if (!this->m_texture->loadFromFile(path))
+	if (!this->m_Texture->loadFromFile(path))
 	{
 		const std::string error = "File " + path + " was not found!, Sprite.cpp 68";
 		spe::Log::LogString(error);
 	}
-	this->setSpriteTexture(*this->m_texture, path);
-	this->transform.setScale(scale, true);
+	this->SetSpriteTexture(*this->m_Texture, path);
+	this->Transform.setScale(scale, true);
 }
 
-void spe::Sprite::setSpriteTexture(const sf::Texture& texture, const std::string& path)
+void spe::Sprite::SetSpriteTexture(const sf::Texture& texture, const std::string& path)
 {
-	this->m_sprite.setTexture(texture, true);
-	this->transform.setScale(this->transform.getScale(), true);
-	this->sprite_renderer.path = path;
+	this->m_Sprite.setTexture(texture, true);
+	this->Transform.setScale(this->Transform.getScale(), true);
+	this->SpriteRenderer.path = path;
 
-	this->transform.setOrigin();
+	this->Transform.setOrigin();
 }
 
-void spe::Sprite::setId(const int32_t id)
+void spe::Sprite::SetId(const int32_t id) noexcept
 {
-	this->m_id = id;
+	this->m_ID = id;
 }
 
-void spe::Sprite::clearParentData()
+void spe::Sprite::ClearParentData()
 {
-	if (this->parent != nullptr)
+	if (this->ptr_Parent != nullptr)
 	{
-		this->parent->removeChild(this);
-		this->parent = nullptr;
+		this->ptr_Parent->RemoveChild(this);
+		this->ptr_Parent = nullptr;
 	}
-	this->m_parent_id = 0;
+	this->m_ParentID = 0;
 }
 
-void spe::Sprite::setParent(spe::Sprite* spriteParent)
+void spe::Sprite::SetParent(spe::Sprite* spriteParent)
 {
 	if (spriteParent == nullptr)
 	{
@@ -113,32 +113,32 @@ void spe::Sprite::setParent(spe::Sprite* spriteParent)
 	}
 
 	// Clean up (Before) parent
-	if (this->parent != nullptr)
+	if (this->ptr_Parent != nullptr)
 	{
-		this->parent->removeChild(this);
-		this->parent = nullptr;
+		this->ptr_Parent->RemoveChild(this);
+		this->ptr_Parent = nullptr;
 	}
-	this->m_parent_id = spriteParent->getId();
-	this->parent = spriteParent;
+	this->m_ParentID = spriteParent->GetId();
+	this->ptr_Parent = spriteParent;
 
 	spe::Sprite* child = this;
-	spe::Vector2 distance = spe::Vector2(spriteParent->transform.GetPosition() - child->transform.GetPosition());
-	child->transform.position_to_parent = distance;
+	spe::Vector2 distance = spe::Vector2(spriteParent->Transform.GetPosition() - child->Transform.GetPosition());
+	child->Transform.position_to_parent = distance;
 
-	spriteParent->ptr_childs.push_back(this);
+	spriteParent->ptr_Childs.push_back(this);
 }
 
-void spe::Sprite::removeChild(const spe::Sprite* child)
+void spe::Sprite::RemoveChild(const spe::Sprite* child)
 {
 	if (child == nullptr)
 	{
 		return;
 	}
-	for (size_t i = 0; i < this->ptr_childs.size(); i++)
+	for (size_t i = 0; i < this->ptr_Childs.size(); i++)
 	{
-		if (child->getId() == this->ptr_childs[i]->getId())
+		if (child->GetId() == this->ptr_Childs[i]->GetId())
 		{
-			this->ptr_childs.erase(this->ptr_childs.begin() + i);
+			this->ptr_Childs.erase(this->ptr_Childs.begin() + i);
 			return;
 		}
 	}
@@ -146,49 +146,49 @@ void spe::Sprite::removeChild(const spe::Sprite* child)
 
 //Private functions
 
-void spe::Sprite::initVariables(spe::Vector2 spawnPos, std::string path, spe::LightRepository& lightrep)
+void spe::Sprite::InitVariables(spe::Vector2 spawnPos, std::string path, spe::LightRepository& lightrep)
 {
 	// Components
-	this->transform = spe::Transform(this);
-	this->animator = spe::Animator(this);
-	this->collider = spe::BoxCollider(this);
-	this->physicsBody = spe::PhsysicsBody(this);
-	this->prefab = spe::Prefab(this);
-	this->light = spe::Light(this, &lightrep);
+	this->Transform = spe::Transform(this);
+	this->Animator = spe::Animator(this);
+	this->Collider = spe::BoxCollider(this);
+	this->Physicsbody = spe::PhsysicsBody(this);
+	this->Prefab = spe::Prefab(this);
+	this->Light = spe::Light(this, &lightrep);
 
 	// ID's get set in the sprite repo!!
-	this->tag = "none";
-	this->m_texture = new sf::Texture();
-	this->m_parent_id = -1;
-	this->m_id = -1;
-	this->parent = nullptr;
-	this->ptr_childs = std::vector<spe::Sprite*>(0);
-	this->name = name;
-	this->sprite_renderer.path = path;
+	this->Tag = "none";
+	this->m_Texture = new sf::Texture();
+	this->m_ParentID = -1;
+	this->m_ID = -1;
+	this->ptr_Parent = nullptr;
+	this->ptr_Childs = std::vector<spe::Sprite*>(0);
+	this->Name = Name;
+	this->SpriteRenderer.path = path;
 	this->m_SetId = false;
 
-	this->sprite_renderer.sorting_layer_index = 0;
+	this->SpriteRenderer.sorting_layer_index = 0;
 
-	this->transform.setOrigin();
-	this->transform.setScale(spe::Vector2(1, 1), true);
-	this->transform.setRotation(0);
-	this->transform.SetPosition(spawnPos);
+	this->Transform.setOrigin();
+	this->Transform.setScale(spe::Vector2(1, 1), true);
+	this->Transform.setRotation(0);
+	this->Transform.SetPosition(spawnPos);
 
-	this->setSpriteTexture(path);
+	this->SetSpriteTexture(path);
 
-	this->getSprite().setPosition(sf::Vector2f(spawnPos.X + 960, 540 - spawnPos.Y));
+	this->GetSprite().setPosition(sf::Vector2f(spawnPos.X + 960, 540 - spawnPos.Y));
 
 }
 
 //Static functions
 
-spe::Sprite* spe::Sprite::getNode()
+spe::Sprite* spe::Sprite::GetNode()
 {
-	if (this->parent == nullptr)
+	if (this->ptr_Parent == nullptr)
 	{
 		return this;
 	}
-	return parent->getNode();
+	return ptr_Parent->GetNode();
 }
 
 bool spe::Sprite::ContainsChild(const spe::Sprite* child) const
@@ -199,10 +199,10 @@ bool spe::Sprite::ContainsChild(const spe::Sprite* child) const
 	}
 	bool contains = false;
 
-	for (int i = 0; i < this->ptr_childs.size(); i++)
+	for (int i = 0; i < this->ptr_Childs.size(); i++)
 	{
-		const spe::Sprite* spr = this->ptr_childs[i];
-		if (child->m_id == spr->m_id)
+		const spe::Sprite* spr = this->ptr_Childs[i];
+		if (child->m_ID == spr->m_ID)
 		{
 			return true;
 		}
@@ -218,10 +218,10 @@ bool spe::Sprite::ContainsChild(const ImGuiTextFilter& namefilter) const
 {
 	bool contains = false;
 
-	for (int i = 0; i < this->ptr_childs.size(); i++)
+	for (int i = 0; i < this->ptr_Childs.size(); i++)
 	{
-		const spe::Sprite* spr = this->ptr_childs[i];
-		if (namefilter.PassFilter(spr->name.c_str()))
+		const spe::Sprite* spr = this->ptr_Childs[i];
+		if (namefilter.PassFilter(spr->Name.c_str()))
 		{
 			return true;
 		}

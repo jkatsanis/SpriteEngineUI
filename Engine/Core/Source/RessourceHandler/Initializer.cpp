@@ -54,18 +54,18 @@ void spe::Initializer::InitSprites(spe::SpriteRepository& spriteRepo, const std:
 	for (auto it = sprites.begin(); it != sprites.end(); ++it)
 	{
 		spe::Sprite* sprite = *it;
-		if (sprite->getParentId() > 0)
+		if (sprite->GetParentId() > 0)
 		{
-			if (!spriteRepo.ExistWithId(sprite->getParentId()))
+			if (!spriteRepo.ExistWithId(sprite->GetParentId()))
 			{
 				spe::Log::LogString("Sprite parent not found!");
-				sprite->clearParentData();
+				sprite->ClearParentData();
 				continue;
 			}
-			spe::Sprite* parent = spriteRepo.GetById(sprite->getParentId());
+			spe::Sprite* parent = spriteRepo.GetById(sprite->GetParentId());
 			if (parent != nullptr)
 			{
-				sprite->setParent(parent);
+				sprite->SetParent(parent);
 			}
 		}
 
@@ -125,9 +125,9 @@ void spe::Initializer::InitAnimation(const std::string& path, spe::Sprite* spr)
 
 	if (ptr_sprite != nullptr)
 	{
-		ptr_sprite->animator.createAnimation(animationName, path, frames);
+		ptr_sprite->Animator.CreateAnimation(animationName, path, frames);
 
-		spe::Animation& anim = ptr_sprite->animator.animations[animationName];
+		spe::Animation& anim = ptr_sprite->Animator.Animations[animationName];
 		anim.Loop = loop;
 	}
 }
@@ -184,9 +184,9 @@ void spe::Initializer::InitAnimation(const std::string& path)
 
 	if (ptr_sprite != nullptr)
 	{
-		ptr_sprite->animator.createAnimation(animationName, path, frames);
+		ptr_sprite->Animator.CreateAnimation(animationName, path, frames);
 
-		spe::Animation& anim = ptr_sprite->animator.animations[animationName];
+		spe::Animation& anim = ptr_sprite->Animator.Animations[animationName];
 		anim.Loop = loop;
 	}
 }
@@ -200,34 +200,34 @@ spe::Sprite* spe::Initializer::InitSprite(const std::string& line, spe::LightRep
 	spe::Sprite* sprite = new spe::Sprite(propertys[0], position, propertys[6], lightrepo);
 
 	spe::Vector2 vec(std::stof(propertys[4].c_str()), std::stof(propertys[5].c_str()));
-	sprite->transform.setScale(vec, true);
+	sprite->Transform.setScale(vec, true);
 
-	sprite->transform.setRotation(atoi(propertys[7].c_str()));
+	sprite->Transform.setRotation(atoi(propertys[7].c_str()));
 
 # pragma region Collider
-	sprite->collider.box_collider_width.X = std::stof(propertys[8].c_str());
-	sprite->collider.box_collider_width.Y = std::stof(propertys[9].c_str());
+	sprite->Collider.box_collider_width.X = std::stof(propertys[8].c_str());
+	sprite->Collider.box_collider_width.Y = std::stof(propertys[9].c_str());
 
-	sprite->collider.box_collider_height.X = std::stof(propertys[10].c_str());
-	sprite->collider.box_collider_height.Y = std::stof(propertys[11].c_str());
-	sprite->collider.exist = propertys[12] == "True";
-	sprite->collider.is_solid = propertys[13] == "True";
+	sprite->Collider.box_collider_height.X = std::stof(propertys[10].c_str());
+	sprite->Collider.box_collider_height.Y = std::stof(propertys[11].c_str());
+	sprite->Collider.exist = propertys[12] == "True";
+	sprite->Collider.is_solid = propertys[13] == "True";
 
 #pragma endregion
 # pragma region Sorting Layer
-	sprite->sprite_renderer.sorting_layer_index = atoi(propertys[14].c_str());
+	sprite->SpriteRenderer.sorting_layer_index = atoi(propertys[14].c_str());
 
 
 #pragma endregion
 # pragma region PhysicsBody
-	sprite->physicsBody.gravity = std::stof(propertys[15].c_str());
-	sprite->physicsBody.mass = std::stof(propertys[16].c_str());
-	sprite->physicsBody.exist = propertys[17] == "True";
+	sprite->Physicsbody.gravity = std::stof(propertys[15].c_str());
+	sprite->Physicsbody.mass = std::stof(propertys[16].c_str());
+	sprite->Physicsbody.exist = propertys[17] == "True";
 
 #pragma endregion
 # pragma region parentId, ID
-	sprite->setId(atoi(propertys[18].c_str()));
-	sprite->setParentId(atoi(propertys[19].c_str()));
+	sprite->SetId(atoi(propertys[18].c_str()));
+	sprite->SetParentId(atoi(propertys[19].c_str()));
 
 #pragma endregion
 # pragma region Last pos, next pos
@@ -236,34 +236,34 @@ spe::Sprite* spe::Initializer::InitSprite(const std::string& line, spe::LightRep
 #pragma endregion
 
 # pragma region Position to parent x, and y
-	sprite->transform.position_to_parent.X = std::stof(propertys[26]);
-	sprite->transform.position_to_parent.Y = std::stof(propertys[27]);
+	sprite->Transform.position_to_parent.X = std::stof(propertys[26]);
+	sprite->Transform.position_to_parent.Y = std::stof(propertys[27]);
 
-	sprite->animator.exist = propertys[28] == "True";
+	sprite->Animator.exist = propertys[28] == "True";
 #pragma endregion
 
 # pragma region Prefab
-	sprite->prefab.exist = propertys[29] == "True";
-	sprite->prefab.load_in_memory = propertys[30] == "True";
-	sprite->prefab.user_path_to_file = propertys[31];
-	sprite->prefab.UpdateName();
-	sprite->prefab.UpdatePath();
+	sprite->Prefab.exist = propertys[29] == "True";
+	sprite->Prefab.load_in_memory = propertys[30] == "True";
+	sprite->Prefab.user_path_to_file = propertys[31];
+	sprite->Prefab.UpdateName();
+	sprite->Prefab.UpdatePath();
 #pragma endregion
 
 #pragma region General
-	sprite->tag = propertys[32];
+	sprite->Tag = propertys[32];
 #pragma endregion
 
 
 #pragma region Light
-	sprite->light.setRadius(std::stof(propertys[34]));
-	sprite->light.setIntensity(std::stof(propertys[35]));
+	sprite->Light.setRadius(std::stof(propertys[34]));
+	sprite->Light.setIntensity(std::stof(propertys[35]));
 	if (propertys[33] == "True")
 	{
-		sprite->light.enable();
+		sprite->Light.enable();
 	}
 
-	sprite->sprite_renderer.effected_by_light = propertys[36] == "True";
+	sprite->SpriteRenderer.effected_by_light = propertys[36] == "True";
 
 	spe::Vector3 color;
 
@@ -271,10 +271,10 @@ spe::Sprite* spe::Initializer::InitSprite(const std::string& line, spe::LightRep
 	color.Y = std::stof(propertys[38]);
 	color.Z = std::stof(propertys[39]);
 
-	sprite->light.setColor(spe::Vector3::ToSFVector3(color));
+	sprite->Light.setColor(spe::Vector3::ToSFVector3(color));
 #pragma endregion
 
-	sprite->transform.setOrigin();
+	sprite->Transform.setOrigin();
 
 	return sprite;
 }
@@ -396,18 +396,18 @@ spe::Sprite* spe::Initializer::InitPrefab(const std::string& path, spe::LightRep
 		for (int i = 0; i < mini_repo.size(); i++)
 		{
 			spe::Sprite* const sprite = mini_repo[i];
-			if (sprite->getParentId() > 0)
+			if (sprite->GetParentId() > 0)
 			{
-				spe::Sprite* parent = spe::SpriteRepository::getWithId(mini_repo, sprite->getParentId());
+				spe::Sprite* parent = spe::SpriteRepository::GetWithId(mini_repo, sprite->GetParentId());
 				if (parent != nullptr)
 				{
-					sprite->parent = parent;
-					parent->ptr_childs.push_back(sprite);
+					sprite->ptr_Parent = parent;
+					parent->ptr_Childs.push_back(sprite);
 				}
 			}
 		}
 
-		spe::Sprite* node = mini_repo[0]->getNode();
+		spe::Sprite* node = mini_repo[0]->GetNode();
 		return node;
 	}
 	

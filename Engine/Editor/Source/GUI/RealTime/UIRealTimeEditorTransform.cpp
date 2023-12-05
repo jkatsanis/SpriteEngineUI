@@ -32,8 +32,8 @@ void spe::UIRealTimeEditorTransform::moveComponent()
 	float x = this->m_cursorWorldPos.X - 960;
 	float y = -(this->m_cursorWorldPos.Y - 540);
 
-	float m = x - this->m_clickedSprite->transform.GetPosition().X;
-	float my = y - this->m_clickedSprite->transform.GetPosition().Y;
+	float m = x - this->m_clickedSprite->Transform.GetPosition().X;
+	float my = y - this->m_clickedSprite->Transform.GetPosition().Y;
 
 	if (spe::UIUtility::GUICursor.PositionChanged)
 	{
@@ -44,7 +44,7 @@ void spe::UIRealTimeEditorTransform::moveComponent()
 
 	spe::Vector2 newPosition = spe::Vector2(x - m, y - my);
 
-	this->m_clickedSprite->transform.SetPosition(newPosition);
+	this->m_clickedSprite->Transform.SetPosition(newPosition);
 }
 
 bool spe::UIRealTimeEditorTransform::checkClick(spe::Sprite* const sprite)
@@ -53,7 +53,7 @@ bool spe::UIRealTimeEditorTransform::checkClick(spe::Sprite* const sprite)
 
 	if (collied && this->m_ptr_Window->Event.Type == spe::Event::Type::MousePressedLeft)
 	{
-		this->m_clickedSpriteId = sprite->getId();
+		this->m_clickedSpriteId = sprite->GetId();
 
 		this->m_realeasedCursorOnSprite = true;
 		return true;
@@ -82,7 +82,7 @@ spe::Sprite* spe::UIRealTimeEditorTransform::checkIfMouseClickedOnSprite()
 		// Checking if we have the same ID. If we wouldnt do that check it could just return
 		// The next sprite in the list which would be wrong
 		if (this->m_realeasedCursorOnSprite && sf::Mouse::isButtonPressed(sf::Mouse::Left)
-			&& sprite->getId() == this->m_clickedSpriteId)
+			&& sprite->GetId() == this->m_clickedSpriteId)
 		{
 			return sprite;
 		}
@@ -95,10 +95,10 @@ spe::Sprite* spe::UIRealTimeEditorTransform::checkIfMouseClickedOnSprite()
 
 	for (spe::Sprite* sp : spr)
 	{
-		if (sp->sprite_renderer.sorting_layer_index >= highest)
+		if (sp->SpriteRenderer.sorting_layer_index >= highest)
 		{
-			name = sp->name;
-			highest = sp->sprite_renderer.sorting_layer_index;
+			name = sp->Name;
+			highest = sp->SpriteRenderer.sorting_layer_index;
 		}
 	}
 
@@ -137,15 +137,15 @@ void spe::UIRealTimeEditorTransform::unrenderDolls()
 
 void spe::UIRealTimeEditorTransform::scaleChanger(spe::Sprite* focusedSprite)
 {
-	float scale_x = spe::UIUtility::xScaleChanger(this->m_scale_dotts[0], focusedSprite->transform.getDefaultTextureSize().X,
-		focusedSprite->transform.GetPosition().X);
+	float scale_x = spe::UIUtility::xScaleChanger(this->m_scale_dotts[0], focusedSprite->Transform.getDefaultTextureSize().X,
+		focusedSprite->Transform.GetPosition().X);
 	if (scale_x != INVALID_SCALE)
-		focusedSprite->transform.setScale(spe::Vector2(scale_x, focusedSprite->transform.getScale().Y));
+		focusedSprite->Transform.setScale(spe::Vector2(scale_x, focusedSprite->Transform.getScale().Y));
 
-	float scale_y = spe::UIUtility::yScaleChanger(this->m_scale_dotts[1], focusedSprite->transform.getDefaultTextureSize().Y,
-		focusedSprite->transform.GetPosition().Y);
+	float scale_y = spe::UIUtility::yScaleChanger(this->m_scale_dotts[1], focusedSprite->Transform.getDefaultTextureSize().Y,
+		focusedSprite->Transform.GetPosition().Y);
 	if (scale_y != INVALID_SCALE)
-		focusedSprite->transform.setScale(spe::Vector2(focusedSprite->transform.getScale().X, scale_y));
+		focusedSprite->Transform.setScale(spe::Vector2(focusedSprite->Transform.getScale().X, scale_y));
 }
 
 
@@ -163,10 +163,10 @@ void spe::UIRealTimeEditorTransform::reset()
 
 void spe::UIRealTimeEditorTransform::getPos(const spe::Sprite* focusedSprite, sf::Vector2f pos[])
 {
-	spe::Vector2 originalPos = focusedSprite->transform.getOrigininalPosition();
-	spe::Vector2 textureSize = focusedSprite->transform.texture_size;
+	spe::Vector2 originalPos = focusedSprite->Transform.getOrigininalPosition();
+	spe::Vector2 textureSize = focusedSprite->Transform.texture_size;
 
-	if (focusedSprite->transform.getScale().X < 0)
+	if (focusedSprite->Transform.getScale().X < 0)
 	{
 		pos[0] = sf::Vector2f(originalPos.X, originalPos.Y + textureSize.Y / 2);
 	}
@@ -174,7 +174,7 @@ void spe::UIRealTimeEditorTransform::getPos(const spe::Sprite* focusedSprite, sf
 	{
 		pos[0] = sf::Vector2f(originalPos.X + textureSize.X, originalPos.Y + textureSize.Y / 2);
 	}
-	if (focusedSprite->transform.getScale().Y < 0)
+	if (focusedSprite->Transform.getScale().Y < 0)
 	{
 		textureSize.Y = 0;
 	}

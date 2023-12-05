@@ -14,39 +14,35 @@ namespace spe
 {
 	struct AnimationPlaying
 	{
-		std::string name;
-		bool isAAnimationPlaying;
+		std::string Name;
+		bool IsPlaying;
 	};
 
 	class Sprite;
 	class Animator : public spe::Component
 	{
 	private: 
-		AnimationPlaying m_animation_playing;
+		AnimationPlaying m_AnimationPlaying;
 
 		void init() override;
 	public:
 		Sprite* ptr_attached_sprite;
-		std::map<std::string, Animation> animations;
+		std::map<std::string, Animation> Animations;
 
 		Animator();
 		Animator(Sprite* ptr_attachedSprite);
 		Animator(spe::Sprite* ptr_attached_sprite, spe::Animator& animator);
 
-		void createAnimation(const std::string& name, const std::string& fileLocation, const std::vector<spe::KeyFrame>& frame);
-		void removeAnimation(const std::string& name);
+		void CreateAnimation(const std::string& name, const std::string& fileLocation, const std::vector<spe::KeyFrame>& frame);
+		void RemoveAnimation(const std::string& name);
 
-		void play(const std::string& name);
-		void stop(const std::string& name);
+		void Play(const std::string& name);
+		void Stop(const std::string& name);
 
-		void setName(const std::string& new_name, const std::string& old_name);
-		void update();
+		void SetName(const std::string& new_name, const std::string& old_name);
+		void Update();
 
 		void reset() override;
-
-	public:
-
-		// static void stopAllAnimations(spe::SpriteRepository& toUpdate);
 	};
 }
 

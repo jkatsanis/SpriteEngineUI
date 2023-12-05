@@ -54,23 +54,23 @@ bool spe::BoxCollider::CheckCollision(spe::BoxCollider& other)
         return false;
     }
 
-    float getPosX = ptr_attached_sprite->transform.getOrigininalPosition().X;
-    float getPosY = ptr_attached_sprite->transform.getOrigininalPosition().Y;
+    float getPosX = ptr_attached_sprite->Transform.getOrigininalPosition().X;
+    float getPosY = ptr_attached_sprite->Transform.getOrigininalPosition().Y;
 
-    float otherGetPosX = other.ptr_sprite->transform.getOrigininalPosition().X;
-    float otherGetPosY = other.ptr_sprite->transform.getOrigininalPosition().Y;
+    float otherGetPosX = other.ptr_sprite->Transform.getOrigininalPosition().X;
+    float otherGetPosY = other.ptr_sprite->Transform.getOrigininalPosition().Y;
 
     bool isHorizontalOverlapLeft =
-        getPosX + ptr_attached_sprite->transform.texture_size.X + this->box_collider_width.Y >= otherGetPosX + other.box_collider_width.X;
+        getPosX + ptr_attached_sprite->Transform.texture_size.X + this->box_collider_width.Y >= otherGetPosX + other.box_collider_width.X;
 
     bool isHorizontalOverlapRight =
-        getPosX + this->box_collider_width.X <= otherGetPosX + other.box_collider_width.Y + other.ptr_sprite->transform.texture_size.X;
+        getPosX + this->box_collider_width.X <= otherGetPosX + other.box_collider_width.Y + other.ptr_sprite->Transform.texture_size.X;
 
     bool isVerticalOverlapTop =
-        getPosY + ptr_attached_sprite->transform.texture_size.Y + this->box_collider_height.Y >= otherGetPosY + other.box_collider_height.X;
+        getPosY + ptr_attached_sprite->Transform.texture_size.Y + this->box_collider_height.Y >= otherGetPosY + other.box_collider_height.X;
 
     bool isVerticalOverlapBottom =
-        getPosY + this->box_collider_height.X <= otherGetPosY + other.box_collider_height.Y + other.ptr_sprite->transform.texture_size.Y;
+        getPosY + this->box_collider_height.X <= otherGetPosY + other.box_collider_height.Y + other.ptr_sprite->Transform.texture_size.Y;
 
     if (isHorizontalOverlapLeft && isHorizontalOverlapRight && isVerticalOverlapTop && isVerticalOverlapBottom) {
         // Your code here
@@ -93,16 +93,16 @@ void spe::BoxCollider::CheckCollisionPosition(spe::BoxCollider& other)
     const short range = 10;
 
     // OTHER
-    const float other_right = other.ptr_sprite->transform.getOrigininalPosition().X + other.ptr_sprite->transform.texture_size.X + other.box_collider_width.Y;
-    const float other_left = other.ptr_sprite->transform.getOrigininalPosition().X + other.box_collider_width.X;
+    const float other_right = other.ptr_sprite->Transform.getOrigininalPosition().X + other.ptr_sprite->Transform.texture_size.X + other.box_collider_width.Y;
+    const float other_left = other.ptr_sprite->Transform.getOrigininalPosition().X + other.box_collider_width.X;
 
-    const float other_top = other.ptr_sprite->transform.getOrigininalPosition().Y + other.box_collider_height.X;
+    const float other_top = other.ptr_sprite->Transform.getOrigininalPosition().Y + other.box_collider_height.X;
 
     // THIS    
-    const float this_bottom = this->ptr_sprite->transform.getOrigininalPosition().Y + this->ptr_sprite->transform.texture_size.Y + this->box_collider_height.Y;
+    const float this_bottom = this->ptr_sprite->Transform.getOrigininalPosition().Y + this->ptr_sprite->Transform.texture_size.Y + this->box_collider_height.Y;
 
-    const float this_right = this->ptr_sprite->transform.getOrigininalPosition().X + this->ptr_sprite->transform.texture_size.X + this->ptr_sprite->collider.box_collider_width.Y;
-    const float this_left = this->ptr_sprite->transform.getOrigininalPosition().X + this->box_collider_width.X;
+    const float this_right = this->ptr_sprite->Transform.getOrigininalPosition().X + this->ptr_sprite->Transform.texture_size.X + this->ptr_sprite->Collider.box_collider_width.Y;
+    const float this_left = this->ptr_sprite->Transform.getOrigininalPosition().X + this->box_collider_width.X;
 
     // Right
     if (this_right >= other_left
@@ -175,11 +175,11 @@ void spe::BoxCollider::Update(spe::SpriteRepository& tocheck)
 {
     spe::Sprite* sprite = this->ptr_sprite;
 
-    sprite->collider.collided_in_frame = false;
-    sprite->collider.m_got_down = false;
-    sprite->collider.m_got_up = false;
-    sprite->collider.m_got_right = false;
-    sprite->collider.m_got_left = false;
+    sprite->Collider.collided_in_frame = false;
+    sprite->Collider.m_got_down = false;
+    sprite->Collider.m_got_up = false;
+    sprite->Collider.m_got_right = false;
+    sprite->Collider.m_got_left = false;
 
 
     spe::Sprite* i_s = sprite;
@@ -191,43 +191,43 @@ void spe::BoxCollider::Update(spe::SpriteRepository& tocheck)
     {
         spe::Sprite* j_s = *it;
 
-        if (i_s->getId() == j_s->getId())
+        if (i_s->GetId() == j_s->GetId())
         {
             continue;
         }
 
-        if (this->CheckCollision(j_s->collider))
+        if (this->CheckCollision(j_s->Collider))
         {
-            i_s->collider.collided_sprite_map[j_s->getId()] = j_s;
-            j_s->collider.collided_sprite_map[i_s->getId()] = i_s;
+            i_s->Collider.collided_sprite_map[j_s->GetId()] = j_s;
+            j_s->Collider.collided_sprite_map[i_s->GetId()] = i_s;
         }
         else
         {
-            i_s->collider.collided_sprite_map.erase(j_s->getId());
-            j_s->collider.collided_sprite_map.erase(i_s->getId());
+            i_s->Collider.collided_sprite_map.erase(j_s->GetId());
+            j_s->Collider.collided_sprite_map.erase(i_s->GetId());
         }
     }
 
 
-    if (!sprite->collider.collided_in_frame)
+    if (!sprite->Collider.collided_in_frame)
     {
-        sprite->collider.ResetPosition();
+        sprite->Collider.ResetPosition();
     }
-    if (!sprite->collider.m_got_down)
+    if (!sprite->Collider.m_got_down)
     {
-        sprite->collider.down = false;
+        sprite->Collider.down = false;
     }
-    if (!sprite->collider.m_got_up)
+    if (!sprite->Collider.m_got_up)
     {
-        sprite->collider.up = false;
+        sprite->Collider.up = false;
     }
-    if (!sprite->collider.m_got_right)
+    if (!sprite->Collider.m_got_right)
     {
-        sprite->collider.right = false;
+        sprite->Collider.right = false;
     }
-    if (!sprite->collider.m_got_left)
+    if (!sprite->Collider.m_got_left)
     {
-        sprite->collider.left = false;
+        sprite->Collider.left = false;
     }
 }
 
@@ -237,7 +237,7 @@ spe::Sprite* spe::BoxCollider::CollidedWithTag(const std::string& tag)
 {
     for (const auto& pair : this->collided_sprite_map)
     {
-        if (pair.second->tag == tag)
+        if (pair.second->Tag == tag)
         {
             return pair.second;
         }

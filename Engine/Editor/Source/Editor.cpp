@@ -86,12 +86,12 @@ void spe::Editor::UpdateComponents()
 	{
 		spe::Sprite* sprite = *it;
 
-		sprite->animator.update();
+		sprite->Animator.Update();
 
 		if (this->m_GUIRepository.SimulatePhysics)
 		{
-			sprite->collider.Update(this->m_SceneHandler.SpriteRepository);
-			sprite->physicsBody.Update();
+			sprite->Collider.Update(this->m_SceneHandler.SpriteRepository);
+			sprite->Physicsbody.Update();
 		}
 
 		this->m_SceneHandler.LightRepository.updateLightSource(sprite, &this->m_GUIRepository.Camera);
