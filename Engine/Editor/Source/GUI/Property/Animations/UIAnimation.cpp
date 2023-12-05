@@ -4,14 +4,14 @@
 
 void spe::UIAnimation::Init()
 {
-	this->m_animationFile[0] = 0;
-	this->m_fileName = "";
+	this->m_AnimationFile[0] = 0;
+	this->m_FileName = "";
 	const std::string pathToAssets = "Assets\\";
-	this->m_animation_open_file_dialog = spe::FileDialog(pathToAssets, ICON_FA_PLUS, "Open Animation", ImVec2(500, 250), true, spe::Style::s_DefaultFontSize);
-	this->m_animation_create_file_dialog = spe::FileDialog(pathToAssets, ICON_FA_PLUS, "Create Animation", ImVec2(500, 250), false, spe::Style::s_DefaultFontSize);
-	this->m_animation_create_file_dialog.SetFirstNode("assets");
-	this->m_animation_open_file_dialog.SetFirstNode("assets");
-	this->m_background_counter = START_CNT_BG;
+	this->m_OpenFileDialoge = spe::FileDialog(pathToAssets, ICON_FA_PLUS, "Open Animation", ImVec2(500, 250), true, spe::Style::s_DefaultFontSize);
+	this->m_CreateFileDialoge = spe::FileDialog(pathToAssets, ICON_FA_PLUS, "Create Animation", ImVec2(500, 250), false, spe::Style::s_DefaultFontSize);
+	this->m_CreateFileDialoge.SetFirstNode("assets");
+	this->m_OpenFileDialoge.SetFirstNode("assets");
+	this->m_BackgroundCounter = START_CNT_BG;
 
 	this->m_ptr_GUIRepo->AnimationData.IsOpen = false;
 
@@ -25,27 +25,27 @@ void spe::UIAnimation::Render()
 		this->Hovered = false;
 		return;
 	}
-	if (this->m_UIAnimationEditor.display)
+	if (this->m_UIAnimationEditor.Display)
 	{
 		this->m_UIAnimationEditor.Render();
 		this->Hovered = this->m_UIAnimationEditor.Hovered;
 	}
 	else
 	{
-		this->m_background_counter = START_CNT_BG;
+		this->m_BackgroundCounter = START_CNT_BG;
 		ImGui::Begin("##Animations", NULL, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoScrollbar);
 
 		this->m_ptr_GUIRepo->AnimationData.IsOpen = spe::UIUtility::RenderCloseRectangle(
 			50, ICON_FA_FILE_CODE, "##close-rectangle-animation", "Animation", 0);
-		this->renderAnimationUIOptions();
+		this->RenderAnimationUIOptions();
 
 		if (this->m_ptr_GUIRepo->AnimationData.Reload)
 		{
 			this->m_ptr_GUIRepo->AnimationData.Reload = false;
 			spe::UIUtility::SetWindowScreenMiddle(WINDOW_SIZE_ANIMATION_CREATE);
 		}
-		this->getFileNameInput();
-		this->displayAnimations();
+		this->GetFileNameInput();
+		this->DisplayAnimations();
 
 		ImGui::SetWindowSize(WINDOW_SIZE_ANIMATION_CREATE);
 
@@ -59,7 +59,7 @@ void spe::UIAnimation::Render()
 
 // Private functions
 
-void spe::UIAnimation::getFileNameInput()
+void spe::UIAnimation::GetFileNameInput()
 {
 	const ImVec2 pos = ImGui::GetCursorPos();
 
@@ -75,23 +75,23 @@ void spe::UIAnimation::getFileNameInput()
 	ImGui::SetCursorPos(open_pos);
 	if (spe::Style::DisplaySmybolAsButton(ICON_FA_PLUS))
 	{
-		this->m_animation_open_file_dialog.EnableWindow("Open animation");
+		this->m_OpenFileDialoge.EnableWindow("Open animation");
 	}
 
 	ImGui::SetCursorPos(pos);
 
-	this->m_animation_open_file_dialog.Update();
+	this->m_OpenFileDialoge.Update();
 
 	////////////////////
 	// Handling the open_file_dialog
-	if (this->m_animation_open_file_dialog.IsItemSelected())
+	if (this->m_OpenFileDialoge.IsItemSelected())
 	{
 		spe::Sprite* sprite = this->m_ptr_GUIRepo->sprite_in_inspector;
 		// Loading the sprites from the user directory
-		const std::string ext = "." + spe::Utility::GetFileExtension(this->m_animation_open_file_dialog.PathClicked);
+		const std::string ext = "." + spe::Utility::GetFileExtension(this->m_OpenFileDialoge.PathClicked);
 		if (ext == EXTENSION_ANIMATION_FILE)
 		{
-			spe::Initializer::InitAnimation(this->m_animation_open_file_dialog.PathClicked, sprite);
+			spe::Initializer::InitAnimation(this->m_OpenFileDialoge.PathClicked, sprite);
 			// Updating the file here because a new animation got added
 		}
 		else
@@ -99,14 +99,14 @@ void spe::UIAnimation::getFileNameInput()
 			spe::Log::LogString("Animation was not in the right format!");
 		}
 
-		this->m_animation_open_file_dialog.DisableWindow();
+		this->m_OpenFileDialoge.DisableWindow();
 	}
 
 	const std::string icon_2 = ICON_FA_PLUS + std::string("##ADD");
 	// Open popup
 	if (spe::Style::DisplaySmybolAsButton(icon_2.c_str()))
 	{
-		this->m_animation_create_file_dialog.EnableWindow();
+		this->m_CreateFileDialoge.EnableWindow();
 	}
 
 	ImGui::SameLine();
@@ -115,11 +115,11 @@ void spe::UIAnimation::getFileNameInput()
 
 	ImGui::Text("Add animation");
 
-	this->m_animation_create_file_dialog.Update();
+	this->m_CreateFileDialoge.Update();
 	
 	////////////////////
 	// Handling the creat_file_dialog
-	if (this->m_animation_create_file_dialog.PathClicked == "")
+	if (this->m_CreateFileDialoge.PathClicked == "")
 	{
 		return;
 	}
@@ -134,17 +134,17 @@ void spe::UIAnimation::getFileNameInput()
 		// Clicked at the "x", stop displaying the file dialoge
 		if (ImGui::Button("x") || spe::Input::OnKeyPress(spe::KeyBoardCode::Escape))
 		{
-			this->m_animationFile[0] = '\0';
-			this->m_animation_create_file_dialog.DisableWindow();
+			this->m_AnimationFile[0] = '\0';
+			this->m_CreateFileDialoge.DisableWindow();
 		}
 		ImGui::SetCursorPos(old);
 
-		ImGui::InputTextWithHint("##addFile", "<name>", this->m_animationFile, CHAR_MAX);
+		ImGui::InputTextWithHint("##addFile", "<name>", this->m_AnimationFile, CHAR_MAX);
 		if (ImGui::IsItemHovered() || ImGui::IsItemFocused())
 		{
 			this->Hovered = true;
 		}
-		const std::string path = spe::Utility::getUserProjectPathSeperatetFromEnginePath(this->m_animation_create_file_dialog.PathClicked);
+		const std::string path = spe::Utility::getUserProjectPathSeperatetFromEnginePath(this->m_CreateFileDialoge.PathClicked);
 		std::string createAnimtionAt = "Create animation file at: " + path;
 		ImGui::Text(createAnimtionAt.c_str());
 		ImGui::Text("Press Enter when u are done giving it a name");
@@ -156,10 +156,10 @@ void spe::UIAnimation::getFileNameInput()
 		ImGui::SetWindowSize(ImVec2(WINDOW_SIZE_ANIMATION_CREATE.x, 120));
 		ImGui::End();
 	}
-	this->addAnimationsToAnimator();
+	this->AddAnimationsToAnimator();
 }
 
-void spe::UIAnimation::displayAnimations()
+void spe::UIAnimation::DisplayAnimations()
 {
 	ImGui::Dummy(ImVec2(0, 5)); 
 	static float s_ExistCheckCounter = 0.0f;
@@ -170,15 +170,15 @@ void spe::UIAnimation::displayAnimations()
 	{
 		const std::string& key = anim.first;
 
-		if (!this->m_search_filter_animation.PassFilter(key.c_str()))
+		if (!this->m_FilterSearch.PassFilter(key.c_str()))
 		{
 			continue;
 		}
-		this->drawBackgroundBehinAnimation();
+		this->DrawBackgroundBehinAnimation();
 		if (ImGui::Selectable(anim.second.GetName().c_str(), false, ImGuiSelectableFlags_DontClosePopups,
 			ImVec2(ImGui::CalcTextSize(anim.second.GetName().c_str()).x, 0)))
 		{
-			this->enterAnimation(anim.second);
+			this->EnterAnimation(anim.second);
 			break;
 		}
 
@@ -205,20 +205,20 @@ void spe::UIAnimation::displayAnimations()
 	}
 }
 
-void spe::UIAnimation::enterAnimation(spe::Animation& animation)
+void spe::UIAnimation::EnterAnimation(spe::Animation& animation)
 {
-	this->m_UIAnimationEditor.setAnim(&animation);
+	this->m_UIAnimationEditor.SetAnim(&animation);
 	this->m_UIAnimationEditor.Render();
 }
 
-void spe::UIAnimation::drawBackgroundBehinAnimation()
+void spe::UIAnimation::DrawBackgroundBehinAnimation()
 {
-	if (this->m_background_counter < 1)
+	if (this->m_BackgroundCounter < 1)
 	{
-		this->m_background_counter++;
+		this->m_BackgroundCounter++;
 		return;
 	}
-	this->m_background_counter = 0;
+	this->m_BackgroundCounter = 0;
 
 	const ImVec2 temp = ImGui::GetCursorPos();
 	ImGui::SetCursorPosX(ImGui::GetWindowPos().x);
@@ -227,7 +227,7 @@ void spe::UIAnimation::drawBackgroundBehinAnimation()
 	ImGui::SetCursorPos(temp);
 }
 
-void spe::UIAnimation::renderAnimationUIOptions()
+void spe::UIAnimation::RenderAnimationUIOptions() noexcept
 {
 	ImGui::SetCursorPosY(ImGui::GetCursorPosY() - 5);
 	ImGui::SetCursorPosX(0);
@@ -238,37 +238,37 @@ void spe::UIAnimation::renderAnimationUIOptions()
 	ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(5.0f, 3.0f)); // Add some padding for visual clarity
 	ImGui::SetNextItemWidth(150);
 	ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 50);
-	this->m_search_filter_animation.Draw("Search");
+	this->m_FilterSearch.Draw("Search");
 	ImGui::PopStyleVar(2);
 
 	ImGui::EndChild();
 }
 
-void spe::UIAnimation::addAnimationsToAnimator()
+void spe::UIAnimation::AddAnimationsToAnimator()
 {
-	if (this->m_animation_create_file_dialog.PathClicked != "" && ImGui::IsKeyReleased(ImGuiKey_Enter))
+	if (this->m_CreateFileDialoge.PathClicked != "" && ImGui::IsKeyReleased(ImGuiKey_Enter))
 	{
 		for (std::pair<std::string, spe::Animation> anim : this->m_ptr_GUIRepo->sprite_in_inspector->Animator.Animations)
 		{
 			// Found a aniamtion with this name, which already exists
-			if (anim.first == this->m_animationFile)
+			if (anim.first == this->m_AnimationFile)
 			{
 				spe::Log::LogString(" Cant create anoter file with the same name!");
 				return;
 			}
 		}
-		if (this->m_animationFile[0] != '\0')
+		if (this->m_AnimationFile[0] != '\0')
 		{
 			const std::string& path = 
-				this->m_animation_create_file_dialog.PathClicked
-				+ this->m_animationFile
+				this->m_CreateFileDialoge.PathClicked
+				+ this->m_AnimationFile
 				+ EXTENSION_ANIMATION_FILE;
-			this->m_ptr_GUIRepo->sprite_in_inspector->Animator.CreateAnimation(this->m_animationFile, path, { });
+			this->m_ptr_GUIRepo->sprite_in_inspector->Animator.CreateAnimation(this->m_AnimationFile, path, { });
 		}
 		spe::Savesystem::CreateAnimationSaveFile
-			(this->m_ptr_GUIRepo->sprite_in_inspector, this->m_ptr_GUIRepo->sprite_in_inspector->Animator.Animations[this->m_animationFile]);
+			(this->m_ptr_GUIRepo->sprite_in_inspector, this->m_ptr_GUIRepo->sprite_in_inspector->Animator.Animations[this->m_AnimationFile]);
 
-		this->m_animation_create_file_dialog.DisableWindow();
-		this->m_animationFile[0] = '\0';
+		this->m_CreateFileDialoge.DisableWindow();
+		this->m_AnimationFile[0] = '\0';
 	}
 }

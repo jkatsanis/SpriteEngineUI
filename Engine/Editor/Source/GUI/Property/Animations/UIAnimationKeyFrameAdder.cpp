@@ -4,16 +4,16 @@
 
 void spe::UIAnimationKeyFrameAdder::Init()
 {
-	this->m_key_frame_pos = 0;
-	this->is_hovered = false;
-	this->is_key_frame_menu_open = false;
-	this->key_frame_path = PATH_TO_DEFAULT_SPRITE;
+	this->m_KeyFramePos = 0;
+	this->Hovered = false;
+	this->IsKeyFrameMenuOpen = false;
+	this->KeyFramePath = PATH_TO_DEFAULT_SPRITE;
 }
 
 
 // Private methods
 
-void spe::UIAnimationKeyFrameAdder::beginWindow()
+void spe::UIAnimationKeyFrameAdder::BeginWindow()
 {
 	ImGui::Begin("##KeyFrameEditor", NULL, ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_HorizontalScrollbar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse);
 	ImGui::SetWindowSize(ImVec2(350, 200));
@@ -25,7 +25,7 @@ void spe::UIAnimationKeyFrameAdder::beginWindow()
 	//Close button -> it will destroy it (no new keyframe is added) 
 	if (ImGui::Button("x"))
 	{
-		this->is_key_frame_menu_open = false;
+		this->IsKeyFrameMenuOpen = false;
 	}
 	ImGui::Spacing();
 	ImGui::Separator();
@@ -33,67 +33,67 @@ void spe::UIAnimationKeyFrameAdder::beginWindow()
 
 }
 
-void spe::UIAnimationKeyFrameAdder::inputData()
+void spe::UIAnimationKeyFrameAdder::InputData()
 {
 	ImGui::Text("Position");
 	ImGui::SetCursorPos(ImVec2(ImGui::GetCursorPosX() + 107, ImGui::GetCursorPosY() - 30));
 	ImGui::SetNextItemWidth(50);
-	ImGui::InputInt("##Position", &m_key_frame_pos, 0, 0);
+	ImGui::InputInt("##Position", &m_KeyFramePos, 0, 0);
 
 	ImGui::Dummy(ImVec2(0, 7));
 
 
 	ImGui::Text("Sprite");
 	ImGui::SetCursorPos(ImVec2(ImGui::GetCursorPosX() + 107, ImGui::GetCursorPosY() - 30));
-	ImGui::InputText("##spriteAdder", this->m_keyFramePathDataHolder, CHAR_MAX);
+	ImGui::InputText("##spriteAdder", this->m_KeyFramePath, CHAR_MAX);
 
 	if (ImGui::IsItemHovered(ImGuiHoveredFlags_AllowWhenOverlapped) && ImGui::IsMouseReleased(0) && this->m_ptr_GUIRepo->DragAndDropPath != " ")
 	{
-		this->key_frame_path = this->m_ptr_GUIRepo->DragAndDropPath;
-		strcpy_s(this->m_keyFramePathDataHolder, spe::Utility::GetNamePathSplit(this->m_ptr_GUIRepo->DragAndDropPath).c_str());
+		this->KeyFramePath = this->m_ptr_GUIRepo->DragAndDropPath;
+		strcpy_s(this->m_KeyFramePath, spe::Utility::GetNamePathSplit(this->m_ptr_GUIRepo->DragAndDropPath).c_str());
 	}
 	else
 	{
-		strcpy_s(this->m_keyFramePathDataHolder, spe::Utility::GetNamePathSplit(this->key_frame_path.c_str()).c_str());
+		strcpy_s(this->m_KeyFramePath, spe::Utility::GetNamePathSplit(this->KeyFramePath.c_str()).c_str());
 	}
 }
 
-void spe::UIAnimationKeyFrameAdder::closeWindowAndSafeKeyFrame()
+void spe::UIAnimationKeyFrameAdder::CloseWindowAndSafeKeyFrame()
 {
-	this->is_hovered = spe::UIUtility::IsHovered(ImGui::GetWindowSize(), ImGui::GetWindowPos());
+	this->Hovered = spe::UIUtility::IsHovered(ImGui::GetWindowSize(), ImGui::GetWindowPos());
 
 	ImGui::SetCursorPosX(ImGui::GetCursorPosX() - 8);
 	if (ImGui::Button("Done"))
 	{
-		this->addKeyFrameToAnimation();
-		this->reset();
+		this->AddKeyFrameToAnimation();
+		this->Reset();
 	}
 
 	ImGui::End();
 }
 
-void spe::UIAnimationKeyFrameAdder::addKeyFrameToAnimation()
+void spe::UIAnimationKeyFrameAdder::AddKeyFrameToAnimation()
 {
-	if (this->m_key_frame_pos < 0)
+	if (this->m_KeyFramePos < 0)
 	{
 		std::cout << "LOG: [ERROR] Tried to add a keyframe at a invalid position!";
 		return;
 	}
-	if (spe::Utility::GetFileExtension(this->key_frame_path) != "png")
+	if (spe::Utility::GetFileExtension(this->KeyFramePath) != "png")
 	{
 		std::cout << "LOG: [ERROR] Tried to add a invalid file type!";
 		return;
 	}
 	
 	float delay = 0;
-	std::vector<spe::KeyFrame>& ref = this->m_animation->GetkeyFrames();
+	std::vector<spe::KeyFrame>& ref = this->m_ptr_Anim->GetkeyFrames();
 	int size = (int)ref.size();
 	int vecpos = 0;
 	bool invalid = false;
 
 	for (int i = 0; i < size; i++)
 	{
-		if (delay < this->m_key_frame_pos)
+		if (delay < this->m_KeyFramePos)
 		{
 			delay += ref[i].delay;
 			vecpos++;
@@ -102,54 +102,54 @@ void spe::UIAnimationKeyFrameAdder::addKeyFrameToAnimation()
 
 	vecpos--;
 
-	if (this->m_key_frame_pos == 0 && ref.size() == 0
-		|| this->m_key_frame_pos == 0 && ref.size() != 0 && ref[0].position != 0)
+	if (this->m_KeyFramePos == 0 && ref.size() == 0
+		|| this->m_KeyFramePos == 0 && ref.size() != 0 && ref[0].position != 0)
 	{
-		spe::KeyFrame add = spe::KeyFrame(this->key_frame_path, 0);
-		add.position = this->m_key_frame_pos;
+		spe::KeyFrame add = spe::KeyFrame(this->KeyFramePath, 0);
+		add.position = this->m_KeyFramePos;
 
-		this->m_animation->AddKeyFrameAt(0, add);
+		this->m_ptr_Anim->AddKeyFrameAt(0, add);
 		return;
 	}
 	
 
-	if (this->m_key_frame_pos == delay)
+	if (this->m_KeyFramePos == delay)
 	{
 		std::cout << "LOG: [ERROR] Tried to add a keyframe at a position where already a keyframe exists!";
 		vecpos *= -1;
 		return;
 	}
-	if (this->m_key_frame_pos > delay)
+	if (this->m_KeyFramePos > delay)
 	{
 		invalid = true;
 		vecpos++;
 	}
 	
 	float fndelay = 0;
-	if (vecpos > 0 && this->m_key_frame_pos < delay)
+	if (vecpos > 0 && this->m_KeyFramePos < delay)
 	{		
 		int before = vecpos - 1;
-		fndelay = (float)this->m_key_frame_pos - ref[before].position;
+		fndelay = (float)this->m_KeyFramePos - ref[before].position;
 
 		if (vecpos == 1)
 		{
-			fndelay = (float)this->m_key_frame_pos;
+			fndelay = (float)this->m_KeyFramePos;
 		}
 	}
 	else
 	{
-		fndelay = this->m_key_frame_pos - delay;
+		fndelay = this->m_KeyFramePos - delay;
 	}
 
 	if (!invalid)
 	{
-		ref[vecpos].delay = (this->m_key_frame_pos - delay) * -1;
+		ref[vecpos].delay = (this->m_KeyFramePos - delay) * -1;
 	}
 
-	spe::KeyFrame add = spe::KeyFrame(this->key_frame_path, fndelay);
-	add.position = this->m_key_frame_pos;
+	spe::KeyFrame add = spe::KeyFrame(this->KeyFramePath, fndelay);
+	add.position = this->m_KeyFramePos;
 
-	this->m_animation->AddKeyFrameAt(vecpos, add);
+	this->m_ptr_Anim->AddKeyFrameAt(vecpos, add);
 
 	if (ref[0].delay < 0)
 	{
@@ -162,21 +162,21 @@ void spe::UIAnimationKeyFrameAdder::addKeyFrameToAnimation()
 
 void spe::UIAnimationKeyFrameAdder::Render()
 {
-	this->beginWindow();
-	this->inputData();
-	this->closeWindowAndSafeKeyFrame();
+	this->BeginWindow();
+	this->InputData();
+	this->CloseWindowAndSafeKeyFrame();
 }
 
-void spe::UIAnimationKeyFrameAdder::setAnimation(spe::Animation* anim)
+void spe::UIAnimationKeyFrameAdder::SetAnimation(spe::Animation* anim)
 {
-	this->m_animation = anim;
+	this->m_ptr_Anim = anim;
 }
 
-void spe::UIAnimationKeyFrameAdder::reset()
+void spe::UIAnimationKeyFrameAdder::Reset()
 {
-	this->m_key_frame_pos = -1;
-	this->key_frame_path = "";
-	this->m_animation = nullptr;
-	this->is_key_frame_menu_open = false;
-	this->is_hovered = false;
+	this->m_KeyFramePos = -1;
+	this->KeyFramePath = "";
+	this->m_ptr_Anim = nullptr;
+	this->IsKeyFrameMenuOpen = false;
+	this->Hovered = false;
 }

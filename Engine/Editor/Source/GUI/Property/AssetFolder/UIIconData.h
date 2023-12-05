@@ -10,13 +10,13 @@ namespace spe
 	class UIIconData
 	{
 	private:
-		std::vector<sf::Texture> m_textures;
-		std::vector<uint32_t> m_ids;
+		std::vector<sf::Texture> m_Textures;
+		std::vector<uint32_t> m_IDs;
 
 	public:
 		// Init all textures and get the paths from UIInfo
 		UIIconData();
 
-		uint32_t getId(std::string fileExtension);
+		uint32_t GetId(std::string fileExtension);
 	};
 }

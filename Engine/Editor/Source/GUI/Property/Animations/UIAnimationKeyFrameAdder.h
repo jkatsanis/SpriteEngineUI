@@ -13,25 +13,24 @@ namespace spe
 	class UIAnimationKeyFrameAdder : public spe::IUIBase
 	{
 	private:
-		spe::Animation* m_animation;
+		spe::Animation* m_ptr_Anim;
 
-		void beginWindow();
-		void inputData();
-		void closeWindowAndSafeKeyFrame();
-		void addKeyFrameToAnimation();
+		void BeginWindow();
+		void InputData();
+		void CloseWindowAndSafeKeyFrame();
+		void AddKeyFrameToAnimation();
 
-		int m_key_frame_pos;
-		char m_keyFramePathDataHolder[100];	// 100 is the path array size (string can only be 100 chars long!)
+		int m_KeyFramePos;
+		char m_KeyFramePath[100];	// 100 is the path array size (string can only be 100 chars long!)
 
 		void Init() override;
 	public:
-		bool is_key_frame_menu_open;
-		bool is_hovered;
-		std::string key_frame_path;
+		bool IsKeyFrameMenuOpen;
+		std::string KeyFramePath;
 
 		void Render() override;
-		void setAnimation(spe::Animation* anim);
-		void reset();
+		void SetAnimation(spe::Animation* anim);
+		void Reset();
 	};
 }
 

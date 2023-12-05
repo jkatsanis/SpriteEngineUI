@@ -22,9 +22,8 @@ namespace spe
 		const float SMALL_INCREMENT = 0.5f;
 		const float LARGE_INCREMENT = 2;
 
-		char m_KeyFramePath[100];
 		int m_KeyFramePos;
-		std::string m_KeyFramePath;
+		std::string m_KeyFramePathStd;
 
 		float m_CursorSpace;
 		int m_KeyFramesToEdit;
@@ -33,26 +32,26 @@ namespace spe
 		void RenderTimeLineRealTimePoint();
 		void ZoomEditorTimeLine();
 		void RenderKeyFrames();
-		void addKeyFrame();
-		void beginWindow();
-		void closeWindow();
-		void editorTimeLine();
-		void displayKeyFrameInfo();
-		bool renderTextBasedOnScroll(size_t i);
-		void saveAnimation();
-		void renameAnimation();
+		void AddKeyFrame();
+		void BeginWindow();
+		void CloseWindow();
+		void EditorTimeLine();
+		void DisplayKeyFrameInfo();
+		bool RenderTextBasedOnScroll(size_t i);
+		void SaveAnimation();
+		void RenameAnimation();
 
-		bool displayTimeFrameBasedOnCursorSpace(size_t i_pos);
+		bool DisplayTimeFrameBasedOnCursorSpace(size_t i_pos);
 
-		spe::Animation* m_anim;
-		spe::KeyFrameSelected m_keyFrameSelected;
+		spe::Animation* m_ptr_Anim;
+		spe::KeyFrameSelected m_KeyFrameSelected;
 
 		void Init() override;
 	public:
-		bool display;
+		bool Display;
 
-		void setAnim(spe::Animation* anim);
-		void resetAnim();
+		void SetAnim(spe::Animation* anim);
+		void ResetAnim();
 
 		void Render() override;
 	};

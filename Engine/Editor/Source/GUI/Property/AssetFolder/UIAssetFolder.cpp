@@ -2,19 +2,19 @@
 
 void spe::UIAssetFolder::Init()
 {
-    this->m_tools = spe::UIAssetTools(&this->m_current_path, &this->m_to_hover_item_name);
+    this->m_Tools = spe::UIAssetTools(&this->m_CurrentPath, &this->m_HoverItemName);
 
-    this->m_current_path = USER_FOLDER_NAME;
-    this->m_current_name = USER_FOLDER_NAME;
+    this->m_CurrentPath = USER_FOLDER_NAME;
+    this->m_CurrentName = USER_FOLDER_NAME;
 
-    this->m_interacted = false;
-    this->m_dragging_item = false;
-    this->m_hovered_over_item = false;
-    this->m_file_content_padding = 15;
+    this->m_Interacted = false;
+    this->m_DraggingItem = false;
+    this->m_HoveredOverItem = false;
+    this->m_FileContentPadding = 15;
 
     this->m_Size = ASSET_FOLDER_DEFAULT_WINDOW_SIZE;
-    this->m_to_hover_item_name = "";
-    this->m_is_asset_folder_tree_node_open = true;
+    this->m_HoverItemName = "";
+    this->m_IsAssetFolderOpen = true;
 
     this->m_ptr_GUIRepo->AssetFolderData.ptr_Size = &this->m_Size;
 
@@ -42,18 +42,18 @@ void spe::UIAssetFolder::Render()
     {
         if (this->Hovered)
         {
-            this->addPrefab();
-            this->m_tools.update();
+            this->AddPrefab();
+            this->m_Tools.Update();
         }
         else
         {
-            this->m_to_hover_item_name = "";
+            this->m_HoverItemName = "";
         }
-        this->resizeWindow();
+        this->ResizeWindow();
 
-        this->renderFolderHierarchy();
-        this->renderCloseRectangle();
-        this->renderContentBrowser();
+        this->RenderFolderHierarchy();
+        this->RenderCloseRectangle();
+        this->RenderContentBrowser();
 
         this->Hovered = spe::UIUtility::IsHovered(ImVec2(0, 1080 - this->m_Size.y), this->m_Size);
 
@@ -76,22 +76,22 @@ void spe::UIAssetFolder::Render()
 
 //private functions
  
-void spe::UIAssetFolder::renderContentBrowser()
+void spe::UIAssetFolder::RenderContentBrowser()
 {
     ImGui::SetCursorPos(ImVec2(UIASSET_FOLDER_WIDTH + FOLDER_HIERARCHY_PADDING * 1.5f, FOLDER_HIERARCHY_PADDING));
     ImGui::PushStyleColor(ImGuiCol_ChildBg, ImVec4(FILE_DISPLAYER_COLOR / 255.0f, FILE_DISPLAYER_COLOR / 255.0f, FILE_DISPLAYER_COLOR / 255.0f, 255.0f));
     ImGui::BeginChild("##file-displayer-container", ImVec2(this->m_Size.x - (FOLDER_HIERARCHY_PADDING * 1.8f + UIASSET_FOLDER_WIDTH), this->m_Size.y), false, ImGuiWindowFlags_NoScrollbar);
 
-    this->goBackToBeforeFolder();
-    ImGui::SetCursorPos(ImVec2(5, this->m_file_content_padding));
+    this->GoBackToBeforeFolder();
+    ImGui::SetCursorPos(ImVec2(5, this->m_FileContentPadding));
     ImGui::PushStyleVar(ImGuiStyleVar_FrameRounding, 7.0f); // Set rounding to 5 pixels
     ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(5.0f, 3.0f)); // Add some padding for visual clarity
-    this->m_file_filter.Draw("Search", 200);
+    this->m_FileFilter.Draw("Search", 200);
     ImGui::Dummy(ImVec2(10, 10));
     ImGui::PopStyleVar(2);
 
-    this->beginColumns();
-    this->getAllFilesInDir(this->m_current_path.c_str());
+    this->BeginColumns();
+    this->GetAllFilesInDir(this->m_CurrentPath.c_str());
     ImGui::EndChild();
     ImGui::PopStyleColor();
 
@@ -101,18 +101,18 @@ void spe::UIAssetFolder::renderContentBrowser()
 
 }
 
-void spe::UIAssetFolder::setCurrentPath(const std::string& path, const std::string& name)
+void spe::UIAssetFolder::SetCurrentPath(const std::string& path, const std::string& name)
 {
-    this->m_current_name = name;
-    this->m_current_path = path;
+    this->m_CurrentName = name;
+    this->m_CurrentPath = path;
 }
 
-void spe::UIAssetFolder::resizeWindow()
+void spe::UIAssetFolder::ResizeWindow()
 {
     bool pop_style = false;
     ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 200);
     ImGui::SetCursorPosY(ImGui::GetCursorPosY() - 10);
-    if (this->m_resize_window_data.clicked_on_resize_button)
+    if (this->m_ResizeWindow.clicked_on_resize_button)
     {
         ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0, 0, 0, 1));
         ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4(0, 0, 0, 1));
@@ -121,12 +121,12 @@ void spe::UIAssetFolder::resizeWindow()
     spe::Style::DisplaySmybolAsButton(ICON_FA_ARROW_UP);
     if (ImGui::IsItemHovered() && ImGui::IsMouseClicked(0))
     {
-        this->m_resize_window_data.additinal_add = 1080 - spe::UIUtility::GUICursor.Position.Y - this->m_Size.y;
-        this->m_resize_window_data.clicked_on_resize_button = true;
+        this->m_ResizeWindow.additinal_add = 1080 - spe::UIUtility::GUICursor.Position.Y - this->m_Size.y;
+        this->m_ResizeWindow.clicked_on_resize_button = true;
     }
-    if (this->m_resize_window_data.clicked_on_resize_button && ImGui::IsMouseDown(0))
+    if (this->m_ResizeWindow.clicked_on_resize_button && ImGui::IsMouseDown(0))
     {
-        const float new_size = 1080 - spe::UIUtility::GUICursor.Position.Y - this->m_resize_window_data.additinal_add;
+        const float new_size = 1080 - spe::UIUtility::GUICursor.Position.Y - this->m_ResizeWindow.additinal_add;
         if (new_size > 150
             && new_size < 1031)
         {
@@ -135,7 +135,7 @@ void spe::UIAssetFolder::resizeWindow()
     }
     else
     {
-        this->m_resize_window_data.clicked_on_resize_button = false;
+        this->m_ResizeWindow.clicked_on_resize_button = false;
     }
     if (pop_style)
     {
@@ -144,7 +144,7 @@ void spe::UIAssetFolder::resizeWindow()
 
 }
 
-void spe::UIAssetFolder::addPrefab()
+void spe::UIAssetFolder::AddPrefab()
 {
     if (this->m_ptr_Repo == nullptr)
     {
@@ -152,7 +152,7 @@ void spe::UIAssetFolder::addPrefab()
     }
     if (this->m_ptr_GUIRepo->child_to_parent != nullptr && ImGui::IsMouseReleased(0) && this->Hovered)
     {
-        const std::string pathToFile = this->m_current_path + "\\" + this->m_ptr_GUIRepo->child_to_parent->Name + EXTENSION_PREFAB_FILE;
+        const std::string pathToFile = this->m_CurrentPath + "\\" + this->m_ptr_GUIRepo->child_to_parent->Name + EXTENSION_PREFAB_FILE;
         
         this->m_ptr_GUIRepo->child_to_parent->Prefab.UpdateProps(pathToFile, pathToFile, this->m_ptr_GUIRepo->child_to_parent->Name + EXTENSION_PREFAB_FILE);
 
@@ -160,36 +160,36 @@ void spe::UIAssetFolder::addPrefab()
     }
 }
 
-void spe::UIAssetFolder::renderFolderHierarchy()
+void spe::UIAssetFolder::RenderFolderHierarchy()
 {
     ImGui::SetCursorPos(ImVec2(FOLDER_HIERARCHY_PADDING, FOLDER_HIERARCHY_PADDING));
     ImGui::BeginChild("##folder-hierarchy", ImVec2(UIASSET_FOLDER_WIDTH, this->m_Size.y), false);
-    this->renderFolderHierarchyRecursiv("assets", "assets", this->m_is_asset_folder_tree_node_open);
-    this->m_is_asset_folder_tree_node_open = false;
+    this->RenderFolderHierarchyRecursiv("assets", "assets", this->m_IsAssetFolderOpen);
+    this->m_IsAssetFolderOpen = false;
     ImGui::EndChild();
 }
 
-void spe::UIAssetFolder::renderCloseRectangle()
+void spe::UIAssetFolder::RenderCloseRectangle()
 {
     this->m_ptr_GUIRepo->AssetFolderData.IsOpen = spe::UIUtility::RenderCloseRectangle(
         FOLDER_HIERARCHY_PADDING, ICON_FA_FILE_CODE, "##close-rectangle-assets", "assets", 0);
 }
 
-void spe::UIAssetFolder::renderFolderHierarchyRecursiv(const char* path, const char* name, bool openNextTreeNode)
+void spe::UIAssetFolder::RenderFolderHierarchyRecursiv(const char* path, const char* name, bool openNextTreeNode)
 {
     struct dirent* entry;
     DIR* dir = opendir(path);
     if (dir == NULL) {
         return;
     }
-    this->m_interacted = false;
+    this->m_Interacted = false;
 
     if (!spe::FileDialog::CheckIfADirHasSubItems(path, false))
     {
         ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 3.5f );
         if (spe::Style::DisplaySymbolInMenuItemWithText(ICON_FA_FOLDER, name, 30))
         {
-            this->setCurrentPath(path, name);
+            this->SetCurrentPath(path, name);
         }
         closedir(dir);
 
@@ -204,7 +204,7 @@ void spe::UIAssetFolder::renderFolderHierarchyRecursiv(const char* path, const c
         ImGui::SetCursorPos(ImVec2(ImGui::GetCursorPosX() + 33, ImGui::GetCursorPosY() - 23));
         if (ImGui::MenuItem(name))
         {
-            this->setCurrentPath(path, name);
+            this->SetCurrentPath(path, name);
         }
         entered = true;
 
@@ -230,7 +230,7 @@ void spe::UIAssetFolder::renderFolderHierarchyRecursiv(const char* path, const c
             if (folder)
             {
                 const char* ch = newPath.c_str();
-                this->renderFolderHierarchyRecursiv(ch, str, false);
+                this->RenderFolderHierarchyRecursiv(ch, str, false);
             }
         }
         ImGui::TreePop();
@@ -240,7 +240,7 @@ void spe::UIAssetFolder::renderFolderHierarchyRecursiv(const char* path, const c
         ImGui::SetCursorPos(ImVec2(ImGui::GetCursorPosX() + 52, ImGui::GetCursorPosY() - 23));
         if (ImGui::MenuItem(name))
         {
-            this->setCurrentPath(path, name);
+            this->SetCurrentPath(path, name);
         }
     }
 
@@ -248,7 +248,7 @@ void spe::UIAssetFolder::renderFolderHierarchyRecursiv(const char* path, const c
     closedir(dir);
 }
 
-void spe::UIAssetFolder::renderFilesWithChildWindow(const std::string& name, const std::string& new_path, const std::string& entryPath, bool isFolder, uint32_t textureId, uint8_t columCnt)
+void spe::UIAssetFolder::RenderFilesWithChildWindow(const std::string& name, const std::string& new_path, const std::string& entryPath, bool isFolder, uint32_t textureId, uint8_t columCnt)
 {
     bool resetHoveredItem = false;
     float rounding = 10.0f;
@@ -256,13 +256,13 @@ void spe::UIAssetFolder::renderFilesWithChildWindow(const std::string& name, con
 
     // The multiplyer for the color (hover effect)
     int adder = 1;
-    if (this->m_to_hover_item_name == name)
+    if (this->m_HoverItemName == name)
     {
-        if (!this->m_tools.isPopUpOpen())
+        if (!this->m_Tools.IsPopUpOpen())
         {
-            this->m_to_hover_item_name = "";
+            this->m_HoverItemName = "";
         }
-        this->m_is_item_hovered = false;
+        this->m_IsItemHovered = false;
         adder = 2;
     }
     const std::string fileChildWindow = "##" + std::string(entryPath);
@@ -291,22 +291,22 @@ void spe::UIAssetFolder::renderFilesWithChildWindow(const std::string& name, con
         if (isFolder)
         {
             resetHoveredItem = true;
-            this->setCurrentPath(new_path, entryPath);
+            this->SetCurrentPath(new_path, entryPath);
         }
     }
 
     // Setting current item which is hovered
-    if (this->m_to_hover_item_name == "")
+    if (this->m_HoverItemName == "")
     {
-        this->m_is_item_hovered = ImGui::IsItemHovered();
-        if (this->m_is_item_hovered)
-            m_to_hover_item_name = name;
+        this->m_IsItemHovered = ImGui::IsItemHovered();
+        if (this->m_IsItemHovered)
+            m_HoverItemName = name;
     }
     ImGui::PopStyleColor();
 
     // Make the file "selectable"
     if (!isFolder)
-        this->setDragAndDrop(new_path, entryPath);
+        this->SetDragAndDrop(new_path, entryPath);
 
     // Adding - for to long names
     std::string withoutExt = spe::Utility::RemoveExtension(entryPath);
@@ -344,17 +344,17 @@ void spe::UIAssetFolder::renderFilesWithChildWindow(const std::string& name, con
     {
         ImGui::SetCursorPosY(ImGui::GetCursorPosY() + PADDING_BETWEEN_ROWS);
     }
-    this->m_is_item_hovered = false;
+    this->m_IsItemHovered = false;
 
     if (resetHoveredItem)
     {
-        this->m_to_hover_item_name = "";
+        this->m_HoverItemName = "";
     }
 
     ImGui::NextColumn();
 }
 
-void spe::UIAssetFolder::getAllFilesInDir(const char* path)
+void spe::UIAssetFolder::GetAllFilesInDir(const char* path)
 {
     uint8_t cnt = 0;
 
@@ -364,7 +364,7 @@ void spe::UIAssetFolder::getAllFilesInDir(const char* path)
     if (dir == NULL) {
         return;
     }
-    this->m_interacted = false;
+    this->m_Interacted = false;
     while ((entry = readdir(dir)) != NULL)
     {
         cnt++;
@@ -381,12 +381,12 @@ void spe::UIAssetFolder::getAllFilesInDir(const char* path)
         const std::string icon = spe::Utility::GetFileExtension(std_name);
         const std::string newPath = std::string(path) + "\\" + std_name;
         const std::string name = "##" + std::string(str);
-        const uint32_t id = this->m_data.getId(icon);
+        const uint32_t id = this->m_IconData.GetId(icon);
         const bool isFolder = (icon == "folder");
 
-        if (this->m_file_filter.PassFilter(name.c_str()))
+        if (this->m_FileFilter.PassFilter(name.c_str()))
         {
-            this->renderFilesWithChildWindow(name, newPath, std_name, isFolder, id, cnt);
+            this->RenderFilesWithChildWindow(name, newPath, std_name, isFolder, id, cnt);
         }
     }
 
@@ -394,10 +394,10 @@ void spe::UIAssetFolder::getAllFilesInDir(const char* path)
 
 }
 
-void spe::UIAssetFolder::goBackToBeforeFolder()
+void spe::UIAssetFolder::GoBackToBeforeFolder()
 {
     ImGui::SetCursorPos(ImVec2(ImGui::GetCursorPosX() + 300, ImGui::GetCursorPosY() + 10));
-    const std::vector<std::string> pathParts = spe::Utility::Split(this->m_current_path, '\\');
+    const std::vector<std::string> pathParts = spe::Utility::Split(this->m_CurrentPath, '\\');
     std::vector<std::string> validParts;
     for (int i = 0; i < pathParts.size(); i++)
     {
@@ -412,18 +412,18 @@ void spe::UIAssetFolder::goBackToBeforeFolder()
     {
         bool popStyle = false;
         // Set current path to the folder clicked
-        if (this->m_current_name == validParts[i])
+        if (this->m_CurrentName == validParts[i])
         {
             ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0, 0, 0, 1));
             popStyle = true;
         }
-        if (ImGui::Button(validParts[i].c_str()) && this->m_current_name != validParts[i])
+        if (ImGui::Button(validParts[i].c_str()) && this->m_CurrentName != validParts[i])
         {
-            this->m_current_name = validParts[i];
-            this->m_current_path = "";
+            this->m_CurrentName = validParts[i];
+            this->m_CurrentPath = "";
             for (int j = 0; j <= i; j++)
             {
-                 this->m_current_path += (j - 1 == j) 
+                 this->m_CurrentPath += (j - 1 == j) 
                      ? validParts[j]
                      : validParts[j] + "\\";
             }
@@ -443,30 +443,30 @@ void spe::UIAssetFolder::goBackToBeforeFolder()
 
 }
 
-void spe::UIAssetFolder::setDragAndDrop(std::string path, std::string name)
+void spe::UIAssetFolder::SetDragAndDrop(std::string path, std::string name)
 {
     //Check if we hover over the menu item used later on for drag and drop
     if (this->m_ptr_GUIRepo->child_to_parent != nullptr)
     {
         return;
     }
-    if (ImGui::IsItemHovered() && ImGui::IsMouseDown(0) && !this->m_interacted && this->m_ptr_GUIRepo->DragAndDropPath == " ")
+    if (ImGui::IsItemHovered() && ImGui::IsMouseDown(0) && !this->m_Interacted && this->m_ptr_GUIRepo->DragAndDropPath == " ")
     {
-        this->m_dragging_item = true;
+        this->m_DraggingItem = true;
         this->m_ptr_GUIRepo->DragAndDropPath = path;
         this->m_ptr_GUIRepo->DragAndDropName = name;
     }
     if (ImGui::IsMouseReleased(0))
     {
-        this->m_interacted = true;
-        this->m_dragging_item = false;
-        this->m_hovered_over_item = false;
+        this->m_Interacted = true;
+        this->m_DraggingItem = false;
+        this->m_HoveredOverItem = false;
         this->m_ptr_GUIRepo->DragAndDropPath = " ";
         this->m_ptr_GUIRepo->DragAndDropName = " ";
     }
 }
 
-void spe::UIAssetFolder::beginColumns()
+void spe::UIAssetFolder::BeginColumns()
 {
     float panelWidth = ImGui::GetContentRegionAvail().x;
     int columnCount = (int)(panelWidth / PADDING_BETWEEN_COLUMS);

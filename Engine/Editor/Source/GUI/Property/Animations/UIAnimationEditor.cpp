@@ -5,29 +5,29 @@
 
 void spe::UIAnimationEditor::Init()
 {
-	this->m_keyFramesToEdit = 10000;
-	this->m_anim = nullptr;
-	this->display = false;
-	this->m_keyFrameSelected.keyFrameSelected = nullptr;
-	this->m_cursor_space = 30;
+	this->m_KeyFramesToEdit = 10000;
+	this->m_ptr_Anim = nullptr;
+	this->Display = false;
+	this->m_KeyFrameSelected.keyFrameSelected = nullptr;
+	this->m_CursorSpace = 30;
 
 	this->m_FrameAdder.SetRepos(this->m_ptr_Repo, this->m_ptr_GUIRepo);
 }
 
-void spe::UIAnimationEditor::setAnim(spe::Animation* anim)
+void spe::UIAnimationEditor::SetAnim(spe::Animation* anim)
 {
-	this->m_anim = anim;
+	this->m_ptr_Anim = anim;
 }
 
-void spe::UIAnimationEditor::resetAnim()
+void spe::UIAnimationEditor::ResetAnim()
 {
-	this->display = false;
-	this->m_anim = nullptr;
+	this->Display = false;
+	this->m_ptr_Anim = nullptr;
 }
 
-void spe::UIAnimationEditor::closeWindow()
+void spe::UIAnimationEditor::CloseWindow()
 {
-	std::string name = "Editor - " + this->m_anim->GetName();
+	std::string name = "Editor - " + this->m_ptr_Anim->GetName();
 
 	ImGui::SetCursorPos(ImVec2(8 + ImGui::GetScrollX(), 15));
 	ImGui::Text(name.c_str());
@@ -37,8 +37,8 @@ void spe::UIAnimationEditor::closeWindow()
 	//Close button
 	if (ImGui::Button("x"))
 	{
-		this->m_anim->ptr_AppliedSprite->Animator.Stop(this->m_anim->GetName());
-		this->resetAnim();
+		this->m_ptr_Anim->ptr_AppliedSprite->Animator.Stop(this->m_ptr_Anim->GetName());
+		this->ResetAnim();
 	}
 
     this->Hovered = this->m_FrameAdder.Hovered;
@@ -51,9 +51,9 @@ void spe::UIAnimationEditor::closeWindow()
 	ImGui::End();
 }
 
-void spe::UIAnimationEditor::beginWindow()
+void spe::UIAnimationEditor::BeginWindow()
 {
-	this->display = true;
+	this->Display = true;
 	ImGui::Begin("##Editor", NULL, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_HorizontalScrollbar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse);
 	ImGui::SetWindowSize(WINDOW_SIZE_ANIMATION_EDITOR);
 
@@ -61,75 +61,75 @@ void spe::UIAnimationEditor::beginWindow()
 	ImGui::Separator();
 }
 
-void spe::UIAnimationEditor::editorTimeLine()
+void spe::UIAnimationEditor::EditorTimeLine()
 {
 	float y = ImGui::GetCursorPosY() + 10;
 
-	if (!this->m_anim->IsPlaying)
+	if (!this->m_ptr_Anim->IsPlaying)
 	{
 		if (spe::Style::DisplaySmybolAsButton(ICON_FA_PLAY))
 		{
-			this->m_anim->ptr_AppliedSprite->Animator.Play(this->m_anim->GetName());
+			this->m_ptr_Anim->ptr_AppliedSprite->Animator.Play(this->m_ptr_Anim->GetName());
 		}
 	}
 	else
 	{
 		if (spe::Style::DisplaySmybolAsButton(ICON_FA_SQUARE))
 		{
-			this->m_anim->ptr_AppliedSprite->Animator.Stop(this->m_anim->GetName());
+			this->m_ptr_Anim->ptr_AppliedSprite->Animator.Stop(this->m_ptr_Anim->GetName());
 		}
 	}
 
 	ImGui::SetCursorPos(ImVec2(100, y));
 
-	for (int i = 0; i <= this->m_keyFramesToEdit; i++)
+	for (int i = 0; i <= this->m_KeyFramesToEdit; i++)
 	{
-		if (this->displayTimeFrameBasedOnCursorSpace(i) && this->renderTextBasedOnScroll(i))
+		if (this->DisplayTimeFrameBasedOnCursorSpace(i) && this->RenderTextBasedOnScroll(i))
 		{
 			ImGui::Text(std::to_string(i).c_str());
 		}
-		ImGui::SetCursorPos(ImVec2(100.0f + ((int)i + 1.0f) * this->m_cursor_space, y));
+		ImGui::SetCursorPos(ImVec2(100.0f + ((int)i + 1.0f) * this->m_CursorSpace, y));
 	}
 
-	this->renderKeyFrames();
-	this->displayKeyFrameInfo();
+	this->RenderKeyFrames();
+	this->DisplayKeyFrameInfo();
 }
 
-bool spe::UIAnimationEditor::displayTimeFrameBasedOnCursorSpace(size_t i_pos)
+bool spe::UIAnimationEditor::DisplayTimeFrameBasedOnCursorSpace(size_t i_pos)
 {
-	if (this->m_cursor_space >= 25)
+	if (this->m_CursorSpace >= 25)
 	{
 		return true;
 	}
 
-	if (i_pos % 5 == 0 && this->m_cursor_space <= 24 && this->m_cursor_space > MAX_CURSOR_SPACE)
+	if (i_pos % 5 == 0 && this->m_CursorSpace <= 24 && this->m_CursorSpace > MAX_CURSOR_SPACE)
 	{
 		return true;
 	}
-	if (i_pos % 10 == 0 && this->m_cursor_space <= MAX_CURSOR_SPACE && this->m_cursor_space > MAX_CURSOR_SPACE - SMALL_INCREMENT)
+	if (i_pos % 10 == 0 && this->m_CursorSpace <= MAX_CURSOR_SPACE && this->m_CursorSpace > MAX_CURSOR_SPACE - SMALL_INCREMENT)
 	{
 		return true;
 	}
-	if (i_pos % 20 == 0 && this->m_cursor_space <= MAX_CURSOR_SPACE - SMALL_INCREMENT && this->m_cursor_space > MIN_CURSOR_SPACE)
+	if (i_pos % 20 == 0 && this->m_CursorSpace <= MAX_CURSOR_SPACE - SMALL_INCREMENT && this->m_CursorSpace > MIN_CURSOR_SPACE)
 	{
 		return true;
 	}
-	if (i_pos % 50 == 0 && this->m_cursor_space <= MIN_CURSOR_SPACE && this->m_cursor_space > MIN_CURSOR_SPACE - SMALL_INCREMENT)
+	if (i_pos % 50 == 0 && this->m_CursorSpace <= MIN_CURSOR_SPACE && this->m_CursorSpace > MIN_CURSOR_SPACE - SMALL_INCREMENT)
 	{
 		return true;
 	}
-	if (i_pos % 100 == 0 && this->m_cursor_space <= MIN_CURSOR_SPACE - SMALL_INCREMENT)
+	if (i_pos % 100 == 0 && this->m_CursorSpace <= MIN_CURSOR_SPACE - SMALL_INCREMENT)
 	{
 		return true;
 	}
 	return false;
 }
 
-void spe::UIAnimationEditor::displayKeyFrameInfo()
+void spe::UIAnimationEditor::DisplayKeyFrameInfo()
 {
-	if (this->m_keyFrameSelected.keyFrameSelected == nullptr)
+	if (this->m_KeyFrameSelected.keyFrameSelected == nullptr)
 	{
-		this->m_keyFrameSelected.position = -1;
+		this->m_KeyFrameSelected.position = -1;
 		return;
 	}
 
@@ -139,16 +139,16 @@ void spe::UIAnimationEditor::displayKeyFrameInfo()
 
 	ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 250);
 
-	const std::string keyFrameSelected = "KeyFrame Selected: " + std::to_string(this->m_keyFrameSelected.position);
+	const std::string keyFrameSelected = "KeyFrame Selected: " + std::to_string(this->m_KeyFrameSelected.position);
 	ImGui::Text(keyFrameSelected.c_str());
 
 	ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 245);
 
 	if (ImGui::Button("Delete"))
 	{
-		this->m_anim->Stop();
-		this->m_anim->DeleteKeyFrame(this->m_keyFrameSelected.position);
-		this->m_keyFrameSelected.keyFrameSelected = nullptr;
+		this->m_ptr_Anim->Stop();
+		this->m_ptr_Anim->DeleteKeyFrame(this->m_KeyFrameSelected.position);
+		this->m_KeyFrameSelected.keyFrameSelected = nullptr;
 	}
 	ImGui::SameLine();
 	spe::Style::DisplaySmybolAsText(ICON_FA_TRASH);
@@ -157,18 +157,18 @@ void spe::UIAnimationEditor::displayKeyFrameInfo()
 	ImGui::SetCursorPos(pos);
 }
 
-bool spe::UIAnimationEditor::renderTextBasedOnScroll(size_t i)
+bool spe::UIAnimationEditor::RenderTextBasedOnScroll(size_t i)
 {
 	float minus = 50;
-	if (this->m_cursor_space > 20)
+	if (this->m_CursorSpace > 20)
 	{
 		minus = 50;
 	}
-	else if (this->m_cursor_space > 10)
+	else if (this->m_CursorSpace > 10)
 	{
 		minus = 100;
 	}
-	else if(this->m_cursor_space > 5)
+	else if(this->m_CursorSpace > 5)
 	{
 		minus = 1000;
 	}
@@ -179,28 +179,28 @@ bool spe::UIAnimationEditor::renderTextBasedOnScroll(size_t i)
 
 	const float max = ImGui::GetScrollMaxX();
     float scroll = ImGui::GetScrollX();
-	float divisor = max / this->m_keyFramesToEdit;
+	float divisor = max / this->m_KeyFramesToEdit;
 
 	scroll /= divisor;
 
 	return i > scroll - minus && i < scroll + minus;
 }
 
-void spe::UIAnimationEditor::renderTimeLineRealTimePoint()
+void spe::UIAnimationEditor::RenderTimeLineRealTimePoint()
 {
 	const ImVec2 cursor_pos = ImGui::GetCursorPos();
 	ImGui::SetCursorPosX(100);
 	const float y = ImGui::GetCursorPosY() + 5;
-	for (float i = 0; i < this->m_anim->TotalTimePassed * 100; i += 0.5f)
+	for (float i = 0; i < this->m_ptr_Anim->TotalTimePassed * 100; i += 0.5f)
 	{	
-		ImGui::SetCursorPos(ImVec2(100 + ((int)i + 1.0f) * this->m_cursor_space, y));
+		ImGui::SetCursorPos(ImVec2(100 + ((int)i + 1.0f) * this->m_CursorSpace, y));
 	}
 	ImGui::Text("|");
 
 	ImGui::SetCursorPos(cursor_pos);
 }
 
-void spe::UIAnimationEditor::zoomEditorTimeLine()
+void spe::UIAnimationEditor::ZoomEditorTimeLine()
 {
 	if (this->m_ptr_GUIRepo->ptr_SFEvent->type == sf::Event::MouseWheelScrolled)
 	{
@@ -208,46 +208,46 @@ void spe::UIAnimationEditor::zoomEditorTimeLine()
 
 		if (this->m_ptr_GUIRepo->ptr_SFEvent->mouseWheel.x < 0)
 		{
-			if (this->m_cursor_space == 0.5f)
+			if (this->m_CursorSpace == 0.5f)
 			{
 				return;
 			}
-			if (this->m_cursor_space <= MIN_CURSOR_SPACE)
+			if (this->m_CursorSpace <= MIN_CURSOR_SPACE)
 			{
-				this->m_cursor_space -= SMALL_INCREMENT;
+				this->m_CursorSpace -= SMALL_INCREMENT;
 			}
-			else if (this->m_cursor_space <= MAX_CURSOR_SPACE)
+			else if (this->m_CursorSpace <= MAX_CURSOR_SPACE)
 			{
-				this->m_cursor_space -= LARGE_INCREMENT;
+				this->m_CursorSpace -= LARGE_INCREMENT;
 			}
 			else
 			{
-				this->m_cursor_space -= MAX_CURSOR_SPACE;
+				this->m_CursorSpace -= MAX_CURSOR_SPACE;
 			}
 		}
 		else
 		{
-			if (this->m_cursor_space < MIN_CURSOR_SPACE)
+			if (this->m_CursorSpace < MIN_CURSOR_SPACE)
 			{
-				this->m_cursor_space += SMALL_INCREMENT;
+				this->m_CursorSpace += SMALL_INCREMENT;
 			}
-			else if (this->m_cursor_space < MAX_CURSOR_SPACE)
+			else if (this->m_CursorSpace < MAX_CURSOR_SPACE)
 			{
-				this->m_cursor_space += LARGE_INCREMENT;
+				this->m_CursorSpace += LARGE_INCREMENT;
 			}
 			else
 			{
-				this->m_cursor_space += MAX_CURSOR_SPACE;
+				this->m_CursorSpace += MAX_CURSOR_SPACE;
 			}
 		}
 	}
 }
 
-void spe::UIAnimationEditor::renderKeyFrames()
+void spe::UIAnimationEditor::RenderKeyFrames()
 {
 	const static float s_sizeTo0Frame = 100;
 	const static float s_keyFrameSize = 18;
-	const std::vector<spe::KeyFrame>& frames = this->m_anim->GetkeyFrames();
+	const std::vector<spe::KeyFrame>& frames = this->m_ptr_Anim->GetkeyFrames();
 	const float y = ImGui::GetCursorPosY() + 40;
 	float currentMs = 0;
 	float add = 0;
@@ -257,7 +257,7 @@ void spe::UIAnimationEditor::renderKeyFrames()
 	ImGui::NewLine();
 	ImGui::SetCursorPos(ImVec2(s_sizeTo0Frame , y));
 
-	for (int i = 0; i <= this->m_anim->GetAnimationTime(); i++)
+	for (int i = 0; i <= this->m_ptr_Anim->GetAnimationTime(); i++)
 	{
 		if (cnt == frames.size())
 		{
@@ -277,9 +277,9 @@ void spe::UIAnimationEditor::renderKeyFrames()
 
 			if (ImGui::Button(buttonName.c_str()))
 			{
-				this->m_keyFrameSelected.isClicked = true;
-				this->m_keyFrameSelected.keyFrameSelected = &frames[cnt];
-				this->m_keyFrameSelected.position = i;
+				this->m_KeyFrameSelected.isClicked = true;
+				this->m_KeyFrameSelected.keyFrameSelected = &frames[cnt];
+				this->m_KeyFrameSelected.position = i;
 			}
 			ImGui::PopStyleColor();
 
@@ -288,39 +288,39 @@ void spe::UIAnimationEditor::renderKeyFrames()
 		}
 		currentMs++;
 
-		ImGui::SetCursorPos(ImVec2(100.0f + ((int)i + 1.0f) * this->m_cursor_space, y));
+		ImGui::SetCursorPos(ImVec2(100.0f + ((int)i + 1.0f) * this->m_CursorSpace, y));
 	}
 	ImGui::NewLine();
 	ImGui::Dummy(ImVec2(0, 20));
 }
 
-void spe::UIAnimationEditor::addKeyFrame()
+void spe::UIAnimationEditor::AddKeyFrame()
 {
 	ImGui::SetCursorPos(ImVec2(ImGui::GetCursorPosX() + 2 + ImGui::GetScrollX(), ImGui::GetCursorPosY()));
 	if (ImGui::Button("Add KeyFrame"))
 	{
 		if (this->m_ptr_GUIRepo->sprite_in_inspector != nullptr)
 		{
-			this->m_FrameAdder.key_frame_path = this->m_ptr_GUIRepo->sprite_in_inspector->SpriteRenderer.Path;
+			this->m_FrameAdder.KeyFramePath = this->m_ptr_GUIRepo->sprite_in_inspector->SpriteRenderer.Path;
 		}
-		this->m_FrameAdder.is_key_frame_menu_open = true;
-		this->m_FrameAdder.setAnimation(this->m_anim);
+		this->m_FrameAdder.IsKeyFrameMenuOpen = true;
+		this->m_FrameAdder.SetAnimation(this->m_ptr_Anim);
 	}
 	ImGui::SameLine();
 	spe::Style::DisplaySmybolAsText(ICON_FA_PLUS);
 }
 
-void spe::UIAnimationEditor::saveAnimation()
+void spe::UIAnimationEditor::SaveAnimation()
 {
 	if (ImGui::Button("Save"))
 	{
-		spe::Savesystem::CreateAnimationSaveFile(this->m_ptr_GUIRepo->sprite_in_inspector, *this->m_anim);
+		spe::Savesystem::CreateAnimationSaveFile(this->m_ptr_GUIRepo->sprite_in_inspector, *this->m_ptr_Anim);
 	}
 	spe::UIUtility::SameLine(2);
 	spe::Style::DisplaySmybolAsText(ICON_FA_SAVE);
 }
 
-void spe::UIAnimationEditor::renameAnimation()
+void spe::UIAnimationEditor::RenameAnimation()
 {
 	static std::string s_renamed_pop_up_name = "";
 
@@ -342,13 +342,13 @@ void spe::UIAnimationEditor::renameAnimation()
 			const char* name = s_renamed_pop_up_name.c_str();
 			const std::string std_name(name);
 			// Delete the old file
-			spe::Utility::Delete(this->m_anim->GetPath());
+			spe::Utility::Delete(this->m_ptr_Anim->GetPath());
 
-			this->m_ptr_GUIRepo->sprite_in_inspector->Animator.SetName(std_name, this->m_anim->GetName());
+			this->m_ptr_GUIRepo->sprite_in_inspector->Animator.SetName(std_name, this->m_ptr_Anim->GetName());
 			// Getting the new animation becuase the old 1 got deleted
-			this->m_anim = &this->m_ptr_GUIRepo->sprite_in_inspector->Animator.Animations[std_name];
+			this->m_ptr_Anim = &this->m_ptr_GUIRepo->sprite_in_inspector->Animator.Animations[std_name];
 			
-			spe::Savesystem::CreateAnimationSaveFile(this->m_ptr_GUIRepo->sprite_in_inspector, *this->m_anim);
+			spe::Savesystem::CreateAnimationSaveFile(this->m_ptr_GUIRepo->sprite_in_inspector, *this->m_ptr_Anim);
 
 			s_renamed_pop_up_name = "";
 		}
@@ -370,24 +370,24 @@ void spe::UIAnimationEditor::Render()
 	{
 		return;
 	}
-	this->zoomEditorTimeLine();
-	this->beginWindow();
-	this->renderTimeLineRealTimePoint();
-	this->editorTimeLine();
-	this->addKeyFrame();
+	this->ZoomEditorTimeLine();
+	this->BeginWindow();
+	this->RenderTimeLineRealTimePoint();
+	this->EditorTimeLine();
+	this->AddKeyFrame();
 
 	ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 8);
 	ImGui::Text("Loop");
 	ImGui::SameLine();
-	ImGui::Checkbox("##loop", &this->m_anim->Loop);
+	ImGui::Checkbox("##loop", &this->m_ptr_Anim->Loop);
 
-	this->saveAnimation();
-	this->renameAnimation();
+	this->SaveAnimation();
+	this->RenameAnimation();
 
-	this->closeWindow();
+	this->CloseWindow();
 
 
-	if (this->m_FrameAdder.is_key_frame_menu_open)
+	if (this->m_FrameAdder.IsKeyFrameMenuOpen)
 	{
 		this->m_FrameAdder.Render();
 	}

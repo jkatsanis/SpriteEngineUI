@@ -24,22 +24,22 @@ namespace spe
 	private:
 		//Setting display to false and shit in its own class
 		spe::UIAnimationEditor m_UIAnimationEditor;
-		std::string m_fileName;
+		std::string m_FileName;
 
-		spe::FileDialog m_animation_open_file_dialog;
-		spe::FileDialog m_animation_create_file_dialog;
+		spe::FileDialog m_OpenFileDialoge;
+		spe::FileDialog m_CreateFileDialoge;
 
-		ImGuiTextFilter m_search_filter_animation;
+		ImGuiTextFilter m_FilterSearch;
 
-		uint8_t m_background_counter;
-		char m_animationFile[150];
+		uint8_t m_BackgroundCounter;
+		char m_AnimationFile[150];
 
-		void getFileNameInput();
-		void displayAnimations();
-		void addAnimationsToAnimator();
-		void enterAnimation(spe::Animation& animation);
-		void drawBackgroundBehinAnimation();
-		void renderAnimationUIOptions();
+		void GetFileNameInput();
+		void DisplayAnimations();
+		void AddAnimationsToAnimator();
+		void EnterAnimation(spe::Animation& animation);
+		void DrawBackgroundBehinAnimation();
+		void RenderAnimationUIOptions() noexcept;
 
 		void Init() override;
 	public:
