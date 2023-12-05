@@ -4,13 +4,13 @@
 
 void spe::UIInspector::Init()
 {
-	this->m_sprite_input_width = 200.0f;
-	this->m_window_size_width = 390.0f;
+	this->m_SpriteInputWidth = 200.0f;
+	this->m_WindowSizeWidth = 390.0f;
 
-	this->m_menu_name = "menu";
+	this->m_MenuName = "menu";
 
 	this->m_Size = INSPECTOR_DEFAULT_WINDOW_SIZE;
-	this->state = spe::InspectorState::None;
+	this->State = spe::InspectorState::None;
 
 	spe::Rectangle* rec = new spe::Rectangle(sf::Vector2f(0, 0), sf::Vector2f(0, 0), sf::Color(124, 252, 0), 3.5f,
 		PATH_TO_TRANSPARENT_PIC, "collider-over-sprite");
@@ -22,27 +22,27 @@ void spe::UIInspector::Init()
 
 	this->m_ptr_GUIRepo->Add(over_sprite);
 
-	this->m_ptr_collider_rectangle = this->m_ptr_GUIRepo->GetByName("collider-over-sprite");
-	this->m_ptr_sprite_over_rectangle = this->m_ptr_GUIRepo->GetByName("texture-over-sprite");
+	this->m_ptr_ColliderRec = this->m_ptr_GUIRepo->GetByName("collider-over-sprite");
+	this->m_ptr_SpriteRec = this->m_ptr_GUIRepo->GetByName("texture-over-sprite");
 
-	this->m_ptr_collider_rectangle->SortingLayerIdx = 1;
+	this->m_ptr_ColliderRec->SortingLayerIdx = 1;
 	this->m_ptr_GUIRepo->UpdateLayerIndex();
 
-	this->m_collider.initScaleDottsUI(*this->m_ptr_GUIRepo);
+	this->m_Collider.InitScaleDottsUI(*this->m_ptr_GUIRepo);
 
-	this->m_components.push_back("BoxCollider");
-	this->m_components.push_back("PhysicsBody");
-	this->m_components.push_back("Animator");
-	this->m_components.push_back("Light Source");
+	this->m_ComponentsName.push_back("BoxCollider");
+	this->m_ComponentsName.push_back("PhysicsBody");
+	this->m_ComponentsName.push_back("Animator");
+	this->m_ComponentsName.push_back("Light Source");
 
 	this->m_ptr_GUIRepo->InspectorData.ptr_Size = &this->m_Size;
 
-	this->m_tag_selector.SetRepos(this->m_ptr_Repo, this->m_ptr_GUIRepo);
+	this->m_TagSelector.SetRepos(this->m_ptr_Repo, this->m_ptr_GUIRepo);
 }
 
 //Private functions
 
-void spe::UIInspector::renderComponentOptions(spe::Component& component, const std::string& name)
+void spe::UIInspector::RenderComponentOptions(spe::Component& component, const std::string& name)
 {
 	const std::string button_name = std::string(ICON_FA_COG) + "##" + name;
 	const ImVec2 temp_pos = ImGui::GetCursorPos();
@@ -53,12 +53,12 @@ void spe::UIInspector::renderComponentOptions(spe::Component& component, const s
 	if (spe::Style::DisplaySmybolAsButton(button_name.c_str()))
 	{
 		ImGui::OpenPopup(button_name.c_str());
-		this->m_pop_up_cursor_pos = ImVec2(spe::UIUtility::GUICursor.Position.X - 150, spe::UIUtility::GUICursor.Position.Y + 20);
+		this->m_PopUpCursorPos = ImVec2(spe::UIUtility::GUICursor.Position.X - 150, spe::UIUtility::GUICursor.Position.Y + 20);
 	}
 
 	ImGui::SetWindowFontScale(spe::Style::s_DefaultFontSize + 0.2f);
 
-	ImGui::SetNextWindowPos(this->m_pop_up_cursor_pos);
+	ImGui::SetNextWindowPos(this->m_PopUpCursorPos);
 	if (ImGui::BeginPopup(button_name.c_str()))
 	{
 		if (spe::Style::DisplaySymbolInMenuItemWithText(ICON_FA_RETWEET, "Reset", 30))
@@ -88,9 +88,9 @@ void spe::UIInspector::renderComponentOptions(spe::Component& component, const s
 	ImGui::SetWindowFontScale(spe::Style::s_DefaultFontSize);
 }
 
-void spe::UIInspector::generalSettings()
+void spe::UIInspector::GeneralSettings()
 {
-	this->renderBackgroundBehindComponent();
+	this->RenderBackgroundBehindComponent();
 	if (ImGui::TreeNode("General"))
 	{
 		ImGui::Dummy(ImVec2(0, 16));
@@ -103,21 +103,21 @@ void spe::UIInspector::generalSettings()
 	}
 }
 
-void spe::UIInspector::drawRectangleOverCurrentObject()
+void spe::UIInspector::DrawRectangleOverCurrentObject()
 {
-	this->m_ptr_sprite_over_rectangle->Render = true;
+	this->m_ptr_SpriteRec->Render = true;
 
-	sf::RectangleShape* ptr_shape = &this->m_ptr_sprite_over_rectangle->Shape;
+	sf::RectangleShape* ptr_shape = &this->m_ptr_SpriteRec->Shape;
 	
 	ptr_shape->setSize(sf::Vector2f(this->m_ptr_GUIRepo->sprite_in_inspector->Transform.TextureSize.X, this->m_ptr_GUIRepo->sprite_in_inspector->Transform.TextureSize.Y));
 	ptr_shape->setPosition(this->m_ptr_GUIRepo->sprite_in_inspector->Transform.GetOrigininalPosition().X, this->m_ptr_GUIRepo->sprite_in_inspector->Transform.GetOrigininalPosition().Y);
 }
 
-void spe::UIInspector::renderOptions()
+void spe::UIInspector::RenderOptions()
 {
 	const ImVec2 tempCursor = ImGui::GetCursorPos();
 
-	this->resizeWindow();
+	this->ResizeWindow();
 
 	ImGui::SetCursorPosY(ImGui::GetCursorPosY() - 5);
 	ImGui::SetCursorPosX(0);
@@ -127,12 +127,12 @@ void spe::UIInspector::renderOptions()
 	ImGui::SetCursorPosY(ImGui::GetCursorPosY() + 50);
 }
 
-void spe::UIInspector::resizeWindow()
+void spe::UIInspector::ResizeWindow()
 {
 	bool pop_style = false;
 	ImGui::SetCursorPosX(10);
 	ImGui::SetCursorPosY(4);
-	if (this->m_resize_window_data.clicked_on_resize_button)
+	if (this->m_WindowData.ClickedOnResizeButton)
 	{
 		ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0, 0, 0, 1));
 		ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4(0, 0, 0, 1));
@@ -141,9 +141,9 @@ void spe::UIInspector::resizeWindow()
 	spe::Style::DisplaySmybolAsButton(ICON_FA_ARROW_LEFT);
 	if (ImGui::IsItemHovered() && ImGui::IsMouseClicked(0))
 	{
-		this->m_resize_window_data.clicked_on_resize_button = true;
+		this->m_WindowData.ClickedOnResizeButton = true;
 	}
-	if (this->m_resize_window_data.clicked_on_resize_button && ImGui::IsMouseDown(0))
+	if (this->m_WindowData.ClickedOnResizeButton && ImGui::IsMouseDown(0))
 	{
 		float movedy = 0;
 		if (spe::UIUtility::GUICursor.PositionChanged)
@@ -159,7 +159,7 @@ void spe::UIInspector::resizeWindow()
 	}
 	else
 	{
-		this->m_resize_window_data.clicked_on_resize_button = false;
+		this->m_WindowData.ClickedOnResizeButton = false;
 	}
 	if (pop_style)
 	{
@@ -167,7 +167,7 @@ void spe::UIInspector::resizeWindow()
 	}
 }
 
-void spe::UIInspector::renderBackgroundBehindComponent()
+void spe::UIInspector::RenderBackgroundBehindComponent()
 {
 	const ImVec2 temp = ImGui::GetCursorPos();
 	ImGui::SetCursorPosX(1920 - this->m_Size.x);
@@ -176,14 +176,14 @@ void spe::UIInspector::renderBackgroundBehindComponent()
 	ImGui::SetCursorPos(temp);
 }
 
-void spe::UIInspector::displayDefaultInspectorView()
+void spe::UIInspector::DisplayDefaultInspectorView()
 {
 	ImGui::Dummy(ImVec2(0, 15));
-	this->backgroundSetting();
+	this->BackgroundSetting();
 	DUMMY_COMPONENT;
-	this->gameEngineViewSetting();
+	this->GameEngineViewSetting();
 	DUMMY_COMPONENT;
-	this->generalSettings();
+	this->GeneralSettings();
 
 
 	const ImVec2 temp = ImGui::GetCursorPos();
@@ -196,9 +196,9 @@ void spe::UIInspector::displayDefaultInspectorView()
 }
 
 
-void spe::UIInspector::backgroundSetting()
+void spe::UIInspector::BackgroundSetting()
 {
-	this->renderBackgroundBehindComponent();
+	this->RenderBackgroundBehindComponent();
 	if (ImGui::TreeNode("Background"))
 	{
 		ImGui::Dummy(ImVec2(0, 16));
@@ -216,9 +216,9 @@ void spe::UIInspector::backgroundSetting()
 	}
 }
 
-void spe::UIInspector::gameEngineViewSetting()
+void spe::UIInspector::GameEngineViewSetting()
 {
-	this->renderBackgroundBehindComponent();
+	this->RenderBackgroundBehindComponent();
 
 	const std::string button_name = std::string(ICON_FA_COG) + "##" + "camera-comp";
 	const ImVec2 temp_pos = ImGui::GetCursorPos();
@@ -229,12 +229,12 @@ void spe::UIInspector::gameEngineViewSetting()
 	if (spe::Style::DisplaySmybolAsButton(button_name.c_str()))
 	{
 		ImGui::OpenPopup(button_name.c_str());
-		this->m_pop_up_cursor_pos = ImVec2(spe::UIUtility::GUICursor.Position.X - 150, spe::UIUtility::GUICursor.Position.Y + 20);
+		this->m_PopUpCursorPos = ImVec2(spe::UIUtility::GUICursor.Position.X - 150, spe::UIUtility::GUICursor.Position.Y + 20);
 	}
 
 	ImGui::SetWindowFontScale(spe::Style::s_DefaultFontSize + 0.2f);
 
-	ImGui::SetNextWindowPos(this->m_pop_up_cursor_pos);
+	ImGui::SetNextWindowPos(this->m_PopUpCursorPos);
 	if (ImGui::BeginPopup(button_name.c_str()))
 	{
 		if (spe::Style::DisplaySymbolInMenuItemWithText(ICON_FA_RETWEET, "Reset", 30))
@@ -250,7 +250,7 @@ void spe::UIInspector::gameEngineViewSetting()
 
 	ImGui::SetWindowFontScale(spe::Style::s_DefaultFontSize);
 
-	this->m_cam_zoom = this->m_ptr_GUIRepo->Camera.GetZoom();
+	this->m_CamZoom = this->m_ptr_GUIRepo->Camera.GetZoom();
 
 	if (ImGui::TreeNode("Camera"))
 	{
@@ -280,7 +280,7 @@ void spe::UIInspector::gameEngineViewSetting()
 		ImGui::SetWindowFontScale(spe::Style::s_DefaultFontSize);
 		ImGui::SameLine();
 		ImGui::SetCursorPos(ImVec2(x -= 120, y += 45));
-		ImGui::SliderFloat("##Zoom", &this->m_cam_zoom, 0.1f, 4.0f, "%g");
+		ImGui::SliderFloat("##Zoom", &this->m_CamZoom, 0.1f, 4.0f, "%g");
 
 		ImGui::Dummy(ImVec2(0, 15));
 		ImGui::Text("Speed");
@@ -288,43 +288,43 @@ void spe::UIInspector::gameEngineViewSetting()
 		ImGui::SetCursorPos(ImVec2(x, ImGui::GetCursorPosY() - 25));
 		ImGui::InputFloat("##speed-camera", &this->m_ptr_GUIRepo->Camera.CameraSpeed, 0, 0, "%g");
 
-		this->m_ptr_GUIRepo->Camera.SetZoom(this->m_cam_zoom);
+		this->m_ptr_GUIRepo->Camera.SetZoom(this->m_CamZoom);
 		ImGui::TreePop();
 	}
 }
 
 #pragma region Component displaayer
 
-void spe::UIInspector::setCompontents()
+void spe::UIInspector::SetCompontents()
 {
-	if (this->m_current_component_selected == "BoxCollider")
+	if (this->m_ComponentSelected == "BoxCollider")
 	{
 		this->m_ptr_GUIRepo->sprite_in_inspector->Collider.exist = true;
-		this->m_current_component_selected = " ";
+		this->m_ComponentSelected = " ";
 	}
-	if (this->m_current_component_selected == "PhysicsBody")
+	if (this->m_ComponentSelected == "PhysicsBody")
 	{
 		this->m_ptr_GUIRepo->sprite_in_inspector->Physicsbody.exist = true;
-		this->m_current_component_selected = " ";
+		this->m_ComponentSelected = " ";
 	}
-	if (this->m_current_component_selected == "Animator")
+	if (this->m_ComponentSelected == "Animator")
 	{
 		this->m_ptr_GUIRepo->sprite_in_inspector->Animator.exist = true;
-		this->m_current_component_selected = " ";
+		this->m_ComponentSelected = " ";
 	}
-	if (this->m_current_component_selected == "Prefab")
+	if (this->m_ComponentSelected == "Prefab")
 	{
 		this->m_ptr_GUIRepo->sprite_in_inspector->Prefab.exist = true;
-		this->m_current_component_selected = " ";
+		this->m_ComponentSelected = " ";
 	}
-	if (this->m_current_component_selected == "Light Source")
+	if (this->m_ComponentSelected == "Light Source")
 	{
 		this->m_ptr_GUIRepo->sprite_in_inspector->Light.Enable();
-		this->m_current_component_selected = " ";
+		this->m_ComponentSelected = " ";
 	}
 }
 
-void spe::UIInspector::renameSprite()
+void spe::UIInspector::RenameSprite()
 {
 	static float s_TimeToUpdate = 0.0f;
 
@@ -353,7 +353,7 @@ void spe::UIInspector::renameSprite()
 	}
 }
 
-void spe::UIInspector::componentSelector()
+void spe::UIInspector::ComponentSelector()
 {
 	const ImVec2 temp = ImGui::GetCursorPos();
 	ImGui::SetCursorPosY(38.5f);
@@ -376,8 +376,8 @@ void spe::UIInspector::componentSelector()
 
 	ImGui::SetCursorPos(temp2);
 
-	this->m_tag_selector.Render();
-	this->Hovered = this->m_tag_selector.Hovered;
+	this->m_TagSelector.Render();
+	this->Hovered = this->m_TagSelector.Hovered;
 	ImGui::SetCursorPos(temp);
 
 	ImGui::SetCursorPosY(ImGui::GetCursorPosY() + 20);
@@ -385,12 +385,12 @@ void spe::UIInspector::componentSelector()
 	ImGui::SetNextItemWidth(250);
 	if (ImGui::BeginCombo("##Components", "Add Components"))
 	{
-		for (int i = 0; i < this->m_components.size(); i++)
+		for (int i = 0; i < this->m_ComponentsName.size(); i++)
 		{
-			bool is_selected = (this->m_current_component_selected == this->m_components[i]);
-			if (ImGui::Selectable(this->m_components[i], is_selected))
+			bool is_selected = (this->m_ComponentSelected == this->m_ComponentsName[i]);
+			if (ImGui::Selectable(this->m_ComponentsName[i], is_selected))
 			{
-				this->m_current_component_selected = this->m_components[i];
+				this->m_ComponentSelected = this->m_ComponentsName[i];
 			}
 			if (is_selected)
 			{
@@ -401,62 +401,62 @@ void spe::UIInspector::componentSelector()
 	}
 }
 
-void spe::UIInspector::setupComponents()
+void spe::UIInspector::SetupComponents()
 {
 	ImGui::Dummy(ImVec2(0, 15));
 	// Base Components
-	this->transformComponent();
+	this->TransformComponent();
 	DUMMY_COMPONENT;
 
 
-	this->spriteRendererComponent();
+	this->SpriteRendererComponent();
 	DUMMY_COMPONENT;
 	
 	//Collider
 	if (this->m_ptr_GUIRepo->sprite_in_inspector->Collider.exist)
 	{
-		this->boxColliderComponent();
+		this->BoxColliderComponent();
 		DUMMY_COMPONENT;
 	}
 	else
 	{
-		this->m_collider.leaveEditMode();
-		this->m_ptr_collider_rectangle->Render = false;
+		this->m_Collider.LeaveEditMode();
+		this->m_ptr_ColliderRec->Render = false;
 	}
 
 	//PhysicsBody
 	if (this->m_ptr_GUIRepo->sprite_in_inspector->Physicsbody.exist)
 	{
-		this->physicsBodyComponent();
+		this->PhysicsBodyComponent();
 		DUMMY_COMPONENT;
 	}
 
 	//Animator
 	if (this->m_ptr_GUIRepo->sprite_in_inspector->Animator.exist)
 	{
-		this->animatorComponent();
+		this->AnimatorComponent();
 		DUMMY_COMPONENT;
 	}
 
 	// Prefab
 	if (this->m_ptr_GUIRepo->sprite_in_inspector->Prefab.exist)
 	{
-		this->prefabComponent();
+		this->PrefabComponent();
 		DUMMY_COMPONENT;
 	}
 
 	// Light Source
 	if (this->m_ptr_GUIRepo->sprite_in_inspector->Light.exist)
 	{
-		this->lightComponent();
+		this->LightComponent();
 		DUMMY_COMPONENT;
 	}
 
-	this->componentSelector();
-	this->setCompontents();
+	this->ComponentSelector();
+	this->SetCompontents();
 }
 
-void spe::UIInspector::inputXY(const char* label, float& inputX, float& inputY, float x, float y)
+void spe::UIInspector::InputXY(const char* label, float& inputX, float& inputY, float x, float y)
 {
 	static float s_inputWidth = 80;
 
@@ -484,25 +484,25 @@ void spe::UIInspector::inputXY(const char* label, float& inputX, float& inputY, 
 	ImGui::PopItemWidth();
 }
 
-void spe::UIInspector::transformComponent()
+void spe::UIInspector::TransformComponent()
 {
 	spe::Vector2 tempPos = this->m_ptr_GUIRepo->sprite_in_inspector->Transform.GetPosition();
-	this->renderBackgroundBehindComponent();
-	this->renderComponentOptions(this->m_ptr_GUIRepo->sprite_in_inspector->Transform, "Transform");
+	this->RenderBackgroundBehindComponent();
+	this->RenderComponentOptions(this->m_ptr_GUIRepo->sprite_in_inspector->Transform, "Transform");
 	if (ImGui::TreeNode("Transform"))
 	{
 		float x = ImGui::GetCursorPosX();
 		float y = ImGui::GetCursorPosY();
 
 		ImGui::Dummy(ImVec2(0, 8));
-		inputXY("Position", tempPos.X, tempPos.Y, x, y);
+		InputXY("Position", tempPos.X, tempPos.Y, x, y);
 
 		y += 45;
 
 		spe::Vector2 temp_scale = this->m_ptr_GUIRepo->sprite_in_inspector->Transform.GetScale();
 
 		ImGui::Dummy(ImVec2(0, 10));
-		inputXY("Scale", temp_scale.X, temp_scale.Y, x, y);
+		InputXY("Scale", temp_scale.X, temp_scale.Y, x, y);
 		y += 45;
 
 		int rotation = this->m_ptr_GUIRepo->sprite_in_inspector->Transform.GetRotation();
@@ -525,14 +525,14 @@ void spe::UIInspector::transformComponent()
 	}
 }
 
-void spe::UIInspector::spriteRendererComponent()
+void spe::UIInspector::SpriteRendererComponent()
 {
-	this->renderBackgroundBehindComponent();
-	this->renderComponentOptions(this->m_ptr_GUIRepo->sprite_in_inspector->SpriteRenderer, "Sprite Renderer");
+	this->RenderBackgroundBehindComponent();
+	this->RenderComponentOptions(this->m_ptr_GUIRepo->sprite_in_inspector->SpriteRenderer, "Sprite Renderer");
 	if (ImGui::TreeNode("Sprite Renderer"))
 	{
 		std::string input = spe::Utility::GetNamePathSplit(this->m_ptr_GUIRepo->sprite_in_inspector->SpriteRenderer.Path);
-		this->m_sprite_name = this->m_ptr_GUIRepo->sprite_in_inspector->Name;
+		this->m_SpriteName = this->m_ptr_GUIRepo->sprite_in_inspector->Name;
 
 		float y = ImGui::GetCursorPos().y;
 		float x = ImGui::GetCursorPos().x;
@@ -541,7 +541,7 @@ void spe::UIInspector::spriteRendererComponent()
 		ImGui::Text("Sprite");
 
 		ImGui::SetCursorPos(ImVec2(x += 100, y - 5));
-		ImGui::SetNextItemWidth(this->m_sprite_input_width);
+		ImGui::SetNextItemWidth(this->m_SpriteInputWidth);
 		ImGui::InputText("##spriteRenderer", &input[0], CHAR_MAX);
 
 		if (ImGui::IsItemHovered(ImGuiHoveredFlags_AllowWhenOverlapped) && ImGui::IsMouseReleased(0) && this->m_ptr_GUIRepo->DragAndDropPath!= " ")
@@ -580,45 +580,45 @@ void spe::UIInspector::spriteRendererComponent()
 	}
 }
 
-void spe::UIInspector::boxColliderComponent()
+void spe::UIInspector::BoxColliderComponent()
 {
 	float x = ImGui::GetCursorPosX();
 	float y = ImGui::GetCursorPosY();
 
-	this->renderBackgroundBehindComponent();
-	this->renderComponentOptions(this->m_ptr_GUIRepo->sprite_in_inspector->Collider, "BoxCollider");
+	this->RenderBackgroundBehindComponent();
+	this->RenderComponentOptions(this->m_ptr_GUIRepo->sprite_in_inspector->Collider, "BoxCollider");
 	if (ImGui::TreeNode("BoxCollider"))
 	{
-		this->m_ptr_collider_rectangle->Render = true;
+		this->m_ptr_ColliderRec->Render = true;
 		ImGui::Dummy(ImVec2(0, 4));
 		x = ImGui::GetCursorPos().x;
 		y = ImGui::GetCursorPos().y;
 
-		this->m_collider.edit(x, y);
-		this->m_collider.solid(x, y, this->m_ptr_GUIRepo->sprite_in_inspector);
-		this->m_collider.width(x, y, this->m_ptr_GUIRepo->sprite_in_inspector);
-		this->m_collider.height(this->m_ptr_GUIRepo->sprite_in_inspector);
+		this->m_Collider.Edit(x, y);
+		this->m_Collider.Solid(x, y, this->m_ptr_GUIRepo->sprite_in_inspector);
+		this->m_Collider.Width(x, y, this->m_ptr_GUIRepo->sprite_in_inspector);
+		this->m_Collider.Height(this->m_ptr_GUIRepo->sprite_in_inspector);
 
 		ImGui::TreePop();
 
 		//Transparent since we open the boxcollider and we want to open the colider (rec)
-		this->m_collider.drawBoxCollider(this->m_ptr_GUIRepo->sprite_in_inspector, this->m_ptr_collider_rectangle);
+		this->m_Collider.DrawBoxCollider(this->m_ptr_GUIRepo->sprite_in_inspector, this->m_ptr_ColliderRec);
 		ImGui::Dummy(ImVec2(0, 9));
 	}
 	else
 	{
-		this->m_collider.leaveEditMode();
-		this->m_ptr_collider_rectangle->Render = false;
+		this->m_Collider.LeaveEditMode();
+		this->m_ptr_ColliderRec->Render = false;
 	}
 }
 
-void spe::UIInspector::physicsBodyComponent()
+void spe::UIInspector::PhysicsBodyComponent()
 {
 	float x = ImGui::GetCursorPosX();
 	float y = ImGui::GetCursorPosY();
 
-	this->renderBackgroundBehindComponent();
-	this->renderComponentOptions(this->m_ptr_GUIRepo->sprite_in_inspector->Physicsbody, "PhysicsBody");
+	this->RenderBackgroundBehindComponent();
+	this->RenderComponentOptions(this->m_ptr_GUIRepo->sprite_in_inspector->Physicsbody, "PhysicsBody");
 
 	if (ImGui::TreeNode("PhysicsBody"))
 	{
@@ -650,7 +650,7 @@ void spe::UIInspector::physicsBodyComponent()
 
 			ImGui::SetCursorPosX(40);
 			ImGui::SetCursorPosY(ImGui::GetCursorPosY() + 10);
-			inputXY("Velocity", velocity.X, velocity.Y, 40, ImGui::GetCursorPosY() - 10);
+			InputXY("Velocity", velocity.X, velocity.Y, 40, ImGui::GetCursorPosY() - 10);
 			this->m_ptr_GUIRepo->sprite_in_inspector->Physicsbody.Velocity = velocity;
 		}
 
@@ -658,13 +658,13 @@ void spe::UIInspector::physicsBodyComponent()
 	}	
 }
 
-void spe::UIInspector::animatorComponent()
+void spe::UIInspector::AnimatorComponent()
 {
 	float y = ImGui::GetCursorPos().y;
 	float x = ImGui::GetCursorPos().x;
 
-	this->renderBackgroundBehindComponent();
-	this->renderComponentOptions(this->m_ptr_GUIRepo->sprite_in_inspector->Animator, "Animator");
+	this->RenderBackgroundBehindComponent();
+	this->RenderComponentOptions(this->m_ptr_GUIRepo->sprite_in_inspector->Animator, "Animator");
 	if (ImGui::TreeNode("Animator"))
 	{
 		y = ImGui::GetCursorPos().y;
@@ -687,12 +687,12 @@ void spe::UIInspector::animatorComponent()
 	}
 }
 
-void spe::UIInspector::prefabComponent()
+void spe::UIInspector::PrefabComponent()
 {
 	float x = ImGui::GetCursorPosX();
 	float y = ImGui::GetCursorPosY();
 
-	this->renderBackgroundBehindComponent();
+	this->RenderBackgroundBehindComponent();
 	if (ImGui::TreeNode("Prefab"))
 	{
 		ImGui::SetCursorPos(ImVec2(x += 45, y += 40));
@@ -719,14 +719,14 @@ void spe::UIInspector::prefabComponent()
 	}	
 }
 
-void spe::UIInspector::lightComponent()
+void spe::UIInspector::LightComponent()
 {
-	this->m_light_radius = this->m_ptr_GUIRepo->sprite_in_inspector->Light.GetRadius();
-	this->m_light_intensity = this->m_ptr_GUIRepo->sprite_in_inspector->Light.GetIntensity();
+	this->m_LightRadius = this->m_ptr_GUIRepo->sprite_in_inspector->Light.GetRadius();
+	this->m_LightIntensity = this->m_ptr_GUIRepo->sprite_in_inspector->Light.GetIntensity();
 
 
-	this->renderBackgroundBehindComponent();
-	this->renderComponentOptions(this->m_ptr_GUIRepo->sprite_in_inspector->Light, "Light Source");
+	this->RenderBackgroundBehindComponent();
+	this->RenderComponentOptions(this->m_ptr_GUIRepo->sprite_in_inspector->Light, "Light Source");
 	if (ImGui::TreeNode("Light Source"))
 	{
 		float y = ImGui::GetCursorPos().y;
@@ -739,18 +739,18 @@ void spe::UIInspector::lightComponent()
 		spe::UIUtility::SameLine(0);
 		ImGui::SetNextItemWidth(50);
 		ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 47);
-		ImGui::InputFloat("##light-radius", &this->m_light_radius, 0, 0, "%g");
+		ImGui::InputFloat("##light-radius", &this->m_LightRadius, 0, 0, "%g");
 
-		this->m_ptr_GUIRepo->sprite_in_inspector->Light.SetRadius(this->m_light_radius);
+		this->m_ptr_GUIRepo->sprite_in_inspector->Light.SetRadius(this->m_LightRadius);
 
 		ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 14.5f);
 		ImGui::Text("Intensity: ");
 		spe::UIUtility::SameLine(0);
 		ImGui::SetNextItemWidth(50);
 		ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 38);
-		ImGui::InputFloat("##light-intensity", &this->m_light_intensity, 0, 0, "%g");
+		ImGui::InputFloat("##light-intensity", &this->m_LightIntensity, 0, 0, "%g");
 
-		this->m_ptr_GUIRepo->sprite_in_inspector->Light.SetIntensity(this->m_light_intensity);
+		this->m_ptr_GUIRepo->sprite_in_inspector->Light.SetIntensity(this->m_LightIntensity);
 
 		
 		ImGui::Text("Color: ");
@@ -782,25 +782,25 @@ void spe::UIInspector::Render()
 	this->m_ptr_GUIRepo->InspectorData.IsOpen = spe::UIUtility::RenderCloseRectangle(this->m_Size.x - 300, ICON_FA_EDIT, "##inspector", "Inspector", 0);
 
 	// Left arrow
-	this->renderOptions();
+	this->RenderOptions();
 
-	this->renameSprite();
+	this->RenameSprite();
 
 	//Setting it here transparent because if we go down and out box collider is actually getting used it will update to green automatic
 	if (this->m_ptr_GUIRepo->sprite_in_inspector != nullptr)
 	{
 		// Handle a sprite
 
-		this->drawRectangleOverCurrentObject();
-		this->setupComponents();
+		this->DrawRectangleOverCurrentObject();
+		this->SetupComponents();
 	}
 	else
 	{
 		// Handle it if no sprite is selected
-		this->displayDefaultInspectorView();
-		this->m_collider.leaveEditMode();
-		this->m_ptr_sprite_over_rectangle->Render = false;
-		this->m_ptr_collider_rectangle->Render = false;
+		this->DisplayDefaultInspectorView();
+		this->m_Collider.LeaveEditMode();
+		this->m_ptr_SpriteRec->Render = false;
+		this->m_ptr_ColliderRec->Render = false;
 	}
 
 	const ImVec2 window_pos = ImVec2(INSPECTOR_WINDOW_POS.x + INSPECTOR_DEFAULT_WINDOW_SIZE.x - this->m_Size.x, INSPECTOR_WINDOW_POS.y);

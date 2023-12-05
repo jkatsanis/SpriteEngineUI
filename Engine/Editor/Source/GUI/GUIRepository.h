@@ -31,8 +31,8 @@ namespace spe
 		std::string DragAndDropPath;
 		std::string DragAndDropName;
 
-		spe::Sprite* child_to_parent;
-		spe::Sprite* right_clicked_sprite;
+		spe::Sprite* ChildToParent;
+		spe::Sprite* RightClickedSprite;
 		spe::Sprite* sprite_in_inspector;
 		spe::Sprite* sprited_hovered_in_hierarchy;
 

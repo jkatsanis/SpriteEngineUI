@@ -4,12 +4,12 @@
 
 void spe::UIHierarchy::Init()
 {
-	this->m_child_select_timer = 0.0f;
-	this->m_found_hovering = false;
-	this->m_wait_one_frame = false;
+	this->m_ChildSelectTimer = 0.0f;
+	this->m_FoundHovering = false;
+	this->m_WaitFrame = false;
 	this->Hovered = false;
 	this->m_Size = HIERARCHY_DEFAULT_WINDOW_SIZE;
-	this->m_sprite_background_color_cnt = 1;
+	this->m_BackgroundColorCnt = 1;
 
 	this->m_ptr_GUIRepo->HierarchyData.ptr_Size = &this->m_Size;
 }
@@ -29,25 +29,25 @@ void spe::UIHierarchy::Render()
 	ImGui::Begin("##ui-hierarchy", NULL, DEFAULT_FLAGS);
 
 	// Render Hierarchy
-	this->m_sprite_background_color_cnt = 1;
-	this->m_found_selected = false;
+	this->m_BackgroundColorCnt = 1;
+	this->m_FoundSelected = false;
 
 	if (!ImGui::IsPopupOpen(POPUP_NAME))
 	{
-		this->m_found_hovering = false;
+		this->m_FoundHovering = false;
 	}
 
-	this->renderCloseRectangle();
-	this->renderHierarchyOptions();
-	bool anyHovered = this->displaySprites();
-	this->displayContextPopup();
-	this->displayChildToParent();
-	this->setSpriteAsChild();
-	this->addPrefab();
+	this->RenderCloseRectangle();
+	this->RenderHierarchyOptions();
+	bool anyHovered = this->DisplaySprites();
+	this->DisplayContextPopup();
+	this->DisplayChildToParent();
+	this->SetSpriteAsChild();
+	this->AddPrefab();
 
 
 	// Cleaning up
-	this->cleanRepoSpritesUp(anyHovered);
+	this->CleanRepoSpritesUp(anyHovered);
 
 	this->Hovered = spe::UIUtility::IsHovered(ImGui::GetWindowPos(), this->m_Size);
 
@@ -56,7 +56,7 @@ void spe::UIHierarchy::Render()
 	ImGui::End();
 }
 
-void spe::UIHierarchy::displayContextPopup()
+void spe::UIHierarchy::DisplayContextPopup()
 {
 	if (ImGui::IsMouseReleased(1) && this->Hovered)
 	{
@@ -67,17 +67,17 @@ void spe::UIHierarchy::displayContextPopup()
 	{
 		if (ImGui::BeginMenu("Create"))
 		{
-			this->addSprite();
+			this->AddSprite();
 
 			ImGui::EndMenu();
 		}
 		if (ImGui::MenuItem("Delete"))
 		{
-			this->deleteSprite();
+			this->DeleteSprite();
 		}
 		if (ImGui::MenuItem("Copy"))
 		{
-			this->copySprite();
+			this->CopySprite();
 		}
 		if (ImGui::MenuItem("Unparent"))
 		{
@@ -87,7 +87,7 @@ void spe::UIHierarchy::displayContextPopup()
 	}
 }
 
-void spe::UIHierarchy::addSprite()
+void spe::UIHierarchy::AddSprite()
 {
 	if (ImGui::MenuItem("Sprite"))
 	{
@@ -99,7 +99,7 @@ void spe::UIHierarchy::addSprite()
 	}
 }
 
-void spe::UIHierarchy::deleteSprite()
+void spe::UIHierarchy::DeleteSprite()
 {
 	if (this->m_ptr_GUIRepo->AnimationData.IsOpen)
 	{
@@ -132,59 +132,59 @@ void spe::UIHierarchy::Unparent()
 	this->m_ptr_GUIRepo->sprited_hovered_in_hierarchy = nullptr;
 }
 
-void spe::UIHierarchy::cleanRepoSpritesUp(bool isAnyHovered)
+void spe::UIHierarchy::CleanRepoSpritesUp(bool isAnyHovered)
 {
 	if (!isAnyHovered && !ImGui::IsPopupOpen(POPUP_NAME) && this->m_ptr_GUIRepo->child_to_parent == nullptr)
 	{
 		this->m_ptr_GUIRepo->sprited_hovered_in_hierarchy = nullptr;
 	}
-	if (!ImGui::IsMouseDown(0) || this->m_wait_one_frame)
+	if (!ImGui::IsMouseDown(0) || this->m_WaitFrame)
 	{
-		if (this->m_wait_one_frame)
+		if (this->m_WaitFrame)
 		{
-			this->m_wait_one_frame = false;
+			this->m_WaitFrame = false;
 			this->m_ptr_GUIRepo->child_to_parent = nullptr;
 		}
-		else this->m_wait_one_frame = true;
+		else this->m_WaitFrame = true;
 	}
 	if (this->m_ptr_GUIRepo->AnimationData.IsOpen)
 	{
 		return;
 	}
-	if (!this->m_found_selected && ImGui::IsMouseReleased(0) && this->Hovered)
+	if (!this->m_FoundSelected && ImGui::IsMouseReleased(0) && this->Hovered)
 	{
 		this->m_ptr_GUIRepo->sprite_in_inspector = nullptr;
 	}
 }
 
-void spe::UIHierarchy::setHovering(spe::Sprite* sprite, bool& anyHovered)
+void spe::UIHierarchy::SetHovering(spe::Sprite* sprite, bool& anyHovered)
 {
 	if (ImGui::IsItemHovered(ImGuiHoveredFlags_AllowWhenOverlapped))
 	{
-		this->m_found_hovering = true;
+		this->m_FoundHovering = true;
 		if (ImGui::IsMouseDown(0) && this->m_ptr_GUIRepo->child_to_parent == nullptr && this->m_ptr_GUIRepo->DragAndDropPath == " ")
 		{
-			this->m_child_select_timer += spe::Time::s_DeltaTime;
+			this->m_ChildSelectTimer += spe::Time::s_DeltaTime;
 
-			if (this->m_child_select_timer > TIME_TO_CAN_SELECT_CHILD)
+			if (this->m_ChildSelectTimer > TIME_TO_CAN_SELECT_CHILD)
 			{
 				this->m_ptr_GUIRepo->child_to_parent = sprite;
 			}
 		}
 		else
 		{
-			this->m_child_select_timer = 0.0f;
+			this->m_ChildSelectTimer = 0.0f;
 		}
 		anyHovered = true;
 		this->m_ptr_GUIRepo->sprited_hovered_in_hierarchy = sprite;
 	}
-	else if (!this->m_found_hovering && !ImGui::IsPopupOpen(POPUP_NAME))
+	else if (!this->m_FoundHovering && !ImGui::IsPopupOpen(POPUP_NAME))
 	{
 		this->m_ptr_GUIRepo->sprited_hovered_in_hierarchy = nullptr;
 	}
 }
 
-void spe::UIHierarchy::copySprite()
+void spe::UIHierarchy::CopySprite()
 {
 	if (this->m_ptr_GUIRepo->sprited_hovered_in_hierarchy == nullptr)
 	{
@@ -198,19 +198,19 @@ void spe::UIHierarchy::copySprite()
 	this->OnSpriteAdd(copy);
 }
 
-void spe::UIHierarchy::setMenuitemHovered(bool& any_hovered, spe::Sprite* sprite)
+void spe::UIHierarchy::SetMenuitemHovered(bool& any_hovered, spe::Sprite* sprite)
 {
 	bool go_in = false;
 	// Handle es child
 	if (sprite->IsParent())
 	{
-		go_in = sprite->ContainsChild(this->m_search_sprite_filter) && this->m_search_sprite_filter.CountGrep != 0;
+		go_in = sprite->ContainsChild(this->m_SearchFilter) && this->m_SearchFilter.CountGrep != 0;
 	}
-	if (this->m_search_sprite_filter.PassFilter(sprite->Name.c_str())
+	if (this->m_SearchFilter.PassFilter(sprite->Name.c_str())
 		|| go_in)
 	{
 		bool pop_style = false;
-		this->setSelectedBackgroundColor(sprite, pop_style);
+		this->SetSelectedBackgroundColor(sprite, pop_style);
 
 		std::string name = sprite->Name;
 		if (sprite->Prefab.exist)
@@ -229,9 +229,9 @@ void spe::UIHierarchy::setMenuitemHovered(bool& any_hovered, spe::Sprite* sprite
 			add_when_alone = 15;
 		}
 
-		this->drawbackgroundRectangle();
+		this->DrawbackgroundRectangle();
 
-		this->drawRenderSymbol(sprite);
+		this->DrawRenderSymbol(sprite);
 
 		ImGui::SetCursorPosX(ImGui::GetCursorPosX() + add + MENU_ITEM_PADDING);
 
@@ -241,9 +241,9 @@ void spe::UIHierarchy::setMenuitemHovered(bool& any_hovered, spe::Sprite* sprite
 		ImGui::MenuItem(name.c_str());
 		ImGui::PopStyleColor();
 
-		this->setHovering(sprite, any_hovered);
-		this->setSpriteOnClick(sprite);
-		this->drawUIRactangleWhenHovered(sprite);
+		this->SetHovering(sprite, any_hovered);
+		this->SetSpriteOnClick(sprite);
+		this->DrawUIRactangleWhenHovered(sprite);
 
 		if (pop_style)
 		{
@@ -252,7 +252,7 @@ void spe::UIHierarchy::setMenuitemHovered(bool& any_hovered, spe::Sprite* sprite
 	}
 }
 
-void spe::UIHierarchy::addPrefab()
+void spe::UIHierarchy::AddPrefab()
 {
 	if (this->m_ptr_GUIRepo->DragAndDropName != " "
 		&& "." + spe::Utility::GetFileExtension(this->m_ptr_GUIRepo->DragAndDropName) == EXTENSION_PREFAB_FILE
@@ -270,12 +270,12 @@ void spe::UIHierarchy::addPrefab()
 	}
 }
 
-void spe::UIHierarchy::renderCloseRectangle()
+void spe::UIHierarchy::RenderCloseRectangle()
 {
 	this->m_ptr_GUIRepo->HierarchyData.IsOpen = spe::UIUtility::RenderCloseRectangle(FOLDER_SPRITE_HIERARCHY_PADDING, ICON_FA_FILE_CODE, "##close-rectangle-hierarchy", "Hierarchy", 0);
 }
 
-void spe::UIHierarchy::renderHierarchyOptions()
+void spe::UIHierarchy::RenderHierarchyOptions()
 {
 	ImGui::SetCursorPosY(ImGui::GetCursorPosY() - 5);
 	ImGui::SetCursorPosX(0);
@@ -286,18 +286,18 @@ void spe::UIHierarchy::renderHierarchyOptions()
 	ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(5.0f, 3.0f)); // Add some padding for visual clarity
 	ImGui::SetNextItemWidth(150);
 	ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 50);
-	this->m_search_sprite_filter.Draw("Search");
+	this->m_SearchFilter.Draw("Search");
 	ImGui::PopStyleVar(2);
 
-	this->resizeWindow();
+	this->ResizeWindow();
 
 	ImGui::EndChild();
 }
 
-void spe::UIHierarchy::resizeWindow()
+void spe::UIHierarchy::ResizeWindow()
 {
 	bool pop_style = false;
-	if (this->m_resize_window_data.clicked_on_resize_button)
+	if (this->m_ResizeData.ClickedOnResizeButton)
 	{
 		ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0, 0, 0, 1));
 		ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4(0, 0, 0, 1));
@@ -307,12 +307,12 @@ void spe::UIHierarchy::resizeWindow()
 	spe::Style::DisplaySmybolAsButton(ICON_FA_ARROW_RIGHT);
 	if (ImGui::IsItemHovered() && ImGui::IsMouseClicked(0))
 	{
-		this->m_resize_window_data.additinal_add = (this->m_Size.x - spe::UIUtility::GUICursor.Position.X - 30) * -1;;
-		this->m_resize_window_data.clicked_on_resize_button = true;
+		this->m_ResizeData.AdditionalAdd = (this->m_Size.x - spe::UIUtility::GUICursor.Position.X - 30) * -1;;
+		this->m_ResizeData.ClickedOnResizeButton = true;
 	}
-	if (this->m_resize_window_data.clicked_on_resize_button && ImGui::IsMouseDown(0))
+	if (this->m_ResizeData.ClickedOnResizeButton && ImGui::IsMouseDown(0))
 	{
-		const float new_size = spe::UIUtility::GUICursor.Position.X - this->m_resize_window_data.additinal_add + 30;
+		const float new_size = spe::UIUtility::GUICursor.Position.X - this->m_ResizeData.AdditionalAdd + 30;
 		const float max_size_right = new_size + this->m_ptr_GUIRepo->InspectorData.ptr_Size->x;
 
 		if (new_size > 245
@@ -323,7 +323,7 @@ void spe::UIHierarchy::resizeWindow()
 	}
 	else
 	{
-		this->m_resize_window_data.clicked_on_resize_button = false;
+		this->m_ResizeData.ClickedOnResizeButton = false;
 	}
 	if (pop_style)
 	{
@@ -334,14 +334,14 @@ void spe::UIHierarchy::resizeWindow()
 	this->m_Size.y = HIERARCHY_DEFAULT_WINDOW_SIZE.y - this->m_ptr_GUIRepo->AssetFolderData.ptr_Size->y + (HIERARCHY_DEFAULT_WINDOW_SIZE.x - 10);
 }
 
-void spe::UIHierarchy::drawbackgroundRectangle()
+void spe::UIHierarchy::DrawbackgroundRectangle()
 {
-	if (this->m_sprite_background_color_cnt < 1)
+	if (this->m_BackgroundColorCnt < 1)
 	{
-		this->m_sprite_background_color_cnt++;
+		this->m_BackgroundColorCnt++;
 		return;
 	}
-	this->m_sprite_background_color_cnt = 0;
+	this->m_BackgroundColorCnt = 0;
 
 	const ImVec2 temp = ImGui::GetCursorPos();
 	ImGui::SetCursorPosX(0);
@@ -351,12 +351,12 @@ void spe::UIHierarchy::drawbackgroundRectangle()
 	ImGui::SetCursorPos(temp);
 }
 
-void spe::UIHierarchy::setSpriteOnClick(spe::Sprite* sprite)
+void spe::UIHierarchy::SetSpriteOnClick(spe::Sprite* sprite)
 {
 	if (ImGui::IsItemHovered(ImGuiHoveredFlags_AllowWhenOverlapped)
 		&& ImGui::IsMouseReleased(0))
 	{
-		this->m_found_selected = true;
+		this->m_FoundSelected = true;
 		if (this->m_ptr_GUIRepo->AnimationData.IsOpen)
 		{
 			return;
@@ -365,7 +365,7 @@ void spe::UIHierarchy::setSpriteOnClick(spe::Sprite* sprite)
 	}
 }
 
-void spe::UIHierarchy::drawUIRactangleWhenHovered(spe::Sprite* sprite)
+void spe::UIHierarchy::DrawUIRactangleWhenHovered(spe::Sprite* sprite)
 {
 	if (this->m_ptr_GUIRepo->AnimationData.IsOpen)
 	{
@@ -388,7 +388,7 @@ void spe::UIHierarchy::drawUIRactangleWhenHovered(spe::Sprite* sprite)
 	}
 }
 
-void spe::UIHierarchy::drawRenderSymbol(spe::Sprite* child)
+void spe::UIHierarchy::DrawRenderSymbol(spe::Sprite* child)
 {
 	const ImVec2 cursor = ImGui::GetCursorPos();
 	ImGui::SetCursorPos(ImVec2(17, cursor.y - 5));
@@ -407,7 +407,7 @@ void spe::UIHierarchy::OnSpriteAdd(spe::Sprite* spr)
 	this->m_ptr_GUIRepo->HierarchySprites.push_back(spr);
 }
 
-void spe::UIHierarchy::setSelectedBackgroundColor(spe::Sprite* sprite, bool& pop_style)
+void spe::UIHierarchy::SetSelectedBackgroundColor(spe::Sprite* sprite, bool& pop_style)
 {
 	if (this->m_ptr_GUIRepo->sprite_in_inspector != nullptr
 		&& this->m_ptr_GUIRepo->sprite_in_inspector->GetId() == sprite->GetId())
@@ -418,20 +418,20 @@ void spe::UIHierarchy::setSelectedBackgroundColor(spe::Sprite* sprite, bool& pop
 	}
 }
 
-bool spe::UIHierarchy::displaySprites()
+bool spe::UIHierarchy::DisplaySprites()
 {
 	bool anyHoverd = false;
 
 	for (size_t i = 0; i < this->m_ptr_GUIRepo->HierarchySprites.size(); i++)
 	{
-		this->displaySprites(this->m_ptr_GUIRepo->HierarchySprites[i], anyHoverd);
+		this->DisplaySprites(this->m_ptr_GUIRepo->HierarchySprites[i], anyHoverd);
 
 	}
 
 	return anyHoverd;
 }
 
-void spe::UIHierarchy::displaySprites(spe::Sprite* parent, bool& any_hovered)
+void spe::UIHierarchy::DisplaySprites(spe::Sprite* parent, bool& any_hovered)
 {
 	if (parent->ptr_Parent != nullptr)
 	{
@@ -440,15 +440,15 @@ void spe::UIHierarchy::displaySprites(spe::Sprite* parent, bool& any_hovered)
 	// Handle as parent
 	if (parent->IsParent())
 	{
-		this->displaySpriteSeperated(parent, any_hovered);
+		this->DisplaySpriteSeperated(parent, any_hovered);
 		return;
 	}
 	ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 15);
 	// Set hovered sprite
-	this->setMenuitemHovered(any_hovered, parent);
+	this->SetMenuitemHovered(any_hovered, parent);
 }
 
-void spe::UIHierarchy::displaySpriteSeperated(spe::Sprite* parent, bool& any_hovered)
+void spe::UIHierarchy::DisplaySpriteSeperated(spe::Sprite* parent, bool& any_hovered)
 {
 	if (parent->IsParent())
 	{
@@ -457,17 +457,17 @@ void spe::UIHierarchy::displaySpriteSeperated(spe::Sprite* parent, bool& any_hov
 		{
 			name += " (Prefab)";
 		}
-		const bool contains_child = (parent->ContainsChild(this->m_search_sprite_filter) && this->m_search_sprite_filter.CountGrep != 0) || parent->ContainsChild(this->m_ptr_GUIRepo->sprite_in_inspector);
-		if (this->m_search_sprite_filter.PassFilter(name.c_str()) || contains_child)
+		const bool contains_child = (parent->ContainsChild(this->m_SearchFilter) && this->m_SearchFilter.CountGrep != 0) || parent->ContainsChild(this->m_ptr_GUIRepo->sprite_in_inspector);
+		if (this->m_SearchFilter.PassFilter(name.c_str()) || contains_child)
 		{
 			bool entered_node = false;
 			bool pop_style_tree_node = true;
 			bool pop_style = false;
 
-			this->setSelectedBackgroundColor(parent, pop_style);
+			this->SetSelectedBackgroundColor(parent, pop_style);
 			ImGui::PushStyleColor(ImGuiCol_HeaderHovered, ImVec4(0, 0, 0, 0));
-			this->drawbackgroundRectangle();
-			this->drawRenderSymbol(parent);
+			this->DrawbackgroundRectangle();
+			this->DrawRenderSymbol(parent);
 
 			ImGui::SetCursorPosX(ImGui::GetCursorPosX() + TREE_NODE_PADDING);
 			if (contains_child)
@@ -486,14 +486,14 @@ void spe::UIHierarchy::displaySpriteSeperated(spe::Sprite* parent, bool& any_hov
 					pop_style = false;
 				}
 				entered_node = true;
-				this->setSpriteOnClick(parent);
-				this->drawUIRactangleWhenHovered(parent);
-				this->setHovering(parent, any_hovered);
+				this->SetSpriteOnClick(parent);
+				this->DrawUIRactangleWhenHovered(parent);
+				this->SetHovering(parent, any_hovered);
 
 				for (size_t i = 0; i < parent->ptr_Childs.size(); i++)
 				{
 					spe::Sprite* child = parent->ptr_Childs[i];
-					this->displaySpriteSeperated(child, any_hovered);
+					this->DisplaySpriteSeperated(child, any_hovered);
 				}
 				ImGui::TreePop();
 			}
@@ -507,19 +507,19 @@ void spe::UIHierarchy::displaySpriteSeperated(spe::Sprite* parent, bool& any_hov
 			}
 			if (!entered_node)
 			{
-				this->setHovering(parent, any_hovered);
-				this->setSpriteOnClick(parent);
-				this->drawUIRactangleWhenHovered(parent);
+				this->SetHovering(parent, any_hovered);
+				this->SetSpriteOnClick(parent);
+				this->DrawUIRactangleWhenHovered(parent);
 			}
 		}
 		return;
 	}
 
 	// Set hovered sprite
-	this->setMenuitemHovered(any_hovered, parent);
+	this->SetMenuitemHovered(any_hovered, parent);
 }
 
-void spe::UIHierarchy::displayChildToParent()
+void spe::UIHierarchy::DisplayChildToParent()
 {
 	if (this->m_ptr_GUIRepo->child_to_parent == nullptr)
 	{
@@ -533,7 +533,7 @@ void spe::UIHierarchy::displayChildToParent()
 	ImGui::End();
 }
 
-void spe::UIHierarchy::setSpriteAsChild()
+void spe::UIHierarchy::SetSpriteAsChild()
 {
 	if (ImGui::IsMouseReleased(0) && this->m_ptr_GUIRepo->sprited_hovered_in_hierarchy != nullptr
 		&& this->m_ptr_GUIRepo->child_to_parent != nullptr

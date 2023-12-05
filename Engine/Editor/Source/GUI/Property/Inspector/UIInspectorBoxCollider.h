@@ -17,26 +17,26 @@ namespace spe
 	class UIInspectorBoxCollider
 	{
 	private:	
-		spe::ScaleDott m_box_collider_scale_dotts[SCALE_DOTTS_COLLIDER];
-		bool m_edit_mode;
+		spe::ScaleDott m_ScaleDotts[SCALE_DOTTS_COLLIDER];
+		bool m_EditMode;
 
 		/// <summary>
 		///  Hardcoded to much shit
 		/// </summary>
-		void renderScaleDotts(spe::Sprite* sprite);
-		void renderDotts();
-		void unrenderDotts();
-		void reset();
+		void RenderScaleDotts(spe::Sprite* sprite);
+		void RenderDotts();
+		void UnrenderDotts();
+		void Reset();
 	public:
 		UIInspectorBoxCollider();
 
-		void leaveEditMode();
-		void edit(float& x, float& y);
-		void solid(float& x, float& y, spe::Sprite* sprite);
-		void width(float x, float y, spe::Sprite* sprite);
-		void height(spe::Sprite* sprite);
-		void drawBoxCollider(spe::Sprite* sprite, spe::Rectangle* ptr_rectangle);
+		void LeaveEditMode();
+		void Edit(float& x, float& y);
+		void Solid(float& x, float& y, spe::Sprite* sprite);
+		void Width(float x, float y, spe::Sprite* sprite);
+		void Height(spe::Sprite* sprite);
+		void DrawBoxCollider(spe::Sprite* sprite, spe::Rectangle* ptr_rectangle);
 
-		void initScaleDottsUI(spe::GUIRepository& repo);
+		void InitScaleDottsUI(spe::GUIRepository& repo);
 	};
 }

@@ -14,7 +14,7 @@ void spe::UITopbar::Init()
 	this->m_tools[0] = spe::Tool(spe::EditorTools::PositionTool, ICON_FA_ARROWS, "Position");
 	this->m_tools[1] = spe::Tool(spe::EditorTools::ScaleTool, ICON_FA_PLUS, "Scaling");
 
-	this->m_tools[0].background = true;
+	this->m_tools[0].Background = true;
 	this->m_clicked_on_btn = true;
 }
 
@@ -93,12 +93,12 @@ void spe::UITopbar::renderToolSelector()
 
 		for (int i = 0; i < TOOLS_AMOUNT; i++)
 		{
-			if (ImGui::MenuItem(this->m_tools[i].tool_name.c_str()))
+			if (ImGui::MenuItem(this->m_tools[i].Name.c_str()))
 			{
 				this->m_editor_tools = this->m_tools[i].tool;
 				this->m_ptr_GUIRepo->Tools = this->m_editor_tools;
 				this->removeBackgroundFromButtons();
-				this->m_tools[i].background = true;
+				this->m_tools[i].Background = true;
 			}
 		}
 		ImGui::EndMenu();
@@ -466,12 +466,12 @@ void spe::UITopbar::toolSelector()
 	ImGui::SetCursorPosX(x);
 	for (int i = 0; i < TOOLS_AMOUNT; i++)
 	{
-		if (this->m_tools[i].background)
+		if (this->m_tools[i].Background)
 		{
 			ImGui::PushStyleColor(ImGuiCol_Button, REAL_EDITOR_BUTTON_BG_COLOR);
 		}
 		ImGui::SetCursorPosY(0);
-		if (spe::Style::DisplaySmybolAsButton(this->m_tools[i].icon.c_str())) {}
+		if (spe::Style::DisplaySmybolAsButton(this->m_tools[i].Icon.c_str())) {}
 		if (ImGui::IsItemClicked(ImGuiMouseButton_Left))
 		{
 			this->m_clicked_on_btn = true;
@@ -479,7 +479,7 @@ void spe::UITopbar::toolSelector()
 			this->m_ptr_GUIRepo->Tools = this->m_editor_tools;
 			this->m_update_event_to_set = true;
 		}
-		if (this->m_tools[i].background)
+		if (this->m_tools[i].Background)
 		{
 			ImGui::PopStyleColor();
 		}
@@ -487,7 +487,7 @@ void spe::UITopbar::toolSelector()
 		{
 			this->removeBackgroundFromButtons();
 			this->m_clicked_on_btn = false;
-			this->m_tools[i].background = true;
+			this->m_tools[i].Background = true;
 		}
 		ImGui::SameLine();
 	}
@@ -497,6 +497,6 @@ void spe::UITopbar::removeBackgroundFromButtons()
 {
 	for (int i = 0; i < TOOLS_AMOUNT; i++)
 	{
-		this->m_tools[i].background = false;
+		this->m_tools[i].Background = false;
 	}
 }

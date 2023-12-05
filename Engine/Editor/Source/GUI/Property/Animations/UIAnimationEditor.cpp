@@ -8,7 +8,7 @@ void spe::UIAnimationEditor::Init()
 	this->m_KeyFramesToEdit = 10000;
 	this->m_ptr_Anim = nullptr;
 	this->Display = false;
-	this->m_KeyFrameSelected.keyFrameSelected = nullptr;
+	this->m_KeyFrameSelected.KeyFrameSelected = nullptr;
 	this->m_CursorSpace = 30;
 
 	this->m_FrameAdder.SetRepos(this->m_ptr_Repo, this->m_ptr_GUIRepo);
@@ -127,9 +127,9 @@ bool spe::UIAnimationEditor::DisplayTimeFrameBasedOnCursorSpace(size_t i_pos)
 
 void spe::UIAnimationEditor::DisplayKeyFrameInfo()
 {
-	if (this->m_KeyFrameSelected.keyFrameSelected == nullptr)
+	if (this->m_KeyFrameSelected.KeyFrameSelected == nullptr)
 	{
-		this->m_KeyFrameSelected.position = -1;
+		this->m_KeyFrameSelected.Position = -1;
 		return;
 	}
 
@@ -139,7 +139,7 @@ void spe::UIAnimationEditor::DisplayKeyFrameInfo()
 
 	ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 250);
 
-	const std::string keyFrameSelected = "KeyFrame Selected: " + std::to_string(this->m_KeyFrameSelected.position);
+	const std::string keyFrameSelected = "KeyFrame Selected: " + std::to_string(this->m_KeyFrameSelected.Position);
 	ImGui::Text(keyFrameSelected.c_str());
 
 	ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 245);
@@ -147,8 +147,8 @@ void spe::UIAnimationEditor::DisplayKeyFrameInfo()
 	if (ImGui::Button("Delete"))
 	{
 		this->m_ptr_Anim->Stop();
-		this->m_ptr_Anim->DeleteKeyFrame(this->m_KeyFrameSelected.position);
-		this->m_KeyFrameSelected.keyFrameSelected = nullptr;
+		this->m_ptr_Anim->DeleteKeyFrame(this->m_KeyFrameSelected.Position);
+		this->m_KeyFrameSelected.KeyFrameSelected = nullptr;
 	}
 	ImGui::SameLine();
 	spe::Style::DisplaySmybolAsText(ICON_FA_TRASH);
@@ -277,9 +277,9 @@ void spe::UIAnimationEditor::RenderKeyFrames()
 
 			if (ImGui::Button(buttonName.c_str()))
 			{
-				this->m_KeyFrameSelected.isClicked = true;
-				this->m_KeyFrameSelected.keyFrameSelected = &frames[cnt];
-				this->m_KeyFrameSelected.position = i;
+				this->m_KeyFrameSelected.IsClicked = true;
+				this->m_KeyFrameSelected.KeyFrameSelected = &frames[cnt];
+				this->m_KeyFrameSelected.Position = i;
 			}
 			ImGui::PopStyleColor();
 

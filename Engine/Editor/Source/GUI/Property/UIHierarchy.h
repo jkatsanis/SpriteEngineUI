@@ -35,51 +35,51 @@ namespace spe
 	class UIHierarchy : public spe::IUIBase
 	{
 	private:
-		spe::ResizeWindowData m_resize_window_data;
-		bool m_wait_one_frame;
-		ImGuiTextFilter m_search_sprite_filter;
+		spe::ResizeWindowData m_ResizeData;
+		bool m_WaitFrame;
+		ImGuiTextFilter m_SearchFilter;
 
-		bool m_found_hovering;
-		bool m_found_selected;
-		float m_child_select_timer;
-		uint8_t m_sprite_background_color_cnt;
+		bool m_FoundHovering;
+		bool m_FoundSelected;
+		float m_ChildSelectTimer;
+		uint8_t m_BackgroundColorCnt;
 
 		spe::LightRepository* m_ptr_LightRepo;
 
-		void displayContextPopup();
-		bool displaySprites();
-		void displaySprites(spe::Sprite* parent, bool& any_hovered);
-		void displayChildToParent();
-		void displaySpriteSeperated(spe::Sprite* d, bool& any_hovered);
+		void DisplayContextPopup();
+		bool DisplaySprites();
+		void DisplaySprites(spe::Sprite* parent, bool& any_hovered);
+		void DisplayChildToParent();
+		void DisplaySpriteSeperated(spe::Sprite* d, bool& any_hovered);
 
-		void setSelectedBackgroundColor(spe::Sprite* sprite, bool& pop_style);
-		void setSpriteAsChild();
+		void SetSelectedBackgroundColor(spe::Sprite* sprite, bool& pop_style);
+		void SetSpriteAsChild();
 
-		void addSprite();
-		void deleteSprite();
+		void AddSprite();
+		void DeleteSprite();
 		void Unparent();
-		void cleanRepoSpritesUp(bool any_hovered);
-		void setMenuitemHovered(bool& any_hovered, spe::Sprite* sprite);
+		void CleanRepoSpritesUp(bool any_hovered);
+		void SetMenuitemHovered(bool& any_hovered, spe::Sprite* sprite);
 
-		void addPrefab();
-		void renderCloseRectangle();
-		void renderHierarchyOptions();
-		void resizeWindow();
+		void AddPrefab();
+		void RenderCloseRectangle();
+		void RenderHierarchyOptions();
+		void ResizeWindow();
 
-		void drawbackgroundRectangle();
-		void setSpriteOnClick(spe::Sprite* sprite);
-		void drawUIRactangleWhenHovered(spe::Sprite* sprite);
+		void DrawbackgroundRectangle();
+		void SetSpriteOnClick(spe::Sprite* sprite);
+		void DrawUIRactangleWhenHovered(spe::Sprite* sprite);
 
-		void drawRenderSymbol(spe::Sprite* child);
+		void DrawRenderSymbol(spe::Sprite* child);
 
 		void OnSpriteAdd(spe::Sprite* spr);
 
 		/// <summary>
 		/// Checks for specfic things which get hovered 
 		/// </summary>
-		void setHovering(spe::Sprite* sprite, bool& any_hovered);
+		void SetHovering(spe::Sprite* sprite, bool& any_hovered);
 
-		void copySprite();
+		void CopySprite();
 
 		/// <summary>
 		/// Gets called from base class

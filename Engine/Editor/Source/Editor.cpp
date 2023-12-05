@@ -66,7 +66,7 @@ void spe::Editor::UpdateUI()
 
 	if (this->m_Window.ContainsCursor())
 	{
-		this->m_UIRealTimeEditor.update();
+		this->m_UIRealTimeEditor.Update();
 	}
 
 	ImGui::PopFont();

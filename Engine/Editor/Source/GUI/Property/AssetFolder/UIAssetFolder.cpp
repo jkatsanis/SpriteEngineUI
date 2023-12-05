@@ -112,7 +112,7 @@ void spe::UIAssetFolder::ResizeWindow()
     bool pop_style = false;
     ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 200);
     ImGui::SetCursorPosY(ImGui::GetCursorPosY() - 10);
-    if (this->m_ResizeWindow.clicked_on_resize_button)
+    if (this->m_ResizeWindow.ClickedOnResizeButton)
     {
         ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0, 0, 0, 1));
         ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4(0, 0, 0, 1));
@@ -121,12 +121,12 @@ void spe::UIAssetFolder::ResizeWindow()
     spe::Style::DisplaySmybolAsButton(ICON_FA_ARROW_UP);
     if (ImGui::IsItemHovered() && ImGui::IsMouseClicked(0))
     {
-        this->m_ResizeWindow.additinal_add = 1080 - spe::UIUtility::GUICursor.Position.Y - this->m_Size.y;
-        this->m_ResizeWindow.clicked_on_resize_button = true;
+        this->m_ResizeWindow.AdditionalAdd = 1080 - spe::UIUtility::GUICursor.Position.Y - this->m_Size.y;
+        this->m_ResizeWindow.ClickedOnResizeButton = true;
     }
-    if (this->m_ResizeWindow.clicked_on_resize_button && ImGui::IsMouseDown(0))
+    if (this->m_ResizeWindow.ClickedOnResizeButton && ImGui::IsMouseDown(0))
     {
-        const float new_size = 1080 - spe::UIUtility::GUICursor.Position.Y - this->m_ResizeWindow.additinal_add;
+        const float new_size = 1080 - spe::UIUtility::GUICursor.Position.Y - this->m_ResizeWindow.AdditionalAdd;
         if (new_size > 150
             && new_size < 1031)
         {
@@ -135,7 +135,7 @@ void spe::UIAssetFolder::ResizeWindow()
     }
     else
     {
-        this->m_ResizeWindow.clicked_on_resize_button = false;
+        this->m_ResizeWindow.ClickedOnResizeButton = false;
     }
     if (pop_style)
     {

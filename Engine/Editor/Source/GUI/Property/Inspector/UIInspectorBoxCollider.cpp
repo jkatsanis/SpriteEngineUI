@@ -6,25 +6,25 @@ spe::UIInspectorBoxCollider::UIInspectorBoxCollider()
 {	
 	for (size_t i = 0; i < SCALE_DOTTS_COLLIDER; i++)
 	{
-		this->m_box_collider_scale_dotts[i] = spe::ScaleDott();
+		this->m_ScaleDotts[i] = spe::ScaleDott();
 	}
-	this->m_edit_mode = false;
+	this->m_EditMode = false;
 }
 
 // Private functions
 
-void spe::UIInspectorBoxCollider::reset()
+void spe::UIInspectorBoxCollider::Reset()
 {
 	if (!sf::Mouse::isButtonPressed(sf::Mouse::Left))
 	{
 		for (int i = 0; i < SCALE_DOTTS_COLLIDER; i++)
 		{
-			this->m_box_collider_scale_dotts[i].clicked = false;
+			this->m_ScaleDotts[i].Clicked = false;
 		}
 	}
 }
 
-void spe::UIInspectorBoxCollider::renderScaleDotts(spe::Sprite* sprite)
+void spe::UIInspectorBoxCollider::RenderScaleDotts(spe::Sprite* sprite)
 {
 	const float scale_x = (sprite->Transform.GetScale().X < 0)
 		? sprite->Transform.GetScale().X * -1
@@ -48,57 +48,57 @@ void spe::UIInspectorBoxCollider::renderScaleDotts(spe::Sprite* sprite)
 	const sf::Vector2f pos_height_x = sf::Vector2f(middle_x - DEFAULT_DOTT_SCALE, top + sprite->Collider.Height.X - DEFAULT_DOTT_SCALE);
 	const sf::Vector2f pos_height_y = sf::Vector2f(middle_x - DEFAULT_DOTT_SCALE, top + sprite->Collider.Height.Y + sprite->Transform.GetDefaultTextureSize().Y * scale_y);
 
-	this->m_box_collider_scale_dotts[0].ptr_scaling_rectangle->Shape.setPosition(pos_width_y);
-	this->m_box_collider_scale_dotts[1].ptr_scaling_rectangle->Shape.setPosition(pos_width_x);
-	this->m_box_collider_scale_dotts[2].ptr_scaling_rectangle->Shape.setPosition(pos_height_x);
-	this->m_box_collider_scale_dotts[3].ptr_scaling_rectangle->Shape.setPosition(pos_height_y);
+	this->m_ScaleDotts[0].ptr_ScalingRec->Shape.setPosition(pos_width_y);
+	this->m_ScaleDotts[1].ptr_ScalingRec->Shape.setPosition(pos_width_x);
+	this->m_ScaleDotts[2].ptr_ScalingRec->Shape.setPosition(pos_height_x);
+	this->m_ScaleDotts[3].ptr_ScalingRec->Shape.setPosition(pos_height_y);
 
-	const sf::Vector2f temp_scale_dott_pos_zero = this->m_box_collider_scale_dotts[0].ptr_scaling_rectangle->Shape.getPosition();
-	const sf::Vector2f temp_scale_dott_pos_one = this->m_box_collider_scale_dotts[1].ptr_scaling_rectangle->Shape.getPosition();
-	const sf::Vector2f temp_scale_dott_pos_two = this->m_box_collider_scale_dotts[2].ptr_scaling_rectangle->Shape.getPosition();
-	const sf::Vector2f temp_scale_dott_pos_three = this->m_box_collider_scale_dotts[3].ptr_scaling_rectangle->Shape.getPosition();
+	const sf::Vector2f temp_scale_dott_pos_zero = this->m_ScaleDotts[0].ptr_ScalingRec->Shape.getPosition();
+	const sf::Vector2f temp_scale_dott_pos_one = this->m_ScaleDotts[1].ptr_ScalingRec->Shape.getPosition();
+	const sf::Vector2f temp_scale_dott_pos_two = this->m_ScaleDotts[2].ptr_ScalingRec->Shape.getPosition();
+	const sf::Vector2f temp_scale_dott_pos_three = this->m_ScaleDotts[3].ptr_ScalingRec->Shape.getPosition();
 
-	const float new_scale_width_y = spe::UIUtility::xScaleChanger(this->m_box_collider_scale_dotts[0], sprite->Transform.GetDefaultTextureSize().X,0);
-	const float new_scale_width_x = spe::UIUtility::xScaleChanger(this->m_box_collider_scale_dotts[1], sprite->Transform.GetDefaultTextureSize().X, 0);
+	const float new_scale_width_y = spe::UIUtility::xScaleChanger(this->m_ScaleDotts[0], sprite->Transform.GetDefaultTextureSize().X,0);
+	const float new_scale_width_x = spe::UIUtility::xScaleChanger(this->m_ScaleDotts[1], sprite->Transform.GetDefaultTextureSize().X, 0);
 
-	const float new_scale_height_x = spe::UIUtility::yScaleChanger(this->m_box_collider_scale_dotts[2], sprite->Transform.GetDefaultTextureSize().X, 0);
-	const float new_scale_height_y = spe::UIUtility::yScaleChanger(this->m_box_collider_scale_dotts[3], sprite->Transform.GetDefaultTextureSize().X, 0);
+	const float new_scale_height_x = spe::UIUtility::yScaleChanger(this->m_ScaleDotts[2], sprite->Transform.GetDefaultTextureSize().X, 0);
+	const float new_scale_height_y = spe::UIUtility::yScaleChanger(this->m_ScaleDotts[3], sprite->Transform.GetDefaultTextureSize().X, 0);
 
 
 	bool must_return = false;
 
 	// Resetting right rectangle
-	if (this->m_box_collider_scale_dotts[0].ptr_scaling_rectangle->Shape.getPosition().x
-		< DEFAULT_DOTT_SCALE + INVALID_AERA + this->m_box_collider_scale_dotts[1].ptr_scaling_rectangle->Shape.getPosition().x)
+	if (this->m_ScaleDotts[0].ptr_ScalingRec->Shape.getPosition().x
+		< DEFAULT_DOTT_SCALE + INVALID_AERA + this->m_ScaleDotts[1].ptr_ScalingRec->Shape.getPosition().x)
 	{
-		this->m_box_collider_scale_dotts[0].ptr_scaling_rectangle->Shape.
+		this->m_ScaleDotts[0].ptr_ScalingRec->Shape.
 			setPosition(temp_scale_dott_pos_zero);
 		must_return = true;
 	}
 
 	// Resetting left rectangle
-	if (this->m_box_collider_scale_dotts[1].ptr_scaling_rectangle->Shape.getPosition().x + DEFAULT_DOTT_SCALE
-		>  INVALID_AERA + this->m_box_collider_scale_dotts[0].ptr_scaling_rectangle->Shape.getPosition().x)
+	if (this->m_ScaleDotts[1].ptr_ScalingRec->Shape.getPosition().x + DEFAULT_DOTT_SCALE
+		>  INVALID_AERA + this->m_ScaleDotts[0].ptr_ScalingRec->Shape.getPosition().x)
 	{
-		this->m_box_collider_scale_dotts[1].ptr_scaling_rectangle->Shape.
+		this->m_ScaleDotts[1].ptr_ScalingRec->Shape.
 			setPosition(temp_scale_dott_pos_one);
 		must_return = true;
 	}
 
 	// Resetting top rectangle
-	if (this->m_box_collider_scale_dotts[2].ptr_scaling_rectangle->Shape.getPosition().y + DEFAULT_DOTT_SCALE
-	> INVALID_AERA + this->m_box_collider_scale_dotts[3].ptr_scaling_rectangle->Shape.getPosition().y)
+	if (this->m_ScaleDotts[2].ptr_ScalingRec->Shape.getPosition().y + DEFAULT_DOTT_SCALE
+	> INVALID_AERA + this->m_ScaleDotts[3].ptr_ScalingRec->Shape.getPosition().y)
 	{
-		this->m_box_collider_scale_dotts[2].ptr_scaling_rectangle->Shape.
+		this->m_ScaleDotts[2].ptr_ScalingRec->Shape.
 			setPosition(temp_scale_dott_pos_two);
 		must_return = true;
 	}
 
 	// Resetting bottom rectangle
-	if (this->m_box_collider_scale_dotts[3].ptr_scaling_rectangle->Shape.getPosition().y
-	< INVALID_AERA + DEFAULT_DOTT_SCALE + this->m_box_collider_scale_dotts[2].ptr_scaling_rectangle->Shape.getPosition().y)
+	if (this->m_ScaleDotts[3].ptr_ScalingRec->Shape.getPosition().y
+	< INVALID_AERA + DEFAULT_DOTT_SCALE + this->m_ScaleDotts[2].ptr_ScalingRec->Shape.getPosition().y)
 	{
-		this->m_box_collider_scale_dotts[3].ptr_scaling_rectangle->Shape.
+		this->m_ScaleDotts[3].ptr_ScalingRec->Shape.
 			setPosition(temp_scale_dott_pos_three);
 		must_return = true;
 	}
@@ -111,13 +111,13 @@ void spe::UIInspectorBoxCollider::renderScaleDotts(spe::Sprite* sprite)
 	// Width
 	if (new_scale_width_y != INVALID_SCALE)
 	{
-		const float scale_dott_pos_x = this->m_box_collider_scale_dotts[0].ptr_scaling_rectangle->Shape.getPosition().x; 
+		const float scale_dott_pos_x = this->m_ScaleDotts[0].ptr_ScalingRec->Shape.getPosition().x; 
 		const float width = scale_dott_pos_x - right;
 		sprite->Collider.Width.Y = width;
 	}
 	if (new_scale_width_x != INVALID_SCALE)
 	{
-		const float scale_dott_pos_x = this->m_box_collider_scale_dotts[1].ptr_scaling_rectangle->Shape.getPosition().x;
+		const float scale_dott_pos_x = this->m_ScaleDotts[1].ptr_ScalingRec->Shape.getPosition().x;
 		const float width = scale_dott_pos_x - left + DEFAULT_DOTT_SCALE;
 
 		sprite->Collider.Width.X = width;
@@ -126,43 +126,43 @@ void spe::UIInspectorBoxCollider::renderScaleDotts(spe::Sprite* sprite)
 	// Height
 	if (new_scale_height_x != INVALID_SCALE) 
 	{
-		const float scale_dott_pos_y = this->m_box_collider_scale_dotts[2].ptr_scaling_rectangle->Shape.getPosition().y;
+		const float scale_dott_pos_y = this->m_ScaleDotts[2].ptr_ScalingRec->Shape.getPosition().y;
 		const float width = scale_dott_pos_y - top + DEFAULT_DOTT_SCALE;
 		sprite->Collider.Height.X = width;
 	}
 	if (new_scale_height_y != INVALID_SCALE)
 	{
-		const float scale_dott_pos_y = this->m_box_collider_scale_dotts[3].ptr_scaling_rectangle->Shape.getPosition().y;
+		const float scale_dott_pos_y = this->m_ScaleDotts[3].ptr_ScalingRec->Shape.getPosition().y;
 		const float width = scale_dott_pos_y - bottom;
 		sprite->Collider.Height.Y = width;
 	}
 
-	this->reset();
+	this->Reset();
 }
 
 // Public functions
 
-void spe::UIInspectorBoxCollider::leaveEditMode()
+void spe::UIInspectorBoxCollider::LeaveEditMode()
 {
-	this->unrenderDotts();
-	this->m_edit_mode = false;
+	this->UnrenderDotts();
+	this->m_EditMode = false;
 }
 
-void spe::UIInspectorBoxCollider::edit(float& x, float& y)
+void spe::UIInspectorBoxCollider::Edit(float& x, float& y)
 {
 	ImGui::SetCursorPosX(x += 10);
 	ImGui::Text("Edit");
 	ImGui::SetCursorPos(ImVec2(x += 53.5f, y -= 2.5f));
 	if (spe::Style::DisplaySmybolAsButton(ICON_FA_EDIT))
 	{
-		this->m_edit_mode = !this->m_edit_mode;
+		this->m_EditMode = !this->m_EditMode;
 	}
 	x += 19;
 
 	x -= 12.5f;
 }
 
-void spe::UIInspectorBoxCollider::solid(float& x, float& y, spe::Sprite* sprite)
+void spe::UIInspectorBoxCollider::Solid(float& x, float& y, spe::Sprite* sprite)
 {
 	ImGui::SetCursorPosX(x -= 60.4f);
 	ImGui::Text("Solid");
@@ -175,7 +175,7 @@ void spe::UIInspectorBoxCollider::solid(float& x, float& y, spe::Sprite* sprite)
 	y += 40;
 }
 
-void spe::UIInspectorBoxCollider::width(float x, float y, spe::Sprite* sprite)
+void spe::UIInspectorBoxCollider::Width(float x, float y, spe::Sprite* sprite)
 {
 	ImGui::SetCursorPosX(x -= 11);
 	if (ImGui::TreeNode("Width"))
@@ -212,7 +212,7 @@ void spe::UIInspectorBoxCollider::width(float x, float y, spe::Sprite* sprite)
 	}
 }
 
-void spe::UIInspectorBoxCollider::height(spe::Sprite* sprite)
+void spe::UIInspectorBoxCollider::Height(spe::Sprite* sprite)
 {
 	float x = ImGui::GetCursorPosX();
 	float y = ImGui::GetCursorPosY();
@@ -245,7 +245,7 @@ void spe::UIInspectorBoxCollider::height(spe::Sprite* sprite)
 	}
 }
 
-void spe::UIInspectorBoxCollider::drawBoxCollider(spe::Sprite* sprite, spe::Rectangle* ptr_rectangle)
+void spe::UIInspectorBoxCollider::DrawBoxCollider(spe::Sprite* sprite, spe::Rectangle* ptr_rectangle)
 {
 	const sf::Vector2f size = sf::Vector2f(sprite->Transform.TextureSize.X + (-sprite->Collider.Width.X + sprite->Collider.Width.Y),
 		sprite->Transform.TextureSize.Y + (-sprite->Collider.Height.X + sprite->Collider.Height.Y));
@@ -257,18 +257,18 @@ void spe::UIInspectorBoxCollider::drawBoxCollider(spe::Sprite* sprite, spe::Rect
 
 	ptr_rectangle->Render = true;
 
-	if (this->m_edit_mode)
+	if (this->m_EditMode)
 	{
-		this->renderDotts();
-		this->renderScaleDotts(sprite);
+		this->RenderDotts();
+		this->RenderScaleDotts(sprite);
 	}
 	else
 	{
-		this->unrenderDotts();
+		this->UnrenderDotts();
 	}
 }
 
-void spe::UIInspectorBoxCollider::initScaleDottsUI(spe::GUIRepository& repo)
+void spe::UIInspectorBoxCollider::InitScaleDottsUI(spe::GUIRepository& repo)
 {
 	const sf::Vector2f size = sf::Vector2f(DEFAULT_DOTT_SCALE, DEFAULT_DOTT_SCALE);
 
@@ -280,27 +280,27 @@ void spe::UIInspectorBoxCollider::initScaleDottsUI(spe::GUIRepository& repo)
 			size, sf::Color(255, 0, 0), 2.0f, PATH_TO_TRANSPARENT_PIC, name);
 
 		repo.Add(rec);
-		this->m_box_collider_scale_dotts[i].ptr_scaling_rectangle = repo.GetByName(name);
-		this->m_box_collider_scale_dotts[i].clicked = false;
+		this->m_ScaleDotts[i].ptr_ScalingRec = repo.GetByName(name);
+		this->m_ScaleDotts[i].Clicked = false;
 	}
 
-	this->unrenderDotts();
+	this->UnrenderDotts();
 }
 
-void spe::UIInspectorBoxCollider::renderDotts()
+void spe::UIInspectorBoxCollider::RenderDotts()
 {
 	for (int i = 0; i < SCALE_DOTTS_COLLIDER; i++)
 	{
-		this->m_box_collider_scale_dotts[i].ptr_scaling_rectangle->Render = true;
+		this->m_ScaleDotts[i].ptr_ScalingRec->Render = true;
 	}
 }
 
-void spe::UIInspectorBoxCollider::unrenderDotts()
+void spe::UIInspectorBoxCollider::UnrenderDotts()
 {
 	for (int i = 0; i < SCALE_DOTTS_COLLIDER; i++)
 	{
-		this->m_box_collider_scale_dotts[i].clicked = false;
-		this->m_box_collider_scale_dotts[i].ptr_scaling_rectangle->Render = false;
+		this->m_ScaleDotts[i].Clicked = false;
+		this->m_ScaleDotts[i].ptr_ScalingRec->Render = false;
 	}
 }
 

@@ -9,21 +9,21 @@ spe::UITagSelector::UITagSelector()
 
 void spe::UITagSelector::Init()
 {
-	this->m_tag_name[0] = '\0';
-	this->m_open_name_popup = false;
+	this->m_TagName[0] = '\0';
+	this->m_OpenNamePopup = false;
 }
 
 // Public functions
 
 void spe::UITagSelector::Render()
 {
-	this->renderSelector();
-	this->renderPopup();
+	this->RenderSelector();
+	this->RenderPopup();
 }
 
 // Private functions
 
-void spe::UITagSelector::renderSelector()
+void spe::UITagSelector::RenderSelector()
 {
 	const std::vector<std::string>& items = this->m_ptr_Repo->Tags;
 	static int selectedItem = 0;
@@ -52,16 +52,16 @@ void spe::UITagSelector::renderSelector()
 		ImGui::Separator();
 		if (ImGui::Button("Add tag"))
 		{
-			this->m_open_name_popup = true;
+			this->m_OpenNamePopup = true;
 			ImGui::SetNextWindowFocus();
 		}
 		ImGui::EndCombo();
 	}
 }
 
-void spe::UITagSelector::renderPopup()
+void spe::UITagSelector::RenderPopup()
 {
-	if (!this->m_open_name_popup)
+	if (!this->m_OpenNamePopup)
 	{
 		return;
 	}
@@ -70,7 +70,7 @@ void spe::UITagSelector::renderPopup()
 	ImGui::Begin("##tag-adder", NULL, DEFAULT_FLAGS);
 
 	ImGui::SetNextItemWidth(size.x);
-	ImGui::InputTextWithHint("##add-text-input", "<name>", this->m_tag_name, CHAR_MAX);
+	ImGui::InputTextWithHint("##add-text-input", "<name>", this->m_TagName, CHAR_MAX);
 
 	spe::UIUtility::SetWindowScreenMiddle(size);
 	ImGui::SetWindowSize(size);
@@ -79,16 +79,16 @@ void spe::UITagSelector::renderPopup()
 
 	if (ImGui::IsKeyReleased(ImGuiKey_Enter))
 	{
-		this->m_ptr_Repo->Tags.push_back(std::string(this->m_tag_name));
+		this->m_ptr_Repo->Tags.push_back(std::string(this->m_TagName));
 		this->Hovered = false;
-		this->m_open_name_popup = '\0';
-		this->m_open_name_popup = false;
+		this->m_OpenNamePopup = '\0';
+		this->m_OpenNamePopup = false;
 	}
 
 	if (ImGui::IsKeyReleased(ImGuiKey_Escape))
 	{
-		this->m_open_name_popup = '\0';
-		this->m_open_name_popup = false;
+		this->m_OpenNamePopup = '\0';
+		this->m_OpenNamePopup = false;
 	}
 }
 

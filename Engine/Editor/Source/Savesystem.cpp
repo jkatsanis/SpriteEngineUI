@@ -25,7 +25,7 @@ void spe::Savesystem::SaveProjects(const std::vector<spe::UserProjectInfo>& proj
 
 	for (const spe::UserProjectInfo& project : projects)
 	{
-		content += project.name + ";" + project.AbsulutePath + ";" + project.lastOpened + ";" + project.relativePath + "\n";
+		content += project.Name + ";" + project.AbsulutePath + ";" + project.LastOpened + ";" + project.relativePath + "\n";
 	}
 
 	std::ofstream knownProjectFile;

@@ -338,21 +338,21 @@ void spe::UIProjectSelector::RenderProjectData()
 	{
 		for (int i = 0; i < this->m_Projects.size(); i++)
 		{
-			const char* filterName = this->m_Projects[i].name.c_str();
+			const char* filterName = this->m_Projects[i].Name.c_str();
 			if (filter.PassFilter(filterName))
 			{
 				// from left to first sep its 
 
 				std::string emptyBetweenNameAndCreation = spe::FileDialog::GetEmptyStringBetween("Project Name", filterName, paddingBetweenInfo);
-				std::string emptyBetweenCreationAndPath = spe::FileDialog::GetEmptyStringBetween("Last Opened   ", this->m_Projects[i].lastOpened, paddingBetweenInfo);
+				std::string emptyBetweenCreationAndPath = spe::FileDialog::GetEmptyStringBetween("Last Opened   ", this->m_Projects[i].LastOpened, paddingBetweenInfo);
 
-				std::string fullData = filterName + emptyBetweenNameAndCreation + this->m_Projects[i].lastOpened + emptyBetweenCreationAndPath + this->m_Projects[i].AbsulutePath;
+				std::string fullData = filterName + emptyBetweenNameAndCreation + this->m_Projects[i].LastOpened + emptyBetweenCreationAndPath + this->m_Projects[i].AbsulutePath;
 
 				// CHECK IF WE OPEN THE PROJECT
 				if (ImGui::MenuItem(fullData.c_str()))
 				{
 					spe::EngineData::s_PathUserProject = this->m_Projects[i].relativePath;
-					spe::EngineData::s_NameOfUser = this->m_Projects[i].name;
+					spe::EngineData::s_NameOfUser = this->m_Projects[i].Name;
 					this->m_IsOpen = false;
 				}
 			}

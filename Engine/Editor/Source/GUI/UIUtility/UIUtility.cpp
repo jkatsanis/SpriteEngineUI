@@ -4,17 +4,17 @@
 
 float spe::UIUtility::scaleChanger(spe::ScaleDott& dott, float default_size, float pos_o, bool x)
 {
-    if (spe::UIUtility::isCursorClickedOnRectangle(dott.ptr_scaling_rectangle->Shape))
+    if (spe::UIUtility::isCursorClickedOnRectangle(dott.ptr_ScalingRec->Shape))
     {
-        dott.clicked = true;
+        dott.Clicked = true;
     }
-    if (dott.clicked && sf::Mouse::isButtonPressed(sf::Mouse::Left))
+    if (dott.Clicked && sf::Mouse::isButtonPressed(sf::Mouse::Left))
     {
         sf::Vector2f pos = (x)
-            ? sf::Vector2f(spe::UIUtility::getWorldCordinates().X, dott.ptr_scaling_rectangle->Shape.getPosition().y)
-            : sf::Vector2f(dott.ptr_scaling_rectangle->Shape.getPosition().x,spe::UIUtility::getWorldCordinates().Y);
+            ? sf::Vector2f(spe::UIUtility::getWorldCordinates().X, dott.ptr_ScalingRec->Shape.getPosition().y)
+            : sf::Vector2f(dott.ptr_ScalingRec->Shape.getPosition().x,spe::UIUtility::getWorldCordinates().Y);
 
-        dott.ptr_scaling_rectangle->Shape.setPosition(pos);
+        dott.ptr_ScalingRec->Shape.setPosition(pos);
         float scale = INVALID_SCALE;
         if (x)
         {
