@@ -9,14 +9,13 @@ namespace spe
 	class UIRealTimeEditor
 	{
 	private:
-		spe::UIRealTimeEditorNavigator m_navigator;
-		spe::UIRealTimeEditorTransform m_transformChanger;
+		spe::UIRealTimeEditorNavigator m_Navigator;
+		spe::UIRealTimeEditorTransform m_TransformChanger;
 
 	public: 
-
 		UIRealTimeEditor();
 		UIRealTimeEditor(spe::GameWindow* windowm, spe::SpriteRepository& spriteRepo, spe::GUIRepository& gui_rep);
 
-		void update();	
+		void Update();	
 	};
 }

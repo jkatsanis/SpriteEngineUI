@@ -10,7 +10,7 @@ namespace spe
 	class Vector2
 	{
 	public:
-		float x, y;
+		float X, Y;
 
 		Vector2();
 		Vector2(float x, float y);

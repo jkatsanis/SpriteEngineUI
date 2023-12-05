@@ -12,26 +12,26 @@ namespace spe
 	class Camera
 	{
 	private:
-		sf::RenderWindow* ptr_Window;;
-		float m_camera_zoom;
-		spe::SpriteRepository* m_ptr_sprite_repo;
-		bool m_zoom_changed;
-		spe::Vector2 getDefaultPosition();
+		sf::RenderWindow* m_ptr_Window;;
+		float m_CameraZoom;
+		spe::SpriteRepository* m_ptr_Repo;
+		bool m_ZoomChanged;
+		spe::Vector2 GetDefaultPosition() noexcept;
 
 	public:
 		spe::Vector2 Position;
-		sf::View camera_view;
-		float camera_speed;
+		sf::View CameraView;
+		float CameraSpeed;
 
 		Camera();
 		Camera(sf::RenderWindow* ptr, spe::SpriteRepository& repository);
 
-		bool hasZoomChanged() const { return this->m_zoom_changed; }
-		void setZoomFlag() { this->m_zoom_changed = false; }
+		[[nodiscard]] bool HasZoomChanged() const noexcept { return this->m_ZoomChanged; }
+		void SetZoomFlag() noexcept { this->m_ZoomChanged = false; }
 
-		float getZoom() const { return this->m_camera_zoom; }
-		void setZoom(float zoom);
-		void reset();
+		float GetZoom() const noexcept { return this->m_CameraZoom; }
+		void SetZoom(float zoom) noexcept;
+		void Reset() noexcept;
 		void Update(spe::LightRepository* lightrepo);
 	};
 }

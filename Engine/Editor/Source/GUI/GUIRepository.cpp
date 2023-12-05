@@ -6,10 +6,12 @@
 
 spe::GUIRepository::GUIRepository()
 {
-	this->sprited_hovered_in_hierarchy = nullptr;
-	this->sprite_in_inspector = nullptr;
-	this->child_to_parent = nullptr;
-	this->right_clicked_sprite = nullptr;
+	this->ptr_Event = nullptr;
+	this->ptr_SFEvent = nullptr;
+	this->HierarchyHoveredSprite = nullptr;
+	this->InspectorSprite = nullptr;
+	this->ChildToParent = nullptr;
+	this->RightClickedSprite = nullptr;
 
 	this->m_HighestLayer = 0;
 	this->m_HighestId = 0;
@@ -61,7 +63,7 @@ void spe::GUIRepository::EraseSpriteWithName(const std::string& name)
 {
 	for (size_t i = 0; i < this->HierarchySprites.size(); i++)
 	{
-		if (name == this->HierarchySprites[i]->name)
+		if (name == this->HierarchySprites[i]->Name)
 		{
 			spe::Sprite* ptr_delete = HierarchySprites[i];
 
@@ -71,9 +73,9 @@ void spe::GUIRepository::EraseSpriteWithName(const std::string& name)
 
 			this->AddChildsToDelete(childs_to_delete, ptr_delete);
 
-			for (size_t i = 0; i < childs_to_delete.size(); i++)
+			for (size_t j = 0; j < childs_to_delete.size(); j++)
 			{
-				this->EraseSpriteWithId(childs_to_delete[i]->getId());
+				this->EraseSpriteWithId(childs_to_delete[j]->GetId());
 			}
 
 			return;
@@ -121,9 +123,9 @@ spe::Rectangle* spe::GUIRepository::GetByVecPos(uint32_t vec)
 void spe::GUIRepository::CleanUp()
 {
 	this->HierarchySprites.clear();
-	this->sprited_hovered_in_hierarchy = nullptr;
-	this->sprite_in_inspector = nullptr;
-	this->child_to_parent = nullptr;
+	this->HierarchyHoveredSprite = nullptr;
+	this->InspectorSprite = nullptr;
+	this->ChildToParent = nullptr;
 	this->m_HighestId = 0;
 }
 
@@ -140,10 +142,10 @@ void spe::GUIRepository::InitHierarchySprites(std::list<spe::Sprite*>& sprites)
 
 void spe::GUIRepository::AddChildsToDelete(std::vector<Sprite*>& ids, Sprite* parent) 
 {
-	for (int i = 0; i < parent->ptr_childs.size(); i++)
+	for (int i = 0; i < parent->ptr_Childs.size(); i++)
 	{
-		ids.push_back(parent->ptr_childs[i]);
-		AddChildsToDelete(ids, parent->ptr_childs[i]);
+		ids.push_back(parent->ptr_Childs[i]);
+		AddChildsToDelete(ids, parent->ptr_Childs[i]);
 	}
 }
 
@@ -151,7 +153,7 @@ void spe::GUIRepository::EraseSpriteWithId(uint32_t id)
 {
 	for (int i = 0; i < this->HierarchySprites.size(); i++)
 	{
-		if (this->HierarchySprites[i]->getId() == id)
+		if ((uint32_t)this->HierarchySprites[i]->GetId() == id)
 		{
 			this->HierarchySprites.erase(this->HierarchySprites.begin() + i);
 			return;

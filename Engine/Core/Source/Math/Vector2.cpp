@@ -2,99 +2,99 @@
 
 spe::Vector2::Vector2()
 {
-	this->x = 0.0f;
-	this->y = 0.0f;
+	this->X = 0.0f;
+	this->Y = 0.0f;
 }
 
 spe::Vector2::Vector2(float x, float y)
 {
-	this->x = x;
-	this->y = y;
+	this->X = x;
+	this->Y = y;
 }
 
 spe::Vector2::Vector2(const ImVec2& vec)
 {
-	this->x = vec.x;
-	this->y = vec.y;
+	this->X = vec.x;
+	this->Y = vec.y;
 }
 
 spe::Vector2::Vector2(const spe::Vector2& rhs)
 {
-	this->x = rhs.x;
-	this->y = rhs.y;
+	this->X = rhs.X;
+	this->Y = rhs.Y;
 }
 
 spe::Vector2::Vector2(const sf::Vector2f& rhs)
 {
-	this->x = rhs.x;
-	this->y = rhs.y;
+	this->X = rhs.x;
+	this->Y = rhs.y;
 }
 
 bool spe::Vector2::operator==(const Vector2& rhs) const
 {
-	return(rhs.x == this->x
-		&& rhs.y == this->y);
+	return(rhs.X == this->X
+		&& rhs.Y == this->Y);
 }
 
 bool spe::Vector2::operator!=(const Vector2& rhs) const
 {
-	return(rhs.x != this->x
-		|| rhs.y != this->y);
+	return(rhs.X != this->X
+		|| rhs.Y != this->Y);
 }
 
 spe::Vector2 spe::Vector2::operator+=(const spe::Vector2& rhs)
 {
-	return spe::Vector2(this->x += rhs.x, this->y += rhs.y);
+	return spe::Vector2(this->X += rhs.X, this->Y += rhs.Y);
 }
 
 spe::Vector2 spe::Vector2::operator*(const float& rhs) const
 {
-	return spe::Vector2(this->x * rhs, this->y * rhs);
+	return spe::Vector2(this->X * rhs, this->Y * rhs);
 }
  
 spe::Vector2 spe::Vector2::operator-(const spe::Vector2& rhs) const
 {
-	return spe::Vector2(this->x - rhs.x, this->y - rhs.y);
+	return spe::Vector2(this->X - rhs.X, this->Y - rhs.Y);
 }
 
 spe::Vector2 spe::Vector2::operator+(const spe::Vector2& rhs) const
 {
-	return spe::Vector2(this->x + rhs.x, this->y + rhs.y);
+	return spe::Vector2(this->X + rhs.X, this->Y + rhs.Y);
 }
 
 spe::Vector2 spe::Vector2::operator*=(const spe::Vector2& rhs)
 {
-	return spe::Vector2(this->x *= rhs.x, this->y *= rhs.y);
+	return spe::Vector2(this->X *= rhs.X, this->Y *= rhs.Y);
 }
 
 spe::Vector2 spe::Vector2::operator/=(const spe::Vector2& rhs) 
 {
-	return spe::Vector2(this->x /= rhs.x, this->y /= rhs.y);
+	return spe::Vector2(this->X /= rhs.X, this->Y /= rhs.Y);
 }
 
 spe::Vector2 spe::Vector2::operator/=(const float rhs)
 {
-	return spe::Vector2(this->x /= rhs, this->y /= rhs);
+	return spe::Vector2(this->X /= rhs, this->Y /= rhs);
 }
 spe::Vector2 spe::Vector2::operator*(const spe::Vector2& rhs) const
 {
-	return spe::Vector2(this->x * rhs.x, this->y * rhs.y);
+	return spe::Vector2(this->X * rhs.X, this->Y * rhs.Y);
 }
 
 ImVec2 spe::Vector2::toImVec2(const spe::Vector2& vec)
 {
-	return ImVec2(vec.x, vec.y);
+	return ImVec2(vec.X, vec.Y);
 }
 
 sf::Vector2f spe::Vector2::toSFVector(const spe::Vector2& vec)
 {
-	return sf::Vector2f(vec.x, vec.y);
+	return sf::Vector2f(vec.X, vec.Y);
 }
 
 
 std::ostream& spe::operator<<(std::ostream& os, const spe::Vector2& rhs)
 {
-	os << rhs.x << " x " << rhs.y << " y ";
+	os << rhs.X << " x " << rhs.Y << " y ";
 	return os;
 }
 

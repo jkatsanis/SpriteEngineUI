@@ -25,7 +25,7 @@ void spe::Savesystem::SaveProjects(const std::vector<spe::UserProjectInfo>& proj
 
 	for (const spe::UserProjectInfo& project : projects)
 	{
-		content += project.name + ";" + project.AbsulutePath + ";" + project.lastOpened + ";" + project.relativePath + "\n";
+		content += project.Name + ";" + project.AbsulutePath + ";" + project.LastOpened + ";" + project.relativePath + "\n";
 	}
 
 	std::ofstream knownProjectFile;
@@ -65,51 +65,51 @@ void spe::Savesystem::SaveProjects(const std::vector<spe::UserProjectInfo>& proj
 std::string spe::Savesystem::GetPropertyLineWithSeperator(const spe::Sprite* sprite)
 {
 	std::string line;
-	const std::string transformPosX = std::to_string(sprite->transform.GetPosition().x);
-	const std::string transformPosY = std::to_string(sprite->transform.GetPosition().y);
-	const std::string scaleX = std::to_string(sprite->transform.getScale().x);
-	const std::string scaleY = std::to_string(sprite->transform.getScale().y);
-	const std::string spritePath = sprite->sprite_renderer.path;
+	const std::string transformPosX = std::to_string(sprite->Transform.GetPosition().X);
+	const std::string transformPosY = std::to_string(sprite->Transform.GetPosition().Y);
+	const std::string scaleX = std::to_string(sprite->Transform.GetScale().X);
+	const std::string scaleY = std::to_string(sprite->Transform.GetScale().Y);
+	const std::string spritePath = sprite->SpriteRenderer.Path;
 
-	const std::string boxColliderWidthLeftOrRightX = std::to_string(sprite->collider.box_collider_width.x);
-	const std::string boxColliderWidthLeftOrRightY = std::to_string(sprite->collider.box_collider_width.y);
+	const std::string boxColliderWidthLeftOrRightX = std::to_string(sprite->Collider.Width.X);
+	const std::string boxColliderWidthLeftOrRightY = std::to_string(sprite->Collider.Width.Y);
 
-	const std::string boxColliderHeightUpOrDownX = std::to_string(sprite->collider.box_collider_height.x);
-	const std::string boxColliderHeightUpOrDownY = std::to_string(sprite->collider.box_collider_height.y);
+	const std::string boxColliderHeightUpOrDownX = std::to_string(sprite->Collider.Height.X);
+	const std::string boxColliderHeightUpOrDownY = std::to_string(sprite->Collider.Height.Y);
 
-	const std::string colliderExists = spe::Utility::BoolToStr(sprite->collider.exist);
-	const std::string isSolid = spe::Utility::BoolToStr(sprite->collider.is_solid);
-	const std::string sortingLayer = std::to_string(sprite->sprite_renderer.sorting_layer_index);
-	const std::string gravity = std::to_string(sprite->physicsBody.gravity);
-	const std::string mass = std::to_string(sprite->physicsBody.mass);
-	const std::string bodyExist = spe::Utility::BoolToStr(sprite->physicsBody.exist);
-	const std::string id = std::to_string(sprite->getId());
-	const std::string parentId = std::to_string(sprite->getParentId());
+	const std::string colliderExists = spe::Utility::BoolToStr(sprite->Collider.exist);
+	const std::string isSolid = spe::Utility::BoolToStr(sprite->Collider.IsSolid);
+	const std::string sortingLayer = std::to_string(sprite->SpriteRenderer.SortinLayerIdx);
+	const std::string gravity = std::to_string(sprite->Physicsbody.Gravity);
+	const std::string mass = std::to_string(sprite->Physicsbody.Mass);
+	const std::string bodyExist = spe::Utility::BoolToStr(sprite->Physicsbody.exist);
+	const std::string id = std::to_string(sprite->GetId());
+	const std::string parentId = std::to_string(sprite->GetParentId());
 
-	const std::string positionToParentX = std::to_string(sprite->transform.position_to_parent.x);
-	const std::string positionToParentY = std::to_string(sprite->transform.position_to_parent.y);
+	const std::string positionToParentX = std::to_string(sprite->Transform.PositionToParent.X);
+	const std::string positionToParentY = std::to_string(sprite->Transform.PositionToParent.Y);
 
-	const std::string animatorExist = spe::Utility::BoolToStr(sprite->animator.exist);
+	const std::string animatorExist = spe::Utility::BoolToStr(sprite->Animator.exist);
 
-	const std::string prefabExist = spe::Utility::BoolToStr(sprite->prefab.exist);
-	const std::string loadInMemory = spe::Utility::BoolToStr(sprite->prefab.load_in_memory);
-	const std::string pathToPrefab = sprite->prefab.user_path_to_file;
-	const std::string rotation = std::to_string(sprite->transform.getRotation());
-	const std::string tag = sprite->tag;
+	const std::string prefabExist = spe::Utility::BoolToStr(sprite->Prefab.exist);
+	const std::string loadInMemory = spe::Utility::BoolToStr(sprite->Prefab.LoadInMemory);
+	const std::string pathToPrefab = sprite->Prefab.PathToFile;
+	const std::string rotation = std::to_string(sprite->Transform.GetRotation());
+	const std::string tag = sprite->Tag;
 
-	const std::string lightExist = spe::Utility::BoolToStr(sprite->light.exist);
-	const std::string light_radiues = std::to_string(sprite->light.getRadius());
-	const std::string light_intensy = std::to_string(sprite->light.getIntensity());
-	const std::string effected_by_light = spe::Utility::BoolToStr(sprite->sprite_renderer.effected_by_light);
+	const std::string lightExist = spe::Utility::BoolToStr(sprite->Light.exist);
+	const std::string light_radiues = std::to_string(sprite->Light.GetRadius());
+	const std::string light_intensy = std::to_string(sprite->Light.GetIntensity());
+	const std::string effected_by_light = spe::Utility::BoolToStr(sprite->SpriteRenderer.EffectedByLight);
 
-	const std::string light_color_r = std::to_string(sprite->light.getColor().x);
-	const std::string light_color_g = std::to_string(sprite->light.getColor().y);
-	const std::string light_color_b = std::to_string(sprite->light.getColor().z);
+	const std::string light_color_r = std::to_string(sprite->Light.GetColor().x);
+	const std::string light_color_g = std::to_string(sprite->Light.GetColor().y);
+	const std::string light_color_b = std::to_string(sprite->Light.GetColor().z);
 
-	const std::string render = spe::Utility::BoolToStr(sprite->sprite_renderer.render);
+	const std::string render = spe::Utility::BoolToStr(sprite->SpriteRenderer.Render);
 
 	//Name, vec, transform path, rotation
-	line = sprite->name + ";" + "0" + ";" + transformPosX + ";" + transformPosY + ";" + scaleX + ";" + scaleY + ";" + spritePath + ";" + rotation;
+	line = sprite->Name + ";" + "0" + ";" + transformPosX + ";" + transformPosY + ";" + scaleX + ";" + scaleY + ";" + spritePath + ";" + rotation;
 
 	//BoxCollider
 	line += ";" + boxColliderWidthLeftOrRightX + ";" + boxColliderWidthLeftOrRightY + ";" + boxColliderHeightUpOrDownX + ";" + boxColliderHeightUpOrDownY + ";" + colliderExists + ";" + isSolid;
@@ -177,7 +177,7 @@ void spe::Savesystem::CreateOrUpdatePrefabFile(const spe::Sprite* content, const
 
 
 	// Animation of parent
-	for (auto& animation : content->animator.animations)
+	for (auto& animation : content->Animator.Animations)
 	{
 		const auto& value = animation.second;
 		fileContent += "A" + s + value.GetPath() + "\n";
@@ -185,13 +185,13 @@ void spe::Savesystem::CreateOrUpdatePrefabFile(const spe::Sprite* content, const
 
 	std::vector<const spe::Sprite*> childs;
 
-	spe::SpriteRepository::getAllChilds(childs, content);
+	spe::SpriteRepository::GetAllChilds(childs, content);
 
 	// Initing childs
 	for (size_t i = 0; i < childs.size(); i++)
 	{
 		fileContent += "S" + s + spe::Savesystem::GetPropertyLineWithSeperator(childs[i]) + "\n";
-		for (auto& animation : childs[i]->animator.animations)
+		for (auto& animation : childs[i]->Animator.Animations)
 		{
 			const auto& value = animation.second;
 			fileContent += "A" + s + value.GetPath() + "\n";
@@ -202,12 +202,12 @@ void spe::Savesystem::CreateOrUpdatePrefabFile(const spe::Sprite* content, const
 }
 
 
-void spe::Savesystem::CreateAnimationSaveFile(const spe::Sprite* ptr_sprite, const spe::Animation& anim, const spe::SpriteRepository* sprites)
+void spe::Savesystem::CreateAnimationSaveFile(const spe::Sprite* ptr_sprite, const spe::Animation& anim)
 {
 	std::string name = anim.GetName();
 	std::string content =
 		anim.GetName() + "\n" +
-		std::to_string(ptr_sprite->getId()) + "\n" +
+		std::to_string(ptr_sprite->GetId()) + "\n" +
 		spe::Utility::BoolToStr(anim.Loop) + "\n";
 
 	const std::vector<spe::KeyFrame>& frames = anim.GetkeyFrames();
@@ -255,7 +255,7 @@ void spe::Savesystem::UpdateSpriteFile(const spe::SpriteRepository& repo)
 
 			spriteFile << line << "\n";
 
-			for (const auto& anim : sprite->animator.animations)
+			for (const auto& anim : sprite->Animator.Animations)
 			{
 				std::string animline = "A" + s + anim.second.GetPath();
 
@@ -277,7 +277,7 @@ void spe::Savesystem::UpdateBackgroundFile(const spe::Vector3& bg)
 	{
 		backgroundFile << "Red;Blue;Green" << "\n";
 
-		std::string line = std::to_string(bg.x) + ";" + std::to_string(bg.y) + ";" + std::to_string(bg.z);
+		std::string line = std::to_string(bg.X) + ";" + std::to_string(bg.Y) + ";" + std::to_string(bg.Z);
 
 		backgroundFile << line << "\n";
 
@@ -310,10 +310,10 @@ void spe::Savesystem::UpdateCameraFile(const spe::Camera& camera)
 	{
 		backgroundFile << "TransformPoxX;TransformPosY;Zoom;Speed" << "\n";
 
-		std::string line = std::to_string(camera.Position.x) + ";" +
-			std::to_string(camera.Position.y) + ";" +
-			std::to_string(camera.getZoom()) + ";" +
-			std::to_string(camera.camera_speed);
+		std::string line = std::to_string(camera.Position.X) + ";" +
+			std::to_string(camera.Position.Y) + ";" +
+			std::to_string(camera.GetZoom()) + ";" +
+			std::to_string(camera.CameraSpeed);
 
 		backgroundFile << line << "\n";
 

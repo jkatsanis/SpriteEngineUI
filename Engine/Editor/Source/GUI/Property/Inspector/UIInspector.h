@@ -40,60 +40,60 @@ namespace spe
 	{
 	private:
 		// gui repo (rectangles)
-		spe::Rectangle* m_ptr_collider_rectangle;
-		spe::Rectangle* m_ptr_sprite_over_rectangle;
+		spe::Rectangle* m_ptr_ColliderRec;
+		spe::Rectangle* m_ptr_SpriteRec;
 
-		spe::UITagSelector m_tag_selector;
-		spe::UIInspectorBoxCollider m_collider;
+		spe::UITagSelector m_TagSelector;
+		spe::UIInspectorBoxCollider m_Collider;
 
-		spe::ResizeWindowData m_resize_window_data;
-		std::string m_menu_name;
-		std::string m_sprite_name;
+		spe::ResizeWindowData m_WindowData;
+		std::string m_MenuName;
+		std::string m_SpriteName;
 ;
-		ImVec2 m_pop_up_cursor_pos;
-		float m_sprite_input_width;
-		float m_dupe_name_editor_timer;
-		std::vector<const char*> m_components;
+		ImVec2 m_PopUpCursorPos;
+		float m_SpriteInputWidth;
+		float m_DupeNameEditorTimer;
+		std::vector<const char*> m_ComponentsName;
 
 		//When the box collider component is open we want to display the rectangle as a box collider and not as a rectangle
-		float m_window_size_width;
-		std::string m_current_component_selected;
-		char* m_input_name;
+		float m_WindowSizeWidth;
+		std::string m_ComponentSelected;
+		char* m_InputName;
 
-		float m_light_radius;
-		float m_light_intensity;
-		float m_cam_zoom;
+		float m_LightRadius;
+		float m_LightIntensity;
+		float m_CamZoom;
 
-		void renderOptions();
-		void resizeWindow();
-		void setupComponents();
+		void RenderOptions();
+		void ResizeWindow();
+		void SetupComponents();
 
-		void transformComponent();
-		void spriteRendererComponent();
-		void boxColliderComponent();
-		void physicsBodyComponent();
-		void animatorComponent();
-		void prefabComponent();
-		void lightComponent();
+		void TransformComponent();
+		void SpriteRendererComponent();
+		void BoxColliderComponent();
+		void PhysicsBodyComponent();
+		void AnimatorComponent();
+		void PrefabComponent();
+		void LightComponent();
 
-		void displayDefaultInspectorView();
+		void DisplayDefaultInspectorView();
 
-		void inputXY(const char* label, float& inputX, float& inputY, float x, float y);
+		void InputXY(const char* label, float& inputX, float& inputY, float x, float y);
 	
-		void renameSprite();
-		void componentSelector();
-		void setCompontents();
-		void drawRectangleOverCurrentObject();
-		void renderBackgroundBehindComponent();
-		void backgroundSetting();
-		void gameEngineViewSetting();
-		void renderComponentOptions(spe::Component& component, const std::string& name);
-		void generalSettings();
+		void RenameSprite();
+		void ComponentSelector();
+		void SetCompontents();
+		void DrawRectangleOverCurrentObject();
+		void RenderBackgroundBehindComponent();
+		void BackgroundSetting();
+		void GameEngineViewSetting();
+		void RenderComponentOptions(spe::Component& component, const std::string& name);
+		void GeneralSettings();
 
 		void Init() override;
 
 	public:
-		spe::InspectorState state;
+		spe::InspectorState State;
 
 		void Render() override;
 	};

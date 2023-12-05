@@ -13,11 +13,11 @@ namespace spe
 	class UITagSelector : public spe::IUIBase
 	{
 	private:
-		bool m_open_name_popup;
-		char m_tag_name[150];
+		bool m_OpenNamePopup;
+		char m_TagName[150];
 
-		void renderSelector();
-		void renderPopup();
+		void RenderSelector();
+		void RenderPopup();
 
 		void Init() override;
 

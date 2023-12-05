@@ -28,32 +28,32 @@ namespace spe
 
 		void Init() override;
 
-		spe::Tool m_tools[TOOLS_AMOUNT];
-		spe::Vector3 m_window_background_to_save;
-		EditorTools m_editor_tools;
+		spe::Tool m_Tools[TOOLS_AMOUNT];
+		spe::Vector3 m_WindowBackground;
+		EditorTools m_EditorTools;
 
-		char m_new_scene_name[150];
+		char m_NewSceneName[150];
 
-		bool m_display_engine_info;
-		bool m_add_scene_mode;
-		bool m_clicked_on_btn;
-		bool m_update_event_to_set;
-		std::string m_switch_scene_name;
+		bool m_DisplayInfo;
+		bool m_AddSceneMode;
+		bool m_ClickedOnBtn;
+		bool m_UpdateEventToSet;
+		std::string m_SwitchSceneName;
 
-		void createScene();
-		void playGameButton();
-		void toolSelector();
-		void removeBackgroundFromButtons();
-		void buildProjectIntoFolder();
-		void hotkeys();
-		void renderWindowSelecter();
-		void renderMainMenuBar();
-		void renderToolSelector();
-		void renderSceneSelector();
-		void removeScene(const std::string& scene);
-		void renderSceneAddPopup();
-		void switchScene(const std::string& scene);
-		void displayEngineInfo();
+		void CreateScene();
+		void PlayGameButton();
+		void ToolSelector();
+		void RemoveBackgroundFromButtons();
+		void BuildProjectIntoFolder();
+		void Hotkeys();
+		void RenderWindowSelecter();
+		void RenderMainMenuBar();
+		void RenderToolSelector();
+		void RenderSceneSelector();
+		void RemoveScene(const std::string& scene);
+		void RenderSceneAddPopup();
+		void SwitchScene(const std::string& scene);
+		void DisplayEngineInfo();
 
 		void ProjectSettings();
 		void SimulateButton();

@@ -12,15 +12,15 @@ namespace spe
 	private:
 		void init() override;
 	public:
-		std::string path;
-		uint32_t sorting_layer_index;
-		bool effected_by_light;
-		bool render;
+		std::string Path;
+		uint32_t SortinLayerIdx;
+		bool EffectedByLight;
+		bool Render;
 	
 		SpriteRenderer();
 		SpriteRenderer(const spe::SpriteRenderer& rhs);
 
-		void reset();
+		void reset() override;
 	};
 }
 

@@ -11,7 +11,7 @@ namespace spe
 		uint32_t m_HighestLayer;
 		uint32_t m_HighestId;
 
-		Repository() { }
+		Repository() { this->m_HighestId = 0; this->m_HighestLayer = 0; }
 	public:
 		virtual void Add(T* t) = 0;
 		virtual void UpdateLayerIndex() = 0;

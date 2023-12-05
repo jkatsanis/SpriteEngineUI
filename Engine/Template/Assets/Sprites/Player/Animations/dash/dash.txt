@@ -1,5 +1,0 @@
-dash
-50
-False
-0.000000;assets\Sprites\transparent.png
-60.000000;assets\Sprites\transparent.png

@@ -14,19 +14,19 @@ namespace spe
 	class UIRealTimeEditorNavigator : public spe::IUIBase
 	{
 	private:
-		spe::UITransform m_cursor;
+		spe::UITransform m_Cursor;
 
-		float m_scroll_speed;
+		float m_ScrollSpeed;
 		spe::GameWindow* m_ptr_Window;
 
-		void navigateRightClick();
-		void navigateScrollWheel();
-		void navigateArrows();
-		void navigateKeys();
+		void NavigateRightClick();
+		void NavigateScrollWheel();
+		void NavigateArrows();
+		void NavigateKeys();
 
-		void calculateScrollWheelSpeed();
+		void CalculateScrollWheelSpeed();
 
-		void setChangedPosition();
+		void SetChangedPosition();
 
 		void Init() override;
 	public:	

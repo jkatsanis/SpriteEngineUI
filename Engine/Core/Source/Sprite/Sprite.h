@@ -23,31 +23,31 @@ namespace spe
 	class Sprite
 	{
 	private:
-		int32_t m_parent_id;
-		sf::Sprite m_sprite;
-		sf::Texture* m_texture;
-		int32_t m_id;
+		int32_t m_ParentID;
+		sf::Sprite m_Sprite;
+		sf::Texture* m_Texture;
+		int32_t m_ID;
 
 		bool m_SetId;
 
-		void initVariables(std::string name, spe::Vector2 spawnPos, std::string path, spe::LightRepository& lightrep);
+		void InitVariables(spe::Vector2 spawnPos, std::string path, spe::LightRepository& lightrep);
 	public:
 		// General info
-		std::string name;
-		std::string tag;
+		std::string Name;
+		std::string Tag;
 
 		// Components
-		spe::SpriteRenderer sprite_renderer;
-		spe::BoxCollider collider;
-		spe::PhsysicsBody physicsBody;
-		spe::Transform transform;
-		spe::Animator animator;
-		spe::Prefab prefab;
-		spe::Light light;
+		spe::SpriteRenderer SpriteRenderer;
+		spe::BoxCollider Collider;
+		spe::PhsysicsBody Physicsbody;
+		spe::Transform Transform;
+		spe::Animator Animator;
+		spe::Prefab Prefab;
+		spe::Light Light;
 
 		//Parent / child infos
-		std::vector<spe::Sprite*> ptr_childs;
-		spe::Sprite* parent;
+		std::vector<spe::Sprite*> ptr_Childs;
+		spe::Sprite* ptr_Parent;
 
 		Sprite();
 		Sprite(std::string name, spe::Vector2 spawnPosition, std::string path, spe::LightRepository& lightrepo);
@@ -58,36 +58,35 @@ namespace spe
 		//// ENGINE FUNCTIONS 
 		/////////////////////////////////////
 
-		void setParentId(const int32_t id) { this->m_parent_id = id; }
-		void setId(const int32_t id);
-		sf::Sprite& getSprite() { return this->m_sprite; }
-		sf::Texture& getTexture() { return *this->m_texture; }
+		void SetParentId(const int32_t id) noexcept { this->m_ParentID = id; }
+		void SetId(const int32_t id) noexcept;
+		sf::Sprite& GetSprite() { return this->m_Sprite; }
+		sf::Texture& GetTexture() { return *this->m_Texture; }
 
-		void clearParentData();
-		void clearAllChilds() { this->ptr_childs.clear(); }
+		void ClearParentData();
+		void ClearAllChilds() { this->ptr_Childs.clear(); }
 
 		//////////////////////////////////////
 		//// USER FUNCTIONS 
 		/////////////////////////////////////
 
-		void setParent(spe::Sprite* parent);
+		void SetParent(spe::Sprite* parent);
 
 		/// <summary>
 		/// Removes the child from the childs list
 		/// </summary>
 		/// <param name="child">Child</param>
-		void removeChild(const spe::Sprite* child);
+		void RemoveChild(const spe::Sprite* child);
 
 		/// <summary>
 		/// Gets the id of the parent
 		/// </summary>
-		int getParentId() const { return this->m_parent_id; }
-
+	
 		/// <summary>
 		/// Sets the new texture of the sprite
 		/// </summary>
 		/// <param name="path">The path of the new texture</param>
-		void setSpriteTexture(const std::string& path);
+		void SetSpriteTexture(const std::string& path);
 
 		/// <summary>
 		/// Sets the new sprite texture
@@ -95,36 +94,36 @@ namespace spe
 		/// </summary>
 		/// <param name="texture">The already loaded texture</param>
 		/// <param name="path">The new path which needs to be set</param>
-		void setSpriteTexture(const sf::Texture& texture, const std::string& path);
+		void SetSpriteTexture(const sf::Texture& texture, const std::string& path);
 
 		/// <summary>
 		/// LOADS the texture from the file and sets it scale
 		/// </summary>
 		/// <param name="path">Path to the .png file</param>
 		/// <param name="sclae">Scale to set</param>
-		void setSpriteTexture(const std::string& path, const spe::Vector2& sclae);
+		void SetSpriteTexture(const std::string& path, const spe::Vector2& sclae);
 
 		/// <summary>
 		/// Gets the absulute parent
 		/// </summary>
-		spe::Sprite* getNode();
+		spe::Sprite* GetNode();
 
 		/// <summary>
 		/// Get's the id of the current sprite
 		/// </summary>
 		/// <returns></returns>
-		int getId() const { return this->m_id; }
+		int32_t GetId() const { return this->m_ID; }
 
-		bool IsParent() const { return this->ptr_childs.size() > 0; }
+		bool IsParent() const { return this->ptr_Childs.size() > 0; }
 
 		bool ContainsChild(const spe::Sprite* child) const;
 
 		bool ContainsChild(const ImGuiTextFilter& name) const;
-
+		int GetParentId() const noexcept { return this->m_ParentID; }
 
 		/// <summary>
 		/// Gets the path to the texture file
 		/// </summary>
-		const std::string& getPathOfTextureFile() const { return this->sprite_renderer.path; }
+		const std::string& getPathOfTextureFile() const { return this->SpriteRenderer.Path; }
 	};
 }

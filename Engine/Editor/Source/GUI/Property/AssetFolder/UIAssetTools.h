@@ -16,28 +16,27 @@ namespace spe
 	class UIAssetTools
 	{
 	private:	
-		const std::string* m_ptr_currentAssetPath;
+		const std::string* m_ptr_CurrentAssetPath;
 
 	    /// <summary>
 	    /// Need to change value on delete
 	    /// </summary>
-	    std::string* m_ptr_hovered_icon_name;
-		char m_classFileName[CPP_FILE_NAME_SIZE];
+	    std::string* m_ptr_HoveredIconName;
+		char m_ClassFileName[CPP_FILE_NAME_SIZE];
 
-		void getFileName();
-		void createFileContent();
+		void GetFileName();
+		void CreateFileContent();
 
-		bool m_is_popup_open;
-		bool m_open_file_input;
-		float m_window_font_size;
+		bool m_IsPopupOpen;
+		bool m_OpenFileInput;
+		float m_WindowFontSize;
 	public:
 		UIAssetTools();
 		UIAssetTools(const std::string* current_asset_path, std::string* hovered_icon_name);
 
-		void update();
+		void Update();
 
-	public:
-		bool isPopUpOpen() const { return this->m_is_popup_open; }
+		bool IsPopUpOpen() const { return this->m_IsPopupOpen; }
 	};
 }
 

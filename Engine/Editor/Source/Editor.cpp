@@ -15,7 +15,7 @@ spe::Editor::Editor()
 	this->Init();
 
 	this->m_Window.SetCamera(&this->m_GUIRepository.Camera);
-	this->m_Window.SetBackgroundColor(&this->m_GUIRepository.background_color);
+	this->m_Window.SetBackgroundColor(&this->m_GUIRepository.BackgroundColor);
 
 	this->m_UIWindow.SetRepos(this->m_GUIRepository, this->m_SceneHandler.SpriteRepository, this->m_SceneHandler, this->m_SceneHandler.LightRepository);
 
@@ -24,7 +24,7 @@ spe::Editor::Editor()
 
 	spe::UIUtility::SetEvent(&this->m_Window.Event);
 	spe::UIUtility::SetRenderWinodw(this->m_Window.GetRenderWindow());
-	spe::Input::setEvent(&this->m_Window.Event);
+	spe::Input::SetEvent(&this->m_Window.Event);
 
 	this->m_GUIRepository.ptr_Event = &this->m_Window.Event;
 	this->m_GUIRepository.ptr_SFEvent = &this->m_Window.WindowEvent;
@@ -55,7 +55,7 @@ void spe::Editor::Init()
 	spe::Initializer::IntiHighestSpriteID(this->m_SceneHandler.SpriteRepository, PATH_TO_HIGHEST_INDEX);
 
 	// Load the first scene in the file
-	this->m_SceneHandler.LoadScene(this->m_SceneHandler.TotalScenes[0], this->m_GUIRepository.Camera, this->m_GUIRepository.background_color);
+	this->m_SceneHandler.LoadScene(this->m_SceneHandler.TotalScenes[0], this->m_GUIRepository.Camera, this->m_GUIRepository.BackgroundColor);
 }
 
 void spe::Editor::UpdateUI()
@@ -66,7 +66,7 @@ void spe::Editor::UpdateUI()
 
 	if (this->m_Window.ContainsCursor())
 	{
-		this->m_UIRealTimeEditor.update();
+		this->m_UIRealTimeEditor.Update();
 	}
 
 	ImGui::PopFont();
@@ -86,19 +86,19 @@ void spe::Editor::UpdateComponents()
 	{
 		spe::Sprite* sprite = *it;
 
-		sprite->animator.update();
+		sprite->Animator.Update();
 
 		if (this->m_GUIRepository.SimulatePhysics)
 		{
-			sprite->collider.Update(this->m_SceneHandler.SpriteRepository);
-			sprite->physicsBody.Update();
+			sprite->Collider.Update(this->m_SceneHandler.SpriteRepository);
+			sprite->Physicsbody.Update();
 		}
 
-		this->m_SceneHandler.LightRepository.updateLightSource(sprite, &this->m_GUIRepository.Camera);
+		this->m_SceneHandler.LightRepository.UpdateLightSource(sprite, &this->m_GUIRepository.Camera);
 
-		this->m_Window.Draw(sprite, &this->m_SceneHandler.LightRepository.getShader());
+		this->m_Window.Draw(sprite, &this->m_SceneHandler.LightRepository.GetShader());
 	}
-	this->m_SceneHandler.LightRepository.updateArrays();
+	this->m_SceneHandler.LightRepository.UpdateArrays();
 
 	this->m_GUIRepository.Render(this->m_Window.GetRenderWindow());
 	this->m_Window.Display();
@@ -108,7 +108,7 @@ void spe::Editor::UpdateComponents()
 
 void spe::Editor::Update()
 {
-	spe::Time::update();
+	spe::Time::Update();
 	this->UpdateComponents();
 	this->m_GUIRepository.Camera.Update(&this->m_SceneHandler.LightRepository);
 }

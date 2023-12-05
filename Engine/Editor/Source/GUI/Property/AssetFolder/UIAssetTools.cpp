@@ -4,36 +4,36 @@
 
 spe::UIAssetTools::UIAssetTools()
 {
-	this->m_is_popup_open = false;
-	this->m_window_font_size = 1;
-	this->m_ptr_hovered_icon_name = nullptr;
-	this->m_ptr_currentAssetPath = nullptr;
-	this->m_classFileName[0] = '\0';
-	this->m_open_file_input = false;
+	this->m_IsPopupOpen = false;
+	this->m_WindowFontSize = 1;
+	this->m_ptr_HoveredIconName = nullptr;
+	this->m_ptr_CurrentAssetPath = nullptr;
+	this->m_ClassFileName[0] = '\0';
+	this->m_OpenFileInput = false;
 }
 
 spe::UIAssetTools::UIAssetTools(const std::string* currentAssetPath, std::string* hoveredIconName)
 {
-	this->m_is_popup_open = false;
-	this->m_classFileName[0] = '\0';
-	this->m_open_file_input = false;
-	this->m_ptr_currentAssetPath = currentAssetPath;
-	this->m_ptr_hovered_icon_name = hoveredIconName;
-	this->m_window_font_size = 1;
+	this->m_IsPopupOpen = false;
+	this->m_ClassFileName[0] = '\0';
+	this->m_OpenFileInput = false;
+	this->m_ptr_CurrentAssetPath = currentAssetPath;
+	this->m_ptr_HoveredIconName = hoveredIconName;
+	this->m_WindowFontSize = 1;
 }
 
 // Public functions
 
-void spe::UIAssetTools::update()
+void spe::UIAssetTools::Update()
 {
-	this->getFileName();
+	this->GetFileName();
 
-	if (this->m_classFileName[0] != '\0' && !this->m_open_file_input)
+	if (this->m_ClassFileName[0] != '\0' && !this->m_OpenFileInput)
 	{
-		this->createFileContent();
-		this->m_classFileName[0] = '\0';
+		this->CreateFileContent();
+		this->m_ClassFileName[0] = '\0';
 	}
-	ImGui::SetWindowFontScale(this->m_window_font_size);
+	ImGui::SetWindowFontScale(this->m_WindowFontSize);
 
 	if (ImGui::IsMouseReleased(1))
 	{
@@ -42,22 +42,22 @@ void spe::UIAssetTools::update()
 
 	if (ImGui::IsPopupOpen(INPUT_POPUP_NAME))
 	{
-		this->m_is_popup_open = true;
+		this->m_IsPopupOpen = true;
 		ImGui::BeginPopup(INPUT_POPUP_NAME);
 		if (ImGui::BeginMenu("Create"))
 		{
 			if (ImGui::MenuItem("C++ Script"))
 			{
 				//  Create a scirpt, link it into the user project
-				this->m_open_file_input = true;
+				this->m_OpenFileInput = true;
 			}
 			ImGui::EndMenu();
 		}
 		ImGui::SetCursorPosX(ImGui::GetCursorPosX() - 7);
 		if (ImGui::Button("Delete"))
 		{
-			const std::string d = *this->m_ptr_currentAssetPath;
-		    std::string m = *this->m_ptr_hovered_icon_name;
+			const std::string d = *this->m_ptr_CurrentAssetPath;
+		    std::string m = *this->m_ptr_HoveredIconName;
 			
 			if (m != "")
 			{
@@ -72,21 +72,21 @@ void spe::UIAssetTools::update()
 
 				spe::Utility::Delete(delete_path);
 
-				*this->m_ptr_hovered_icon_name = "";
+				*this->m_ptr_HoveredIconName = "";
 			}
 		}
 		ImGui::EndPopup();
 	}
 	else
 	{
-		this->m_is_popup_open = false;
+		this->m_IsPopupOpen = false;
 	}
 	ImGui::SetWindowFontScale(spe::Style::s_DefaultFontSize);
 }
 
-void spe::UIAssetTools::getFileName()
+void spe::UIAssetTools::GetFileName()
 {
-	if (!this->m_open_file_input)
+	if (!this->m_OpenFileInput)
 	{
 		return;
 	}
@@ -94,10 +94,10 @@ void spe::UIAssetTools::getFileName()
 	if (ImGui::Begin("##input_file_name", NULL, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove))
 	{
 		ImGui::SetNextItemWidth(290);
-		ImGui::InputTextWithHint("##file_input", "<name>", this->m_classFileName, CHAR_MAX);
+		ImGui::InputTextWithHint("##file_input", "<name>", this->m_ClassFileName, CHAR_MAX);
 		if (ImGui::Button("Create"))
 		{
-			this->m_open_file_input = false;
+			this->m_OpenFileInput = false;
 		}
 
 		spe::UIUtility::SetWindowScreenMiddle(ImVec2(300, 100));
@@ -105,12 +105,12 @@ void spe::UIAssetTools::getFileName()
 	}
 }
 
-void spe::UIAssetTools::createFileContent()
+void spe::UIAssetTools::CreateFileContent()
 {
 	std::string header_content =
 		"#pragma once\n\n"
 		"#include <_header/SpriteEngine.h>\n\n"
-		"class " + std::string(this->m_classFileName) + " : public spe::Base\n"
+		"class " + std::string(this->m_ClassFileName) + " : public spe::Base\n"
 		"{\n"
 		"public:\n"
 		"   void update();\n"
@@ -118,25 +118,25 @@ void spe::UIAssetTools::createFileContent()
 		"};\n";
 
 	std::string cpp_content =
-		"#include \"" + std::string(this->m_classFileName) + ".h\"\n\n"
-		"void " + std::string(this->m_classFileName) + "::start()\n"
+		"#include \"" + std::string(this->m_ClassFileName) + ".h\"\n\n"
+		"void " + std::string(this->m_ClassFileName) + "::start()\n"
 		"{\n"
 		"\n"
 		"}\n"
 		"\n"
-		"void " + std::string(this->m_classFileName) + "::update()\n"
+		"void " + std::string(this->m_ClassFileName) + "::update()\n"
 		"{\n"
 		"\n"
 		"}\n"
 		"\n";
 
-	std::string path = *this->m_ptr_currentAssetPath + "\\" + this->m_classFileName;
+	std::string path = *this->m_ptr_CurrentAssetPath + "\\" + this->m_ClassFileName;
 
-	std::string cpp_name = std::string(this->m_classFileName);
-	std::string header_name = std::string(this->m_classFileName);
+	std::string cpp_name = std::string(this->m_ClassFileName);
+	std::string header_name = std::string(this->m_ClassFileName);
 
-	std::string cpp_file_path = *this->m_ptr_currentAssetPath + "\\" + header_name + ".cpp";
-	std::string hpp_file_path = *this->m_ptr_currentAssetPath + "\\" + header_name + ".h";
+	std::string cpp_file_path = *this->m_ptr_CurrentAssetPath + "\\" + header_name + ".cpp";
+	std::string hpp_file_path = *this->m_ptr_CurrentAssetPath + "\\" + header_name + ".h";
 
 	spe::Utility::CreateFileWithContent(header_content, hpp_file_path);
 	spe::Utility::CreateFileWithContent(cpp_content, cpp_file_path);

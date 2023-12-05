@@ -18,19 +18,19 @@ spe::PhsysicsBody::PhsysicsBody(spe::Sprite* spr)
 spe::PhsysicsBody::PhsysicsBody(spe::Sprite* spr, const spe::PhsysicsBody& rhs)
 {
 	this->ptr_Sprite = spr;
-	this->velocity = rhs.velocity;
-	this->mass = rhs.mass;
+	this->Velocity = rhs.Velocity;
+	this->Mass = rhs.Mass;
 	this->exist = rhs.exist;
-	this->gravity = rhs.gravity;
+	this->Gravity = rhs.Gravity;
 }
 
 void spe::PhsysicsBody::init()
 {
 	this->base_component = false;
 	this->exist = false;
-	this->velocity = spe::Vector2(0, 0);
-	this->gravity = 0.0f;
-	this->mass = 0.0f;
+	this->Velocity = spe::Vector2(0, 0);
+	this->Gravity = 0.0f;
+	this->Mass = 0.0f;
 }
 
 // Public functions
@@ -38,9 +38,9 @@ void spe::PhsysicsBody::init()
 void spe::PhsysicsBody::reset()
 {
 	this->exist = false;
-	this->mass = 0.0f;
-	this->velocity = spe::Vector2(0.0f, 0.0f);
-	this->gravity = 0.0f;
+	this->Mass = 0.0f;
+	this->Velocity = spe::Vector2(0.0f, 0.0f);
+	this->Gravity = 0.0f;
 }
 
 void spe::PhsysicsBody::Update()
@@ -48,18 +48,18 @@ void spe::PhsysicsBody::Update()
 	if (!this->exist || this->ptr_Sprite == nullptr) return;
 
 	//ALl Physic calcutions will happen here!
-	spe::Vector2 dir = this->velocity * spe::Time::s_delta_time;
-	dir += this->ptr_Sprite->transform.GetPosition();
+	spe::Vector2 dir = this->Velocity * spe::Time::s_DeltaTime;
+	dir += this->ptr_Sprite->Transform.GetPosition();
 
-	this->ptr_Sprite->transform.SetPosition(dir);
+	this->ptr_Sprite->Transform.SetPosition(dir);
 
 
-	if (this->ptr_Sprite->collider.down && this->velocity.y <= 0)
+	if (this->ptr_Sprite->Collider.Down && this->Velocity.Y <= 0)
 	{
-		this->velocity.y = 0.0f;
+		this->Velocity.Y = 0.0f;
 	}
 
-	this->velocity.y -= this->gravity;
+	this->Velocity.Y -= this->Gravity;
 
 }
 

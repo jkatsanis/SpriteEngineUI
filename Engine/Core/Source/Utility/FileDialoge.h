@@ -24,27 +24,27 @@ namespace spe
 	class FileDialog
 	{
 	private:
-		bool m_closeWindow;
-		bool m_displayTitle;
-		std::string m_icon;
-		std::string m_path;
-		std::string m_firstNodeText;
-		ImVec2 m_windowSize;
-		std::string m_title;
-		bool m_is_open;
+		bool m_CloseWindow;
+		bool m_DisplayTitle;
+		std::string m_Icon;
+		std::string m_Path;
+		std::string m_FirstNodeText;
+		ImVec2 m_WindowSize;
+		std::string m_Title;
+		bool m_IsOpen;
 		float m_FontScale;
-		bool m_show_files;
+		bool m_ShowFiles;
 
 		/// <summary>
 		/// Opens a file and displays the folder recursivly with <ImGui::TreeNodes>, needs to be called by <displayNoded>
 		/// </summary>
-		void openFile(const char* dir_path);
+		void OpenFile(const char* dir_path);
 
-		bool displaySymbol(const std::string& icon, float windowSizeX);
+		bool DisplaySymbol(const std::string& icon, float windowSizeX);
 	public:
-		std::string pathClicked;
-		std::string itemClicked;
-		bool windowFocus;
+		std::string PathClicked;
+		std::string ItemClicked;
+		bool WindowFocus;
 
 		FileDialog();
 
@@ -60,41 +60,41 @@ namespace spe
 		/// <summary>
 		/// Resets the data of the File Dialog
 		/// </summary>
-		void disableWindow();
+		void DisableWindow();
 
 		/// <summary>
 		///  Displays all the nodes including the path you provide
 		/// </summary>
-		void displayNodes();
+		void DisplayNodes();
 
 		/// <summary>
 		/// Closes the window, so it basicly resets all fields
 		/// </summary>
 		/// <returns></returns>
-		bool isWindowClosed() const { return this->m_closeWindow; }
+		bool IsWindowClosed() const { return this->m_CloseWindow; }
 
 		/// <summary>
 		/// Enables the window, cant be drawn without this function
 		/// </summary>
-		void enableWindow();
+		void EnableWindow();
 
 		/// <summary>
 		/// Enables the window, cant be drawn without this function
 		/// </summary>
-		void enableWindow(const std::string& title);
+		void EnableWindow(const std::string& title);
 
 		/// <summary>
 		/// Sets the first node of the file dialoge, ONLY CHANGES THE LOOK!!
 		/// </summary>
-		void setFirstNode(const std::string& top) { this->m_firstNodeText = top; }
+		void SetFirstNode(const std::string& top) { this->m_FirstNodeText = top; }
 
-		void update();
+		void Update();
 
 		bool IsItemSelected();
 
 	public:
-		static std::string getEmptyStringBetween(const std::string& content, const std::string& name, float padding);
-		static bool checkIfADirHasSubItems(const std::string& dir, bool show_files);
+		static std::string GetEmptyStringBetween(const std::string& content, const std::string& name, float padding);
+		static bool CheckIfADirHasSubItems(const std::string& dir, bool show_files);
 	};
 }
 

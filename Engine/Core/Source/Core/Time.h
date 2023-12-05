@@ -8,21 +8,21 @@ namespace spe
 	class Time
 	{
 	private:
-		static float s_second_counter;
-		static float m_tempFps;
+		static float m_SecondCounter;
+		static float m_TempFPS;
 
 	public:
-		static float s_fps;
-		static float s_time_passed;
-		static float s_ticks;
+		static float s_FPS;
+		static float s_TimePassed;
+		static float s_Ticks;
 
-		static float s_delta_time;
-		static sf::Clock s_delta_clock;
+		static float s_DeltaTime;
+		static sf::Clock s_DeltaClock;
 
 		Time() = delete;
 
-		static void update();
-		static void reset();
+		static void Update();
+		static void Reset() noexcept;
 	};
 
 }

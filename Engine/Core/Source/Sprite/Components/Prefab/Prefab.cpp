@@ -13,23 +13,23 @@ spe::Prefab::Prefab()
 spe::Prefab::Prefab(spe::Sprite* m_attached)
 {
 	this->init();
-	this->m_ptr_attachedSprite = m_attached;
+	this->m_ptr_Sprite = m_attached;
 }
 
 spe::Prefab::Prefab(spe::Sprite* m_attached, const spe::Prefab& rhs)
 {
-	this->m_ptr_attachedSprite = m_attached;
-	this->file_name = rhs.file_name;
+	this->m_ptr_Sprite = m_attached;
+	this->FileName = rhs.FileName;
 	this->exist = rhs.exist;
-	this->path_to_old_file = rhs.path_to_old_file;
-	this->user_path_to_file = rhs.user_path_to_file;
+	this->PathToOldFile = rhs.PathToOldFile;
+	this->PathToFile = rhs.PathToFile;
 }
 
 void spe::Prefab::init()
 {
-	this->m_ptr_attachedSprite = nullptr;
+	this->m_ptr_Sprite = nullptr;
 	this->exist = false;
-	this->load_in_memory = false;
+	this->LoadInMemory = false;
 }
 
 // Public functions
@@ -39,18 +39,18 @@ void spe::Prefab::reset()
 	//TODO: delete file 
 
 	this->exist = false;
-	this->file_name = "";
-	this->load_in_memory = false;
-	this->user_path_to_file = "";
-	this->path_to_old_file = "";
+	this->FileName = "";
+	this->LoadInMemory = false;
+	this->PathToFile = "";
+	this->PathToOldFile = "";
 }
 
-void spe::Prefab::updateProps(const std::string& userPath, const std::string& pathToOldFile, const std::string fileName)
+void spe::Prefab::UpdateProps(const std::string& userPath, const std::string& pathToOldFile, const std::string fileName)
 {
 	this->exist = true;
-	this->user_path_to_file = userPath;
-	this->file_name = fileName;
-	this->path_to_old_file = pathToOldFile;
+	this->PathToFile = userPath;
+	this->FileName = fileName;
+	this->PathToOldFile = pathToOldFile;
 }
 
 void spe::Prefab::UpdatePath()
@@ -59,19 +59,19 @@ void spe::Prefab::UpdatePath()
 	{
 		return;
 	}
-	this->path_to_old_file = this->user_path_to_file;
+	this->PathToOldFile = this->PathToFile;
 	std::string newPath = "";
 
-	size_t erase = this->user_path_to_file.size() - file_name.size();
+	size_t erase = this->PathToFile.size() - FileName.size();
 
 	for (int i = 0; i < erase + 1; i++)
 	{
-		newPath.push_back(this->user_path_to_file[i]);
+		newPath.push_back(this->PathToFile[i]);
 	}
 	newPath.pop_back();
 
-	newPath += this->m_ptr_attachedSprite->name + EXTENSION_PREFAB_FILE;
-	this->user_path_to_file = newPath;
+	newPath += this->m_ptr_Sprite->Name + EXTENSION_PREFAB_FILE;
+	this->PathToFile = newPath;
 }
 
 void spe::Prefab::UpdateName()
@@ -80,6 +80,6 @@ void spe::Prefab::UpdateName()
 	{
 		return;
 	}
-	std::vector<std::string> parts = spe::Utility::Split(this->user_path_to_file, '\\');
-	this->file_name = parts[parts.size() - 1];
+	std::vector<std::string> parts = spe::Utility::Split(this->PathToFile, '\\');
+	this->FileName = parts[parts.size() - 1];
 }

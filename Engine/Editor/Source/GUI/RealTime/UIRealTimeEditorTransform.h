@@ -13,28 +13,28 @@ namespace spe
 	class UIRealTimeEditorTransform : public spe::IUIBase
 	{
 	private:
-		bool m_realeasedCursorOnSprite;
+		bool m_RealeasedCursorOnSprite;
 		spe::GameWindow* m_ptr_Window;
-		spe::Vector2 m_cursorWorldPos;
-		ScaleDott m_scale_dotts[SCALE_DOTTS];
-		spe::Vector2 m_currentCursorPos;
+		spe::Vector2 m_CursorWorldPos;
+		ScaleDott m_ScaleDotts[SCALE_DOTTS];
+		spe::Vector2 m_CurrentCursorPos;
 
-		spe::Sprite* m_clickedSprite;
-		int m_clickedSpriteId;
+		spe::Sprite* m_ptr_ClickedSprite;
+		int m_ClickedSpriteId;
 
-		void moveComponent();
+		void MoveComponent();
 
-		bool checkClick(spe::Sprite* const sprite);
-		spe::Sprite* checkIfMouseClickedOnSprite();
+		bool CheckClick(spe::Sprite* const sprite);
+		spe::Sprite* CheckIfMouseClickedOnSprite();
 
-		void scaleChanger(spe::Sprite* focusedSprite);
+		void ScaleChanger(spe::Sprite* focusedSprite);
 
-		void reset();
-		void setPos(const sf::Vector2f pos[]);
-		void getPos(const spe::Sprite* focusedSprite, sf::Vector2f pos[]);
+		void Reset();
+		void SetPos(const sf::Vector2f pos[]);
+		void GetPos(const spe::Sprite* focusedSprite, sf::Vector2f pos[]);
 
-		void renderDolls();
-		void unrenderDolls();
+		void RenderDolls();
+		void RnrenderDolls();
 
 		void Init() override;
 	public: 

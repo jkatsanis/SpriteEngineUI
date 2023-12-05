@@ -15,18 +15,18 @@ namespace spe
     class SpriteRepository : public spe::Repository<spe::Sprite>
     {
     private:
-        std::list<spe::Sprite*> m_sprites;
+        std::list<spe::Sprite*> m_Sprites;
 
-        uint32_t getIdWithName(const std::string& name) const;
-        void addChildsToDelete(std::vector<spe::Sprite*>& childs, spe::Sprite* parent);
-        void eraseWithIdx(uint32_t id);
-        void sortSpritesByLayer(spe::Sprite* spr);
+        uint32_t GetIdWithName(const std::string& name) const;
+        void AddChildsToDelete(std::vector<spe::Sprite*>& childs, spe::Sprite* parent);
+        void EraseWithIdx(uint32_t id);
+        void SortSpritesByLayer(spe::Sprite* spr);
         void ValidateAdd(spe::Sprite* spr);
     public:
         std::vector<std::string> Tags;
 
-        bool* isFullScreened;
-        bool main_content_iniitialied;
+        bool* IsFullScreened;
+        bool Initialized;
 
         SpriteRepository();
         ~SpriteRepository();
@@ -47,9 +47,9 @@ namespace spe
         // getter
         bool ExistWithId(uint32_t id);
         uint32_t GetListIndex(spe::Sprite* sprite);
-        std::list<spe::Sprite*>& GetSprites() { return  this->m_sprites; }
-        const std::list<spe::Sprite*>& GetSpritesC() const { return  this->m_sprites; }
-        uint32_t GetAmount() const override { return (uint32_t)this->m_sprites.size(); }
+        std::list<spe::Sprite*>& GetSprites() { return  this->m_Sprites; }
+        const std::list<spe::Sprite*>& GetSpritesC() const { return  this->m_Sprites; }
+        uint32_t GetAmount() const override { return (uint32_t)this->m_Sprites.size(); }
         spe::Sprite* GetById(uint32_t idx) override;
         spe::Sprite* GetByName(const std::string& name) override;
         uint32_t GetHighestLayer() const { return this->m_HighestLayer; }
@@ -63,8 +63,8 @@ namespace spe
         void SetSpriteSortingLayer(uint32_t layer, spe::Sprite* id);
 
     public:
-        static void getAllChilds(std::vector<const spe::Sprite*>& childs, const spe::Sprite* parent);
-        static spe::Sprite* getWithId(std::vector<spe::Sprite*>& collection, uint32_t id);
+        static void GetAllChilds(std::vector<const spe::Sprite*>& childs, const spe::Sprite* parent);
+        static spe::Sprite* GetWithId(std::vector<spe::Sprite*>& collection, uint32_t id);
     };
 }
 

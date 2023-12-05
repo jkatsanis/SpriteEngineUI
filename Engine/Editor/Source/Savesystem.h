@@ -24,7 +24,7 @@ namespace spe
 	public:
 		Savesystem() = delete;
 
-		static void CreateAnimationSaveFile(const spe::Sprite* ptr_sprite, const spe::Animation& animationToSave, const spe::SpriteRepository* sprites);
+		static void CreateAnimationSaveFile(const spe::Sprite* ptr_sprite, const spe::Animation& animationToSave);
 
 		static void UpdateSceneFile(const spe::SceneHandler& handler);
 		static void UpdateSpriteFile(const spe::SpriteRepository& repo);

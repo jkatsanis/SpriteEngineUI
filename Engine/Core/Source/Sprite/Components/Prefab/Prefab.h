@@ -10,7 +10,7 @@ namespace spe
 	class Prefab : public spe::Component
 	{
 	private:
-		spe::Sprite* m_ptr_attachedSprite;
+		spe::Sprite* m_ptr_Sprite;
 		void init() override;
 	public:
 
@@ -18,17 +18,17 @@ namespace spe
 		/// Path from the user to the file
 		/// Example: assets\\prefabs\\hello.prfb
 		/// </summary>
-		std::string user_path_to_file;
+		std::string PathToFile;
 
 		/// <summary>
 		/// The file name of the active file. This may not be the actual prefab
 		/// sprite name because it didnt get upated yet
 		/// </summary>
-		std::string path_to_old_file;
+		std::string PathToOldFile;
 
-		std::string file_name;
+		std::string FileName;
 
-		bool load_in_memory;
+		bool LoadInMemory;
 	
 		Prefab();
 		Prefab(spe::Sprite* m_attached);
@@ -42,7 +42,7 @@ namespace spe
 		void UpdatePath();
 		void UpdateName();
 
-		void updateProps(const std::string& userPath, const std::string& pathToOldFile, const std::string fileName);
+		void UpdateProps(const std::string& userPath, const std::string& pathToOldFile, const std::string fileName);
 	};
 }
 

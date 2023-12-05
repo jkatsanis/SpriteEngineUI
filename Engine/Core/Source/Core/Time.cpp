@@ -1,41 +1,41 @@
 #include "Time.h"
 
-void spe::Time::update()
+void spe::Time::Update()
 {
-	sf::Time dt = s_delta_clock.restart();
-	spe::Time::s_delta_time = dt.asSeconds();
+	sf::Time dt = s_DeltaClock.restart();
+	spe::Time::s_DeltaTime = dt.asSeconds();
 
-	if (s_second_counter <= 1) {
-		s_second_counter += s_delta_time;
-		m_tempFps++;
+	if (m_SecondCounter <= 1) {
+		m_SecondCounter += s_DeltaTime;
+		m_TempFPS++;
 	}
 	else
 	{
-		s_fps = m_tempFps;
-		s_second_counter = 0;
-		m_tempFps = 0;
+		s_FPS = m_TempFPS;
+		m_SecondCounter = 0;
+		m_TempFPS = 0;
 	}
 
-	s_ticks++;
+	s_Ticks++;
 
-	s_time_passed += s_delta_time;	
+	s_TimePassed += s_DeltaTime;	
 }
 
-void spe::Time::reset()
+void spe::Time::Reset() noexcept
 {
-	spe::Time::s_fps = 0;
-	spe::Time::s_delta_time = 0;
-	spe::Time::s_second_counter = 0;
-	spe::Time::m_tempFps = 0;
+	spe::Time::s_FPS = 0;
+	spe::Time::s_DeltaTime = 0;
+	spe::Time::m_SecondCounter = 0;
+	spe::Time::m_TempFPS = 0;
 }
 
-float spe::Time::s_delta_time = 0;
-sf::Clock spe::Time::s_delta_clock;
+float spe::Time::s_DeltaTime = 0;
+sf::Clock spe::Time::s_DeltaClock;
 
-float spe::Time::s_second_counter = 0;
-float spe::Time::m_tempFps = 0;
+float spe::Time::m_SecondCounter = 0;
+float spe::Time::m_TempFPS = 0;
 
-float spe::Time::s_fps = 0;
-float spe::Time::s_ticks = 0;
-float spe::Time::s_time_passed = 0;
+float spe::Time::s_FPS = 0;
+float spe::Time::s_Ticks = 0;
+float spe::Time::s_TimePassed = 0;
 

@@ -15,14 +15,14 @@ namespace spe
 	class Light : public spe::Component
 	{
 	private:
-		uint32_t m_light_index;
-		float m_radius;
-		bool m_radius_changed;
-		sf::Vector3f m_color;
-		bool m_color_changed;
+		uint32_t m_LightIndex;
+		float m_Radius;
+		bool m_RadiusChanged;
+		sf::Vector3f m_Color;
+		bool m_ColorChanged;
 
-		float m_intensity;
-		bool m_intensity_changed;
+		float m_Intensity;
+		bool m_IntensityChanged;
 
 
 		void init() override;
@@ -34,26 +34,26 @@ namespace spe
 		Light(Sprite* ptr_sprite, spe::LightRepository* ptr);
 		Light(Sprite* ptr_sprite, const spe::Light& rhs);
 	
-		uint32_t getLightIndex() const { return this->m_light_index; }
-		void deleteLight();
-		void enable();
+		uint32_t GetLightIndex() const noexcept { return this->m_LightIndex; }
+		void DeleteLight();
+		void Enable();
 		void reset() override;
 
-		const sf::Vector3f& getColor() const { return this->m_color; }
-		void setColor(const sf::Vector3f& color);
-		bool hasColorChanged() const { return this->m_color_changed; }
-		void setColorChangeFlag() { this->m_color_changed = false; }
+		const sf::Vector3f& GetColor() const noexcept { return this->m_Color; }
+		void SetColor(const sf::Vector3f& color) noexcept;
+		bool HasColorChanged() const noexcept { return this->m_ColorChanged; }
+		void SetColorChangeFlag() noexcept { this->m_ColorChanged = false; }
 
 
-		void setIntensity(float intense);
-		float getIntensity() const { return this->m_intensity; }
-		bool hasIntensityChanged() const { return this->m_intensity_changed; }
-		void setIntensityChangeFlagFalse() { this->m_intensity_changed = false; }
+		void SetIntensity(float intense) noexcept;
+		float GetIntensity() const noexcept { return this->m_Intensity; }
+		bool HasIntensityChanged() const noexcept { return this->m_IntensityChanged; }
+		void SetIntensityChangeFlagFalse() noexcept { this->m_IntensityChanged = false; }
 
-		void setRadius(float radius);
-		float getRadius() const { return this->m_radius; }
-		bool hasRadiusChanged() const { return this->m_radius_changed; }
-		void setRadiosChangeFlagFalse() { this->m_radius_changed = false; };
+		void SetRadius(float radius) noexcept;
+		float GetRadius() const noexcept { return this->m_Radius; }
+		bool HasRadiusChanged() const noexcept  { return this->m_RadiusChanged; }
+		void SetRadiosChangeFlagFalse() noexcept { this->m_RadiusChanged = false; };
 	};
 }
 

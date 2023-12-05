@@ -7,103 +7,103 @@ namespace spe
 {
     void LightRepository::Init(const std::string& shader)
     {
-        this->m_update = true;
-        this->m_index = 0;
-        if (!m_light_shader.loadFromFile(shader, sf::Shader::Fragment))
+        this->m_Update = true;
+        this->m_Index = 0;
+        if (!m_LightShader.loadFromFile(shader, sf::Shader::Fragment))
         {
             spe::Log::LogString("Could not load light shader");
         }
     }
 
 
-    void LightRepository::updateLightSource(spe::Sprite* sprite, spe::Camera* cam)
+    void LightRepository::UpdateLightSource(spe::Sprite* sprite, spe::Camera* cam)
     {
-        if (!sprite->light.exist)
+        if (!sprite->Light.exist)
         {
             return;
         }
 
-        uint32_t idx = sprite->light.getLightIndex();
-        spe::LightSource& source = m_light_sources[idx];
+        uint32_t idx = sprite->Light.GetLightIndex();
+        spe::LightSource& source = m_LightSources[idx];
 
-        if (sprite->transform.position_changed || cam->hasZoomChanged())
+        if (sprite->Transform.PositionChanged || cam->HasZoomChanged())
         {
-            sprite->transform.position_changed = false;
-            m_update = true;
+            sprite->Transform.PositionChanged = false;
+            m_Update = true;
 
-            float zoom = cam->getZoom() - 1;
+            float zoom = cam->GetZoom() - 1;
 
-            const float a = ((sprite->transform.GetPosition().y * -1) + 540) + 540 * zoom;
-            spe::Vector2 new_pos = spe::Vector2((sprite->transform.GetPosition().x + 960) + 960 * zoom, a);
+            const float a = ((sprite->Transform.GetPosition().Y * -1) + 540) + 540 * zoom;
+            spe::Vector2 new_pos = spe::Vector2((sprite->Transform.GetPosition().X + 960) + 960 * zoom, a);
 
-            source.position = new_pos;
+            source.Position = new_pos;
         }
-        if (sprite->light.hasRadiusChanged())
+        if (sprite->Light.HasRadiusChanged())
         {
-            m_update = true;
+            m_Update = true;
 
-            sprite->light.setRadiosChangeFlagFalse();
-            source.radius = sprite->light.getRadius();
+            sprite->Light.SetRadiosChangeFlagFalse();
+            source.Radius = sprite->Light.GetRadius();
         }
-        if (sprite->light.hasIntensityChanged())
+        if (sprite->Light.HasIntensityChanged())
         {
-            m_update = true;
+            m_Update = true;
 
-            sprite->light.setIntensityChangeFlagFalse();
-            source.light_intensities = sprite->light.getIntensity();
+            sprite->Light.SetIntensityChangeFlagFalse();
+            source.LightIntensity = sprite->Light.GetIntensity();
         }
-        if (sprite->light.hasColorChanged())
+        if (sprite->Light.HasColorChanged())
         {
-            m_update = true;
+            m_Update = true;
 
-            sprite->light.setColorChangeFlag();
-            source.color = sprite->light.getColor();
+            sprite->Light.SetColorChangeFlag();
+            source.Color = sprite->Light.GetColor();
         }
     }
 
-    void LightRepository::updateSprite(spe::Sprite* sprite, spe::Camera* cam)
+    void LightRepository::UpdateSprite(spe::Sprite* sprite, spe::Camera* cam)
     {
-        if (!sprite->light.exist)
+        if (!sprite->Light.exist)
         {
             return;
         }
-        updateLightSource(sprite, cam);
-        updateArrays();
+        UpdateLightSource(sprite, cam);
+        UpdateArrays();
     }
 
-    void LightRepository::add(const spe::Vector2& pos, float radius, float intensity, const sf::Vector3f& color)
+    void LightRepository::Add(const spe::Vector2& pos, float radius, float intensity, const sf::Vector3f& color)
     {
         float zoom = 1;
 
-        const float a = ((pos.y * -1) + 540) + 540 * zoom;
-        spe::Vector2 new_pos = spe::Vector2((pos.x + 960) + 960 * zoom, a);
+        const float a = ((pos.Y * -1) + 540) + 540 * zoom;
+        spe::Vector2 new_pos = spe::Vector2((pos.X + 960) + 960 * zoom, a);
 
-        m_index++;
-        m_light_sources[m_index] = spe::LightSource(new_pos, radius, intensity, color);
+        m_Index++;
+        m_LightSources[m_Index] = spe::LightSource(new_pos, radius, intensity, color);
 
-        m_update = true;
-        updateArrays();
+        m_Update = true;
+        UpdateArrays();
     }
 
-    void LightRepository::remove(uint32_t index)
+    void LightRepository::Remove(uint32_t index)
     {
-        m_light_sources.erase(index);
+        m_LightSources.erase(index);
 
-        m_update = true;
-        updateArrays();
+        m_Update = true;
+        UpdateArrays();
     }
 
-    void LightRepository::moveLightSource(uint32_t idx, const spe::Vector2& pos)
+    void LightRepository::MoveLightSource(uint32_t idx, const spe::Vector2& pos)
     {
-        auto it = m_light_sources.find(idx);
+        auto it = m_LightSources.find(idx);
 
-        if (it != m_light_sources.end())
+        if (it != m_LightSources.end())
         {
-            it->second.position = pos;
+            it->second.Position = pos;
 
-            sf::Vector2f* lightPositions = getPositionArray();
+            sf::Vector2f* lightPositions = GetPositionArray();
 
-            m_light_shader.setUniformArray("lightPositions", lightPositions, m_light_sources.size());
+            m_LightShader.setUniformArray("lightPositions", lightPositions, m_LightSources.size());
 
             delete[] lightPositions;
         }
@@ -113,14 +113,14 @@ namespace spe
         }
     }
 
-    void LightRepository::updateArrays()
+    void LightRepository::UpdateArrays()
     {
-        if (!m_update)
+        if (!m_Update)
         {
             return;
         }
-        m_update = false;
-        size_t size = m_light_sources.size();
+        m_Update = false;
+        size_t size = m_LightSources.size();
 
         if (size == 0)
         {
@@ -140,21 +140,21 @@ namespace spe
         lightColors[0] = sf::Vector3f(0, 0, 0);
 
         size_t i = 0;
-        for (const auto& pair : m_light_sources)
+        for (const auto& pair : m_LightSources)
         {
             const LightSource& source = pair.second;
-            lightPositions[i] = spe::Vector2::toImVec2(source.position);
-            lightRadii[i] = source.radius;
-            lightIntensities[i] = source.light_intensities;
-            lightColors[i] = sf::Vector3f(source.color.x, source.color.y, source.color.z);
+            lightPositions[i] = spe::Vector2::toImVec2(source.Position);
+            lightRadii[i] = source.Radius;
+            lightIntensities[i] = source.LightIntensity;
+            lightColors[i] = sf::Vector3f(source.Color.x, source.Color.y, source.Color.z);
             i++;
         }
 
-        m_light_shader.setUniform("lightAmount", (int)size);
-        m_light_shader.setUniformArray("lightPositions", lightPositions, size);
-        m_light_shader.setUniformArray("lightRadii", lightRadii, size);
-        m_light_shader.setUniformArray("lightIntensities", lightIntensities, size);
-        m_light_shader.setUniformArray("lightColors", lightColors, size);
+        m_LightShader.setUniform("lightAmount", (int)size);
+        m_LightShader.setUniformArray("lightPositions", lightPositions, size);
+        m_LightShader.setUniformArray("lightRadii", lightRadii, size);
+        m_LightShader.setUniformArray("lightIntensities", lightIntensities, size);
+        m_LightShader.setUniformArray("lightColors", lightColors, size);
 
         delete[] lightPositions;
         delete[] lightRadii;
@@ -162,15 +162,15 @@ namespace spe
         delete[] lightColors;
     }
 
-    sf::Vector2f* LightRepository::getPositionArray()
+    sf::Vector2f* LightRepository::GetPositionArray()
     {
-        const size_t size = m_light_sources.size();
+        const size_t size = m_LightSources.size();
         sf::Vector2f* lightPositions = new sf::Vector2f[size];
 
         size_t i = 0;
-        for (const auto& pair : m_light_sources)
+        for (const auto& pair : m_LightSources)
         {
-            lightPositions[i] = spe::Vector2::toSFVector(pair.second.position);
+            lightPositions[i] = spe::Vector2::toSFVector(pair.second.Position);
             i++;
         }
 

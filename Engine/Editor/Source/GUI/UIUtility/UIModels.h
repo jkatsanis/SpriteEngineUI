@@ -16,9 +16,9 @@ namespace spe
 {
 	struct KeyFrameSelected
 	{
-		int position;
-		const spe::KeyFrame* keyFrameSelected;
-		bool isClicked;
+		int Position;
+		const spe::KeyFrame* KeyFrameSelected;
+		bool IsClicked;
 	};
 	enum class EditorTools
 	{
@@ -29,24 +29,24 @@ namespace spe
 	struct Tool
 	{
 		EditorTools tool;
-		bool background;
-		std::string icon;
-		std::string tool_name;
+		bool Background;
+		std::string Icon;
+		std::string Name;
 
 		Tool(const EditorTools tool, const std::string& icon, const std::string& name)
 		{
-			this->tool_name = name;
-			this->background = false;
+			this->Name = name;
+			this->Background = false;
 			this->tool = tool;
-			this->icon = icon;
+			this->Icon = icon;
 		}
 
 		Tool()
 		{
-			this->tool_name = "";
-			this->background = false;
+			this->Name = "";
+			this->Background = false;
 			this->tool = spe::EditorTools::PositionTool;
-			this->icon = "";
+			this->Icon = "";
 		}
 	};
 	struct UIWindowData 
@@ -66,8 +66,8 @@ namespace spe
 	};
 	struct ResizeWindowData
 	{
-		float additinal_add;
-		bool clicked_on_resize_button;
+		float AdditionalAdd;
+		bool ClickedOnResizeButton;
 	};
 	struct Rectangle
 	{
@@ -101,19 +101,19 @@ namespace spe
 	{
 		std::string AbsulutePath;
 		std::string relativePath;
-		std::string name;
-		std::string lastOpened;
+		std::string Name;
+		std::string LastOpened;
 
 		UserProjectInfo()
 		{
-			this->lastOpened = "none";
+			this->LastOpened = "none";
 			this->AbsulutePath = "none";
-			this->name = "none";
+			this->Name = "none";
 		}
 		UserProjectInfo(std::string name, std::string abspath, std::string lastOpened, std::string relativePath)
 		{
-			this->lastOpened = lastOpened;
-			this->name = name;
+			this->LastOpened = lastOpened;
+			this->Name = name;
 			this->AbsulutePath = abspath;
 			this->relativePath = relativePath;
 
@@ -121,7 +121,7 @@ namespace spe
 	};
 	struct ScaleDott
 	{
-		spe::Rectangle* ptr_scaling_rectangle;
-		bool clicked;
+		spe::Rectangle* ptr_ScalingRec;
+		bool Clicked;
 	};
 }

@@ -4,17 +4,17 @@
 
 float spe::UIUtility::scaleChanger(spe::ScaleDott& dott, float default_size, float pos_o, bool x)
 {
-    if (spe::UIUtility::isCursorClickedOnRectangle(dott.ptr_scaling_rectangle->Shape))
+    if (spe::UIUtility::IsCursorClickedOnRectangle(dott.ptr_ScalingRec->Shape))
     {
-        dott.clicked = true;
+        dott.Clicked = true;
     }
-    if (dott.clicked && sf::Mouse::isButtonPressed(sf::Mouse::Left))
+    if (dott.Clicked && sf::Mouse::isButtonPressed(sf::Mouse::Left))
     {
         sf::Vector2f pos = (x)
-            ? sf::Vector2f(spe::UIUtility::getWorldCordinates().x, dott.ptr_scaling_rectangle->Shape.getPosition().y)
-            : sf::Vector2f(dott.ptr_scaling_rectangle->Shape.getPosition().x,spe::UIUtility::getWorldCordinates().y);
+            ? sf::Vector2f(spe::UIUtility::GetWorldCordinates().X, dott.ptr_ScalingRec->Shape.getPosition().y)
+            : sf::Vector2f(dott.ptr_ScalingRec->Shape.getPosition().x,spe::UIUtility::GetWorldCordinates().Y);
 
-        dott.ptr_scaling_rectangle->Shape.setPosition(pos);
+        dott.ptr_ScalingRec->Shape.setPosition(pos);
         float scale = INVALID_SCALE;
         if (x)
         {
@@ -35,7 +35,7 @@ float spe::UIUtility::scaleChanger(spe::ScaleDott& dott, float default_size, flo
 
 void spe::UIUtility::UpdateCursor()
 {
-    spe::UIUtility::WorldCursor.Position = spe::UIUtility::getWorldCordinates();
+    spe::UIUtility::WorldCursor.Position = spe::UIUtility::GetWorldCordinates();
     spe::UIUtility::WorldCursor.SetLastPosition();
 
     spe::UIUtility::GUICursor.Position = spe::Vector2(ImGui::GetMousePos().x, ImGui::GetMousePos().y);
@@ -52,7 +52,7 @@ float spe::UIUtility::yScaleChanger(spe::ScaleDott& dott, float default_size, fl
     return spe::UIUtility::scaleChanger(dott, default_size, pos_y, false);
 }
 
-bool spe::UIUtility::isCursorClickedOnSprite(const spe::Sprite* check)
+bool spe::UIUtility::IsCursorClickedOnSprite(const spe::Sprite* check)
 {
     if (!sf::Mouse::isButtonPressed(sf::Mouse::Left))
     {
@@ -61,19 +61,19 @@ bool spe::UIUtility::isCursorClickedOnSprite(const spe::Sprite* check)
     sf::Vector2i cursorPos = sf::Mouse::getPosition(*spe::UIUtility::s_m_ptr_Window);
     spe::UIUtility::WorldCursor.Position = spe::UIUtility::s_m_ptr_Window->mapPixelToCoords(cursorPos);
 
-    float getPosX = check->transform.getOrigininalPosition().x;
-    float getPosY = check->transform.getOrigininalPosition().y;
+    float getPosX = check->Transform.GetOrigininalPosition().X;
+    float getPosY = check->Transform.GetOrigininalPosition().Y;
 
-    float otherGetPosX = spe::UIUtility::WorldCursor.Position.x;
-    float otherGetPosY = spe::UIUtility::WorldCursor.Position.y;
+    float otherGetPosX = spe::UIUtility::WorldCursor.Position.X;
+    float otherGetPosY = spe::UIUtility::WorldCursor.Position.Y;
 
-    return (getPosX + check->transform.texture_size.x >= otherGetPosX
+    return (getPosX + check->Transform.TextureSize.X >= otherGetPosX
         && getPosX <= otherGetPosX + CURSOR_HITBOX
-        && getPosY + check->transform.texture_size.y >= otherGetPosY
+        && getPosY + check->Transform.TextureSize.Y >= otherGetPosY
         && getPosY <= otherGetPosY + CURSOR_HITBOX);
 }
 
-spe::Vector2 spe::UIUtility::getWorldCordinates()
+spe::Vector2 spe::UIUtility::GetWorldCordinates()
 {
     const sf::Vector2i cursorPos = sf::Mouse::getPosition(*spe::UIUtility::s_m_ptr_Window);
     const sf::Vector2f cursorWorldPos = spe::UIUtility::s_m_ptr_Window->mapPixelToCoords(cursorPos);
@@ -81,14 +81,9 @@ spe::Vector2 spe::UIUtility::getWorldCordinates()
     return spe::Vector2(cursorWorldPos.x, cursorWorldPos.y);
 }
 
-void spe::UIUtility::setCursorToWorldCoordinates(const spe::Vector2& vec)
+bool spe::UIUtility::IsCursorClickedOnRectangle(const sf::RectangleShape& shape)
 {
-    throw std::runtime_error("ndf,klg");
-}
-
-bool spe::UIUtility::isCursorClickedOnRectangle(const sf::RectangleShape& shape)
-{
-    if (spe::Event::MousePressedLeft != spe::UIUtility::s_m_ptr_Event->type)
+    if (spe::Event::MousePressedLeft != spe::UIUtility::s_m_ptr_Event->Type)
     {
         return false;
     }
@@ -99,8 +94,8 @@ bool spe::UIUtility::isCursorClickedOnRectangle(const sf::RectangleShape& shape)
     float getTextureSizeX = shape.getSize().x;
     float getTextureSizeY = shape.getSize().y;
 
-    float otherGetPosX = spe::UIUtility::WorldCursor.Position.x;
-    float otherGetPosY = spe::UIUtility::WorldCursor.Position.y;
+    float otherGetPosX = spe::UIUtility::WorldCursor.Position.X;
+    float otherGetPosY = spe::UIUtility::WorldCursor.Position.Y;
 
     bool collided = (getPosX + getTextureSizeX >= otherGetPosX
         && getPosX <= otherGetPosX + CURSOR_HITBOX
@@ -108,7 +103,7 @@ bool spe::UIUtility::isCursorClickedOnRectangle(const sf::RectangleShape& shape)
         && getPosY <= otherGetPosY + CURSOR_HITBOX);
 
     if (collided)
-        spe::UIUtility::s_m_ptr_Event->type = spe::Event::None;
+        spe::UIUtility::s_m_ptr_Event->Type = spe::Event::None;
 
     return collided;
 }
@@ -117,8 +112,8 @@ void spe::UIUtility::SetWindowScreenMiddle(const ImVec2& ref)
 {
     ImVec2 size = spe::Vector2::toImVec2(ref);
     ImVec2 newPos = ImVec2(spe::Vector2::
-        toImVec2(spe::Vector2(spe::Vector2::SCREEN_MIDDLE.x - size.x / 2,
-            spe::Vector2::SCREEN_MIDDLE.y - size.y / 2)));
+        toImVec2(spe::Vector2(spe::Vector2::SCREEN_MIDDLE.X - size.x / 2,
+            spe::Vector2::SCREEN_MIDDLE.Y - size.y / 2)));
 
     ImGui::SetWindowSize(size);
     ImGui::SetWindowPos(newPos);
@@ -166,7 +161,7 @@ void spe::UIUtility::DrawRectangleInGUIWIndow(const ImVec2& size, const ImVec2& 
 
 bool spe::UIUtility::IsHovered(const ImVec2& windowPos, const ImVec2& windowSize)
 {
-    ImVec2 mousePos = ImVec2(spe::UIUtility::GUICursor.Position.x, spe::UIUtility::GUICursor.Position.y);
+    ImVec2 mousePos = ImVec2(spe::UIUtility::GUICursor.Position.X, spe::UIUtility::GUICursor.Position.Y);
 
     return mousePos.x >= windowPos.x && mousePos.x <= windowPos.x + windowSize.x &&
         mousePos.y >= windowPos.y && mousePos.y <= windowPos.y + windowSize.y;
