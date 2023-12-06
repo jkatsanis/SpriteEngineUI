@@ -5,11 +5,11 @@ namespace spe
 	class Component
 	{
 	public:
-		bool exist;
-		bool base_component;
+		bool Exist;
+		bool BaseComponent;
 
-		virtual void reset() = 0;
+		virtual void Reset() = 0;
 	protected:
-		virtual void init() = 0;
+		virtual void Init() = 0;
 	};
 }

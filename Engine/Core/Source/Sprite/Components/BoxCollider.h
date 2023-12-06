@@ -21,7 +21,7 @@ namespace spe
 		bool m_GotUp;
 		bool m_GotDown;
 
-		void init() override;
+		void Init() override;
 		bool CheckCollision(spe::BoxCollider& other);
 		void CheckCollisionPosition(spe::BoxCollider& other) noexcept;
 		void ResetPosition() noexcept;
@@ -50,7 +50,7 @@ namespace spe
 		//Giving it a pointer, so we dont have to update it consistently
 		BoxCollider(spe::Sprite* ptr_sprite);
 	
-		void reset() override;
+		void Reset() override;
 		void Update(spe::SpriteRepository& tocheck);
 
 		// User utility

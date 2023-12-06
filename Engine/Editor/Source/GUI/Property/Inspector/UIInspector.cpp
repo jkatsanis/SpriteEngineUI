@@ -1,6 +1,20 @@
 #include "UIInspector.h"
 #include "UIInspector.h"
 
+// Constructor
+
+spe::UIInspector::UIInspector()
+	: m_ptr_ColliderRec(nullptr),
+	m_ptr_SpriteRec(nullptr),
+	m_SpriteInputWidth(0.0f),
+	m_DupeNameEditorTimer(0.0f),
+	m_WindowSizeWidth(0.0f),
+	m_ComponentSelected(),
+	m_InputName(nullptr),
+	m_LightRadius(0.0f),
+	m_LightIntensity(0.0f),
+	m_CamZoom(0.0f),
+	State(spe::InspectorState::None) { }
 
 void spe::UIInspector::Init()
 {
@@ -63,10 +77,10 @@ void spe::UIInspector::RenderComponentOptions(spe::Component& component, const s
 	{
 		if (spe::Style::DisplaySymbolInMenuItemWithText(ICON_FA_RETWEET, "Reset", 30))
 		{
-			component.reset();
-			component.exist = true;
+			component.Reset();
+			component.Exist = true;
 		}
-		if (!component.base_component)
+		if (!component.BaseComponent)
 		{
 			if (spe::Style::DisplaySymbolInMenuItemWithText(ICON_FA_TRASH, "Delete", 30))
 			{
@@ -75,8 +89,8 @@ void spe::UIInspector::RenderComponentOptions(spe::Component& component, const s
 					childPtr->DeleteLight();
 				}
 
-				component.reset();
-				component.exist = false;
+				component.Reset();
+				component.Exist = false;
 			}
 		}
 		ImGui::EndPopup();
@@ -299,22 +313,22 @@ void spe::UIInspector::SetCompontents()
 {
 	if (this->m_ComponentSelected == "BoxCollider")
 	{
-		this->m_ptr_GUIRepo->InspectorSprite->Collider.exist = true;
+		this->m_ptr_GUIRepo->InspectorSprite->Collider.Exist = true;
 		this->m_ComponentSelected = " ";
 	}
 	if (this->m_ComponentSelected == "PhysicsBody")
 	{
-		this->m_ptr_GUIRepo->InspectorSprite->Physicsbody.exist = true;
+		this->m_ptr_GUIRepo->InspectorSprite->Physicsbody.Exist = true;
 		this->m_ComponentSelected = " ";
 	}
 	if (this->m_ComponentSelected == "Animator")
 	{
-		this->m_ptr_GUIRepo->InspectorSprite->Animator.exist = true;
+		this->m_ptr_GUIRepo->InspectorSprite->Animator.Exist = true;
 		this->m_ComponentSelected = " ";
 	}
 	if (this->m_ComponentSelected == "Prefab")
 	{
-		this->m_ptr_GUIRepo->InspectorSprite->Prefab.exist = true;
+		this->m_ptr_GUIRepo->InspectorSprite->Prefab.Exist = true;
 		this->m_ComponentSelected = " ";
 	}
 	if (this->m_ComponentSelected == "Light Source")
@@ -413,7 +427,7 @@ void spe::UIInspector::SetupComponents()
 	DUMMY_COMPONENT;
 	
 	//Collider
-	if (this->m_ptr_GUIRepo->InspectorSprite->Collider.exist)
+	if (this->m_ptr_GUIRepo->InspectorSprite->Collider.Exist)
 	{
 		this->BoxColliderComponent();
 		DUMMY_COMPONENT;
@@ -425,28 +439,28 @@ void spe::UIInspector::SetupComponents()
 	}
 
 	//PhysicsBody
-	if (this->m_ptr_GUIRepo->InspectorSprite->Physicsbody.exist)
+	if (this->m_ptr_GUIRepo->InspectorSprite->Physicsbody.Exist)
 	{
 		this->PhysicsBodyComponent();
 		DUMMY_COMPONENT;
 	}
 
 	//Animator
-	if (this->m_ptr_GUIRepo->InspectorSprite->Animator.exist)
+	if (this->m_ptr_GUIRepo->InspectorSprite->Animator.Exist)
 	{
 		this->AnimatorComponent();
 		DUMMY_COMPONENT;
 	}
 
 	// Prefab
-	if (this->m_ptr_GUIRepo->InspectorSprite->Prefab.exist)
+	if (this->m_ptr_GUIRepo->InspectorSprite->Prefab.Exist)
 	{
 		this->PrefabComponent();
 		DUMMY_COMPONENT;
 	}
 
 	// Light Source
-	if (this->m_ptr_GUIRepo->InspectorSprite->Light.exist)
+	if (this->m_ptr_GUIRepo->InspectorSprite->Light.Exist)
 	{
 		this->LightComponent();
 		DUMMY_COMPONENT;

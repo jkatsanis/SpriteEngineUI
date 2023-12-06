@@ -2,6 +2,10 @@
 
 // Constructor
 
+spe::UITopbar::UITopbar()
+{
+	this->Init();
+}
 void spe::UITopbar::Init()
 {
 	this->m_DisplayInfo = true;

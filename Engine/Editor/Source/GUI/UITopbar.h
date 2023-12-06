@@ -59,6 +59,7 @@ namespace spe
 		void SimulateButton();
 
 	public:
+		UITopbar();
 
 		void Render() override;
 

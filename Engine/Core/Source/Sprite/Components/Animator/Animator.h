@@ -8,7 +8,7 @@
 
 
 
-#define EXIST_COMPONENT if (!this->exist) return
+#define EXIST_COMPONENT if (!this->Exist) return
 
 namespace spe
 {
@@ -24,7 +24,7 @@ namespace spe
 	private: 
 		AnimationPlaying m_AnimationPlaying;
 
-		void init() override;
+		void Init() override;
 	public:
 		Sprite* ptr_attached_sprite;
 		std::map<std::string, Animation> Animations;
@@ -42,7 +42,7 @@ namespace spe
 		void SetName(const std::string& new_name, const std::string& old_name);
 		void Update();
 
-		void reset() override;
+		void Reset() override;
 	};
 }
 

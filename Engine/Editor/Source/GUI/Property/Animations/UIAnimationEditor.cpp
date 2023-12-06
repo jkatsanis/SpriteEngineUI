@@ -1,17 +1,50 @@
 #include "UIAnimationEditor.h"
 
 //Constructor
-//Private methods
 
 void spe::UIAnimationEditor::Init()
+{
+	this->m_FrameAdder.SetRepos(this->m_ptr_Repo, this->m_ptr_GUIRepo);
+}
+
+spe::UIAnimationEditor::UIAnimationEditor()
 {
 	this->m_KeyFramesToEdit = 10000;
 	this->m_ptr_Anim = nullptr;
 	this->Display = false;
 	this->m_KeyFrameSelected.KeyFrameSelected = nullptr;
 	this->m_CursorSpace = 30;
+}
 
-	this->m_FrameAdder.SetRepos(this->m_ptr_Repo, this->m_ptr_GUIRepo);
+// Public methods
+
+void spe::UIAnimationEditor::Render()
+{
+	if (this->m_ptr_GUIRepo->InspectorSprite == nullptr)
+	{
+		return;
+	}
+	this->ZoomEditorTimeLine();
+	this->BeginWindow();
+	this->RenderTimeLineRealTimePoint();
+	this->EditorTimeLine();
+	this->AddKeyFrame();
+
+	ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 8);
+	ImGui::Text("Loop");
+	ImGui::SameLine();
+	ImGui::Checkbox("##loop", &this->m_ptr_Anim->Loop);
+
+	this->SaveAnimation();
+	this->RenameAnimation();
+
+	this->CloseWindow();
+
+
+	if (this->m_FrameAdder.IsKeyFrameMenuOpen)
+	{
+		this->m_FrameAdder.Render();
+	}
 }
 
 void spe::UIAnimationEditor::SetAnim(spe::Animation* anim)
@@ -24,6 +57,8 @@ void spe::UIAnimationEditor::ResetAnim()
 	this->Display = false;
 	this->m_ptr_Anim = nullptr;
 }
+
+//Private methods
 
 void spe::UIAnimationEditor::CloseWindow()
 {
@@ -360,35 +395,4 @@ void spe::UIAnimationEditor::RenameAnimation()
 
 	spe::UIUtility::SameLine(2);
 	spe::Style::DisplaySmybolAsText(ICON_FA_EDIT);
-}
-
-// Public methods
-
-void spe::UIAnimationEditor::Render()
-{
-	if (this->m_ptr_GUIRepo->InspectorSprite == nullptr)
-	{
-		return;
-	}
-	this->ZoomEditorTimeLine();
-	this->BeginWindow();
-	this->RenderTimeLineRealTimePoint();
-	this->EditorTimeLine();
-	this->AddKeyFrame();
-
-	ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 8);
-	ImGui::Text("Loop");
-	ImGui::SameLine();
-	ImGui::Checkbox("##loop", &this->m_ptr_Anim->Loop);
-
-	this->SaveAnimation();
-	this->RenameAnimation();
-
-	this->CloseWindow();
-
-
-	if (this->m_FrameAdder.IsKeyFrameMenuOpen)
-	{
-		this->m_FrameAdder.Render();
-	}
 }

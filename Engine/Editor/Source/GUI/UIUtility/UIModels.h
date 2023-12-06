@@ -68,6 +68,9 @@ namespace spe
 	{
 		float AdditionalAdd;
 		bool ClickedOnResizeButton;
+
+		ResizeWindowData()
+			: AdditionalAdd(0), ClickedOnResizeButton(false) { }
 	};
 	struct Rectangle
 	{

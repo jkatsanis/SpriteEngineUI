@@ -77,27 +77,27 @@ std::string spe::Savesystem::GetPropertyLineWithSeperator(const spe::Sprite* spr
 	const std::string boxColliderHeightUpOrDownX = std::to_string(sprite->Collider.Height.X);
 	const std::string boxColliderHeightUpOrDownY = std::to_string(sprite->Collider.Height.Y);
 
-	const std::string colliderExists = spe::Utility::BoolToStr(sprite->Collider.exist);
+	const std::string colliderExists = spe::Utility::BoolToStr(sprite->Collider.Exist);
 	const std::string isSolid = spe::Utility::BoolToStr(sprite->Collider.IsSolid);
 	const std::string sortingLayer = std::to_string(sprite->SpriteRenderer.SortinLayerIdx);
 	const std::string gravity = std::to_string(sprite->Physicsbody.Gravity);
 	const std::string mass = std::to_string(sprite->Physicsbody.Mass);
-	const std::string bodyExist = spe::Utility::BoolToStr(sprite->Physicsbody.exist);
+	const std::string bodyExist = spe::Utility::BoolToStr(sprite->Physicsbody.Exist);
 	const std::string id = std::to_string(sprite->GetId());
 	const std::string parentId = std::to_string(sprite->GetParentId());
 
 	const std::string positionToParentX = std::to_string(sprite->Transform.PositionToParent.X);
 	const std::string positionToParentY = std::to_string(sprite->Transform.PositionToParent.Y);
 
-	const std::string animatorExist = spe::Utility::BoolToStr(sprite->Animator.exist);
+	const std::string animatorExist = spe::Utility::BoolToStr(sprite->Animator.Exist);
 
-	const std::string prefabExist = spe::Utility::BoolToStr(sprite->Prefab.exist);
+	const std::string prefabExist = spe::Utility::BoolToStr(sprite->Prefab.Exist);
 	const std::string loadInMemory = spe::Utility::BoolToStr(sprite->Prefab.LoadInMemory);
 	const std::string pathToPrefab = sprite->Prefab.PathToFile;
 	const std::string rotation = std::to_string(sprite->Transform.GetRotation());
 	const std::string tag = sprite->Tag;
 
-	const std::string lightExist = spe::Utility::BoolToStr(sprite->Light.exist);
+	const std::string lightExist = spe::Utility::BoolToStr(sprite->Light.Exist);
 	const std::string light_radiues = std::to_string(sprite->Light.GetRadius());
 	const std::string light_intensy = std::to_string(sprite->Light.GetIntensity());
 	const std::string effected_by_light = spe::Utility::BoolToStr(sprite->SpriteRenderer.EffectedByLight);

@@ -5,18 +5,18 @@
 
 spe::Transform::Transform()
 {
-	this->init();
+	this->Init();
 }
 
 spe::Transform::Transform(spe::Sprite* attached)
 {
-	this->init();
+	this->Init();
 	this->ptr_Sprite = attached;
 }
 
 spe::Transform::Transform(spe::Sprite* attachedSprite, spe::Transform& transform)
 {
-	this->init();
+	this->Init();
 	this->ptr_Sprite = attachedSprite;
 	this->m_Position = transform.m_Position;
 	this->m_Rotation = transform.m_Rotation;
@@ -29,9 +29,9 @@ spe::Transform::Transform(spe::Sprite* attachedSprite, spe::Transform& transform
 	this->SetTextureSize(this->m_Scale);
 }
 
-void spe::Transform::init()
+void spe::Transform::Init()
 {
-	this->base_component = true;
+	this->BaseComponent = true;
 	this->ptr_Sprite = nullptr;
 	this->m_Rotation = 0;
 	this->m_Scale = spe::Vector2(1, 1);
@@ -62,7 +62,7 @@ spe::Vector2 spe::Transform::HandleCollisions(const spe::Vector2& position)
 {
 	spe::Vector2 new_position(position);
 
-	if (this->ptr_Sprite == nullptr || !this->ptr_Sprite->Collider.exist || !this->ptr_Sprite->Collider.Collided)
+	if (this->ptr_Sprite == nullptr || !this->ptr_Sprite->Collider.Exist || !this->ptr_Sprite->Collider.Collided)
 	{
 		// No collision check
 		return new_position;
@@ -210,7 +210,7 @@ spe::Vector2 spe::Transform::GetOrigininalPosition() const
 	return spe::Vector2(x, y);
 }
 
-void spe::Transform::reset()
+void spe::Transform::Reset()
 {
 	this->m_Position = spe::Vector2(0, 0);
 	this->SetScale(spe::Vector2(1, 1));

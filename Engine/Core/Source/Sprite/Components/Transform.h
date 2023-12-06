@@ -13,7 +13,7 @@ namespace spe
 		uint32_t m_Rotation;
 		spe::Vector2 m_Position;
 
-		void init() override;
+		void Init() override;
 		void UpdateSpritePositionToParent(const spe::Vector2& position);
 		spe::Vector2 HandleCollisions(const spe::Vector2& pos);
 
@@ -64,7 +64,7 @@ namespace spe
 		/// <summary>
 		/// Resets the transform
 		/// </summary>
-		void reset() override;
+		void Reset() override;
 
 	};
 }

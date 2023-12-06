@@ -210,7 +210,7 @@ spe::Sprite* spe::Initializer::InitSprite(const std::string& line, spe::LightRep
 
 	sprite->Collider.Height.X = std::stof(propertys[10].c_str());
 	sprite->Collider.Height.Y = std::stof(propertys[11].c_str());
-	sprite->Collider.exist = propertys[12] == "True";
+	sprite->Collider.Exist = propertys[12] == "True";
 	sprite->Collider.IsSolid = propertys[13] == "True";
 
 #pragma endregion
@@ -222,7 +222,7 @@ spe::Sprite* spe::Initializer::InitSprite(const std::string& line, spe::LightRep
 # pragma region PhysicsBody
 	sprite->Physicsbody.Gravity = std::stof(propertys[15].c_str());
 	sprite->Physicsbody.Mass = std::stof(propertys[16].c_str());
-	sprite->Physicsbody.exist = propertys[17] == "True";
+	sprite->Physicsbody.Exist = propertys[17] == "True";
 
 #pragma endregion
 # pragma region parentId, ID
@@ -239,11 +239,11 @@ spe::Sprite* spe::Initializer::InitSprite(const std::string& line, spe::LightRep
 	sprite->Transform.PositionToParent.X = std::stof(propertys[26]);
 	sprite->Transform.PositionToParent.Y = std::stof(propertys[27]);
 
-	sprite->Animator.exist = propertys[28] == "True";
+	sprite->Animator.Exist = propertys[28] == "True";
 #pragma endregion
 
 # pragma region Prefab
-	sprite->Prefab.exist = propertys[29] == "True";
+	sprite->Prefab.Exist = propertys[29] == "True";
 	sprite->Prefab.LoadInMemory = propertys[30] == "True";
 	sprite->Prefab.PathToFile = propertys[31];
 	sprite->Prefab.UpdateName();

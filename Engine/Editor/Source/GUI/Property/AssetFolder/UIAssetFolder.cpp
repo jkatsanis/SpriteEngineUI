@@ -1,12 +1,12 @@
 #include "UIAssetFolder.h"
 
-void spe::UIAssetFolder::Init()
+spe::UIAssetFolder::UIAssetFolder()
 {
     this->m_Tools = spe::UIAssetTools(&this->m_CurrentPath, &this->m_HoverItemName);
-
+    this->m_IsItemHovered = false;
     this->m_CurrentPath = USER_FOLDER_NAME;
     this->m_CurrentName = USER_FOLDER_NAME;
-
+    this->m_IsItemHovered = false;
     this->m_Interacted = false;
     this->m_DraggingItem = false;
     this->m_HoveredOverItem = false;
@@ -15,7 +15,10 @@ void spe::UIAssetFolder::Init()
     this->m_Size = ASSET_FOLDER_DEFAULT_WINDOW_SIZE;
     this->m_HoverItemName = "";
     this->m_IsAssetFolderOpen = true;
+}
 
+void spe::UIAssetFolder::Init()
+{
     this->m_ptr_GUIRepo->AssetFolderData.ptr_Size = &this->m_Size;
 
     DIR* d = opendir("Assets");

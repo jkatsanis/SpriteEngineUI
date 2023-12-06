@@ -2,6 +2,11 @@
 
 // Constructor
 
+spe::UIAnimationKeyFrameAdder::UIAnimationKeyFrameAdder()
+{
+	this->Init();
+}
+
 void spe::UIAnimationKeyFrameAdder::Init()
 {
 	this->m_KeyFramePos = 0;
@@ -9,7 +14,6 @@ void spe::UIAnimationKeyFrameAdder::Init()
 	this->IsKeyFrameMenuOpen = false;
 	this->KeyFramePath = PATH_TO_DEFAULT_SPRITE;
 }
-
 
 // Private methods
 

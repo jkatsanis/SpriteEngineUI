@@ -25,7 +25,7 @@ namespace spe
 		bool m_IntensityChanged;
 
 
-		void init() override;
+		void Init() override;
 	public:
 		Sprite* ptr_attached_sprite;
 		spe::LightRepository* m_ptr_LighRepository;
@@ -37,7 +37,7 @@ namespace spe
 		uint32_t GetLightIndex() const noexcept { return this->m_LightIndex; }
 		void DeleteLight();
 		void Enable();
-		void reset() override;
+		void Reset() override;
 
 		const sf::Vector3f& GetColor() const noexcept { return this->m_Color; }
 		void SetColor(const sf::Vector3f& color) noexcept;

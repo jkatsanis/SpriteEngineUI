@@ -86,6 +86,8 @@ namespace spe
 		/// </summary>
 		void Init() override;
 	public:
+		UIHierarchy();
+
 		void Render() override;
 
 		void SetLightRepository(spe::LightRepository& light) { this->m_ptr_LightRepo = &light; }

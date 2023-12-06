@@ -7,32 +7,32 @@
 
 spe::BoxCollider::BoxCollider()
 {
-    this->init();
+    this->Init();
 }
 
 spe::BoxCollider::BoxCollider(spe::Sprite* sprite, spe::BoxCollider& rhs)
 {
-    this->init();
+    this->Init();
     this->ptr_Sprite = sprite;
     this->Height = rhs.Height;
     this->Width = rhs.Width;
-    this->exist = rhs.exist;
+    this->Exist = rhs.Exist;
     this->IsSolid = rhs.IsSolid;
 }
 
 spe::BoxCollider::BoxCollider(spe::Sprite* ptr_sprite)
 {
-    this->init();
+    this->Init();
     this->ptr_Sprite = ptr_sprite;
 }
 
-void spe::BoxCollider::init()
+void spe::BoxCollider::Init()
 {
-    this->base_component = false;
+    this->BaseComponent = false;
     this->ptr_Sprite = nullptr;
     this->CanCollide = false;
     this->IsSolid = false;
-    this->exist = false;
+    this->Exist = false;
 
     this->Left = false;
     this->Right = false;
@@ -49,7 +49,7 @@ void spe::BoxCollider::init()
 bool spe::BoxCollider::CheckCollision(spe::BoxCollider& other)
 {
     spe::Sprite* ptr_attached_sprite = this->ptr_Sprite;
-    if (!this->exist || !other.exist)
+    if (!this->Exist || !other.Exist)
     {
         return false;
     }
@@ -162,9 +162,9 @@ void spe::BoxCollider::ResetPosition() noexcept
  
 // Public functions
 
-void spe::BoxCollider::reset() 
+void spe::BoxCollider::Reset() 
 {
-    this->exist = false;
+    this->Exist = false;
     this->IsSolid = false;
     this->CanCollide = false;
     this->Height = Vector2(0, 0);

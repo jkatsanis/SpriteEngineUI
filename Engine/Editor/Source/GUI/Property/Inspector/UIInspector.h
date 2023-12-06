@@ -93,6 +93,8 @@ namespace spe
 		void Init() override;
 
 	public:
+		UIInspector();
+
 		spe::InspectorState State;
 
 		void Render() override;

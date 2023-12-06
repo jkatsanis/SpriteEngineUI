@@ -5,6 +5,15 @@
 
 namespace spe
 {
+    // Ctor
+    LightRepository::LightRepository()
+    {
+        this->m_Index = 0;
+        this->m_Update = false;
+    }
+
+    // Public
+
     void LightRepository::Init(const std::string& shader)
     {
         this->m_Update = true;
@@ -18,7 +27,7 @@ namespace spe
 
     void LightRepository::UpdateLightSource(spe::Sprite* sprite, spe::Camera* cam)
     {
-        if (!sprite->Light.exist)
+        if (!sprite->Light.Exist)
         {
             return;
         }
@@ -63,7 +72,7 @@ namespace spe
 
     void LightRepository::UpdateSprite(spe::Sprite* sprite, spe::Camera* cam)
     {
-        if (!sprite->Light.exist)
+        if (!sprite->Light.Exist)
         {
             return;
         }

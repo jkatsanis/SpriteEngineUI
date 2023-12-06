@@ -22,6 +22,8 @@ namespace spe
         sf::Vector2f* GetPositionArray();
 
     public:
+        LightRepository();
+
         void Init(const std::string& shader);
         void UpdateArrays();
 

@@ -43,6 +43,7 @@ namespace spe
 
 		void Init() override;
 	public:
+		UIAnimation();
 
 		void Render() override;
 	};

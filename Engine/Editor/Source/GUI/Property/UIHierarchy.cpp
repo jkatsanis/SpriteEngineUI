@@ -2,15 +2,21 @@
 
 //Constructor
 
-void spe::UIHierarchy::Init()
+spe::UIHierarchy::UIHierarchy()
 {
+	this->m_FoundSelected = false;
+	this->m_ptr_LightRepo = nullptr;
 	this->m_ChildSelectTimer = 0.0f;
 	this->m_FoundHovering = false;
 	this->m_WaitFrame = false;
 	this->Hovered = false;
 	this->m_Size = HIERARCHY_DEFAULT_WINDOW_SIZE;
 	this->m_BackgroundColorCnt = 1;
+	this->m_BackgroundColorCnt = 1;
+}
 
+void spe::UIHierarchy::Init()
+{
 	this->m_ptr_GUIRepo->HierarchyData.ptr_Size = &this->m_Size;
 }
 
@@ -213,7 +219,7 @@ void spe::UIHierarchy::SetMenuitemHovered(bool& any_hovered, spe::Sprite* sprite
 		this->SetSelectedBackgroundColor(sprite, pop_style);
 
 		std::string name = sprite->Name;
-		if (sprite->Prefab.exist)
+		if (sprite->Prefab.Exist)
 		{
 			name += " (Prefab)";
 		}
@@ -453,7 +459,7 @@ void spe::UIHierarchy::DisplaySpriteSeperated(spe::Sprite* parent, bool& any_hov
 	if (parent->IsParent())
 	{
 		std::string name = parent->Name;
-		if (parent->Prefab.exist)
+		if (parent->Prefab.Exist)
 		{
 			name += " (Prefab)";
 		}

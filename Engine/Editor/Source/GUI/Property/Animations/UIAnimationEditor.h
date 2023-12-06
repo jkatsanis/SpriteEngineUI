@@ -50,6 +50,8 @@ namespace spe
 	public:
 		bool Display;
 
+		UIAnimationEditor();
+
 		void SetAnim(spe::Animation* anim);
 		void ResetAnim();
 

@@ -28,6 +28,8 @@ namespace spe
 		bool IsKeyFrameMenuOpen;
 		std::string KeyFramePath;
 
+		UIAnimationKeyFrameAdder();
+
 		void Render() override;
 		void SetAnimation(spe::Animation* anim);
 		void Reset();

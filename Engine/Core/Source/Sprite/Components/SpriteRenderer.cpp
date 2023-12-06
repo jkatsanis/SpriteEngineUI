@@ -4,7 +4,7 @@
 
 spe::SpriteRenderer::SpriteRenderer()
 {
-	this->init();
+	this->Init();
 }
 
 spe::SpriteRenderer::SpriteRenderer(const spe::SpriteRenderer& rhs)
@@ -15,21 +15,21 @@ spe::SpriteRenderer::SpriteRenderer(const spe::SpriteRenderer& rhs)
 	this->EffectedByLight = rhs.EffectedByLight;
 }
 
-void spe::SpriteRenderer::init()
+void spe::SpriteRenderer::Init()
 {
 	this->Render = true;
-	this->base_component = true;
+	this->BaseComponent = true;
 	this->EffectedByLight = false;
 	this->Path = "";
-	this->exist = true;
+	this->Exist = true;
 	this->SortinLayerIdx = 0;
 }
 
 // Public functions
 
-void spe::SpriteRenderer::reset()
+void spe::SpriteRenderer::Reset()
 {
 	this->Path = "defaultpath";
-	this->exist = true;
+	this->Exist = true;
 	this->SortinLayerIdx = 0;
 }

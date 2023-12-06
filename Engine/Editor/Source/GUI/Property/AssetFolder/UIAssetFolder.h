@@ -75,6 +75,8 @@ namespace spe
 		void Init() override;
 
 	public:
+		UIAssetFolder();
+
 		void Render() override;
 	};
 }

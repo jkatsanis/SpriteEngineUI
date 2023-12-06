@@ -10,7 +10,7 @@ namespace spe
 	class SpriteRenderer : public spe::Component
 	{
 	private:
-		void init() override;
+		void Init() override;
 	public:
 		std::string Path;
 		uint32_t SortinLayerIdx;
@@ -20,7 +20,7 @@ namespace spe
 		SpriteRenderer();
 		SpriteRenderer(const spe::SpriteRenderer& rhs);
 
-		void reset() override;
+		void Reset() override;
 	};
 }
 

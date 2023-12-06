@@ -11,7 +11,7 @@ namespace spe
 	{
 	private:
 		spe::Sprite* m_ptr_Sprite;
-		void init() override;
+		void Init() override;
 	public:
 
 		/// <summary>
@@ -37,7 +37,7 @@ namespace spe
 		/// <summary>
 		/// Resets the data and deletes the FILE!
 		/// </summary>
-		void reset() override;
+		void Reset() override;
 
 		void UpdatePath();
 		void UpdateName();

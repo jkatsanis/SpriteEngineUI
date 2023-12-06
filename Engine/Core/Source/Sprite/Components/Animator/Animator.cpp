@@ -6,19 +6,19 @@
 
 spe::Animator::Animator()
 {
-	this->init();
+	this->Init();
 }
 
 spe::Animator::Animator(Sprite* ptr_attached_sprite)
 {
-	this->init();
+	this->Init();
 	this->ptr_attached_sprite = ptr_attached_sprite;
 }
 
 spe::Animator::Animator(spe::Sprite* ptr_attached_sprite, spe::Animator& animator)
 {
-	this->init();
-	this->exist = animator.exist;
+	this->Init();
+	this->Exist = animator.Exist;
 	this->ptr_attached_sprite = ptr_attached_sprite;
 
 	for (const auto& animation : animator.Animations)
@@ -29,10 +29,10 @@ spe::Animator::Animator(spe::Sprite* ptr_attached_sprite, spe::Animator& animato
 	}
 }
 
-void spe::Animator::init()
+void spe::Animator::Init()
 {
-	this->base_component = false;
-	this->exist = false;
+	this->BaseComponent = false;
+	this->Exist = false;
 	this->ptr_attached_sprite = nullptr;
 	this->m_AnimationPlaying.IsPlaying = false;
 	this->m_AnimationPlaying.Name = "<Unknown>";
@@ -106,7 +106,7 @@ void spe::Animator::Update()
 	}
 }
 
-void spe::Animator::reset()
+void spe::Animator::Reset()
 {
 	this->m_AnimationPlaying.Name = "<Unknown>";
 	this->m_AnimationPlaying.IsPlaying = false;

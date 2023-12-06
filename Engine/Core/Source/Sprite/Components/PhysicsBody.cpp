@@ -6,12 +6,12 @@
 
 spe::PhsysicsBody::PhsysicsBody()
 {
-	this->init();
+	this->Init();
 }
 
 spe::PhsysicsBody::PhsysicsBody(spe::Sprite* spr)
 {
-	this->init();
+	this->Init();
 	this->ptr_Sprite = spr;
 }
 
@@ -20,14 +20,14 @@ spe::PhsysicsBody::PhsysicsBody(spe::Sprite* spr, const spe::PhsysicsBody& rhs)
 	this->ptr_Sprite = spr;
 	this->Velocity = rhs.Velocity;
 	this->Mass = rhs.Mass;
-	this->exist = rhs.exist;
+	this->Exist = rhs.Exist;
 	this->Gravity = rhs.Gravity;
 }
 
-void spe::PhsysicsBody::init()
+void spe::PhsysicsBody::Init()
 {
-	this->base_component = false;
-	this->exist = false;
+	this->BaseComponent = false;
+	this->Exist = false;
 	this->Velocity = spe::Vector2(0, 0);
 	this->Gravity = 0.0f;
 	this->Mass = 0.0f;
@@ -35,9 +35,9 @@ void spe::PhsysicsBody::init()
 
 // Public functions
 
-void spe::PhsysicsBody::reset()
+void spe::PhsysicsBody::Reset()
 {
-	this->exist = false;
+	this->Exist = false;
 	this->Mass = 0.0f;
 	this->Velocity = spe::Vector2(0.0f, 0.0f);
 	this->Gravity = 0.0f;
@@ -45,7 +45,7 @@ void spe::PhsysicsBody::reset()
 
 void spe::PhsysicsBody::Update()
 {
-	if (!this->exist || this->ptr_Sprite == nullptr) return;
+	if (!this->Exist || this->ptr_Sprite == nullptr) return;
 
 	//ALl Physic calcutions will happen here!
 	spe::Vector2 dir = this->Velocity * spe::Time::s_DeltaTime;

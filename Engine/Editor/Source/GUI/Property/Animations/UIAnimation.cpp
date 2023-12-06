@@ -4,6 +4,12 @@
 
 void spe::UIAnimation::Init()
 {
+	this->m_ptr_GUIRepo->AnimationData.IsOpen = false;
+	this->m_UIAnimationEditor.SetRepos(this->m_ptr_Repo, this->m_ptr_GUIRepo);
+}
+
+spe::UIAnimation::UIAnimation()
+{
 	this->m_AnimationFile[0] = 0;
 	this->m_FileName = "";
 	const std::string pathToAssets = "Assets\\";
@@ -12,10 +18,6 @@ void spe::UIAnimation::Init()
 	this->m_CreateFileDialoge.SetFirstNode("assets");
 	this->m_OpenFileDialoge.SetFirstNode("assets");
 	this->m_BackgroundCounter = START_CNT_BG;
-
-	this->m_ptr_GUIRepo->AnimationData.IsOpen = false;
-
-	this->m_UIAnimationEditor.SetRepos(this->m_ptr_Repo, this->m_ptr_GUIRepo);
 }
 
 void spe::UIAnimation::Render()

@@ -7,12 +7,12 @@
 
 spe::Prefab::Prefab()
 {
-	this->init();
+	this->Init();
 }
 
 spe::Prefab::Prefab(spe::Sprite* m_attached)
 {
-	this->init();
+	this->Init();
 	this->m_ptr_Sprite = m_attached;
 }
 
@@ -20,25 +20,25 @@ spe::Prefab::Prefab(spe::Sprite* m_attached, const spe::Prefab& rhs)
 {
 	this->m_ptr_Sprite = m_attached;
 	this->FileName = rhs.FileName;
-	this->exist = rhs.exist;
+	this->Exist = rhs.Exist;
 	this->PathToOldFile = rhs.PathToOldFile;
 	this->PathToFile = rhs.PathToFile;
 }
 
-void spe::Prefab::init()
+void spe::Prefab::Init()
 {
 	this->m_ptr_Sprite = nullptr;
-	this->exist = false;
+	this->Exist = false;
 	this->LoadInMemory = false;
 }
 
 // Public functions
 
-void spe::Prefab::reset()
+void spe::Prefab::Reset()
 {
 	//TODO: delete file 
 
-	this->exist = false;
+	this->Exist = false;
 	this->FileName = "";
 	this->LoadInMemory = false;
 	this->PathToFile = "";
@@ -47,7 +47,7 @@ void spe::Prefab::reset()
 
 void spe::Prefab::UpdateProps(const std::string& userPath, const std::string& pathToOldFile, const std::string fileName)
 {
-	this->exist = true;
+	this->Exist = true;
 	this->PathToFile = userPath;
 	this->FileName = fileName;
 	this->PathToOldFile = pathToOldFile;
@@ -55,7 +55,7 @@ void spe::Prefab::UpdateProps(const std::string& userPath, const std::string& pa
 
 void spe::Prefab::UpdatePath()
 {
-	if (!this->exist)
+	if (!this->Exist)
 	{
 		return;
 	}
@@ -76,7 +76,7 @@ void spe::Prefab::UpdatePath()
 
 void spe::Prefab::UpdateName()
 {
-	if (!this->exist)
+	if (!this->Exist)
 	{
 		return;
 	}

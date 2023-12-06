@@ -10,7 +10,7 @@ namespace spe
 	class PhsysicsBody : public spe::Component
 	{
 	private:
-		void init() override;
+		void Init() override;
 	public:
 		float Mass;
 		float Gravity;
@@ -21,7 +21,7 @@ namespace spe
 		PhsysicsBody(spe::Sprite* spr);
 		PhsysicsBody(spe::Sprite* spr, const spe::PhsysicsBody& rhs);
 
-		void reset() override;
+		void Reset() override;
 		void Update();
 	};
 }
