@@ -49,6 +49,9 @@
     <ClCompile Include="C:\Dev\C++\SpriteEngineUI\Engine\Editor\Source\GUI\RealTime\UIRealTimeEditorTransform.cpp">
       <Filter>Source\GUI\RealTime</Filter>
     </ClCompile>
+    <ClCompile Include="C:\Dev\C++\SpriteEngineUI\Engine\Editor\Source\GUI\UIConsole.cpp">
+      <Filter>Source\GUI</Filter>
+    </ClCompile>
     <ClCompile Include="C:\Dev\C++\SpriteEngineUI\Engine\Editor\Source\GUI\UITopbar.cpp">
       <Filter>Source\GUI</Filter>
     </ClCompile>
@@ -122,6 +125,9 @@
     </ClInclude>
     <ClInclude Include="C:\Dev\C++\SpriteEngineUI\Engine\Editor\Source\GUI\RealTime\UIRealTimeEditorTransform.h">
       <Filter>Source\GUI\RealTime</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Dev\C++\SpriteEngineUI\Engine\Editor\Source\GUI\UIConsole.h">
+      <Filter>Source\GUI</Filter>
     </ClInclude>
     <ClInclude Include="C:\Dev\C++\SpriteEngineUI\Engine\Editor\Source\GUI\UITopbar.h">
       <Filter>Source\GUI</Filter>

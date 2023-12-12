@@ -34,6 +34,10 @@ void spe::UIAssetTools::Update(bool& hovered)
 	{
 		return;
 	}
+	else
+	{
+		hovered = false;
+	}
 
 	this->GetFileName();
 

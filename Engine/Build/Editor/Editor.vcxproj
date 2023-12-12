@@ -351,6 +351,8 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClInclude Include="C:\Dev\C++\SpriteEngineUI\Engine\Editor\Source\GUI\RealTime\UIRealTimeEditorNavigator.h" />
     <ClCompile Include="C:\Dev\C++\SpriteEngineUI\Engine\Editor\Source\GUI\RealTime\UIRealTimeEditorTransform.cpp" />
     <ClInclude Include="C:\Dev\C++\SpriteEngineUI\Engine\Editor\Source\GUI\RealTime\UIRealTimeEditorTransform.h" />
+    <ClCompile Include="C:\Dev\C++\SpriteEngineUI\Engine\Editor\Source\GUI\UIConsole.cpp" />
+    <ClInclude Include="C:\Dev\C++\SpriteEngineUI\Engine\Editor\Source\GUI\UIConsole.h" />
     <ClCompile Include="C:\Dev\C++\SpriteEngineUI\Engine\Editor\Source\GUI\UITopbar.cpp" />
     <ClInclude Include="C:\Dev\C++\SpriteEngineUI\Engine\Editor\Source\GUI\UITopbar.h" />
     <ClInclude Include="C:\Dev\C++\SpriteEngineUI\Engine\Editor\Source\GUI\UIUtility\UIModels.h" />

@@ -9,6 +9,7 @@
 #include "Property/Inspector/UIInspector.h"
 #include "Property/Animations/UIAnimation.h"
 #include "Property/AssetFolder/UIAssetFolder.h"
+#include "UIConsole.h"
 
 namespace spe
 {
@@ -20,6 +21,7 @@ namespace spe
 		spe::UIInspector m_UIInspector;
 		spe::UIAnimation m_UIAnimation;
 		spe::UIAssetFolder m_UIAssetFolder;
+		spe::UIConsole m_UIConsole;
 
 	public:
 
