@@ -24,17 +24,20 @@ spe::UIAssetTools::UIAssetTools(const std::string* currentAssetPath, std::string
 
 // Public functions
 
-void spe::UIAssetTools::Update()
+void spe::UIAssetTools::Update(bool& hovered)
 {
+	if (this->m_OpenFileInput)
+	{
+		hovered = true;
+	}
+	else if (!hovered)
+	{
+		return;
+	}
+
 	this->GetFileName();
 
-	if (this->m_ClassFileName[0] != '\0' && !this->m_OpenFileInput)
-	{
-		this->CreateFileContent();
-		this->m_ClassFileName[0] = '\0';
-	}
 	ImGui::SetWindowFontScale(this->m_WindowFontSize);
-
 	if (ImGui::IsMouseReleased(1))
 	{
 		ImGui::OpenPopup(INPUT_POPUP_NAME);
@@ -95,11 +98,14 @@ void spe::UIAssetTools::GetFileName()
 	{
 		ImGui::SetNextItemWidth(290);
 		ImGui::InputTextWithHint("##file_input", "<name>", this->m_ClassFileName, CHAR_MAX);
-		if (ImGui::Button("Create"))
+		if (ImGui::Button("Create##F"))
 		{
-			this->m_OpenFileInput = false;
-		}
+			this->CreateFileContent();
 
+			this->m_OpenFileInput = false;
+			this->m_IsPopupOpen = false;
+			this->m_ClassFileName[0] = '\0';
+		}
 		spe::UIUtility::SetWindowScreenMiddle(ImVec2(300, 100));
 		ImGui::End();
 	}
@@ -107,36 +113,39 @@ void spe::UIAssetTools::GetFileName()
 
 void spe::UIAssetTools::CreateFileContent()
 {
-	std::string header_content =
+	const std::string header_content =
 		"#pragma once\n\n"
-		"#include <_header/SpriteEngine.h>\n\n"
-		"class " + std::string(this->m_ClassFileName) + " : public spe::Base\n"
+		"// Included from the editor-src\n"
+		"#include <Source/SpriteEngine.h>\n\n"
+		"class " + std::string(this->m_ClassFileName) + " : public spe::IScript\n"
 		"{\n"
 		"public:\n"
-		"   void update();\n"
-		"   void start();\n"
+		"   // Can get called on start by the game/sub class\n"
+		"   void Start();\n\n"
+		"   // Can get called 1 time per frame by the game/sub class\n"
+		"   void Update();\n"
 		"};\n";
 
-	std::string cpp_content =
+	const std::string cpp_content =
 		"#include \"" + std::string(this->m_ClassFileName) + ".h\"\n\n"
-		"void " + std::string(this->m_ClassFileName) + "::start()\n"
+		"void " + std::string(this->m_ClassFileName) + "::Start()\n"
 		"{\n"
 		"\n"
 		"}\n"
 		"\n"
-		"void " + std::string(this->m_ClassFileName) + "::update()\n"
+		"void " + std::string(this->m_ClassFileName) + "::Update()\n"
 		"{\n"
 		"\n"
 		"}\n"
 		"\n";
 
-	std::string path = *this->m_ptr_CurrentAssetPath + "\\" + this->m_ClassFileName;
+	const std::string path = *this->m_ptr_CurrentAssetPath + "\\" + this->m_ClassFileName;
 
-	std::string cpp_name = std::string(this->m_ClassFileName);
-	std::string header_name = std::string(this->m_ClassFileName);
+	const std::string cpp_name = std::string(this->m_ClassFileName);
+	const std::string header_name = std::string(this->m_ClassFileName);
 
-	std::string cpp_file_path = *this->m_ptr_CurrentAssetPath + "\\" + header_name + ".cpp";
-	std::string hpp_file_path = *this->m_ptr_CurrentAssetPath + "\\" + header_name + ".h";
+	const std::string cpp_file_path = *this->m_ptr_CurrentAssetPath + "\\" + header_name + ".cpp";
+	const std::string hpp_file_path = *this->m_ptr_CurrentAssetPath + "\\" + header_name + ".h";
 
 	spe::Utility::CreateFileWithContent(header_content, hpp_file_path);
 	spe::Utility::CreateFileWithContent(cpp_content, cpp_file_path);

@@ -7,6 +7,7 @@
 #include "UtilityFunctions.h"
 #include "GUI/UIUtility/UIUtility.h"
 #include "RessourceHandler/FileDataMacros.h"
+#include "Input/Input.h"
 
 #define CPP_FILE_NAME_SIZE 80
 #define INPUT_POPUP_NAME "inputPopup"
@@ -34,7 +35,7 @@ namespace spe
 		UIAssetTools();
 		UIAssetTools(const std::string* current_asset_path, std::string* hovered_icon_name);
 
-		void Update();
+		void Update(bool& hovered);
 
 		bool IsPopUpOpen() const { return this->m_IsPopupOpen; }
 	};

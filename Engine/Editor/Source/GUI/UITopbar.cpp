@@ -377,6 +377,11 @@ void spe::UITopbar::BuildProjectIntoFolder()
 			spe::EngineData::BuildProject();
 		}
 
+		if (ImGui::MenuItem("Update Project"))
+		{
+			spe::EngineData::BuildProjectFiles();
+		}
+
 		ImGui::EndMenu();
 	}
 }

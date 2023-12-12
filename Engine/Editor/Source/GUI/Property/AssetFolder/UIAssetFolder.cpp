@@ -46,20 +46,24 @@ void spe::UIAssetFolder::Render()
         if (this->Hovered)
         {
             this->AddPrefab();
-            this->m_Tools.Update();
         }
         else
         {
             this->m_HoverItemName = "";
         }
+
+        this->m_Tools.Update(this->Hovered);
+
         this->ResizeWindow();
 
         this->RenderFolderHierarchy();
         this->RenderCloseRectangle();
         this->RenderContentBrowser();
 
-        this->Hovered = spe::UIUtility::IsHovered(ImVec2(0, 1080 - this->m_Size.y), this->m_Size);
-
+        if (!this->Hovered)
+        {
+            this->Hovered = spe::UIUtility::IsHovered(ImVec2(0, 1080 - this->m_Size.y), this->m_Size);
+        }
         ImGui::End();
     }
     ImGui::PopStyleVar();

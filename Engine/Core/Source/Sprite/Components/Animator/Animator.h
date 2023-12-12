@@ -2,11 +2,10 @@
 
 #include <iostream>	
 #include <vector>
+#include <unordered_map>
 
 #include "Sprite/Components/Animator/Animation.h"
 #include "Sprite/Components/Component.h"
-
-
 
 #define EXIST_COMPONENT if (!this->Exist) return
 
@@ -27,7 +26,7 @@ namespace spe
 		void Init() override;
 	public:
 		Sprite* ptr_attached_sprite;
-		std::map<std::string, Animation> Animations;
+		std::unordered_map<std::string, Animation> Animations;
 
 		Animator();
 		Animator(Sprite* ptr_attachedSprite);
