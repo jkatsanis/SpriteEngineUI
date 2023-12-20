@@ -1,6 +1,8 @@
 #pragma once
 
 #include <iostream>
+#include "Core/Log.h"
+#include <thread>
 
 #include "UtilityFunctions.h"
 

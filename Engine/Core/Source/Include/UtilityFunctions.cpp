@@ -147,6 +147,27 @@ void spe::Utility::Delete(const std::string& path)
     std::filesystem::remove_all(path);
 }
 
+std::string spe::Utility::RunCommand(const char* command)
+{
+    char buffer[128];
+    std::string result = "";
+    FILE* pipe = _popen(command, "r");
+    if (!pipe) throw std::runtime_error("popen() failed!");
+
+    try {
+        while (fgets(buffer, sizeof(buffer), pipe) != nullptr) {
+            result += buffer;
+        }
+    }
+    catch (...) {
+        _pclose(pipe);
+        throw;
+    }
+
+    _pclose(pipe);
+    return result;
+}
+
 std::string spe::Utility::GetDefaultDir(uint32_t depth)
 {
     spe::Log::LogString("Calling GetDefaultDir()..");

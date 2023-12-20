@@ -32,6 +32,8 @@ namespace spe
 		static std::string GetNamePathSplit(std::string path);
 		static void Delete(const std::string& path);
 
+		static std::string RunCommand(const char* commad);
+
 		/// <summary>
 		/// Should only be used 1 time. 
 		/// </summary>

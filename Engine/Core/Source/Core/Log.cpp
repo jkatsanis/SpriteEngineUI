@@ -9,9 +9,6 @@ void spe::Log::LogString(const std::string& msg)
 	if (spe::Log::s_m_ptr_LogBuffer != nullptr)
 	{
 		*spe::Log::s_m_ptr_LogBuffer += msg + "\n";
-		*spe::Log::s_m_ptr_LogBuffer += msg + "\n";
-		*spe::Log::s_m_ptr_LogBuffer += msg + "\n";
-		*spe::Log::s_m_ptr_LogBuffer += msg + "\n";
 	}
 }
 

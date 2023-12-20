@@ -28,7 +28,6 @@ set(PATH_LIBRARIES "${FILE_CONTENT}/Core/Source/Include/LIB")
 set(CORE_LIBRAY_DEBUG "${FILE_CONTENT}/Build/Core/Debug/Core.lib")
 set(CORE_LIBRAY_RELEASE "${FILE_CONTENT}/Build/Core/Release/Core.lib")
 
-
 set(ADDITIONAL_INCLUDE_PATHS
     Core
     Core/Source
@@ -63,3 +62,27 @@ target_link_libraries(${PROJECT_FOLDER} PRIVATE
     $<$<CONFIG:Release>:${PATH_LIBRARIES}/sfml-system.lib>
     $<$<CONFIG:Release>:${PATH_LIBRARIES}/sfml-window.lib>
 )
+
+set(DEBUG_DIR ${CMAKE_BINARY_DIR}/Debug)
+set(RELEASE_DIR ${CMAKE_BINARY_DIR}/Release)
+set(PATH_DLL_LIBRARIES ${FILE_CONTENT}/Editor/Source/Include/DLL)
+
+# Set debug directory and copy dlls
+file(MAKE_DIRECTORY ${DEBUG_DIR})
+file(MAKE_DIRECTORY ${RELEASE_DIR})
+
+configure_file(${PATH_DLL_LIBRARIES}/sfml-audio-d-2.dll ${DEBUG_DIR} COPYONLY)
+configure_file(${PATH_DLL_LIBRARIES}/sfml-graphics-d-2.dll ${DEBUG_DIR} COPYONLY)
+configure_file(${PATH_DLL_LIBRARIES}/sfml-network-d-2.dll ${DEBUG_DIR} COPYONLY)
+configure_file(${PATH_DLL_LIBRARIES}/sfml-system-d-2.dll ${DEBUG_DIR} COPYONLY)
+configure_file(${PATH_DLL_LIBRARIES}/sfml-window-d-2.dll ${DEBUG_DIR} COPYONLY)
+
+configure_file(${PATH_DLL_LIBRARIES}/sfml-audio-2.dll ${RELEASE_DIR} COPYONLY)
+configure_file(${PATH_DLL_LIBRARIES}/sfml-graphics-2.dll ${RELEASE_DIR} COPYONLY)
+configure_file(${PATH_DLL_LIBRARIES}/sfml-network-2.dll ${RELEASE_DIR} COPYONLY)
+configure_file(${PATH_DLL_LIBRARIES}/sfml-system-2.dll ${RELEASE_DIR} COPYONLY)
+configure_file(${PATH_DLL_LIBRARIES}/sfml-window-2.dll ${RELEASE_DIR} COPYONLY)
+
+if(MSVC)
+    target_compile_options(${PROJECT_FOLDER} PRIVATE /W4)
+endif()
