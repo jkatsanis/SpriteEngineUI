@@ -86,6 +86,13 @@ void spe::Editor::UpdateComponents()
 	{
 		spe::Sprite* sprite = *it;
 
+		this->m_SceneHandler.LightRepository.UpdateLightSource(sprite, &this->m_GUIRepository.Camera);
+
+		if (!sprite->UseSprite(this->m_GUIRepository.Camera))
+		{
+			continue;
+		}
+
 		sprite->Animator.Update();
 
 		if (this->m_GUIRepository.SimulatePhysics)
@@ -93,8 +100,6 @@ void spe::Editor::UpdateComponents()
 			sprite->Collider.Update(this->m_SceneHandler.SpriteRepository);
 			sprite->Physicsbody.Update();
 		}
-
-		this->m_SceneHandler.LightRepository.UpdateLightSource(sprite, &this->m_GUIRepository.Camera);
 
 		this->m_Window.Draw(sprite, &this->m_SceneHandler.LightRepository.GetShader());
 	}

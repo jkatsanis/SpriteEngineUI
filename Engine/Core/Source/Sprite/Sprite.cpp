@@ -1,5 +1,7 @@
 #include "Sprite.h"
 
+#include "Camera/Camera.h"
+
 //Constructor
 
 spe::Sprite::Sprite()
@@ -189,6 +191,40 @@ spe::Sprite* spe::Sprite::GetNode()
 		return this;
 	}
 	return ptr_Parent->GetNode();
+}
+
+bool spe::Sprite::UseSprite(const spe::Camera& camera)
+{
+	const spe::Vector2& cam_pos = spe::Vector2(camera.Position.X, camera.Position.Y);
+	static const spe::Vector2 bounds = spe::Vector2(1920 * camera.GetZoom(), 1080 * camera.GetZoom());
+
+	float getPosX = cam_pos.X;
+	float getPosY = cam_pos.Y;
+
+	float otherGetPosX = this->Transform.GetOrigininalPosition().X - fabs(this->Collider.Width.X);
+	float otherGetPosY = this->Transform.GetOrigininalPosition().Y - fabs(this->Collider.Height.X);
+
+	float text_size_x = fabs(this->Collider.Width.X) + this->Transform.TextureSize.X;
+	float text_size_y = fabs(this->Collider.Height.X) + this->Transform.TextureSize.Y;
+
+
+	bool isHorizontalOverlapLeft =
+		getPosX + bounds.X >= otherGetPosX;
+
+	bool isHorizontalOverlapRight =
+		getPosX <= otherGetPosX + text_size_x;
+
+	bool isVerticalOverlapTop =
+		getPosY + bounds.Y >= otherGetPosY;
+
+	bool isVerticalOverlapBottom =
+		getPosY <= otherGetPosY + text_size_y;
+
+	if (isHorizontalOverlapLeft && isHorizontalOverlapRight && isVerticalOverlapTop && isVerticalOverlapBottom)
+	{
+		return true;
+	}
+	return false;
 }
 
 bool spe::Sprite::ContainsChild(const spe::Sprite* child) const

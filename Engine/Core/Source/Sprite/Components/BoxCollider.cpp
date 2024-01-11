@@ -72,8 +72,8 @@ bool spe::BoxCollider::CheckCollision(spe::BoxCollider& other)
     bool isVerticalOverlapBottom =
         getPosY + this->Height.X <= otherGetPosY + other.Height.Y + other.ptr_Sprite->Transform.TextureSize.Y;
 
-    if (isHorizontalOverlapLeft && isHorizontalOverlapRight && isVerticalOverlapTop && isVerticalOverlapBottom) {
-        // Your code here
+    if (isHorizontalOverlapLeft && isHorizontalOverlapRight && isVerticalOverlapTop && isVerticalOverlapBottom) 
+    {
         other.Collided = true;
         other.CollidedInFrame = true;
         this->Collided = true;

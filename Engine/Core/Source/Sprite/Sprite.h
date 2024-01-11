@@ -20,6 +20,7 @@
 
 namespace spe
 {
+	class Camera;
 	class Sprite
 	{
 	private:
@@ -107,6 +108,8 @@ namespace spe
 		/// Gets the absulute parent
 		/// </summary>
 		spe::Sprite* GetNode();
+
+		bool UseSprite(const spe::Camera& camera);
 
 		/// <summary>
 		/// Get's the id of the current sprite
