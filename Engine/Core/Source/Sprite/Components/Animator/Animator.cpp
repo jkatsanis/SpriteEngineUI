@@ -59,6 +59,10 @@ void spe::Animator::Play(const std::string& name)
 	auto it = this->Animations.find(name);
 	if (it != this->Animations.end())
 	{
+		if (this->m_AnimationPlaying.IsPlaying)
+		{
+			this->Animations.find(this->m_AnimationPlaying.Name)->second.Stop();
+		}
 		this->m_AnimationPlaying.Name = name;
 		this->m_AnimationPlaying.IsPlaying = true;
 		it->second.Play();

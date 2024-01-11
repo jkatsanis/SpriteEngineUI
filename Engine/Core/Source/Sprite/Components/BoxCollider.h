@@ -49,7 +49,7 @@ namespace spe
 
 		//Giving it a pointer, so we dont have to update it consistently
 		BoxCollider(spe::Sprite* ptr_sprite);
-	
+
 		void Reset() override;
 		void Update(spe::SpriteRepository& tocheck);
 
@@ -61,6 +61,8 @@ namespace spe
 		/// <param name="tag">To search for</param>
 		/// <returns>True if the sprite collides with the provided tag</returns>
 		spe::Sprite* CollidedWithTag(const std::string& tag);
+
+		spe::Sprite* CollidedWithName(const std::string& name);
 	};
 }
 

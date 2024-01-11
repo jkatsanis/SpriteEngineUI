@@ -1,4 +1,4 @@
-C:/Dev/C++/SpriteEngineUI/Engine/Build/CMakeFiles/ALL_BUILD.dir
-C:/Dev/C++/SpriteEngineUI/Engine/Build/CMakeFiles/ZERO_CHECK.dir
-C:/Dev/C++/SpriteEngineUI/Engine/Build/Core/CMakeFiles/Core.dir
-C:/Dev/C++/SpriteEngineUI/Engine/Build/Editor/CMakeFiles/Editor.dir
+C:/Dev/SpriteEngineUI/Engine/Build/CMakeFiles/ALL_BUILD.dir
+C:/Dev/SpriteEngineUI/Engine/Build/CMakeFiles/ZERO_CHECK.dir
+C:/Dev/SpriteEngineUI/Engine/Build/Core/CMakeFiles/Core.dir
+C:/Dev/SpriteEngineUI/Engine/Build/Editor/CMakeFiles/Editor.dir

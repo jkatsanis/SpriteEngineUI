@@ -42,6 +42,8 @@ namespace spe
 		void Update();
 
 		void Reset() override;
+
+		const AnimationPlaying& GetAnimationPlaying() const noexcept { return this->m_AnimationPlaying; }	
 	};
 }
 

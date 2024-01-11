@@ -1,4 +1,4 @@
-# Install script for directory: C:/Dev/C++/SpriteEngineUI/Engine
+# Install script for directory: C:/Dev/SpriteEngineUI/Engine
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -34,8 +34,8 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  include("C:/Dev/C++/SpriteEngineUI/Engine/Build/Core/cmake_install.cmake")
-  include("C:/Dev/C++/SpriteEngineUI/Engine/Build/Editor/cmake_install.cmake")
+  include("C:/Dev/SpriteEngineUI/Engine/Build/Core/cmake_install.cmake")
+  include("C:/Dev/SpriteEngineUI/Engine/Build/Editor/cmake_install.cmake")
 
 endif()
 
@@ -47,5 +47,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "C:/Dev/C++/SpriteEngineUI/Engine/Build/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "C:/Dev/SpriteEngineUI/Engine/Build/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

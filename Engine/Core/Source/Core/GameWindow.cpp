@@ -22,6 +22,8 @@ spe::GameWindow::GameWindow(const spe::Vector2& size, const std::string& name)
 
 	this->m_WindowBounds = sf::IntRect(0, 0, this->m_ptr_Window->getSize().x, this->m_ptr_Window->getSize().y);
 
+	this->m_ptr_Window->setKeyRepeatEnabled(false);
+
 	ImGui::SFML::Init(*this->m_ptr_Window);
 }
 

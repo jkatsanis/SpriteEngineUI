@@ -246,3 +246,15 @@ spe::Sprite* spe::BoxCollider::CollidedWithTag(const std::string& tag)
     return nullptr;
 }
 
+spe::Sprite* spe::BoxCollider::CollidedWithName(const std::string& name)
+{
+    for (const auto& pair : this->CollidedSprites)
+    {
+        if (pair.second->Name == name)
+        {
+            return pair.second;
+        }
+    }
+
+    return nullptr;
+}

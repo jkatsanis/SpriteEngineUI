@@ -182,6 +182,25 @@ void spe::Transform::SetRotation(uint32_t angle)
 	this->ptr_Sprite->GetSprite().setRotation((float)this->m_Rotation);
 }
 
+void spe::Transform::Teleport(const spe::Vector2& position)
+{
+	if (this->m_Position == position)
+	{
+		this->PositionChanged = false;
+		return;
+	}
+
+	this->UpdateSpritePositionToParent(position);
+	this->m_Position = position;
+	this->PositionChanged = true;
+
+	if (this->ptr_Sprite != nullptr)
+	{
+		this->ptr_Sprite->GetSprite().setPosition(sf::Vector2f(position.X + 960, 540 - position.Y));
+	}
+
+}
+
 void spe::Transform::SetOrigin()
 {
 	sf::Sprite& spr = this->ptr_Sprite->GetSprite();

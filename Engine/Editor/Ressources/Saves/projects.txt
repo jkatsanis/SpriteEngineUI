@@ -1,4 +1,3 @@
 name;absulutePathStr;date;relativePath
-DasynceSE;C:\Dev\DasynceSE;2023/20/12 09:52:58;..\..\..\DasynceSE
-Saug;C:\Dev\Saug;2023/20/12 14:18:13;..\..\..\Saug
+DasynceSE;C:\Dev\DasynceSE;2024/08/01 08:21:03;..\..\DasynceSE
 

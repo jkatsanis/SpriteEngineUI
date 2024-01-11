@@ -43,6 +43,8 @@ namespace spe
 		void SetPosition(const spe::Vector2& pos);
 
 		void SetRotation(uint32_t angle);
+
+		void Teleport(const spe::Vector2& pos);
 		/// <summary>
 		/// Set's the scale, sets it even if the parameter passed is the same as the getScale();
 		/// </summary>
