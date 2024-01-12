@@ -109,7 +109,7 @@ namespace spe
 		/// </summary>
 		spe::Sprite* GetNode();
 
-		bool UseSprite(const spe::Camera& camera);
+		bool UseSprite(const spe::Camera& camera, float zoom_factor);
 
 		/// <summary>
 		/// Get's the id of the current sprite

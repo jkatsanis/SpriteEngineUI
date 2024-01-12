@@ -93,13 +93,13 @@ void spe::GameWindow::PollEvents()
 	ImGui::SFML::Update(*m_ptr_Window, Time::s_DeltaClock.restart());
 }
 
-void spe::GameWindow::Draw(spe::Sprite* ptr, const sf::Shader* shader)
+void spe::GameWindow::Draw(spe::Sprite* ptr, const sf::Shader* shader, bool ignoreLight)
 {
 	if (!ptr->SpriteRenderer.Render)
 	{
 		return;
 	}
-	if (shader != nullptr && ptr->SpriteRenderer.EffectedByLight)
+	if (shader != nullptr && ptr->SpriteRenderer.EffectedByLight && !ignoreLight)
 	{
 		this->m_ptr_Window->draw(ptr->GetSprite(), shader);
 	}

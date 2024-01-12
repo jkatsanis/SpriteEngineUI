@@ -6,6 +6,15 @@ spe::Editor::Editor()
 {
 	this->m_Window = spe::GameWindow(spe::Vector2(1920, 1080), "SpriteEngine");
 	
+	// Load the image for the window icon
+	sf::Image icon;
+	if (!icon.loadFromFile("Editor\\Ressources\\Icons\\icon.png")) {
+		spe::Log::LogString("Couldnt load icon!!");
+	}
+
+	// Set the window icon
+	this->m_Window.GetRenderWindow()->setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
+
 	// Loading the sprites from the user directory will be permaent here!
 	spe::Utility::SetCurrentDir(spe::EngineData::s_PathUserProject);
 
@@ -88,7 +97,7 @@ void spe::Editor::UpdateComponents()
 
 		this->m_SceneHandler.LightRepository.UpdateLightSource(sprite, &this->m_GUIRepository.Camera);
 
-		if (!sprite->UseSprite(this->m_GUIRepository.Camera))
+		if (!sprite->UseSprite(this->m_GUIRepository.Camera, 1))
 		{
 			continue;
 		}
@@ -101,7 +110,7 @@ void spe::Editor::UpdateComponents()
 			sprite->Physicsbody.Update();
 		}
 
-		this->m_Window.Draw(sprite, &this->m_SceneHandler.LightRepository.GetShader());
+		this->m_Window.Draw(sprite, &this->m_SceneHandler.LightRepository.GetShader(), this->m_GUIRepository.RenderAlwaysWithoutLight);
 	}
 	this->m_SceneHandler.LightRepository.UpdateArrays();
 

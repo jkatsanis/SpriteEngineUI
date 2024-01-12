@@ -33,14 +33,14 @@ namespace spe
 
 		void PollEvents();
 		bool IsOpen() const noexcept { return this->m_IsOpen; }
-		void Draw(spe::Sprite* ptr, const sf::Shader* shader);
+		void Draw(spe::Sprite* ptr, const sf::Shader* shader, bool ignoreLight);
 		void Display();
 		void Clear();
 		void Shutdown();
 
 		bool ContainsCursor();
 
-		sf::RenderWindow* GetRenderWindow() noexcept{ return this->m_ptr_Window; }
+		sf::RenderWindow* GetRenderWindow() noexcept { return this->m_ptr_Window; }
 
 		void SetCamera(spe::Camera* camera) noexcept { this->m_Camera = camera; }
 		void SetBackgroundColor(spe::Vector3* bck) noexcept { this->m_BackgroundColor = bck; }

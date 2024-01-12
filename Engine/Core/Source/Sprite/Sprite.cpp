@@ -193,10 +193,11 @@ spe::Sprite* spe::Sprite::GetNode()
 	return ptr_Parent->GetNode();
 }
 
-bool spe::Sprite::UseSprite(const spe::Camera& camera)
+bool spe::Sprite::UseSprite(const spe::Camera& camera, float zoom_factor)
 {
-	const spe::Vector2& cam_pos = spe::Vector2(camera.Position.X, camera.Position.Y);
-	static const spe::Vector2 bounds = spe::Vector2(1920 * camera.GetZoom(), 1080 * camera.GetZoom());
+	const spe::Vector2& cam_pos = spe::Vector2(camera.Position.X - 960, -camera.Position.Y + 540);
+
+    const spe::Vector2 bounds = spe::Vector2(1920 * (camera.GetZoom() + 2), 1080 * (camera.GetZoom() + 2));
 
 	float getPosX = cam_pos.X;
 	float getPosY = cam_pos.Y;
@@ -204,9 +205,8 @@ bool spe::Sprite::UseSprite(const spe::Camera& camera)
 	float otherGetPosX = this->Transform.GetOrigininalPosition().X - fabs(this->Collider.Width.X);
 	float otherGetPosY = this->Transform.GetOrigininalPosition().Y - fabs(this->Collider.Height.X);
 
-	float text_size_x = fabs(this->Collider.Width.X) + this->Transform.TextureSize.X;
-	float text_size_y = fabs(this->Collider.Height.X) + this->Transform.TextureSize.Y;
-
+	float text_size_x = fabs(this->Collider.Width.Y) + this->Transform.TextureSize.X;
+	float text_size_y = fabs(this->Collider.Height.Y) + this->Transform.TextureSize.Y;
 
 	bool isHorizontalOverlapLeft =
 		getPosX + bounds.X >= otherGetPosX;
@@ -220,11 +220,7 @@ bool spe::Sprite::UseSprite(const spe::Camera& camera)
 	bool isVerticalOverlapBottom =
 		getPosY <= otherGetPosY + text_size_y;
 
-	if (isHorizontalOverlapLeft && isHorizontalOverlapRight && isVerticalOverlapTop && isVerticalOverlapBottom)
-	{
-		return true;
-	}
-	return false;
+	return (isHorizontalOverlapLeft && isHorizontalOverlapRight && isVerticalOverlapTop && isVerticalOverlapBottom);
 }
 
 bool spe::Sprite::ContainsChild(const spe::Sprite* child) const

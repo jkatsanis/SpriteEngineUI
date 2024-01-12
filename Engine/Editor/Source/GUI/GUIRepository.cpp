@@ -6,6 +6,7 @@
 
 spe::GUIRepository::GUIRepository()
 {
+	this->RenderAlwaysWithoutLight = false;
 	this->ptr_Event = nullptr;
 	this->ptr_SFEvent = nullptr;
 	this->HierarchyHoveredSprite = nullptr;

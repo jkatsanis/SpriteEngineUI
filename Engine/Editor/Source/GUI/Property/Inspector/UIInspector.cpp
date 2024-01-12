@@ -113,6 +113,7 @@ void spe::UIInspector::GeneralSettings()
 		{
 			this->m_ptr_Repo->ReloadTextures();
 		}
+		ImGui::Checkbox("Ignore lights", &this->m_ptr_GUIRepo->RenderAlwaysWithoutLight);
 		ImGui::TreePop();
 	}
 }

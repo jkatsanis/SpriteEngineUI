@@ -54,6 +54,7 @@ namespace spe
 		spe::Camera Camera;
 
 		bool SimulatePhysics;
+		bool RenderAlwaysWithoutLight;
 
 		GUIRepository();
 
