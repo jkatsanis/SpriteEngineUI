@@ -135,40 +135,35 @@ namespace spe
         {
             size++;
         }
-
-        sf::Vector2f* lightPositions = new sf::Vector2f[size];
-        float* lightRadii = new float[size];
-        float* lightIntensities = new float[size];
-        sf::Vector3f* lightColors = new sf::Vector3f[size];
+        std::vector<sf::Vector2f> lightPositions(size);
+        std::vector<float> lightRadii(size);
+        std::vector<float> lightIntensities(size);
+        std::vector<sf::Vector3f> lightColors(size);
 
         lightPositions[0] = sf::Vector2f(0, 0);
-
         lightRadii[0] = 0;
         lightIntensities[0] = 0;
-
         lightColors[0] = sf::Vector3f(0, 0, 0);
 
         size_t i = 0;
         for (const auto& pair : m_LightSources)
         {
             const LightSource& source = pair.second;
-            lightPositions[i] = spe::Vector2::toImVec2(source.Position);
-            lightRadii[i] = source.Radius;
-            lightIntensities[i] = source.LightIntensity;
-            lightColors[i] = sf::Vector3f(source.Color.x, source.Color.y, source.Color.z);
+            if (source.Process)
+            {
+                lightPositions[i] = spe::Vector2::toImVec2(source.Position);
+                lightRadii[i] = source.Radius;
+                lightIntensities[i] = source.LightIntensity;
+                lightColors[i] = sf::Vector3f(source.Color.x, source.Color.y, source.Color.z);
+            }
             i++;
         }
 
-        m_LightShader.setUniform("lightAmount", (int)size);
-        m_LightShader.setUniformArray("lightPositions", lightPositions, size);
-        m_LightShader.setUniformArray("lightRadii", lightRadii, size);
-        m_LightShader.setUniformArray("lightIntensities", lightIntensities, size);
-        m_LightShader.setUniformArray("lightColors", lightColors, size);
-
-        delete[] lightPositions;
-        delete[] lightRadii;
-        delete[] lightIntensities;
-        delete[] lightColors;
+        m_LightShader.setUniform("lightAmount", static_cast<int>(size));
+        m_LightShader.setUniformArray("lightPositions", lightPositions.data(), size);
+        m_LightShader.setUniformArray("lightRadii", lightRadii.data(), size);
+        m_LightShader.setUniformArray("lightIntensities", lightIntensities.data(), size);
+        m_LightShader.setUniformArray("lightColors", lightColors.data(), size);
     }
 
     sf::Vector2f* LightRepository::GetPositionArray()

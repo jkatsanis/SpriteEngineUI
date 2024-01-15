@@ -11,6 +11,7 @@ namespace spe
 		LightSource();
 		LightSource(const spe::Vector2& pos, float radius, float intensiti, const sf::Vector3f& color);
 
+		bool Process;
 		spe::Vector2 Position;
 		float Radius;
 		float LightIntensity;

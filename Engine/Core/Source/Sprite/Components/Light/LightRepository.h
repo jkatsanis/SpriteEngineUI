@@ -35,6 +35,8 @@ namespace spe
 
         void MoveLightSource(uint32_t idx, const spe::Vector2& pos);
 
+        spe::LightSource& GetLightSource(uint32_t index) noexcept { return m_LightSources[index]; }
+
         uint32_t GetIndex() const noexcept{ return m_Index; }
         sf::Shader& GetShader() noexcept { return m_LightShader; }
     };

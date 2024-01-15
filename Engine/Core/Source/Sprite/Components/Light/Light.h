@@ -20,6 +20,7 @@ namespace spe
 		bool m_RadiusChanged;
 		sf::Vector3f m_Color;
 		bool m_ColorChanged;
+		spe::LightSource* m_ptr_LightSource;
 
 		float m_Intensity;
 		bool m_IntensityChanged;
@@ -54,6 +55,9 @@ namespace spe
 		float GetRadius() const noexcept { return this->m_Radius; }
 		bool HasRadiusChanged() const noexcept  { return this->m_RadiusChanged; }
 		void SetRadiosChangeFlagFalse() noexcept { this->m_RadiusChanged = false; };
+
+		void DisableProcess();
+		void EnableProcess();
 	};
 }
 

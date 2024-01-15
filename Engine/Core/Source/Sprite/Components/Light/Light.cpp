@@ -65,6 +65,7 @@ void spe::Light::Enable()
 	this->Exist = true;
 	this->m_ptr_LighRepository->Add(this->ptr_attached_sprite->Transform.GetPosition(), this->m_Radius, this->m_Intensity, this->m_Color);
 	this->m_LightIndex = this->m_ptr_LighRepository->GetIndex();
+	this->m_ptr_LightSource = &this->m_ptr_LighRepository->GetLightSource(this->m_LightIndex);
 }
 
 void spe::Light::Reset()
@@ -101,5 +102,15 @@ void spe::Light::SetRadius(float radius) noexcept
 	}
 	this->m_Radius = radius;
 	this->m_RadiusChanged = true;
+}
+
+void spe::Light::DisableProcess()
+{
+	this->m_ptr_LightSource->Process = false;
+}
+
+void spe::Light::EnableProcess()
+{
+	this->m_ptr_LightSource->Process = true;
 }
 

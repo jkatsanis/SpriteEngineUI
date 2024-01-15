@@ -258,3 +258,66 @@ spe::Sprite* spe::BoxCollider::CollidedWithName(const std::string& name)
 
     return nullptr;
 }
+
+bool spe::BoxCollider::ProcessSprite(spe::Sprite* other, const spe::Camera& camera)
+{
+    if (other->Name == "CameraCollider")
+    {
+        return false;
+    }
+
+    float zoomfactor = camera.GetZoom();
+    if (other->Light.Exist)
+    {
+        zoomfactor *= 2;
+    }
+
+    const spe::Vector2 pos = spe::Vector2(camera.Position.X, camera.Position.Y * -1);
+    spe::BoxCollider::s_ptr_CameraCollider->Transform.SetPosition(pos);
+    spe::BoxCollider::s_ptr_CameraCollider->Collider.Width = Vector2(-960 * zoomfactor, 960 * zoomfactor);
+    spe::BoxCollider::s_ptr_CameraCollider->Collider.Height = Vector2(-540 * zoomfactor, 540 * zoomfactor);
+
+    const spe::Sprite* this_s = spe::BoxCollider::s_ptr_CameraCollider;
+
+    float getPosX = this_s->Transform.GetOrigininalPosition().X;
+    float getPosY = this_s->Transform.GetOrigininalPosition().Y;
+
+    float otherGetPosX = other->Transform.GetOrigininalPosition().X;
+    float otherGetPosY = other->Transform.GetOrigininalPosition().Y;
+
+    bool isHorizontalOverlapLeft =
+        getPosX  + fabs(this_s->Collider.Width.Y) >= otherGetPosX + -fabs(other->Collider.Width.X);
+
+    bool isHorizontalOverlapRight =
+        getPosX + -fabs(this_s->Collider.Width.X) <= otherGetPosX + fabs(other->Collider.Width.Y) + other->Transform.TextureSize.X;
+
+    bool isVerticalOverlapTop =
+        getPosY + fabs(this_s->Collider.Height.Y) >= otherGetPosY + -fabs(other->Collider.Height.X);
+
+    bool isVerticalOverlapBottom =
+        getPosY + -fabs(this_s->Collider.Height.X) <= otherGetPosY + fabs(other->Collider.Height.Y) + other->Transform.TextureSize.Y;
+
+    if (isHorizontalOverlapLeft && isHorizontalOverlapRight && isVerticalOverlapTop && isVerticalOverlapBottom)
+    {
+        other->Light.EnableProcess();
+        return true;
+    }
+    other->Light.DisableProcess();
+    return false;
+}
+
+void spe::BoxCollider::InitCameraCollider(spe::LightRepository& repo)
+{
+    spe::BoxCollider::s_ptr_CameraCollider = new spe::Sprite("CameraCollider", spe::Vector2(0, 0), PATH_TO_RESSOURCES"\\Sprites\\CamColl.png", repo);
+
+    s_ptr_CameraCollider->Collider.Width = Vector2(-960, 960);
+    s_ptr_CameraCollider->Collider.Height = Vector2(-540, 540);
+
+}
+
+void spe::BoxCollider::DeleteCameraCollider()
+{
+    delete spe::BoxCollider::s_ptr_CameraCollider;
+}
+
+spe::Sprite* spe::BoxCollider::s_ptr_CameraCollider = nullptr;

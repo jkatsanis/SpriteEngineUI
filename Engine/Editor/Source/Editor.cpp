@@ -47,10 +47,13 @@ spe::Editor::Editor()
 	spe::Log::LogString("Finished init...");
 	spe::Log::LogString("Building the project..");
 	spe::EngineData::BuildProjectFiles();
+
+	spe::BoxCollider::InitCameraCollider(this->m_SceneHandler.LightRepository);
 }
 
 spe::Editor::~Editor()
 {
+	spe::BoxCollider::DeleteCameraCollider();
 	this->m_Window.Shutdown();
 	this->m_SceneHandler.SpriteRepository.cleanUp();
 }
@@ -94,14 +97,13 @@ void spe::Editor::UpdateComponents()
 	for (auto it = sprites.begin(); it != sprites.end(); ++it)
 	{
 		spe::Sprite* sprite = *it;
-
-		this->m_SceneHandler.LightRepository.UpdateLightSource(sprite, &this->m_GUIRepository.Camera);
-
-		if (!sprite->UseSprite(this->m_GUIRepository.Camera, 1))
+	
+		if (!spe::BoxCollider::ProcessSprite(sprite, this->m_GUIRepository.Camera))
 		{
 			continue;
 		}
 
+		this->m_SceneHandler.LightRepository.UpdateLightSource(sprite, &this->m_GUIRepository.Camera);
 		sprite->Animator.Update();
 
 		if (this->m_GUIRepository.SimulatePhysics)

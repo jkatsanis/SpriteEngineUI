@@ -2,9 +2,12 @@
 
 #include <Include/SFML/Graphics.hpp>
 #include <unordered_map>
+#include <math.h>
 
 #include "Math/Vector2.h"
 #include "Sprite/Components/Component.h"
+#include "Sprite/Components/Light/LightRepository.h"
+#include "Camera/Camera.h"
 
 namespace spe
 {
@@ -31,6 +34,8 @@ namespace spe
 		bool CanCollide;
 		bool CollidedInFrame;
 		std::unordered_map<uint32_t, spe::Sprite*> CollidedSprites;
+
+		static spe::Sprite* s_ptr_CameraCollider;
 
 		bool Left;
 		bool Right;
@@ -63,6 +68,10 @@ namespace spe
 		spe::Sprite* CollidedWithTag(const std::string& tag);
 
 		spe::Sprite* CollidedWithName(const std::string& name);
+
+		static bool ProcessSprite(spe::Sprite* sprite, const spe::Camera& camera);
+		static void InitCameraCollider(spe::LightRepository& repo);
+		static void DeleteCameraCollider();
 	};
 }
 

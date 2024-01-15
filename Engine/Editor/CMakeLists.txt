@@ -9,7 +9,10 @@ file(GLOB_RECURSE EDITOR_SOURCE_FILES
 
 source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR} FILES ${EDITOR_SOURCE_FILES})
 
-add_executable(${EDITOR_NAME} ${EDITOR_SOURCE_FILES})
+
+add_executable(${EDITOR_NAME}
+ ${EDITOR_SOURCE_FILES}
+)
 
 include_directories($(CMAKE_CURRENT_SOURCE_DIR)/Source)
 
