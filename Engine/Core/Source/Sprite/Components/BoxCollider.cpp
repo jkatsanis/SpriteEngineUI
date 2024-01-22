@@ -271,6 +271,10 @@ bool spe::BoxCollider::ProcessSprite(spe::Sprite* other, const spe::Camera& came
     {
         zoomfactor *= 2;
     }
+    if (camera.GetZoom() < 0.5f)
+    {
+		zoomfactor *= 8;
+	}
 
     const spe::Vector2 pos = spe::Vector2(camera.Position.X, camera.Position.Y * -1);
     spe::BoxCollider::s_ptr_CameraCollider->Transform.SetPosition(pos);

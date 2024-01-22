@@ -59,7 +59,7 @@ void spe::PhsysicsBody::Update()
 		this->Velocity.Y = 0.0f;
 	}
 
-	this->Velocity.Y -= this->Gravity;
+	this->Velocity.Y -= this->Gravity * spe::Time::s_DeltaTime;
 
 }
 
