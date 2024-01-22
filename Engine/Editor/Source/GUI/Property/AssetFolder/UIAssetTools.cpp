@@ -82,6 +82,12 @@ void spe::UIAssetTools::Update(bool& hovered)
 				*this->m_ptr_HoveredIconName = "";
 			}
 		}
+		ImGui::SetCursorPosX(ImGui::GetCursorPosX() - 7);
+		if (ImGui::Button("Open in file dialoge"))
+		{
+			const std::string command = "start explorer " + *this->m_ptr_CurrentAssetPath;
+			system(command.c_str());
+		}
 		ImGui::EndPopup();
 	}
 	else
