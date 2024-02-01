@@ -7,3 +7,4 @@
 *.recipe
 *.ilk
 *.idb
+**/build/
