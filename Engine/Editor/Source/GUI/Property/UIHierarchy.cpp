@@ -99,7 +99,15 @@ void spe::UIHierarchy::AddSprite()
 	{
 		const size_t vectorPos = this->m_ptr_Repo->GetAmount() + 1;
 		const std::string name = "Sprite " + std::to_string(vectorPos) + " ID " + std::to_string(this->m_ptr_Repo->GetHighestId() + 1);
-		spe::Sprite* sprite = new spe::Sprite(name, spe::Vector2(0, 0), PATH_TO_DEFAULT_SPRITE, *this->m_ptr_LightRepo);
+
+		spe::Vector2 pos = spe::Vector2(0, 0);
+
+		if (this->m_ptr_GUIRepo->SpawnInCenter)
+		{
+			pos = spe::Vector2(this->m_ptr_GUIRepo->Camera.Position.X, this->m_ptr_GUIRepo->Camera.Position.Y * -1);
+		}
+
+		spe::Sprite* sprite = new spe::Sprite(name, pos, PATH_TO_DEFAULT_SPRITE, *this->m_ptr_LightRepo);
 
 		this->OnSpriteAdd(sprite);
 	}

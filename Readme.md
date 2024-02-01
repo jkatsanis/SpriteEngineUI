@@ -55,6 +55,10 @@ To begin, clone this github repository.
 (Outdated)
 Watch an introduction to the engine on [YouTube](https://www.youtube.com/watch?v=pnCD5dKhpmg).
 
+0. **MAKE SURE TO RUN THE RUNME.sh file** 
+  - This will create a Build folder, run cmake and build the C++ files.
+  - It creates also a special Build folder in Engine/Template/ so the engine does not crash when creating a new project, the **Build directory is required**!!!
+
 1. **Create a Project**
    - Click the `create` button to initiate a new project.
    - In the file dialog, choose the project location and press the `+` button.

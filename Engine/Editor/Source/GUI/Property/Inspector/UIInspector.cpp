@@ -114,6 +114,9 @@ void spe::UIInspector::GeneralSettings()
 			this->m_ptr_Repo->ReloadTextures();
 		}
 		ImGui::Checkbox("Ignore lights", &this->m_ptr_GUIRepo->RenderAlwaysWithoutLight);
+
+		ImGui::Checkbox("Spawn in camera center", &this->m_ptr_GUIRepo->SpawnInCenter);
+
 		ImGui::TreePop();
 	}
 }

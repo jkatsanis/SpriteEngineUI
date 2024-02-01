@@ -21,7 +21,7 @@ spe::GUIRepository::GUIRepository()
 	this->DragAndDropName = " ";
 
 	this->SimulatePhysics = false;
-
+	this->SpawnInCenter = false;
 	this->Tools = spe::EditorTools::PositionTool;
 }
 

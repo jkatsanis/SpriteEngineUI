@@ -55,6 +55,7 @@ namespace spe
 
 		bool SimulatePhysics;
 		bool RenderAlwaysWithoutLight;
+		bool SpawnInCenter;
 
 		GUIRepository();
 
