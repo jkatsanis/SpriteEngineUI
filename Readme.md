@@ -38,13 +38,9 @@ Welcome to Sprite Engine, a user-friendly **2D Game Engine** designed for solo d
 - **Box Collider Rotation**
 
 ## How to build
-
-- Navigate to the engine directory `cd Engine`
-- Delete the older Build directory if it exists
-- Create a Build directory `mkdir Build`
-- Navigatge in the Build dir `cd Build`
-- Make sure to have CMake installed and run this command `cmake ..`
-- Make sure to have the Editor as startup project
+ - **MAKE SURE TO RUN THE RUNME.sh file** 
+  - This will create a Build folder, run cmake and build the C++ files.
+  - It creates also a special Build folder in Engine/Template/ so the engine does not crash when creating a new project, the **Engine/Template/Build directory is REQUIRED!!!**
 
 ## Getting Started
 
@@ -54,10 +50,6 @@ To begin, clone this github repository.
 
 (Outdated)
 Watch an introduction to the engine on [YouTube](https://www.youtube.com/watch?v=pnCD5dKhpmg).
-
-0. **MAKE SURE TO RUN THE RUNME.sh file** 
-  - This will create a Build folder, run cmake and build the C++ files.
-  - It creates also a special Build folder in Engine/Template/ so the engine does not crash when creating a new project, the **Build directory is required**!!!
 
 1. **Create a Project**
    - Click the `create` button to initiate a new project.
