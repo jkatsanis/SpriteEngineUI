@@ -1,5 +1,7 @@
 #pragma once
 
+#include <math.h>      
+
 #include "Core/GameWindow.h"
 #include "RessourceHandler/Initializer.h"
 #include "Core/IApplication.h"

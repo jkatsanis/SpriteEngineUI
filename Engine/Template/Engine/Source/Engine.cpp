@@ -40,6 +40,7 @@ void spe::Engine::Init()
 
 	this->m_SceneHandler.LoadScene(this->m_SceneHandler.TotalScenes[0], this->m_Camera, this->m_BackgroundColor);
 
+	spe::BoxCollider::InitCameraCollider(this->m_SceneHandler.LightRepository);
 	// this->m_Camera.reset();
 }
 
@@ -52,6 +53,7 @@ void spe::Engine::UpdateComponents()
 	// Updating the user here
 	ImGui::Begin("##MainWindow", NULL, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoBackground | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoMove);
 	this->m_Game.Update();	
+
 	ImGui::SetWindowSize(ImVec2(1920, 1080));
 	ImGui::SetWindowPos(ImVec2(0, 0));
 	ImGui::SetWindowFontScale(spe::Style::s_DefaultFontSize + 0.5f);
@@ -65,18 +67,25 @@ void spe::Engine::UpdateComponents()
 	for (auto it = sprites.begin(); it != sprites.end(); ++it)
 	{
 		spe::Sprite* sprite = *it;
+	
+		if (!spe::BoxCollider::ProcessSprite(sprite, this->m_Camera))
+		{
+			continue;
+		}
+
+		this->m_SceneHandler.LightRepository.UpdateLightSource(sprite, &this->m_Camera);
 
 		sprite->Animator.Update();
 		sprite->Collider.Update(this->m_SceneHandler.SpriteRepository);
 		sprite->Physicsbody.Update();
 
-		this->m_SceneHandler.LightRepository.UpdateLightSource(sprite, &this->m_Camera);
-		this->m_Window.Draw(sprite, &this->m_SceneHandler.LightRepository.GetShader());
+		this->m_Window.Draw(sprite, &this->m_SceneHandler.LightRepository.GetShader(), false);
 	}
 	this->m_SceneHandler.LightRepository.UpdateArrays();
 
 	this->m_Window.Display();
 }
+
 
 // Public
 

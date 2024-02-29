@@ -5,9 +5,7 @@
 
 class Game : public spe::IScript
 {		
-public:
-	spe::EngineConfig EngineConfig;
-	
+public:	
 	// Gets called on start of the engine
 	void Start() override;
 

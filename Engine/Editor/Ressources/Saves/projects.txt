@@ -1,4 +1,5 @@
 name;absulutePathStr;date;relativePath
 DasynceSE;C:\Dev\DasynceSE;2024/08/01 08:21:03;..\..\DasynceSE
-thot;C:\Dev\thot;2024/01/02 21:56:50;..\..\thot
+DerSauger;C:\Dev\DerSauger;2024/29/02 13:11:08;..\..\DerSauger
+RingRing;C:\Dev\RingRing;2024/29/02 13:13:14;..\..\RingRing
 
