@@ -32,6 +32,7 @@ spe::Sprite::Sprite(spe::Sprite& rhs)
 	this->SpriteRenderer = spe::SpriteRenderer(rhs.SpriteRenderer);
 	this->Light = spe::Light(this, rhs.Light);
 	this->Prefab = spe::Prefab(this, rhs.Prefab);
+
 	this->Name = rhs.Name;
 
 	this->Tag = rhs.Tag;

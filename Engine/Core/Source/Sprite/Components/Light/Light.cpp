@@ -23,6 +23,7 @@ spe::Light::Light(Sprite* ptr_attached_sprite, spe::LightRepository* ptr)
 	this->Init();
 	this->ptr_attached_sprite = ptr_attached_sprite;
 	this->m_ptr_LighRepository = ptr;
+	this->m_ptr_LightSource = nullptr;
 }
 
 spe::Light::Light(Sprite* ptr_sprite, const spe::Light& rhs)
@@ -32,8 +33,10 @@ spe::Light::Light(Sprite* ptr_sprite, const spe::Light& rhs)
 	this->m_Radius = rhs.GetRadius();
 	this->m_Intensity = rhs.GetIntensity();
 	this->m_ptr_LighRepository = rhs.m_ptr_LighRepository;
-
 	this->ptr_attached_sprite = ptr_sprite;
+	this->m_ptr_LightSource = nullptr;
+	this->BaseComponent = false;
+	this->m_RadiusChanged = false;
 
 	if (this->Exist)
 	{
@@ -52,6 +55,7 @@ void spe::Light::DeleteLight()
 	{
 		this->m_ptr_LighRepository->Remove(this->m_LightIndex);
 		this->m_LightIndex = 0;
+		this->m_ptr_LightSource = nullptr;
 	}
 }
 
@@ -106,11 +110,17 @@ void spe::Light::SetRadius(float radius) noexcept
 
 void spe::Light::DisableProcess()
 {
-	this->m_ptr_LightSource->Process = false;
+	if (this->m_ptr_LightSource != nullptr)
+	{
+		this->m_ptr_LightSource->Process = false;
+	}
 }
 
 void spe::Light::EnableProcess()
 {
-	this->m_ptr_LightSource->Process = true;
+	if (this->m_ptr_LightSource != nullptr)
+	{
+		this->m_ptr_LightSource->Process = true;
+	}
 }
 

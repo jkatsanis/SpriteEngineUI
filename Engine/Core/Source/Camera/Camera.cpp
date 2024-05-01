@@ -4,8 +4,6 @@
 
 spe::Camera::Camera() 
 { 
-	this->m_ptr_Repo = nullptr;
-	this->m_ptr_Window = nullptr;
 	this->Position = spe::Vector2(0, 0);
 	this->m_CameraZoom = 1.0f;
 	this->CameraSpeed = 2000.0f;
@@ -16,10 +14,8 @@ spe::Camera::Camera(sf::RenderWindow* ptr, spe::SpriteRepository& repo)
 {
 	spe::Vector2 defaultPos = this->GetDefaultPosition();
 
-	this->m_ptr_Repo = &repo;
 	this->m_CameraZoom = 1.0f;
 	this->Position = spe::Vector2(0, 0);
-	this->m_ptr_Window = ptr;
 	this->CameraView = sf::View(sf::Vector2f(defaultPos.X, defaultPos.Y), sf::Vector2f(1920, 1080));
 }
 

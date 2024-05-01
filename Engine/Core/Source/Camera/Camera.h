@@ -12,9 +12,7 @@ namespace spe
 	class Camera
 	{
 	private:
-		sf::RenderWindow* m_ptr_Window;;
 		float m_CameraZoom;
-		spe::SpriteRepository* m_ptr_Repo;
 		bool m_ZoomChanged;
 		spe::Vector2 GetDefaultPosition() noexcept;
 

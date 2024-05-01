@@ -45,6 +45,6 @@ void spe::SceneHandler::DeleteScene(const std::string& name)
 
 void spe::SceneHandler::CreateScene(const std::string& name)
 {
-	spe::Utility::CopyDir("Engine\\Saves\\Template", "Engine\\Saves", name);
+	spe::Utility::CopyDir("Engine\\Saves\\Template", "Engine\\Saves\\", name);
 	this->TotalScenes.push_back(name);
 }
