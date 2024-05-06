@@ -59,6 +59,11 @@ spe::Animation::Animation(spe::Sprite* ptr_applied_sprite, const spe::Animation&
 
 void spe::Animation::InitCopyCtor(const spe::Animation& animation)
 {
+	this->TotalTimePassed = 0.0f;
+	this->TotalFramePassed = 0.0f;
+	this->CurrentFrame = 0;
+	this->TimePassed = 0.0f;
+
 	this->m_Name = animation.m_Name;
 	this->m_BasePath = this->ptr_AppliedSprite->SpriteRenderer.Path;
 	this->Loop = animation.Loop;

@@ -44,6 +44,8 @@ spe::Sprite::Sprite(spe::Sprite& rhs)
 		copy_child->ptr_Parent = this;
 		this->ptr_Childs.push_back(copy_child);
 	}
+
+	this->Animator.Stop(this->Animator.GetAnimationPlaying().Name);
 }
 
 spe::Sprite::~Sprite()
