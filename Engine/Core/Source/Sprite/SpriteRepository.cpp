@@ -178,6 +178,10 @@ void spe::SpriteRepository::cleanUp()
     for (auto it = this->m_Sprites.begin(); it != this->m_Sprites.end(); ++it)
     {
         spe::Sprite* element = *it;
+        if (element->DontDeleteOnSceneSwap)
+        {
+            continue;
+        }
         delete element;
     }
     this->m_Sprites.clear();

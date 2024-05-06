@@ -151,7 +151,7 @@ std::string spe::Savesystem::GetPropertyLineWithSeperator(const spe::Sprite* spr
 
 	line += ";" + light_color_r + ";" + light_color_g + ";" + light_color_b;
 
-
+	// Render
 	line += ";" + render;
 
 	return line;
@@ -168,7 +168,7 @@ void spe::Savesystem::CreateOrUpdatePrefabFile(const spe::Sprite* content, const
 		spe::Utility::Delete(oldFilePath);
 	}
 
-	std::string fileContent = "name;vecpos;transformPosX;transformPosY;ScaleX;ScaleY;filepath;boxColliderWidthLeftOrRightX;boxColliderWidthLeftOrRighY;boxColliderHeightUpOrDownX;boxColliderHeightUpOrDownY;boxColliderExists;solid;sortingLayer;gravity;mass;physicsBodyExists;id;parentId;nextPosX;nextPosY;lastPosX;lastPosY;listPos;highestChild;positionToParentX;positionToParentY;animatorExists;prefabExist;loadInMemory;pathToPrefab\n";
+	std::string fileContent = "name;vecpos;transformPosX;transformPosY;ScaleX;ScaleY;filepath;boxColliderWidthLeftOrRightX;boxColliderWidthLeftOrRighY;boxColliderHeightUpOrDownX;boxColliderHeightUpOrDownY;boxColliderExists;solid;sortingLayer;gravity;mass;physicsBodyExists;id;parentId;nextPosX;nextPosY;lastPosX;lastPosY;listPos;highestChild;positionToParentX;positionToParentY;animatorExists;prefabExist;loadInMemory;pathToPrefab;render\n";
 
 	std::string s;
 	s.push_back(PREFAB_DELIMITER);

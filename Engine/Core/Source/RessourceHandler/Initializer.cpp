@@ -274,6 +274,10 @@ spe::Sprite* spe::Initializer::InitSprite(const std::string& line, spe::LightRep
 	sprite->Light.SetColor(spe::Vector3::ToSFVector3(color));
 #pragma endregion
 
+#pragma region render
+	// sprite->SpriteRenderer.Render = propertys[40] == "True";
+#pragma endregion
+
 	sprite->Transform.SetOrigin();
 
 	return sprite;

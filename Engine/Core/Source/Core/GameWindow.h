@@ -23,6 +23,7 @@ namespace spe
 		sf::IntRect m_WindowBounds;
 
 		void UpdateCamera();
+		void Draw(spe::Sprite* ptr, const sf::Shader* shader, bool ignoreLight);
 
 	public:
 		sf::Event WindowEvent;
@@ -33,7 +34,9 @@ namespace spe
 
 		void PollEvents();
 		bool IsOpen() const noexcept { return this->m_IsOpen; }
-		void Draw(spe::Sprite* ptr, const sf::Shader* shader, bool ignoreLight);
+		void DrawEngine(spe::Sprite* ptr, const sf::Shader* shader, bool ignoreLight);
+		void DrawGame(spe::Sprite* ptr, const sf::Shader* shader, bool ignoreLight);
+
 		void Display();
 		void Clear();
 		void Shutdown();

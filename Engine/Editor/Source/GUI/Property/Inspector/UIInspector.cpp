@@ -594,6 +594,12 @@ void spe::UIInspector::SpriteRendererComponent()
 		spe::UIUtility::SameLine(0);
 		ImGui::Checkbox("##light-checkbox", &this->m_ptr_GUIRepo->InspectorSprite->SpriteRenderer.EffectedByLight);
 		ImGui::Dummy(ImVec2(0, 7));
+
+		ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 18);
+		ImGui::Text("Render (ingame)");
+		spe::UIUtility::SameLine(0);
+		ImGui::Checkbox("##render-checkbox", &this->m_ptr_GUIRepo->InspectorSprite->SpriteRenderer.Render);
+
 		ImGui::TreePop();
 	}
 }
