@@ -272,7 +272,17 @@ void spe::UIHierarchy::AddPrefab()
 		&& "." + spe::Utility::GetFileExtension(this->m_ptr_GUIRepo->DragAndDropName) == EXTENSION_PREFAB_FILE
 		&& ImGui::IsMouseReleased(0) && this->Hovered)
 	{
-		spe::Sprite* sprite = spe::Initializer::InitPrefab(this->m_ptr_GUIRepo->DragAndDropPath, *this->m_ptr_LightRepo);
+		spe::Sprite* sprite = nullptr;
+		try
+		{
+			sprite = spe::Initializer::InitPrefab(this->m_ptr_GUIRepo->DragAndDropPath, *this->m_ptr_LightRepo);
+		}
+		catch (std::exception& e)
+		{
+			std::string err = e.what();
+			spe::Log::LogString("Some shit happened when trying to init prefab: " + err);
+			sprite = nullptr;
+		}
 
 		if (sprite == nullptr)
 		{

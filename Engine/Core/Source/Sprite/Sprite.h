@@ -55,7 +55,7 @@ namespace spe
 		std::vector<spe::Sprite*> ptr_Childs;
 		spe::Sprite* ptr_Parent;
 		
-		Sprite();
+		Sprite() = default;
 		Sprite(std::string name, spe::Vector2 spawnPosition, std::string path, spe::LightRepository& lightrepo);
 		Sprite(spe::Sprite& rhs);
 		~Sprite();

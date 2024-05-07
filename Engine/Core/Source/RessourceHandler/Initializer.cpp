@@ -275,7 +275,7 @@ spe::Sprite* spe::Initializer::InitSprite(const std::string& line, spe::LightRep
 #pragma endregion
 
 #pragma region render
-	// sprite->SpriteRenderer.Render = propertys[40] == "True";
+	sprite->SpriteRenderer.Render = propertys[40] == "True";
 #pragma endregion
 
 	sprite->Transform.SetOrigin();
