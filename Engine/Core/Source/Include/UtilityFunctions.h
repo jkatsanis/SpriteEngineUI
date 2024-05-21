@@ -49,5 +49,6 @@ namespace spe
 
 		static std::string CopyDir(const std::string& inputDir, const std::string& outputdir, const std::string& name);
 
+		static void GetFilePathWithExtensionInFolder(const std::filesystem::path& path, const std::string& extension, std::vector<std::string>& to);
 	};
 }

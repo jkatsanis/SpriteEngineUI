@@ -37,6 +37,11 @@ namespace spe
 		std::string Name;
 		std::string Tag;
 
+		/// <summary>
+		/// very wierd; use with caution
+		/// </summary>
+		bool DontDeleteOnSceneSwap;
+
 		// Components
 		spe::SpriteRenderer SpriteRenderer;
 		spe::BoxCollider Collider;
@@ -49,8 +54,8 @@ namespace spe
 		//Parent / child infos
 		std::vector<spe::Sprite*> ptr_Childs;
 		spe::Sprite* ptr_Parent;
-
-		Sprite();
+		
+		Sprite() = default;
 		Sprite(std::string name, spe::Vector2 spawnPosition, std::string path, spe::LightRepository& lightrepo);
 		Sprite(spe::Sprite& rhs);
 		~Sprite();

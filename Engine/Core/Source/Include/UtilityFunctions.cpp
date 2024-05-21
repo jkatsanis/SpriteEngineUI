@@ -244,3 +244,22 @@ std::string spe::Utility::CopyDir(const std::string& inputDir, const std::string
 
     return outputdir + std::string(name.c_str());
 }
+
+void spe::Utility::GetFilePathWithExtensionInFolder(const std::filesystem::path& path, const std::string& extension, std::vector<std::string>& to)
+{
+    for (const std::filesystem::directory_entry& entry : std::filesystem::directory_iterator(path))
+    {
+        if (std::filesystem::is_directory(entry))
+        {
+            GetFilePathWithExtensionInFolder(entry.path(), extension, to);
+        }
+        else
+        {
+            std::string file_extension = "." + GetFileExtension(entry.path().filename().string());
+            if (file_extension == extension)
+            {
+                to.push_back(entry.path().string());
+            }
+        }
+    }
+}

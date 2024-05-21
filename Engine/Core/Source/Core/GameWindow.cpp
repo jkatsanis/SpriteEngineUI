@@ -38,6 +38,18 @@ void spe::GameWindow::UpdateCamera()
 	}
 }
 
+void spe::GameWindow::Draw(spe::Sprite* ptr, const sf::Shader* shader, bool ignoreLight)
+{
+	if (shader != nullptr && ptr->SpriteRenderer.EffectedByLight && !ignoreLight)
+	{
+		this->m_ptr_Window->draw(ptr->GetSprite(), shader);
+	}
+	else
+	{
+		this->m_ptr_Window->draw(ptr->GetSprite());
+	}
+}
+
 // Public
 
 void spe::GameWindow::PollEvents()
@@ -93,21 +105,20 @@ void spe::GameWindow::PollEvents()
 	ImGui::SFML::Update(*m_ptr_Window, Time::s_DeltaClock.restart());
 }
 
-void spe::GameWindow::Draw(spe::Sprite* ptr, const sf::Shader* shader, bool ignoreLight)
+void spe::GameWindow::DrawEngine(spe::Sprite* ptr, const sf::Shader* shader, bool ignoreLight)
+{
+	this->Draw(ptr, shader, ignoreLight);
+}
+
+void spe::GameWindow::DrawGame(spe::Sprite* ptr, const sf::Shader* shader, bool ignoreLight)
 {
 	if (!ptr->SpriteRenderer.Render)
 	{
 		return;
 	}
-	if (shader != nullptr && ptr->SpriteRenderer.EffectedByLight && !ignoreLight)
-	{
-		this->m_ptr_Window->draw(ptr->GetSprite(), shader);
-	}
-	else 
-	{
-		this->m_ptr_Window->draw(ptr->GetSprite());
-	}
+	this->Draw(ptr, shader, ignoreLight);
 }
+
 
 void spe::GameWindow::Display()
 {

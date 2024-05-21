@@ -112,7 +112,7 @@ void spe::Editor::UpdateComponents()
 			sprite->Physicsbody.Update();
 		}
 
-		this->m_Window.Draw(sprite, &this->m_SceneHandler.LightRepository.GetShader(), this->m_GUIRepository.RenderAlwaysWithoutLight);
+		this->m_Window.DrawEngine(sprite, &this->m_SceneHandler.LightRepository.GetShader(), this->m_GUIRepository.RenderAlwaysWithoutLight);
 	}
 	this->m_SceneHandler.LightRepository.UpdateArrays();
 

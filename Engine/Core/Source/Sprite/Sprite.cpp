@@ -4,17 +4,6 @@
 
 //Constructor
 
-spe::Sprite::Sprite()
-{
-	this->m_ID = 0;
-	this->m_ParentID = 0;
-	this->ptr_Parent = nullptr;
-	this->m_SetId = false;
-	this->Name = "Unknown";
-	this->Transform.SetPosition(spe::Vector2(0, 0));
-	this->m_Texture = nullptr;
-}
-
 spe::Sprite::Sprite(std::string name, spe::Vector2 spawnPosition, std::string path, spe::LightRepository& lightrep)
 	: Name(name)
 {
@@ -171,6 +160,7 @@ void spe::Sprite::InitVariables(spe::Vector2 spawnPos, std::string path, spe::Li
 	this->Name = Name;
 	this->SpriteRenderer.Path = path;
 	this->m_SetId = false;
+	this->DontDeleteOnSceneSwap = false;
 
 	this->SpriteRenderer.SortinLayerIdx = 0;
 

@@ -175,12 +175,18 @@ void spe::SpriteRepository::ReloadTextures()
 
 void spe::SpriteRepository::cleanUp()
 {
-    for (auto it = this->m_Sprites.begin(); it != this->m_Sprites.end(); ++it)
+    for (auto it = this->m_Sprites.begin(); it != this->m_Sprites.end();)
     {
         spe::Sprite* element = *it;
+        if (element->DontDeleteOnSceneSwap)
+        {
+            ++it; 
+            continue;
+        }
         delete element;
+        it = this->m_Sprites.erase(it); 
     }
-    this->m_Sprites.clear();
+
     this->Initialized = false;
     this->m_HighestLayer = 0;
 }
