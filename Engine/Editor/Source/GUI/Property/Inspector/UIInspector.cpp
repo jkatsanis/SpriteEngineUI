@@ -141,7 +141,7 @@ void spe::UIInspector::RenderOptions()
 	ImGui::SetCursorPosX(0);
 
 	spe::UIUtility::DrawRectangleInGUIWIndow(
-		ImVec2(this->m_Size.x + 50, 45), ImVec2(1900 - this->m_Size.x, 130), ImColor(26, 26, 26, 255));
+		ImVec2(this->m_Size.x + 50, 45), ImVec2(1900 - this->m_Size.x, 130 - ImGui::GetScrollY()), ImColor(26, 26, 26, 255));
 	ImGui::SetCursorPosY(ImGui::GetCursorPosY() + 50);
 }
 
@@ -187,7 +187,6 @@ void spe::UIInspector::ResizeWindow()
 
 void spe::UIInspector::RenderBackgroundBehindComponent()
 {
-	std::cout << ImGui::GetScrollY() << std::endl;
 	const ImVec2 temp = ImGui::GetCursorPos();
 	ImGui::SetCursorPosX(1920 - this->m_Size.x);
 	ImGui::SetCursorPosY((ImGui::GetCursorPosY() + 76) - ImGui::GetScrollY());
