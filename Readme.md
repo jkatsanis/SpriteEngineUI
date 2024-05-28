@@ -1,3 +1,5 @@
+# RUN THE RUNME.sh FILE!!!
+
 # Welcome To Sprite Engine
 
 Welcome to Sprite Engine, a user-friendly **2D Game Engine** designed for solo developers who want a straightforward yet powerful tool.
