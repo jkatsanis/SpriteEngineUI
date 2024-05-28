@@ -262,7 +262,7 @@ void spe::UIAnimation::AddAnimationsToAnimator()
 		if (this->m_AnimationFile[0] != '\0')
 		{
 			const std::string& path = 
-				this->m_CreateFileDialoge.PathClicked
+				this->m_CreateFileDialoge.PathClicked + "\\" +
 				+ this->m_AnimationFile
 				+ EXTENSION_ANIMATION_FILE;
 			this->m_ptr_GUIRepo->InspectorSprite->Animator.CreateAnimation(this->m_AnimationFile, path, { });

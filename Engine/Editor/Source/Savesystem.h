@@ -32,6 +32,7 @@ namespace spe
 		static void UpdateHighestIndexFile(uint32_t idx);
 		static void UpdateCameraFile(const spe::Camera& camera);
 		static void UpdateTagsFile(const spe::SpriteRepository& repo);
+		static void UpdateAnimationFile(const spe::SpriteRepository& repo);
 
 		/// <summary>
 		/// Saves everything

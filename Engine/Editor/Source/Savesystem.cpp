@@ -16,6 +16,7 @@ void spe::Savesystem::SaveEverything(const spe::SpriteRepository& repo, const sp
 	spe::Savesystem::UpdateSpriteFile(repo);
 	spe::Savesystem::UpdateTagsFile(repo);
 	spe::Savesystem::UpdateHighestIndexFile(repo.GetHighestId());
+	spe::Savesystem::UpdateAnimationFile(repo);
 }
 
 
@@ -215,9 +216,8 @@ void spe::Savesystem::CreateAnimationSaveFile(const spe::Sprite* ptr_sprite, con
 	for (const spe::KeyFrame& frame : frames)
 	{
 		content += std::to_string(frame.delay) + std::string(";") +
-			spe::Utility::getUserProjectPathSeperatetFromEnginePath(frame.path) + "\n";
+			(frame.path) + "\n";
 	}
-
 	std::string pathAndName = anim.GetPath();
 	spe::Utility::CreateFileWithContent(content, pathAndName);
 }
@@ -336,6 +336,20 @@ void spe::Savesystem::UpdateTagsFile(const spe::SpriteRepository& repo)
 		}
 
 		tag_file.close();
+	}
+}
+
+void spe::Savesystem::UpdateAnimationFile(const spe::SpriteRepository& repo)
+{
+	const std::list<spe::Sprite*>& sprites = repo.GetSpritesC();
+
+	for (auto it = sprites.begin(); it != sprites.end(); ++it)
+	{
+		const spe::Sprite* sprite = *it;
+		for (const auto& anim : sprite->Animator.Animations)
+		{
+			spe::Savesystem::CreateAnimationSaveFile(sprite, anim.second);
+		}
 	}
 }
 
