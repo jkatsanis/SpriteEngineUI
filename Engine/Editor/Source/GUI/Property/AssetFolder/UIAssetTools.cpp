@@ -130,10 +130,11 @@ void spe::UIAssetTools::CreateFileContent()
 		"class " + std::string(this->m_ClassFileName) + " : public spe::IScript\n"
 		"{\n"
 		"public:\n"
-		"   // Can get called on start by the game/sub class\n"
-		"   void Start();\n\n"
-		"   // Can get called 1 time per frame by the game/sub class\n"
-		"   void Update();\n"
+		"    " + std::string(this->m_ClassFileName) + "() = default;\n\n"
+		"	 // Can get called on start by the game/sub class\n"
+		"    void Start();\n\n"
+		"    // Can get called 1 time per frame by the game/sub class\n"
+		"    void Update();\n"
 		"};\n";
 
 	const std::string cpp_content =
