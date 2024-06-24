@@ -36,6 +36,7 @@ namespace spe
 		// General info
 		std::string Name;
 		std::string Tag;
+		bool Process;
 
 		/// <summary>
 		/// very wierd; use with caution

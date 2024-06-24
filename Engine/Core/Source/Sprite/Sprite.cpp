@@ -143,6 +143,7 @@ void spe::Sprite::RemoveChild(const spe::Sprite* child)
 void spe::Sprite::InitVariables(spe::Vector2 spawnPos, std::string path, spe::LightRepository& lightrep)
 {
 	// Components
+	this->Process = false;
 	this->Transform = spe::Transform(this);
 	this->Animator = spe::Animator(this);
 	this->Collider = spe::BoxCollider(this);
