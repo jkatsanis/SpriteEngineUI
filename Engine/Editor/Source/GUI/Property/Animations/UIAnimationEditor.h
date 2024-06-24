@@ -22,6 +22,8 @@ namespace spe
 		const float SMALL_INCREMENT = 0.5f;
 		const float LARGE_INCREMENT = 2;
 
+		int m_KeyFrameSelectedPos;
+
 		int m_KeyFramePos;
 		std::string m_KeyFramePathStd;
 

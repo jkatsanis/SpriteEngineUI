@@ -188,6 +188,18 @@ void spe::UIAnimationEditor::DisplayKeyFrameInfo()
 	ImGui::SameLine();
 	spe::Style::DisplaySmybolAsText(ICON_FA_TRASH);
 
+	this->m_KeyFrameSelectedPos = this->m_KeyFrameSelected.Position;
+
+	ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 245);
+	ImGui::PushItemWidth(200);
+	ImGui::InputInt("##Change pos", &m_KeyFrameSelectedPos);
+
+	if (this->m_KeyFrameSelectedPos != this->m_KeyFrameSelected.Position)
+	{
+		std::cout << "hi";
+	    this->m_ptr_Anim->ChangeKeyFramePos(this->m_KeyFrameSelected.Position, this->m_KeyFrameSelectedPos);
+		this->m_KeyFrameSelected.Position = this->m_KeyFrameSelectedPos;
+	}
 
 	ImGui::SetCursorPos(pos);
 }
