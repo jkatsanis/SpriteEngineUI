@@ -16,23 +16,9 @@ add_executable(${EDITOR_NAME}
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/Source)
 
-message("Library Path: ${PATH_LIBRARIES}")
-
 # Link libraries
 target_link_libraries(${EDITOR_NAME} PRIVATE
-    opengl32.lib
     Core
-    $<$<CONFIG:Debug>:${PATH_LIBRARIES}/sfml-audio-d.lib>
-    $<$<CONFIG:Debug>:${PATH_LIBRARIES}/sfml-graphics-d.lib>
-    $<$<CONFIG:Debug>:${PATH_LIBRARIES}/sfml-network-d.lib>
-    $<$<CONFIG:Debug>:${PATH_LIBRARIES}/sfml-system-d.lib>
-    $<$<CONFIG:Debug>:${PATH_LIBRARIES}/sfml-window-d.lib>
-
-    $<$<CONFIG:Release>:${PATH_LIBRARIES}/sfml-audio.lib>
-    $<$<CONFIG:Release>:${PATH_LIBRARIES}/sfml-graphics.lib>
-    $<$<CONFIG:Release>:${PATH_LIBRARIES}/sfml-network.lib>
-    $<$<CONFIG:Release>:${PATH_LIBRARIES}/sfml-system.lib>
-    $<$<CONFIG:Release>:${PATH_LIBRARIES}/sfml-window.lib>
 )
 
 # Set debug directory and copy dlls
