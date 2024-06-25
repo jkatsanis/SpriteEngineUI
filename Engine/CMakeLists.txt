@@ -3,6 +3,7 @@ project(SpriteEngine)
 
 set(CORE_SOURCE_FOLDER_NAME Source)
 set(EDITOR_NAME Editor)
+set(ENGINE_NAME Engine)
 
 set(PATH_LIBRARIES ${CMAKE_SOURCE_DIR}/Core/Source/Include/LIB)
 set(PATH_DLL_LIBRARIES ${CMAKE_SOURCE_DIR}/Editor/Source/Include/DLL)
@@ -21,3 +22,4 @@ include_directories($(CMAKE_SOURCE_DIR)/Core/${CORE_SOURCE_FOLDER_NAME})
 # Add the subprojects
 add_subdirectory(Core)
 add_subdirectory(Editor)
+add_subdirectory(${ENGINE_NAME})
