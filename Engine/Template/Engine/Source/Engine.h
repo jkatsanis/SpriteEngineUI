@@ -7,6 +7,7 @@
 #include "Core/IApplication.h"
 #include "Core/SeceneHandler.h"
 #include "Utility/Style.h"
+#include "PrefabRepository/PrefabRepository.h"
 
 #include "Scripts/Game.h"
 

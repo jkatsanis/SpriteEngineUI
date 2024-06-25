@@ -24,16 +24,19 @@ file(TO_CMAKE_PATH "${FILE_CONTENT}" FILE_CONTENT)
 string(STRIP "${FILE_CONTENT}" FILE_CONTENT)
 set(PATH_LIBRARIES "${FILE_CONTENT}/Core/Source/Include/LIB")
 
-
 set(CORE_LIBRAY_DEBUG "${FILE_CONTENT}/Build/Core/Debug/Core.lib")
 set(CORE_LIBRAY_RELEASE "${FILE_CONTENT}/Build/Core/Release/Core.lib")
 
+set(ENGINE_LIBRARY_DEBUG "${FILE_CONTENT}/Build/Engine/Debug/Engine.lib")
+set(ENGINE_LIBRARY_RELEASE "${FILE_CONTENT}/Build/Engine/Release/Engine.lib")
+
 set(ADDITIONAL_INCLUDE_PATHS
+    Engine/Source
     Core
     Core/Source
     Core/Source/Include
     Core/Source/Include/SFML
-    Core/Source/Includ/ImGui
+    Core/Source/Include/ImGui
 )
 
 foreach(PATH ${ADDITIONAL_INCLUDE_PATHS})
@@ -49,6 +52,9 @@ target_link_libraries(${PROJECT_FOLDER} PRIVATE
     opengl32.lib
     $<$<CONFIG:Debug>:${CORE_LIBRAY_DEBUG}>
     $<$<CONFIG:Release>:${CORE_LIBRAY_RELEASE}>
+
+    $<$<CONFIG:Debug>:${ENGINE_LIBRARY_DEBUG}>
+    $<$<CONFIG:Release>:${ENGINE_LIBRARY_RELEASE}>
 
     $<$<CONFIG:Debug>:${PATH_LIBRARIES}/sfml-audio-d.lib>
     $<$<CONFIG:Debug>:${PATH_LIBRARIES}/sfml-graphics-d.lib>

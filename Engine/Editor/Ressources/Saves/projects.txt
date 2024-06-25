@@ -1,3 +1,8 @@
 name;absulutePathStr;date;relativePath
 DasynceSE;C:\Dev\DasynceSE;2024/28/05 14:43:25;..\..\DasynceSE
+saz;C:\Dev\saz;2024/25/06 20:01:33;..\..\saz
+dsada;C:\Dev\dsada;2024/25/06 20:02:43;..\..\dsada
+dsdffsd;C:\Dev\dsdffsd;2024/25/06 20:03:50;..\..\dsdffsd
+dsd;C:\Dev\dsd;2024/25/06 20:04:21;..\..\dsd
+fsdfsdf;C:\Dev\fsdfsdf;2024/25/06 20:05:07;..\..\fsdfsdf
 

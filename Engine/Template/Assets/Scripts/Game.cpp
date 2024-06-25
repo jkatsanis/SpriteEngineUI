@@ -2,10 +2,10 @@
 
 void Game::Start()
 {
-
+	
 }
 
 void Game::Update()
-{	
-
+{
 }
+
