@@ -12,10 +12,10 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 # Include SFML
-include_directories($(CMAKE_SOURCE_DIR)/Core/${CORE_SOURCE_FOLDER_NAME}/Sprite)
-include_directories($(CMAKE_SOURCE_DIR)/Core/${CORE_SOURCE_FOLDER_NAME}/Include/ImGui)
-include_directories($(CMAKE_SOURCE_DIR)/Core/${CORE_SOURCE_FOLDER_NAME}/Include)
-include_directories($(CMAKE_SOURCE_DIR)/Core/${CORE_SOURCE_FOLDER_NAME})
+include_directories(${CMAKE_SOURCE_DIR}/Core/${CORE_SOURCE_FOLDER_NAME}/Sprite)
+include_directories(${CMAKE_SOURCE_DIR}/Core/${CORE_SOURCE_FOLDER_NAME}/Include/ImGui)
+include_directories(${CMAKE_SOURCE_DIR}/Core/${CORE_SOURCE_FOLDER_NAME}/Include)
+include_directories(${CMAKE_SOURCE_DIR}/Core/${CORE_SOURCE_FOLDER_NAME})
 
 
 # Add the subprojects

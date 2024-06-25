@@ -14,9 +14,9 @@ add_executable(${EDITOR_NAME}
  ${EDITOR_SOURCE_FILES}
 )
 
-include_directories($(CMAKE_CURRENT_SOURCE_DIR)/Source)
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/Source)
 
-message(${PATH_LIBRARIES})
+message("Library Path: ${PATH_LIBRARIES}")
 
 # Link libraries
 target_link_libraries(${EDITOR_NAME} PRIVATE
