@@ -1,0 +1,9 @@
+[submodule "Engine/ThirdParty/glfw"]
+	path = Engine/ThirdParty/glfw
+	url = git@github.com:glfw/glfw.git
+[submodule "Engine/ThirdParty/glew"]
+	path = Engine/ThirdParty/glew
+	url = git@github.com:nigels-com/glew.git
+[submodule "Engine/ThirdParty/imgui"]
+	path = Engine/ThirdParty/imgui
+	url = https://github.com/ocornut/imgui/
