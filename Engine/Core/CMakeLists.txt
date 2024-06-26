@@ -12,11 +12,11 @@ add_library(Core STATIC ${CORE_SOURCE_FILES})
 
 target_link_libraries(Core PUBLIC
     opengl32.lib
-    $<$<CONFIG:Debug>:${PATH_LIBRARIES}/sfml-audio-d.lib>
-    $<$<CONFIG:Debug>:${PATH_LIBRARIES}/sfml-graphics-d.lib>
-    $<$<CONFIG:Debug>:${PATH_LIBRARIES}/sfml-network-d.lib>
-    $<$<CONFIG:Debug>:${PATH_LIBRARIES}/sfml-system-d.lib>
-    $<$<CONFIG:Debug>:${PATH_LIBRARIES}/sfml-window-d.lib>
+    $<$<CONFIG:Debug>:${EXTERNAL_LIBRARIES_FOLDER}/sfml-audio-d.lib>
+    $<$<CONFIG:Debug>:${EXTERNAL_LIBRARIES_FOLDER}/sfml-graphics-d.lib>
+    $<$<CONFIG:Debug>:${EXTERNAL_LIBRARIES_FOLDER}/sfml-network-d.lib>
+    $<$<CONFIG:Debug>:${EXTERNAL_LIBRARIES_FOLDER}/sfml-system-d.lib>
+    $<$<CONFIG:Debug>:${EXTERNAL_LIBRARIES_FOLDER}/sfml-window-d.lib>
 
     $<$<CONFIG:Release>:${PATH_LIBRARIES}/sfml-audio.lib>
     $<$<CONFIG:Release>:${PATH_LIBRARIES}/sfml-graphics.lib>
