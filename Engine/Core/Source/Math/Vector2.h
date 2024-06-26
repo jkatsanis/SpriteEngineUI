@@ -1,8 +1,8 @@
 #pragma once
 
 #include <iostream>
-#include <Include/SFML/Graphics.hpp>
-#include <Include/ImGui/ImGUISFML.h>
+#include <SFML/Graphics.hpp>
+#include <ImGui/ImGUISFML.h>
 
 
 namespace spe

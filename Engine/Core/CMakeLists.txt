@@ -10,20 +10,19 @@ source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR} FILES ${CORE_SOURCE_FILES})
 # Create the Core library and add the source files to it
 add_library(Core STATIC ${CORE_SOURCE_FILES})
 
-target_link_libraries(Core PUBLIC
-    opengl32.lib
-    $<$<CONFIG:Debug>:${EXTERNAL_LIBRARIES_FOLDER}/sfml-audio-d.lib>
-    $<$<CONFIG:Debug>:${EXTERNAL_LIBRARIES_FOLDER}/sfml-graphics-d.lib>
-    $<$<CONFIG:Debug>:${EXTERNAL_LIBRARIES_FOLDER}/sfml-network-d.lib>
-    $<$<CONFIG:Debug>:${EXTERNAL_LIBRARIES_FOLDER}/sfml-system-d.lib>
-    $<$<CONFIG:Debug>:${EXTERNAL_LIBRARIES_FOLDER}/sfml-window-d.lib>
+target_include_directories(Core PRIVATE "Source")
 
-    $<$<CONFIG:Release>:${PATH_LIBRARIES}/sfml-audio.lib>
-    $<$<CONFIG:Release>:${PATH_LIBRARIES}/sfml-graphics.lib>
-    $<$<CONFIG:Release>:${PATH_LIBRARIES}/sfml-network.lib>
-    $<$<CONFIG:Release>:${PATH_LIBRARIES}/sfml-system.lib>
-    $<$<CONFIG:Release>:${PATH_LIBRARIES}/sfml-window.lib>
-)
+target_include_directories(Core PRIVATE "${EXTERNAL_LIBRARIES_FOLDER}/imgui")
+
+target_include_directories(Core PRIVATE ${EXTERNAL_LIBRARIES_FOLDER})
+
+set(SFML_DIR "${EXTERNAL_LIBRARIES_FOLDER}/sfml")
+add_subdirectory(${SFML_DIR} "${CMAKE_BINARY_DIR}/sfml_build")
+target_include_directories(Core PRIVATE "${SFML_DIR}/include")
+target_link_libraries(Core PRIVATE sfml-graphics sfml-window sfml-system sfml-audio sfml-network)
+
+find_package(OpenGL REQUIRED)
+target_link_libraries(Core PRIVATE OpenGL::GL)
 
 if(MSVC)
     target_compile_options(Core PUBLIC /W4)

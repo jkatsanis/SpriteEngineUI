@@ -4,8 +4,8 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-#include <Include/SFML/Graphics.hpp>
-#include <Include/UtilityFunctions.h>
+#include <SFML/Graphics.hpp>
+#include <UtilityFunctions.h>
 
 #include "Math/Vector2.h"
 #include "Sprite/Components/BoxCollider.h"

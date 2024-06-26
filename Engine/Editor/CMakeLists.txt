@@ -21,22 +21,7 @@ target_link_libraries(${EDITOR_NAME} PRIVATE
     Core
 )
 
-# Set debug directory and copy dlls
-file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/Editor/Debug)
-
-configure_file(${PATH_DLL_LIBRARIES}/sfml-audio-d-2.dll ${CMAKE_BINARY_DIR}/${EDITOR_NAME}/Debug COPYONLY)
-configure_file(${PATH_DLL_LIBRARIES}/sfml-graphics-d-2.dll ${CMAKE_BINARY_DIR}/${EDITOR_NAME}/Debug COPYONLY)
-configure_file(${PATH_DLL_LIBRARIES}/sfml-network-d-2.dll ${CMAKE_BINARY_DIR}/${EDITOR_NAME}/Debug COPYONLY)
-configure_file(${PATH_DLL_LIBRARIES}/sfml-system-d-2.dll ${CMAKE_BINARY_DIR}/${EDITOR_NAME}/Debug COPYONLY)
-configure_file(${PATH_DLL_LIBRARIES}/sfml-window-d-2.dll ${CMAKE_BINARY_DIR}/${EDITOR_NAME}/Debug COPYONLY)
-
-file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/Editor/Release)
-
-configure_file(${PATH_DLL_LIBRARIES}/sfml-audio-2.dll ${CMAKE_BINARY_DIR}/${EDITOR_NAME}/Release COPYONLY)
-configure_file(${PATH_DLL_LIBRARIES}/sfml-graphics-2.dll ${CMAKE_BINARY_DIR}/${EDITOR_NAME}/Release COPYONLY)
-configure_file(${PATH_DLL_LIBRARIES}/sfml-network-2.dll ${CMAKE_BINARY_DIR}/${EDITOR_NAME}/Release COPYONLY)
-configure_file(${PATH_DLL_LIBRARIES}/sfml-system-2.dll ${CMAKE_BINARY_DIR}/${EDITOR_NAME}/Release COPYONLY)
-configure_file(${PATH_DLL_LIBRARIES}/sfml-window-2.dll ${CMAKE_BINARY_DIR}/${EDITOR_NAME}/Release COPYONLY)
+target_include_directories(Core PRIVATE "${EXTERNAL_LIBRARIES_FOLDER}/imgui")
 
 if(MSVC)
     target_compile_options(${EDITOR_NAME} PRIVATE /W4)

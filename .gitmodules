@@ -4,9 +4,9 @@
 [submodule "Engine/ThirdParty/glew"]
 	path = Engine/ThirdParty/glew
 	url = git@github.com:nigels-com/glew.git
-[submodule "Engine/ThirdParty/imgui"]
-	path = Engine/ThirdParty/imgui
-	url = https://github.com/ocornut/imgui/
 [submodule "Engine/ThirdParty/sfml"]
 	path = Engine/ThirdParty/sfml
 	url = git@github.com:SFML/SFML.git
+[submodule "Engine/ThirdParty/imgui"]
+	path = Engine/ThirdParty/imgui
+	url = git@github.com:SFML/imgui-sfml.git

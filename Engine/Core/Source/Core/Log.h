@@ -1,6 +1,6 @@
 #pragma once
 
-#include <Include/SFML/Graphics.hpp>
+#include <SFML/Graphics.hpp>
 #include <iostream>
 
 namespace spe

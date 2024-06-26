@@ -2,7 +2,7 @@
 
 #include <vector>
 #include <unordered_map>
-#include <Include/SFML/Graphics.hpp>
+#include <SFML/Graphics.hpp>
 
 #include "Sprite/Components/Light/LightSource.h"
 #include "RessourceHandler/FileDataMacros.h"
