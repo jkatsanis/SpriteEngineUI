@@ -1,15 +1,15 @@
-[submodule "Engine/ThirdParty/glfw"]
-	path = Engine/ThirdParty/glfw
-	url = git@github.com:glfw/glfw.git
 [submodule "Engine/ThirdParty/glew"]
-	path = Engine/ThirdParty/glew
-	url = git@github.com:nigels-com/glew.git
+    active = true
+    url = https://github.com/nigels-com/glew.git
+[submodule "Engine/ThirdParty/glfw"]
+    active = true
+    url = https://github.com/glfw/glfw.git
 [submodule "Engine/ThirdParty/sfml"]
-	path = Engine/ThirdParty/sfml
-	url = git@github.com:SFML/SFML.git
+    active = true
+    url = https://github.com/SFML/SFML.git
 [submodule "Engine/ThirdParty/imgui"]
-	path = Engine/ThirdParty/imgui
-	url = https://github.com/ocornut/imgui.git
+    path = Engine/ThirdParty/imgui
+    url = https://github.com/ocornut/imgui.git
 [submodule "Engine/ThirdParty/imgui-sfml"]
-	path = Engine/ThirdParty/imgui-sfml
-	url = https://github.com/SFML/imgui-sfml.git
+    path = Engine/ThirdParty/imgui-sfml
+    url = https://github.com/SFML/imgui-sfml.git
