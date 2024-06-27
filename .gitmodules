@@ -1,15 +1,18 @@
 [submodule "Engine/ThirdParty/glew"]
     active = true
-    url = https://github.com/nigels-com/glew.git
+	url = https://github.com/nigels-com/glew.git
+	path = Engine/ThirdParty/glew
 [submodule "Engine/ThirdParty/glfw"]
     active = true
-    url = https://github.com/glfw/glfw.git
+	url = https://github.com/glfw/glfw.git
+	path = Engine/ThirdParty/glfw
 [submodule "Engine/ThirdParty/sfml"]
     active = true
-    url = https://github.com/SFML/SFML.git
+	url = https://github.com/SFML/SFML.git
+	path = Engine/ThirdParty/sfml
 [submodule "Engine/ThirdParty/imgui"]
-    path = Engine/ThirdParty/imgui
-    url = https://github.com/ocornut/imgui.git
+	path = Engine/ThirdParty/imgui
+	url = https://github.com/ocornut/imgui.git
 [submodule "Engine/ThirdParty/imgui-sfml"]
-    path = Engine/ThirdParty/imgui-sfml
-    url = https://github.com/SFML/imgui-sfml.git
+	path = Engine/ThirdParty/imgui-sfml
+	url = https://github.com/SFML/imgui-sfml.git
