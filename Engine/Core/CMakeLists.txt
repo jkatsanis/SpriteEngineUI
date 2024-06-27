@@ -13,6 +13,7 @@ add_library(Core STATIC ${CORE_SOURCE_FILES})
 target_include_directories(Core PRIVATE "Source")
 
 target_include_directories(Core PRIVATE "${EXTERNAL_LIBRARIES_FOLDER}/imgui")
+target_include_directories(Core PRIVATE "${EXTERNAL_LIBRARIES_FOLDER}/imgui-sfml")
 
 target_include_directories(Core PRIVATE ${EXTERNAL_LIBRARIES_FOLDER})
 
