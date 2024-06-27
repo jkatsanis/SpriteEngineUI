@@ -2,8 +2,6 @@
 
 #include <iostream>
 #include <SFML/Graphics.hpp>
-#include <ImGui/ImGUISFML.h>
-
 
 namespace spe
 {
