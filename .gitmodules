@@ -9,4 +9,7 @@
 	url = git@github.com:SFML/SFML.git
 [submodule "Engine/ThirdParty/imgui"]
 	path = Engine/ThirdParty/imgui
-	url = git@github.com:SFML/imgui-sfml.git
+	url = https://github.com/ocornut/imgui.git
+[submodule "Engine/ThirdParty/imgui-sfml"]
+	path = Engine/ThirdParty/imgui-sfml
+	url = https://github.com/SFML/imgui-sfml.git
