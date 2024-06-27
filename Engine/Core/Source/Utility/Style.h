@@ -1,7 +1,8 @@
 #pragma once
 
-#include <ImGui/ImGUISFML.h>
+#include <imgui.h>
 #include "RessourceHandler/FileDataMacros.h"
+#include "imgui-SFML.h"
 
 namespace spe
 {

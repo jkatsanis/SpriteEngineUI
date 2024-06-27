@@ -1,6 +1,6 @@
 #include "Animator.h"
 
-#include "Sprite.h"
+#include "Sprite/Sprite.h"
 
 // Constructor / Destructor
 

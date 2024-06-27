@@ -143,6 +143,7 @@ void spe::GameWindow::Clear()
 
 void spe::GameWindow::Shutdown()
 {
+
 	ImGui::SFML::Shutdown();
 	delete this->m_ptr_Window;
 	this->m_IsOpen = false;

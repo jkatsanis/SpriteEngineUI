@@ -5,7 +5,7 @@
 #include <iostream>
 #include <Utility/Style.h>
 #include <icons.h>
-#include <Include/UtilityFunctions.h>
+#include <UtilityFunctions.h>
 #include <filesystem>
 
 namespace spe

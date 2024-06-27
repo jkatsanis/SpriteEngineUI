@@ -2,7 +2,7 @@
 
 #include <iostream>
 
-#include "Components/Animator/Animation.h"
+#include "Sprite/Components/Animator/Animation.h"
 #include "GUI/Property/UIBase.h"
 
 #include "GUI/UIUtility/UIUtility.h"

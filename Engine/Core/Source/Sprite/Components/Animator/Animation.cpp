@@ -1,5 +1,5 @@
 #include "Animation.h"
-#include "Sprite.h"
+#include "Sprite/Sprite.h"
 
 // Constructor / Destructor
 
@@ -233,7 +233,7 @@ void spe::Animation::AddKeyFrameAt(const int vecpos, const spe::KeyFrame& frame)
 		return;
 	}
 
-	sf::Texture text;
+	sf::Texture text = sf::Texture();
 
 	if (!text.loadFromFile(frame.path))
 	{

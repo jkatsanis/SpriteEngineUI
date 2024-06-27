@@ -1,7 +1,7 @@
 #include "BoxCollider.h"
 
-#include "Sprite.h"
-#include "SpriteRepository.h"
+#include "Sprite/Sprite.h"
+#include "Sprite/SpriteRepository.h"
 
 // Constructor / Destructor
 

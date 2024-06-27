@@ -1,12 +1,12 @@
 #pragma once
 
-#include <ImGui/ImGUISFML.h>
+#include <imgui.h>
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include <icons.h>
 
-#include "Components/Animator/KeyFrame.h"
-#include "Components/Animator/Animation.h"
+#include "Sprite/Components/Animator/KeyFrame.h"	
+#include "Sprite/Components/Animator/Animation.h"
 
 #include "Utility/Style.h"
 

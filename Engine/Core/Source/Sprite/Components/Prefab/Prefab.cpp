@@ -1,6 +1,6 @@
 #include "prefab.h"
 
-#include "Sprite.h"
+#include "Sprite/Sprite.h"
 
 
 // Constructor 

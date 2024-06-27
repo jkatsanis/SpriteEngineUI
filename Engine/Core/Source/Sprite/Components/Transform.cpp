@@ -1,5 +1,5 @@
 #include "Transform.h"
-#include "Sprite.h"
+#include "Sprite/Sprite.h"
 
 //Contructor
 

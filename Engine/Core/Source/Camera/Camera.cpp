@@ -38,7 +38,7 @@ void spe::Camera::Reset() noexcept
 
 void spe::Camera::Update(spe::LightRepository* lightrepo)
 {	
-	this->CameraView.setSize(1920 * this->m_CameraZoom, 1080 * this->m_CameraZoom);
+	this->CameraView.setSize(sf::Vector2f(1920 * this->m_CameraZoom, 1080 * this->m_CameraZoom));
 
 	spe::Vector2 defaultPos = this->GetDefaultPosition();
 

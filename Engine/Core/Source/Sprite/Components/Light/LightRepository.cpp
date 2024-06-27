@@ -1,6 +1,6 @@
 #include "LightRepository.h"
 
-#include "Sprite.h"
+#include "Sprite/Sprite.h"
 #include "Camera/Camera.h"
 
 namespace spe
@@ -151,7 +151,7 @@ namespace spe
             const LightSource& source = pair.second;
             if (source.Process)
             {
-                lightPositions[i] = spe::Vector2::toImVec2(source.Position);
+                lightPositions[i] = spe::Vector2::toSFVector(source.Position);
                 lightRadii[i] = source.Radius;
                 lightIntensities[i] = source.LightIntensity;
                 lightColors[i] = sf::Vector3f(source.Color.x, source.Color.y, source.Color.z);

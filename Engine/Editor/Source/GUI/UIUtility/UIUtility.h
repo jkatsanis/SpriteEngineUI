@@ -1,9 +1,9 @@
 #pragma once
 
-#include <ImGui/ImGUISFML.h>
+#include <imgui.h>
 #include <iostream>
 
-#include "Components/Transform.h"
+#include "Sprite/Components/Transform.h"
 #include "Math/Vector2.h"
 #include "GUI/UIUtility/UIModels.h"
 #include "Utility/Style.h"

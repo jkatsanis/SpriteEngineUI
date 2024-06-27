@@ -1,6 +1,7 @@
 #pragma once
-#include <Include/dirent.h>
+#include <dirent.h>
 #include <imgui_internal.h>
+#include <imgui-SFML.h>
 
 #include "GUI/Color.h"
 #include "GUI/UIUtility/UIModels.h"

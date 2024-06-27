@@ -1,12 +1,15 @@
 #pragma once
 
+#include <imgui-SFML.h>
+#include <iostream>
+
 #include "Core/GameWindow.h"
 #include "UtilityFunctions.h"
 #include "RessourceHandler/FileDataMacros.h"
 #include "Input/Input.h"
 
 #include "GUI/GUIRepository.h"
-#include "SpriteRepository.h"
+#include "Sprite/SpriteRepository.h"
 #include "RessourceHandler/Initializer.h"
 #include "Core/IApplication.h"
 #include "Core/SeceneHandler.h"
@@ -14,10 +17,6 @@
 #include "GUI/RealTime/UIRealTimeEditor.h"
 
 #include "GUI/UIWindow.h"
-
-
-#include <ImGUISFML.h>
-#include <iostream>
 
 namespace spe
 {

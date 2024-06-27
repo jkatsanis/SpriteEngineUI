@@ -9,7 +9,7 @@
 #include "GUI/UIUtility/UIUtility.h"
 #include "Utility/Style.h"
 #include "GUI/UIUtility/UIModels.h"
-#include "Include/icons.h"
+#include "icons.h"
 #include "RessourceHandler/Initializer.h"
 
 #define SPRITE_SELECTED_COLOR ImVec4(139.0f / 255.0f, 180.0f / 255.0f, 234.0f / 255.0f,1.0f)

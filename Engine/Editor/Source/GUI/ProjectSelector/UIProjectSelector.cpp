@@ -334,7 +334,7 @@ void spe::UIProjectSelector::RenderProjectData()
 	this->RrenderInfoOverProjects(paddingBetweenInfo);
 
 	ImGui::PushStyleColor(ImGuiCol_FrameBg, SELECTOR_LISTBOX_BACKGROUND_COLOR);
-	if (ImGui::ListBoxHeader("##ProjectList", ImVec2(960, 540)))
+	if (ImGui::BeginListBox("##ProjectList", ImVec2(960, 540)))
 	{
 		for (int i = 0; i < this->m_Projects.size(); i++)
 		{
@@ -359,7 +359,7 @@ void spe::UIProjectSelector::RenderProjectData()
 				}
 			}
 		}
-		ImGui::ListBoxFooter();
+		ImGui::EndListBox();
 	}
 
 	ImGui::PopStyleColor();

@@ -2,8 +2,8 @@
 
 #include <iostream>
 #include <ImGui.h>
-#include <Include/UtilityFunctions.h>
-#include <Include/SFML/Graphics.hpp>
+#include <UtilityFunctions.h>
+#include <SFML/Graphics.hpp>
 #include "dirent.h"
 
 #include "RessourceHandler/FileDataMacros.h"
