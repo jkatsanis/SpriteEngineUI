@@ -28,7 +28,7 @@ file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/Editor/Debug)
 file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/Editor/Release)
 
 # Path to the SFML DLLs after build
-set(SFML_DLL_DIR "${CMAKE_BINARY_DIR}/sfml-build/lib")
+set(SFML_DLL_DIR "${CMAKE_BINARY_DIR}/sfml-build/lib/Debug")
 
 # Custom command to copy DLLs based on build configuration
 if(CMAKE_BUILD_TYPE STREQUAL "Debug")

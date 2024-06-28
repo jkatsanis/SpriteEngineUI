@@ -7,9 +7,6 @@
 #include <filesystem>
 #include <Windows.h>
 
-#include "Core/EngineData.h"
-#include "Core/Log.h"
-
 namespace spe
 {
 	class Utility
@@ -24,7 +21,7 @@ namespace spe
 		static std::string VectorToString(const std::vector<std::string>& vec, char del, const std::string& ext);
 		static std::string RenamePartOnPath(const std::string& path, const std::string& new_name, char del, const std::string& ext, uint32_t pos);
 		static void SetCurrentDir(const std::string& path);
-		static std::string getUserProjectPathSeperatetFromEnginePath(const std::string& path);
+		static std::string getUserProjectPathSeperatetFromEnginePath(const std::string& path, const std::string& nameOFUsr);
 		static std::vector<std::string> Split(const std::string& s, char delim);
 		static void WriteFile(const std::string& name, const std::string& path);
 

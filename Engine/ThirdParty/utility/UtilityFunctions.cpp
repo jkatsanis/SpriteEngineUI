@@ -58,16 +58,17 @@ std::string spe::Utility::RenamePartOnPath(const std::string& path, const std::s
 
 void spe::Utility::SetCurrentDir(const std::string& path)
 {
-    spe::Log::LogString("Setting dir..");
+    std::cout << "Setting dir..";
     if (!SetCurrentDirectoryA(path.c_str()))
     {
         throw std::runtime_error("Couldn't set directory");
     }
 }
 
-std::string spe::Utility::getUserProjectPathSeperatetFromEnginePath(const std::string& path)
+
+std::string spe::Utility::getUserProjectPathSeperatetFromEnginePath(const std::string& path,const std::string& nameOFUsr)
 {
-    std::string userProject = spe::EngineData::s_NameOfUser;
+    std::string userProject = nameOFUsr;
     int idx = (int)path.find(userProject);
     std::string finalStr = "";
     for (int i = idx + (int)userProject.size() + 1; i < path.size(); i++)
@@ -76,6 +77,7 @@ std::string spe::Utility::getUserProjectPathSeperatetFromEnginePath(const std::s
     }
     return finalStr;
 }
+
 
 std::vector<std::string> spe::Utility::Split(const std::string& s,char delim)
 {
@@ -170,7 +172,7 @@ std::string spe::Utility::RunCommand(const char* command)
 
 std::string spe::Utility::GetDefaultDir(uint32_t depth)
 {
-    spe::Log::LogString("Calling GetDefaultDir()..");
+    std::cout << "Calling GetDefaultDir().." << std::endl;
     char NPath[MAX_PATH];
     GetCurrentDirectoryA(MAX_PATH, NPath);
     std::string path(NPath);

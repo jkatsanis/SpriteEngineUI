@@ -146,7 +146,7 @@ void spe::UIAnimation::GetFileNameInput()
 		{
 			this->Hovered = true;
 		}
-		const std::string path = spe::Utility::getUserProjectPathSeperatetFromEnginePath(this->m_CreateFileDialoge.PathClicked);
+		const std::string path = spe::Utility::getUserProjectPathSeperatetFromEnginePath(this->m_CreateFileDialoge.PathClicked, spe::EngineData::s_NameOfUser);
 		std::string createAnimtionAt = "Create animation file at: " + path;
 		ImGui::Text(createAnimtionAt.c_str());
 		ImGui::Text("Press Enter when u are done giving it a name");

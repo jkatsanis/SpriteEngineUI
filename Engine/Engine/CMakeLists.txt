@@ -1,15 +1,9 @@
-# Core/CMakeLists.txt
+# Engine/CMakeLists.txt
 
-file(GLOB_RECURSE ENGINE_SOURCE_FILES
-    "Source/*.h"
-    "Source/*.cpp"
-)
+set(RENDER_3D_NAME Renderer3D)
+set(RENDER_3D_NAME Renderer2D)
 
-source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR} FILES ${ENGINE_SOURCE_FILES})
-
-# Create the Core library and add the source files to it
-add_library(${ENGINE_NAME} STATIC ${ENGINE_SOURCE_FILES})
-
-if(MSVC)
-    target_compile_options(${ENGINE_NAME} PUBLIC /W4)
-endif()
+add_subdirectory(Core)
+add_subdirectory(Renderer2D)
+add_subdirectory(Renderer3D)
+add_subdirectory(Math)
