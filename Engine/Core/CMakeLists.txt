@@ -45,7 +45,7 @@ target_include_directories(Core PUBLIC "${EXTERNAL_LIBRARIES_FOLDER}/imgui-sfml"
 target_include_directories(Core PUBLIC ${EXTERNAL_LIBRARIES_FOLDER})
 
 set(SFML_DIR "${EXTERNAL_LIBRARIES_FOLDER}/sfml")
-add_subdirectory(${SFML_DIR} "${CMAKE_BINARY_DIR}/sfml_build")
+add_subdirectory(${SFML_DIR} "${CMAKE_BINARY_DIR}/sfml-build/")
 target_include_directories(Core PUBLIC "${SFML_DIR}/include")
 target_link_libraries(Core PUBLIC sfml-graphics sfml-window sfml-system sfml-audio sfml-network)
 
