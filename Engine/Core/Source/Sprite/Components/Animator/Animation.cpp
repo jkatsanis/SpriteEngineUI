@@ -171,11 +171,18 @@ void spe::Animation::ChangeKeyFramePos(int old, int newpos)
 			spe::KeyFrame& back = this->m_Keyframes[i - 1];
 			spe::KeyFrame& front = this->m_Keyframes[i + 1];
 
+
 			float delay = newpos - (back.position);
+
+			const float POS = frame.delay - delay;
+
 			float front_delay = old - newpos + front.delay;
 
 			frame.delay = delay;
 			front.delay = front_delay;
+
+			frame.position -= POS;
+
 			return;
 		}
 	}
