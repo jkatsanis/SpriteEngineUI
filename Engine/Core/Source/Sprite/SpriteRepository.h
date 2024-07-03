@@ -41,7 +41,8 @@ namespace spe
         // Utility
         void UpdateLayerIndex() override;
         void ReloadTextures();
-        void cleanUp();
+        void CleanUp();
+        void DeleteAll();
         void SetHighestId(uint32_t id);
 
         // getter

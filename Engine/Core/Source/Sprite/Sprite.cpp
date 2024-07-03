@@ -46,6 +46,7 @@ spe::Sprite::~Sprite()
 
 	delete this->m_Texture;
 	this->m_Texture = nullptr;
+	this->ptr_Childs.clear();
 }
 
 //Public functions

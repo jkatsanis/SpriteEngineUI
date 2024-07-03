@@ -55,7 +55,7 @@ spe::Editor::~Editor()
 {
 	spe::BoxCollider::DeleteCameraCollider();
 	this->m_Window.Shutdown();
-	this->m_SceneHandler.SpriteRepository.cleanUp();
+	this->m_SceneHandler.SpriteRepository.CleanUp();
 }
 
 // Private

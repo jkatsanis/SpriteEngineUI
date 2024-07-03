@@ -13,7 +13,7 @@ spe::SpriteRepository::SpriteRepository()
 
 spe::SpriteRepository::~SpriteRepository()
 {
-    this->cleanUp();
+    this->CleanUp();
 }
 
 // Public functions
@@ -173,7 +173,7 @@ void spe::SpriteRepository::ReloadTextures()
     }
 }
 
-void spe::SpriteRepository::cleanUp()
+void spe::SpriteRepository::CleanUp()
 {
     for (auto it = this->m_Sprites.begin(); it != this->m_Sprites.end();)
     {
@@ -185,6 +185,21 @@ void spe::SpriteRepository::cleanUp()
         }
         delete element;
         it = this->m_Sprites.erase(it); 
+    }
+
+    this->Initialized = false;
+    this->m_HighestLayer = 0;
+}
+
+void spe::SpriteRepository::DeleteAll()
+{
+    for (auto it = this->m_Sprites.begin(); it != this->m_Sprites.end();)
+    {
+        spe::Sprite* element = *it;
+   
+        delete element;
+       
+        it = this->m_Sprites.erase(it);
     }
 
     this->Initialized = false;
@@ -268,6 +283,11 @@ void spe::SpriteRepository::ValidateAdd(spe::Sprite* spr)
         if (element->Name == spr->Name)
         {
             spr->Name += "(D)";
+            it = this->m_Sprites.begin();
+        }
+        if (element->GetId() == spr->GetId())
+        {
+            throw new std::exception("This should not happen, probably added a sprite containing childs that already have childs!");
         }
     }
             
