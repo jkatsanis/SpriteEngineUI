@@ -108,6 +108,7 @@ std::string spe::Savesystem::GetPropertyLineWithSeperator(const spe::Sprite* spr
 	const std::string light_color_b = std::to_string(sprite->Light.GetColor().z);
 
 	const std::string render = spe::Utility::BoolToStr(sprite->SpriteRenderer.Render);
+	const std::string friction = std::to_string(sprite->Physicsbody.Friction);
 
 	//Name, vec, transform path, rotation
 	line = sprite->Name + ";" + "0" + ";" + transformPosX + ";" + transformPosY + ";" + scaleX + ";" + scaleY + ";" + spritePath + ";" + rotation;
@@ -155,6 +156,9 @@ std::string spe::Savesystem::GetPropertyLineWithSeperator(const spe::Sprite* spr
 	// Render
 	line += ";" + render;
 
+	// Physicsbody-add
+	line += ";" + friction;
+
 	return line;
 }
 
@@ -169,7 +173,7 @@ void spe::Savesystem::CreateOrUpdatePrefabFile(const spe::Sprite* content, const
 		spe::Utility::Delete(oldFilePath);
 	}
 
-	std::string fileContent = "name;vecpos;transformPosX;transformPosY;ScaleX;ScaleY;filepath;boxColliderWidthLeftOrRightX;boxColliderWidthLeftOrRighY;boxColliderHeightUpOrDownX;boxColliderHeightUpOrDownY;boxColliderExists;solid;sortingLayer;gravity;mass;physicsBodyExists;id;parentId;nextPosX;nextPosY;lastPosX;lastPosY;listPos;highestChild;positionToParentX;positionToParentY;animatorExists;prefabExist;loadInMemory;pathToPrefab;render\n";
+	std::string fileContent = "name;vecpos;transformPosX;transformPosY;ScaleX;ScaleY;filepath;boxColliderWidthLeftOrRightX;boxColliderWidthLeftOrRighY;boxColliderHeightUpOrDownX;boxColliderHeightUpOrDownY;boxColliderExists;solid;sortingLayer;gravity;mass;physicsBodyExists;id;parentId;nextPosX;nextPosY;lastPosX;lastPosY;listPos;highestChild;positionToParentX;positionToParentY;animatorExists;prefabExist;loadInMemory;pathToPrefab;render;friction\n";
 
 	std::string s;
 	s.push_back(PREFAB_DELIMITER);

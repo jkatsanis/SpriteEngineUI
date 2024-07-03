@@ -668,6 +668,15 @@ void spe::UIInspector::PhysicsBodyComponent()
 		ImGui::InputFloat("##mass", &this->m_ptr_GUIRepo->InspectorSprite->Physicsbody.Mass, 0, 0, "%g");
 		ImGui::PopItemWidth();
 
+		ImGui::Dummy(ImVec2(0, 5));
+
+		ImGui::SetCursorPosX(55);
+		ImGui::Text("Friction");
+		ImGui::PushItemWidth(55);
+		ImGui::SetCursorPos(ImVec2(x, y += 40.0f));
+		ImGui::InputFloat("##friction", &this->m_ptr_GUIRepo->InspectorSprite->Physicsbody.Friction, 0, 0, "%g");
+		ImGui::PopItemWidth();
+
 		if (this->m_ptr_GUIRepo->SimulatePhysics)
 		{
 			spe::Vector2 velocity = this->m_ptr_GUIRepo->InspectorSprite->Physicsbody.Velocity;

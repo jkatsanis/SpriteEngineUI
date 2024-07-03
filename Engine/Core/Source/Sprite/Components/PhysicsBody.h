@@ -11,11 +11,15 @@ namespace spe
 	{
 	private:
 		void Init() override;
+		void UpdateFriction();
+
 	public:
 		float Mass;
 		float Gravity;
 		spe::Vector2 Velocity;
 		spe::Sprite* ptr_Sprite;
+		float Friction;
+
 
 		PhsysicsBody();
 		PhsysicsBody(spe::Sprite* spr);

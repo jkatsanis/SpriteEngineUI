@@ -278,12 +278,20 @@ spe::Sprite* spe::Initializer::InitSprite(const std::string& line, spe::LightRep
 	sprite->SpriteRenderer.Render = propertys[40] == "True";
 #pragma endregion
 
+#pragma region PhysicsBody-Friction
+	if (propertys.size() >= 42)
+	{
+		sprite->Physicsbody.Friction = std::stof(propertys[41]);
+	}
+#pragma endregion
+
 	sprite->Transform.SetOrigin();
 
 	return sprite;
 }
 
 #pragma endregion
+
 
 #pragma region CAMERA
 

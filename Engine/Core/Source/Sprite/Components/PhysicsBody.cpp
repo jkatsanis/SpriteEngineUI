@@ -22,6 +22,7 @@ spe::PhsysicsBody::PhsysicsBody(spe::Sprite* spr, const spe::PhsysicsBody& rhs)
 	this->Mass = rhs.Mass;
 	this->Exist = rhs.Exist;
 	this->Gravity = rhs.Gravity;
+	this->Friction = rhs.Friction;
 }
 
 void spe::PhsysicsBody::Init()
@@ -31,6 +32,22 @@ void spe::PhsysicsBody::Init()
 	this->Velocity = spe::Vector2(0, 0);
 	this->Gravity = 0.0f;
 	this->Mass = 0.0f;
+	this->Friction = 0.0f;
+}
+
+void spe::PhsysicsBody::UpdateFriction()
+{
+	if (this->ptr_Sprite->Collider.Down)
+	{
+		// Apply friction based on deltaTime
+		this->Velocity.X *= (1 - this->Friction * spe::Time::s_DeltaTime);
+
+		// If the X velocity is very small, set it to 0 to stop the sliding
+		if (std::abs(this->Velocity.X) < 0.01f)
+		{
+			this->Velocity.X = 0.0f;
+		}
+	}
 }
 
 // Public functions
@@ -41,6 +58,7 @@ void spe::PhsysicsBody::Reset()
 	this->Mass = 0.0f;
 	this->Velocity = spe::Vector2(0.0f, 0.0f);
 	this->Gravity = 0.0f;
+	this->Friction = 0.0f;
 }
 
 void spe::PhsysicsBody::Update()
@@ -61,5 +79,9 @@ void spe::PhsysicsBody::Update()
 
 	this->Velocity.Y -= this->Gravity * spe::Time::s_DeltaTime;
 
+	if (this->Friction != 0)
+	{
+		this->UpdateFriction();
+	}
 }
 
