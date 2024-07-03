@@ -287,7 +287,7 @@ void spe::SpriteRepository::ValidateAdd(spe::Sprite* spr)
         }
         if (element->GetId() == spr->GetId())
         {
-            throw new std::exception("This should not happen, probably added a sprite containing childs that already have childs!");
+            throw new std::exception("This should not happen, probably added a sprite containing childs that already have been added to the list!");
         }
     }
             

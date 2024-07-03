@@ -158,8 +158,12 @@ void spe::Animation::Stop()
 	this->ptr_AppliedSprite->SetSpriteTexture(this->m_BasePath);
 }
 
-void spe::Animation::ChangeKeyFramePos(int old, int newpos)
+bool spe::Animation::TryChangeKeyFramePos(int old, int newpos)
 {
+	if (newpos < 0)
+	{
+		return false;
+	}
 	float del = 0;
 	for (int i = 0; i < this->m_Keyframes.size(); i++)
 	{
@@ -168,24 +172,31 @@ void spe::Animation::ChangeKeyFramePos(int old, int newpos)
 		if (del == old)
 		{
 			spe::KeyFrame& frame = this->m_Keyframes[i];
-			spe::KeyFrame& back = this->m_Keyframes[i - 1];
-			spe::KeyFrame& front = this->m_Keyframes[i + 1];
 
+			float back_pos = 0;
+			if (i > 0)
+			{
+				spe::KeyFrame& back = this->m_Keyframes[i - 1];
+				back_pos = back.position;
+			}
 
-			float delay = newpos - (back.position);
+			if (!(i == this->m_Keyframes.size() - 1))
+			{
+				spe::KeyFrame& front = this->m_Keyframes[i + 1];
+				float front_delay = old - newpos + front.delay;
+				front.delay = front_delay;
+			}
 
+			float delay = newpos - back_pos;
 			const float POS = frame.delay - delay;
 
-			float front_delay = old - newpos + front.delay;
-
 			frame.delay = delay;
-			front.delay = front_delay;
-
 			frame.position -= POS;
 
-			return;
+			return true;
 		}
 	}
+	return false;
 }
 
 spe::KeyFrame& spe::Animation::GetKeyFrameAtMs(const float ms)

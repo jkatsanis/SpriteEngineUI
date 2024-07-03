@@ -197,8 +197,10 @@ void spe::UIAnimationEditor::DisplayKeyFrameInfo()
 	if (this->m_KeyFrameSelectedPos != this->m_KeyFrameSelected.Position)
 	{
 		std::cout << "hi";
-	    this->m_ptr_Anim->ChangeKeyFramePos(this->m_KeyFrameSelected.Position, this->m_KeyFrameSelectedPos);
-		this->m_KeyFrameSelected.Position = this->m_KeyFrameSelectedPos;
+		if (this->m_ptr_Anim->TryChangeKeyFramePos(this->m_KeyFrameSelected.Position, this->m_KeyFrameSelectedPos))
+		{
+			this->m_KeyFrameSelected.Position = this->m_KeyFrameSelectedPos;
+		}
 	}
 
 	ImGui::SetCursorPos(pos);

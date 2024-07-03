@@ -47,7 +47,7 @@ namespace spe
 		void Play();
 		void Update();
 		void Stop();
-		void ChangeKeyFramePos(int old, int newpos);
+		bool TryChangeKeyFramePos(int old, int newpos);
 
 		spe::KeyFrame& GetKeyFrameAtMs(const float ms);
 		int GetSize() const { return (int)this->m_Keyframes.size(); }
