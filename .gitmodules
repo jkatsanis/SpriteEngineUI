@@ -2,6 +2,7 @@
     active = true
 	url = https://github.com/SFML/SFML.git
 	path = Engine/ThirdParty/sfml
+	branch = v2.6.0
 [submodule "Engine/ThirdParty/imgui"]
 	path = Engine/ThirdParty/imgui
 	url = https://github.com/ocornut/imgui.git
