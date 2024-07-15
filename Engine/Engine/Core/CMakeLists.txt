@@ -20,8 +20,6 @@ target_include_directories(Core PUBLIC ${EXTERNAL_LIBRARIES_FOLDER})
 target_include_directories(Core PUBLIC "${SFML_DIR}/include")
 target_include_directories(Core PUBLIC ${CMAKE_SOURCE_DIR}/Engine)
 
-add_subdirectory(${SFML_DIR} "${CMAKE_BINARY_DIR}/sfml-build/")
-
 target_link_libraries(Core PUBLIC 
     sfml-graphics 
     sfml-window 

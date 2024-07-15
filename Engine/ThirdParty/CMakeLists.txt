@@ -1,20 +1,20 @@
 # ThirdParty/CMakeLists.txt
 
 file(GLOB IMGUI_SOURCES
-    ${EXTERNAL_LIBRARIES_FOLDER}/imgui/*.h
-    ${EXTERNAL_LIBRARIES_FOLDER}/imgui/*.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/imgui/*.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/imgui/*.cpp
 )
 
 file(GLOB IMGUI_SFML_SOURCES 
-    ${EXTERNAL_LIBRARIES_FOLDER}/imgui-sfml/*.h
-    ${EXTERNAL_LIBRARIES_FOLDER}/imgui-sfml/*.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/imgui-sfml/*.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/imgui-sfml/*.cpp
 )
 
 file(GLOB UTILITY_SOURCES 
-    ${EXTERNAL_LIBRARIES_FOLDER}/utility/dirent.h
-    ${EXTERNAL_LIBRARIES_FOLDER}/utility/icons.h
-    ${EXTERNAL_LIBRARIES_FOLDER}/utility/UtilityFunctions.cpp
-    ${EXTERNAL_LIBRARIES_FOLDER}/utility/UtilityFunctions.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/utility/dirent.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/utility/icons.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/utility/UtilityFunctions.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/utility/UtilityFunctions.h
 )
 
 
@@ -30,9 +30,17 @@ set_target_properties(imgui PROPERTIES FOLDER "ThirdParty")
 set_target_properties(imgui_sfml PROPERTIES FOLDER "ThirdParty")
 set_target_properties(utility PROPERTIES FOLDER "ThirdParty")
 
-include_directories("${EXTERNAL_LIBRARIES_FOLDER}/imgui")
-include_directories("${EXTERNAL_LIBRARIES_FOLDER}/imgui-sfml")
-include_directories("${EXTERNAL_LIBRARIES_FOLDER}/sfml/include")
+# SFML
+set_target_properties(sfml-window PROPERTIES FOLDER "ThirdParty/SFML")
+set_target_properties(sfml-audio PROPERTIES FOLDER "ThirdParty/SFML")
+set_target_properties(sfml-graphics PROPERTIES FOLDER "ThirdParty/SFML")
+set_target_properties(sfml-main PROPERTIES FOLDER "ThirdParty/SFML")
+set_target_properties(sfml-network PROPERTIES FOLDER "ThirdParty/SFML")
+set_target_properties(sfml-system PROPERTIES FOLDER "ThirdParty/SFML")
+
+include_directories("${CMAKE_CURRENT_SOURCE_DIR}/imgui")
+include_directories("${CMAKE_CURRENT_SOURCE_DIR}/imgui-sfml")
+include_directories("${CMAKE_CURRENT_SOURCE_DIR}/sfml/include")
 
 if(MSVC)
     target_compile_options(imgui PUBLIC /W4)

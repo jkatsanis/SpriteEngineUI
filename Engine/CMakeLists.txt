@@ -3,7 +3,6 @@ project(SpriteEngine)
 
 set(CORE_SOURCE_FOLDER_NAME Source)
 set(EDITOR_NAME Editor)
-set(ENGINE_NAME Framework)
 
 set(EXTERNAL_LIBRARIES_FOLDER ${CMAKE_SOURCE_DIR}/ThirdParty)
 
@@ -14,5 +13,10 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 # Add the subprojects
 add_subdirectory(Engine)
 add_subdirectory(Editor)
-add_subdirectory(${ENGINE_NAME})
+
+# The gamegnine the user uses eventually
+add_subdirectory(Framework)
+
+# Thirdparty
+add_subdirectory(ThirdParty/sfml)
 add_subdirectory(ThirdParty)
