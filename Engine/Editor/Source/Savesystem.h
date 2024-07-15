@@ -3,7 +3,7 @@
 #include <iostream>
 #include <vector>
 
-#include "SpriteRepository.h"
+#include "Sprite/SpriteRepository.h"
 #include "GUI/GUIRepository.h"
 #include "Core/SeceneHandler.h"
 #include "GUI/UIUtility/UIModels.h"

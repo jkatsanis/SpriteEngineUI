@@ -2,8 +2,8 @@
 
 #include <iostream>
 #include <ImGui.h>
-#include <Include/UtilityFunctions.h>
-#include <Include/SFML/Graphics.hpp>
+#include <UtilityFunctions.h>
+#include <SFML/Graphics.hpp>
 
 #include "RessourceHandler/FileDataMacros.h"
 #include "GUI/Property/Inspector/UITagSelector.h"

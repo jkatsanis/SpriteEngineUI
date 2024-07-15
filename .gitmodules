@@ -1,0 +1,10 @@
+[submodule "Engine/ThirdParty/sfml"]
+    active = true
+	url = https://github.com/SFML/SFML.git
+	path = Engine/ThirdParty/sfml
+[submodule "Engine/ThirdParty/imgui"]
+	path = Engine/ThirdParty/imgui
+	url = https://github.com/ocornut/imgui.git
+[submodule "Engine/ThirdParty/imgui-sfml"]
+	path = Engine/ThirdParty/imgui-sfml
+	url = https://github.com/SFML/imgui-sfml.git

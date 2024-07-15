@@ -1,7 +1,7 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
-#include <ImGui/ImGUISFML.h>
+#include <imgui.h>
 
 #include "Math/Vector2.h"
 #include "Camera/Camera.h"

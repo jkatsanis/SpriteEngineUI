@@ -1,6 +1,6 @@
 #pragma once
 
-#include <ImGui/ImGUISFML.h>
+#include <imgui.h>
 
 #include "GUI/Property/UIBase.h"
 #include "GUI/UIUtility/UIUtility.h"

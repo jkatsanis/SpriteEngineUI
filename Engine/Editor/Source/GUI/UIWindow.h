@@ -2,7 +2,7 @@
 
 #include "UITopbar.h"
 
-#include "SpriteRepository.h"
+#include "Sprite/SpriteRepository.h"
 #include "GUIRepository.h"
 #include "Property/UIHierarchy.h"
 #include "Core/SeceneHandler.h"

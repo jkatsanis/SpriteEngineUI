@@ -1,6 +1,6 @@
 #include "guiRepository.h"
 
-#include "Sprite.h"
+#include "Sprite/Sprite.h"
 
 // Constrcutor
 
