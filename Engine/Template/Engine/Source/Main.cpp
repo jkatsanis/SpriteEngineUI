@@ -2,8 +2,6 @@
 
 #include "Engine.h"
 
-#include <Include/SFML/Graphics.hpp>
-
 int main() 
 {
     spe::Engine engine;

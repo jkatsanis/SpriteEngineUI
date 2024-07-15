@@ -31,8 +31,8 @@ void spe::GUI::SetFontScale(float scale)
 void spe::GUI::Window(const std::string& id, const spe::Vector2& pos, const spe::Vector2& size)
 {
     ImGui::Begin(id.c_str(), NULL, DEFAULT_FLAGS);
-    ImGui::SetWindowSize(spe::Vector2::toSFVector(size));
-    ImGui::SetWindowPos(sf::Vector2f(960 + pos.X, 540 - pos.Y));
+    ImGui::SetWindowSize(spe::Vector2::toImVec2(size));
+    ImGui::SetWindowPos(ImVec2(960 + pos.X, 540 - pos.Y));
 }
 
 void spe::GUI::End()

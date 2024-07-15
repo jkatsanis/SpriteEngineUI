@@ -1,12 +1,12 @@
 #pragma once
 
-#include <ImGui/ImGUISFML.h>
 #include <iostream>
 
 #include "Utility/Style.h"
 
 #include "Math/Vector2.h"
 #include "Camera/Camera.h"
+#include "imgui.h"
 
 #define D_SCALE spe::Style::s_DefaultFontSize
 #define DEFAULT_FLAGS ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoScrollbar

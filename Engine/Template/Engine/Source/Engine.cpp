@@ -23,6 +23,8 @@ spe::Engine::Engine()
 
 spe::Engine::~Engine()
 {
+	spe::BoxCollider::DeleteCameraCollider();
+	this->m_SceneHandler.SpriteRepository.DeleteAll();
 	this->m_Window.Shutdown();
 }
 

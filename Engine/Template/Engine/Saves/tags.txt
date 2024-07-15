@@ -1,2 +1,7 @@
 Tags
 none
+Floor
+Player
+Note-Main
+computer-teleport
+kanal-teleport
