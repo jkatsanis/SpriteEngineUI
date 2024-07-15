@@ -1,4 +1,7 @@
 # Template Solution
+# !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+set(CMAKE_BUILD_TYPE Debug) # CHANGE WHEN BUILDING IN RELEASE TO Release
+# !!!!!!!!!!!!!!!
 
 cmake_minimum_required(VERSION 3.10)
 
@@ -50,6 +53,36 @@ if(MSVC)
 endif()
 
 add_subdirectory(${FILE_CONTENT}/Engine Engine)
-add_subdirectory(${FILE_CONTENT}/ThirdParty/sfml SFML)
+add_subdirectory(${FILE_CONTENT}/ThirdParty/sfml ThirdParty/sfml)
 add_subdirectory(${FILE_CONTENT}/ThirdParty ThirdParty)
 add_subdirectory(${FILE_CONTENT}/Framework Framework)
+
+set(SFML_DLL_DIR "${CMAKE_BINARY_DIR}/ThirdParty/sfml/lib")
+
+if(CMAKE_BUILD_TYPE STREQUAL "Debug")
+    add_custom_command(TARGET ${PROJECT_FOLDER} POST_BUILD
+            COMMAND ${CMAKE_COMMAND} -E copy_if_different
+            ${SFML_DLL_DIR}/Debug/sfml-audio-d-2.dll $<TARGET_FILE_DIR:${PROJECT_FOLDER}>
+            COMMAND ${CMAKE_COMMAND} -E copy_if_different
+            ${SFML_DLL_DIR}/Debug/sfml-graphics-d-2.dll $<TARGET_FILE_DIR:${PROJECT_FOLDER}>
+            COMMAND ${CMAKE_COMMAND} -E copy_if_different
+            ${SFML_DLL_DIR}/Debug/sfml-network-d-2.dll $<TARGET_FILE_DIR:${PROJECT_FOLDER}>
+            COMMAND ${CMAKE_COMMAND} -E copy_if_different
+            ${SFML_DLL_DIR}/Debug/sfml-system-d-2.dll $<TARGET_FILE_DIR:${PROJECT_FOLDER}>
+            COMMAND ${CMAKE_COMMAND} -E copy_if_different
+            ${SFML_DLL_DIR}/Debug/sfml-window-d-2.dll $<TARGET_FILE_DIR:${PROJECT_FOLDER}>
+    )
+elseif(CMAKE_BUILD_TYPE STREQUAL "Release")
+    add_custom_command(TARGET ${PROJECT_FOLDER} POST_BUILD
+            COMMAND ${CMAKE_COMMAND} -E copy_if_different
+            ${SFML_DLL_DIR}/Release/sfml-audio-2.dll $<TARGET_FILE_DIR:${PROJECT_FOLDER}>
+            COMMAND ${CMAKE_COMMAND} -E copy_if_different
+            ${SFML_DLL_DIR}/Release/sfml-graphics-2.dll $<TARGET_FILE_DIR:${PROJECT_FOLDER}>
+            COMMAND ${CMAKE_COMMAND} -E copy_if_different
+            ${SFML_DLL_DIR}/Release/sfml-network-2.dll $<TARGET_FILE_DIR:${PROJECT_FOLDER}>
+            COMMAND ${CMAKE_COMMAND} -E copy_if_different
+            ${SFML_DLL_DIR}/Release/sfml-system-2.dll $<TARGET_FILE_DIR:${PROJECT_FOLDER}>
+            COMMAND ${CMAKE_COMMAND} -E copy_if_different
+            ${SFML_DLL_DIR}/Release/sfml-window-2.dll $<TARGET_FILE_DIR:${PROJECT_FOLDER}>
+    )
+endif()

@@ -1,6 +1,8 @@
 # Editor/CMakeLists.txt
 
-# Define the executable
+# !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+set(CMAKE_BUILD_TYPE Debug) # CHANGE WHEN BUILDING IN RELEASE TO Release
+# !!!!!!!!!!!!!!!
 
 file(GLOB_RECURSE EDITOR_SOURCE_FILES
     "Source/*.cpp"
@@ -28,7 +30,7 @@ file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/Editor/Debug)
 file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/Editor/Release)
 
 # Path to the SFML DLLs after build
-set(SFML_DLL_DIR "${CMAKE_BINARY_DIR}/sfml-build/lib")
+set(SFML_DLL_DIR "${CMAKE_BINARY_DIR}/ThirdParty/sfml/lib")
 
 # Custom command to copy DLLs based on build configuration
 if(CMAKE_BUILD_TYPE STREQUAL "Debug")

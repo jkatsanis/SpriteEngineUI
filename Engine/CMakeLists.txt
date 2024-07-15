@@ -18,5 +18,5 @@ add_subdirectory(Editor)
 add_subdirectory(Framework)
 
 # Thirdparty
-add_subdirectory(ThirdParty/sfml)
+add_subdirectory(ThirdParty/SFML)
 add_subdirectory(ThirdParty)

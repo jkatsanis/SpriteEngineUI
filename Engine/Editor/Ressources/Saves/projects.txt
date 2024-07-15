@@ -1,3 +1,4 @@
 name;absulutePathStr;date;relativePath
 DasynceSE;C:\Dev\DasynceSE;2024/27/06 09:37:12;..\..\DasynceSE
+Template;C:\Dev\SpriteEngineUI\Engine\Template;2024/15/07 07:40:14;Template
 
