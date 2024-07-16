@@ -277,6 +277,8 @@ void spe::SpriteRepository::SortSpritesByLayer(spe::Sprite* spr)
 
 void spe::SpriteRepository::ValidateAdd(spe::Sprite* spr)
 {
+    spr->SetId(this->m_HighestId);
+
     for (auto it = this->m_Sprites.begin(); it != this->m_Sprites.end(); ++it)
     {
         spe::Sprite* element = *it;
@@ -289,9 +291,7 @@ void spe::SpriteRepository::ValidateAdd(spe::Sprite* spr)
         {
             throw new std::exception("This should not happen, probably added a sprite containing childs that already have been added to the list!");
         }
-    }
-            
-   spr->SetId(this->m_HighestId);
+    }         
 }
 
 // Static functions

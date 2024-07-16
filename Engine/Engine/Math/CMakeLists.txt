@@ -7,8 +7,6 @@ file(GLOB_RECURSE MATH_SOURCE_FILES
 
 source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR} FILES ${MATH_SOURCE_FILES})
 
-
-# Create the Core library and add the source files to it
 add_library(Math STATIC ${MATH_SOURCE_FILES})
 
 target_include_directories(Math PRIVATE "${EXTERNAL_LIBRARIES_FOLDER}/imgui")
@@ -22,7 +20,6 @@ target_link_libraries(Math PRIVATE
     imgui
 )
 
-# Top folder
 set_target_properties(Math PROPERTIES FOLDER "Engine")
 
 if(MSVC)
