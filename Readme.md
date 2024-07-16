@@ -41,7 +41,7 @@ Welcome to Sprite Engine, a user-friendly **2D Game Engine** designed for solo d
 - **Box Collider Rotation**
 
 ## How to build
-- ❗ **MAKE SURE TO RUN THE RUNME.sh file**
+- ❗ **MAKE SURE TO RUN THE RUNME.sh file** (I recommend using Git Bash)
   - This will create a Build folder, run cmake and build the C++ files.
   - It will also download the required libraries using github submodules. 
   - It creates also a special Build folder in Engine/Template/ so the engine does not crash when creating a new project, the **Engine/Template/Build directory is REQUIRED!!!**
