@@ -14,9 +14,6 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 add_subdirectory(Engine)
 add_subdirectory(Editor)
 
-# The gamegnine the user uses eventually
-add_subdirectory(Framework)
-
 # Thirdparty
 add_subdirectory(ThirdParty/SFML)
 add_subdirectory(ThirdParty)
