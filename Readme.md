@@ -133,10 +133,10 @@ Watch an introduction to the engine on [YouTube](https://www.youtube.com/watch?v
 
 # Scripting
 
-So scripting probably doesn't work as you think. In this game engine you don't "attach" scripts to an Entity, you can create a Script that can be used as you want. When you create a script it automatically creates an `Update()` and `Start()` function, but these functions don't get called. So you probably already read about the `Game` class; the Game class is kind of the Core class of your game. You can theoretically program the whole game in the `Game` class. I would recommend creating `Scripts` though, as you can call these `Scripts` in your Game class. So that's where the difference is. You have control over where to call these `Scripts` and you can do whatever you want. A `Script` will not be destroyed; it's just a basic C++ class. I would highly recommend you to take a look into my own game [DasynceSE](https://github.com/jkatsanis/DasynceSE.git) - on Github.
+So scripting probably doesn't work as you think. In this game engine you don't "attach" scripts to an Entity, you can create a Script that can be used as you want. When you create a script it automatically creates an `Update()` and `Start()` function, but these functions don't get called. So you probably already read about the `Game` class; the Game class is kind of the Core class of your game. You can theoretically program the whole game in the `Game` class. I would recommend creating `Scripts` though, as you can call these `Scripts` in your Game class. So that's where the difference is. You have control over where to call these `Scripts` and you can do whatever you want. A `Script` will not be destroyed; it's just a basic C++ class. I would highly recommend you to take a look into my own game [DasynceSE](https://github.com/jkatsanis/DasynceSE.git) - on Github. 
 
 **Scripting -> ECS**
-Please note that this is *NOT* an ECS system. The scripts are not components; they are just basic C++ classes. 
+📝 Please note that this is *NOT* an ECS. The scripts are not components; they are just basic C++ classes. 
 
 # The Engine
 
