@@ -4,7 +4,7 @@
 
 Welcome to Sprite Engine, a user-friendly **2D Game Engine** designed for solo developers who want a straightforward yet powerful tool.
 
-## Table of Contents
+## 📑 Table of Contents
 1. [Welcome To Sprite Engine](#welcome-to-sprite-engine)
 2. [Tools Used](#tools-used)
 3. [Features](#features)
@@ -17,7 +17,7 @@ Welcome to Sprite Engine, a user-friendly **2D Game Engine** designed for solo d
 ## Tool list
 The tools (and people) used to create this project :D
 
-|Tool|Use|
+| 🔧 Tool|Use|
 |-----|-------------|
 |SFML|Graphic & Sounds|
 |Dear IMGui|User Interface|
@@ -28,7 +28,7 @@ The tools (and people) used to create this project :D
 ## Feature List
 Here is a list of the features that exist in this game engine, and the features i plan to add: 
 
-| Feature | Implemented |
+| 🛠️ Feature | Implemented |
 |---------|-------------|
 | **UI Editor** | ✔️ |
 | **Scene Creation** | ✔️ |
@@ -61,7 +61,7 @@ Here is a list of the features that exist in this game engine, and the features 
   - You can open the game in the editor and click on the top right button to play the game. 
 - **COMPILING** the game on the first time will take quite alot of time, the editor freezes while the game runs, and while the game builds. 
 
-## Getting Started
+## 🏁 Getting Started
 
 📝 **Note:** This file may be outdated as I am working solo on this engine.
 
@@ -138,7 +138,7 @@ Watch an introduction to the engine on [YouTube](https://www.youtube.com/watch?v
      }
      ```
 
-# Scripting
+## 💻 Scripting
 
 So scripting probably doesn't work as you think. ⚠️In this game engine you don't "attach" scripts to an Entity, you can create a Script that can be used as you want. When you create a script it automatically creates an `Update()` and `Start()` function, but these functions don't get called autoamticly. So you probably already read about the `Game` class; the Game class is kind of the Core class of your game. You can theoretically program the whole game in the `Game` class. I would recommend creating `Scripts` though, as you can call these `Scripts` in your Game class. So that's where the difference is. You have control over where to call these `Scripts` and you can do whatever you want. A `Script` will not be destroyed; it's just a basic C++ class. I would highly recommend you to take a look into my own game [DasynceSE](https://github.com/jkatsanis/DasynceSE.git) - on Github. 
 
