@@ -8,7 +8,7 @@ Welcome to Sprite Engine, a user-friendly **2D Game Engine** designed for solo d
 1. [Welcome To Sprite Engine](#welcome-to-sprite-engine)
 2. [Tools Used](#tools-used)
 3. [Features](#features)
-4. [Enhancements](#enhancements)
+4. [How to build](#how-to-build)
 5. [Quick overview](#quick-overview)
 6. [Getting Started](#getting-started)
 7. [The Engine](#the-engine)
