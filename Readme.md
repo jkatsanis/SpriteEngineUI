@@ -13,6 +13,10 @@ Welcome to Sprite Engine, a user-friendly **2D Game Engine** designed for solo d
 6. [Getting Started](#getting-started)
 7. [The Engine](#the-engine)
 
+
+## Tool list
+The tools (and people) used to create this project :D
+
 |Tool|Use|
 |-----|-------------|
 |SFML|Graphic & Sounds|
@@ -20,6 +24,9 @@ Welcome to Sprite Engine, a user-friendly **2D Game Engine** designed for solo d
 |CMake| Build system|
 |Rene| Gave recommendations|
 |TheCherno| [Youtuber](https://www.youtube.com/@TheCherno) and code reviewer |
+
+## Feature List
+Here is a list of the features that exist in this game engine, and the features i plan to add: 
 
 | Feature | Implemented |
 |---------|-------------|
