@@ -15,5 +15,4 @@ add_subdirectory(Engine)
 add_subdirectory(Editor)
 
 # Thirdparty
-add_subdirectory(ThirdParty/SFML)
 add_subdirectory(ThirdParty)

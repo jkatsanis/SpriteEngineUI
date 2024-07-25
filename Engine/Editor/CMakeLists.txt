@@ -63,9 +63,3 @@ endif()
 if(MSVC)
     target_compile_options(${EDITOR_NAME} PRIVATE /W4)
 endif()
-
-# Set the executable output directory
-set_target_properties(${EDITOR_NAME} PROPERTIES
-        RUNTIME_OUTPUT_DIRECTORY_DEBUG ${CMAKE_BINARY_DIR}/Editor/Debug
-        RUNTIME_OUTPUT_DIRECTORY_RELEASE ${CMAKE_BINARY_DIR}/Editor/Release
-)

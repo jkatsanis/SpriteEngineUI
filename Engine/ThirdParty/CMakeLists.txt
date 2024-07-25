@@ -31,6 +31,8 @@ set_target_properties(imgui_sfml PROPERTIES FOLDER "ThirdParty")
 set_target_properties(utility PROPERTIES FOLDER "ThirdParty")
 
 # SFML
+add_subdirectory(sfml)
+
 set_target_properties(sfml-window PROPERTIES FOLDER "ThirdParty/SFML")
 set_target_properties(sfml-audio PROPERTIES FOLDER "ThirdParty/SFML")
 set_target_properties(sfml-graphics PROPERTIES FOLDER "ThirdParty/SFML")
