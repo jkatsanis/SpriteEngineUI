@@ -135,74 +135,59 @@ bool spe::FileDialog::IsItemSelected()
 
 void spe::FileDialog::OpenFile(const char* dir_path)
 {
-    DIR* dir = opendir(dir_path);
-    if (dir == NULL)
+    fs::path dir(dir_path);
+    if (!fs::exists(dir) || !fs::is_directory(dir))
         return;
 
-    dirent* entry;
-    while ((entry = readdir(dir)) != NULL)
+    for (const auto& entry : fs::directory_iterator(dir))
     {
-        // Skip "." and ".."
-        if (strcmp(entry->d_name, ".") == 0 || strcmp(entry->d_name, "..") == 0
-            || std::string(entry->d_name).find('$') != std::string::npos)
-        {
+        const auto& path = entry.path();
+        const std::string filename = path.filename().string();
+
+        // Skip "." and ".." and files containing '$'
+        if (filename == "." || filename == ".." || filename.find('$') != std::string::npos)
             continue;
-        }
-        if (std::string(entry->d_name) == "cheses")
-        {
+
+        if (filename == "cheses")
             return;
-        }
 
-        // Compute the full path of the entry
-        std::string path = dir_path + std::string(entry->d_name);
+        const std::string BUTTON_NAME = this->m_Icon + "##" + path.string();
 
-        // If the entry is a directory, recursively traverse it
+        bool isDir = entry.is_directory();
 
-        // clicked on the icon of the right
-        const std::string BUTTON_NAME = this->m_Icon + "##" + path;
-
-        // TODO: May be wrong and need some work
-        if(entry->d_type == DT_DIR && entry->d_name[0] != '.'
-            || this->m_ShowFiles)
+        // Show button for directories or files
+        if ((isDir && filename[0] != '.') || this->m_ShowFiles)
         {
             if (this->DisplaySymbol(BUTTON_NAME, this->m_WindowSize.x))
             {
-                this->PathClicked = path;
-                this->ItemClicked = entry->d_name;
+                this->PathClicked = path.string();
+                this->ItemClicked = filename;
             }
         }
 
-        std::string name = " " + std::string(entry->d_name);
-
-        if (entry->d_type == DT_DIR && entry->d_name[0] != '.')
+        // Display folder icon
+        if (isDir && filename[0] != '.')
         {
-            if (!spe::FileDialog::CheckIfADirHasSubItems(path, this->m_ShowFiles))
+            if (!spe::FileDialog::CheckIfADirHasSubItems(path.string(), this->m_ShowFiles))
             {
                 ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 5);
-                spe::Style::DisplaySymbolInMenuItemWithText(ICON_FA_FOLDER, entry->d_name, 30);
+                spe::Style::DisplaySymbolInMenuItemWithText(ICON_FA_FOLDER, filename.c_str(), 30);
             }
-
-            else if (spe::Style::DisplaySymbolInTreeNode(ICON_FA_FOLDER, entry->d_name, false))
+            else if (spe::Style::DisplaySymbolInTreeNode(ICON_FA_FOLDER, filename.c_str(), false))
             {
-                path += "\\";
-                OpenFile(path.c_str());
+                OpenFile(path.string().c_str());  // Recursive call
                 ImGui::TreePop();
             }
-
         }
-        else if (m_ShowFiles)
+        else if (this->m_ShowFiles)  // Display file icon
         {
             ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 5);
-
-            spe::Style::DisplaySymbolInMenuItemWithText(ICON_FA_FILE, entry->d_name, 30);
+            spe::Style::DisplaySymbolInMenuItemWithText(ICON_FA_FILE, filename.c_str(), 30);
         }
     }
 
-    // Close the directory
-    closedir(dir);
     this->m_DisplayTitle = true;
 }
-
 // static methods
 
 bool spe::FileDialog::DisplaySymbol(const std::string& icon, float windowSizeX)
@@ -239,40 +224,36 @@ std::string spe::FileDialog::GetEmptyStringBetween(const std::string& content, c
     return empty;
 }
 
+
 bool spe::FileDialog::CheckIfADirHasSubItems(const std::string& dirPath, bool show_files)
 {
-    bool value = false;
-    DIR* dir = opendir(dirPath.c_str());
-    if (dir == NULL)
+    fs::path dir(dirPath);
+
+    if (!fs::exists(dir) || !fs::is_directory(dir))
         return false;
 
-    // Read each entry in the directory
-    dirent* entry;
-    while ((entry = readdir(dir)) != NULL)
-    {
-        if (!show_files)
-        {
-            if (entry->d_type == DT_DIR)
-            {
-                if (strcmp(entry->d_name, ".") == 0 || strcmp(entry->d_name, "..") == 0)
-                {
-                    continue;
-                }
-                value = true;
-            }
-        }
-        else
-        {
-            if (strcmp(entry->d_name, ".") == 0 || strcmp(entry->d_name, "..") == 0)
-            {
+    try {
+        for (const auto& entry : fs::directory_iterator(dir)) {
+            const std::string name = entry.path().filename().string();
+
+            if (name == "." || name == "..") {
                 continue;
             }
-            value = true;
+
+            if (!show_files) {
+                if (entry.is_directory()) {
+                    return true;
+                }
+            }
+            else {
+                return true;
+            }
         }
     }
+    catch (...) {
+        return false;
+    }
 
-    closedir(dir);
 
-    return value;
+    return false;  // No matching items found
 }
-

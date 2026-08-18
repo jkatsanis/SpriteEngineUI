@@ -1,7 +1,6 @@
 #pragma once
 
 #include <iostream>
-#include <Time.h>
 #include <SFML/Graphics.hpp>
 #include <UtilityFunctions.h>
 
@@ -30,8 +29,9 @@ namespace spe
 		float TotalTimePassed;
 		float TotalFramePassed;
 		bool Loop;
-
+		bool AutoAnim;
 		bool IsPlaying;
+		bool PlayOnStart;
 
 	    Sprite* ptr_AppliedSprite;
 
@@ -47,6 +47,9 @@ namespace spe
 		void Update();
 		void Stop();
 		bool TryChangeKeyFramePos(int old, int newpos);
+		void Reverse();
+
+		void NextFrame();
 
 		spe::KeyFrame& GetKeyFrameAtMs(const float ms);
 		int GetSize() const { return (int)this->m_Keyframes.size(); }

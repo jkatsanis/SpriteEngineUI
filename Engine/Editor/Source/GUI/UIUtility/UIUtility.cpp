@@ -16,14 +16,20 @@ float spe::UIUtility::scaleChanger(spe::ScaleDott& dott, float default_size, flo
 
         dott.ptr_ScalingRec->Shape.setPosition(pos);
         float scale = INVALID_SCALE;
+
+        // Get dynamic window center
+        sf::Vector2u windowSize = spe::UIUtility::s_m_ptr_Window->getSize();
+        float halfWidth = windowSize.x / 2.0f;
+        float halfHeight = windowSize.y / 2.0f;
+
         if (x)
         {
-            pos.x -= 960;
+            pos.x -= halfWidth;
             scale = (pos.x - pos_o) / (default_size / 2);
         }
         else
         {
-            pos.y -= 540;
+            pos.y -= halfHeight;
             scale = (pos.y + pos_o) / (default_size / 2);
         }
         return scale;
@@ -61,8 +67,10 @@ bool spe::UIUtility::IsCursorClickedOnSprite(const spe::Sprite* check)
     sf::Vector2i cursorPos = sf::Mouse::getPosition(*spe::UIUtility::s_m_ptr_Window);
     spe::UIUtility::WorldCursor.Position = spe::UIUtility::s_m_ptr_Window->mapPixelToCoords(cursorPos);
 
-    float getPosX = check->Transform.GetOrigininalPosition().X;
-    float getPosY = check->Transform.GetOrigininalPosition().Y;
+    // Convert Center Screen Pos to Top-Left Screen Pos
+    spe::Vector2 screenPos = check->Transform.GetScreenPosition();
+    float getPosX = screenPos.X - check->Transform.TextureSize.X / 2.0f;
+    float getPosY = screenPos.Y - check->Transform.TextureSize.Y / 2.0f;
 
     float otherGetPosX = spe::UIUtility::WorldCursor.Position.X;
     float otherGetPosY = spe::UIUtility::WorldCursor.Position.Y;

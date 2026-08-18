@@ -42,12 +42,21 @@ Here is a list of the features that exist in this game engine, and the features 
 | **Lighting** | ✔️ |
 | **Prefabs** | ✔️ |
 | **Physics Simulation in editor** | ✔️ |
-| **Sound Manager** | ❌ |
+| **Cross Platform Windows & Linux** | ✔️ |
+| **Sound Manager** | ✔️ |
+| **Particle System** | ✔️ |
 | **Additional C++ Functions** | ❌ |
 | **Cleaner Design** | ❌ |
 | **Box Collider Rotation** | ❌ |
 
 ## How to build
+-❗ **FOR LINUX INSTALL THESE DEPENDENCIES** 
+
+```powershell
+sudo apt update && sudo apt install -y build-essential cmake git libx11-dev libxext-dev libxrandr-dev libxinerama-dev libxi-dev libxcursor-dev libgl1-mesa-dev libglu1-mesa-dev libudev-dev libopenal-dev libvorbis-dev libflac-dev libfreetype6-dev
+```
+
+
 - ❗ **MAKE SURE TO RUN THE RUNME.sh file** (I recommend using Git Bash)
   - This will create a Build folder, run cmake and build the C++ files.
   - It will also download the required libraries using github submodules. 

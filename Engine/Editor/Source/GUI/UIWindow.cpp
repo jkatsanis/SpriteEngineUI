@@ -8,12 +8,13 @@ void spe::UIWindow::Update()
 	this->m_UITopbar.Render();
 	this->m_UIInspector.Render();
 	this->m_UIAnimation.Render();
+	this->m_UIAudioEditor.Render();
 	this->m_UIAssetFolder.Render();
 	this->m_UIConsole.Render();
 
 
 	if (this->m_UIHierarchy.Hovered || this->m_UITopbar.Hovered || this->m_UIInspector.Hovered 
-		|| this->m_UIAnimation.Hovered || this->m_UIAssetFolder.Hovered || this->m_UIConsole.Hovered)
+		|| this->m_UIAnimation.Hovered || this->m_UIAssetFolder.Hovered || this->m_UIConsole.Hovered || this->m_UIAudioEditor.Hovered)
 	{
 		spe::UIUtility::s_IsAnyHovered = true;
 	}
@@ -33,6 +34,7 @@ void spe::UIWindow::SetRepos(spe::GUIRepository& gui, spe::SpriteRepository& spr
 	this->m_UIInspector.SetRepos(&sprite, &gui);
 	this->m_UIAnimation.SetRepos(&sprite, &gui);
 	this->m_UIAssetFolder.SetRepos(&sprite, &gui);
+	this->m_UIAudioEditor.SetRepos(&sprite, &gui);
 
 	this->m_UITopbar.SetSceneHandler(scene);
 

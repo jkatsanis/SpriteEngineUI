@@ -7,9 +7,11 @@
 #include "Math/Vector2.h"
 #include "Camera/Camera.h"
 #include "imgui.h"
+#include "Sprite/Sprite.h"
 
 #define D_SCALE spe::Style::s_DefaultFontSize
 #define DEFAULT_FLAGS ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoScrollbar
+
 
 namespace spe 
 {
@@ -25,6 +27,8 @@ namespace spe
 		GUI() = delete;
 
 		static bool Button(const std::string& content);
+
+		static bool Button(const std::string& content, const spe::Sprite* sprite);
 
 		static void SetCursorCamera(const spe::Vector2& position);
 

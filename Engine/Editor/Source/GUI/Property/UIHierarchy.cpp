@@ -1,4 +1,5 @@
 #include "UIHierarchy.h"
+#include "Core/EngineData.h"
 
 //Constructor
 
@@ -25,8 +26,10 @@ void spe::UIHierarchy::Init()
 void spe::UIHierarchy::Render()
 {
 	// Set window size if asset folder does not render
+    float windowHeight = (float)spe::EngineData::s_WindowHeight;
+    ImVec2 dynamicDefaultSize = ImVec2(HIERARCHY_DEFAULT_WINDOW_SIZE.x, windowHeight - 350.0f);
 
-	if (spe::UIUtility::HandleCloseAndReloadWindow(this->m_ptr_GUIRepo->HierarchyData, this->Hovered, HIERARCHY_DEFAULT_WINDOW_SIZE))
+	if (spe::UIUtility::HandleCloseAndReloadWindow(this->m_ptr_GUIRepo->HierarchyData, this->Hovered, dynamicDefaultSize))
 	{
 		return;
 	}
@@ -339,8 +342,10 @@ void spe::UIHierarchy::ResizeWindow()
 		const float new_size = spe::UIUtility::GUICursor.Position.X - this->m_ResizeData.AdditionalAdd + 30;
 		const float max_size_right = new_size + this->m_ptr_GUIRepo->InspectorData.ptr_Size->x;
 
+        float windowWidth = (float)spe::EngineData::s_WindowWidth;
+
 		if (new_size > 245
-			&& max_size_right < 1920)
+			&& max_size_right < windowWidth)
 		{
 			this->m_Size.x = new_size;
 		}
@@ -354,8 +359,8 @@ void spe::UIHierarchy::ResizeWindow()
 		ImGui::PopStyleColor(2);
 	}
 
-
-	this->m_Size.y = HIERARCHY_DEFAULT_WINDOW_SIZE.y - this->m_ptr_GUIRepo->AssetFolderData.ptr_Size->y + (HIERARCHY_DEFAULT_WINDOW_SIZE.x - 10);
+    float windowHeight = (float)spe::EngineData::s_WindowHeight;
+	this->m_Size.y = (windowHeight - 350.0f) - this->m_ptr_GUIRepo->AssetFolderData.ptr_Size->y + (HIERARCHY_DEFAULT_WINDOW_SIZE.x - 10);
 }
 
 void spe::UIHierarchy::DrawbackgroundRectangle()

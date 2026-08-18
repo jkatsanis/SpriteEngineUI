@@ -15,6 +15,7 @@ namespace spe
 	private:
 		float m_CameraZoom;
 		bool m_ZoomChanged;
+		spe::Vector2 m_WindowSize; // Added window size
 		spe::Vector2 GetDefaultPosition() noexcept;
 
 	public:
@@ -23,7 +24,6 @@ namespace spe
 		float CameraSpeed;
 
 		Camera();
-		Camera(spe::SpriteRepository& repository);
 
 		[[nodiscard]] bool HasZoomChanged() const noexcept { return this->m_ZoomChanged; }
 		void SetZoomFlag() noexcept { this->m_ZoomChanged = false; }
@@ -32,5 +32,9 @@ namespace spe
 		void SetZoom(float zoom) noexcept;
 		void Reset() noexcept;
 		void Update(spe::LightRepository* lightrepo);
+
+		// New method to set window size
+		void SetWindowSize(const spe::Vector2& size) noexcept { this->m_WindowSize = size; }
+		spe::Vector2 GetWindowSize() const noexcept { return this->m_WindowSize; }
 	};
 }

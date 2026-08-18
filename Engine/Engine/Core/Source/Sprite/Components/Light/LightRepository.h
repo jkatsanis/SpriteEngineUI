@@ -34,11 +34,11 @@ namespace spe
         void Add(const spe::Vector2& pos, float radius, float intensity, const sf::Vector3f& color);
         void Remove(uint32_t index);
 
-        void MoveLightSource(uint32_t idx, const spe::Vector2& pos);
-
         spe::LightSource& GetLightSource(uint32_t index) noexcept { return m_LightSources[index]; }
 
         uint32_t GetIndex() const noexcept{ return m_Index; }
         sf::Shader& GetShader() noexcept { return m_LightShader; }
+
+        void Clear() { this->m_LightSources.clear();  }
     };
 }

@@ -1,4 +1,4 @@
-#include "lightSource.h"
+#include "LightSource.h"
 
 spe::LightSource::LightSource() : Position(), Radius(0.0f), LightIntensity(0.0f), Color() {
 }

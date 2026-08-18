@@ -1,12 +1,12 @@
 #pragma once
 
-#include <ImGui.h>
 #include <dirent.h>
 #include <iostream>
 #include <Utility/Style.h>
 #include <icons.h>
 #include <UtilityFunctions.h>
 #include <filesystem>
+namespace fs = std::filesystem;
 
 namespace spe
 {

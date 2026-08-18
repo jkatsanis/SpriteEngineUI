@@ -1,7 +1,6 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
-#include <ImGui.h>
 
 #include "RessourceHandler/FileDataMacros.h"
 

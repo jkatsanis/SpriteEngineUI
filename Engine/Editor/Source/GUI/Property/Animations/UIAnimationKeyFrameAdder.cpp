@@ -49,16 +49,18 @@ void spe::UIAnimationKeyFrameAdder::InputData()
 
 	ImGui::Text("Sprite");
 	ImGui::SetCursorPos(ImVec2(ImGui::GetCursorPosX() + 107, ImGui::GetCursorPosY() - 30));
-	ImGui::InputText("##spriteAdder", this->m_KeyFramePath, CHAR_MAX);
+	ImGui::InputText("##spriteAdder", this->m_KeyFramePath, CHARM_MAX_BUFFER);
 
-	if (ImGui::IsItemHovered(ImGuiHoveredFlags_AllowWhenOverlapped) && ImGui::IsMouseReleased(0) && this->m_ptr_GUIRepo->DragAndDropPath != " ")
+	if (ImGui::IsItemHovered(ImGuiHoveredFlags_AllowWhenOverlapped) &&
+		ImGui::IsMouseReleased(0) &&
+		this->m_ptr_GUIRepo->DragAndDropPath != " ")
 	{
 		this->KeyFramePath = this->m_ptr_GUIRepo->DragAndDropPath;
-		strcpy_s(this->m_KeyFramePath, spe::Utility::GetNamePathSplit(this->m_ptr_GUIRepo->DragAndDropPath).c_str());
+		COPY_STRING(this->m_KeyFramePath, spe::Utility::GetNamePathSplit(this->m_ptr_GUIRepo->DragAndDropPath).c_str());
 	}
 	else
 	{
-		strcpy_s(this->m_KeyFramePath, spe::Utility::GetNamePathSplit(this->KeyFramePath.c_str()).c_str());
+		COPY_STRING(this->m_KeyFramePath, spe::Utility::GetNamePathSplit(this->KeyFramePath.c_str()).c_str());
 	}
 }
 

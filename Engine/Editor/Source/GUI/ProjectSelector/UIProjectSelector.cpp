@@ -14,8 +14,34 @@ spe::UIProjectSelector::UIProjectSelector()
 	spe::Style::Init();
 	spe::Style::RenderStyle();
 
-	this->m_CreateFileDialoge = spe::FileDialog("C:\\", ICON_FA_PLUS, "Select where you want to create a project", SELECTOR_FILE_DIALOG_SIZE, false, SELECTOR_FONT_SCALE);
-	this->m_OpenFileDialog = spe::FileDialog("C:\\", ICON_FA_EDIT, "Select where you want to open a project", SELECTOR_FILE_DIALOG_SIZE, false, SELECTOR_FONT_SCALE);
+#ifdef WIN32
+	std::string rootPath = "C:\\";
+#else
+	const char* homeDir = getenv("HOME");
+	std::string rootPath = homeDir ? homeDir : "/"; // fallback to root if HOME not set#endif
+#endif
+
+	this->m_CreateFileDialoge = spe::FileDialog(
+		rootPath,
+		ICON_FA_PLUS,
+		"Select where you want to create a project",
+		SELECTOR_FILE_DIALOG_SIZE,
+		false,
+		SELECTOR_FONT_SCALE
+	);
+
+	this->m_OpenFileDialog = spe::FileDialog(
+		rootPath,
+		ICON_FA_EDIT,
+		"Select where you want to open a project",
+		SELECTOR_FILE_DIALOG_SIZE,
+		false,
+		SELECTOR_FONT_SCALE
+	);
+
+
+
+
 	this->m_IsOpen = true;
 
 	this->m_Projects = this->ReadProjectData();
@@ -37,6 +63,7 @@ void spe::UIProjectSelector::Update()
 
 void spe::UIProjectSelector::Shutdown()
 {
+
 	this->m_Window.Shutdown();
 	spe::Savesystem::SaveProjects(this->m_Projects);
 }
@@ -199,19 +226,19 @@ bool spe::UIProjectSelector::CheckIfprojectExists(const std::string& path)
 void spe::UIProjectSelector::CreateProject()
 {
 	char buffer[50];
-	strcpy_s(buffer, this->m_CreateProjectName.c_str());
+	COPY_STRING(buffer, this->m_CreateProjectName.c_str());
 
-	const std::string fullpath = this->m_CreateFileDialoge.PathClicked + "\\" + std::string(buffer);
+	const std::string fullpath = this->m_CreateFileDialoge.PathClicked + PATH_SYMBOL + std::string(buffer);
 	this->AddProject(fullpath, std::string(buffer));
 
-	const std::string path = this->m_CreateFileDialoge.PathClicked + "\\";
+	const std::string path = this->m_CreateFileDialoge.PathClicked + PATH_SYMBOL;
 	const std::string tryToOpenPath = spe::Utility::CopyDir("Template", path, this->m_CreateProjectName);
 
 	// Running the script assumes that CMake is installed
 	this->CreateProjectFiles(this->m_CreateFileDialoge.PathClicked, buffer);
 
 	// Setting the project we just selected to be displayed in the selector list
-	this->m_CreateFileDialoge.PathClicked = tryToOpenPath + "\\";
+	this->m_CreateFileDialoge.PathClicked = tryToOpenPath + PATH_SYMBOL;
 	this->m_CreateFileDialoge.ItemClicked = this->m_CreateProjectName.data();
 
 	this->m_CreateProjectName = "";
@@ -225,7 +252,10 @@ void spe::UIProjectSelector::CreateProjectFiles(const std::string& path, const s
 	std::string command = "cmake ..";
 
 	const std::string dir = spe::Utility::GetCurrentDir();
-	const std::string newdir = path + +"\\" + name + "\\Build";
+
+	const std::string build = std::string(PATH_SYMBOL) + "Build";
+
+	const std::string newdir = path + PATH_SYMBOL + name + build;
 
 	spe::Utility::SetCurrentDir(newdir);
 
@@ -245,7 +275,13 @@ void spe::UIProjectSelector::AddProject(const std::string& full_path, const std:
 	auto now = std::chrono::system_clock::now();
 	auto in_time_t = std::chrono::system_clock::to_time_t(now);
 
+#ifdef WIN32
 	gmtime_s(&timeinfo, &in_time_t);
+#else
+	gmtime_r(&in_time_t, &timeinfo);
+#endif
+
+
 	std::strftime(buffer, sizeof(buffer), "%Y/%d/%m %X", &timeinfo);
 	std::string date(buffer);
 
@@ -257,7 +293,8 @@ bool spe::UIProjectSelector::TryToOpenProject()
 	const std::string path = this->m_OpenFileDialog.PathClicked;
 	if (!this->CheckIfprojectExists(path))
 	{
-		std::string pathToVerify = path + "\\Engine\\Saves\\verify.vsn";
+
+		std::string pathToVerify = path + std::string(PATH_SYMBOL) +  "Engine" + std::string(PATH_SYMBOL) +  "Saves" + std::string(PATH_SYMBOL) + "verify.vsn";
 
 		if (!this->IsProjectPathValid(pathToVerify))
 		{
@@ -309,7 +346,7 @@ std::vector<spe::UserProjectInfo> spe::UIProjectSelector::ReadProjectData()
 				continue;
 			}
 
-			std::string pathToVerify = propertys[1] + "\\engine\\saves\\verify.vsn";
+			std::string pathToVerify = propertys[1] + std::string(PATH_SYMBOL) +  "Engine" + std::string(PATH_SYMBOL) +  "Saves" + std::string(PATH_SYMBOL) + "verify.vsn";
 
 			if (this->IsProjectPathValid(pathToVerify))
 			{
@@ -354,7 +391,8 @@ void spe::UIProjectSelector::RenderProjectData()
 					spe::EngineData::s_PathUserProject = this->m_Projects[i].relativePath;
 					spe::EngineData::s_NameOfUser = this->m_Projects[i].Name;
 					this->m_IsOpen = false;
-					const std::string buildFolder = "mkdir " + this->m_Projects[i].AbsulutePath + "\\Build";
+					const std::string build = std::string(PATH_SYMBOL) + "Build";
+					const std::string buildFolder = "mkdir " + this->m_Projects[i].AbsulutePath + build;
 					spe::Utility::RunCommand(buildFolder.c_str());
 				}
 			}

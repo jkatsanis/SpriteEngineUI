@@ -43,7 +43,14 @@ void spe::Animator::Init()
 void spe::Animator::CreateAnimation(const std::string& name, const std::string& file_loc, const std::vector<spe::KeyFrame>& textures)
 {
 	EXIST_COMPONENT;
-	Animations.insert({ name, Animation(ptr_attached_sprite, name, file_loc, textures) });
+	std::string updatetPath = file_loc;
+#ifdef __linux__
+	updatetPath = spe::Utility::ToLinuxPath(file_loc);
+#else
+	updatetPath = spe::Utility::ToWindowsPath(file_loc);
+#endif
+
+	Animations.insert({ name, Animation(ptr_attached_sprite, name, updatetPath, textures) });
 }
 
 void spe::Animator::RemoveAnimation(const std::string& name)
@@ -101,12 +108,19 @@ void spe::Animator::SetName(const std::string& new_name, const std::string& old_
 void spe::Animator::Update()
 {
 	EXIST_COMPONENT;
+	bool isAnyPlaying = false;
 	for (auto& anim : this->Animations)
 	{
 		if (anim.second.IsPlaying)
 		{
+			isAnyPlaying = true;
 			anim.second.Update();
 		}
+	}
+	if (!isAnyPlaying)
+	{
+		this->m_AnimationPlaying.Name = "<Unknown>";
+		this->m_AnimationPlaying.IsPlaying = false;
 	}
 }
 
@@ -123,6 +137,45 @@ void spe::Animator::ReloadTextures()
 	for (auto& anim : this->Animations)
 	{
 		anim.second.RealoadTextures();
+	}
+}
+
+void spe::Animator::CreateReversedAnimation(const std::string& toReverse, const std::string& newAnim)
+{
+	auto it = Animations.find(toReverse);
+	if (it != Animations.end())
+	{
+		Animation animation = spe::Animation(this->ptr_attached_sprite, it->second);
+
+		animation.Reverse();
+
+		Animations[newAnim] = animation;
+
+	}
+
+}
+
+void spe::Animator::NextFrame()
+{
+	EXIST_COMPONENT;
+	auto it = this->Animations.find(this->m_AnimationPlaying.Name);
+	if (it != this->Animations.end())
+	{
+		it->second.NextFrame();
+		return;
+	}
+	spe::Log::LogString("[ERROR] No anim playing");
+
+}
+
+void spe::Animator::PlayStartAnimation()
+{
+	for (auto& anim : this->Animations)
+	{
+		if (anim.second.PlayOnStart)
+		{
+			anim.second.Play();
+		}
 	}
 }
 

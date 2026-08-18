@@ -1,8 +1,8 @@
 #pragma once
 
 #include <iostream>
-#include <ImGui.h>
 #include <string>
+#include "thread"
 
 #include "UtilityFunctions.h"
 #include "GUI/UIUtility/UIUtility.h"
@@ -28,9 +28,15 @@ namespace spe
 		void GetFileName();
 		void CreateFileContent();
 
+		void GetFolderFileName();
+
 		bool m_IsPopupOpen;
 		bool m_OpenFileInput;
 		float m_WindowFontSize;
+
+		bool m_OpenFolderInput;
+		char m_FolderFileName[CPP_FILE_NAME_SIZE];
+
 	public:
 		UIAssetTools();
 		UIAssetTools(const std::string* current_asset_path, std::string* hovered_icon_name);

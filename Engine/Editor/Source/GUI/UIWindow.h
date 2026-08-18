@@ -20,6 +20,7 @@ namespace spe
 		spe::UIHierarchy m_UIHierarchy;
 		spe::UIInspector m_UIInspector;
 		spe::UIAnimation m_UIAnimation;
+		spe::UIAudioEditor m_UIAudioEditor;
 		spe::UIAssetFolder m_UIAssetFolder;
 		spe::UIConsole m_UIConsole;
 

@@ -1,0 +1,67 @@
+name: Linux C++ CMake Build & Test
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Cache apt packages
+      uses: actions/cache@v4
+      with:
+        path: /var/cache/apt/archives
+        key: ${{ runner.os }}-apt-${{ hashFiles('**/CMakeLists.txt') }}
+
+      
+    - name: Install build dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y \
+          build-essential cmake \
+          libudev-dev libx11-dev libxrandr-dev libgl1-mesa-dev \
+          libflac-dev libvorbis-dev libopenal-dev libogg-dev \
+          libxcursor-dev libfreetype6-dev libjpeg-dev libxinerama-dev libsndfile-dev pulseaudio alsa-utils
+        pulseaudio --start
+
+    - name: Create Build Directory
+      run: |
+        cd Engine
+        mkdir -p Build
+
+    #- name: Configure OpenAL Soft for headless CI
+    #  run: |
+    #    echo "[general]" > $HOME/.alsoftrc
+    #    echo "drivers = null" >> $HOME/.alsoftrc
+    - name: Create default ALSA config
+      run: |
+        mkdir -p ~/.asoundrc.d
+        echo "pcm.!default { type hw card 0 }" > ~/.asoundrc
+        echo "ctl.!default { type hw card 0 }" >> ~/.asoundrc
+
+    - name: Configure with CMake
+      run: |
+        cd Engine/Build
+        cmake .. -DCMAKE_BUILD_TYPE=Debug
+
+        
+    - name: Build
+      run: |
+        cd Engine/Build
+        cmake --build . --config Debug
+        
+    - name: Run GoogleTest unit tests
+      run: |
+        cd Engine/Build
+        ctest -C Debug --output-on-failure
+      env:
+        NO_AUDIO_DEVICE: 1
+        ALSA_CONFIG_PATH: /usr/share/alsa/alsa.conf
+        #SDL_AUDIODRIVER: dummy

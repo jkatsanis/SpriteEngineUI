@@ -4,11 +4,12 @@ spe::UIIconData::UIIconData()
 {
     const std::vector<std::string> icons =
     {
-        PATH_TO_RESSOURCES"\\Icons\\defaultIcon.png",
-        PATH_TO_RESSOURCES"\\Icons\\assetFolder.png",
-        PATH_TO_RESSOURCES"\\Icons\\prefabIcon.png",
-        PATH_TO_RESSOURCES"\\Icons\\codeIcon.png",
-        PATH_TO_RESSOURCES"\\Icons\\pngIcon.png",
+        PATH_TO_RESSOURCES PATH_SYMBOL "Icons" PATH_SYMBOL "defaultIcon.png",
+        PATH_TO_RESSOURCES PATH_SYMBOL "Icons" PATH_SYMBOL "assetFolder.png",
+        PATH_TO_RESSOURCES PATH_SYMBOL "Icons" PATH_SYMBOL "prefabIcon.png",
+        PATH_TO_RESSOURCES PATH_SYMBOL "Icons" PATH_SYMBOL "codeIcon.png",
+        PATH_TO_RESSOURCES PATH_SYMBOL "Icons" PATH_SYMBOL "pngIcon.png",
+
     };
 
     this->m_Textures = std::vector<sf::Texture>(icons.size());

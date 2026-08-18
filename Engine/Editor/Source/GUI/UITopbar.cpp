@@ -1,4 +1,6 @@
 #include "UITopbar.h"
+#include "Core/BuildManager.h"
+#include "Core/EngineData.h"
 
 // Constructor
 
@@ -47,13 +49,15 @@ void spe::UITopbar::Render()
 		}
 	}
 
+    float windowWidth = (float)spe::EngineData::s_WindowWidth;
+
 	if (!this->Hovered)
 	{
-		this->Hovered = spe::UIUtility::IsHovered(ImVec2(0, 0), ImVec2(1920, 50));
+		this->Hovered = spe::UIUtility::IsHovered(ImVec2(0, 0), ImVec2(windowWidth, 50));
 	}
 	ImGui::SetWindowFontScale(spe::Style::s_DefaultFontSize);
 	
-	ImGui::SetWindowPos(ImVec2(1920 - this->m_ptr_GUIRepo->InspectorData.ptr_Size->x - 120, 56));
+	ImGui::SetWindowPos(ImVec2(windowWidth - this->m_ptr_GUIRepo->InspectorData.ptr_Size->x - 120, 56));
 	ImGui::SetWindowSize(ImVec2(120, 30));
 
 
@@ -204,7 +208,7 @@ void spe::UITopbar::RenderSceneAddPopup()
 
 		ImGui::SetNextItemWidth(150);
 		ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(0, 7));
-		ImGui::InputTextWithHint("##add-scene", "<name>", this->m_NewSceneName, CHAR_MAX);
+		ImGui::InputTextWithHint("##add-scene", "<name>", this->m_NewSceneName, CHARM_MAX_BUFFER);
 
 		ImGui::PopStyleVar();
 
@@ -251,7 +255,11 @@ void spe::UITopbar::SwitchScene(const std::string& scene)
 		const ImVec2 CURSOR_POS = ImGui::GetCursorPos();
 		if (ImGui::Button("Save"))
 		{
-			spe::Savesystem::SaveEverything(*this->m_ptr_Repo, this->m_ptr_GUIRepo->Camera, this->m_ptr_GUIRepo->BackgroundColor, *this->m_ptr_SceneHandler);
+			spe::Savesystem::SaveEverything(*this->m_ptr_Repo, 
+				this->m_ptr_GUIRepo->Camera, 
+				this->m_ptr_GUIRepo->BackgroundColor, 
+				*this->m_ptr_SceneHandler,
+				*this->m_ptr_GUIRepo);
 
 			this->m_ptr_SceneHandler->LoadScene(scene, this->m_ptr_GUIRepo->Camera, this->m_ptr_GUIRepo->BackgroundColor);
 			this->m_ptr_GUIRepo->CleanUp();
@@ -287,13 +295,15 @@ void spe::UITopbar::DisplayEngineInfo()
 		return;
 	}
 
+    float windowWidth = (float)spe::EngineData::s_WindowWidth;
+
 	const std::string scene_text = "Editing: " + this->m_ptr_SceneHandler->CurrentScene;
-	ImGui::SetCursorPosX(1880 - ImGui::CalcTextSize(scene_text.c_str()).x);
+	ImGui::SetCursorPosX(windowWidth - 40 - ImGui::CalcTextSize(scene_text.c_str()).x);
 	ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(0.5f, 0.5f, 0.5f, 1.0f));
 	ImGui::Text(scene_text.c_str());
 
 	const std::string info_text = "FPS: " + std::to_string(spe::Time::s_FPS);
-	ImGui::SetCursorPosX(1650 - ImGui::CalcTextSize(info_text.c_str()).x);
+	ImGui::SetCursorPosX(windowWidth - 270 - ImGui::CalcTextSize(info_text.c_str()).x);
 	ImGui::Text(info_text.c_str());
 
 	this->SimulateButton();
@@ -318,7 +328,6 @@ void spe::UITopbar::ProjectSettings()
 		ImGui::Dummy(ImVec2(0, 5));
 
 		ImGui::PopStyleVar();
-
 		ImGui::EndMenu();
 	}
 }
@@ -341,7 +350,12 @@ void spe::UITopbar::SimulateButton()
 	{
 		if (spe::Style::DisplaySymbolInMenuItemWithText(ICON_FA_PLAY, "Simulate physics", 5))
 		{
-			spe::Savesystem::SaveEverything(*this->m_ptr_Repo, this->m_ptr_GUIRepo->Camera, this->m_ptr_GUIRepo->BackgroundColor, *this->m_ptr_SceneHandler);
+			spe::Savesystem::SaveEverything(
+				*this->m_ptr_Repo, 
+				this->m_ptr_GUIRepo->Camera, 
+				this->m_ptr_GUIRepo->BackgroundColor, 
+				*this->m_ptr_SceneHandler,
+				*this->m_ptr_GUIRepo);
 			this->m_ptr_GUIRepo->SimulatePhysics = true;
 			spe::Savesystem::s_CanSave = false;
 		}
@@ -370,7 +384,11 @@ void spe::UITopbar::BuildProjectIntoFolder()
 		this->Hovered = true;
 		if (ImGui::MenuItem("Save", "CTRL + S"))
 		{
-			spe::Savesystem::SaveEverything(*this->m_ptr_Repo, this->m_ptr_GUIRepo->Camera, this->m_ptr_GUIRepo->BackgroundColor, *this->m_ptr_SceneHandler);
+			spe::Savesystem::SaveEverything(*this->m_ptr_Repo,
+				this->m_ptr_GUIRepo->Camera,
+				this->m_ptr_GUIRepo->BackgroundColor, 
+				*this->m_ptr_SceneHandler,
+				*this->m_ptr_GUIRepo);
 		}
 		if (ImGui::MenuItem("Build", "CTRL + B"))
 		{
@@ -383,6 +401,11 @@ void spe::UITopbar::BuildProjectIntoFolder()
 		if (ImGui::MenuItem("Update Project"))
 		{
 			spe::EngineData::BuildProjectFiles();
+		}
+		ImGui::Separator();
+		if (ImGui::MenuItem("Build for Distribution"))
+		{
+			spe::BuildManager::BuildForDistribution();
 		}
 
 		ImGui::EndMenu();
@@ -420,7 +443,7 @@ void spe::UITopbar::Hotkeys()
 	if (spe::Input::OnKeyHold(spe::KeyBoardCode::LControl)
 		&& spe::Input::OnKeyPress(spe::KeyBoardCode::S))
 	{
-		spe::Savesystem::SaveEverything(*this->m_ptr_Repo, this->m_ptr_GUIRepo->Camera, this->m_ptr_GUIRepo->BackgroundColor, *this->m_ptr_SceneHandler);
+		spe::Savesystem::SaveEverything(*this->m_ptr_Repo, this->m_ptr_GUIRepo->Camera, this->m_ptr_GUIRepo->BackgroundColor, *this->m_ptr_SceneHandler, *this->m_ptr_GUIRepo);
 	}
 
 	if (spe::Input::OnKeyHold(spe::KeyBoardCode::LControl)
@@ -459,14 +482,18 @@ void spe::UITopbar::PlayGameButton()
 {
 	if (spe::Style::DisplaySmybolAsButton(ICON_FA_PLAY) || spe::Input::OnKeyRelease(spe::KeyBoardCode::F5))
 	{
-		spe::Savesystem::SaveEverything(*this->m_ptr_Repo, this->m_ptr_GUIRepo->Camera, this->m_ptr_GUIRepo->BackgroundColor, *this->m_ptr_SceneHandler);
+		spe::Savesystem::SaveEverything(*this->m_ptr_Repo, this->m_ptr_GUIRepo->Camera, this->m_ptr_GUIRepo->BackgroundColor, *this->m_ptr_SceneHandler, *this->m_ptr_GUIRepo);
 
 		spe::EngineData::BuildProject();
 
 		const std::string current1 = spe::Utility::GetCurrentDir();
 
 		const std::string path = "Build";
+#ifdef _WIN32
 		const std::string exe = "Debug\\" + spe::EngineData::s_NameOfUser + ".exe";
+#else
+		const std::string exe = "./" + spe::EngineData::s_NameOfUser;
+#endif
 		const std::string current = spe::Utility::GetCurrentDir();
 
 		spe::Utility::SetCurrentDir(path);

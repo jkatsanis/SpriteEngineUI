@@ -191,14 +191,24 @@ void spe::SpriteRepository::CleanUp()
     for (auto it = this->m_Sprites.begin(); it != this->m_Sprites.end();)
     {
         spe::Sprite* element = *it;
+
         if (element->DontDeleteOnSceneSwap)
         {
             ++it; 
             continue;
         }
+
+        if (!element->IsParent())
+        {
+            it = this->m_Sprites.erase(it);
+            continue;
+        }
+
+
         delete element;
-        it = this->m_Sprites.erase(it); 
+        it = this->m_Sprites.erase(it);
     }
+
 
     this->Initialized = false;
     this->m_HighestLayer = 0;
@@ -209,11 +219,15 @@ void spe::SpriteRepository::DeleteAll()
     for (auto it = this->m_Sprites.begin(); it != this->m_Sprites.end();)
     {
         spe::Sprite* element = *it;
-   
-        delete element;
-       
-        it = this->m_Sprites.erase(it);
+          
+        if (element->IsParent())
+        {
+            delete element;
+        }
+        it++;
     }
+
+    this->m_Sprites.clear();
 
     this->Initialized = false;
     this->m_HighestLayer = 0;
@@ -222,6 +236,7 @@ void spe::SpriteRepository::DeleteAll()
 void spe::SpriteRepository::SetHighestId(uint32_t id)
 {
     this->m_HighestId = id;
+    spe::Sprite::SetNextId(id + 1);
     spe::Log::LogString("Settind highest id...");
 }
 
@@ -262,7 +277,7 @@ void spe::SpriteRepository::EraseWithIdx(uint32_t idx)
 
 void spe::SpriteRepository::SortSpritesByLayer(spe::Sprite* spr)
 {
-    if (spr->SpriteRenderer.SortinLayerIdx >= this->m_HighestLayer)
+    if (spr->SpriteRenderer.SortinLayerIdx >= this->m_HighestLayer || this->m_Sprites.size() == 0)
     {
         this->m_HighestLayer = spr->SpriteRenderer.SortinLayerIdx;
         this->m_Sprites.push_back(spr);
@@ -302,7 +317,7 @@ void spe::SpriteRepository::ValidateAdd(spe::Sprite* spr)
         }
         if (element->GetId() == spr->GetId())
         {
-            throw new std::exception("This should not happen, probably added a sprite containing childs that already have been added to the list!");
+            throw std::runtime_error("This should not happen, probably added a sprite containing childs that already have been added to the list!");
         }
     }         
 }
@@ -341,6 +356,44 @@ void spe::SpriteRepository::SetSpriteSortingLayer(uint32_t layer, spe::Sprite* s
     uint32_t idx = this->GetListIndex(spr);
     this->EraseWithIdx(idx);
     this->SortSpritesByLayer(spr);
+}
+
+void spe::SpriteRepository::TriggerAllStartEvents() const {
+    for (spe::Sprite* spr : this->m_Sprites)
+    {
+        spr->Animator.PlayStartAnimation();
+        spr->Audio.PlayAllStartAudios();
+        if (spr->Particles.Exist && spr->Particles.GetConfig().PlayOnStart)
+        {
+            spr->Particles.Play();
+        }
+    }
+}
+
+// Only meant for triggering ONLY animations; use TriggerAllStartEvents instead if you wanna include Particles and Audios
+void spe::SpriteRepository::PlayAllStartAnimations() const {
+    for (spe::Sprite* spr : this->m_Sprites)
+    {
+        spr->Animator.PlayStartAnimation();
+    }
+}
+// Only meant for triggering ONLY Audios; use TriggerAllStartEvents instead if you wanna include Particles and Animations
+void spe::SpriteRepository::PlayAllStartAudios() const {
+    for (const Sprite* spr : this->m_Sprites)
+    {
+        spr->Audio.PlayAllStartAudios();
+    }
+}
+
+// Only meant for triggering ONLY particles; use TriggerAllStartEvents instead if you wanna include Animations and Audios
+void spe::SpriteRepository::PlayAllStartParticles() const {
+    for (Sprite* spr : this->m_Sprites)
+    {
+        if (spr->Particles.Exist && spr->Particles.GetConfig().PlayOnStart)
+        {
+            spr->Particles.Play();
+        }
+    }
 }
 
 void spe::SpriteRepository::GetAllChilds(std::vector<const spe::Sprite*>& childs, const spe::Sprite* parent)

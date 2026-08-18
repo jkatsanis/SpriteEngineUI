@@ -8,7 +8,7 @@ spe::Editor::Editor()
 	
 	// Load the image for the window icon
 	sf::Image icon;
-	if (!icon.loadFromFile("Editor\\Ressources\\Icons\\icon.png")) {
+	if (!icon.loadFromFile(std::string("Editor") + PATH_SYMBOL + "Ressources" + PATH_SYMBOL + "Icons" + PATH_SYMBOL + "icon.png")) {
 		spe::Log::LogString("Couldnt load icon!!");
 	}
 
@@ -76,7 +76,7 @@ void spe::Editor::UpdateUI()
 	spe::UIUtility::UpdateCursor();
 	this->m_UIWindow.Update();
 
-	if (this->m_Window.ContainsCursor())
+	if (this->m_Window.ContainsCursor() && this->m_Window.GetRenderWindow()->hasFocus())
 	{
 		this->m_UIRealTimeEditor.Update();
 	}
@@ -94,19 +94,33 @@ void spe::Editor::UpdateComponents()
 
 	this->m_Window.Clear();
 
+	// Force update transforms if window resized
+	if (spe::EngineData::s_WindowResized)
+	{
+		for (auto it = sprites.begin(); it != sprites.end(); ++it)
+		{
+			(*it)->Transform.RefreshScreenPosition();
+		}
+		spe::EngineData::s_WindowResized = false;
+	}
+
+    // Update Camera and Shader Uniforms BEFORE drawing
+    this->m_GUIRepository.Camera.Update(&this->m_SceneHandler.LightRepository);
+
 	for (auto it = sprites.begin(); it != sprites.end(); ++it)
 	{
 		spe::Sprite* sprite = *it;
-	
+
 		if (!spe::BoxCollider::ProcessSprite(sprite, this->m_GUIRepository.Camera))
 		{
-			sprite->Process = false;
+			sprite->DisableProcess();
 			continue;
-		}
-		sprite->Process = true;
+		} 
+		sprite->EnableProcess();
 
 		this->m_SceneHandler.LightRepository.UpdateLightSource(sprite, &this->m_GUIRepository.Camera);
 		sprite->Animator.Update();
+		sprite->Particles.Update();
 
 		if (this->m_GUIRepository.SimulatePhysics)
 		{
@@ -115,6 +129,7 @@ void spe::Editor::UpdateComponents()
 		}
 
 		this->m_Window.DrawEngine(sprite, &this->m_SceneHandler.LightRepository.GetShader(), this->m_GUIRepository.RenderAlwaysWithoutLight);
+		this->m_Window.DrawParticles(sprite, &this->m_SceneHandler.LightRepository.GetShader(), this->m_GUIRepository.RenderAlwaysWithoutLight);
 	}
 	this->m_SceneHandler.LightRepository.UpdateArrays();
 
@@ -128,6 +143,5 @@ void spe::Editor::Update()
 {
 	spe::Time::Update();
 	this->UpdateComponents();
-	this->m_GUIRepository.Camera.Update(&this->m_SceneHandler.LightRepository);
+    // Removed m_GUIRepository.Camera.Update from here
 }
-

@@ -13,6 +13,7 @@ void spe::SceneHandler::LoadScene(const std::string& name, spe::Camera& camera, 
 		if (str == name)
 		{
 			this->SpriteRepository.CleanUp();
+			this->LightRepository.Clear();
 
 			spe::EngineData::s_Scene = name;
 			this->CurrentScene = str;
@@ -21,8 +22,11 @@ void spe::SceneHandler::LoadScene(const std::string& name, spe::Camera& camera, 
 
 			spe::Initializer::InitCamera(camera, PATH_TO_CAMERA);
 			spe::Initializer::InitBackground(bg, PATH_TO_BACKGROUND);
+			spe::Initializer::InitGeneralSettings(PATH_TO_GENERAL_SETTINGS);
+			this->SpriteRepository.SortSpritesByLayer();
 
 			this->SpriteRepository.Initialized = true;
+			SceneChanged = true;
 		}
 	}
 }
@@ -45,6 +49,9 @@ void spe::SceneHandler::DeleteScene(const std::string& name)
 
 void spe::SceneHandler::CreateScene(const std::string& name)
 {
-	spe::Utility::CopyDir("Engine\\Saves\\Template", "Engine\\Saves\\", name);
+	const std::string temp = "Engine" + std::string(PATH_SYMBOL) + "Saves" + PATH_SYMBOL + "Template";
+	const std::string saves = "Engine" + std::string(PATH_SYMBOL) + "Saves" + PATH_SYMBOL;
+
+	spe::Utility::CopyDir(temp, saves, name);
 	this->TotalScenes.push_back(name);
 }

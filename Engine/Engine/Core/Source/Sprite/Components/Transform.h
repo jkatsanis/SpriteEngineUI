@@ -37,11 +37,13 @@ namespace spe
 		spe::Vector2 GetDefaultTextureSize() const noexcept;
 
 		/// <summary>
-		/// Updates the origin using the ´default size
+		/// Updates the origin using the default size
 		/// </summary>
 		void SetOrigin();
 		void SetPosition(const spe::Vector2& pos);
+		void AddPositionY(float y);
 
+		void SetPositionX(float x);
 		void SetRotation(uint32_t angle);
 
 		void Teleport(const spe::Vector2& pos);
@@ -56,10 +58,13 @@ namespace spe
 		spe::Vector2 const GetScale() const noexcept { return this->m_Scale; }
 
 		/// <summary>
-		/// Gets the original position as a Cartesian coordinate system point (vector).
+		/// Gets the position converted to SFML screen coordinates (Top-Left origin, Y-down).
+		/// Used primarily for rendering.
 		/// </summary>
-		/// <returns>The position as a vector</returns>
-		spe::Vector2 GetOrigininalPosition() const;
+		spe::Vector2 GetScreenPosition() const;
+
+		// Forces an update of the internal SFML sprite position based on current World Position and Window Size
+		void RefreshScreenPosition();
 
 		uint32_t GetRotation() const noexcept { return this->m_Rotation; }
 
@@ -70,4 +75,3 @@ namespace spe
 
 	};
 }
-

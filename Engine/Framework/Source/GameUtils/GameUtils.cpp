@@ -22,3 +22,8 @@ int32_t spe::GameUtils::Random(int32_t min, int32_t max)
     // Generate a random number within the range
     return distr(gen);
 }
+
+bool spe::GameUtils::IsInRangeX(const spe::Sprite* sprite1, const spe::Sprite* sprite2, int range)
+{
+    return std::abs(sprite1->Transform.GetPosition().X - sprite2->Transform.GetPosition().X) <= range;
+}

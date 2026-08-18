@@ -1,3 +1,5 @@
+
+#ifdef WIN32
 /*
  * Dirent interface for Microsoft Visual Studio
  *
@@ -25,7 +27,10 @@
 #ifndef WIN32_LEAN_AND_MEAN
 #	define WIN32_LEAN_AND_MEAN
 #endif
+
+#ifdef WIN32
 #include <windows.h>
+#endif
 
 #include <stdio.h>
 #include <stdarg.h>
@@ -1211,3 +1216,4 @@ dirent_set_errno(int error)
 }
 #endif
 #endif /*DIRENT_H*/
+#endif

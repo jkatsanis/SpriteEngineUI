@@ -1,4 +1,4 @@
-#include "guiRepository.h"
+#include "GUIRepository.h"
 
 #include "Sprite/Sprite.h"
 

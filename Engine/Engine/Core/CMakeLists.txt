@@ -20,18 +20,30 @@ target_include_directories(Core PUBLIC ${EXTERNAL_LIBRARIES_FOLDER})
 target_include_directories(Core PUBLIC "${SFML_DIR}/include")
 target_include_directories(Core PUBLIC ${CMAKE_SOURCE_DIR}/Engine)
 
-target_link_libraries(Core PUBLIC 
-    sfml-graphics 
-    sfml-window 
-    sfml-system 
-    sfml-audio 
-    sfml-network 
-    utility 
-    imgui_sfml
-    imgui
-    opengl32.lib
-    Math
+target_link_libraries(Core
+        PUBLIC
+        sfml-graphics
+        sfml-window
+        sfml-system
+        sfml-audio
+        sfml-network
+        utility
+        imgui_sfml
+        imgui
+        Math
 )
+
+# Platform-specific dependencies
+if(WIN32)
+    target_link_libraries(Core PUBLIC opengl32.lib)
+elseif(UNIX)
+    cmake_policy(SET CMP0072 NEW)
+    set(OpenGL_GL_PREFERENCE GLVND)
+
+    find_package(OpenGL REQUIRED)
+    target_link_libraries(Core PUBLIC ${OPENGL_LIBRARIES} X11 pthread dl m)
+endif()
+
 
 set_target_properties(Core PROPERTIES FOLDER "Engine")
 

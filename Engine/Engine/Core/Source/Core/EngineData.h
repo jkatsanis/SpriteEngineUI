@@ -23,6 +23,12 @@ namespace spe
 
 		static bool s_BuildDebug;
 		static bool s_BuildRelease;
+
+		static bool s_JumpThroughBoxes;
+
+		// Window Dimensions for Coordinate Conversion
+		static int s_WindowWidth;
+		static int s_WindowHeight;
+		static bool s_WindowResized;
 	};
 }
-

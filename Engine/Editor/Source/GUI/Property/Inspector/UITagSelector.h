@@ -6,8 +6,6 @@
 
 #include "Sprite/Sprite.h"
 
-#include <ImGui.h>
-
 namespace spe
 {
 	class UITagSelector : public spe::IUIBase

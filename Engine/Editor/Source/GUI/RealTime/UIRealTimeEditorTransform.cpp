@@ -29,8 +29,15 @@ void spe::UIRealTimeEditorTransform::Init()
 void spe::UIRealTimeEditorTransform::MoveComponent()
 {
 	if (this->m_ptr_ClickedSprite == nullptr) return;
-	float x = this->m_CursorWorldPos.X - 960;
-	float y = -(this->m_CursorWorldPos.Y - 540);
+
+	// Get dynamic window center
+    sf::Vector2u windowSize = spe::UIUtility::GetWindow()->getSize();
+    float halfWidth = windowSize.x / 2.0f;
+    float halfHeight = windowSize.y / 2.0f;
+
+	// Convert cursor's view coordinates to world coordinates
+	float x = this->m_CursorWorldPos.X - halfWidth;
+	float y = -(this->m_CursorWorldPos.Y - halfHeight);
 
 	float m = x - this->m_ptr_ClickedSprite->Transform.GetPosition().X;
 	float my = y - this->m_ptr_ClickedSprite->Transform.GetPosition().Y;
@@ -163,8 +170,13 @@ void spe::UIRealTimeEditorTransform::Reset()
 
 void spe::UIRealTimeEditorTransform::GetPos(const spe::Sprite* focusedSprite, sf::Vector2f pos[])
 {
-	spe::Vector2 originalPos = focusedSprite->Transform.GetOrigininalPosition();
+	// Calculate Top-Left Screen Position
+	spe::Vector2 screenPos = focusedSprite->Transform.GetScreenPosition();
 	spe::Vector2 textureSize = focusedSprite->Transform.TextureSize;
+
+	spe::Vector2 originalPos;
+	originalPos.X = screenPos.X - textureSize.X / 2.0f;
+	originalPos.Y = screenPos.Y - textureSize.Y / 2.0f;
 
 	if (focusedSprite->Transform.GetScale().X < 0)
 	{

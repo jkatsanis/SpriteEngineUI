@@ -12,13 +12,16 @@ spe::Animation::Animation()
 	this->IsPlaying = false;
 	this->ptr_AppliedSprite = nullptr;
 	this->TimePassed = 0.0f;
+	this->AutoAnim = true;
 }
 
 spe::Animation::Animation(Sprite* ptr_appliedSprite, const std::string& name, const std::string fileLocation, const std::vector<spe::KeyFrame>& frames)
 {
+	std::string updatetPath = spe::Utility::ToRightPath(fileLocation);
+
 	this->TotalFramePassed = 0.0f;
 	this->m_BasePath = ptr_appliedSprite->SpriteRenderer.Path;
-	this->m_PathToFile = fileLocation;
+	this->m_PathToFile = updatetPath;
 	this->TimePassed = 2.0f;
 	this->CurrentFrame = -1;
 	this->m_Name = name;
@@ -37,6 +40,7 @@ spe::Animation::Animation(Sprite* ptr_appliedSprite, const std::string& name, co
 		this->m_Keyframes[i].position = CurrentPos;
 	}
 	this->RealoadTextures();
+	this->AutoAnim = true;
 }
 
 spe::Animation::Animation(spe::Sprite* ptr_applied_sprite, const spe::Animation& animation)
@@ -57,6 +61,7 @@ spe::Animation::Animation(spe::Sprite* ptr_applied_sprite, const spe::Animation&
 }
 
 
+
 void spe::Animation::InitCopyCtor(const spe::Animation& animation)
 {
 	this->TotalTimePassed = 0.0f;
@@ -68,6 +73,7 @@ void spe::Animation::InitCopyCtor(const spe::Animation& animation)
 	this->m_BasePath = this->ptr_AppliedSprite->SpriteRenderer.Path;
 	this->Loop = animation.Loop;
 	this->m_PathToFile = animation.m_PathToFile;
+	this->IsPlaying = false;
 
 	const std::vector<spe::KeyFrame>& keyframes = animation.GetkeyFrames();
 	for (size_t i = 0; i < keyframes.size(); i++)
@@ -77,6 +83,7 @@ void spe::Animation::InitCopyCtor(const spe::Animation& animation)
 	}
 
 	this->RealoadTextures();
+	this->AutoAnim = true;
 }
 
 // Public methods
@@ -108,6 +115,11 @@ void spe::Animation::DeleteKeyFrame(const int pos)
 
 void spe::Animation::Play()
 {
+	if (this->ptr_AppliedSprite == nullptr)
+	{
+		spe::Log::LogString("[ERROR] No sprite attached to animation");
+		return;
+	}
 	this->m_BasePath = this->ptr_AppliedSprite->SpriteRenderer.Path;
 	this->TimePassed = 0.0f;
 	this->TotalFramePassed = 0;
@@ -118,31 +130,18 @@ void spe::Animation::Play()
 
 void spe::Animation::Update()
 {
-	this->TimePassed += Time::s_DeltaTime;
-	this->TotalTimePassed += Time::s_DeltaTime;
-	if (this->m_Keyframes.size() == 0)
+	if (this->AutoAnim)
 	{
-		return;
-	}
-	const float condition = this->m_Keyframes[CurrentFrame].delay / 100;
-	if (this->TimePassed >= condition)
-	{
-		this->TotalFramePassed++;
-		this->TimePassed = 0;
-		this->ptr_AppliedSprite->SetSpriteTexture(this->m_Textures[CurrentFrame], this->m_Keyframes[CurrentFrame].path);
-		this->CurrentFrame++;
-		if (this->CurrentFrame == this->m_Keyframes.size())
-		{		
-			if(this->Loop)
-			{
-				// Hard coding the path bc skill issue
-				this->ptr_AppliedSprite->SpriteRenderer.Path = this->m_BasePath;
-				this->Play();
-			}
-			else
-			{
-				this->Stop();
-			}
+		this->TimePassed += Time::s_DeltaTime;
+		this->TotalTimePassed += Time::s_DeltaTime;
+		if (this->m_Keyframes.size() == 0)
+		{
+			return;
+		}
+		const float condition = this->m_Keyframes[CurrentFrame].delay / 100;
+		if (this->TimePassed >= condition)
+		{
+			this->NextFrame();
 		}
 	}
 }
@@ -197,6 +196,50 @@ bool spe::Animation::TryChangeKeyFramePos(int old, int newpos)
 		}
 	}
 	return false;
+}
+
+void spe::Animation::Reverse()
+{
+	std::vector<std::int32_t> positions;
+	std::vector<float> delays;
+
+	for (int32_t i = 0; i < m_Keyframes.size(); i++)
+	{
+		positions.push_back(this->m_Keyframes[i].position);
+		delays.push_back(this->m_Keyframes[i].delay);
+	}
+
+	std::reverse(this->m_Keyframes.begin(), this->m_Keyframes.end());
+	std::reverse(this->m_Textures.begin(), this->m_Textures.end());
+
+	for (size_t i = 0; i < this->m_Keyframes.size(); i++)
+	{
+		this->m_Keyframes[i].position = positions[i];
+		this->m_Keyframes[i].delay = delays[i];
+	}
+
+	this->m_Name = "close";
+}
+
+void spe::Animation::NextFrame()
+{
+	this->TotalFramePassed++;
+	this->TimePassed = 0;
+	this->ptr_AppliedSprite->SetSpriteTexture(this->m_Textures[CurrentFrame], this->m_Keyframes[CurrentFrame].path);
+	this->CurrentFrame++;
+	if (this->CurrentFrame == this->m_Keyframes.size())
+	{
+		if (this->Loop)
+		{
+			// Hard coding the path bc skill issue
+			this->ptr_AppliedSprite->SpriteRenderer.Path = this->m_BasePath;
+			this->Play();
+		}
+		else
+		{
+			this->Stop();
+		}
+	}
 }
 
 spe::KeyFrame& spe::Animation::GetKeyFrameAtMs(const float ms)

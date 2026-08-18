@@ -6,6 +6,12 @@ std::string spe::EngineData::s_NameOfUser = "";
 std::string spe::EngineData::s_Scene = "";
 bool spe::EngineData::s_BuildDebug = true;
 bool spe::EngineData::s_BuildRelease = false;
+bool spe::EngineData::s_JumpThroughBoxes = false;
+
+// Initialize with default 1920x1080
+int spe::EngineData::s_WindowWidth = 1920;
+int spe::EngineData::s_WindowHeight = 1080;
+bool spe::EngineData::s_WindowResized = false;
 
 void spe::EngineData::BuildProjectFiles()
 {

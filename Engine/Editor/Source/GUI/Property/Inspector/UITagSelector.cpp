@@ -70,7 +70,7 @@ void spe::UITagSelector::RenderPopup()
 	ImGui::Begin("##tag-adder", NULL, DEFAULT_FLAGS);
 
 	ImGui::SetNextItemWidth(size.x);
-	ImGui::InputTextWithHint("##add-text-input", "<name>", this->m_TagName, CHAR_MAX);
+	ImGui::InputTextWithHint("##add-text-input", "<name>", this->m_TagName, CHARM_MAX_BUFFER);
 
 	spe::UIUtility::SetWindowScreenMiddle(size);
 	ImGui::SetWindowSize(size);

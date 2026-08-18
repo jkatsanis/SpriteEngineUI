@@ -1,7 +1,6 @@
 #pragma once
 
 #include <iostream>
-#include <ImGui.h>
 
 #include "UIBase.h"
 #include "Sprite/Sprite.h"

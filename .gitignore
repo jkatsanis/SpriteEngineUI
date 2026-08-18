@@ -9,3 +9,7 @@
 *.ilk
 *.idb
 **/build/
+**/Build/
+**/cmake-build-debug/
+**/cmake-build-release/
+Engine/Editor/Ressources/Saves/projects.txt

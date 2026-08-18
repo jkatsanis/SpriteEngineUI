@@ -1,10 +1,17 @@
 #pragma once
 
 #include <iostream>
-#include <ImGui.h>
 #include <UtilityFunctions.h>
 #include <SFML/Graphics.hpp>
+
+#ifdef WIN32
 #include "dirent.h"
+#else
+#include <dirent.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <unistd.h>
+#endif
 
 #include "RessourceHandler/FileDataMacros.h"
 #include "GUI/UIUtility/UIModels.h"
@@ -53,7 +60,7 @@ namespace spe
 		bool m_DraggingItem;
 		bool m_Interacted;
 
-		std::unordered_map<std::string, DIR*> m_AlreadyOpenedPaths;
+		std::unordered_map<std::string, fs::path> m_AlreadyOpenedPaths;
 
 		void GetAllFilesInDir(const char* path);
 		void SetDragAndDrop(std::string path, std::string name);

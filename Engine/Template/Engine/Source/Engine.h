@@ -8,7 +8,6 @@
 #include "Core/SeceneHandler.h"
 #include "Utility/Style.h"
 #include "PrefabRepository/PrefabRepository.h"
-
 #include "Scripts/Game.h"
 
 namespace spe
@@ -26,8 +25,10 @@ namespace spe
 		spe::SceneHandler m_SceneHandler;
 
 		void UpdateComponents() override;
+		void UpdatePhysics();
 
 		void Init() override;
+		void ReadEnginePath();
 
 	public:
 		Engine();

@@ -1,4 +1,5 @@
 #include "UIConsole.h"
+#include "Core/EngineData.h"
 
 // Ctor
 
@@ -50,7 +51,10 @@ void spe::UIConsole::Render()
 
 	ImGui::SetWindowSize(ImVec2(x, 480));
 
-	ImGui::SetWindowPos(ImVec2(1920 - x, 600));
+    float windowWidth = (float)spe::EngineData::s_WindowWidth;
+    float windowHeight = (float)spe::EngineData::s_WindowHeight;
+
+	ImGui::SetWindowPos(ImVec2(windowWidth - x, windowHeight - 480));
 
 	this->Hovered = spe::UIUtility::IsHovered(ImGui::GetWindowPos(), ImGui::GetWindowSize());
 

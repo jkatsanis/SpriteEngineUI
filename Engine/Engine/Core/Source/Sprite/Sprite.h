@@ -15,6 +15,8 @@
 #include "Sprite/Components/Light/Light.h"
 #include "Sprite/Components/Prefab/Prefab.h"
 #include "Sprite/Components/Animator/Animator.h"
+#include "Sprite/Components/Audio/AudioComp.h"
+#include "Components/ParticleComp.h"
 
 #define INVALID_SPRITE_SYMBOLS 1
 
@@ -24,6 +26,7 @@ namespace spe
 	class Sprite
 	{
 	private:
+		static int32_t s_nextId;
 		int32_t m_ParentID;
 		sf::Sprite m_Sprite;
 		sf::Texture* m_Texture;
@@ -51,6 +54,8 @@ namespace spe
 		spe::Animator Animator;
 		spe::Prefab Prefab;
 		spe::Light Light;
+		spe::AudioComp Audio;
+		spe::ParticleComp Particles;
 
 		//Parent / child infos
 		std::vector<spe::Sprite*> ptr_Childs;
@@ -67,6 +72,7 @@ namespace spe
 
 		void SetParentId(const int32_t id) noexcept { this->m_ParentID = id; }
 		void SetId(const int32_t id) noexcept;
+		static void SetNextId(const int32_t id) noexcept { s_nextId = id; }
 		sf::Sprite& GetSprite() { return this->m_Sprite; }
 		sf::Texture& GetTexture() { return *this->m_Texture; }
 
@@ -127,6 +133,9 @@ namespace spe
 
 		bool ContainsChild(const ImGuiTextFilter& name) const;
 		int GetParentId() const noexcept { return this->m_ParentID; }
+
+		void EnableProcess();
+		void DisableProcess();
 
 		/// <summary>
 		/// Gets the path to the texture file

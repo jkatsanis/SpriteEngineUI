@@ -18,6 +18,7 @@ namespace spe
 		static bool DisplaySymbolInMenuItem(const char* symbol);
 		static void DisplaySmybolAsText(const char* symbol);
 		static bool DisplaySmybolAsButton(const char* symbol, ImFont* font = nullptr);
+		static bool DisplaySymbolButtonWithText(const char *symbol, const char *text, ImFont *symbolFont = nullptr, ImFont *textFont = nullptr);
 		static bool DisplaySmybolAsButton(const char* symbol, float defaultFontSize);
 		static bool DisplaySmybolAsButton(const char* symbol, ImVec2 cursorPos);
 		static bool DisplaySymbolInTreeNode(const char* symbol, std::string name, bool openNode);

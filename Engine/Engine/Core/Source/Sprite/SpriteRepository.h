@@ -8,6 +8,7 @@
 
 #include "Core/Repository.h"
 #include "Math/Vector2.h"
+#include <stdexcept>
 
 namespace spe
 {
@@ -63,6 +64,12 @@ namespace spe
         /// <param name="layer"></param>
         /// <param name="id"></param>
         void SetSpriteSortingLayer(uint32_t layer, spe::Sprite* id);
+
+        void TriggerAllStartEvents() const;
+
+        void PlayAllStartAnimations() const;
+        void PlayAllStartAudios() const;
+        void PlayAllStartParticles() const;
 
     public:
         static void GetAllChilds(std::vector<const spe::Sprite*>& childs, const spe::Sprite* parent);

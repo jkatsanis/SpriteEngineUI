@@ -3,6 +3,7 @@
 #include <SFML/Graphics.hpp>
 #include <imgui.h>
 
+#include "Audio/Audio.h"
 #include "Math/Vector2.h"
 #include "Camera/Camera.h"
 #include "Core/Repository.h"
@@ -25,6 +26,8 @@ namespace spe
 		spe::UIWindowData InspectorData;
 		spe::UIWindowData AssetFolderData;
 		spe::UIWindowData AnimationData;
+		spe::UIWindowData AudioData;
+
 
 		spe::EditorTools Tools;
 
@@ -35,7 +38,7 @@ namespace spe
 		spe::Sprite* RightClickedSprite;
 		spe::Sprite* InspectorSprite;
 		spe::Sprite* HierarchyHoveredSprite;
-
+		spe::Audio* ptr_CurrentAudio = nullptr;
 
 		/// <summary>
 		/// Apparently the data structure for sprites is a list and the sorting layer 
@@ -56,6 +59,7 @@ namespace spe
 		bool SimulatePhysics;
 		bool RenderAlwaysWithoutLight;
 		bool SpawnInCenter;
+		bool JumpThroughBoxes;
 
 		GUIRepository();
 

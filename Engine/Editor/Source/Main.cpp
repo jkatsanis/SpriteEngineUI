@@ -1,8 +1,22 @@
 #include "Editor.h"
 #include "GUI/ProjectSelector/UIProjectSelector.h"
 
+#ifdef __linux__
+#include <X11/Xlib.h>
+
+int ignoreXErrors(Display* d, XErrorEvent* e) {
+    std::cerr << "X11 Error " << e->error_code << " ignored\n";
+    return 0;
+}
+
+#endif
+
 int main()
 {
+#ifdef __linux__
+    XSetErrorHandler(ignoreXErrors);
+#endif
+
     // Sets the engine data to load the game 
     spe::UIProjectSelector selector;
 

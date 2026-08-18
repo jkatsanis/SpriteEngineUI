@@ -34,13 +34,19 @@ void spe::UIInspectorBoxCollider::RenderScaleDotts(spe::Sprite* sprite)
 		? sprite->Transform.GetScale().Y * -1
 		: sprite->Transform.GetScale().Y;
 
+	// Calculate Top-Left Screen Position
+	spe::Vector2 screenPos = sprite->Transform.GetScreenPosition();
+	spe::Vector2 textureSize = sprite->Transform.TextureSize;
 
-	const float left = sprite->Transform.GetOrigininalPosition().X;
-	const float right = sprite->Transform.GetOrigininalPosition().X + sprite->Transform.GetDefaultTextureSize().X * scale_x;
-	const float middle_y = (sprite->Transform.GetOrigininalPosition().Y + (sprite->Transform.GetDefaultTextureSize().Y * scale_y) / 2) ;
-	const float bottom = sprite->Transform.GetOrigininalPosition().Y + sprite->Transform.GetDefaultTextureSize().Y * scale_y;
-	const float middle_x = sprite->Transform.GetOrigininalPosition().X + (sprite->Transform.GetDefaultTextureSize().X * scale_x) / 2;
-	const float top = sprite->Transform.GetOrigininalPosition().Y;
+	const float originX = screenPos.X - (textureSize.X / 2.0f);
+	const float originY = screenPos.Y - (textureSize.Y / 2.0f);
+
+	const float left = originX;
+	const float right = originX + sprite->Transform.GetDefaultTextureSize().X * scale_x;
+	const float middle_y = (originY + (sprite->Transform.GetDefaultTextureSize().Y * scale_y) / 2) ;
+	const float bottom = originY + sprite->Transform.GetDefaultTextureSize().Y * scale_y;
+	const float middle_x = originX + (sprite->Transform.GetDefaultTextureSize().X * scale_x) / 2;
+	const float top = originY;
 
 	const sf::Vector2f pos_width_y = sf::Vector2f(right + sprite->Collider.Width.Y, middle_y);
 	const sf::Vector2f pos_width_x = sf::Vector2f(left - DEFAULT_DOTT_SCALE + sprite->Collider.Width.X, middle_y);
@@ -263,7 +269,14 @@ void spe::UIInspectorBoxCollider::DrawBoxCollider(spe::Sprite* sprite, spe::Rect
 	sf::RectangleShape* ptr_shape = &ptr_rectangle->Shape;
 
 	ptr_shape->setSize(size);
-	ptr_shape->setPosition(sf::Vector2f(sprite->Transform.GetOrigininalPosition().X + sprite->Collider.Width.X, sprite->Transform.GetOrigininalPosition().Y + sprite->Collider.Height.X));
+
+	// Calculate Top-Left Screen Position
+	spe::Vector2 screenPos = sprite->Transform.GetScreenPosition();
+	spe::Vector2 textureSize = sprite->Transform.TextureSize;
+	const float originX = screenPos.X - (textureSize.X / 2.0f);
+	const float originY = screenPos.Y - (textureSize.Y / 2.0f);
+
+	ptr_shape->setPosition(sf::Vector2f(originX + sprite->Collider.Width.X, originY + sprite->Collider.Height.X));
 
 	ptr_rectangle->Render = true;
 

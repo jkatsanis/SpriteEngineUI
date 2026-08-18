@@ -35,6 +35,11 @@ void spe::UIAnimationEditor::Render()
 	ImGui::SameLine();
 	ImGui::Checkbox("##loop", &this->m_ptr_Anim->Loop);
 
+
+	ImGui::Text("Play On Start");
+	ImGui::SameLine();
+	ImGui::Checkbox("##onstart", &this->m_ptr_Anim->PlayOnStart);
+
 	this->SaveAnimation();
 	this->RenameAnimation();
 
@@ -382,7 +387,7 @@ void spe::UIAnimationEditor::RenameAnimation()
 	{
 		ImGui::Text("Rename    -    Changes will be permanent");
 		ImGui::Separator();
-		ImGui::InputTextWithHint("##rename-anim", "<name>", &s_renamed_pop_up_name[0], CHAR_MAX);
+		ImGui::InputTextWithHint("##rename-anim", "<name>", &s_renamed_pop_up_name[0], CHARM_MAX_BUFFER);
 
 		spe::UIUtility::SameLine(2);
 		

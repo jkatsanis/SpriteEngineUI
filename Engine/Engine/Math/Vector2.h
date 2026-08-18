@@ -3,6 +3,7 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 #include "imgui.h"
+#include <cmath> // <-- for std::sqrt
 
 namespace spe
 {
@@ -30,7 +31,15 @@ namespace spe
 
 		friend std::ostream& operator<<(std::ostream& os, const spe::Vector2& rhs);
 
+		float Length() const {
+			return std::sqrt(X * X + Y * Y);
+		}
+
+		void Normalize();
+
 	public:
+		static Vector2 GetDirection(const Vector2& A, const Vector2& B);
+
 		static const spe::Vector2 SCREEN_MIDDLE;
 		static ImVec2 toImVec2(const spe::Vector2& vec);
 		static sf::Vector2f toSFVector(const spe::Vector2& vec);

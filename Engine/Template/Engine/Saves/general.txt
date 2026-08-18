@@ -1,0 +1,2 @@
+JumpThroughBoxes;IgnoreLights
+False

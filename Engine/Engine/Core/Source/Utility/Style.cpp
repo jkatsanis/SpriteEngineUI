@@ -68,6 +68,55 @@ bool spe::Style::DisplaySmybolAsButton(const char* symbol, ImFont* font)
 	return clicked;
 }
 
+bool spe::Style::DisplaySymbolButtonWithText(const char* symbol, const char* text, ImFont* symbolFont, ImFont* textFont)
+{
+    ImGui::PopFont();
+
+    ImFont* symFont = (symbolFont != nullptr) ? symbolFont : spe::Style::s_SymbolFont;
+    ImFont* txtFont = (textFont != nullptr) ? textFont : spe::Style::s_DefaultFont;
+
+    ImGui::PushFont(symFont);
+    ImVec2 iconSize = ImGui::CalcTextSize(symbol, nullptr, false);
+    ImGui::PopFont();
+
+    ImGui::PushFont(txtFont);
+    ImVec2 textSize = ImGui::CalcTextSize(text, nullptr, false);
+    ImGui::PopFont();
+
+    const ImGuiStyle& style = ImGui::GetStyle();
+    const float spacing = style.ItemSpacing.x;
+    const ImVec2 padding = style.FramePadding;
+
+
+    ImVec2 buttonSize;
+    buttonSize.x = padding.x * 2.0f + iconSize.x + spacing + textSize.x;
+    buttonSize.y = padding.y * 2.0f + std::max(iconSize.y, textSize.y);
+
+    std::string btn_id = std::string("##sym_btn_") + (text ? text : "");
+
+    bool clicked = ImGui::Button(btn_id.c_str(), buttonSize);
+
+    ImVec2 itemMin = ImGui::GetItemRectMin(); // screen cords
+
+	ImVec2 basePos = ImVec2(itemMin.x + padding.x, itemMin.y + padding.y);
+
+    ImGui::PushFont(symFont);
+    ImGui::SetCursorScreenPos(ImVec2(basePos.x, basePos.y + (buttonSize.y - padding.y*2.0f - iconSize.y) * 0.5f));
+    ImGui::TextUnformatted(symbol);
+    ImGui::PopFont();
+
+    ImGui::PushFont(txtFont);
+    ImGui::SetCursorScreenPos(ImVec2(basePos.x + iconSize.x + spacing, basePos.y + (buttonSize.y - padding.y*2.0f - textSize.y) * 0.5f));
+    ImGui::TextUnformatted(text);
+    ImGui::PopFont();
+
+    ImGui::PushFont(spe::Style::s_DefaultFont);
+
+    return clicked;
+}
+
+
+
 bool spe::Style::DisplaySmybolAsButton(const char* symbol, float defaultFontSize)
 {
 	ImGui::SetWindowFontScale(defaultFontSize);
@@ -165,9 +214,13 @@ void spe::Style::Init()
 
 	//Add the fonts (remember to fill in the correct path of your font
 
+#ifdef WIN32
 	const std::string arial = PATH_TO_RESSOURCES + "\\Fonts\\arial.ttf";
 	const std::string fonta = PATH_TO_RESSOURCES + "\\Fonts\\fontawesome-webfont.ttf";
-
+#else
+	const std::string arial = PATH_TO_RESSOURCES + "/Fonts/arial.ttf";
+	const std::string fonta = PATH_TO_RESSOURCES + "/Fonts/fontawesome-webfont.ttf";
+#endif
 	spe::Style::s_DefaultFont = io.Fonts->AddFontFromFileTTF(arial.c_str(), spe::Style::s_FontSize);
 	spe::Style::s_SymbolFont = io.Fonts->AddFontFromFileTTF(fonta.c_str(), spe::Style::s_FontSize - 4, &config);
 

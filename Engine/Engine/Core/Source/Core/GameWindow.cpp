@@ -1,4 +1,5 @@
 #include "GameWindow.h"
+#include "EngineData.h" // Include EngineData
 
 // Ctor
 
@@ -25,6 +26,10 @@ spe::GameWindow::GameWindow(const spe::Vector2& size, const std::string& name)
 	this->m_ptr_Window->setKeyRepeatEnabled(false);
 
 	ImGui::SFML::Init(*this->m_ptr_Window);
+
+	// Update EngineData
+	spe::EngineData::s_WindowWidth = (int)size.X;
+	spe::EngineData::s_WindowHeight = (int)size.Y;
 }
 
 // Private
@@ -33,6 +38,7 @@ void spe::GameWindow::UpdateCamera()
 {
 	if (this->m_Camera != nullptr)
 	{
+		this->m_Camera->SetWindowSize(this->m_Size);
 		this->m_Camera->CameraView.setSize(this->m_Size.X * this->m_Camera->GetZoom(), this->m_Size.Y * this->m_Camera->GetZoom());
 		this->m_ptr_Window->setView(this->m_Camera->CameraView);
 	}
@@ -40,13 +46,17 @@ void spe::GameWindow::UpdateCamera()
 
 void spe::GameWindow::Draw(spe::Sprite* ptr, const sf::Shader* shader, bool ignoreLight)
 {
-	if (shader != nullptr && ptr->SpriteRenderer.EffectedByLight && !ignoreLight)
+	Draw(&ptr->GetSprite(), shader, ignoreLight, ptr->SpriteRenderer.EffectedByLight);
+}
+
+void spe::GameWindow::Draw(const sf::Drawable* drawable, const sf::Shader* shader, const bool ignoreLight, const bool effectedByLight) const {
+	if (shader != nullptr && effectedByLight && !ignoreLight)
 	{
-		this->m_ptr_Window->draw(ptr->GetSprite(), shader);
+		this->m_ptr_Window->draw(*drawable, shader);
 	}
 	else
 	{
-		this->m_ptr_Window->draw(ptr->GetSprite());
+		this->m_ptr_Window->draw(*drawable);
 	}
 }
 
@@ -66,6 +76,19 @@ void spe::GameWindow::PollEvents()
 			this->m_IsOpen = false;
 			this->m_ptr_Window->close();
 		}
+		else if (this->WindowEvent.type == sf::Event::Resized)
+		{
+			this->m_Size = spe::Vector2(this->WindowEvent.size.width, this->WindowEvent.size.height);
+			this->m_WindowBounds = sf::IntRect(0, 0, this->m_Size.X, this->m_Size.Y);
+			sf::FloatRect visibleArea(0, 0, this->WindowEvent.size.width, this->WindowEvent.size.height);
+			this->m_ptr_Window->setView(sf::View(visibleArea));
+
+			// Update EngineData
+			spe::EngineData::s_WindowWidth = (int)this->WindowEvent.size.width;
+			spe::EngineData::s_WindowHeight = (int)this->WindowEvent.size.height;
+			spe::EngineData::s_WindowResized = true;
+		}
+
 		if (!EventChanged)
 		{
 			if (this->WindowEvent.type == sf::Event::KeyReleased)
@@ -119,6 +142,14 @@ void spe::GameWindow::DrawGame(spe::Sprite* ptr, const sf::Shader* shader, bool 
 	this->Draw(ptr, shader, ignoreLight);
 }
 
+void spe::GameWindow::DrawParticles(spe::Sprite* ptr, const sf::Shader* shader, bool ignoreLight)
+{
+	if (!ptr->Particles.Exist) {
+		return;
+	}
+	Draw(&ptr->Particles.GetParticleSystem(), shader, ignoreLight, ptr->SpriteRenderer.EffectedByLight);
+}
+
 
 void spe::GameWindow::Display()
 {
@@ -154,5 +185,3 @@ bool spe::GameWindow::ContainsCursor()
 	sf::Vector2i mousePosition = sf::Mouse::getPosition(*this->m_ptr_Window);
 	return this->m_WindowBounds.contains(mousePosition);
 }
-	
-

@@ -14,6 +14,7 @@ namespace spe
 	public:
 		std::vector<std::string> TotalScenes;
 		std::string CurrentScene;
+		bool SceneChanged;
 
 		spe::LightRepository LightRepository;
 		spe::SpriteRepository SpriteRepository;

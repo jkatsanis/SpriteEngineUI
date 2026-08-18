@@ -1,8 +1,6 @@
 #pragma once
 
-#include <iostream>
 #include <vector>
-
 #include "Sprite/SpriteRepository.h"
 #include "GUI/GUIRepository.h"
 #include "Core/SeceneHandler.h"
@@ -33,6 +31,7 @@ namespace spe
 		static void UpdateCameraFile(const spe::Camera& camera);
 		static void UpdateTagsFile(const spe::SpriteRepository& repo);
 		static void UpdateAnimationFile(const spe::SpriteRepository& repo);
+		static void UpdateGeneralSettingsFile(const spe::GUIRepository& repo);
 
 		/// <summary>
 		/// Saves everything
@@ -43,11 +42,13 @@ namespace spe
 		static void SaveEverything(const spe::SpriteRepository& sprites,
 							const spe::Camera& gui,
 							const spe::Vector3& bg,
-							const spe::SceneHandler& scene);
+							const spe::SceneHandler& scene,
+							const spe::GUIRepository& gui_repo);
 
 		static void SaveProjects(const std::vector<spe::UserProjectInfo>& projects);
 
 		static std::string GetPropertyLineWithSeperator(const spe::Sprite* sprite);
+		static std::string GetParticleLineWithSeperator(const spe::Sprite* sprite);
 
 		static void CreateOrUpdatePrefabFile(const spe::Sprite* content, const std::string& pathToFile, const std::string& oldFilePath);
 

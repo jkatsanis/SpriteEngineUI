@@ -1,0 +1,51 @@
+    _
+    |   UIConsole.cpp
+    |   UIConsole.h
+    |   UITopbar.cpp
+    |   UITopbar.h
+    |   
+    +---RealTime
+    |       UIRealTimeEditorNavigator.cpp
+    |       UIRealTimeEditorTransform.cpp    |   
+    |
+    +---ProjectSelector
+    |       UIProjectSelector.cpp
+    |       UIProjectSelector.h
+    |       
+    +---Property
+    |   |   UIHierarchy.cpp
+    |   |   UIHierarchy.h
+    |   |   
+---------------------------------------
+    |   +---Animations
+    |   |       UIAnimation.cpp
+    |   |       UIAnimation.h
+    |   |       UIAnimationEditor.cpp
+    |   |       UIAnimationEditor.h
+    |   |       UIAnimationKeyFrameAdder.cpp
+    |   |       UIAnimationKeyFrameAdder.h
+    |   |       
+    |   +---AssetFolder
+    |   |       UIAssetFolder.cpp
+    |   |       UIAssetFolder.h
+    |   |       UIAssetTools.cpp
+    |   |       UIAssetTools.h
+    |   |       UIIconData.cpp
+    |   |       UIIconData.h
+    |   |       
+    |   \---Inspector
+    |           UIInspector.cpp
+    |           UIInspector.h
+    |           UIInspectorBoxCollider.cpp
+    |           UIInspectorBoxCollider.h
+    |           UITagSelector.cpp
+    |           UITagSelector.h
+    |           
+    
+    \---UIUtility
+            UIModels.h
+            UITransform.cpp
+            UITransform.h
+            UIUtility.cpp
+            UIUtility.h
+            

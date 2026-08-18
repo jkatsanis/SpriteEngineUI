@@ -16,9 +16,10 @@ namespace spe
 
     void LightRepository::Init(const std::string& shader)
     {
+        const std::string updatetePath = spe::Utility::ToRightPath(shader);
         this->m_Update = true;
         this->m_Index = 0;
-        if (!m_LightShader.loadFromFile(shader, sf::Shader::Fragment))
+        if (!m_LightShader.loadFromFile(updatetePath, sf::Shader::Fragment))
         {
             spe::Log::LogString("Could not load light shader");
         }
@@ -37,16 +38,11 @@ namespace spe
         uint32_t idx = sprite->Light.GetLightIndex();
         spe::LightSource& source = m_LightSources[idx];
 
-        if (sprite->Transform.PositionChanged || cam->HasZoomChanged())
+        // Update position if changed (Just use World Position)
+        if (sprite->Transform.PositionChanged || cam->HasZoomChanged() || sprite->Light.HasUpdate())
         {
             sprite->Transform.PositionChanged = false;
-
-            float zoom = cam->GetZoom() - 1;
-
-            const float a = ((sprite->Transform.GetPosition().Y * -1) + 540) + 540 * zoom;
-            spe::Vector2 new_pos = spe::Vector2((sprite->Transform.GetPosition().X + 960) + 960 * zoom, a);
-
-            source.Position = new_pos;
+            source.Position = sprite->Transform.GetPosition();
         }
         if (sprite->Light.HasRadiusChanged())
         {
@@ -77,13 +73,9 @@ namespace spe
 
     void LightRepository::Add(const spe::Vector2& pos, float radius, float intensity, const sf::Vector3f& color)
     {
-        float zoom = 1;
-
-        const float a = ((pos.Y * -1) + 540) + 540 * zoom;
-        spe::Vector2 new_pos = spe::Vector2((pos.X + 960) + 960 * zoom, a);
-
+        // Just use World Position
         m_Index++;
-        m_LightSources[m_Index] = spe::LightSource(new_pos, radius, intensity, color);
+        m_LightSources[m_Index] = spe::LightSource(pos, radius, intensity, color);
 
         m_Update = true;
         UpdateArrays();
@@ -95,26 +87,6 @@ namespace spe
 
         m_Update = true;
         UpdateArrays();
-    }
-
-    void LightRepository::MoveLightSource(uint32_t idx, const spe::Vector2& pos)
-    {
-        auto it = m_LightSources.find(idx);
-
-        if (it != m_LightSources.end())
-        {
-            it->second.Position = pos;
-
-            sf::Vector2f* lightPositions = GetPositionArray();
-
-            m_LightShader.setUniformArray("lightPositions", lightPositions, m_LightSources.size());
-
-            delete[] lightPositions;
-        }
-        else
-        {
-            std::cout << "LOG [ERROR] Key does not exist " << idx << std::endl;
-        }
     }
 
     void LightRepository::UpdateArrays()

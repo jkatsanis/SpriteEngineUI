@@ -1,0 +1,59 @@
+name: Windows C++ CMake Build & Test
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-and-test:
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up MSVC environment
+      uses: ilammy/msvc-dev-cmd@v1
+
+    - name: Create Build Directory
+      run: |
+        cd Engine
+        mkdir -p Build
+
+    - name: Build with CMake
+      run: |
+        cd Engine/Build
+        cmake ..
+
+    - name: Build CPP
+      run: |
+        cd Engine/Build
+        cmake --build . --config Debug
+    
+    - name: Cache SFML zip
+      id: sfml-cache
+      uses: actions/cache@v4
+      with:
+        path: sfml.zip
+        key: sfml-2.5.1-windows-vc15-64-bit
+    
+    - name: Download SFML dependencies
+      if: steps.sfml-cache.outputs.cache-hit != 'true'
+      run: |
+        Invoke-WebRequest -Uri https://www.sfml-dev.org/files/SFML-2.5.1-windows-vc15-64-bit.zip -OutFile sfml.zip
+    
+    - name: Extract SFML
+      run: |
+        Expand-Archive sfml.zip -DestinationPath sfml
+        Copy-Item sfml/SFML-2.5.1/bin/*.dll -Destination "Engine/Build/Tests/Core_Test/Debug"
+
+
+
+    - name: Run GoogleTest unit tests
+      run: |
+        cd Engine/Build
+        ctest -C Debug --output-on-failure
+      env:
+        NO_AUDIO_DEVICE: 1

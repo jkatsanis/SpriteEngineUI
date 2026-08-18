@@ -13,6 +13,7 @@ spe::SpriteRenderer::SpriteRenderer(const spe::SpriteRenderer& rhs)
 	this->Path = rhs.Path;
 	this->SortinLayerIdx = rhs.SortinLayerIdx;
 	this->EffectedByLight = rhs.EffectedByLight;
+	this->Render = rhs.Render;
 }
 
 void spe::SpriteRenderer::Init()

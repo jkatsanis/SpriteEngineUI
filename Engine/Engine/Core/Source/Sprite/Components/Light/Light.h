@@ -24,6 +24,7 @@ namespace spe
 
 		float m_Intensity;
 		bool m_IntensityChanged;
+		bool m_Update;
 
 
 		void Init() override;
@@ -53,10 +54,13 @@ namespace spe
 		float GetRadius() const noexcept { return this->m_Radius; }
 		bool HasRadiusChanged() const noexcept  { return this->m_RadiusChanged; }
 
+		bool HasUpdate() const noexcept  { return this->m_Update; }
+
 		void DisableFlags();
 
 		void DisableProcess();
 		void EnableProcess();
+		
 	};
 }
 

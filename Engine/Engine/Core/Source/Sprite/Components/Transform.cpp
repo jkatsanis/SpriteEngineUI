@@ -1,5 +1,6 @@
 #include "Transform.h"
 #include "Sprite/Sprite.h"
+#include "Core/EngineData.h" // Include EngineData
 
 //Contructor
 
@@ -84,11 +85,21 @@ spe::Vector2 spe::Transform::HandleCollisions(const spe::Vector2& position)
 	// Up	
 	if (this->ptr_Sprite->Collider.Up)
 	{
-		if (position.Y > this->m_Position.Y
-			&& this->ptr_Sprite->Physicsbody.Velocity.Y >= 0)
-		{
-			new_position.Y = current_y;
+		if (position.Y > this->m_Position.Y)
+		{	
+			if (spe::EngineData::s_JumpThroughBoxes)
+			{
+				if (this->ptr_Sprite->Physicsbody.Velocity.Y <= 0)
+				{
+					new_position.Y = current_y;
+				}
+			}
+			else if(this->ptr_Sprite->Physicsbody.Velocity.Y >= 0)
+			{
+				new_position.Y = current_y;
+			}
 		}
+		
 	}
 
 	// Left	
@@ -132,8 +143,15 @@ void spe::Transform::SetPosition(const spe::Vector2& position)
 
 	if (this->ptr_Sprite != nullptr)
 	{
-		this->ptr_Sprite->GetSprite().setPosition(sf::Vector2f(new_pos.X + 960, 540 - new_pos.Y));
+		// Convert to screen coordinates for SFML
+		spe::Vector2 screenPos = this->GetScreenPosition();
+		this->ptr_Sprite->GetSprite().setPosition(sf::Vector2f(screenPos.X, screenPos.Y));
 	}
+}
+
+void spe::Transform::AddPositionY(float y)
+{
+	this->SetPosition(spe::Vector2(this->GetPosition().X, this->GetPosition().Y + y));
 }
 
 void spe::Transform::SetTextureSize(const spe::Vector2& scale)
@@ -176,6 +194,11 @@ spe::Vector2 spe::Transform::GetDefaultTextureSize() const noexcept
 	return spe::Vector2(this->TextureSize.X / scale.X, this->TextureSize.Y / scale.Y);
 }
 
+void spe::Transform::SetPositionX(float x)
+{
+	this->SetPosition(spe::Vector2(x, GetPosition().Y));
+}
+
 void spe::Transform::SetRotation(uint32_t angle)
 {
 	this->m_Rotation = angle % 360;
@@ -196,7 +219,9 @@ void spe::Transform::Teleport(const spe::Vector2& position)
 
 	if (this->ptr_Sprite != nullptr)
 	{
-		this->ptr_Sprite->GetSprite().setPosition(sf::Vector2f(position.X + 960, 540 - position.Y));
+		// Convert to screen coordinates for SFML
+		spe::Vector2 screenPos = this->GetScreenPosition();
+		this->ptr_Sprite->GetSprite().setPosition(sf::Vector2f(screenPos.X, screenPos.Y));
 	}
 
 }
@@ -221,12 +246,23 @@ void spe::Transform::SetScale(const spe::Vector2& scale, bool b)
 	this->SetOrigin();
 }
 
-spe::Vector2 spe::Transform::GetOrigininalPosition() const
+spe::Vector2 spe::Transform::GetScreenPosition() const
 {
-	float x = this->ptr_Sprite->GetSprite().getPosition().x - this->TextureSize.X / 2;
-	float y = this->ptr_Sprite->GetSprite().getPosition().y - this->TextureSize.Y / 2;
+	// Convert Cartesian (0,0 center, Y-up) to Screen (0,0 top-left, Y-down)
+	// Use dynamic window size
+	float halfWidth = spe::EngineData::s_WindowWidth / 2.0f;
+	float halfHeight = spe::EngineData::s_WindowHeight / 2.0f;
 
-	return spe::Vector2(x, y);
+	return spe::Vector2(this->m_Position.X + halfWidth, halfHeight - this->m_Position.Y);
+}
+
+void spe::Transform::RefreshScreenPosition()
+{
+	if (this->ptr_Sprite != nullptr)
+	{
+		spe::Vector2 screenPos = this->GetScreenPosition();
+		this->ptr_Sprite->GetSprite().setPosition(sf::Vector2f(screenPos.X, screenPos.Y));
+	}
 }
 
 void spe::Transform::Reset()
@@ -234,4 +270,3 @@ void spe::Transform::Reset()
 	this->m_Position = spe::Vector2(0, 0);
 	this->SetScale(spe::Vector2(1, 1));
 }
-

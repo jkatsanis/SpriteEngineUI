@@ -1,4 +1,5 @@
 #include "UIAssetFolder.h"
+#include "Core/EngineData.h"
 
 spe::UIAssetFolder::UIAssetFolder()
 {
@@ -21,17 +22,30 @@ void spe::UIAssetFolder::Init()
 {
     this->m_ptr_GUIRepo->AssetFolderData.ptr_Size = &this->m_Size;
 
-    DIR* d = opendir("Assets");
-    this->m_AlreadyOpenedPaths["Assets"] = d;
+    if (fs::exists("Assets") && fs::is_directory("Assets"))
+    {
+        this->m_AlreadyOpenedPaths["Assets"] = fs::path("Assets"); // map version
+        // or
+        // this->m_AlreadyOpenedPaths.insert("Assets"); // set version
+    }
 }
+
  
 //Public functions
 
 void spe::UIAssetFolder::Render()
 {
     float temp = ((this->m_ptr_GUIRepo->InspectorData.ptr_Size->x) - 390);
-    this->m_Size.x = ASSET_FOLDER_DEFAULT_WINDOW_SIZE.x - temp;
-    if (spe::UIUtility::HandleCloseAndReloadWindow(this->m_ptr_GUIRepo->InspectorData, this->Hovered, ASSET_FOLDER_DEFAULT_WINDOW_SIZE))
+
+    float windowWidth = (float)spe::EngineData::s_WindowWidth;
+    float windowHeight = (float)spe::EngineData::s_WindowHeight;
+
+    // Default width is WindowWidth - InspectorWidth (390)
+    ImVec2 dynamicDefaultSize = ImVec2(windowWidth - 390.0f, ASSET_FOLDER_DEFAULT_WINDOW_SIZE.y);
+
+    this->m_Size.x = dynamicDefaultSize.x - temp;
+
+    if (spe::UIUtility::HandleCloseAndReloadWindow(this->m_ptr_GUIRepo->InspectorData, this->Hovered, dynamicDefaultSize))
     {
         return;
     }
@@ -62,7 +76,7 @@ void spe::UIAssetFolder::Render()
 
         if (!this->Hovered)
         {
-            this->Hovered = spe::UIUtility::IsHovered(ImVec2(0, 1080 - this->m_Size.y), this->m_Size);
+            this->Hovered = spe::UIUtility::IsHovered(ImVec2(0, windowHeight - this->m_Size.y), this->m_Size);
         }
         ImGui::End();
     }
@@ -102,7 +116,8 @@ void spe::UIAssetFolder::RenderContentBrowser()
     ImGui::EndChild();
     ImGui::PopStyleColor();
 
-    ImGui::SetWindowPos(ImVec2(0, 1080 - this->m_Size.y));
+    float windowHeight = (float)spe::EngineData::s_WindowHeight;
+    ImGui::SetWindowPos(ImVec2(0, windowHeight - this->m_Size.y));
     ImGui::SetWindowFontScale(spe::Style::s_DefaultFontSize);
     ImGui::SetWindowSize(this->m_Size);
 
@@ -126,14 +141,17 @@ void spe::UIAssetFolder::ResizeWindow()
         pop_style = true;
     }
     spe::Style::DisplaySmybolAsButton(ICON_FA_ARROW_UP);
+
+    float windowHeight = (float)spe::EngineData::s_WindowHeight;
+
     if (ImGui::IsItemHovered() && ImGui::IsMouseClicked(0))
     {
-        this->m_ResizeWindow.AdditionalAdd = 1080 - spe::UIUtility::GUICursor.Position.Y - this->m_Size.y;
+        this->m_ResizeWindow.AdditionalAdd = windowHeight - spe::UIUtility::GUICursor.Position.Y - this->m_Size.y;
         this->m_ResizeWindow.ClickedOnResizeButton = true;
     }
     if (this->m_ResizeWindow.ClickedOnResizeButton && ImGui::IsMouseDown(0))
     {
-        const float new_size = 1080 - spe::UIUtility::GUICursor.Position.Y - this->m_ResizeWindow.AdditionalAdd;
+        const float new_size = windowHeight - spe::UIUtility::GUICursor.Position.Y - this->m_ResizeWindow.AdditionalAdd;
         if (new_size > 150
             && new_size < 1031)
         {
@@ -171,7 +189,7 @@ void spe::UIAssetFolder::RenderFolderHierarchy()
 {
     ImGui::SetCursorPos(ImVec2(FOLDER_HIERARCHY_PADDING, FOLDER_HIERARCHY_PADDING));
     ImGui::BeginChild("##folder-hierarchy", ImVec2(UIASSET_FOLDER_WIDTH, this->m_Size.y), false);
-    this->RenderFolderHierarchyRecursiv("assets", "assets", this->m_IsAssetFolderOpen);
+    this->RenderFolderHierarchyRecursiv("Assets", "Assets", this->m_IsAssetFolderOpen);
     this->m_IsAssetFolderOpen = false;
     ImGui::EndChild();
 }
@@ -181,14 +199,12 @@ void spe::UIAssetFolder::RenderCloseRectangle()
     this->m_ptr_GUIRepo->AssetFolderData.IsOpen = spe::UIUtility::RenderCloseRectangle(
         FOLDER_HIERARCHY_PADDING, ICON_FA_FILE_CODE, "##close-rectangle-assets", "assets", 0);
 }
-
 void spe::UIAssetFolder::RenderFolderHierarchyRecursiv(const char* path, const char* name, bool openNextTreeNode)
 {
-    struct dirent* entry;
-    DIR* dir = opendir(path);
-    if (dir == NULL) {
+    fs::path dir(path);
+    if (!fs::exists(dir) || !fs::is_directory(dir))
         return;
-    }
+
     this->m_Interacted = false;
 
     if (!spe::FileDialog::CheckIfADirHasSubItems(path, false))
@@ -198,12 +214,10 @@ void spe::UIAssetFolder::RenderFolderHierarchyRecursiv(const char* path, const c
         {
             this->SetCurrentPath(path, name);
         }
-        closedir(dir);
-
         return;
     }
-    const std::string newname = std::string("##") + name;
 
+    const std::string newname = std::string("##") + name;
     bool entered = false;
 
     if (spe::Style::DisplaySymbolInTreeNode(ICON_FA_FOLDER, newname.c_str(), openNextTreeNode))
@@ -215,33 +229,25 @@ void spe::UIAssetFolder::RenderFolderHierarchyRecursiv(const char* path, const c
         }
         entered = true;
 
-        while ((entry = readdir(dir)) != NULL)
+        for (const auto& entry : fs::directory_iterator(dir))
         {
-            bool folder = true;
-            const char* str = entry->d_name;
+            std::string std_name = entry.path().filename().string();
 
-            std::string std_name(str);
-
-            //Checks if the string has only chars like ../../ ..
+            // Skip invalid names
             if (!spe::Utility::IsStringValid(std_name))
-            {
                 continue;
-            }
 
-            //We need to know if we got a folder or not for the recursion
-            folder = spe::Utility::IsFolder(std_name);
-
-            //Recursivly calling
-            std::string newPath = std::string(path) + "\\" + std_name;
+            bool folder = entry.is_directory();
+            std::string newPath = (dir / std_name).string();
 
             if (folder)
             {
-                const char* ch = newPath.c_str();
-                this->RenderFolderHierarchyRecursiv(ch, str, false);
+                this->RenderFolderHierarchyRecursiv(newPath.c_str(), std_name.c_str(), false);
             }
         }
         ImGui::TreePop();
     }
+
     if (!entered)
     {
         ImGui::SetCursorPos(ImVec2(ImGui::GetCursorPosX() + 52, ImGui::GetCursorPosY() - 23));
@@ -250,9 +256,6 @@ void spe::UIAssetFolder::RenderFolderHierarchyRecursiv(const char* path, const c
             this->SetCurrentPath(path, name);
         }
     }
-
-
-    closedir(dir);
 }
 
 void spe::UIAssetFolder::RenderFilesWithChildWindow(const std::string& name, const std::string& new_path, const std::string& entryPath, bool isFolder, uint32_t textureId, uint8_t columCnt)
@@ -360,51 +363,43 @@ void spe::UIAssetFolder::RenderFilesWithChildWindow(const std::string& name, con
 
     ImGui::NextColumn();
 }
-
 void spe::UIAssetFolder::GetAllFilesInDir(const char* path)
 {
     uint8_t cnt = 0;
+    fs::path dir(path);
 
-    DIR* dir = opendir(path);
-
-    struct dirent* entry;
-    if (dir == NULL) {
+    if (!fs::exists(dir) || !fs::is_directory(dir))
         return;
-    }
+
     this->m_Interacted = false;
-    while ((entry = readdir(dir)) != NULL)
+
+    for (const auto& entry : fs::directory_iterator(dir))
     {
         cnt++;
-        const char* str = entry->d_name;
-        const std::string std_name(str);
-        const ImVec2 textSize = ImGui::CalcTextSize(str);
+        std::string std_name = entry.path().filename().string();
 
-        // Checks if the string has only chars like ../../ ..
         if (!spe::Utility::IsStringValid(std_name))
-        {
             continue;
-        }
 
-        const std::string icon = spe::Utility::GetFileExtension(std_name);
-        const std::string newPath = std::string(path) + "\\" + std_name;
-        const std::string name = "##" + std::string(str);
-        const uint32_t id = this->m_IconData.GetId(icon);
-        const bool isFolder = (icon == "folder");
+        std::string icon = spe::Utility::GetFileExtension(std_name);
+        std::string newPath = (dir / std_name).string();
+        std::string name = "##" + std_name;
+        uint32_t id = this->m_IconData.GetId(icon);
+        bool isFolder = entry.is_directory();
 
         if (this->m_FileFilter.PassFilter(name.c_str()))
         {
             this->RenderFilesWithChildWindow(name, newPath, std_name, isFolder, id, cnt);
         }
     }
-
-    closedir(dir);
-
 }
+
 
 void spe::UIAssetFolder::GoBackToBeforeFolder()
 {
     ImGui::SetCursorPos(ImVec2(ImGui::GetCursorPosX() + 300, ImGui::GetCursorPosY() + 10));
-    const std::vector<std::string> pathParts = spe::Utility::Split(this->m_CurrentPath, '\\');
+
+    const std::vector<std::string> pathParts = spe::Utility::Split(this->m_CurrentPath, PATH_SYMBOL[0]);
     std::vector<std::string> validParts;
     for (int i = 0; i < pathParts.size(); i++)
     {
@@ -432,7 +427,7 @@ void spe::UIAssetFolder::GoBackToBeforeFolder()
             {
                  this->m_CurrentPath += (j - 1 == j) 
                      ? validParts[j]
-                     : validParts[j] + "\\";
+                     : validParts[j] + PATH_SYMBOL;
             }
 
             break;

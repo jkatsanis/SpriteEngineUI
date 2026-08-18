@@ -6,7 +6,7 @@
 // Public 
 
 void spe::Savesystem::SaveEverything(const spe::SpriteRepository& repo, const spe::Camera& gui,
-	const spe::Vector3& bg, const spe::SceneHandler& scene)
+	const spe::Vector3& bg, const spe::SceneHandler& scene, const spe::GUIRepository& gui_repo)
 {
 	ALERT_IF_CANT_SAVE;
 
@@ -17,6 +17,7 @@ void spe::Savesystem::SaveEverything(const spe::SpriteRepository& repo, const sp
 	spe::Savesystem::UpdateTagsFile(repo);
 	spe::Savesystem::UpdateHighestIndexFile(repo.GetHighestId());
 	spe::Savesystem::UpdateAnimationFile(repo);
+	spe::Savesystem::UpdateGeneralSettingsFile(gui_repo);
 }
 
 
@@ -43,7 +44,7 @@ void spe::Savesystem::SaveProjects(const std::vector<spe::UserProjectInfo>& proj
 
 	for (const spe::UserProjectInfo& project : projects)
 	{
-		const std::string path = project.AbsulutePath + "\\Engine\\Saves\\enginepath.txt";
+		const std::string path = project.AbsulutePath + PATH_SYMBOL + "Engine" + PATH_SYMBOL + "Saves" + PATH_SYMBOL + "enginepath.txt";
 		std::ofstream corePath;
 
 		corePath.open(path);
@@ -168,6 +169,81 @@ std::string spe::Savesystem::GetPropertyLineWithSeperator(const spe::Sprite* spr
 	return line;
 }
 
+std::string spe::Savesystem::GetParticleLineWithSeperator(const spe::Sprite* sprite)
+{
+	const spe::ParticleEmitterConfig& config = sprite->Particles.GetConfig();
+
+	std::string line;
+
+	// PlayOnStart
+	line += spe::Utility::BoolToStr(config.PlayOnStart) + ";";
+
+	// Emission settings
+	line += std::to_string(config.EmissionRate) + ";";
+	line += std::to_string(config.MaxParticles) + ";";
+	line += std::to_string(static_cast<int>(config.Shape)) + ";";
+	line += std::to_string(config.ShapeRadius) + ";";
+	line += std::to_string(config.ShapeSize.X) + ";";
+	line += std::to_string(config.ShapeSize.Y) + ";";
+	line += std::to_string(config.LineAngle) + ";";
+
+	// Lifetime and speed
+	line += std::to_string(config.LifetimeMin) + ";";
+	line += std::to_string(config.LifetimeMax) + ";";
+	line += std::to_string(config.SpeedMin) + ";";
+	line += std::to_string(config.SpeedMax) + ";";
+
+	// Direction
+	line += std::to_string(config.Direction.X) + ";";
+	line += std::to_string(config.Direction.Y) + ";";
+	line += std::to_string(config.DirectionSpread) + ";";
+
+	// Offset
+	line += std::to_string(config.Offset.X) + ";";
+	line += std::to_string(config.Offset.Y) + ";";
+
+	// Start color (RGBA)
+	line += std::to_string(config.StartColorMin.r) + ";";
+	line += std::to_string(config.StartColorMin.g) + ";";
+	line += std::to_string(config.StartColorMin.b) + ";";
+	line += std::to_string(config.StartColorMin.a) + ";";
+
+	// End color (RGBA)
+	line += std::to_string(config.EndColorMin.r) + ";";
+	line += std::to_string(config.EndColorMin.g) + ";";
+	line += std::to_string(config.EndColorMin.b) + ";";
+	line += std::to_string(config.EndColorMin.a) + ";";
+
+	// Size
+	line += std::to_string(config.StartSizeMin) + ";";
+	line += std::to_string(config.StartSizeMax) + ";";
+	line += std::to_string(config.EndSizeMin) + ";";
+	line += std::to_string(config.EndSizeMax) + ";";
+
+	// Rotation
+	line += std::to_string(config.RotationMin) + ";";
+	line += std::to_string(config.RotationMax) + ";";
+	line += std::to_string(config.RotationSpeedMin) + ";";
+	line += std::to_string(config.RotationSpeedMax) + ";";
+
+	// Physics
+	line += std::to_string(config.Gravity.X) + ";";
+	line += std::to_string(config.Gravity.Y) + ";";
+	line += std::to_string(config.Drag) + ";";
+
+	// Blend mode (save as bool: true = additive, false = alpha)
+	line += spe::Utility::BoolToStr(config.BlendMode == sf::BlendAdd) + ";";
+
+	// Follow sprite setting
+	line += spe::Utility::BoolToStr(sprite->Particles.GetFollowSprite()) + ";";
+
+	// Texture path (empty string if no texture)
+	const std::string& texturePath = sprite->Particles.GetTexturePath();
+	line += texturePath.empty() ? "none" : texturePath;
+
+	return line;
+}
+
 #pragma endregion
 
 void spe::Savesystem::CreateOrUpdatePrefabFile(const spe::Sprite* content, const std::string& pathToFile, const std::string& oldFilePath)
@@ -219,7 +295,8 @@ void spe::Savesystem::CreateAnimationSaveFile(const spe::Sprite* ptr_sprite, con
 	std::string content =
 		anim.GetName() + "\n" +
 		std::to_string(ptr_sprite->GetId()) + "\n" +
-		spe::Utility::BoolToStr(anim.Loop) + "\n";
+		spe::Utility::BoolToStr(anim.Loop) + "\n" +
+		spe::Utility::BoolToStr(anim.PlayOnStart) + "\n";
 
 	const std::vector<spe::KeyFrame>& frames = anim.GetkeyFrames();
 
@@ -271,7 +348,17 @@ void spe::Savesystem::UpdateSpriteFile(const spe::SpriteRepository& repo)
 
 				spriteFile << animline << "\n";
 			}
+			for (const auto& audio : sprite->Audio.Audios) {
+				std::string audioline = "M" + s + audio->GetCsvString();
 
+				spriteFile << audioline << "\n";
+
+			}
+			if (sprite->Particles.Exist)
+			{
+				std::string particleline = "P" + s + spe::Savesystem::GetParticleLineWithSeperator(sprite);
+				spriteFile << particleline << "\n";
+			}
 		}
 		spriteFile.close();
 	}
@@ -360,6 +447,21 @@ void spe::Savesystem::UpdateAnimationFile(const spe::SpriteRepository& repo)
 		{
 			spe::Savesystem::CreateAnimationSaveFile(sprite, anim.second);
 		}
+	}
+}
+
+void spe::Savesystem::UpdateGeneralSettingsFile(const spe::GUIRepository& repo)
+{
+	std::fstream general_settings;
+	general_settings.open(PATH_TO_GENERAL_SETTINGS, std::ios::out);
+
+	if (general_settings.is_open())
+	{
+		general_settings << "JumpThroughBoxes;IgnoreLights" << "\n";
+
+		general_settings << spe::Utility::BoolToStr(repo.JumpThroughBoxes) << "\n";
+
+		general_settings.close();
 	}
 }
 

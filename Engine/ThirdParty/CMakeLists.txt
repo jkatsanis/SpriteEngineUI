@@ -1,4 +1,4 @@
-# ThirdParty/CMakeLists.txt
+    # ThirdParty/CMakeLists.txt
 
 file(GLOB IMGUI_SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/imgui/*.h
@@ -33,10 +33,27 @@ set_target_properties(utility PROPERTIES FOLDER "ThirdParty")
 # SFML
 add_subdirectory(sfml)
 
+# Google
+enable_testing()
+set(BUILD_SHARED_LIBS OFF) 
+set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
+add_subdirectory(googletest)
+
+set_target_properties(gmock PROPERTIES FOLDER "ThirdParty/Test")
+set_target_properties(gtest PROPERTIES FOLDER "ThirdParty/Test")
+set_target_properties(gtest_main PROPERTIES FOLDER "ThirdParty/Test")
+set_target_properties(gmock_main PROPERTIES FOLDER "ThirdParty/Test")
+# Google
+
 set_target_properties(sfml-window PROPERTIES FOLDER "ThirdParty/SFML")
 set_target_properties(sfml-audio PROPERTIES FOLDER "ThirdParty/SFML")
 set_target_properties(sfml-graphics PROPERTIES FOLDER "ThirdParty/SFML")
-set_target_properties(sfml-main PROPERTIES FOLDER "ThirdParty/SFML")
+
+if(MSVC)
+    set_target_properties(sfml-main PROPERTIES FOLDER "ThirdParty/SFML")
+endif()
+
+
 set_target_properties(sfml-network PROPERTIES FOLDER "ThirdParty/SFML")
 set_target_properties(sfml-system PROPERTIES FOLDER "ThirdParty/SFML")
 

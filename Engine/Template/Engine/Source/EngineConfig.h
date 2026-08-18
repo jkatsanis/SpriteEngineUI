@@ -10,12 +10,13 @@ namespace spe
 		spe::Camera* ptr_Camera;
 		spe::Vector3* ptr_BackgroundColor;
 		spe::SpriteRepository* ptr_Sprites;
+		sf::RenderWindow* ptr_Window;
 		bool ReloadSortingLayersOnSceneSwap;
 
 		EngineConfig() = default;
 
-		EngineConfig(spe::SceneHandler* sceneHandler, spe::Camera* camera, spe::Vector3* backgroundColor)
-			: ptr_SceneHandler(sceneHandler), ptr_Camera(camera), ptr_BackgroundColor(backgroundColor), ReloadSortingLayersOnSceneSwap(false)
+		EngineConfig(spe::SceneHandler* sceneHandler, spe::Camera* camera, spe::Vector3* backgroundColor, sf::RenderWindow* window = nullptr)
+			: ptr_SceneHandler(sceneHandler), ptr_Camera(camera), ptr_BackgroundColor(backgroundColor), ptr_Window(window), ReloadSortingLayersOnSceneSwap(false)
 		{
 			this->ptr_Sprites = &this->ptr_SceneHandler->SpriteRepository;
 		}
@@ -38,6 +39,8 @@ namespace spe
 			{
 				this->ptr_Sprites->SortSpritesByLayer();
 			}
+			this->ptr_SceneHandler->SpriteRepository.TriggerAllStartEvents();
+
 		}
 	};
 }

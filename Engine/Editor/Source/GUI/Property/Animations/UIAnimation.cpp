@@ -12,11 +12,11 @@ spe::UIAnimation::UIAnimation()
 {
 	this->m_AnimationFile[0] = 0;
 	this->m_FileName = "";
-	const std::string pathToAssets = "Assets\\";
+	const std::string pathToAssets = "Assets" + std::string(PATH_SYMBOL);
 	this->m_OpenFileDialoge = spe::FileDialog(pathToAssets, ICON_FA_PLUS, "Open Animation", ImVec2(500, 250), true, spe::Style::s_DefaultFontSize);
 	this->m_CreateFileDialoge = spe::FileDialog(pathToAssets, ICON_FA_PLUS, "Create Animation", ImVec2(500, 250), false, spe::Style::s_DefaultFontSize);
-	this->m_CreateFileDialoge.SetFirstNode("assets");
-	this->m_OpenFileDialoge.SetFirstNode("assets");
+	this->m_CreateFileDialoge.SetFirstNode("Assets");
+	this->m_OpenFileDialoge.SetFirstNode("Assets");
 	this->m_BackgroundCounter = START_CNT_BG;
 }
 
@@ -141,7 +141,7 @@ void spe::UIAnimation::GetFileNameInput()
 		}
 		ImGui::SetCursorPos(old);
 
-		ImGui::InputTextWithHint("##addFile", "<name>", this->m_AnimationFile, CHAR_MAX);
+		ImGui::InputTextWithHint("##addFile", "<name>", this->m_AnimationFile, CHARM_MAX_BUFFER);
 		if (ImGui::IsItemHovered() || ImGui::IsItemFocused())
 		{
 			this->Hovered = true;
@@ -262,7 +262,7 @@ void spe::UIAnimation::AddAnimationsToAnimator()
 		if (this->m_AnimationFile[0] != '\0')
 		{
 			const std::string& path = 
-				this->m_CreateFileDialoge.PathClicked + "\\" +
+				this->m_CreateFileDialoge.PathClicked + PATH_SYMBOL +
 				+ this->m_AnimationFile
 				+ EXTENSION_ANIMATION_FILE;
 			this->m_ptr_GUIRepo->InspectorSprite->Animator.CreateAnimation(this->m_AnimationFile, path, { });

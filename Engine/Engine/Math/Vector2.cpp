@@ -98,4 +98,22 @@ std::ostream& spe::operator<<(std::ostream& os, const spe::Vector2& rhs)
 	return os;
 }
 
+void spe::Vector2::Normalize()
+{
+	float length = Length();
+	if (length != 0) {
+		X /= length;
+		Y /= length;
+	}
+}
+
+spe::Vector2 spe::Vector2::GetDirection(const Vector2& A, const Vector2& B)
+{
+	Vector2 direction = B - A; // Calculate the direction vector
+
+
+	direction.Normalize(); // Return the unit vector if normalization is requested
+	return direction;
+}
+
 const spe::Vector2 spe::Vector2::SCREEN_MIDDLE = spe::Vector2(1920 / 2, 1080 / 2);

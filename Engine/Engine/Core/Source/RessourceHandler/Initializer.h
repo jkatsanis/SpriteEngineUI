@@ -7,6 +7,14 @@
 #include "Sprite/SpriteRepository.h"
 #include "Sprite/Sprite.h"
 #include "RessourceHandler/FileDataMacros.h"
+#include "Particle/ParticleEmitterConfig.h"
+#include "UtilityFunctions.h"
+
+#ifdef __linux__
+#define OPEN_FILE(stream, filepath, ...) stream.open(spe::Utility::ToLinuxPath(filepath), ##__VA_ARGS__)
+#else
+#define OPEN_FILE(stream, filepath, ...) stream.open(filepath, ##__VA_ARGS__)
+#endif
 
 namespace spe
 {
@@ -34,10 +42,12 @@ namespace spe
 		static spe::Sprite* InitSprite(const std::string& line, spe::LightRepository& lightrepo);
 		static void InitSprites(spe::SpriteRepository& spriteRepo, const std::string& path, spe::LightRepository& lightrepo);
 		static void InitCamera(spe::Camera& camera, const std::string& path);
+		static void InitAudio(const std::string& line, spe::Sprite* spr);
+		static void InitParticles(const std::string& line, spe::Sprite* spr);
+		static void InitGeneralSettings(const std::string& path);
 
 
 		static void InitAnimation(const std::string& path, spe::Sprite* spr);
-		static void InitAnimation(const std::string& path);
 	};
 }
 

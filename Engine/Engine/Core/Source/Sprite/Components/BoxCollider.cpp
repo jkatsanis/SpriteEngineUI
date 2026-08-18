@@ -1,7 +1,11 @@
 #include "BoxCollider.h"
-
 #include "Sprite/Sprite.h"
 #include "Sprite/SpriteRepository.h"
+#include "Core/Time.h"
+#include "Core/EngineData.h" // Include EngineData
+#include <algorithm>
+#include <cmath>
+#include <limits>
 
 // Constructor / Destructor
 
@@ -57,25 +61,34 @@ bool spe::BoxCollider::CheckCollision(spe::BoxCollider& other)
         return false;
     }
 
-    float getPosX = ptr_attached_sprite->Transform.GetOrigininalPosition().X;
-    float getPosY = ptr_attached_sprite->Transform.GetOrigininalPosition().Y;
+    // World Space Coordinates (Center)
+    const spe::Vector2 thisPos = ptr_attached_sprite->Transform.GetPosition();
+    const spe::Vector2 otherPos = other.ptr_Sprite->Transform.GetPosition();
 
-    float otherGetPosX = other.ptr_Sprite->Transform.GetOrigininalPosition().X;
-    float otherGetPosY = other.ptr_Sprite->Transform.GetOrigininalPosition().Y;
+    // Half Sizes
+    const float thisHalfW = ptr_attached_sprite->Transform.TextureSize.X / 2.0f;
+    const float thisHalfH = ptr_attached_sprite->Transform.TextureSize.Y / 2.0f;
+    const float otherHalfW = other.ptr_Sprite->Transform.TextureSize.X / 2.0f;
+    const float otherHalfH = other.ptr_Sprite->Transform.TextureSize.Y / 2.0f;
 
-    bool isHorizontalOverlapLeft =
-        getPosX + ptr_attached_sprite->Transform.TextureSize.X + this->Width.Y >= otherGetPosX + other.Width.X;
+    // Calculate Edges (World Space)
+    // Width.X = Left Offset, Width.Y = Right Offset
+    // Height.X = Top Offset (shrinks from top), Height.Y = Bottom Offset (shrinks from bottom)
 
-    bool isHorizontalOverlapRight =
-        getPosX + this->Width.X <= otherGetPosX + other.Width.Y + other.ptr_Sprite->Transform.TextureSize.X;
+    const float thisLeft = (thisPos.X - thisHalfW) + this->Width.X;
+    const float thisRight = (thisPos.X + thisHalfW) + this->Width.Y;
+    const float thisTop = (thisPos.Y + thisHalfH) - this->Height.X;
+    const float thisBottom = (thisPos.Y - thisHalfH) - this->Height.Y;
 
-    bool isVerticalOverlapTop =
-        getPosY + ptr_attached_sprite->Transform.TextureSize.Y + this->Height.Y >= otherGetPosY + other.Height.X;
+    const float otherLeft = (otherPos.X - otherHalfW) + other.Width.X;
+    const float otherRight = (otherPos.X + otherHalfW) + other.Width.Y;
+    const float otherTop = (otherPos.Y + otherHalfH) - other.Height.X;
+    const float otherBottom = (otherPos.Y - otherHalfH) - other.Height.Y;
 
-    bool isVerticalOverlapBottom =
-        getPosY + this->Height.X <= otherGetPosY + other.Height.Y + other.ptr_Sprite->Transform.TextureSize.Y;
+    bool isHorizontalOverlap = (thisRight >= otherLeft) && (thisLeft <= otherRight);
+    bool isVerticalOverlap = (thisTop >= otherBottom) && (thisBottom <= otherTop);
 
-    if (isHorizontalOverlapLeft && isHorizontalOverlapRight && isVerticalOverlapTop && isVerticalOverlapBottom) 
+    if (isHorizontalOverlap && isVerticalOverlap)
     {
         other.Collided = true;
         other.CollidedInFrame = true;
@@ -93,64 +106,80 @@ bool spe::BoxCollider::CheckCollision(spe::BoxCollider& other)
 
 void spe::BoxCollider::CheckCollisionPosition(spe::BoxCollider& other) noexcept
 {
-    const short range = 10;
+    const spe::Vector2 thisPos = this->ptr_Sprite->Transform.GetPosition();
+    const spe::Vector2 otherPos = other.ptr_Sprite->Transform.GetPosition();
 
-    // OTHER
-    const float other_right = other.ptr_Sprite->Transform.GetOrigininalPosition().X + other.ptr_Sprite->Transform.TextureSize.X + other.Width.Y;
-    const float other_left = other.ptr_Sprite->Transform.GetOrigininalPosition().X + other.Width.X;
+    const float thisHalfW = this->ptr_Sprite->Transform.TextureSize.X / 2.0f;
+    const float thisHalfH = this->ptr_Sprite->Transform.TextureSize.Y / 2.0f;
+    const float otherHalfW = other.ptr_Sprite->Transform.TextureSize.X / 2.0f;
+    const float otherHalfH = other.ptr_Sprite->Transform.TextureSize.Y / 2.0f;
 
-    const float other_top = other.ptr_Sprite->Transform.GetOrigininalPosition().Y + other.Height.X;
+    const float thisLeft = (thisPos.X - thisHalfW) + this->Width.X;
+    const float thisRight = (thisPos.X + thisHalfW) + this->Width.Y;
+    const float thisTop = (thisPos.Y + thisHalfH) - this->Height.X;
+    const float thisBottom = (thisPos.Y - thisHalfH) - this->Height.Y;
 
-    // THIS    
-    const float this_bottom = this->ptr_Sprite->Transform.GetOrigininalPosition().Y + this->ptr_Sprite->Transform.TextureSize.Y + this->Height.Y;
+    const float otherLeft = (otherPos.X - otherHalfW) + other.Width.X;
+    const float otherRight = (otherPos.X + otherHalfW) + other.Width.Y;
+    const float otherTop = (otherPos.Y + otherHalfH) - other.Height.X;
+    const float otherBottom = (otherPos.Y - otherHalfH) - other.Height.Y;
 
-    const float this_right = this->ptr_Sprite->Transform.GetOrigininalPosition().X + this->ptr_Sprite->Transform.TextureSize.X + this->ptr_Sprite->Collider.Width.Y;
-    const float this_left = this->ptr_Sprite->Transform.GetOrigininalPosition().X + this->Width.X;
+    // Calculate overlaps
 
-    // Right
-    if (this_right >= other_left
-        && this_right <= other_left + range)
+    // Right: This hits Other's Left
+    float overlapRight = thisRight - otherLeft;
+
+    // Left: This hits Other's Right
+    float overlapLeft = otherRight - thisLeft;
+
+    // Down: This hits Other's Top (Falling down)
+    float overlapDown = otherTop - thisBottom;
+
+    // Up: This hits Other's Bottom (Jumping up)
+    float overlapUp = thisTop - otherBottom;
+
+    // Find minimum overlap
+    float minOverlap = std::numeric_limits<float>::max();
+    int axis = -1; // 0: Right, 1: Left, 2: Down, 3: Up
+
+    if (overlapRight < minOverlap) { minOverlap = overlapRight; axis = 0; }
+    if (overlapLeft < minOverlap) { minOverlap = overlapLeft; axis = 1; }
+    if (overlapDown < minOverlap) { minOverlap = overlapDown; axis = 2; }
+    if (overlapUp < minOverlap) { minOverlap = overlapUp; axis = 3; }
+
+    // Apply collision based on minimum overlap
+    if (axis == 0) // Right
     {
         other.m_GotLeft = true;
-        other.Left = true,
+        other.Left = true;
 
         this->m_GotRight = true;
         this->Right = true;
-        return;
     }
-
-
-    // Left
-
-    if (this_left <= other_right
-        && this_left + range >= other_right)
+    else if (axis == 1) // Left
     {
         other.m_GotRight = true;
-        other.Right = true,
+        other.Right = true;
 
         this->m_GotLeft = true;
         this->Left = true;
-        return;
     }
-
-    // Down
-    if (this_bottom >= other_top
-        && this_bottom <= other_top + range)
+    else if (axis == 2) // Down
     {
         other.m_GotUp = true;
-        other.Up = true,
+        other.Up = true;
 
         this->m_GotDown = true;
         this->Down = true;
-        return;
     }
+    else if (axis == 3) // Up
+    {
+        other.m_GotDown = true;
+        other.Down = true;
 
-    other.m_GotDown = true;
-    other.Down = true;
-
-    this->m_GotUp = true;
-    this->Up = true;
-    return;
+        this->m_GotUp = true;
+        this->Up = true;
+    }
 }
 
 void spe::BoxCollider::ResetPosition() noexcept
@@ -172,6 +201,13 @@ void spe::BoxCollider::Reset()
     this->CanCollide = false;
     this->Height = Vector2(0, 0);
     this->Width = Vector2(0, 0);
+    this->Collided = false;
+    this->Left = false;
+    this->Right = false;
+    this->Up = false;
+    this->Down = false;
+    this->CollidedInFrame = false;
+    this->CollidedSprites.clear();
 }
 
 void spe::BoxCollider::Update(spe::SpriteRepository& tocheck)
@@ -286,41 +322,53 @@ bool spe::BoxCollider::ProcessSprite(spe::Sprite* other, const spe::Camera& came
 
     const spe::Vector2 pos = spe::Vector2(camera.Position.X, camera.Position.Y * -1);
     spe::BoxCollider::s_ptr_CameraCollider->Transform.SetPosition(pos);
-    spe::BoxCollider::s_ptr_CameraCollider->Collider.Width = Vector2(-960 * zoomfactor, 960 * zoomfactor);
-    spe::BoxCollider::s_ptr_CameraCollider->Collider.Height = Vector2(-540 * zoomfactor, 540 * zoomfactor);
+
+    // Use dynamic window size for culling box
+    float halfWidth = spe::EngineData::s_WindowWidth / 2.0f;
+    float halfHeight = spe::EngineData::s_WindowHeight / 2.0f;
+
+    spe::BoxCollider::s_ptr_CameraCollider->Collider.Width = Vector2(-halfWidth * zoomfactor, halfWidth * zoomfactor);
+    spe::BoxCollider::s_ptr_CameraCollider->Collider.Height = Vector2(-halfHeight * zoomfactor, halfHeight * zoomfactor);
 
     const spe::Sprite* this_s = spe::BoxCollider::s_ptr_CameraCollider;
 
-    float getPosX = this_s->Transform.GetOrigininalPosition().X;
-    float getPosY = this_s->Transform.GetOrigininalPosition().Y;
+    // Updated to use World Coordinates
+    const spe::Vector2 thisPos = this_s->Transform.GetPosition();
+    const spe::Vector2 otherPos = other->Transform.GetPosition();
 
-    float otherGetPosX = other->Transform.GetOrigininalPosition().X;
-    float otherGetPosY = other->Transform.GetOrigininalPosition().Y;
+    const float thisHalfW = this_s->Transform.TextureSize.X / 2.0f;
+    const float thisHalfH = this_s->Transform.TextureSize.Y / 2.0f;
 
-    bool isHorizontalOverlapLeft =
-        getPosX  + fabs(this_s->Collider.Width.Y) >= otherGetPosX + -fabs(other->Collider.Width.X);
+    const float otherHalfW = other->Transform.TextureSize.X / 2.0f;
+    const float otherHalfH = other->Transform.TextureSize.Y / 2.0f;
 
-    bool isHorizontalOverlapRight =
-        getPosX + -fabs(this_s->Collider.Width.X) <= otherGetPosX + fabs(other->Collider.Width.Y) + other->Transform.TextureSize.X;
+    // Camera Collider Edges
+    const float thisLeft = (thisPos.X - thisHalfW) + this_s->Collider.Width.X;
+    const float thisRight = (thisPos.X + thisHalfW) + this_s->Collider.Width.Y;
+    const float thisTop = (thisPos.Y + thisHalfH) - this_s->Collider.Height.X;
+    const float thisBottom = (thisPos.Y - thisHalfH) - this_s->Collider.Height.Y;
 
-    bool isVerticalOverlapTop =
-        getPosY + fabs(this_s->Collider.Height.Y) >= otherGetPosY + -fabs(other->Collider.Height.X);
+    // Other Sprite Edges
+    const float otherLeft = (otherPos.X - otherHalfW) + other->Collider.Width.X;
+    const float otherRight = (otherPos.X + otherHalfW) + other->Collider.Width.Y;
+    const float otherTop = (otherPos.Y + otherHalfH) - other->Collider.Height.X;
+    const float otherBottom = (otherPos.Y - otherHalfH) - other->Collider.Height.Y;
 
-    bool isVerticalOverlapBottom =
-        getPosY + -fabs(this_s->Collider.Height.X) <= otherGetPosY + fabs(other->Collider.Height.Y) + other->Transform.TextureSize.Y;
+    bool isHorizontalOverlap = (thisRight >= otherLeft) && (thisLeft <= otherRight);
+    bool isVerticalOverlap = (thisTop >= otherBottom) && (thisBottom <= otherTop);
 
-    if (isHorizontalOverlapLeft && isHorizontalOverlapRight && isVerticalOverlapTop && isVerticalOverlapBottom)
-    {
-        other->Light.EnableProcess();
-        return true;
-    }
-    other->Light.DisableProcess();
-    return false;
+    return (isHorizontalOverlap && isVerticalOverlap);
 }
 
 void spe::BoxCollider::InitCameraCollider(spe::LightRepository& repo)
 {
-    spe::BoxCollider::s_ptr_CameraCollider = new spe::Sprite("CameraCollider", spe::Vector2(0, 0), PATH_TO_RESSOURCES"\\Sprites\\CamColl.png", repo);
+    std::string path = PATH_TO_RESSOURCES + PATH_SYMBOL  + "Sprites" + PATH_SYMBOL + "CamColl.png";
+    spe::BoxCollider::s_ptr_CameraCollider = new spe::Sprite(
+        "CameraCollider",
+        spe::Vector2(0, 0),
+        path,
+        repo
+    );
 
     s_ptr_CameraCollider->Collider.Width = Vector2(-960, 960);
     s_ptr_CameraCollider->Collider.Height = Vector2(-540, 540);

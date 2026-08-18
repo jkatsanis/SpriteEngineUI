@@ -25,6 +25,7 @@ namespace spe
 
 		void UpdateCamera();
 		void Draw(spe::Sprite* ptr, const sf::Shader* shader, bool ignoreLight);
+		void Draw(const sf::Drawable* drawable, const sf::Shader* shader, bool ignoreLight, bool effectedByLight) const;
 
 	public:
 		sf::Event WindowEvent;
@@ -37,6 +38,7 @@ namespace spe
 		bool IsOpen() const noexcept { return this->m_IsOpen; }
 		void DrawEngine(spe::Sprite* ptr, const sf::Shader* shader, bool ignoreLight);
 		void DrawGame(spe::Sprite* ptr, const sf::Shader* shader, bool ignoreLight);
+		void DrawParticles(spe::Sprite* ptr, const sf::Shader* shader, bool ignoreLight);
 
 		void Display();
 		void Clear();

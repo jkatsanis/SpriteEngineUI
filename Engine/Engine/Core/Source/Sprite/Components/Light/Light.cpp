@@ -11,6 +11,7 @@ void spe::Light::Init()
 	this->Exist = false;
 	this->BaseComponent = false;
 	this->m_RadiusChanged = false;
+	this->m_Update = false;
 }
 
 spe::Light::Light()
@@ -113,6 +114,7 @@ void spe::Light::DisableFlags()
 	this->m_IntensityChanged = false;
 	this->m_RadiusChanged = false;
 	this->m_ColorChanged = false;
+	this->m_Update = false;
 }
 
 void spe::Light::DisableProcess()
@@ -128,6 +130,7 @@ void spe::Light::EnableProcess()
 	if (this->m_ptr_LightSource != nullptr)
 	{
 		this->m_ptr_LightSource->Process = true;
+		this->m_Update = true;
 	}
 }
 

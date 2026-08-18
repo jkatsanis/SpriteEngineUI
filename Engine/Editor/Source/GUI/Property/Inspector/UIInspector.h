@@ -1,7 +1,6 @@
 #pragma once
 
 #include <iostream>
-#include <ImGui.h>
 #include <UtilityFunctions.h>
 #include <SFML/Graphics.hpp>
 
@@ -15,8 +14,10 @@
 #include "Core/Time.h"
 #include "GUI/Color.h"
 #include "Savesystem.h"
+#include "../Audio/UIAudioEditor.h"
 
 #include "Sprite/Sprite.h"
+#include "Particle/ParticleEmitterConfig.h"
 
 #define DEFAULT_BACKGROUND_COLOR spe::Vector3(139, 165, 187)
 #define INSPECTOR_WINDOW_POS ImVec2(1530, 53)
@@ -64,6 +65,9 @@ namespace spe
 		float m_LightIntensity;
 		float m_CamZoom;
 
+		Audio* m_currentlyPlaying = nullptr;
+		bool m_wasCurrentlyPlayingLooping = false;
+
 		void RenderOptions();
 		void ResizeWindow();
 		void SetupComponents();
@@ -75,6 +79,8 @@ namespace spe
 		void AnimatorComponent();
 		void PrefabComponent();
 		void LightComponent();
+		void AudioComponent();
+		void ParticlesComponent();
 
 		void DisplayDefaultInspectorView();
 

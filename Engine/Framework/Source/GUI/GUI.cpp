@@ -5,6 +5,16 @@ bool spe::GUI::Button(const std::string& content)
     return ImGui::Button(content.c_str());
 }
 
+bool spe::GUI::Button(const std::string& content, const spe::Sprite* sprite)
+{
+    spe::Vector2 pos = sprite->Transform.GetPosition();
+    pos.Y += 100;
+    pos.X -= 100;
+
+    GUI::SetCursorCamera(pos);
+    return ImGui::Button(content.c_str());
+}
+
 void spe::GUI::SetCursorCamera(const spe::Vector2& position)
 {
     ImVec2 new_cursor = ImVec2(spe::GUI::s_ptr_Camera->Position.X * -1 + 960, 540 + spe::GUI::s_ptr_Camera->Position.Y * -1);

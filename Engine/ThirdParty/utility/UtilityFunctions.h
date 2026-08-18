@@ -5,7 +5,29 @@
 #include <sstream>
 #include <fstream>
 #include <filesystem>
+
+#ifdef __linux__
+#include <algorithm>
+#endif
+
+#ifdef _WIN32
 #include <Windows.h>
+#else
+#include <unistd.h> // for chdir on Linux/macOS
+#endif
+
+#define CHARM_MAX_BUFFER 256
+
+#ifdef _WIN32
+	#define COPY_STRING(dest, src) strcpy_s(dest, sizeof(dest), src)
+#else
+	#define COPY_STRING(dest, src) do { \
+	strncpy(dest, src, sizeof(dest));   \
+	dest[sizeof(dest) - 1] = '\0';     \
+	} while(0)
+#endif
+
+namespace fs = std::filesystem;
 
 namespace spe
 {
@@ -47,5 +69,11 @@ namespace spe
 		static std::string CopyDir(const std::string& inputDir, const std::string& outputdir, const std::string& name);
 
 		static void GetFilePathWithExtensionInFolder(const std::filesystem::path& path, const std::string& extension, std::vector<std::string>& to);
+
+		static std::string ToLinuxPath(const std::string& path);
+
+		static std::string ToRightPath(const std::string& path);
+
+		static std::string ToWindowsPath(const std::string& path) { return path; }
 	};
 }

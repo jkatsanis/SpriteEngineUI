@@ -28,7 +28,6 @@ void spe::PrefabRepository::LoadPrefabsInMemory(spe::LightRepository& lightRepo)
 			spe::Sprite* prefab = spe::Initializer::InitPrefab(prefab_paths[i], lightRepo);
 			if (prefab->Prefab.LoadInMemory)
 			{
-
 				spe::PrefabRepository::s_prefabs.push_back(prefab);
 			}
 			else

@@ -7,9 +7,14 @@ std::string spe::Utility::BoolToStr(bool b)
 
 void spe::Utility::CreateFileWithContent(const std::string& content, const std::string& pathAndName)
 {
+    std::string path = pathAndName;
+#ifdef __linux__
+    path = spe::Utility::ToRightPath(pathAndName);
+#endif
+
     std::ofstream file;
 
-    file.open(pathAndName, std::ios::out | std::ios::binary);
+    file.open(path, std::ios::out | std::ios::binary);
 
     if (!file.is_open())
     {
@@ -59,10 +64,18 @@ std::string spe::Utility::RenamePartOnPath(const std::string& path, const std::s
 void spe::Utility::SetCurrentDir(const std::string& path)
 {
     std::cout << "Setting dir..";
+#ifdef _WIN32
     if (!SetCurrentDirectoryA(path.c_str()))
     {
-        throw std::runtime_error("Couldn't set directory");
+        throw std::runtime_error("Couldn't set directory: " + path);
     }
+#else
+    if (chdir(path.c_str()) != 0)
+    {
+        throw std::runtime_error("Couldn't set directory: " + path);
+    }
+#endif
+    std::cout << " Done." << std::endl;
 }
 
 
@@ -132,11 +145,9 @@ std::string spe::Utility::GetFileExtension(const std::string& file)
 
 std::string spe::Utility::GetNamePathSplit(std::string path)
 {
-    std::vector<std::string> pick;
-
-    std::vector<std::string> splittetSring = spe::Utility::Split(path, '\\');
-
-    return splittetSring[splittetSring.size() - 1];
+    std::filesystem::path p(path);
+    const auto fname = p.filename();
+    return fname.empty() ? std::string() : fname.string();
 }
 
 void spe::Utility::Delete(const std::string& path)
@@ -152,8 +163,14 @@ void spe::Utility::Delete(const std::string& path)
 std::string spe::Utility::RunCommand(const char* command)
 {
     char buffer[128];
-    std::string result = "";
+    std::string result;
+
+#ifdef _WIN32
     FILE* pipe = _popen(command, "r");
+#else
+    FILE* pipe = popen(command, "r"); // Linux/macOS
+#endif
+
     if (!pipe) throw std::runtime_error("popen() failed!");
 
     try {
@@ -162,37 +179,48 @@ std::string spe::Utility::RunCommand(const char* command)
         }
     }
     catch (...) {
+#ifdef _WIN32
         _pclose(pipe);
+#else
+        pclose(pipe);
+#endif
         throw;
     }
 
+#ifdef _WIN32
     _pclose(pipe);
+#else
+    pclose(pipe);
+#endif
+
     return result;
 }
 
 std::string spe::Utility::GetDefaultDir(uint32_t depth)
 {
     std::cout << "Calling GetDefaultDir().." << std::endl;
-    char NPath[MAX_PATH];
-    GetCurrentDirectoryA(MAX_PATH, NPath);
-    std::string path(NPath);
-    std::vector<std::string> parts = spe::Utility::Split(path, '\\');
 
-    std::string projectString = "";
+    // Get current directory using std::filesystem (cross-platform)
+    std::filesystem::path currentPath = std::filesystem::current_path();
 
-    for (size_t i = 0; i < parts.size() - depth; i++)
-    {
-        projectString += (i == parts.size() - depth - 1) ? parts[i] : parts[i] + "\\";
+    // Split the path into parts
+    std::vector<std::string> parts;
+    for (const auto& part : currentPath) {
+        parts.push_back(part.string());
     }
-    return projectString;
+
+    // Build the path up to (size - depth)
+    std::filesystem::path result;
+    for (size_t i = 0; i < parts.size() - depth; ++i) {
+        result /= parts[i]; // automatically handles '/' vs '\' cross-platform
+    }
+
+    return result.string();
 }
 
 std::string spe::Utility::GetCurrentDir()
 {
-    char NPath[MAX_PATH];
-    GetCurrentDirectoryA(MAX_PATH, NPath);
-    std::string path(NPath);
-    return path;
+    return std::filesystem::current_path().string();
 }
 
 bool spe::Utility::IsStringValid(const std::string& path)
@@ -234,17 +262,34 @@ std::string spe::Utility::RemoveExtension(const std::string& file)
     return newFileName;
 }
 
-std::string spe::Utility::CopyDir(const std::string& inputDir, const std::string& outputdir, const std::string& name)
+std::string spe::Utility::CopyDir(const std::string& inputDir, const std::string& outputDir, const std::string& name)
 {
-    std::string mkdir = "mkdir \"" + outputdir + std::string(name.c_str()) + "\"";
+    fs::path src(inputDir);
+    fs::path dst = fs::path(outputDir) / name;
 
-    system(mkdir.c_str());
+    try {
+        // Create the destination directory if it doesn't exist
+        if (!fs::exists(dst)) {
+            fs::create_directories(dst);
+        }
 
-    std::string copy = "xcopy \"" + inputDir + "\" \"" + outputdir + "\\" + std::string(name.c_str()) + "\" /E /I";
+        // Recursively copy contents
+        for (auto& entry : fs::recursive_directory_iterator(src)) {
+            const auto& path = entry.path();
+            auto relativePath = fs::relative(path, src);
+            fs::path targetPath = dst / relativePath;
 
-    system(copy.c_str());
+            if (fs::is_directory(path)) {
+                fs::create_directories(targetPath);
+            } else if (fs::is_regular_file(path)) {
+                fs::copy_file(path, targetPath, fs::copy_options::overwrite_existing);
+            }
+        }
+    } catch (fs::filesystem_error& e) {
+        std::cerr << "Error copying directory: " << e.what() << std::endl;
+    }
 
-    return outputdir + std::string(name.c_str());
+    return dst.string();
 }
 
 void spe::Utility::GetFilePathWithExtensionInFolder(const std::filesystem::path& path, const std::string& extension, std::vector<std::string>& to)
@@ -265,3 +310,42 @@ void spe::Utility::GetFilePathWithExtensionInFolder(const std::filesystem::path&
         }
     }
 }
+
+#ifdef __linux__
+std::string spe::Utility::ToLinuxPath(const std::string &path) {
+    std::string cleanPath = path;
+
+    // Replace backslashes with forward slashes
+    std::replace(cleanPath.begin(), cleanPath.end(), '\\', '/');
+
+    // Remove duplicate slashes
+    std::string::size_type pos = 0;
+    while ((pos = cleanPath.find("//", pos)) != std::string::npos) {
+        cleanPath.replace(pos, 2, "/");
+    }
+
+    // Ensure it starts with "Assets" (with capital A)
+    if (cleanPath.rfind("Assets", 0) == 0) {
+        cleanPath[0] = 'A';
+    }
+
+    if (!cleanPath.empty() && cleanPath.back() == '\r') {
+        cleanPath.pop_back();
+    }
+
+
+    return cleanPath;
+}
+#endif
+std::string spe::Utility::ToRightPath(const std::string &path)
+{
+    std::string updatetPath = path;
+#ifdef __linux__
+    updatetPath = spe::Utility::ToLinuxPath(path);
+#else
+    updatetPath = spe::Utility::ToWindowsPath(path);
+#endif
+
+    return updatetPath;
+}
+

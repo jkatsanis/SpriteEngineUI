@@ -43,8 +43,13 @@ namespace spe
 
 		void Reset() override;
 		void ReloadTextures();
+		void CreateReversedAnimation(const std::string& toReverse, const std::string& newAnim);
 
-		const AnimationPlaying& GetAnimationPlaying() const noexcept { return this->m_AnimationPlaying; }	
+		void NextFrame();
+
+		const AnimationPlaying& GetAnimationPlaying() const noexcept { return this->m_AnimationPlaying; }
+
+		void PlayStartAnimation();
 	};
 }
 

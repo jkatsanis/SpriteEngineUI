@@ -1,5 +1,10 @@
 #include "UIInspector.h"
 #include "UIInspector.h"
+#include "Core/EngineData.h"
+
+#include <random>
+
+#include "GUI/UIWindow.h"
 
 // Constructor
 
@@ -48,6 +53,8 @@ void spe::UIInspector::Init()
 	this->m_ComponentsName.push_back("PhysicsBody");
 	this->m_ComponentsName.push_back("Animator");
 	this->m_ComponentsName.push_back("Light Source");
+	this->m_ComponentsName.push_back("Audio");
+	this->m_ComponentsName.push_back("Particles");
 
 	this->m_ptr_GUIRepo->InspectorData.ptr_Size = &this->m_Size;
 
@@ -117,6 +124,8 @@ void spe::UIInspector::GeneralSettings()
 
 		ImGui::Checkbox("Spawn in camera center", &this->m_ptr_GUIRepo->SpawnInCenter);
 
+		ImGui::Checkbox("Enable junp through boxes when under", &this->m_ptr_GUIRepo->JumpThroughBoxes);
+
 		ImGui::TreePop();
 	}
 }
@@ -127,8 +136,11 @@ void spe::UIInspector::DrawRectangleOverCurrentObject()
 
 	sf::RectangleShape* ptr_shape = &this->m_ptr_SpriteRec->Shape;
 	
-	ptr_shape->setSize(sf::Vector2f(this->m_ptr_GUIRepo->InspectorSprite->Transform.TextureSize.X, this->m_ptr_GUIRepo->InspectorSprite->Transform.TextureSize.Y));
-	ptr_shape->setPosition(this->m_ptr_GUIRepo->InspectorSprite->Transform.GetOrigininalPosition().X, this->m_ptr_GUIRepo->InspectorSprite->Transform.GetOrigininalPosition().Y);
+	spe::Vector2 screenPos = this->m_ptr_GUIRepo->InspectorSprite->Transform.GetScreenPosition();
+	spe::Vector2 textureSize = this->m_ptr_GUIRepo->InspectorSprite->Transform.TextureSize;
+
+	ptr_shape->setSize(sf::Vector2f(textureSize.X, textureSize.Y));
+	ptr_shape->setPosition(screenPos.X - textureSize.X / 2.0f, screenPos.Y - textureSize.Y / 2.0f);
 }
 
 void spe::UIInspector::RenderOptions()
@@ -140,8 +152,10 @@ void spe::UIInspector::RenderOptions()
 	ImGui::SetCursorPosY(ImGui::GetCursorPosY() - 5);
 	ImGui::SetCursorPosX(0);
 
+	float windowWidth = (float)spe::EngineData::s_WindowWidth;
+
 	spe::UIUtility::DrawRectangleInGUIWIndow(
-		ImVec2(this->m_Size.x + 50, 45), ImVec2(1900 - this->m_Size.x, 130 - ImGui::GetScrollY()), ImColor(26, 26, 26, 255));
+		ImVec2(this->m_Size.x + 50, 45), ImVec2(windowWidth - 20 - this->m_Size.x, 130 - ImGui::GetScrollY()), ImColor(26, 26, 26, 255));
 	ImGui::SetCursorPosY(ImGui::GetCursorPosY() + 50);
 }
 
@@ -169,8 +183,9 @@ void spe::UIInspector::ResizeWindow()
 			spe::Vector2 moved = spe::UIUtility::GUICursor.LastPosition - spe::UIUtility::GUICursor.Position;
 			movedy = moved.X;
 		}
+		float windowWidth = (float)spe::EngineData::s_WindowWidth;
 		if (this->m_Size.x + movedy > 350
-			&& this->m_Size.x + movedy + this->m_ptr_GUIRepo->HierarchyData.ptr_Size->x < 1920)
+			&& this->m_Size.x + movedy + this->m_ptr_GUIRepo->HierarchyData.ptr_Size->x < windowWidth)
 		{
 			this->m_Size.x += movedy;
 		}
@@ -188,7 +203,8 @@ void spe::UIInspector::ResizeWindow()
 void spe::UIInspector::RenderBackgroundBehindComponent()
 {
 	const ImVec2 temp = ImGui::GetCursorPos();
-	ImGui::SetCursorPosX(1920 - this->m_Size.x);
+	float windowWidth = (float)spe::EngineData::s_WindowWidth;
+	ImGui::SetCursorPosX(windowWidth - this->m_Size.x);
 	ImGui::SetCursorPosY((ImGui::GetCursorPosY() + 76) - ImGui::GetScrollY());
 	spe::UIUtility::DrawRectangleInGUIWIndow(ImVec2(this->m_Size.x, 27), ImGui::GetCursorPos(), COMPONENT_SELECTED_COLOR);
 	ImGui::SetCursorPos(temp);
@@ -340,6 +356,16 @@ void spe::UIInspector::SetCompontents()
 		this->m_ptr_GUIRepo->InspectorSprite->Light.Enable();
 		this->m_ComponentSelected = " ";
 	}
+	if (this->m_ComponentSelected == "Audio")
+	{
+		this->m_ptr_GUIRepo->InspectorSprite->Audio.Exist = true;
+		this->m_ComponentSelected = " ";
+	}
+	if (this->m_ComponentSelected == "Particles")
+	{
+		this->m_ptr_GUIRepo->InspectorSprite->Particles.Exist = true;
+		this->m_ComponentSelected = " ";
+	}
 }
 
 void spe::UIInspector::RenameSprite()
@@ -378,7 +404,7 @@ void spe::UIInspector::ComponentSelector()
 	ImGui::SetCursorPosX(ImGui::GetWindowContentRegionMax().x - SEARCH_BAR_MARGIN);
 	ImGui::SetNextItemWidth(150);
 	static char input_buffer[255];
-	strcpy_s(input_buffer, this->m_ptr_GUIRepo->InspectorSprite->Name.c_str());
+	COPY_STRING(input_buffer, this->m_ptr_GUIRepo->InspectorSprite->Name.c_str());
 	ImGui::InputText("##input-sprite-name", input_buffer, 255);
 
 	if (input_buffer[0] != '\0')
@@ -467,6 +493,18 @@ void spe::UIInspector::SetupComponents()
 	if (this->m_ptr_GUIRepo->InspectorSprite->Light.Exist)
 	{
 		this->LightComponent();
+		DUMMY_COMPONENT;
+	}
+
+	if (this->m_ptr_GUIRepo->InspectorSprite->Audio.Exist)
+	{
+		this->AudioComponent();
+		DUMMY_COMPONENT;
+	}
+
+	if (this->m_ptr_GUIRepo->InspectorSprite->Particles.Exist)
+	{
+		this->ParticlesComponent();
 		DUMMY_COMPONENT;
 	}
 
@@ -560,7 +598,7 @@ void spe::UIInspector::SpriteRendererComponent()
 
 		ImGui::SetCursorPos(ImVec2(x += 100, y - 5));
 		ImGui::SetNextItemWidth(this->m_SpriteInputWidth);
-		ImGui::InputText("##spriteRenderer", &input[0], CHAR_MAX);
+		ImGui::InputText("##spriteRenderer", &input[0], CHARM_MAX_BUFFER);
 
 		if (ImGui::IsItemHovered(ImGuiHoveredFlags_AllowWhenOverlapped) && ImGui::IsMouseReleased(0) && this->m_ptr_GUIRepo->DragAndDropPath!= " ")
 		{
@@ -798,13 +836,459 @@ void spe::UIInspector::LightComponent()
 	}
 }
 
+void spe::UIInspector::AudioComponent()
+{
+	this->m_LightRadius = this->m_ptr_GUIRepo->InspectorSprite->Light.GetRadius();
+	this->m_LightIntensity = this->m_ptr_GUIRepo->InspectorSprite->Light.GetIntensity();
+	float y = ImGui::GetCursorPos().y;
+	float x = ImGui::GetCursorPos().x;
+
+	this->RenderBackgroundBehindComponent();
+	this->RenderComponentOptions(this->m_ptr_GUIRepo->InspectorSprite->Audio, "Audio");
+	if (ImGui::TreeNode("Audio"))
+	{
+		std::vector<spe::AudioInfo> infos = this->m_ptr_GUIRepo->InspectorSprite->Audio.GetAllAudiosInfo();
+		if (Style::DisplaySymbolButtonWithText(ICON_FA_PLUS, "Add Audio"))
+		{
+			std::string name;
+			bool nameExists;
+			do {
+			    std::random_device rd;
+			    std::mt19937 gen(rd());
+			    std::uniform_int_distribution<> dis(100000, 999999);
+			    name = "Audio_" + std::to_string(dis(gen));
+			    nameExists = this->m_ptr_GUIRepo->InspectorSprite->Audio.GetAudioByName(name) != nullptr;
+
+			} while (nameExists);
+			this->m_ptr_GUIRepo->InspectorSprite->Audio.AddAudio(
+			new Audio("", Audio::AudioType::MUSIC, name));
+			this->m_ptr_GUIRepo->ptr_CurrentAudio = this->m_ptr_GUIRepo->InspectorSprite->Audio.GetAudioByName(name);
+			this->m_ptr_GUIRepo->AudioData.IsOpen = true;
+			this->m_ptr_GUIRepo->AudioData.Reload = true;
+		}
+		for (auto &[Name, Path, Type] : infos) {
+			ImGui::PushID(Name.c_str());
+			y = ImGui::GetCursorPos().y;
+			x = ImGui::GetCursorPos().x;
+
+			ImGui::SetCursorPos(ImVec2(x += 8.0f, y += 10));
+
+			ImGui::SetCursorPosX(x += 4);
+			if (Style::DisplaySmybolAsButton(ICON_FA_EDIT))
+			{
+				Audio* audio = this->m_ptr_GUIRepo->InspectorSprite->Audio.GetAudioByName(Name);
+				if (audio != nullptr && audio == this->m_currentlyPlaying) {
+					// audio cant be nullptr; thus currentlyPlaying cant be nullptr either
+					// ReSharper disable once CppDFANullDereference
+					this->m_currentlyPlaying->Stop();
+				}
+				this->m_ptr_GUIRepo->ptr_CurrentAudio = audio;
+				this->m_ptr_GUIRepo->AudioData.IsOpen = true;
+				this->m_ptr_GUIRepo->AudioData.Reload = true;
+			}
+			ImGui::SameLine();
+			// ImGui::SetCursorPosX(x += 2);
+			// preview play
+			if (Style::DisplaySmybolAsButton(ICON_FA_PLAY))
+			{
+				if (Audio* audio = this->m_ptr_GUIRepo->InspectorSprite->Audio.GetAudioByName(Name); audio != nullptr)
+				{
+					// is audio playing
+					if (audio == this->m_currentlyPlaying)
+					{
+						// audio cant be nullptr, currentlyplaying cant be nullptr bc its equal to audio
+						// ReSharper disable once CppDFANullDereference
+						this->m_currentlyPlaying->Stop();
+					}
+					else
+					{
+						// if current audio is playing
+						if (this->m_currentlyPlaying != nullptr) {
+							if (this->m_currentlyPlaying->GetStatus() == sf::SoundSource::Status::Playing) {
+								this->m_currentlyPlaying->Stop();
+							}
+						}
+						this->m_currentlyPlaying = audio;
+						this->m_wasCurrentlyPlayingLooping = this->m_currentlyPlaying->GetLoop();
+						if (this->m_currentlyPlaying->GetType() == Audio::AudioType::SOUND) {
+							this->m_currentlyPlaying->SetRelativeToListener(true);
+						}
+
+						if (this->m_wasCurrentlyPlayingLooping) {
+							this->m_currentlyPlaying->SetLoop(false);
+						}
+						this->m_currentlyPlaying->Load();
+						this->m_currentlyPlaying->Play();
+					}
+				}
+			}
+
+			if (this->m_currentlyPlaying != nullptr && this->m_currentlyPlaying->GetStatus() == sf::SoundSource::Status::Stopped) {
+				if (this->m_wasCurrentlyPlayingLooping) {
+					this->m_currentlyPlaying->SetLoop(true);
+				}
+				if (this->m_currentlyPlaying->GetType() == Audio::AudioType::SOUND) {
+					this->m_currentlyPlaying->SetRelativeToListener(false);
+				}
+				this->m_currentlyPlaying = nullptr;
+			}
+
+			ImGui::SameLine();
+			ImGui::SetCursorPosY(ImGui::GetCursorPosY() - 10);
+
+			// get file name from path
+			std::string file = spe::Utility::GetNamePathSplit(Path);
+			const std::string::size_type pos = file.find_last_of('.');
+			std::string fName = file.substr(0, pos);
+			if (fName.length() > 20) {
+				fName = fName.substr(0, 8)
+						+ "[...]"
+						+ fName.substr(fName.length() - 8);
+			}
+			fName += "." + file.substr(pos + 1);
+
+			ImGui::Text("%s (%s):", Name.c_str(), Type.c_str());
+			ImGui::SetCursorPosY(ImGui::GetCursorPosY() - 10);
+			ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 100);
+			ImGui::Text("%s", fName.c_str());
+			ImGui::PopID();
+		}
+
+		ImGui::TreePop();
+	}
+}
+
+void spe::UIInspector::ParticlesComponent()
+{
+	float y = ImGui::GetCursorPos().y;
+	float x = ImGui::GetCursorPos().x;
+
+	this->RenderBackgroundBehindComponent();
+	this->RenderComponentOptions(this->m_ptr_GUIRepo->InspectorSprite->Particles, "Particles");
+	if (ImGui::TreeNode("Particles"))
+	{
+		y = ImGui::GetCursorPos().y;
+		x = ImGui::GetCursorPos().x;
+
+		ImGui::Dummy(ImVec2(0, 8));
+
+		// Play/Stop buttons
+		ImGui::SetCursorPosX(x + 20);
+
+		if (this->m_ptr_GUIRepo->InspectorSprite->Particles.GetParticleSystem().IsEmitting())
+		{
+			if (spe::Style::DisplaySymbolButtonWithText(ICON_FA_STOP, "Stop"))
+			{
+				this->m_ptr_GUIRepo->InspectorSprite->Particles.Stop();
+			}
+		}
+		else
+		{
+			if (spe::Style::DisplaySymbolButtonWithText(ICON_FA_PLAY, "Play"))
+			{
+				this->m_ptr_GUIRepo->InspectorSprite->Particles.Play();
+			}
+		}
+
+		ImGui::SameLine();
+		if (spe::Style::DisplaySymbolButtonWithText(ICON_FA_TRASH, "Clear"))
+		{
+			this->m_ptr_GUIRepo->InspectorSprite->Particles.Clear();
+		}
+
+		ImGui::Dummy(ImVec2(0, 5));
+
+		// Texture Path
+		ImGui::SetCursorPosX(x + 20);
+		ImGui::Text("Texture");
+		ImGui::SameLine();
+
+		static char texturePath[512] = "";
+		const std::string& currentPath = this->m_ptr_GUIRepo->InspectorSprite->Particles.GetTexturePath();
+		strncpy(texturePath, currentPath.c_str(), sizeof(texturePath) - 1);
+		texturePath[sizeof(texturePath) - 1] = '\0';
+
+		ImGui::SetNextItemWidth(150);
+		if (ImGui::InputText("##particleTexture", texturePath, sizeof(texturePath)))
+		{
+			this->m_ptr_GUIRepo->InspectorSprite->Particles.SetTexturePath(std::string(texturePath));
+		}
+
+		// Drag and drop support
+		if (ImGui::IsItemHovered(ImGuiHoveredFlags_AllowWhenOverlapped) && ImGui::IsMouseReleased(0) && this->m_ptr_GUIRepo->DragAndDropPath != " ")
+		{
+			this->m_ptr_GUIRepo->InspectorSprite->Particles.SetTexturePath(this->m_ptr_GUIRepo->DragAndDropPath);
+		}
+
+		ImGui::SameLine();
+		if (spe::Style::DisplaySmybolAsButton(ICON_FA_TIMES))
+		{
+			this->m_ptr_GUIRepo->InspectorSprite->Particles.SetTexturePath("");
+		}
+
+		ImGui::Dummy(ImVec2(0, 5));
+
+		// Get config reference
+		spe::ParticleEmitterConfig& config = this->m_ptr_GUIRepo->InspectorSprite->Particles.GetConfig();
+
+		// Play On Start
+		ImGui::SetCursorPosX(x + 20);
+		ImGui::Text("Play On Start");
+		ImGui::SameLine();
+		ImGui::Checkbox("##playOnStart", &config.PlayOnStart);
+
+		// Emission Rate
+		ImGui::SetCursorPosX(x + 20);
+		ImGui::Text("Emission Rate");
+		ImGui::SameLine();
+		ImGui::SetNextItemWidth(80);
+		ImGui::InputFloat("##emissionRate", &config.EmissionRate, 0, 0, "%.1f");
+
+		// Max Particles
+		ImGui::SetCursorPosX(x + 20);
+		ImGui::Text("Max Particles");
+		ImGui::SameLine();
+		ImGui::SetNextItemWidth(80);
+		int maxParticles = static_cast<int>(config.MaxParticles);
+		if (ImGui::InputInt("##maxParticles", &maxParticles, 0, 0))
+		{
+			if (maxParticles > 0)
+			{
+				config.MaxParticles = static_cast<uint32_t>(maxParticles);
+			}
+		}
+
+		// Lifetime
+		ImGui::SetCursorPosX(x + 20);
+		ImGui::Text("Lifetime");
+		ImGui::SameLine();
+		ImGui::SetNextItemWidth(60);
+		ImGui::InputFloat("##lifetimeMin", &config.LifetimeMin, 0, 0, "%.1f");
+		ImGui::SameLine();
+		ImGui::Text("-");
+		ImGui::SameLine();
+		ImGui::SetNextItemWidth(60);
+		ImGui::InputFloat("##lifetimeMax", &config.LifetimeMax, 0, 0, "%.1f");
+
+		// Speed
+		ImGui::SetCursorPosX(x + 20);
+		ImGui::Text("Speed");
+		ImGui::SameLine();
+		ImGui::SetNextItemWidth(60);
+		ImGui::InputFloat("##speedMin", &config.SpeedMin, 0, 0, "%.1f");
+		ImGui::SameLine();
+		ImGui::Text("-");
+		ImGui::SameLine();
+		ImGui::SetNextItemWidth(60);
+		ImGui::InputFloat("##speedMax", &config.SpeedMax, 0, 0, "%.1f");
+
+		// Size
+		ImGui::SetCursorPosX(x + 20);
+		ImGui::Text("Start Size");
+		ImGui::SameLine();
+		ImGui::SetNextItemWidth(60);
+		ImGui::InputFloat("##startSizeMin", &config.StartSizeMin, 0, 0, "%.1f");
+		ImGui::SameLine();
+		ImGui::Text("-");
+		ImGui::SameLine();
+		ImGui::SetNextItemWidth(60);
+		ImGui::InputFloat("##startSizeMax", &config.StartSizeMax, 0, 0, "%.1f");
+
+		ImGui::SetCursorPosX(x + 20);
+		ImGui::Text("End Size");
+		ImGui::SameLine();
+		ImGui::SetNextItemWidth(60);
+		ImGui::InputFloat("##endSizeMin", &config.EndSizeMin, 0, 0, "%.1f");
+		ImGui::SameLine();
+		ImGui::Text("-");
+		ImGui::SameLine();
+		ImGui::SetNextItemWidth(60);
+		ImGui::InputFloat("##endSizeMax", &config.EndSizeMax, 0, 0, "%.1f");
+
+		// Start Color
+		ImGui::SetCursorPosX(x + 20);
+		ImGui::Text("Start Color");
+		ImVec4 startColor = ImVec4(
+			config.StartColorMin.r / 255.0f,
+			config.StartColorMin.g / 255.0f,
+			config.StartColorMin.b / 255.0f,
+			config.StartColorMin.a / 255.0f
+		);
+		if (ImGui::ColorEdit4("##startColor", reinterpret_cast<float *>(&startColor)))
+		{
+			config.StartColorMin = sf::Color(
+				static_cast<sf::Uint8>(startColor.x * 255),
+				static_cast<sf::Uint8>(startColor.y * 255),
+				static_cast<sf::Uint8>(startColor.z * 255),
+				static_cast<sf::Uint8>(startColor.w * 255)
+			);
+			config.StartColorMax = config.StartColorMin;
+		}
+
+		// End Color
+		ImGui::SetCursorPosX(x + 20);
+		ImGui::Text("End Color");
+		ImVec4 endColor = ImVec4(
+			config.EndColorMin.r / 255.0f,
+			config.EndColorMin.g / 255.0f,
+			config.EndColorMin.b / 255.0f,
+			config.EndColorMin.a / 255.0f
+		);
+		if (ImGui::ColorEdit4("##endColor", reinterpret_cast<float *>(&endColor)))
+		{
+			config.EndColorMin = sf::Color(
+				static_cast<sf::Uint8>(endColor.x * 255),
+				static_cast<sf::Uint8>(endColor.y * 255),
+				static_cast<sf::Uint8>(endColor.z * 255),
+				static_cast<sf::Uint8>(endColor.w * 255)
+			);
+			config.EndColorMax = config.EndColorMin;
+		}
+
+		// Gravity
+		ImGui::SetCursorPosX(x + 20);
+		ImGui::Text("Gravity");
+		ImGui::SameLine();
+		ImGui::SetNextItemWidth(60);
+		ImGui::InputFloat("##gravityX", &config.Gravity.X, 0, 0, "%.1f");
+		ImGui::SameLine();
+		ImGui::Text(",");
+		ImGui::SameLine();
+		ImGui::SetNextItemWidth(60);
+		ImGui::InputFloat("##gravityY", &config.Gravity.Y, 0, 0, "%.1f");
+
+		// Drag
+		ImGui::SetCursorPosX(x + 20);
+		ImGui::Text("Drag");
+		ImGui::SameLine();
+		ImGui::SetNextItemWidth(80);
+		ImGui::InputFloat("##drag", &config.Drag, 0, 0, "%.2f");
+
+		// Direction
+		ImGui::SetCursorPosX(x + 20);
+		ImGui::Text("Direction");
+		ImGui::SameLine();
+		ImGui::SetNextItemWidth(60);
+		ImGui::InputFloat("##dirX", &config.Direction.X, 0, 0, "%.2f");
+		ImGui::SameLine();
+		ImGui::Text(",");
+		ImGui::SameLine();
+		ImGui::SetNextItemWidth(60);
+		ImGui::InputFloat("##dirY", &config.Direction.Y, 0, 0, "%.2f");
+
+		// Direction Spread
+		ImGui::SetCursorPosX(x + 20);
+		ImGui::Text("Spread");
+		ImGui::SameLine();
+		ImGui::SetNextItemWidth(80);
+		ImGui::SliderFloat("##spread", &config.DirectionSpread, 0.0f, 360.0f, "%.1f");
+
+		// Offset
+		ImGui::SetCursorPosX(x + 20);
+		ImGui::Text("Offset");
+		ImGui::SameLine();
+		ImGui::SetNextItemWidth(60);
+		ImGui::InputFloat("##offsetX", &config.Offset.X, 0, 0, "%.1f");
+		ImGui::SameLine();
+		ImGui::SetNextItemWidth(60);
+		ImGui::InputFloat("##offsetY", &config.Offset.Y, 0, 0, "%.1f");
+
+		ImGui::Dummy(ImVec2(0, 5));
+
+		// Emission Shape
+		ImGui::SetCursorPosX(x + 20);
+		ImGui::Text("Emission Shape");
+		ImGui::SameLine();
+		const char* shapeNames[] = { "Point", "Circle", "Rectangle", "Line", "Edge" };
+		int currentShape = static_cast<int>(config.Shape);
+		ImGui::SetNextItemWidth(100);
+		if (ImGui::Combo("##emissionShape", &currentShape, shapeNames, IM_ARRAYSIZE(shapeNames)))
+		{
+			config.Shape = static_cast<spe::EmissionShape>(currentShape);
+		}
+
+		// Shape-specific settings
+		if (config.Shape == spe::EmissionShape::Circle)
+		{
+			ImGui::SetCursorPosX(x + 20);
+			ImGui::Text("Radius");
+			ImGui::SameLine();
+			ImGui::SetNextItemWidth(80);
+			ImGui::InputFloat("##shapeRadius", &config.ShapeRadius, 0, 0, "%.1f");
+		}
+		else if (config.Shape == spe::EmissionShape::Rectangle || config.Shape == spe::EmissionShape::Edge)
+		{
+			ImGui::SetCursorPosX(x + 20);
+			ImGui::Text("Size");
+			ImGui::SameLine();
+			ImGui::SetNextItemWidth(60);
+			ImGui::InputFloat("##shapeSizeX", &config.ShapeSize.X, 0, 0, "%.1f");
+			ImGui::SameLine();
+			ImGui::Text("x");
+			ImGui::SameLine();
+			ImGui::SetNextItemWidth(60);
+			ImGui::InputFloat("##shapeSizeY", &config.ShapeSize.Y, 0, 0, "%.1f");
+		}
+		else if (config.Shape == spe::EmissionShape::Line)
+		{
+			ImGui::SetCursorPosX(x + 20);
+			ImGui::Text("Length");
+			ImGui::SameLine();
+			ImGui::SetNextItemWidth(80);
+			ImGui::InputFloat("##lineLength", &config.ShapeSize.X, 0, 0, "%.1f");
+
+			ImGui::SetCursorPosX(x + 20);
+			ImGui::Text("Line Angle");
+			ImGui::SameLine();
+			ImGui::SetNextItemWidth(80);
+			ImGui::SliderFloat("##lineAngle", &config.LineAngle, 0.0f, 360.0f, "%.1f");
+		}
+
+		ImGui::Dummy(ImVec2(0, 5));
+
+		// Blend Mode
+		ImGui::SetCursorPosX(x + 20);
+		ImGui::Text("Additive Blend");
+		ImGui::SameLine();
+		bool isAdditive = (config.BlendMode == sf::BlendAdd);
+		if (ImGui::Checkbox("##blendMode", &isAdditive))
+		{
+			config.BlendMode = isAdditive ? sf::BlendAdd : sf::BlendAlpha;
+		}
+
+		// Follow Sprite
+		ImGui::SetCursorPosX(x + 20);
+		ImGui::Text("Follow Sprite");
+		ImGui::SameLine();
+		bool followSprite = this->m_ptr_GUIRepo->InspectorSprite->Particles.GetFollowSprite();
+		if (ImGui::Checkbox("##followSprite", &followSprite))
+		{
+			this->m_ptr_GUIRepo->InspectorSprite->Particles.SetFollowSprite(followSprite);
+		}
+
+		// Active particle count
+		ImGui::Dummy(ImVec2(0, 5));
+		ImGui::SetCursorPosX(x + 20);
+		uint32_t activeCount = this->m_ptr_GUIRepo->InspectorSprite->Particles.GetParticleSystem().GetActiveParticleCount();
+		ImGui::Text("Active Particles: %u", activeCount);
+
+		ImGui::TreePop();
+	}
+}
+
 #pragma endregion
 
 //Public functions
 
 void spe::UIInspector::Render()
 {
-	if (spe::UIUtility::HandleCloseAndReloadWindow(this->m_ptr_GUIRepo->InspectorData, this->Hovered, INSPECTOR_DEFAULT_WINDOW_SIZE))
+    float windowWidth = (float)spe::EngineData::s_WindowWidth;
+    float windowHeight = (float)spe::EngineData::s_WindowHeight;
+
+    // Subtract Console Height (480) and TopBar (56)
+    ImVec2 dynamicDefaultSize = ImVec2(INSPECTOR_DEFAULT_WINDOW_SIZE.x, windowHeight - 56.0f - 480.0f);
+
+	if (spe::UIUtility::HandleCloseAndReloadWindow(this->m_ptr_GUIRepo->InspectorData, this->Hovered, dynamicDefaultSize))
 	{
 		return;
 	}
@@ -837,15 +1321,17 @@ void spe::UIInspector::Render()
 		this->m_ptr_ColliderRec->Render = false;
 	}
 
-	const ImVec2 window_pos = ImVec2(INSPECTOR_WINDOW_POS.x + INSPECTOR_DEFAULT_WINDOW_SIZE.x - this->m_Size.x, INSPECTOR_WINDOW_POS.y);
+	const ImVec2 window_pos = ImVec2(windowWidth - this->m_Size.x, INSPECTOR_WINDOW_POS.y);
 
 	if (!this->Hovered)
 	{
-		this->Hovered = spe::UIUtility::IsHovered(window_pos, INSPECTOR_DEFAULT_WINDOW_SIZE);
+		this->Hovered = spe::UIUtility::IsHovered(window_pos, dynamicDefaultSize);
 	}
 
-	ImGui::SetWindowPos(ImVec2(INSPECTOR_WINDOW_POS.x + INSPECTOR_DEFAULT_WINDOW_SIZE.x - this->m_Size.x, INSPECTOR_WINDOW_POS.y));
+	ImGui::SetWindowPos(window_pos);
 	ImGui::SetWindowFontScale(spe::Style::s_DefaultFontSize);
+
+    this->m_Size.y = windowHeight - 56.0f - 480.0f;
 	ImGui::SetWindowSize(this->m_Size);
 	ImGui::End();
 }

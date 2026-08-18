@@ -1,4 +1,4 @@
-#include "physicsBody.h"
+#include "PhysicsBody.h"
 
 #include "Sprite/Sprite.h"
 
@@ -41,8 +41,8 @@ void spe::PhsysicsBody::UpdateFriction()
 {
 	if (this->ptr_Sprite->Collider.Down || this->ptr_Sprite->Physicsbody.UseAirFriction) 
 	{
-		// Apply friction based on deltaTime
-		this->Velocity.X *= (1 - this->Friction * spe::Time::s_DeltaTime);
+		// Apply friction based on fixed deltaTime
+		this->Velocity.X *= (1 - this->Friction * spe::Time::s_FixedDeltaTime);
 
 		// If the X velocity is very small, set it to 0 to stop the sliding
 		if (std::abs(this->Velocity.X) < 0.01f)
@@ -68,7 +68,8 @@ void spe::PhsysicsBody::Update()
 	if (!this->Exist || this->ptr_Sprite == nullptr) return;
 
 	//ALl Physic calcutions will happen here!
-	spe::Vector2 dir = this->Velocity * spe::Time::s_DeltaTime;
+	// Use fixed delta time for deterministic physics
+	spe::Vector2 dir = this->Velocity * spe::Time::s_FixedDeltaTime;
 	dir += this->ptr_Sprite->Transform.GetPosition();
 
 	this->ptr_Sprite->Transform.SetPosition(dir);
@@ -79,7 +80,7 @@ void spe::PhsysicsBody::Update()
 		this->Velocity.Y = 0.0f;
 	}
 
-	this->Velocity.Y -= this->Gravity * spe::Time::s_DeltaTime;
+	this->Velocity.Y -= this->Gravity * spe::Time::s_FixedDeltaTime;
 
 	if (this->Friction != 0)
 	{

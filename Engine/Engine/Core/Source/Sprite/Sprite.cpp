@@ -2,6 +2,8 @@
 
 #include "Camera/Camera.h"
 
+int32_t spe::Sprite::s_nextId = 0;
+
 //Constructor
 
 spe::Sprite::Sprite(std::string name, spe::Vector2 spawnPosition, std::string path, spe::LightRepository& lightrep)
@@ -21,7 +23,8 @@ spe::Sprite::Sprite(spe::Sprite& rhs)
 	this->SpriteRenderer = spe::SpriteRenderer(rhs.SpriteRenderer);
 	this->Light = spe::Light(this, rhs.Light);
 	this->Prefab = spe::Prefab(this, rhs.Prefab);
-
+	this->Audio = spe::AudioComp(this, rhs.Audio);
+	this->Particles = spe::ParticleComp(this, rhs.Particles);
 	this->Name = rhs.Name;
 
 	this->Tag = rhs.Tag;
@@ -57,30 +60,56 @@ spe::Sprite::~Sprite()
 
 void spe::Sprite::SetSpriteTexture(const std::string& path)
 {
-	if (!this->m_Texture->loadFromFile(path))
+	std::string updatetPath = path;
+#ifdef __linux__
+	updatetPath = spe::Utility::ToLinuxPath(path);
+#else
+	updatetPath = spe::Utility::ToWindowsPath(path);
+#endif
+
+    if (updatetPath.empty()) return;
+
+	if (!this->m_Texture->loadFromFile(updatetPath))
 	{
-		const std::string error = "File " + path + " was not found!, Sprite.cpp 59";
+		const std::string error = "File " + updatetPath + " was not found!, Sprite.cpp 59";
 		spe::Log::LogString(error);
 	}
-	this->SetSpriteTexture(*this->m_Texture, path);
+	this->SetSpriteTexture(*this->m_Texture, updatetPath);
 }
 
 void spe::Sprite::SetSpriteTexture(const std::string& path, const spe::Vector2& scale)
 {
-	if (!this->m_Texture->loadFromFile(path))
+	std::string updatetPath = path;
+#ifdef __linux__
+	updatetPath = spe::Utility::ToLinuxPath(path);
+#else
+	updatetPath = spe::Utility::ToWindowsPath(path);
+#endif
+
+    if (updatetPath.empty()) return;
+
+	if (!this->m_Texture->loadFromFile(updatetPath))
 	{
-		const std::string error = "File " + path + " was not found!, Sprite.cpp 68";
+		const std::string error = "File " + updatetPath + " was not found!, Sprite.cpp 68";
 		spe::Log::LogString(error);
 	}
-	this->SetSpriteTexture(*this->m_Texture, path);
+	this->SetSpriteTexture(*this->m_Texture, updatetPath);
 	this->Transform.SetScale(scale, true);
 }
 
 void spe::Sprite::SetSpriteTexture(const sf::Texture& texture, const std::string& path)
 {
+	std::string updatetPath = path;
+#ifdef __linux__
+	updatetPath = spe::Utility::ToLinuxPath(path);
+#else
+	updatetPath = spe::Utility::ToWindowsPath(path);
+#endif
+
+
 	this->m_Sprite.setTexture(texture, true);
 	this->Transform.SetScale(this->Transform.GetScale(), true);
-	this->SpriteRenderer.Path = path;
+	this->SpriteRenderer.Path = updatetPath;
 
 	this->Transform.SetOrigin();
 }
@@ -133,6 +162,7 @@ void spe::Sprite::RemoveChild(const spe::Sprite* child)
 	{
 		if (child->GetId() == this->ptr_Childs[i]->GetId())
 		{
+	
 			this->ptr_Childs.erase(this->ptr_Childs.begin() + i);
 			return;
 		}
@@ -143,6 +173,15 @@ void spe::Sprite::RemoveChild(const spe::Sprite* child)
 
 void spe::Sprite::InitVariables(spe::Vector2 spawnPos, std::string path, spe::LightRepository& lightrep)
 {
+
+	std::string updatetPath = path;
+#ifdef __linux__
+	updatetPath = spe::Utility::ToLinuxPath(path);
+#else
+	updatetPath = spe::Utility::ToWindowsPath(path);
+#endif
+
+
 	// Components
 	this->Process = false;
 	this->Transform = spe::Transform(this);
@@ -151,16 +190,18 @@ void spe::Sprite::InitVariables(spe::Vector2 spawnPos, std::string path, spe::Li
 	this->Physicsbody = spe::PhsysicsBody(this);
 	this->Prefab = spe::Prefab(this);
 	this->Light = spe::Light(this, &lightrep);
+	this->Audio = spe::AudioComp(this);
+	this->Particles = spe::ParticleComp(this);
 
 	// ID's get set in the sprite repo!!
 	this->Tag = "none";
 	this->m_Texture = new sf::Texture();
 	this->m_ParentID = -1;
-	this->m_ID = -1;
+	this->m_ID = s_nextId++;
 	this->ptr_Parent = nullptr;
 	this->ptr_Childs = std::vector<spe::Sprite*>(0);
 	this->Name = Name;
-	this->SpriteRenderer.Path = path;
+	this->SpriteRenderer.Path = updatetPath;
 	this->m_SetId = false;
 	this->DontDeleteOnSceneSwap = false;
 
@@ -171,9 +212,10 @@ void spe::Sprite::InitVariables(spe::Vector2 spawnPos, std::string path, spe::Li
 	this->Transform.SetRotation(0);
 	this->Transform.SetPosition(spawnPos);
 
-	this->SetSpriteTexture(path);
+	this->SetSpriteTexture(updatetPath);
 
-	this->GetSprite().setPosition(sf::Vector2f(spawnPos.X + 960, 540 - spawnPos.Y));
+	// Removed hardcoded position setting. Transform.SetPosition(spawnPos) above already handles it correctly.
+	// this->GetSprite().setPosition(sf::Vector2f(spawnPos.X + 960, 540 - spawnPos.Y));
 
 }
 
@@ -225,4 +267,16 @@ bool spe::Sprite::ContainsChild(const ImGuiTextFilter& namefilter) const
 		contains = spr->ContainsChild(namefilter);
 	}
 	return contains;
+}
+
+void spe::Sprite::EnableProcess()
+{
+	this->Light.EnableProcess();
+	this->Process = true;
+}
+
+void spe::Sprite::DisableProcess()
+{
+	this->Light.DisableProcess();
+	this->Process = false;
 }
